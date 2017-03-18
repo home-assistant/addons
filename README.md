@@ -16,7 +16,6 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
 ```json
 {
   'name': 'xy',
-  'image': 'xy',
   'verson': '1.2',
   'description': 'long descripton',
   'startup': 'before|after',

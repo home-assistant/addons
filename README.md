@@ -20,11 +20,13 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
 {
   "name": "xy",
   "verson": "1.2",
+  "slug": "folder",
   "description": "long descripton",
-  "startup": "before|after",
+  "startup": "before|after|once",
   "boot": "start|stop|manual",
   "ports": [123],
   "map_config": "bool",
   "map_ssl": "bool",
+  "options": {},
 }
 ```

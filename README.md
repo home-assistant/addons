@@ -23,7 +23,7 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
   "slug": "folder",
   "description": "long descripton",
   "startup": "before|after|once",
-  "boot": "start|stop|manual",
+  "boot": "auto|manual",
   "ports": [123],
   "map_config": "bool",
   "map_ssl": "bool",

@@ -27,7 +27,9 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
   "ports": {"123/tcp", 123},
   "map_config": "bool",
   "map_ssl": "bool",
-  "map_data": "bool",
   "options": {},
 }
 ```
+
+## Addon need to known
+`/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data.

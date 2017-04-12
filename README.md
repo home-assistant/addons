@@ -28,6 +28,9 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
   "map_config": "bool",
   "map_ssl": "bool",
   "options": {},
+  "schema": {
+    "bla": "str|int|float|bool"
+  },
 }
 ```
 

@@ -8,11 +8,17 @@ Docker addons for HassIO
 
 ```
 addon_name:
+  README.md
   Dockerfile
   config.json
+  run.sh
 ```
 
-Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for addons.
+Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for addons. It need also a this line:
+
+```docker
+ENV VERSION %%VERSION%%
+```
 
 ## Addon config
 
@@ -37,4 +43,4 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
 ```
 
 ## Addon need to known
-`/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data.
+`/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data. A other nice tool for write plugin is [Supervisor](http://supervisord.org/).

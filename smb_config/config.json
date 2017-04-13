@@ -1,0 +1,19 @@
+{
+  "name": "Samba Config",
+  "verson": "0.1",
+  "slug": "smb_config",
+  "description": "Expose config with samba",
+  "startup": "after",
+  "boot": "auto",
+  "ports": {
+    "445/tcp": 445
+   },
+  "map_config": true,
+  "map_ssl": false,
+  "options": {
+      "workgroup": "WORKGROUP",
+  },
+  "schema": {
+    "workgroup": "str"
+  },
+}

@@ -39,6 +39,7 @@ ENV VERSION %%VERSION%%
   "schema": {
     "bla": "str|int|float|bool"
   },
+  "image": "for custom addons",
 }
 ```
 

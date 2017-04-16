@@ -12,8 +12,14 @@
   "map_ssl": false,
   "options": {
       "workgroup": "WORKGROUP",
+      "guest": true,
+      "username": "",
+      "password": ""
   },
   "schema": {
-    "workgroup": "str"
-  },
+    "workgroup": "str",
+    "guest": "bool",
+    "username": "str",
+    "password": "str"
+  }
 }

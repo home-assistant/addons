@@ -1,6 +1,6 @@
 {
   "name": "Samba Config",
-  "verson": "0.1",
+  "version": "0.1",
   "slug": "smb_config",
   "description": "Expose config with samba",
   "startup": "after",

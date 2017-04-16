@@ -25,7 +25,7 @@ ENV VERSION %%VERSION%%
 ```json
 {
   "name": "xy",
-  "verson": "1.2",
+  "version": "1.2",
   "slug": "folder",
   "description": "long descripton",
   "startup": "before|after|once",

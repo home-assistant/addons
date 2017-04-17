@@ -13,8 +13,9 @@ sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
 if [ $GUEST == "true" ]; then
     echo "   guest ok = yes" >> /etc/smb.conf
     echo "   guest only = yes" >> /etc/smb.conf
-    echo "   guest account = root" >> /etc/smb.conf
     echo "   public = yes" >> /etc/smb.conf
+
+    sed -i "s/#guest account/guest account/g" /etc/smb.conf
 else
     echo "   valid users = $USERNAME" >> /etc/smb.conf
     echo "   force user = root" >> /etc/smb.conf

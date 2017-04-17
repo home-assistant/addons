@@ -11,7 +11,7 @@ PASSWORD=$(jq --raw-output ".password // empty" $CONFIG_PATH)
 sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
 
 if [ $GUEST == "true" ]; then
-    echo "  group ok = yes" >> /etc/smb.conf
+    echo "  guest ok = yes" >> /etc/smb.conf
     echo "  public = yes" >> /etc/smb.conf
 else
     echo "  valid users = $USERNAME" >> /etc/smb.conf

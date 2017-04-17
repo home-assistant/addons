@@ -8,7 +8,7 @@ GUEST=$(jq --raw-output ".guest // empty" $CONFIG_PATH)
 USERNAME=$(jq --raw-output ".username // empty" $CONFIG_PATH)
 PASSWORD=$(jq --raw-output ".password // empty" $CONFIG_PATH)
 
-sed -i "/%%WORKGROUP%%/$WORKGROUP/" /etc/smb.conf
+sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
 
 if [ GUEST == "true" ];
     echo "  group ok = yes" >> /etc/smb.conf

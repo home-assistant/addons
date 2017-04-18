@@ -16,6 +16,7 @@ if [ $GUEST == "true" ]; then
     echo "   public = yes" >> /etc/smb.conf
 
     sed -i "s/#guest account/guest account/g" /etc/smb.conf
+    sed -i "s/#map to guest/map to guest/g" /etc/smb.conf
 else
     echo "   valid users = $USERNAME" >> /etc/smb.conf
     echo "   force user = root" >> /etc/smb.conf

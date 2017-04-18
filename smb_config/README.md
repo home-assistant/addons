@@ -1,5 +1,5 @@
 # Samba Config
-Expose config to samba share.
+Expose HomeAssistant config to samba share.
 
 ## Options
 

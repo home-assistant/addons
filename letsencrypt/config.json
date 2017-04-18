@@ -1,0 +1,21 @@
+{
+  "name": "Let's Encrypt",
+  "version": "0.1",
+  "slug": "letsencrypt",
+  "description": "Manage let's encrypt certificate",
+  "startup": "once",
+  "boot": "manual",
+  "ports": {
+    "80/tcp": 80
+   },
+  "map_config": false,
+  "map_ssl": true,
+  "options": {
+    "email": "",
+    "domain": ""
+  },
+  "schema": {
+    "email": "str",
+    "domain": "str"
+  }
+}

@@ -9,8 +9,6 @@ RUN apk add --no-cache jq git python3
 
 # Copy data
 COPY run.sh /
-COPY smb.conf /etc/
-
 RUN chmod 775 /run.sh
 
 CMD [ "/run.sh" ]

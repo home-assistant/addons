@@ -38,7 +38,11 @@ ENV VERSION %%VERSION%%
   "options": {},
   "schema": {
     "bla": "str|int|float|bool"
-  },
+    "list1": ["str|int|float|bool"]
+    "list2": [{
+      "ble": "str|int|float|bool"
+    }]
+  },
   "image": "for custom addons",
 }
 ```

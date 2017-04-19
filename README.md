@@ -38,17 +38,19 @@ ENV VERSION %%VERSION%%
   "map_hassio": "bool|false",
   "options": {},
   "schema": {
-    "bla": "str|int|float|bool",
+    "bla": "str|int|float|bool|email|url",
     "list1": [
-      "str|int|float|bool"
+      "str|int|float|bool|email|url"
     ],
     "list2": [
-      { "ble": "str|int|float|bool" }
+      { "ble": "str|int|float|bool|email|url" }
     ]
   },
   "image": "for custom addons",
 }
 ```
+
+If you want to set a value to requered and need to be set from user before it start the addon, set it to null.
 
 ## Addon need to known
 `/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data. A other nice tool for write plugin is [Supervisor](http://supervisord.org/).

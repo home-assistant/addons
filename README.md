@@ -37,8 +37,8 @@ ENV VERSION %%VERSION%%
   "map_ssl": "bool",
   "options": {},
   "schema": {
-    "bla": "str|int|float|bool"
-    "list1": ["str|int|float|bool"]
+    "bla": "str|int|float|bool",
+    "list1": ["str|int|float|bool"],
     "list2": [{
       "ble": "str|int|float|bool"
     }]

@@ -11,7 +11,7 @@
   "map_ssl": true,
   "options": {
     "email": "",
-    "domain": [""]
+    "domains": [""]
   },
   "schema": {
     "email": "str",

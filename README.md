@@ -33,15 +33,18 @@ ENV VERSION %%VERSION%%
   "ports": {
     "123/tcp": 123
    },
-  "map_config": "bool",
-  "map_ssl": "bool",
+  "map_config": "bool|false",
+  "map_ssl": "bool|false",
+  "map_hassio": "bool|false",
   "options": {},
   "schema": {
     "bla": "str|int|float|bool",
-    "list1": ["str|int|float|bool"],
-    "list2": [{
-      "ble": "str|int|float|bool"
-    }]
+    "list1": [
+      "str|int|float|bool"
+    ],
+    "list2": [
+      { "ble": "str|int|float|bool" }
+    ]
   },
   "image": "for custom addons",
 }

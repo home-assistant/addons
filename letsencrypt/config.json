@@ -8,14 +8,13 @@
   "ports": {
     "80/tcp": 80
    },
-  "map_config": false,
   "map_ssl": true,
   "options": {
     "email": "",
-    "domain": [null]
+    "domains": [null]
   },
   "schema": {
-    "email": "str",
-    "domain": "str"
+    "email": "email",
+    "domain": ["str"]
   }
 }

@@ -12,7 +12,7 @@
   "map_ssl": true,
   "options": {
     "email": "",
-    "domain": ""
+    "domain": [null]
   },
   "schema": {
     "email": "str",

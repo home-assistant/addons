@@ -5,8 +5,8 @@ set -e
 CERT_DIR=/ssl/letsencrypt
 CONFIG_PATH=/data/options.json
 
-EMAIL=$(jq --raw-output ".email // empty" $CONFIG_PATH)
-DOMAIN=$(jq --raw-output ".domain // empty" $CONFIG_PATH)
+EMAIL=$(jq --raw-output ".email" $CONFIG_PATH)
+DOMAINS=$(jq --raw-output ".domains[]" $CONFIG_PATH)
 
 # setup letsencrypt setup
 if [ ! -f /data/certbot-auto ]; then
@@ -15,9 +15,18 @@ if [ ! -f /data/certbot-auto ]; then
     chmod 775 certbot-auto
 fi
 
-#
+# Start program
 if [ -d $CERT_DIR ]; then
     ./data/certbot-auto renew -n --config-dir $CERT_DIR
 else
-    ./data/certbot-auto certonly -n --standalone --email $EMAIL --config-dir $CERT_DIR
+    # generate domains
+    echo $DOMAINS | while read -r line; do
+        if [ -z DOMAIN_ARG ]; do
+            DOMAIN_ARG="-d $line"
+        else
+            DOMAIN_ARG="$DOMAIN_ARG -d $line"
+        fi
+    done
+
+    ./data/certbot-auto certonly -n --standalone --email $EMAIL --config-dir $CERT_DIR $DOMAIN_ARG
 fi

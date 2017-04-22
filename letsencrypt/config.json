@@ -10,11 +10,15 @@
    },
   "map_ssl": true,
   "options": {
-    "email": "",
-    "domains": [null]
+    "email": null,
+    "domains": [null],
+    "certfile": "fullchain.pem",
+    "keyfile": "keyfile.pem"
   },
   "schema": {
     "email": "email",
-    "domain": ["str"]
+    "domain": ["str"],
+    "certfile": "str",
+    "keyfile": "str"
   }
 }

@@ -9,7 +9,6 @@
     "445/tcp": 445
    },
   "map_config": true,
-  "map_ssl": false,
   "options": {
       "workgroup": "WORKGROUP",
       "guest": true,

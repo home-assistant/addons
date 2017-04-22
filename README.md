@@ -20,6 +20,8 @@ Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for a
 ENV VERSION %%VERSION%%
 ```
 
+You should use bash scripts for simple stuff inside docker to hold the image small.
+
 ## Addon config
 
 ```json
@@ -42,7 +44,7 @@ ENV VERSION %%VERSION%%
     "list1": [
       "str|int|float|bool|email|url"
     ],
-    "list2": [
+   "list2": [
       { "ble": "str|int|float|bool|email|url" }
     ]
   },
@@ -51,6 +53,10 @@ ENV VERSION %%VERSION%%
 ```
 
 If you want to set a value to requered and need to be set from user before it start the addon, set it to null.
+
+## SSL
+
+Default you can use `fullchain.pem` and `privkey.pem` from `/ssl` for you stuff. Your SSL addon should also create default this files.
 
 ## Addon need to known
 `/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data. A other nice tool for write plugin is [Supervisor](http://supervisord.org/).

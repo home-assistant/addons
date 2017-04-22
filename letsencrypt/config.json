@@ -13,7 +13,7 @@
     "email": null,
     "domains": [null],
     "certfile": "fullchain.pem",
-    "keyfile": "keyfile.pem"
+    "keyfile": "privkey.pem"
   },
   "schema": {
     "email": "email",

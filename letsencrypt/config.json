@@ -1,0 +1,24 @@
+{
+  "name": "Let's Encrypt",
+  "version": "0.1",
+  "slug": "letsencrypt",
+  "description": "Manage let's encrypt certificate",
+  "startup": "once",
+  "boot": "manual",
+  "ports": {
+    "80/tcp": 80
+   },
+  "map_ssl": true,
+  "options": {
+    "email": null,
+    "domains": [null],
+    "certfile": "fullchain.pem",
+    "keyfile": "keyfile.pem"
+  },
+  "schema": {
+    "email": "email",
+    "domain": ["str"],
+    "certfile": "str",
+    "keyfile": "str"
+  }
+}

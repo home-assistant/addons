@@ -15,7 +15,7 @@ CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 if [ ! -f /data/certbot-auto ]; then
     cd /data
     curl -O https://dl.eff.org/certbot-auto
-    chmod 775 certbot-auto
+    chmod a+x certbot-auto
 fi
 
 # Start program

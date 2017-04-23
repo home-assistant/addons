@@ -37,7 +37,6 @@ You should use bash scripts for simple stuff inside docker to hold the image sma
    },
   "map_config": "bool|false",
   "map_ssl": "bool|false",
-  "map_hassio": "bool|false",
   "options": {},
   "schema": {
     "bla": "str|int|float|bool|email|url",

@@ -11,6 +11,6 @@ RUN apk add --no-cache samba-server jq
 COPY run.sh /
 COPY smb.conf /etc/
 
-RUN chmod 775 /run.sh
+RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

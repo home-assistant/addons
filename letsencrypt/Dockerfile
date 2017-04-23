@@ -9,6 +9,6 @@ RUN apk add --no-cache jq git python
 
 # Copy data
 COPY run.sh /
-RUN chmod 775 /run.sh
+RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

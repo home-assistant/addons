@@ -39,11 +39,9 @@ You should use bash scripts for simple stuff inside docker to hold the image sma
   "options": {},
   "schema": {
     "bla": "str|int|float|bool|email|url",
-    "list1": [
-      "str|int|float|bool|email|url"
-    ],
-   "list2": [
-      { "ble": "str|int|float|bool|email|url" }
+    "list1": ["str|int|float|bool|email|url"],
+    "list2": [
+      { "ble": "str|int|float|bool|email|url" }
     ]
   },
   "image": "for custom addons",

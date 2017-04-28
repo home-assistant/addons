@@ -8,7 +8,7 @@
   "ports": {
     "445/tcp": 445
    },
-  "map_config": true,
+  "map": ["config"],
   "options": {
       "workgroup": "WORKGROUP",
       "guest": true,

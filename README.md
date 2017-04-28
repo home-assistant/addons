@@ -35,8 +35,7 @@ You should use bash scripts for simple stuff inside docker to hold the image sma
   "ports": {
     "123/tcp": 123
    },
-  "map_config": "bool|false",
-  "map_ssl": "bool|false",
+  "map": ["config", "ssl", "addons", "backup"],
   "options": {},
   "schema": {
     "bla": "str|int|float|bool|email|url",

@@ -9,7 +9,7 @@ RUN apk add --no-cache jq mosquitto
 
 # Copy data
 COPY run.sh /
-COPY mosquitto.config /etc/
+COPY mosquitto.conf /etc/
 
 RUN chmod a+x /run.sh
 

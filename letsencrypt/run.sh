@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 CERT_DIR=/data/letsencrypt
@@ -23,17 +22,17 @@ if [ -d $CERT_DIR ]; then
     /data/certbot-auto renew --non-interactive --config-dir $CERT_DIR --work-dir $WORK_DIR
 else
     # generate domains
-    while IFS=$'\n' read -r line; do
+    for line in $DOMAINS; do
         if [ -z "$DOMAIN_ARG" ]; then
             DOMAIN_ARG="-d $line"
         else
             DOMAIN_ARG="$DOMAIN_ARG -d $line"
         fi
-    done <<< "$DOMAINS"
+    done
 
-    /data/certbot-auto certonly --non-interactive --standalone --email $EMAIL --config-dir $CERT_DIR --work-dir "$DOMAIN_ARG"
+    /data/certbot-auto certonly --non-interactive --standalone --email "$EMAIL" --config-dir $CERT_DIR --work-dir "$DOMAIN_ARG"
 fi
 
 # copy certs to store
-cp /data/letsencrypt/live/*/privkey.pem /ssl/KEYFILE
-cp /data/letsencrypt/live/*/fullchain.pem /ssl/CERTFILE
+cp /data/letsencrypt/live/*/privkey.pem "/ssl/$KEYFILE"
+cp /data/letsencrypt/live/*/fullchain.pem "/ssl/$CERTFILE"

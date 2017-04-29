@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "0.1",
+  "version": "0.2",
   "slug": "letsencrypt",
   "description": "Manage let's encrypt certificate",
   "startup": "once",

@@ -23,7 +23,7 @@ if [ ! -d "$KEYS_PATH" ]; then
     ssh-keygen -A
     cp -fp /etc/ssh/ssh_host* "$KEYS_PATH/"
 else
-    cp -fp "$KEYS_PATH/*" /etc/ssh/
+    cp -fp "$KEYS_PATH"/* /etc/ssh/
 fi
 
 # start server

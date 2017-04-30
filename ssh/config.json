@@ -1,0 +1,18 @@
+{
+  "name": "SSH server",
+  "version": "0.1",
+  "slug": "ssh",
+  "description": "OpenSSH is the premier connectivity tool for remote login with the SSH protocol.",
+  "startup": "before",
+  "boot": "auto",
+  "ports": {
+    "22/tcp": 22,
+   },
+  "map": ["config", "ssl", "addons"],
+  "options": {
+    "authorized_keys": [null],
+  },
+  "schema": {
+    "authorized_keys": ["str"],
+  }
+}

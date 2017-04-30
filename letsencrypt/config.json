@@ -6,7 +6,8 @@
   "startup": "once",
   "boot": "manual",
   "ports": {
-    "80/tcp": 80
+    "80/tcp": 80,
+    "443/tcp": 443
    },
   "map": ["ssl"],
   "options": {

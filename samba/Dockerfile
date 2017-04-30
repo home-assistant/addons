@@ -5,7 +5,7 @@ ENV VERSION %%VERSION%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache samba-server jq
+RUN apk add --no-cache jq samba-server samba-common-tools
 
 # Copy data
 COPY run.sh /

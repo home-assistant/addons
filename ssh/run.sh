@@ -27,4 +27,4 @@ else
 fi
 
 # start server
-exec /usr/bin/sshd -D -f /etc/sshd_config < /dev/null
+exec /usr/sbin/sshd -D < /dev/null

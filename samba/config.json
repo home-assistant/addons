@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "0.1",
+  "version": "0.2",
   "slug": "samba",
   "description": "Expose HassIO folders with samba",
   "startup": "after",
@@ -10,14 +10,20 @@
    },
   "map": ["config", "ssl", "addons"],
   "options": {
-      "workgroup": "WORKGROUP",
-      "guest": true,
-      "username": "",
-      "password": ""
+    "workgroup": "WORKGROUP",
+    "guest": true,
+    "map_config": true,
+    "map_addons": true,
+    "map_ssl": false,
+    "username": "",
+    "password": ""
   },
   "schema": {
     "workgroup": "str",
     "guest": "bool",
+    "map_config": "bool",
+    "map_addons": "bool",
+    "map_ssl": "bool",
     "username": "str",
     "password": "str"
   }

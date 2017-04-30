@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "0.3",
+  "version": "0.4",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "startup": "before",

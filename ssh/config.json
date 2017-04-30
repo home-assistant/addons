@@ -1,6 +1,6 @@
 {
   "name": "SSH server",
-  "version": "0.1",
+  "version": "0.2",
   "slug": "ssh",
   "description": "OpenSSH is the premier connectivity tool for remote login with the SSH protocol.",
   "startup": "before",

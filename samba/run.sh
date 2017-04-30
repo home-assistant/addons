@@ -83,9 +83,9 @@ else
     sed -i "s/#force user/force user/g" /etc/smb.conf
     sed -i "s/#force group/force group/g" /etc/smb.conf
 
-    addgroup -g 1000 $USERNAME
-    adduser -D -H -G $USERNAME -s /bin/false -u 1000 $USERNAME
-    echo -e "$PASSWORD\n$PASSWORD" | smbpasswd -a -s -c /etc/smb.conf $USERNAME
+    addgroup -g 1000 "$USERNAME"
+    adduser -D -H -G "$USERNAME" -s /bin/false -u 1000 "$USERNAME"
+    echo -e "$PASSWORD\n$PASSWORD" | smbpasswd -a -s -c /etc/smb.conf "$USERNAME"
 fi
 
 exec smbd -F -S -s /etc/smb.conf < /dev/null

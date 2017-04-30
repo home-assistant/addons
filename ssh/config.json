@@ -6,13 +6,13 @@
   "startup": "before",
   "boot": "auto",
   "ports": {
-    "22/tcp": 22,
+    "22/tcp": 22
    },
   "map": ["config", "ssl", "addons"],
   "options": {
-    "authorized_keys": [null],
+    "authorized_keys": [null]
   },
   "schema": {
-    "authorized_keys": ["str"],
+    "authorized_keys": ["str"]
   }
 }

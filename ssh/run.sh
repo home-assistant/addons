@@ -12,9 +12,9 @@ sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_con
 
 # Generate authorized_keys file
 mkdir -p ~/.ssh
-for line in $AUTHORIZED_KEYS; do
+while read -r line; do
     echo "$line" >> ~/.ssh/authorized_keys
-done
+done <<< "$AUTHORIZED_KEYS"
 chmod 600 ~/.ssh/authorized_keys
 
 # Generate host keys

@@ -1,5 +1,5 @@
-# Samba Config
-Expose HomeAssistant config to samba share.
+# Samba
+Expose HassIO folders to samba share.
 
 ## Options
 

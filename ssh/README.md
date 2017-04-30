@@ -4,6 +4,8 @@ Provide a openssh server. You can access to:
 - /addons: Custom addon folder
 - /ssl: Store ssh key files for HassIO
 
+Installed editor is vim
+
 ## Options
 
 - `authorized_keys`: A array that ever element is a authorized key

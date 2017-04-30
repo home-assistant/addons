@@ -8,6 +8,7 @@ AUTHORIZED_KEYS=$(jq --raw-output ".authorized_keys[]" $CONFIG_PATH)
 
 # Init defaults config
 sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
+sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
 
 # Generate authorized_keys file
 mkdir -p ~/.ssh
@@ -26,4 +27,4 @@ else
 fi
 
 # start server
-exec sshd -D -f /etc/sshd_config < /dev/null
+exec /usr/bin/sshd -D -f /etc/sshd_config < /dev/null

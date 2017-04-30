@@ -1,14 +1,14 @@
 {
-  "name": "Samba Config",
-  "version": "0.7",
-  "slug": "smb_config",
-  "description": "Expose config with samba",
+  "name": "Samba share",
+  "version": "0.1",
+  "slug": "samba",
+  "description": "Expose HassIO folders with samba",
   "startup": "after",
   "boot": "auto",
   "ports": {
     "445/tcp": 445
    },
-  "map": ["config"],
+  "map": ["config", "ssl", "addons"],
   "options": {
       "workgroup": "WORKGROUP",
       "guest": true,

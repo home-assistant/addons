@@ -33,7 +33,7 @@ if [ "$SSL" == "true" ]; then
 fi
 
 # Allow anonymous connections
-if [ "$ANONYMOUS" == "true" ]; then
+if [ "$ANONYMOUS" == "false" ]; then
     sed -i "s/#allow_anonymous/allow_anonymous/g" /etc/mosquitto.conf
 fi
 

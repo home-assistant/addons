@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "0.2",
+  "version": "0.3",
   "slug": "samba",
   "description": "Expose HassIO folders with samba",
   "startup": "after",

@@ -41,6 +41,7 @@ fi
 if [ "$LOGINS" -gt "0" ]; then
     sed -i "s/#password_file/password_file/g" /etc/mosquitto.conf
     rm -f /data/users.db || true
+    touch /data/users.db
 
     for (( i=0; i < "$LOGINS"; i++ )); do
         USERNAME=$(jq --raw-output ".logins[$i].username" $CONFIG_PATH)

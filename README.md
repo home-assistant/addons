@@ -1,8 +1,9 @@
 # hassio-addons
 Docker addons for HassIO
 
-[HassIO](https://github.com/pvizeli/hassio)
-[HassIO-Build](https://github.com/pvizeli/hassio-build)
+All PRs need to be `build` branch!
+
+[HassIO](https://github.com/pvizeli/hassio) | [HassIO-Build](https://github.com/pvizeli/hassio-build)
 
 ## Addon folder
 
@@ -55,4 +56,4 @@ If you want to set a value to requered and need to be set from user before it st
 Default you can use `fullchain.pem` and `privkey.pem` from `/ssl` for you stuff. Your SSL addon should also create default this files.
 
 ## Addon need to known
-`/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data. A other nice tool for write plugin is [Supervisor](http://supervisord.org/).
+`/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data.

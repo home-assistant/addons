@@ -57,3 +57,13 @@ Default you can use `fullchain.pem` and `privkey.pem` from `/ssl` for you stuff.
 
 ## Addon need to known
 `/data` is a volume with a persistant store. `/data/options.json` have the user config inside. You can use `jq` inside shell script to parse this data.
+
+# Custom Addon repository
+Add a `repository.json` to root of your git repository with:
+```json
+{
+  "name": "Needed, Name of repository",
+  "url": "url to website (optional)",
+  "maintainer": "(optional) Pascal Vizeli <pvizeli@syshack.ch>"
+}
+```

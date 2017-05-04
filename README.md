@@ -1,9 +1,9 @@
 # hassio-addons
-Docker addons for HassIO
+### Docker addons for HassIO
 
-All PRs need to be `build` branch!
+All PRs need to be against the `build` branch!
 
-[HassIO](https://github.com/pvizeli/hassio) | [HassIO-Build](https://github.com/pvizeli/hassio-build)
+[HassIO](https://github.com/home-assistant/hassio) | [HassIO-Build](https://github.com/home-assistant/hassio-build)
 
 ## Addon folder
 
@@ -15,13 +15,13 @@ addon_name:
   run.sh
 ```
 
-Use `FROM %%BASE_IMAGE%%` inside your docker file. We use alpine linux 3.5 for addons. It need also a this line:
+All add-ons are based off Alpine Linux 3.5. To get the macine specific version, use `FROM %%BASE_IMAGE%%` inside your docker file. Your Docker file also needs to include this line:
 
 ```docker
 ENV VERSION %%VERSION%%
 ```
 
-You should use bash scripts for simple stuff inside docker to hold the image small.
+As a user might run many add-ons, it is encouraged to try to stick to Bash scripts if you're doing simple things.
 
 ## Addon config
 
@@ -35,7 +35,7 @@ You should use bash scripts for simple stuff inside docker to hold the image sma
   "boot": "auto|manual",
   "ports": {
     "123/tcp": 123
-   },
+  },
   "map": ["config", "ssl", "addons", "backup"],
   "options": {},
   "schema": {

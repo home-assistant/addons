@@ -3,7 +3,7 @@
   "version": "0.3",
   "slug": "samba",
   "description": "Expose HassIO folders with samba",
-  "startup": "after",
+  "startup": "before",
   "boot": "auto",
   "ports": {
     "445/tcp": 445

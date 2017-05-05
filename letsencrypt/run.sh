@@ -17,11 +17,8 @@ if [ ! -f /data/certbot-auto ]; then
     chmod a+x certbot-auto
 fi
 
-# Start program
-if [ -d $CERT_DIR ]; then
-    /data/certbot-auto renew --non-interactive --config-dir $CERT_DIR --work-dir $WORK_DIR
-else
-    # generate domains
+# Generate new certs
+if [ ! -d "$CERT_DIR" ]; then
     for line in $DOMAINS; do
         if [ -z "$DOMAIN_ARG" ]; then
             DOMAIN_ARG="-d $line"
@@ -30,9 +27,14 @@ else
         fi
     done
 
-    /data/certbot-auto certonly --non-interactive --standalone --email "$EMAIL" --config-dir $CERT_DIR --work-dir "$DOMAIN_ARG"
+    echo "$DOMAINS" > /data/domains.gen
+    /data/certbot-auto certonly --non-interactive --standalone --email "$EMAIL" --config-dir "$CERT_DIR" --work-dir "$DOMAIN_ARG"
+
+# Renew certs
+else
+    /data/certbot-auto renew --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR"
 fi
 
 # copy certs to store
-cp /data/letsencrypt/live/*/privkey.pem "/ssl/$KEYFILE"
-cp /data/letsencrypt/live/*/fullchain.pem "/ssl/$CERTFILE"
+cp "$CERT_DIR"/live/*/privkey.pem "/ssl/$KEYFILE"
+cp "$CERT_DIR"/live/*/fullchain.pem "/ssl/$CERTFILE"

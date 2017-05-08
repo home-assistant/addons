@@ -3,6 +3,7 @@
   "version": "0.3",
   "slug": "samba",
   "description": "Expose HassIO folders with samba",
+  "url": "https://home-assistant.io/addons/samba/",
   "startup": "before",
   "boot": "auto",
   "ports": {

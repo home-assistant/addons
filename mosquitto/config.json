@@ -3,6 +3,7 @@
   "version": "0.4",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
+  "url": "https://home-assistant.io/addons/mosquitto/",
   "startup": "before",
   "boot": "auto",
   "ports": {

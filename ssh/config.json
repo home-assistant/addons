@@ -3,6 +3,7 @@
   "version": "0.5",
   "slug": "ssh",
   "description": "Connect to your server over SSH",
+  "url": "https://home-assistant.io/addons/ssh/",
   "startup": "before",
   "boot": "auto",
   "ports": {

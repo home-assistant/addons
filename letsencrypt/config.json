@@ -19,7 +19,7 @@
   },
   "schema": {
     "email": "email",
-    "domain": ["str"],
+    "domains": ["str"],
     "certfile": "str",
     "keyfile": "str"
   }

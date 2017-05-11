@@ -13,7 +13,7 @@
   },
   "schema": {
     "token": "str",
-    "domain": ["str"],
+    "domains": ["str"],
     "seconds": "int"
   }
 }

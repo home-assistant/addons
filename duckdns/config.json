@@ -12,7 +12,7 @@
     "seconds": 300
   },
   "schema": {
-    "token": "email",
+    "token": "str",
     "domain": ["str"],
     "seconds": "int"
   }

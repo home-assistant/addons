@@ -1,0 +1,19 @@
+{
+  "name": "Duck DNS",
+  "version": "0.1",
+  "slug": "duckdns",
+  "description": "Free dynamic DNS hosted on Amazon VPC",
+  "url": "https://home-assistant.io/addons/duckdns/",
+  "startup": "before",
+  "boot": "auto",
+  "options": {
+    "token": null,
+    "domains": [null],
+    "seconds": 300
+  },
+  "schema": {
+    "token": "email",
+    "domain": ["str"],
+    "seconds": "int"
+  }
+}

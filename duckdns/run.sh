@@ -17,6 +17,6 @@ done
 
 #
 while true; do
-    curl -k "https://www.duckdns.org/update?domains=$DOMAIN_ARG&token=$TOKEN&ip="
+    curl -k "https://www.duckdns.org/update?domains=$DOMAIN_ARG&token=$TOKEN&ip=" || true
     sleep "$SECONDS"
 done

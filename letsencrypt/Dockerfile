@@ -5,7 +5,7 @@ ENV VERSION %%VERSION%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq git python
+RUN apk add --no-cache jq git python curl
 
 # Copy data
 COPY run.sh /

@@ -10,13 +10,6 @@ DOMAINS=$(jq --raw-output ".domains[]" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 
-# setup letsencrypt setup
-if [ ! -f /data/certbot-auto ]; then
-    cd /data
-    curl -O https://dl.eff.org/certbot-auto
-    chmod a+x certbot-auto
-fi
-
 # Generate new certs
 if [ ! -d "$CERT_DIR" ]; then
     for line in $DOMAINS; do
@@ -28,11 +21,11 @@ if [ ! -d "$CERT_DIR" ]; then
     done
 
     echo "$DOMAINS" > /data/domains.gen
-    /data/certbot-auto certonly --non-interactive --standalone --email "$EMAIL" --config-dir "$CERT_DIR" --work-dir "$DOMAIN_ARG"
+    certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "$DOMAIN_ARG"
 
 # Renew certs
 else
-    /data/certbot-auto renew --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR"
+    certbot renew --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR"
 fi
 
 # copy certs to store

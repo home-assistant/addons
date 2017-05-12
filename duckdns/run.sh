@@ -17,6 +17,7 @@ done
 
 #
 while true; do
-    curl -k "https://www.duckdns.org/update?domains=$DOMAIN_ARG&token=$TOKEN&ip=" || true
+    ANSWER="$(curl -sk "https://www.duckdns.org/update?domains=$DOMAIN_ARG&token=$TOKEN&ip=&verbose=true")"
+    echo "$(date): $ANSWER"
     sleep "$SECONDS"
 done

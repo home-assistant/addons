@@ -1,0 +1,15 @@
+{
+  "name": "Check HomeAssistant config",
+  "version": "0.1",
+  "slug": "check_config",
+  "description": "Check HomeAssistant config with a new version",
+  "url": "https://home-assistant.io/addons/check_config/",
+  "startup": "once",
+  "boot": "manual",
+  "options": {
+    "version": "latest"
+  },
+  "schema": {
+    "version": "str"
+  }
+}

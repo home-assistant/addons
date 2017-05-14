@@ -27,5 +27,6 @@
     "map_ssl": "bool",
     "username": "str",
     "password": "str"
-  }
+  },
+  "image": "homeassistant/{arch}-addon-samba"
 }

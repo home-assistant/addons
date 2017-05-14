@@ -15,7 +15,6 @@ listener 1883
 "
 
 SSL_CONFIG="
-port 8883
 listener 8883
 cafile /ssl/$CERTFILE
 certfile /ssl/$CERTFILE

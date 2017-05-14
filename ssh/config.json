@@ -15,5 +15,6 @@
   },
   "schema": {
     "authorized_keys": ["str"]
-  }
+  },
+  "image": "homeassistant/{arch}-addon-ssh"
 }

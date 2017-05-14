@@ -22,5 +22,6 @@
     "domains": ["str"],
     "certfile": "str",
     "keyfile": "str"
-  }
+  },
+  "image": "homeassistant/{arch}-addon-letsencrypt"
 }

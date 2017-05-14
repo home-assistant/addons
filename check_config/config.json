@@ -12,5 +12,6 @@
   },
   "schema": {
     "version": "str"
-  }
+  },
+  "image": "homeassistant/{arch}-addon-check_config"
 }

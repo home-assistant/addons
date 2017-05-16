@@ -10,7 +10,7 @@
     "80/tcp": 80,
     "443/tcp": 443
    },
-  "map": ["ssl"],
+  "map": ["ssl:rw"],
   "options": {
     "email": null,
     "domains": [null],

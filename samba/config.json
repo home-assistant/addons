@@ -9,7 +9,7 @@
   "ports": {
     "445/tcp": 445
    },
-  "map": ["config", "ssl", "addons"],
+  "map": ["config:rw", "ssl:rw", "addons:rw"],
   "options": {
     "workgroup": "WORKGROUP",
     "guest": true,

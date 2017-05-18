@@ -10,6 +10,8 @@ PASSWORD=$(jq --raw-output ".password // empty" $CONFIG_PATH)
 MAP_CONFIG=$(jq --raw-output ".map_config // empty" $CONFIG_PATH)
 MAP_ADDONS=$(jq --raw-output ".map_addons // empty" $CONFIG_PATH)
 MAP_SSL=$(jq --raw-output ".map_ssl // empty" $CONFIG_PATH)
+MAP_MNT=$(jq --raw-output ".map_mnt // empty" $CONFIG_PATH)
+MAP_SHARE=$(jq --raw-output ".map_share // empty" $CONFIG_PATH)
 
 SMB_CONFIG="
 [config]
@@ -56,6 +58,36 @@ SMB_ADDONS="
    #force group = root
 "
 
+SMB_SHARE="
+[share]
+   browseable = yes
+   writeable = yes
+   path = /share
+
+   #guest ok = yes
+   #guest only = yes
+   #public = yes
+
+   #valid users = $USERNAME
+   #force user = root
+   #force group = root
+"
+
+SMB_MNT="
+[mnt]
+   browseable = yes
+   writeable = yes
+   path = /mnt
+
+   #guest ok = yes
+   #guest only = yes
+   #public = yes
+
+   #valid users = $USERNAME
+   #force user = root
+   #force group = root
+"
+
 sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
 
 ##
@@ -68,6 +100,12 @@ if [ "$MAP_ADDONS" == "true" ]; then
 fi
 if [ "$MAP_SSL" == "true" ]; then
     echo "$SMB_SSL" >> /etc/smb.conf
+fi
+if [ "$MAP_SHARE" == "true" ]; then
+    echo "$SMB_SSHARE" >> /etc/smb.conf
+fi
+if [ "$MAP_MNT" == "true" ]; then
+    echo "$SMB_MNT" >> /etc/smb.conf
 fi
 
 ##

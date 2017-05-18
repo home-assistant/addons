@@ -12,7 +12,7 @@
    },
   "map": ["ssl"],
   "options": {
-    "domain": "domain",
+    "domain": null,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"
   },

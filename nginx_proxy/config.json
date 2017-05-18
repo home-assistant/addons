@@ -12,12 +12,12 @@
    },
   "map": ["ssl"],
   "options": {
+    "domain": "domain",
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"
   },
   "schema": {
-    "plain": "bool",
-    "ssl": "bool",
+    "domain": "str",
     "certfile": "str",
     "keyfile": "str"
   },

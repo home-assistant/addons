@@ -11,7 +11,6 @@ MAP_CONFIG=$(jq --raw-output ".map_config // empty" $CONFIG_PATH)
 MAP_ADDONS=$(jq --raw-output ".map_addons // empty" $CONFIG_PATH)
 MAP_SSL=$(jq --raw-output ".map_ssl // empty" $CONFIG_PATH)
 MAP_SHARE=$(jq --raw-output ".map_share // empty" $CONFIG_PATH)
-MAP_MNT=$(jq --raw-output ".map_mnt // empty" $CONFIG_PATH)
 
 
 function write_config() {
@@ -46,9 +45,6 @@ if [ "$MAP_SSL" == "true" ]; then
 fi
 if [ "$MAP_SHARE" == "true" ]; then
     write_config "share"
-fi
-if [ "$MAP_MNT" == "true" ]; then
-    write_config "mnt"
 fi
 
 ##

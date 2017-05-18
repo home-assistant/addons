@@ -17,7 +17,7 @@
     "map_addons": true,
     "map_ssl": false,
     "map_mnt": false,
-    "map_share": false,
+    "map_share": true,
     "username": "",
     "password": ""
   },

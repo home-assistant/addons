@@ -9,7 +9,7 @@
   "ports": {
     "22/tcp": 22
    },
-  "map": ["config:rw", "ssl:rw", "addons:rw"],
+  "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "mnt:rw"],
   "options": {
     "authorized_keys": [null]
   },

@@ -9,13 +9,15 @@
   "ports": {
     "445/tcp": 445
    },
-  "map": ["config:rw", "ssl:rw", "addons:rw"],
+  "map": ["config:rw", "ssl:rw", "addons:rw", "mnt:rw", "share:rw"],
   "options": {
     "workgroup": "WORKGROUP",
     "guest": true,
     "map_config": true,
     "map_addons": true,
     "map_ssl": false,
+    "map_mnt": false,
+    "map_share": false,
     "username": "",
     "password": ""
   },
@@ -25,6 +27,8 @@
     "map_config": "bool",
     "map_addons": "bool",
     "map_ssl": "bool",
+    "map_mnt": "bool",
+    "map_share": "bool",
     "username": "str",
     "password": "str"
   },

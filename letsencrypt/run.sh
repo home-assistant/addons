@@ -12,16 +12,13 @@ CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 
 # Generate new certs
 if [ ! -d "$CERT_DIR" ]; then
+    DOMAIN_ARR=()
     for line in $DOMAINS; do
-        if [ -z "$DOMAIN_ARG" ]; then
-            DOMAIN_ARG="-d $line"
-        else
-            DOMAIN_ARG="$DOMAIN_ARG -d $line"
-        fi
+        DOMAIN_ARR+=(-d "$line")
     done
 
     echo "$DOMAINS" > /data/domains.gen
-    certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "$DOMAIN_ARG"
+    certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "${DOMAIN_ARR[@]}"
 
 # Renew certs
 else

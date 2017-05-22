@@ -4,7 +4,7 @@ FROM %%BASE_IMAGE%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq samba-server samba-common-tools
+RUN apk add --no-cache tzdata jq samba-server samba-common-tools
 
 # Copy data
 COPY run.sh /

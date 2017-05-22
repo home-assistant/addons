@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "0.6",
+  "version": "0.7",
   "slug": "samba",
   "description": "Expose HassIO folders with Samba",
   "url": "https://home-assistant.io/addons/samba/",

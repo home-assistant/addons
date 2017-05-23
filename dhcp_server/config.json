@@ -1,6 +1,6 @@
 {
   "name": "DHCP server",
-  "version": "0.1",
+  "version": "0.2",
   "slug": "dhcp_server",
   "description": "A simple dhcp server",
   "url": "https://home-assistant.io/addons/dhcp_server/",
@@ -23,9 +23,7 @@
         "gateway": "192.168.1.1"
       }
     ],
-    "hosts": [
-      {}
-    ]
+    "hosts": []
   },
   "schema": {
     "domain": "str",

@@ -44,5 +44,10 @@ for (( i=0; i < "$HOSTS"; i++ )); do
     } >> /etc/dhcpd.conf
 done
 
+# Create database
+if [ ! -f /data/dhcpd.lease ]; then
+    touch /data/dhcpd.lease
+fi
+
 # run dhcp server
 exec /usr/sbin/dhcpd -4 -f -d --no-pid -lf /data/dhcpd.lease -cf /etc/dhcpd.conf < /dev/null

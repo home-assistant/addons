@@ -1,6 +1,6 @@
 {
   "name": "DHCP server",
-  "version": "0.2",
+  "version": "0.3",
   "slug": "dhcp_server",
   "description": "A simple dhcp server",
   "url": "https://home-assistant.io/addons/dhcp_server/",
@@ -17,7 +17,8 @@
         "range_start": "192.168.1.100",
         "range_end": "192.168.1.200",
         "broadcast": "192.168.1.255",
-        "gateway": "192.168.1.1"
+        "gateway": "192.168.1.1",
+        "interface": "eth0"
       }
     ],
     "hosts": []
@@ -32,7 +33,8 @@
         "range_start": "str",
         "range_end": "str",
         "broadcast": "str",
-        "gateway": "str"
+        "gateway": "str",
+        "interface": "str"
       }
     ],
     "hosts": [

@@ -6,10 +6,7 @@
   "url": "https://home-assistant.io/addons/dhcp_server/",
   "startup": "before",
   "boot": "auto",
-  "ports": {
-    "67/tcp": 67,
-    "67/udp": 67
-  },
+  "host_network": true,
   "options": {
     "domain": null,
     "dns": ["8.8.8.8", "8.8.4.4"],

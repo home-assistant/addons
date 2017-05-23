@@ -12,7 +12,7 @@
   },
   "options": {
     "domain": null,
-    "domain-name-servers": [null],
+    "dns": ["8.8.8.8", "8.8.4.4"],
     "networks": [
       {
         "subnet": "192.168.1.0",
@@ -28,8 +28,8 @@
     ]
   },
   "schema": {
-    "domain": null,
-    "dns": ["8.8.8.8", "8.8.4.4"],
+    "domain": "str",
+    "dns": ["str"],
     "networks": [
       {
         "subnet": "str",

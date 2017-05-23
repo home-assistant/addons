@@ -19,10 +19,12 @@ for (( i=0; i < "$NETWORKS"; i++ )); do
     RANGE_END=$(jq --raw-output ".networks[$i].range_end" $CONFIG_PATH)
     BROADCAST=$(jq --raw-output ".networks[$i].broadcast" $CONFIG_PATH)
     GATEWAY=$(jq --raw-output ".networks[$i].gateway" $CONFIG_PATH)
+    INTERFACE=$(jq --raw-output ".networks[$i].interface" $CONFIG_PATH)
 
     {
         echo "subnet $SUBNET netmask $NETMASK {"
         echo "  range $RANGE_START $RANGE_END;"
+        echo "  interface $INTERFACE;"
         echo "  option routers $GATEWAY;"
         echo "  option broadcast-address $BROADCAST;"
         echo "}"

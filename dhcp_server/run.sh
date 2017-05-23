@@ -13,12 +13,12 @@ sed -i "s/%%DNS_SERVERS%%/$DNS/g" /etc/dhcpd.conf
 
 # Create networks
 for (( i=0; i < "$NETWORKS"; i++ )); do
-    SUBNET=$(jq --raw-output '.networks[$i].subnet' $CONFIG_PATH)
-    NETMASK=$(jq --raw-output '.networks[$i].netmask' $CONFIG_PATH)
-    RANGE_START=$(jq --raw-output '.networks[$i].range_start' $CONFIG_PATH)
-    RANGE_END=$(jq --raw-output '.networks[$i].range_end' $CONFIG_PATH)
-    BROADCAST=$(jq --raw-output '.networks[$i].broadcast' $CONFIG_PATH)
-    ROUTERS=$(jq --raw-output '.networks[$i].routers | joint(", ")' $CONFIG_PATH)
+    SUBNET=$(jq --raw-output ".networks[$i].subnet" $CONFIG_PATH)
+    NETMASK=$(jq --raw-output ".networks[$i].netmask" $CONFIG_PATH)
+    RANGE_START=$(jq --raw-output ".networks[$i].range_start" $CONFIG_PATH)
+    RANGE_END=$(jq --raw-output ".networks[$i].range_end" $CONFIG_PATH)
+    BROADCAST=$(jq --raw-output ".networks[$i].broadcast" $CONFIG_PATH)
+    ROUTERS=$(jq --raw-output ".networks[$i].routers | joint(\", \")" $CONFIG_PATH)
 
     {
         echo "subnet $SUBNET netmask $NETMASK {"
@@ -31,9 +31,9 @@ done
 
 # Create hosts
 for (( i=0; i < "$HOSTS"; i++ )); do
-    MAC=$(jq --raw-output '.hosts[$i].mac' $CONFIG_PATH)
-    NAME=$(jq --raw-output '.hosts[$i].name' $CONFIG_PATH)
-    IP=$(jq --raw-output '.hosts[$i].ip' $CONFIG_PATH)
+    MAC=$(jq --raw-output ".hosts[$i].mac" $CONFIG_PATH)
+    NAME=$(jq --raw-output ".hosts[$i].name" $CONFIG_PATH)
+    IP=$(jq --raw-output ".hosts[$i].ip" $CONFIG_PATH)
 
     {
         echo "host $NAME {"

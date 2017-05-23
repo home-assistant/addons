@@ -1,0 +1,52 @@
+{
+  "name": "DHCP server",
+  "version": "0.1",
+  "slug": "dhcp_server",
+  "description": "A simple dhcp server",
+  "url": "https://home-assistant.io/addons/dhcp_server/",
+  "startup": "before",
+  "boot": "auto",
+  "ports": {
+    "67/tcp": 67,
+    "67/udp": 67
+  },
+  "options": {
+    "domain": null,
+    "domain-name-servers": [null],
+    "networks": [
+      {
+        "subnet": "192.168.1.0",
+        "netmask": "255.255.255.0",
+        "range_start": "192.168.1.100",
+        "range_end": "192.168.1.200",
+        "broadcast": "192.168.1.254",
+        "routers": ["192.168.1.1"]
+      }
+    ],
+    "hosts": [
+      {}
+    ]
+  },
+  "schema": {
+    "domain": null,
+    "dns": ["8.8.8.8", "8.8.4.4"],
+    "networks": [
+      {
+        "subnet": "str",
+        "netmask": "str",
+        "range_start": "str",
+        "range_end": "str",
+        "broadcast": "str",
+        "routers": ["str"]
+      }
+    ],
+    "hosts": [
+      {
+        "mac": "str",
+        "name": "str",
+        "ip": "str"
+      }
+    ]
+  },
+  "image": "homeassistant/{arch}-addon-dhcp_server"
+}

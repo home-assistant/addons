@@ -20,7 +20,7 @@
         "range_start": "192.168.1.100",
         "range_end": "192.168.1.200",
         "broadcast": "192.168.1.255",
-        "routers": ["192.168.1.1"]
+        "gateway": "192.168.1.1"
       }
     ],
     "hosts": [
@@ -37,7 +37,7 @@
         "range_start": "str",
         "range_end": "str",
         "broadcast": "str",
-        "routers": ["str"]
+        "gateway": "str"
       }
     ],
     "hosts": [

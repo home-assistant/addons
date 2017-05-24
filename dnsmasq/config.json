@@ -6,15 +6,16 @@
   "url": "https://home-assistant.io/addons/dnsmasq/",
   "startup": "before",
   "boot": "auto",
-  "host_network": true,
+  "ports": {
+    "53/udp": 53,
+    "53/tcp": 53
+  },
   "options": {
-    "interface": "eth0",
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
     "hosts": []
   },
   "schema": {
-    "interface": "str",
     "defaults": ["str"],
     "forwards": [
       {

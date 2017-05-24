@@ -12,7 +12,7 @@
   "options": {
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
-    "hosts": [],
+    "hosts": []
   },
   "schema": {
     "defaults": ["str"],

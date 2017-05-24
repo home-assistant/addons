@@ -3,7 +3,7 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
-DEFAULTS=$(jq --raw-output '.domain' $CONFIG_PATH)
+DEFAULTS=$(jq --raw-output '.defaults[]' $CONFIG_PATH)
 FORWARDS=$(jq --raw-output '.forwards | length' $CONFIG_PATH)
 HOSTS=$(jq --raw-output '.hosts | length' $CONFIG_PATH)
 INTERFACE=$(jq --raw-output '.interface | length' $CONFIG_PATH)

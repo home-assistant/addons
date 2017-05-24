@@ -10,8 +10,10 @@ DOMAINS=$(jq --raw-output ".domains[]" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 
+mkdir -p "$CERT_DIR"
+
 # Generate new certs
-if [ ! -d "$CERT_DIR" ]; then
+if [ ! -d "$CERT_DIR/live" ]; then
     DOMAIN_ARR=()
     for line in $DOMAINS; do
         DOMAIN_ARR+=(-d "$line")

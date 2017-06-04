@@ -4,7 +4,13 @@ FROM %%BASE_IMAGE%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache tzdata jq bluez
+RUN apk add --no-cache tzdata jq bluez git
+
+# Install firmware
+RUN git clone --depth 1 https://github.com/RPi-Distro/firmware-nonfree /tmp/firmware \
+    && mkdir -p /lib/firmware/brcm \
+    && cp -f /tmp/firmware/brcm80211/brcm/* /lib/firmware/brcm/ \
+    && rm -rf /tmp/firmware
 
 # Copy data
 COPY run.sh /

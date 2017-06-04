@@ -1,0 +1,14 @@
+{
+  "name": "Bluetooth BCM43xx",
+  "version": "0.1",
+  "slug": "Bluetooth_bcm43xx",
+  "description": "Activate bluetooth for bcm43xx",
+  "url": "https://home-assistant.io/addons/Bluetooth_bcm43xx/",
+  "startup": "initialize",
+  "boot": "auto",
+  "host_network": "true",
+  "devices": ["/dev/ttyAMA0:/dev/ttyAMA0:rwm"],
+  "options": {},
+  "schema": {},
+  "image": "homeassistant/{arch}-addon-bluetooth_bcm43xx"
+}

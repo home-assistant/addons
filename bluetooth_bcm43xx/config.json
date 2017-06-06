@@ -1,6 +1,6 @@
 {
   "name": "Bluetooth BCM43xx",
-  "version": "0.6",
+  "version": "0.7",
   "slug": "bluetooth_bcm43xx",
   "description": "Activate bluetooth for bcm43xx",
   "url": "https://home-assistant.io/addons/Bluetooth_bcm43xx/",

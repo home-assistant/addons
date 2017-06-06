@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 
-hciattach -n /dev/ttyAMA0 bcm43xx 115200 noflow - &
-HCI_PID=$!
+hciattach /dev/ttyAMA0 bcm43xx 115200 noflow -
+hciconfig hci0 up
 
-hciconfig hci0 up || true
-
-wait $HCI_PID
+wait "$(pgrep hciattach)"

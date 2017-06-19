@@ -25,8 +25,16 @@ echo "[INFO] Install done, check config now"
 cp -r /config /tmp/config > /dev/null
 if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"
 then
-    echo "[ERROR] Wrong config found: $HASS_OUTPUT"
+    echo "[ERROR] Wrong config found!"
+    echo "$HASS_OUTPUT"
     exit 1
 fi
 
-echo "[INFO] Okay :)"
+if echo "$HASS_OUTPUT" | grep ERROR > /dev/null
+then
+    echo "[ERROR] Wrong yaml found!"
+    echo "$HASS_OUTPUT"
+    exit 1
+fi
+
+echo "[INFO] Done"

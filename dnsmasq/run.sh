@@ -6,6 +6,12 @@ CONFIG_PATH=/data/options.json
 DEFAULTS=$(jq --raw-output '.defaults[]' $CONFIG_PATH)
 FORWARDS=$(jq --raw-output '.forwards | length' $CONFIG_PATH)
 HOSTS=$(jq --raw-output '.hosts | length' $CONFIG_PATH)
+INTERFACE=$(jq --raw-output '.interface' $CONFIG_PATH)
+
+# Bind to interface
+if [ -z "$INTERFACE" ]; then
+    echo "interface=$INTERFACE" >> /etc/dnsmasq.conf
+fi
 
 # Add default forward servers
 for line in $DEFAULTS; do
@@ -29,4 +35,4 @@ for (( i=0; i < "$HOSTS"; i++ )); do
 done
 
 # run dnsmasq
-exec dnsmasq -C /etc/dnsmasq.conf < /dev/null
+exec dnsmasq -C /etc/dnsmasq.conf -z < /dev/null

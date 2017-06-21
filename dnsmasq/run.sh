@@ -28,8 +28,8 @@ done
 
 # Create static hosts
 for (( i=0; i < "$HOSTS"; i++ )); do
-    HOST=$(jq --raw-output ".forwards[$i].host" $CONFIG_PATH)
-    IP=$(jq --raw-output ".forwards[$i].ip" $CONFIG_PATH)
+    HOST=$(jq --raw-output ".hosts[$i].host" $CONFIG_PATH)
+    IP=$(jq --raw-output ".hosts[$i].ip" $CONFIG_PATH)
 
     echo "address=/$HOST/$IP" >> /etc/dnsmasq.conf
 done

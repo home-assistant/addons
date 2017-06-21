@@ -4,7 +4,7 @@ FROM %%BASE_IMAGE%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache tzdata jq curl
+RUN apk add --no-cache jq curl
 
 # Copy data
 COPY run.sh /

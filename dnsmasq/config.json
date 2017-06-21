@@ -1,6 +1,6 @@
 {
   "name": "Dnsmasq server",
-  "version": "0.2",
+  "version": "0.3",
   "slug": "dnsmasq",
   "description": "A simple dns server with benefits",
   "url": "https://home-assistant.io/addons/dnsmasq/",

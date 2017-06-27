@@ -1,0 +1,31 @@
+{
+  "name": "MariaDB",
+  "version": "0.1",
+  "slug": "mariadb",
+  "description": "MariaDB Server is one of the most popular database servers in the world.",
+  "url": "https://home-assistant.io/addons/mariadb/",
+  "startup": "before",
+  "boot": "auto",
+  "ports": {
+    "3306/tcp": 3306
+  },
+  "options": {
+    "databases": ["homeassistant"],
+    "logins": [
+      {"username": "hass", "host": "localhost", "password": null}
+    ],
+    "rights": [
+      {"username": "hass", "host": "localhost", "database": "homeassistant", "grant": "ALL PRIVILEGES ON"}
+    ]
+  },
+  "schema": {
+    "databases": ["str"],
+    "logins": [
+        {"username": "str", "host": "str", "password": "str"}
+    ],
+    "rights": [
+      {"username": "str", "host": "str", "database": "str", "grant": "str"}
+    ]
+  },
+  "image": "homeassistant/{arch}-addon-mariadb"
+}

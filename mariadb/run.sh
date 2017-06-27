@@ -40,7 +40,7 @@ for (( i=0; i < "$LOGINS"; i++ )); do
     PASSWORD=$(jq --raw-output ".logins[$i].password" $CONFIG_PATH)
     HOST=$(jq --raw-output ".logins[$i].host" $CONFIG_PATH)
 
-    if mysql -e "SET PASSWORD FOR '$USERNAME'@'$HOST' = PASSWORD('$PASSWORD');" 2>; then
+    if mysql -e "SET PASSWORD FOR '$USERNAME'@'$HOST' = PASSWORD('$PASSWORD');" 2> /dev/null; then
         echo "[INFO] Update user $USERNAME"
     else
         echo "[INFO] Create user $USERNAME"
@@ -56,8 +56,8 @@ for (( i=0; i < "$RIGHTS"; i++ )); do
     DATABASE=$(jq --raw-output ".rights[$i].database" $CONFIG_PATH)
     GRANT=$(jq --raw-output ".rights[$i].grant" $CONFIG_PATH)
 
-    echo "[INFO] Alter rights for $USERNAME@$HOST - $DATABSE"
-    mysql -e "GRANT $GRANT $DATABSE.* TO '$USERNAME'@'$HOST';" 2> /dev/null || true
+    echo "[INFO] Alter rights for $USERNAME@$HOST - $DATABASE"
+    mysql -e "GRANT $GRANT $DATABASE.* TO '$USERNAME'@'$HOST';" 2> /dev/null || true
 done
 
 wait "$MARIADB_PID"

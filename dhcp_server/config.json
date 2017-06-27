@@ -8,6 +8,8 @@
   "boot": "auto",
   "host_network": true,
   "options": {
+    "default_lease": 600,
+    "max_lease": 7200,
     "domain": null,
     "dns": ["8.8.8.8", "8.8.4.4"],
     "networks": [
@@ -24,6 +26,8 @@
     "hosts": []
   },
   "schema": {
+    "default_lease": "int",
+    "max_lease": "int",
     "domain": "str",
     "dns": ["str"],
     "networks": [

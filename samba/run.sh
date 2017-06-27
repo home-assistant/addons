@@ -3,14 +3,15 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
-WORKGROUP=$(jq --raw-output ".workgroup // empty" $CONFIG_PATH)
-GUEST=$(jq --raw-output ".guest // empty" $CONFIG_PATH)
-USERNAME=$(jq --raw-output ".username // empty" $CONFIG_PATH)
-PASSWORD=$(jq --raw-output ".password // empty" $CONFIG_PATH)
-MAP_CONFIG=$(jq --raw-output ".map_config // empty" $CONFIG_PATH)
-MAP_ADDONS=$(jq --raw-output ".map_addons // empty" $CONFIG_PATH)
-MAP_SSL=$(jq --raw-output ".map_ssl // empty" $CONFIG_PATH)
-MAP_SHARE=$(jq --raw-output ".map_share // empty" $CONFIG_PATH)
+WORKGROUP=$(jq --raw-output '.workgroup' $CONFIG_PATH)
+GUEST=$(jq --raw-output '.guest' $CONFIG_PATH)
+USERNAME=$(jq --raw-output '.username // empty' $CONFIG_PATH)
+PASSWORD=$(jq --raw-output '.password // empty' $CONFIG_PATH)
+MAP_CONFIG=$(jq --raw-output '.map_config' $CONFIG_PATH)
+MAP_ADDONS=$(jq --raw-output '.map_addons' $CONFIG_PATH)
+MAP_SSL=$(jq --raw-output '.map_ssl' $CONFIG_PATH)
+MAP_SHARE=$(jq --raw-output '.map_share' $CONFIG_PATH)
+MAP_BACKUP=$(jq --raw-output '.map_backup' $CONFIG_PATH)
 
 
 function write_config() {
@@ -45,6 +46,9 @@ if [ "$MAP_SSL" == "true" ]; then
 fi
 if [ "$MAP_SHARE" == "true" ]; then
     write_config "share"
+fi
+if [ "$MAP_BACKUP" == "true" ]; then
+    write_config "backup"
 fi
 
 ##

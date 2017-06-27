@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "0.8",
+  "version": "0.9",
   "slug": "samba",
   "description": "Expose HassIO folders with Samba",
   "url": "https://home-assistant.io/addons/samba/",
@@ -9,7 +9,7 @@
   "ports": {
     "445/tcp": 445
    },
-  "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw"],
+  "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {
     "workgroup": "WORKGROUP",
     "guest": true,
@@ -17,6 +17,7 @@
     "map_addons": true,
     "map_ssl": false,
     "map_share": true,
+    "map_backup": true,
     "username": "",
     "password": ""
   },
@@ -27,6 +28,7 @@
     "map_addons": "bool",
     "map_ssl": "bool",
     "map_share": "bool",
+    "map_backup": "bool",
     "username": "str",
     "password": "str"
   },

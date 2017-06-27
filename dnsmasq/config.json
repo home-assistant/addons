@@ -1,5 +1,5 @@
 {
-  "name": "Dnsmasq server",
+  "name": "Dnsmasq",
   "version": "0.4",
   "slug": "dnsmasq",
   "description": "A simple dns server with benefits",

@@ -3,6 +3,8 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
+DEFAULT_LEASE=$(jq --raw-output '.default_lease' $CONFIG_PATH)
+MAX_LEASE=$(jq --raw-output '.max_lease' $CONFIG_PATH)
 DOMAIN=$(jq --raw-output '.domain' $CONFIG_PATH)
 DNS=$(jq --raw-output '.dns | join(", ")' $CONFIG_PATH)
 NETWORKS=$(jq --raw-output '.networks | length' $CONFIG_PATH)
@@ -10,6 +12,8 @@ HOSTS=$(jq --raw-output '.hosts | length' $CONFIG_PATH)
 
 sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/dhcpd.conf
 sed -i "s/%%DNS_SERVERS%%/$DNS/g" /etc/dhcpd.conf
+sed -i "s/%%DEFAULT_LEASE%%/$DEFAULT_LEASE/g" /etc/dhcpd.conf
+sed -i "s/%%MAX_LEASE%%/$MAX_LEASE/g" /etc/dhcpd.conf
 
 # Create networks
 for (( i=0; i < "$NETWORKS"; i++ )); do

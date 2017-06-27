@@ -6,8 +6,8 @@
   "url": "https://home-assistant.io/addons/mariadb/",
   "startup": "before",
   "boot": "auto",
-  "network": {
-    "tcp/3306": 3306
+  "ports": {
+    "3306/tcp": 3306
   },
   "options": {
     "databases": ["homeassistant"],

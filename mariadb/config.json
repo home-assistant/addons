@@ -12,10 +12,10 @@
   "options": {
     "databases": ["homeassistant"],
     "logins": [
-      {"username": "hass", "host": "localhost", "password": null}
+      {"username": "hass", "host": "%", "password": null}
     ],
     "rights": [
-      {"username": "hass", "host": "localhost", "database": "homeassistant", "grant": "ALL PRIVILEGES ON"}
+      {"username": "hass", "host": "%", "database": "homeassistant", "grant": "ALL PRIVILEGES ON"}
     ]
   },
   "schema": {

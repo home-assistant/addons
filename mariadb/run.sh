@@ -60,4 +60,10 @@ for (( i=0; i < "$RIGHTS"; i++ )); do
     mysql -e "GRANT $GRANT $DATABASE.* TO '$USERNAME'@'$HOST';" 2> /dev/null || true
 done
 
+# Register stop
+function stop_mariadb() {
+    mysqladmin shutdown
+}
+trap "stop_mariadb" SIGTERM SIGHUP
+
 wait "$MARIADB_PID"

@@ -6,7 +6,7 @@ CONFIG_PATH=/data/options.json
 DEFAULTS=$(jq --raw-output '.defaults[]' $CONFIG_PATH)
 FORWARDS=$(jq --raw-output '.forwards | length' $CONFIG_PATH)
 HOSTS=$(jq --raw-output '.hosts | length' $CONFIG_PATH)
-INTERFACE=$(jq --raw-output '.interface' $CONFIG_PATH)
+INTERFACE=$(jq --raw-output '.interface // empty' $CONFIG_PATH)
 
 # Bind to interface
 if [ -z "$INTERFACE" ]; then

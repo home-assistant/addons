@@ -1,0 +1,19 @@
+{
+  "name": "MariaDB",
+  "version": "0.1",
+  "slug": "mariadb",
+  "description": "MariaDB Server is one of the most popular database servers in the world.",
+  "url": "https://home-assistant.io/addons/mariadb/",
+  "startup": "before",
+  "boot": "auto",
+  "network": {
+    "tcp/3306": 3306
+  },
+  "options": {
+    "databases": ["homeassistant"]
+  },
+  "schema": {
+    "databases": ["str"]
+  },
+  "image": "homeassistant/{arch}-addon-mariadb"
+}

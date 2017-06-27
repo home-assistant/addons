@@ -10,10 +10,22 @@
     "tcp/3306": 3306
   },
   "options": {
-    "databases": ["homeassistant"]
+    "databases": ["homeassistant"],
+    "logins": [
+      {"username": "hass", "host": "localhost", "password": null}
+    ],
+    "rights": [
+      {"username": "hass", "host": "localhost", "database": "homeassistant", "grant": "ALL PRIVILEGES ON"}
+    ]
   },
   "schema": {
-    "databases": ["str"]
+    "databases": ["str"],
+    "logins": [
+        {"username": "str", "host": "str", "password": "str"}
+    ],
+    "rights": [
+      {"username": "str", "host": "str", "database": "str", "grant": "str"}
+    ]
   },
   "image": "homeassistant/{arch}-addon-mariadb"
 }

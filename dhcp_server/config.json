@@ -8,8 +8,8 @@
   "boot": "auto",
   "host_network": true,
   "options": {
-    "default_lease": 600,
-    "max_lease": 7200,
+    "default_lease": 86400,
+    "max_lease": 172800,
     "domain": null,
     "dns": ["8.8.8.8", "8.8.4.4"],
     "networks": [

@@ -4,6 +4,7 @@ set -e
 CONFIG_PATH=/data/options.json
 
 WORKGROUP=$(jq --raw-output '.workgroup' $CONFIG_PATH)
+NAME=$(jq --raw-output '.name' $CONFIG_PATH)
 GUEST=$(jq --raw-output '.guest' $CONFIG_PATH)
 USERNAME=$(jq --raw-output '.username // empty' $CONFIG_PATH)
 PASSWORD=$(jq --raw-output '.password // empty' $CONFIG_PATH)
@@ -32,6 +33,7 @@ function write_config() {
 }
 
 sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
+sed -i "s/%%NAME%%/$NAME/g" /etc/smb.conf
 
 ##
 # Write shares to config

@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "0.10",
+  "version": "1.0",
   "slug": "letsencrypt",
   "description": "Manage Let's Encrypt certificate",
   "url": "https://home-assistant.io/addons/lets_encrypt/",
@@ -12,12 +12,14 @@
    },
   "map": ["ssl:rw"],
   "options": {
+    "challenge": "https",
     "email": null,
     "domains": [null],
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"
   },
   "schema": {
+    "challenge": "str",
     "email": "email",
     "domains": ["str"],
     "certfile": "str",

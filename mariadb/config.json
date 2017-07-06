@@ -27,5 +27,6 @@
       {"username": "str", "host": "str", "database": "str", "grant": "str"}
     ]
   },
-  "image": "homeassistant/{arch}-addon-mariadb"
+  "image": "homeassistant/{arch}-addon-mariadb",
+  "timeout": 20
 }

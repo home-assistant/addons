@@ -1,0 +1,31 @@
+{
+  "name": "Snips.AI",
+  "version": "0.4.3",
+  "slug": "snips",
+  "description": "The first on-device voice platform",
+  "url": "https://home-assistant.io/addons/snips/",
+  "startup": "after",
+  "boot": "auto",
+  "arch": ["armhf", "amd64"],
+  "ports": {
+    "1884/tcp": 9898
+  },
+  "devices": ["/dev/snd:/dev/snd:rwm"],
+  "options": {
+    "mqtt_bridge": true,
+    "mqtt_host": "172.17.0.1",
+    "mqtt_port": 1884,
+    "mqtt_user": "",
+    "mqtt_password": "",
+    "assistant": "assistant.zip"
+  },
+  "schema": {
+    "mqtt_bridge": "bool",
+    "mqtt_host": "str",
+    "mqtt_port": "port",
+    "mqtt_user": "str",
+    "mqtt_password": "str",
+    "assistant": "str"
+  },
+  "image": "homeassistant/{arch}-addon-snips",
+}

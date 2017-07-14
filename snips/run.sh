@@ -11,10 +11,16 @@ if [ "$MQTT_BRIDG" == "true" ]; then
   PORT=$(jq --raw-output '.mqtt_bridge.port' $CONFIG_PATH)
   USER=$(jq --raw-output '.mqtt_bridge.user' $CONFIG_PATH)
   PASSWORD=$(jq --raw-output '.mqtt_bridge.password' $CONFIG_PATH)
+  
+  echo "[Info] Setup internal mqtt bridge"
+  
+  echo {
+  
+  } >> /etc/mosquitto.conf
 fi
 
 echo "[Info] Start internal mqtt broaker"
-
+mosquitto -c /etc/mosquitto.conf &
 
 
 exec /opt/snips/snips-entrypoint.sh --mqtt localhost:1884

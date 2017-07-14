@@ -17,7 +17,7 @@ sed -i "s/%%SPEAKER%%/$SPEAKER/g" /root/.asoundrc
 sed -i "s/%%MIC%%/$MIC/g" /root/.asoundrc
 
 # mqtt bridge
-if [ "$MQTT_BRIDG" == "true" ]; then
+if [ "$MQTT_BRIDGE" == "true" ]; then
     HOST=$(jq --raw-output '.mqtt_bridge.host' $CONFIG_PATH)
     PORT=$(jq --raw-output '.mqtt_bridge.port' $CONFIG_PATH)
     USER=$(jq --raw-output '.mqtt_bridge.user' $CONFIG_PATH)

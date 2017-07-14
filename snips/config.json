@@ -18,7 +18,7 @@
       "port": 1884,
       "user": "",
       "password": "",
-    }
+    },
     "assistant": "assistant.zip"
   },
   "schema": {
@@ -28,7 +28,7 @@
       "port": "port",
       "user": "str",
       "password": "str",
-    }
+    },
     "assistant": "str"
   },
   "image": "homeassistant/{arch}-addon-snips",

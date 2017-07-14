@@ -35,5 +35,5 @@
     "speaker": "str",
     "assistant": "str"
   },
-  "image": "homeassistant/{arch}-addon-snips",
+  "image": "homeassistant/{arch}-addon-snips"
 }

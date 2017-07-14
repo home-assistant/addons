@@ -19,6 +19,8 @@
       "user": "",
       "password": "",
     },
+    "mic": "0,0",
+    "speaker": "1,0",
     "assistant": "assistant.zip"
   },
   "schema": {
@@ -29,6 +31,8 @@
       "user": "str",
       "password": "str",
     },
+    "mic": "str",
+    "speaker": "str",
     "assistant": "str"
   },
   "image": "homeassistant/{arch}-addon-snips",

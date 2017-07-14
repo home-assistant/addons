@@ -4,6 +4,7 @@
 # Copy data
 COPY run.sh /
 COPY mosquitto.conf /etc/
+COPY asoundrc /root/.asoundrc
 
 RUN chmod a+x /run.sh
 

@@ -26,7 +26,7 @@ if [ "$MQTT_BRIDG" == "true" ]; then
       } >> /etc/mosquitto.conf
     fi
     
-    echo "topic OUT #" >> /etc/mosquitto.conf
+    echo "topic # OUT" >> /etc/mosquitto.conf
 fi
 
 echo "[Info] Start internal mqtt broaker"

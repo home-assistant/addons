@@ -4,7 +4,7 @@
   "slug": "snips",
   "description": "The first on-device voice platform",
   "url": "https://home-assistant.io/addons/snips/",
-  "startup": "after",
+  "startup": "application",
   "boot": "auto",
   "arch": ["armhf", "amd64"],
   "ports": {

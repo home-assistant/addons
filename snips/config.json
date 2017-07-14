@@ -17,7 +17,7 @@
       "host": "172.17.0.1",
       "port": 1884,
       "user": "",
-      "password": "",
+      "password": ""
     },
     "mic": "0,0",
     "speaker": "1,0",
@@ -29,7 +29,7 @@
       "host": "str",
       "port": "port",
       "user": "str",
-      "password": "str",
+      "password": "str"
     },
     "mic": "str",
     "speaker": "str",

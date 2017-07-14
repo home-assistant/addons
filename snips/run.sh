@@ -25,15 +25,15 @@ if [ "$MQTT_BRIDGE" == "true" ]; then
 
     echo "[Info] Setup internal mqtt bridge"
 
-    echo {
-        "connection main-mqtt"
-        "address $HOST:$PORT"
+    {
+        echo "connection main-mqtt"
+        echo "address $HOST:$PORT"
     } >> /etc/mosquitto.conf
 
-    if [! -z "$USER"]; then
-      echo {
-          "username $USER"
-          "password $PASSWORD"
+    if [ ! -z "$USER" ]; then
+      {
+          echo "username $USER"
+          echo "password $PASSWORD"
       } >> /etc/mosquitto.conf
     fi
 
@@ -48,7 +48,7 @@ mkdir -p "$SNIPS_CONFIG"
 ln -s /opt/snips/config "$SNIPS_CONFIG"
 
 # check if a new assistant file exists
-if [ -f "$ASSISTANT" ];
+if [ -f "$ASSISTANT" ]; then
     unzip "$ASSISTANT" -u -d "$SNIPS_CONFIG"
 fi
 

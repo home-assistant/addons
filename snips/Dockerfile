@@ -3,6 +3,7 @@
 
 # Copy data
 COPY run.sh /
+COPY mosquitto.conf /etc/
 
 RUN chmod a+x /run.sh
 

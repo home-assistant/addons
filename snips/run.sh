@@ -36,8 +36,11 @@ if [ "$MQTT_BRIDGE" == "true" ]; then
           echo "password $PASSWORD"
       } >> /etc/mosquitto.conf
     fi
-
-    echo "topic # OUT" >> /etc/mosquitto.conf
+    
+    {
+        echo "topic # OUT"
+        echo "topic # IN hermes/ hermes/"
+    } >> /etc/mosquitto.conf
 fi
 
 echo "[Info] Start internal mqtt broaker"

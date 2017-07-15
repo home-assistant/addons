@@ -14,7 +14,7 @@
   "devices": ["/dev/snd:/dev/snd:rwm"],
   "options": {
     "mqtt_bridge": {
-      "active": true,
+      "active": false,
       "host": "172.17.0.1",
       "port": 1883,
       "user": "",

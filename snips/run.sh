@@ -53,4 +53,4 @@ if [ -f "/share/$ASSISTANT" ]; then
     unzip -u "/share/$ASSISTANT" -d "$SNIPS_CONFIG"
 else
 
-exec /opt/snips/snips-entrypoint.sh --mqtt localhost:1884
+/opt/snips/snips-entrypoint.sh --mqtt localhost:1884

@@ -10,6 +10,7 @@
   "ports": {
     "1884/tcp": 9898
   },
+  "map": ["share"],
   "devices": ["/dev/snd:/dev/snd:rwm"],
   "options": {
     "mqtt_bridge": {

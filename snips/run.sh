@@ -51,6 +51,6 @@ ln -s "$SNIPS_CONFIG/" "/opt/snips/config"
 if [ -f "/share/$ASSISTANT" ]; then
     echo "[Info] Install/Update snips assistant"
     unzip -u "/share/$ASSISTANT" -d "$SNIPS_CONFIG"
-else
+fi
 
 /opt/snips/snips-entrypoint.sh --mqtt localhost:1883

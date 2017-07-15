@@ -45,7 +45,7 @@ mosquitto -c /etc/mosquitto.conf &
 
 # init snips config
 mkdir -p "$SNIPS_CONFIG"
-ln -s "$SNIPS_CONFIG/" "/opt/snips/config/"
+ln -s "$SNIPS_CONFIG/" "/opt/snips/config"
 
 # check if a new assistant file exists
 if [ -f "/share/$ASSISTANT" ]; then

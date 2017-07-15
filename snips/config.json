@@ -8,7 +8,7 @@
   "boot": "auto",
   "arch": ["armhf", "amd64"],
   "ports": {
-    "1884/tcp": 9898
+    "1883/tcp": 9898
   },
   "map": ["share"],
   "devices": ["/dev/snd:/dev/snd:rwm"],
@@ -16,7 +16,7 @@
     "mqtt_bridge": {
       "active": true,
       "host": "172.17.0.1",
-      "port": 1884,
+      "port": 1883,
       "user": "",
       "password": ""
     },

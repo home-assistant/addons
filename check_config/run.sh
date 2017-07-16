@@ -37,4 +37,4 @@ then
     exit 1
 fi
 
-echo "[INFO] Done"
+echo "[INFO] Finish :)"

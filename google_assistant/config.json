@@ -1,0 +1,23 @@
+{
+  "name": "Google Assistant",
+  "version": "0.0.3",
+  "slug": "google_assistant",
+  "description": "A virtual personal assistant developed by Google",
+  "url": "https://home-assistant.io/addons/google_assistant/",
+  "startup": "application",
+  "boot": "auto",
+  "arch": ["armhf", "amd64"],
+  "map": ["share"],
+  "devices": ["/dev/snd:/dev/snd:rwm"],
+  "options": {
+    "mic": "0,0",
+    "speaker": "1,0",
+    "service_account": "service_account.json"
+  },
+  "schema": {
+    "mic": "str",
+    "speaker": "str",
+    "service_account": "str"
+  },
+  "image": "homeassistant/{arch}-addon-google_assistant"
+}

@@ -12,7 +12,7 @@
   "options": {
     "mic": "0,0",
     "speaker": "1,0",
-    "service_account": "service_account.json"
+    "service_account": "google_assistant.json"
   },
   "schema": {
     "mic": "str",

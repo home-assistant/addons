@@ -1,0 +1,20 @@
+#armhf:FROM multiarch/debian-debootstrap:armhf-stretch
+#amd64:FROM multiarch/debian-debootstrap:amd64-stretch
+
+# Install packages
+RUN apt-get update \
+    && apt-get install -y python3 python3-dev python3-pip \
+        python3-six python3-pyasn1 libportaudio2 \
+    && pip3 install google-assistant-library google-auth \
+    && apt-get remove -y --purge python3-pip python3-dev \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy data
+COPY run.sh /
+COPY hassio_gassistant.py /
+COPY asoundrc /root/.asoundrc
+
+RUN chmod a+x /run.sh
+
+ENTRYPOINT [ "/run.sh" ]

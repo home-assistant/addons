@@ -9,6 +9,7 @@ LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
+CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
 
 PLAIN_CONFIG="
 listener 1883
@@ -34,6 +35,12 @@ fi
 # Allow anonymous connections
 if [ "$ANONYMOUS" == "false" ]; then
     sed -i "s/#allow_anonymous/allow_anonymous/g" /etc/mosquitto.conf
+fi
+
+# Allow customize config files
+if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
+    CUSTOMIZE_FOLDER=$(jq --raw-output ".customize.folder" $CONFIG_PATH)
+    sed -i "s|#include_dir.*|include_dir /share/$CUSTOMIZE_FOLDER|g" /etc/mosquitto.conf
 fi
 
 # Generate user data

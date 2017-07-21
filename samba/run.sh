@@ -71,4 +71,5 @@ else
     echo -e "$PASSWORD\n$PASSWORD" | smbpasswd -a -s -c /etc/smb.conf "$USERNAME"
 fi
 
+nmbd -s /etc/smb.conf
 exec smbd -F -S -s /etc/smb.conf < /dev/null

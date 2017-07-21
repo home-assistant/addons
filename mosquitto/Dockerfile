@@ -4,7 +4,7 @@ FROM %%BASE_IMAGE%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache tzdata jq mosquitto
+RUN apk add --no-cache jq mosquitto
 
 # Copy data
 COPY run.sh /

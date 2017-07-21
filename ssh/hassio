@@ -16,7 +16,7 @@ EOF
 fi
 
 function call_api_post() {
-    if ! api_ret="$(curl -X POST $HASSIO_API/$1/$2)"; then
+    if ! api_ret=$(curl -X POST "$HASSIO_API/$1/$2"); then
         echo "API error: $api_ret"
         exit 1
     fi
@@ -24,7 +24,7 @@ function call_api_post() {
 }
 
 function call_api_get() {
-    if ! api_ret="$(curl -X POST $HASSIO_API/$1/$2)"; then
+    if ! api_ret=$(curl -X POST "$HASSIO_API/$1/$2"); then
         echo "API error: $api_ret"
         exit 1
     fi
@@ -33,17 +33,17 @@ function call_api_get() {
 
 # homeassistant functions
 if [ "$1" == "homeassistant" ]; then
-    hass_cmd=('logs', 'restart', 'update')
-    if [[ ! ${hass_cmd[*]} =~ "$2" ]]; then
+    hass_cmd=('logs' 'restart' 'update')
+    if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No homeassistant command '$2' found!"
         exit 1
     fi
     
     # logs
     if [ "$2" == "logs" ]; then
-        call_api_get $1 $2
+        call_api_get "$1" "$2"
         exit 0
     fi
     
-    call_api_post $1 $2
+    call_api_post "$1" "$2"
 fi

@@ -72,4 +72,16 @@ else
 fi
 
 nmbd -F -S -s /etc/smb.conf &
-exec smbd -F -S -s /etc/smb.conf < /dev/null
+NMBD_PID=$!
+smbd -F -S -s /etc/smb.conf &
+SMBD_PID=$!
+
+# Register stop
+function stop_samba() {
+    kill -15 "$NMBD_PID"
+    kill -15 "$SMBD_PID"
+    wait "$SMBD_PID" "$NMBD_PID"
+}
+trap "stop_samba" SIGTERM SIGHUP
+
+wait "$SMBD_PID" "$NMBD_PID"

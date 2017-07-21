@@ -10,7 +10,7 @@
     "1883/tcp": 1883,
     "8883/tcp": 8883
    },
-  "map": ["ssl"],
+  "map": ["ssl", "share"],
   "options": {
     "plain": true,
     "ssl": false,

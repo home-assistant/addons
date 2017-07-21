@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+
+HASSIO_API="http://172.17.0.2"
+
+# helppage
+if [ "$1" == "help" ] || [ "$#" -lt 2 ]; then
+    cat << EOF
+---- Hass.IO Cli ----
+
+HomeAssistant:
+  $ hassio homeassistant logs
+  $ hassio homeassistant restart
+  $ hassio homeassistant update
+EOF
+fi
+
+function call_api_post() {
+    if ! api_ret="$(curl -X POST $HASSIO_API/$1/$2)"; then
+        echo "API error: $api_ret"
+        exit 1
+    fi
+    echo "$api_ret"
+}
+
+function call_api_get() {
+    if ! api_ret="$(curl -X POST $HASSIO_API/$1/$2)"; then
+        echo "API error: $api_ret"
+        exit 1
+    fi
+    echo "$api_ret"
+}
+
+# homeassistant functions
+if [ "$1" == "homeassistant" ]; then
+    hass_cmd=('logs', 'restart', 'update')
+    if [[ ! ${hass_cmd[*]} =~ "$2" ]]; then
+        echo "No homeassistant command '$2' found!"
+        exit 1
+    fi
+    
+    # logs
+    if [ "$2" == "logs" ]; then
+        call_api_get $1 $2
+        exit 0
+    fi
+    
+    call_api_post $1 $2
+fi

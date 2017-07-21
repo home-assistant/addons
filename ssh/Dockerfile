@@ -9,7 +9,8 @@ RUN apk add --no-cache tzdata jq openssh vim curl
 # Copy data
 COPY run.sh /
 COPY motd /etc/
+COPY hassio /usr/bin/
 
-RUN chmod a+x /run.sh
+RUN chmod a+x /run.sh /usr/bin/hassio
 
 CMD [ "/run.sh" ]

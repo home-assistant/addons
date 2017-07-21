@@ -24,7 +24,7 @@ function call_api_post() {
 }
 
 function call_api_get() {
-    if ! api_ret=$(curl -X POST "$HASSIO_API/$1/$2"); then
+    if ! api_ret=$(curl "$HASSIO_API/$1/$2"); then
         echo "API error: $api_ret"
         exit 1
     fi

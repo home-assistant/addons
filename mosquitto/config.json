@@ -1,21 +1,25 @@
 {
   "name": "Mosquitto broker",
-  "version": "0.8",
+  "version": "1.0",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://home-assistant.io/addons/mosquitto/",
-  "startup": "before",
+  "startup": "system",
   "boot": "auto",
   "ports": {
     "1883/tcp": 1883,
     "8883/tcp": 8883
    },
-  "map": ["ssl"],
+  "map": ["ssl", "share"],
   "options": {
     "plain": true,
     "ssl": false,
     "anonymous": true,
     "logins": [],
+    "customize": {
+      "active": false,
+      "folder": "moquitto"
+    },
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"
   },
@@ -26,6 +30,10 @@
     "logins": [
         {"username": "str", "password": "str"}
     ],
+    "customize": {
+      "active": "bool",
+      "folder": "str"
+    },
     "certfile": "str",
     "keyfile": "str"
   },

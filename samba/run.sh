@@ -8,12 +8,12 @@ NAME=$(jq --raw-output '.name' $CONFIG_PATH)
 GUEST=$(jq --raw-output '.guest' $CONFIG_PATH)
 USERNAME=$(jq --raw-output '.username // empty' $CONFIG_PATH)
 PASSWORD=$(jq --raw-output '.password // empty' $CONFIG_PATH)
-MAP_CONFIG=$(jq --raw-output '.map_config' $CONFIG_PATH)
-MAP_ADDONS=$(jq --raw-output '.map_addons' $CONFIG_PATH)
-MAP_SSL=$(jq --raw-output '.map_ssl' $CONFIG_PATH)
-MAP_SHARE=$(jq --raw-output '.map_share' $CONFIG_PATH)
-MAP_BACKUP=$(jq --raw-output '.map_backup' $CONFIG_PATH)
-
+MAP_CONFIG=$(jq --raw-output '.map.config' $CONFIG_PATH)
+MAP_ADDONS=$(jq --raw-output '.map.addons' $CONFIG_PATH)
+MAP_SSL=$(jq --raw-output '.map.ssl' $CONFIG_PATH)
+MAP_SHARE=$(jq --raw-output '.map.share' $CONFIG_PATH)
+MAP_BACKUP=$(jq --raw-output '.map.backup' $CONFIG_PATH)
+INTERFACE=$(jq --raw-output '.interface // empty' $CONFIG_PATH)
 
 function write_config() {
     echo "
@@ -34,6 +34,7 @@ function write_config() {
 
 sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
 sed -i "s/%%NAME%%/$NAME/g" /etc/smb.conf
+sed -i "s/%%INTERFACE%%/$INTERFACE/g" /etc/smb.conf
 
 ##
 # Write shares to config
@@ -71,5 +72,17 @@ else
     echo -e "$PASSWORD\n$PASSWORD" | smbpasswd -a -s -c /etc/smb.conf "$USERNAME"
 fi
 
-nmbd -s /etc/smb.conf
-exec smbd -F -S -s /etc/smb.conf < /dev/null
+nmbd -F -S -s /etc/smb.conf &
+NMBD_PID=$!
+smbd -F -S -s /etc/smb.conf &
+SMBD_PID=$!
+
+# Register stop
+function stop_samba() {
+    kill -15 "$NMBD_PID"
+    kill -15 "$SMBD_PID"
+    wait "$SMBD_PID" "$NMBD_PID"
+}
+trap "stop_samba" SIGTERM SIGHUP
+
+wait "$SMBD_PID" "$NMBD_PID"

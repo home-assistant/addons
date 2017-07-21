@@ -4,7 +4,7 @@
   "slug": "samba",
   "description": "Expose HassIO folders with Samba",
   "url": "https://home-assistant.io/addons/samba/",
-  "startup": "before",
+  "startup": "services",
   "boot": "auto",
   "ports": {
     "445/tcp": 445,

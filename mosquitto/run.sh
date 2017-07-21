@@ -40,7 +40,7 @@ fi
 # Allow customize configs from share
 if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
     CUSTOMIZE_FOLDER=$(jq --raw-output ".customize.folder" $CONFIG_PATH)
-    sed -i "s|#include_dir .*|include_dir /share/${CUSTOMIZE_FOLDER}|g" /etc/mosquitto.conf
+    sed -i "s|#include_dir .*|include_dir /share/$CUSTOMIZE_FOLDER|g" /etc/mosquitto.conf
 fi
 
 # Generate user data

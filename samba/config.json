@@ -17,7 +17,7 @@
       "addons": true,
       "ssl": false,
       "share": true,
-      "backup": true,
+      "backup": true
     },
     "username": "",
     "password": "",
@@ -32,7 +32,7 @@
       "addons": "bool",
       "ssl": "bool",
       "share": "bool",
-      "backup": "bool",
+      "backup": "bool"
     },
     "username": "str",
     "password": "str",

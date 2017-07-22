@@ -1,10 +1,11 @@
 """Hass.IO Google Assistant."""
 import sys
+from pathlib import Path
+
+import google.oauth2.credentials
 
 from google.assistant.library import Assistant
 from google.assistant.library.event import EventType
-
-from google.oauth2 import service_account
 
 
 def process_event(event):
@@ -18,9 +19,13 @@ def process_event(event):
 
 
 if __name__ == '__main__':
-    credentials = service_account.Credentials.from_service_account_file(sys.argv[1])
-    scoped_credentials = credentials.with_scopes(['https://www.googleapis.com/auth/assistant-sdk-prototype'])
+    cred_json = Path(sys.argv[1])
 
-    with Assistant(scoped_credentials) as assistant:
+    # open credentials
+    with cred_json.open('r') as data:
+        credentials = google.oauth2.credentials.Credentials(token=None, **json.load(data))
+
+    # run assistant
+    with Assistant(credentials) as assistant:
         for event in assistant.start():
             process_event(event)

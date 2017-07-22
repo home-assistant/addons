@@ -7,7 +7,7 @@
   "startup": "application",
   "boot": "auto",
   "arch": ["armhf", "amd64"],
-  "map": ["share:rw"],
+  "map": ["share"],
   "devices": ["/dev/snd:/dev/snd:rwm"],
   "ports": {
     "9324/tcp": 9324

@@ -20,10 +20,11 @@ sed -i "s/%%MIC%%/$MIC/g" /root/.asoundrc
 if [ -f "/share/$CLIENT_SECRETS" ]; then
     echo "[Info] Install/Update service client_secrets file"
     cp -f "/share/$CLIENT_SECRETS" "$CLIENT_JSON"
-    rm -f "/share/$CLIENT_SECRETS"
 
     echo "[Info] Start WebUI for handling oauth2"
     python3 /hassio_oauth.py "$CLIENT_JSON" "$CRED_JSON"
+
+    rm -f "/share/$CLIENT_SECRETS"
 elif [ ! -f "$CRED_JSON" ]; then
     echo "[Error] You need initialize GoogleAssistant with a client secret json!"
     exit 1

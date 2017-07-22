@@ -1,6 +1,6 @@
 {
   "name": "Google Assistant",
-  "version": "0.0.3-p2",
+  "version": "0.0.3-p3",
   "slug": "google_assistant",
   "description": "A virtual personal assistant developed by Google",
   "url": "https://home-assistant.io/addons/google_assistant/",

@@ -1,4 +1,5 @@
 """Hass.IO Google Assistant."""
+import json
 import sys
 from pathlib import Path
 

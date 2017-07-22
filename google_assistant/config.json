@@ -1,6 +1,6 @@
 {
   "name": "Google Assistant",
-  "version": "0.0.3-p1",
+  "version": "0.0.3-p2",
   "slug": "google_assistant",
   "description": "A virtual personal assistant developed by Google",
   "url": "https://home-assistant.io/addons/google_assistant/",
@@ -9,15 +9,19 @@
   "arch": ["armhf", "amd64"],
   "map": ["share"],
   "devices": ["/dev/snd:/dev/snd:rwm"],
+  "ports": {
+    "9324/tcp": 9324
+  },
+  "webui": "http://[HOST]:[PORT:9324]",
   "options": {
     "mic": "0,0",
     "speaker": "1,0",
-    "service_account": "google_assistant.json"
+    "oauth_client": "google_assistant.json"
   },
   "schema": {
     "mic": "str",
     "speaker": "str",
-    "service_account": "str"
+    "oauth_client": "str"
   },
   "image": "homeassistant/{arch}-addon-google_assistant"
 }

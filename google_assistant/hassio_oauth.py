@@ -75,5 +75,5 @@ if __name__ == '__main__':
     with oauth_json.open('r') as data:
         user_data = json.load(data)['installed']
 
-    cherrypy.config.update({'server.socket_port': 9324})
+    cherrypy.config.update({'server.socket_port': 9324, 'server.socket_host': '0.0.0.0'})
     cherrypy.quickstart(oauth2Site(user_data, cred_json))

@@ -2,9 +2,10 @@
 set -e
 
 CONFIG_PATH=/data/options.json
-OAUTH_JSON=/data/auth.json
+CLIENT_JSON=/data/client.json
+CRED_JSON=/data/cred.json
 
-SERVICE_ACCOUNT=$(jq --raw-output '.service_account' $CONFIG_PATH)
+CLIENT_SECRETS=$(jq --raw-output '.client_secret' $CONFIG_PATH)
 SPEAKER=$(jq --raw-output '.speaker' $CONFIG_PATH)
 MIC=$(jq --raw-output '.mic' $CONFIG_PATH)
 
@@ -16,9 +17,16 @@ sed -i "s/%%SPEAKER%%/$SPEAKER/g" /root/.asoundrc
 sed -i "s/%%MIC%%/$MIC/g" /root/.asoundrc
 
 # check if a new assistant file exists
-if [ -f "/share/$SERVICE_ACCOUNT" ]; then
-    echo "[Info] Install/Update service account key file"
-    cp -f "/share/$SERVICE_ACCOUNT" "$OAUTH_JSON"
+if [ -f "/share/$CLIENT_SECRETS" ]; then
+    echo "[Info] Install/Update service client_secrets file"
+    cp -f "/share/$SERVICE_ACCOUNT" "$CLIENT_JSON"
+    rm -f "/share/$CLIENT_SECRETS"
+
+    echo "[Info] Start WebUI for handling oauth2"
+    python3 /hassio_oauth.py "$CLIENT_JSON" "$CRED_JSON"
+elif [ ! -f "$CRED_JSON" ]; then
+    echo "[Error] You need initialize GoogleAssistant with a client secret json!"
+    exit 1
 fi
 
-exec python3 /hassio_gassistant.py "$OAUTH_JSON" < /dev/null
+exec python3 /hassio_gassistant.py "$CRED_JSON" < /dev/null

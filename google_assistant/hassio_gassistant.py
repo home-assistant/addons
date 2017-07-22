@@ -19,7 +19,7 @@ def process_event(event):
 
 
 if __name__ == '__main__':
-    cred_json = Path('data', sys.argv[1])
+    cred_json = Path(sys.argv[1])
 
     # open credentials
     with cred_json.open('r') as data:

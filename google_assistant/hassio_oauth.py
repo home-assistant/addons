@@ -69,8 +69,8 @@ class oauth2Site(object):
 
 
 if __name__ == '__main__':
-    oauth_json = Path('data', sys.argv[1])
-    cred_json = Path('data', sys.argv[2])
+    oauth_json = Path(sys.argv[1])
+    cred_json = Path(sys.argv[2])
 
     with oauth_json.open('r') as data:
         user_data = json.load(data)['installed']

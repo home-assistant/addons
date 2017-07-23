@@ -4,7 +4,7 @@
   "slug": "duckdns",
   "description": "Free dynamic DNS hosted on Amazon VPC",
   "url": "https://home-assistant.io/addons/duckdns/",
-  "startup": "before",
+  "startup": "services",
   "boot": "auto",
   "options": {
     "token": null,

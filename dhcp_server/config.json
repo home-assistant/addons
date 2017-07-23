@@ -4,7 +4,7 @@
   "slug": "dhcp_server",
   "description": "A simple dhcp server",
   "url": "https://home-assistant.io/addons/dhcp_server/",
-  "startup": "before",
+  "startup": "system",
   "boot": "auto",
   "host_network": true,
   "options": {

@@ -4,7 +4,7 @@
   "slug": "nginx_proxy",
   "description": "Use nginx as SSL proxy to HomeAssistant instance",
   "url": "https://home-assistant.io/addons/nginx_proxy/",
-  "startup": "after",
+  "startup": "application",
   "boot": "auto",
   "ports": {
     "80/tcp": 80,

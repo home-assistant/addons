@@ -4,7 +4,7 @@
   "slug": "dnsmasq",
   "description": "A simple dns server with benefits",
   "url": "https://home-assistant.io/addons/dnsmasq/",
-  "startup": "before",
+  "startup": "system",
   "boot": "auto",
   "host_network": true,
   "options": {

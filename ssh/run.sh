@@ -11,14 +11,13 @@ PASSWORD=$(jq --raw-output ".password" $CONFIG_PATH)
 sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
 sed -i s/#LogLevel.*/LogLevel\ DEBUG/ /etc/ssh/sshd_config
 
-# Generate authorized_keys file
-mkdir -p ~/.ssh
-while read -r line; do
-    echo "$line" >> ~/.ssh/authorized_keys
-done <<< "$AUTHORIZED_KEYS"
-
-if [ -f ~/.ssh/authorized_keys ]; then
+if [ ! -z "$AUTHORIZED_KEYS" ]; then
     echo "[INFO] Setup authorized_keys"
+
+    mkdir -p ~/.ssh
+    while read -r line; do
+        echo "$line" >> ~/.ssh/authorized_keys
+    done <<< "$AUTHORIZED_KEYS"
 
     chmod 600 ~/.ssh/authorized_keys
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config

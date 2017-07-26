@@ -12,25 +12,23 @@ HomeAssistant:
   $ hassio homeassistant logs
   $ hassio homeassistant restart
   $ hassio homeassistant update
+
+Host:
+  $ hassio host restart
+  $ hassio host shutdown
+  $ hassio host update
 EOF
 fi
 
-function call_api_post() {
-    if ! api_ret="$(curl -X POST "$HASSIO_API/$1/$2")"; then
+function call_api() {
+    if ! api_ret="$(curl -s -X $1 "$HASSIO_API/$2/$3")"; then
         echo "API error: $api_ret"
         exit 1
     fi
     echo "$api_ret"
 }
 
-function call_api_get() {
-    if ! api_ret="$(curl "$HASSIO_API/$1/$2")"; then
-        echo "API error: $api_ret"
-        exit 1
-    fi
-    echo "$api_ret"
-}
-
+######
 # homeassistant functions
 if [ "$1" == "homeassistant" ]; then
     hass_cmd=('logs' 'restart' 'update')
@@ -38,12 +36,23 @@ if [ "$1" == "homeassistant" ]; then
         echo "No homeassistant command '$2' found!"
         exit 1
     fi
-    
+
     # logs
     if [ "$2" == "logs" ]; then
-        call_api_get "$1" "$2"
-        exit 0
+        call_api GET "$1" "$2"
+    else
+        call_api POST "$1" "$2"
     fi
-    
-    call_api_post "$1" "$2"
+fi
+
+######
+# host functions
+if [ "$1" == "host" ]; then
+    hass_cmd=('restart' 'shutdown' 'update')
+    if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
+        echo "No host command '$2' found!"
+        exit 1
+    fi
+
+    call_api POST "$1" "$2"
 fi

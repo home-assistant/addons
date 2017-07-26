@@ -1,6 +1,6 @@
 {
   "name": "SSH server",
-  "version": "1.0",
+  "version": "2.0",
   "slug": "ssh",
   "description": "Connect to your server over SSH",
   "url": "https://home-assistant.io/addons/ssh/",
@@ -11,10 +11,12 @@
    },
   "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {
-    "authorized_keys": [null]
+    "authorized_keys": [],
+    "password": ""
   },
   "schema": {
-    "authorized_keys": ["str"]
+    "authorized_keys": ["str"],
+    "password": "str"
   },
   "image": "homeassistant/{arch}-addon-ssh"
 }

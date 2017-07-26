@@ -22,15 +22,15 @@ if [ -f ~/.ssh/authorized_keys ]; then
 
     chmod 600 ~/.ssh/authorized_keys
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
-fi
-
-# set password
-if [ ! -z "$PASSWORD" ]; then
+elif [ ! -z "$PASSWORD" ]; then
     echo "[INFO] Setup password login"
 
     echo "root:$PASSWORD" | chpasswd 2&> /dev/null
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ yes/ /etc/ssh/sshd_config
     sed -i s/#PermitEmptyPasswords.*/PermitEmptyPasswords\ no/ /etc/ssh/sshd_config
+else
+    echo "[Error] You need setup a login!"
+    exit 1
 fi
 
 # Generate host keys

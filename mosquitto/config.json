@@ -18,7 +18,7 @@
     "logins": [],
     "customize": {
       "active": false,
-      "folder": "moquitto"
+      "folder": "mosquitto"
     },
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"

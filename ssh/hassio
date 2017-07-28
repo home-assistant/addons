@@ -14,7 +14,7 @@ HomeAssistant:
   $ hassio homeassistant update
 
 Host:
-  $ hassio host restart
+  $ hassio host reboot
   $ hassio host shutdown
   $ hassio host update
 EOF
@@ -48,7 +48,7 @@ fi
 ######
 # host functions
 if [ "$1" == "host" ]; then
-    hass_cmd=('restart' 'shutdown' 'update')
+    hass_cmd=('reboot' 'shutdown' 'update')
     if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No host command '$2' found!"
         exit 1

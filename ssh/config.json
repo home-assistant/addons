@@ -1,6 +1,6 @@
 {
   "name": "SSH server",
-  "version": "2.1",
+  "version": "2.2",
   "slug": "ssh",
   "description": "Connect to your server over SSH",
   "url": "https://home-assistant.io/addons/ssh/",

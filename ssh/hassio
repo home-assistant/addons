@@ -14,6 +14,7 @@ HomeAssistant:
   $ hassio homeassistant update
 
 Host:
+  $ hassio host hardware
   $ hassio host reboot
   $ hassio host shutdown
   $ hassio host update
@@ -25,7 +26,12 @@ function call_api() {
         echo "API error: $api_ret"
         exit 1
     fi
-    echo "$api_ret"
+
+    if [ "$3" == "logs" ]; then
+        echo "$api_ret"
+    else
+        echo "$api_ret" | jq .
+    fi
 }
 
 ######
@@ -37,7 +43,6 @@ if [ "$1" == "homeassistant" ]; then
         exit 1
     fi
 
-    # logs
     if [ "$2" == "logs" ]; then
         call_api GET "$1" "$2"
     else
@@ -48,11 +53,15 @@ fi
 ######
 # host functions
 if [ "$1" == "host" ]; then
-    hass_cmd=('reboot' 'shutdown' 'update')
+    hass_cmd=('reboot' 'shutdown' 'update' 'hardware')
     if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No host command '$2' found!"
         exit 1
     fi
 
-    call_api POST "$1" "$2"
+    if [ "$2" == "hardware" ]; then
+        call_api GET "$1" "$2"
+    else
+        call_api POST "$1" "$2"
+    fi
 fi

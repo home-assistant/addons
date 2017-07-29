@@ -15,9 +15,9 @@ mkdir -p "$CERT_DIR"
 
 # Select challenge
 if [ "$CHALLENGE" == "http" ]; then
-    CERTBOT_CHALLENGE="http-01"
+    CERTBOT_CHALLENGE="http"
 else
-    CERTBOT_CHALLENGE="tls-sni-01"
+    CERTBOT_CHALLENGE="tls-sni"
 fi
 
 # Generate new certs

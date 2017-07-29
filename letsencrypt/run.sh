@@ -5,7 +5,7 @@ CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
 CONFIG_PATH=/data/options.json
 
-CHALLENGE=$(jq --raw-output ".email" $CONFIG_PATH)
+CHALLENGE=$(jq --raw-output ".challenge" $CONFIG_PATH)
 EMAIL=$(jq --raw-output ".email" $CONFIG_PATH)
 DOMAINS=$(jq --raw-output ".domains[]" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)

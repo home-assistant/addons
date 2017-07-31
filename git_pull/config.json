@@ -1,0 +1,26 @@
+{
+  "name": "GIT pull",
+  "version": "0.1",
+  "slug": "git_pull",
+  "description": "Simple git pull to update local config.",
+  "url": "https://home-assistant.io/addons/git_pull/",
+  "startup": "services",
+  "boot": "manual",
+  "options": {
+    "repositorie": null,
+    "auto_restart": false,
+    "repeat": {
+        "active": false,
+        "interval": 300
+    }
+  },
+  "schema": {
+    "repositorie": "url",
+    "auto_restart": "bool",
+    "repeat": {
+        "active": "bool",
+        "interval": "int"
+    }
+  },
+  "image": "homeassistant/{arch}-addon-git_pull"
+}

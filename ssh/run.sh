@@ -44,5 +44,10 @@ else
     cp -fp "$KEYS_PATH"/* /etc/ssh/
 fi
 
+# Persist shell history by redirecting .ash_history to /data
+touch /data/.ash_history
+chmod 600 /data/.ash_history
+ln -s -f /data/.ash_history /root/.ash_history
+
 # start server
 exec /usr/sbin/sshd -D -e < /dev/null

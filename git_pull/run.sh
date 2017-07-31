@@ -9,7 +9,7 @@ REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 
 # init config repositorie
-if [ ! -d /config/.git ];
+if [ ! -d /config/.git ]; then
     echo "[Info] cleanup config folder and clone from repositorie"
     rm -rf /config/*
 
@@ -26,10 +26,10 @@ while true; do
     echo "[Info] pull from $REPOSITORIE"
     git pull 2&> /dev/null || true
 
-    if [ "$AUTO_RESTART" == "true" ];
+    if [ "$AUTO_RESTART" == "true" ]; then
         changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
-        if [! -z "$changed_files" ];
+        if [ ! -z "$changed_files" ]; then
             echo "[Info] files changed, restart Home-Assistant"
             curl -s http://172.17.0.2/homeassistant/restart 2&> /dev/null || true
         fi

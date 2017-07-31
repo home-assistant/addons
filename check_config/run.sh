@@ -12,7 +12,7 @@ else
     CMD="homeassistant==$VERSION"
 fi
 
-echo "[INFO] Start install HomeAssistant $VERSION"
+echo "[Info] Start install HomeAssistant $VERSION"
 
 if ! PIP_OUTPUT="$(pip3 install "$CMD")"
 then

@@ -16,25 +16,25 @@ echo "[INFO] Start install HomeAssistant $VERSION"
 
 if ! PIP_OUTPUT="$(pip3 install "$CMD")"
 then
-    echo "[ERROR] Install HomeAssistant: $PIP_OUTPUT"
+    echo "[Error] Install HomeAssistant: $PIP_OUTPUT"
     exit 1
 fi
 
-echo "[INFO] Install done, check config now"
+echo "[Info] Install done, check config now"
 
 cp -r /config /tmp/config > /dev/null
 if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"
 then
-    echo "[ERROR] Wrong config found!"
+    echo "[Error] Wrong config found!"
     echo "$HASS_OUTPUT"
     exit 1
 fi
 
-if echo "$HASS_OUTPUT" | grep ERROR > /dev/null
+if echo "$HASS_OUTPUT" | grep -i ERROR > /dev/null
 then
-    echo "[ERROR] Wrong yaml found!"
+    echo "[Error] Found error inside log output!"
     echo "$HASS_OUTPUT"
     exit 1
 fi
 
-echo "[INFO] Finish :)"
+echo "[Info] Finish :)"

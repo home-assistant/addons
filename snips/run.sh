@@ -53,7 +53,7 @@ ln -s "$SNIPS_CONFIG/" "/opt/snips/config"
 # check if a new assistant file exists
 if [ -f "/share/$ASSISTANT" ]; then
     echo "[Info] Install/Update snips assistant"
-    unzip -u "/share/$ASSISTANT" -d "$SNIPS_CONFIG"
+    unzip -o -u "/share/$ASSISTANT" -d "$SNIPS_CONFIG"
 fi
 
 /opt/snips/snips-entrypoint.sh --mqtt localhost:1883

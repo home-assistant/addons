@@ -4,7 +4,7 @@ FROM %%BASE_IMAGE%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq openssh vim curl nano git
+RUN apk add --no-cache jq openssh vim curl nano git mosquitto-clients
 
 # Copy data
 COPY run.sh /

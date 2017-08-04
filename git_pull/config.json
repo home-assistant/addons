@@ -1,6 +1,6 @@
 {
   "name": "GIT pull",
-  "version": "0.1",
+  "version": "0.2",
   "slug": "git_pull",
   "description": "Simple git pull to update local config.",
   "url": "https://home-assistant.io/addons/git_pull/",

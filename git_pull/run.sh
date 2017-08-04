@@ -11,7 +11,7 @@ REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 # init config repositorie
 if [ ! -d /config/.git ]; then
     echo "[Info] cleanup config folder and clone from repositorie"
-    rm -rf /config/*
+    rm -rf /config/.[!.]* /config/* 2&> /dev/null
 
     if ! git clone "$REPOSITORIE" /config 2&> /dev/null; then
         echo "[Error] can't clone $REPOSITORIE into /config"

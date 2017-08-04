@@ -2,7 +2,7 @@
   "name": "Snips.AI",
   "version": "0.4.3-p2",
   "slug": "snips",
-  "description": "The first on-device voice platform",
+  "description": "Local voice control platform",
   "url": "https://home-assistant.io/addons/snips/",
   "startup": "application",
   "boot": "auto",

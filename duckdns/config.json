@@ -2,7 +2,7 @@
   "name": "Duck DNS",
   "version": "0.6",
   "slug": "duckdns",
-  "description": "Free dynamic DNS hosted on Amazon VPC",
+  "description": "Free Dynamic DNS (DynDNS or DDNS) service",
   "url": "https://home-assistant.io/addons/duckdns/",
   "startup": "services",
   "boot": "auto",

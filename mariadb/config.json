@@ -2,7 +2,7 @@
   "name": "MariaDB",
   "version": "0.1",
   "slug": "mariadb",
-  "description": "MariaDB Server is one of the most popular database servers in the world.",
+  "description": "An SQL database server",
   "url": "https://home-assistant.io/addons/mariadb/",
   "startup": "system",
   "boot": "auto",

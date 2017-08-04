@@ -2,7 +2,7 @@
   "name": "Dnsmasq",
   "version": "0.5",
   "slug": "dnsmasq",
-  "description": "A simple dns server with benefits",
+  "description": "A simple DNS server",
   "url": "https://home-assistant.io/addons/dnsmasq/",
   "startup": "system",
   "boot": "auto",

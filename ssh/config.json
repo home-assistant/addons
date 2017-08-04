@@ -2,7 +2,7 @@
   "name": "SSH server",
   "version": "2.4",
   "slug": "ssh",
-  "description": "Connect to your server over SSH",
+  "description": "Allows connections over SSH",
   "url": "https://home-assistant.io/addons/ssh/",
   "startup": "services",
   "boot": "auto",

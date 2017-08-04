@@ -1,8 +1,8 @@
 {
-  "name": "Nginx HomeAssistant SSL proxy",
+  "name": "NGINX Home Assistant SSL proxy",
   "version": "0.5",
   "slug": "nginx_proxy",
-  "description": "Use nginx as SSL proxy to HomeAssistant instance",
+  "description": "An SSL/TLS proxy",
   "url": "https://home-assistant.io/addons/nginx_proxy/",
   "startup": "application",
   "boot": "auto",

@@ -2,7 +2,7 @@
   "name": "DHCP server",
   "version": "0.4",
   "slug": "dhcp_server",
-  "description": "A simple dhcp server",
+  "description": "A simple DHCP server",
   "url": "https://home-assistant.io/addons/dhcp_server/",
   "startup": "system",
   "boot": "auto",

@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-HASSIO_API="http://172.17.0.2"
-
 # helppage
 if [ "$1" == "help" ] || [ "$#" -lt 2 ]; then
     cat << EOF
@@ -22,7 +20,7 @@ EOF
 fi
 
 function call_api() {
-    if ! api_ret="$(curl -s -X $1 "$HASSIO_API/$2/$3")"; then
+    if ! api_ret="$(curl -s -X $1 "http://hassio/$2/$3")"; then
         echo "API error: $api_ret"
         exit 1
     fi

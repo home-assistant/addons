@@ -6,6 +6,7 @@
   "url": "https://home-assistant.io/addons/ssh/",
   "startup": "services",
   "boot": "auto",
+  "hassio_api": true,
   "ports": {
     "22/tcp": 22
    },

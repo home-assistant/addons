@@ -31,7 +31,7 @@ while true; do
 
         if [ ! -z "$changed_files" ]; then
             echo "[Info] files changed, restart Home-Assistant"
-            curl -s http://172.17.0.2/homeassistant/restart 2&> /dev/null || true
+            curl -s http://hassio/homeassistant/restart 2&> /dev/null || true
         fi
     fi
 

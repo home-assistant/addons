@@ -4,7 +4,7 @@ FROM %%BASE_IMAGE%%
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache tzdata jq nginx libressl
+RUN apk add --no-cache tzdata jq nginx libressl apache2-utils
 
 # Copy data
 COPY run.sh /

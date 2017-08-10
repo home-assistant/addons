@@ -14,12 +14,19 @@
   "options": {
     "domain": null,
     "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem"
+    "keyfile": "privkey.pem",
+    "basic_auth_users": []
   },
   "schema": {
     "domain": "str",
     "certfile": "str",
-    "keyfile": "str"
+    "keyfile": "str",
+    "basic_auth_users": [
+      {
+        "username": "str",
+        "password": "str"
+      }
+    ]
   },
   "image": "homeassistant/{arch}-addon-nginx_proxy"
 }

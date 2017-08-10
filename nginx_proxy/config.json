@@ -1,6 +1,6 @@
 {
   "name": "NGINX Home Assistant SSL proxy",
-  "version": "0.5",
+  "version": "0.6",
   "slug": "nginx_proxy",
   "description": "An SSL/TLS proxy",
   "url": "https://home-assistant.io/addons/nginx_proxy/",
@@ -9,7 +9,7 @@
   "ports": {
     "80/tcp": 80,
     "443/tcp": 443
-   },
+  },
   "map": ["ssl"],
   "options": {
     "domain": null,

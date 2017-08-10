@@ -72,7 +72,7 @@ fi
 ######
 # supervisor functions
 if [ "$1" == "supervisor" ]; then
-    hass_cmd=('logs' 'reload' 'update')
+    hass_cmd=('logs' 'reload' 'update' 'info')
     if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No supervisor command '$2' found!"
         exit 1

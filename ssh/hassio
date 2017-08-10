@@ -16,16 +16,29 @@ Host:
   $ hassio host reboot
   $ hassio host shutdown
   $ hassio host update
+
+Supervisor
+  $ hassio supervisor logs
+  $ hassio supervisor info
+  $ hassio supervisor reload
+  $ hassio supervisor update
 EOF
 fi
 
 function call_api() {
-    if ! api_ret="$(curl -s -X $1 "http://hassio/$2/$3")"; then
+    get_cmd=('info' 'logs' 'hardware')
+
+    command='POST'
+    if [[ ${get_cmd[*]} =~ $2 ]]; then
+        command='GET'
+    fi
+
+    if ! api_ret="$(curl -s -X $command "http://hassio/$1/$2")"; then
         echo "API error: $api_ret"
         exit 1
     fi
 
-    if [ "$3" == "logs" ]; then
+    if [ "$2" == "logs" ]; then
         echo "$api_ret"
     else
         echo "$api_ret" | jq .
@@ -41,11 +54,7 @@ if [ "$1" == "homeassistant" ]; then
         exit 1
     fi
 
-    if [ "$2" == "logs" ]; then
-        call_api GET "$1" "$2"
-    else
-        call_api POST "$1" "$2"
-    fi
+    call_api "$1" "$2"
 fi
 
 ######
@@ -57,9 +66,17 @@ if [ "$1" == "host" ]; then
         exit 1
     fi
 
-    if [ "$2" == "hardware" ]; then
-        call_api GET "$1" "$2"
-    else
-        call_api POST "$1" "$2"
+    call_api "$1" "$2"
+fi
+
+######
+# supervisor functions
+if [ "$1" == "supervisor" ]; then
+    hass_cmd=('logs' 'reload' 'update' 'info')
+    if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
+        echo "No supervisor command '$2' found!"
+        exit 1
     fi
+
+    call_api "$1" "$2"
 fi

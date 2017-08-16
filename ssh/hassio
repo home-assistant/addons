@@ -10,6 +10,7 @@ HomeAssistant:
   $ hassio homeassistant logs
   $ hassio homeassistant restart
   $ hassio homeassistant update
+  $ hassio homeassistant check
 
 Host:
   $ hassio host hardware
@@ -48,7 +49,7 @@ function call_api() {
 ######
 # homeassistant functions
 if [ "$1" == "homeassistant" ]; then
-    hass_cmd=('logs' 'restart' 'update')
+    hass_cmd=('logs' 'restart' 'update' 'check')
     if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No homeassistant command '$2' found!"
         exit 1

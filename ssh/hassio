@@ -36,14 +36,32 @@ function call_api() {
 
     if ! api_ret="$(curl -s -X $command "http://hassio/$1/$2")"; then
         echo "API error: $api_ret"
-        exit 1
+        return 1
     fi
 
     if [ "$2" == "logs" ]; then
         echo "$api_ret"
+        return 0
     else
-        echo "$api_ret" | jq .
+    
+    result="$(echo "$api_ret" | jq --raw-output ".result")"
+
+    # On error
+    if [ "$result" == "error" ]; then
+        message="$(echo "$api_ret" | jq --raw-output ".message // empty")"
+        echo "Error on $1/$2:\n$message"
+        return 0
     fi
+
+    # On success
+    data="$(echo "$api_ret" | jq ".data // empty")"
+    if [ ! -z "$data" ]; then
+        echo "$data"
+    else
+        echo "Success $1/$2"
+    fi
+
+    return 0
 }
 
 ######

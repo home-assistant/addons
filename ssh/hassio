@@ -42,21 +42,21 @@ function call_api() {
     if [ "$2" == "logs" ]; then
         echo "$api_ret"
         return 0
-    else
+    fi
     
     result="$(echo "$api_ret" | jq --raw-output ".result")"
 
     # On error
     if [ "$result" == "error" ]; then
         message="$(echo "$api_ret" | jq --raw-output ".message // empty")"
-        echo "Error on $1/$2:\n$message"
+        echo "Error on $1/$2:" "$message"
         return 0
     fi
 
     # On success
-    data="$(echo "$api_ret" | jq ".data // empty")"
+    data="$(echo "$api_ret" | jq 'if .data == {} then empty else .data end')"
     if [ ! -z "$data" ]; then
-        echo "$data"
+        echo "$data" | jq .
     else
         echo "Success $1/$2"
     fi

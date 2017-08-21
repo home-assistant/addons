@@ -3,7 +3,7 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
-REPOSITORY=$(jq --raw-output '.repositorie' $CONFIG_PATH)
+REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)

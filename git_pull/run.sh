@@ -3,7 +3,7 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
-REPOSITORIE=$(jq --raw-output '.repositorie' $CONFIG_PATH)
+REPOSITORY=$(jq --raw-output '.repositorie' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
@@ -13,8 +13,8 @@ if [ ! -d /config/.git ]; then
     echo "[Info] cleanup config folder and clone from repositorie"
     rm -rf /config/.[!.]* /config/* 2&> /dev/null
 
-    if ! git clone "$REPOSITORIE" /config 2&> /dev/null; then
-        echo "[Error] can't clone $REPOSITORIE into /config"
+    if ! git clone "$REPOSITORY" /config 2&> /dev/null; then
+        echo "[Error] can't clone $REPOSITORY into /config"
         exit 1
     fi
 fi
@@ -23,7 +23,7 @@ fi
 cd /config
 while true; do
 
-    echo "[Info] pull from $REPOSITORIE"
+    echo "[Info] pull from $REPOSITORY"
     git pull 2&> /dev/null || true
 
     if [ "$AUTO_RESTART" == "true" ]; then

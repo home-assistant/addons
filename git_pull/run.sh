@@ -26,12 +26,22 @@ while true; do
     echo "[Info] pull from $REPOSITORY"
     git pull 2&> /dev/null || true
 
+    # Enable autorestart of homeassistant
     if [ "$AUTO_RESTART" == "true" ]; then
         changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
+        # Files have changed & check config
         if [ ! -z "$changed_files" ]; then
-            echo "[Info] files changed, restart Home-Assistant"
-            curl -s http://hassio/homeassistant/restart 2&> /dev/null || true
+            echo "[Info] check Home-Assistant config"
+            if api_ret="$(curl -s -X POST http://hassio/homeassistant/check)"; then
+                result="$(echo "$api_ret" | jq --raw-output ".result")"
+
+                # Config is valid
+                if [ "$result" != "error" ]; then
+                    echo "[Info] restart Home-Assistant"
+                    curl -s -X POST http://hassio/homeassistant/restart 2&> /dev/null || true
+                fi
+            fi
         fi
     fi
 

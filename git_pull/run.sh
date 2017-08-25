@@ -40,6 +40,8 @@ while true; do
                 if [ "$result" != "error" ]; then
                     echo "[Info] restart Home-Assistant"
                     curl -s -X POST http://hassio/homeassistant/restart 2&> /dev/null || true
+                else
+                    echo "[Error] invalid config!"
                 fi
             fi
         fi

@@ -1,14 +1,15 @@
 {
   "name": "Git pull",
-  "version": "0.3",
+  "version": "1.0",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://home-assistant.io/addons/git_pull/",
   "startup": "services",
   "boot": "manual",
   "hassio_api": true,
+  "map": ["config:rw"],
   "options": {
-    "repositorie": null,
+    "repository": null,
     "auto_restart": false,
     "repeat": {
         "active": false,
@@ -16,7 +17,7 @@
     }
   },
   "schema": {
-    "repositorie": "url",
+    "repository": "url",
     "auto_restart": "bool",
     "repeat": {
         "active": "bool",

@@ -1,5 +1,5 @@
-#armhf:FROM snipsdocker/platform:arm-0.4.3
-#amd64:FROM snipsdocker/platform:x86-0.4.3
+#armhf:FROM snipsdocker/platform:arm-0.4.9
+#amd64:FROM snipsdocker/platform:x86-0.4.9
 
 # Copy data
 COPY run.sh /

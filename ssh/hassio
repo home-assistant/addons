@@ -9,6 +9,8 @@ if [ "$1" == "help" ] || [ "$#" -lt 2 ]; then
 HomeAssistant:
   $ hassio homeassistant logs
   $ hassio homeassistant restart
+  $ hassio homeassistant stop
+  $ hassio homeassistant start
   $ hassio homeassistant update
   $ hassio homeassistant check
 
@@ -67,7 +69,7 @@ function call_api() {
 ######
 # homeassistant functions
 if [ "$1" == "homeassistant" ]; then
-    hass_cmd=('logs' 'restart' 'update' 'check')
+    hass_cmd=('logs' 'restart' 'update' 'check' 'start' 'stop')
     if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No homeassistant command '$2' found!"
         exit 1

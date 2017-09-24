@@ -1,3 +1,5 @@
+ARG BUILD_FROM
+FROM $BUILD_FROM
 #armhf:FROM snipsdocker/platform:arm-0.4.9
 #amd64:FROM snipsdocker/platform:x86-0.4.9
 

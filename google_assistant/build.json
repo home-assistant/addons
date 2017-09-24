@@ -1,0 +1,6 @@
+{
+  "build_from": {
+    "armhf": "FROM multiarch/debian-debootstrap:armhf-stretch",
+    "amd64": "FROM multiarch/debian-debootstrap:amd64-stretch"  
+  }
+}

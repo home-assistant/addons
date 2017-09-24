@@ -1,5 +1,5 @@
-#armhf:FROM multiarch/debian-debootstrap:armhf-stretch
-#amd64:FROM multiarch/debian-debootstrap:amd64-stretch
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
 # Install packages
 RUN apt-get update \

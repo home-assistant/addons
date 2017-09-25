@@ -1,0 +1,37 @@
+{
+    "name": "HASS Configurator",
+    "version": "0.1.2",
+    "slug": "hass-configurator",
+    "description": "HASS Configurator - Browser-based configuration file editor for Home Assistant.",
+    "url": "https://github.com/danielperna84/hassio-addons/tree/master/hass-configurator",
+    "startup": "application",
+    "webui": "http://[HOST]:[PORT:3218]",
+    "boot": "auto",
+    "ports": {
+      "3218/tcp": 3218
+    },
+    "map": ["config:rw", "ssl"],
+    "options": {
+      "BASEPATH": "/config",
+      "HASS_API": "http://172.17.0.1:8123/api/",
+      "HASS_API_PASSWORD": "",
+      "CREDENTIALS": "admin:secret",
+      "SSL_CERTIFICATE": "",
+      "SSL_KEY": "",
+      "ALLOWED_NETWORKS": ["172.17.0.0/16", "192.168.0.0/24", "192.168.1.0/24"],
+      "BANNED_IPS": ["8.8.8.8"],
+      "IGNORE_PATTERN": ["__pycache__"]
+    },
+    "schema": {
+      "BASEPATH": "str",
+      "HASS_API": "url",
+      "HASS_API_PASSWORD": "str",
+      "CREDENTIALS": "str",
+      "SSL_CERTIFICATE": "str",
+      "SSL_KEY": "str",
+      "ALLOWED_NETWORKS": ["str"],
+      "BANNED_IPS": ["str"],
+      "IGNORE_PATTERN": ["str"]
+    }
+  }
+  

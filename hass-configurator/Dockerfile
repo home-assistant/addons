@@ -1,14 +1,15 @@
-FROM %%BASE_IMAGE%%
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
 # Add env
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache python3 tzdata git \
+RUN apk add --no-cache python3 git \
 && pip3 install GitPython
 
 # Copy data
 COPY configurator.py run.sh /
-RUN chmod a+x /configurator.py /run.sh
+RUN chmod a+x /configurator.py
 
-CMD ["/run.sh"]
+CMD ["python3", "/configurator.py", "/data/options.json"]

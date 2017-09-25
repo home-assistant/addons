@@ -13,7 +13,7 @@
     "map": ["config:rw", "ssl"],
     "options": {
       "BASEPATH": "/config",
-      "HASS_API": "http://172.17.0.1:8123/api/",
+      "HASS_API": "http://homeassistant:8123/api/",
       "HASS_API_PASSWORD": "",
       "CREDENTIALS": "admin:secret",
       "SSL_CERTIFICATE": "",

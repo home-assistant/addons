@@ -7,8 +7,6 @@ CONFIG_PATH=/data/options.json
 
 # Let's encrypt
 LE_TERMS=$(jq --raw-output '.lets_encrypt.accept_terms' $CONFIG_PATH)
-LE_CERTFILE=$(jq --raw-output '.lets_encrypt.certfile' $CONFIG_PATH)
-LE_KEYFILE=$(jq --raw-output '.lets_encrypt.keyfile' $CONFIG_PATH)
 LE_DOMAINS=$(jq --raw-output '.domains[]' $CONFIG_PATH)
 
 # DuckDNS

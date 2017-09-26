@@ -16,12 +16,13 @@ WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
 
 # Register/generate certificate if terms accepted
 if [ "$LE_TERMS" == "true" ]; then
-  # Only use first domain for Let's Encrypt
+  # Prepare domain for Let's Encrypt
   DOMAIN_ARGS=()
   for domain in $LE_DOMAINS; do
     DOMAIN_ARGS+=("--domain" "$domain")
   done
 
+  # Init folder structs
   mkdir -p "$CERT_DIR"
   mkdir -p "$WORK_DIR"
 

@@ -14,7 +14,8 @@
   "options": {
     "homeassistant_api": "http://homeassistant:8123/api",
     "homeassistant_password": "",
-    "credentials": "admin:secret",
+    "username": "admin",
+    "password": null,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "ssl": false,
@@ -25,7 +26,8 @@
   "schema": {
     "homeassistant_api": "url",
     "homeassistant_password": "str",
-    "credentials": "match(.*:.*)",
+    "username": "str",
+    "password": "match(.+)",
     "certfile": "str",
     "keyfile": "str",
     "ssl": "bool",

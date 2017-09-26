@@ -21,5 +21,5 @@ configurator = {
     'IGNORE_PATTERN': options['ignore_pattern'],
 }
 
-with Path(sys.args[0]).open('w') as json_file:
+with Path(sys.argv[1]).open('w') as json_file:
     json_file.write(json.dumps(configurator))

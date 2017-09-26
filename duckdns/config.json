@@ -8,11 +8,13 @@
   "boot": "auto",
   "map": ["ssl:rw"],
   "options": {
+    "accept_lets_encrypt_terms": false,
     "token": null,
     "domains": [null],
     "seconds": 300
   },
   "schema": {
+    "accept_lets_encrypt_terms": "bool",
     "token": "str",
     "domains": ["str"],
     "seconds": "int"

@@ -1,9 +1,9 @@
 {
-    "name": "HASS Configurator",
+    "name": "Configurator",
     "version": "0.1.2",
-    "slug": "hass-configurator",
-    "description": "HASS Configurator - Browser-based configuration file editor for Home Assistant.",
-    "url": "https://github.com/danielperna84/hassio-addons/tree/master/hass-configurator",
+    "slug": "configurator",
+    "description": "Home-Assistant Configurator - Browser-based configuration file editor for Home Assistant.",
+    "url": "https://home-assistant.io/addons/configurator",
     "startup": "application",
     "webui": "http://[HOST]:[PORT:3218]",
     "boot": "auto",

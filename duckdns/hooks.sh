@@ -1,21 +1,17 @@
 #!/bin/bash
 set -e
-set -u
-set -o pipefail
 
 CONFIG_PATH=/data/options.json
 
-DOMAIN=$(jq --raw-output '.domains[0]' $CONFIG_PATH)
+DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
 TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
 
 case "$1" in
     "deploy_challenge")
-        curl "https://www.duckdns.org/update?domains=$DOMAIN&token=$TOKEN&txt=$4"
-        echo
+        curl -s "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&txt=$4"
         ;;
     "clean_challenge")
-        curl "https://www.duckdns.org/update?domains=$DOMAIN&token=$TOKEN&txt=removed&clear=true"
-        echo
+        curl -s "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&txt=removed&clear=true"
         ;;
     "deploy_cert")
         ;;

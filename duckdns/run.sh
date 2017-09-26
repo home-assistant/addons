@@ -23,7 +23,7 @@ function le_renew() {
         domain_args+=("--domain" "$domain")
     done
     
-    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${DOMAIN_ARGS[@]}" --out "$CERT_DIR"  --config "$WORK_DIR/config" || true
+    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "$CERT_DIR"  --config "$WORK_DIR/config" || true
     LE_UPDATE="$(date +%s)"
 }
 

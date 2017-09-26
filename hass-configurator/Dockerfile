@@ -5,11 +5,15 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache python3 git \
-&& pip3 install GitPython
+ARG BUILD_VERSION
+RUN apk add --no-cache python3 git curl \
+  && pip3 install GitPython \
+  && curl -s -o /configurator.py https://raw.githubusercontent.com/danielperna84/hass-configurator/$BUILD_VERSION/configurator.py \
+  && sed -i "s/GIT = False/GIT = True/g" /configurator.py \
+  && apk del curl
 
 # Copy data
-COPY configurator.py /
-RUN chmod a+x /configurator.py
+COPY map.py run.sh /
+RUN chmod a+x /run.sh
 
-CMD ["python3", "/configurator.py", "/data/options.json"]
+CMD ["run.sh"]

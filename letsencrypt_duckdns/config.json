@@ -1,0 +1,19 @@
+{
+  "name": "Let's Encrypt for DuckDNS",
+  "version": "0.1",
+  "slug": "letsencrypt_duckdns",
+  "description": "Effortlessly manage Let's Encrypt certificates with DuckDNS.",
+  "url": "https://home-assistant.io/addons/letsencrypt_duckdns/",
+  "startup": "once",
+  "boot": "manual",
+  "map": ["ssl:rw"],
+  "options": {
+    "domain": "",
+    "hass_password": ""
+  },
+  "schema": {
+    "domain": "str",
+    "hass_password": "str"
+  },
+  "image": "homeassistant/{arch}-addon-letsencrypt_duckdns"
+}

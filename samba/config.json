@@ -21,7 +21,7 @@
     },
     "username": "",
     "password": "",
-    "interface": "eth0"
+    "interface": ""
   },
   "schema": {
     "workgroup": "str",

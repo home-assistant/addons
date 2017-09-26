@@ -16,8 +16,8 @@ case "$1" in
         curl -s "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&txt=removed&clear=true"
         ;;
     "deploy_cert")
-        cp -f "$5" "$CERTFILE"
-        cp -f "$3" "$KEYFILE"
+        cp -f "$5" "/ssl/$CERTFILE"
+        cp -f "$3" "/ssl/$KEYFILE"
         ;;
     "unchanged_cert")
         ;;

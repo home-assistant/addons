@@ -12,8 +12,8 @@
     },
     "map": ["config:rw", "ssl"],
     "options": {
-      "hass_api": "http://homeassistant:8123/api/",
-      "hass_api_password": "",
+      "homeassistant_port": "8123",
+      "homeassistant_password": "",
       "credentials": "admin:secret",
       "certfile": "fullchain.pem",
       "keyfile": "privkey.pem",
@@ -23,8 +23,8 @@
       "ignore_pattern": ["__pycache__"]
     },
     "schema": {
-      "hass_api": "url",
-      "hass_api_password": "str",
+      "homeassistant_port": "port",
+      "homeassistant_password": "str",
       "credentials": "match(.*:.*)",
       "certfile": "str",
       "keyfile": "str",

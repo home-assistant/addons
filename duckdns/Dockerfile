@@ -10,7 +10,7 @@ RUN apk add --no-cache jq curl libressl \
   && chmod a+x /usr/bin/dehydrated
 
 # Copy data
-COPY run.sh hook.sh /
+COPY run.sh hooks.sh /
 RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

@@ -1,37 +1,38 @@
 {
-    "name": "Configurator",
-    "version": "0.2.0",
-    "slug": "configurator",
-    "description": "Browser-based configuration file editor for Home Assistant.",
-    "url": "https://home-assistant.io/addons/configurator",
-    "startup": "application",
-    "webui": "http://[HOST]:[PORT:3218]",
-    "boot": "auto",
-    "ports": {
-      "3218/tcp": 3218
-    },
-    "map": ["config:rw", "ssl"],
-    "options": {
-      "homeassistant_api": "http://homeassistant:8123/api",
-      "homeassistant_password": "",
-      "credentials": "admin:secret",
-      "certfile": "fullchain.pem",
-      "keyfile": "privkey.pem",
-      "ssl": false,
-      "allowed_networks": ["192.168.0.0/16"],
-      "banned_ips": ["8.8.8.8"],
-      "ignore_pattern": ["__pycache__"]
-    },
-    "schema": {
-      "homeassistant_api": "url",
-      "homeassistant_password": "str",
-      "credentials": "match(.*:.*)",
-      "certfile": "str",
-      "keyfile": "str",
-      "ssl": "bool",
-      "allowed_networks": ["str"],
-      "banned_ips": ["str"],
-      "ignore_pattern": ["str"]
-    }
-  }
+  "name": "Configurator",
+  "version": "0.2.0",
+  "slug": "configurator",
+  "description": "Browser-based configuration file editor for Home Assistant.",
+  "url": "https://home-assistant.io/addons/configurator",
+  "startup": "application",
+  "webui": "http://[HOST]:[PORT:3218]",
+  "boot": "auto",
+  "ports": {
+    "3218/tcp": 3218
+  },
+  "map": ["config:rw", "ssl"],
+  "options": {
+    "homeassistant_api": "http://homeassistant:8123/api",
+    "homeassistant_password": "",
+    "credentials": "admin:secret",
+    "certfile": "fullchain.pem",
+    "keyfile": "privkey.pem",
+    "ssl": false,
+    "allowed_networks": ["192.168.0.0/16"],
+    "banned_ips": ["8.8.8.8"],
+    "ignore_pattern": ["__pycache__"]
+  },
+  "schema": {
+    "homeassistant_api": "url",
+    "homeassistant_password": "str",
+    "credentials": "match(.*:.*)",
+    "certfile": "str",
+    "keyfile": "str",
+    "ssl": "bool",
+    "allowed_networks": ["str"],
+    "banned_ips": ["str"],
+    "ignore_pattern": ["str"]
+  },
+  "image": "homeassistant/{arch}-addon-configurator"
+}
   

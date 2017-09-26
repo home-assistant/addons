@@ -5,10 +5,10 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq curl
+RUN apk add --no-cache jq curl openssl
 
 # Copy data
-COPY run.sh /
+COPY *.sh /
 RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

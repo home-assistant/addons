@@ -16,4 +16,4 @@ RUN apk add --no-cache python3 git curl \
 COPY map.py run.sh /
 RUN chmod a+x /run.sh
 
-CMD ["run.sh"]
+CMD ["/run.sh"]

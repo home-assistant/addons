@@ -1,17 +1,19 @@
 {
   "name": "Dnsmasq",
-  "version": "0.5",
+  "version": "1.0",
   "slug": "dnsmasq",
   "description": "A simple DNS server",
   "url": "https://home-assistant.io/addons/dnsmasq/",
   "startup": "system",
   "boot": "auto",
-  "host_network": true,
+  "ports": {
+    "53/tcp": 53,
+    "53/udp": 53
+  },
   "options": {
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
-    "hosts": [],
-    "interface": "eth0"
+    "hosts": []
   },
   "schema": {
     "defaults": ["str"],
@@ -26,8 +28,7 @@
         "host": "str",
         "ip": "str"
       }
-    ],
-    "interface": "str"
+    ]
   },
   "image": "homeassistant/{arch}-addon-dnsmasq"
 }

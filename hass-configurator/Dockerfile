@@ -9,7 +9,7 @@ RUN apk add --no-cache python3 git \
 && pip3 install GitPython
 
 # Copy data
-COPY configurator.py run.sh /
+COPY configurator.py /
 RUN chmod a+x /configurator.py
 
 CMD ["python3", "/configurator.py", "/data/options.json"]

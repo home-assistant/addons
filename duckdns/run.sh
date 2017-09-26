@@ -15,6 +15,7 @@ TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
 DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
 WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
 
+# Function that performe a renew
 function le_renew() {
     local domain_args=()
   
@@ -23,7 +24,7 @@ function le_renew() {
         domain_args+=("--domain" "$domain")
     done
     
-    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "$CERT_DIR"  --config "$WORK_DIR/config" || true
+    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "$CERT_DIR" --config "$WORK_DIR/config" || true
     LE_UPDATE="$(date +%s)"
 }
 
@@ -32,16 +33,14 @@ if [ "$LE_TERMS" == "true" ]; then
     # Init folder structs
     mkdir -p "$CERT_DIR"
     mkdir -p "$WORK_DIR"
-
-    # Create empty dehydrated config file so that this dir will be used for storage
-    touch "$WORK_DIR/config"
-
+    
     # Generate new certs
     if [ ! -d "$CERT_DIR/live" ]; then
+        # Create empty dehydrated config file so that this dir will be used for storage
+        touch "$WORK_DIR/config"
+        
         dehydrated --register --accept-terms --config "$WORK_DIR/config"
     fi
-
-    le_renew
 fi
 
 # Run duckdns
@@ -50,7 +49,7 @@ while true; do
     echo "$(date): $answer"
     
     now="$(date +%s)"
-    if [ "$LE_TERMS" == "true" ] && [ $((now - LE_UPDATE)) -le 43200 ]; then
+    if [ "$LE_TERMS" == "true" ] && [ $((now - LE_UPDATE)) -ge 43200 ]; then
         le_renew
     fi
     

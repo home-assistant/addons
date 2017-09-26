@@ -13,7 +13,7 @@ configurator = {
     'BASEPATH': "/config",
     'HASS_API': options['homeassistant_api'],
     'HASS_API_PASSWORD': options['homeassistant_password'],
-    'CREDENTIALS': options['credentials'],
+    'CREDENTIALS': "{}:{}".format(options['username'], options['password']),
     'SSL_CERTIFICATE': options['certfile'] if options['ssl'] else None,
     'SSL_KEY': options['keyfile'] if options['ssl'] else None,
     'ALLOWED_NETWORKS': options['allowed_networks'],

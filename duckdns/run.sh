@@ -18,7 +18,7 @@ WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
 if [ "$LE_TERMS" == "true" ]; then
   # Only use first domain for Let's Encrypt
   DOMAIN_ARGS=()
-  for domain in LE_DOMAINS; do
+  for domain in $LE_DOMAINS; do
     DOMAIN_ARGS+=("--domain" "$domain")
   done
 

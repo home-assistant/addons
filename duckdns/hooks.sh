@@ -5,6 +5,8 @@ CONFIG_PATH=/data/options.json
 
 DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
 TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
+CERTFILE=$(jq --raw-output '.lets_encrypt.certfile' $CONFIG_PATH)
+KEYFILE=$(jq --raw-output '.lets_encrypt.keyfile' $CONFIG_PATH)
 
 case "$1" in
     "deploy_challenge")
@@ -14,6 +16,8 @@ case "$1" in
         curl -s "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&txt=removed&clear=true"
         ;;
     "deploy_cert")
+        cp -f "$5" "$CERTFILE"
+        cp -f "$3" "$KEYFILE"
         ;;
     "unchanged_cert")
         ;;

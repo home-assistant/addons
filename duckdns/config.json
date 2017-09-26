@@ -1,6 +1,6 @@
 {
   "name": "Duck DNS",
-  "version": "0.6",
+  "version": "1.0",
   "slug": "duckdns",
   "description": "Free Dynamic DNS (DynDNS or DDNS) service",
   "url": "https://home-assistant.io/addons/duckdns/",
@@ -23,7 +23,6 @@
       "certfile": "str",
       "keyfile": "str"
     },
-    "accept_lets_encrypt_terms": "bool",
     "token": "str",
     "domains": ["str"],
     "seconds": "int"

@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 ARG BUILD_VERSION
 RUN apk add --no-cache python3 git curl \
   && pip3 install GitPython \
-  && curl -s -o /configurator.py https://raw.githubusercontent.com/danielperna84/hass-configurator/$BUILD_VERSION/configurator.py \
+  && curl -s -o /configurator.py https://raw.githubusercontent.com/danielperna84/hass-configurator/"$(echo "$BUILD_VERSION" | cut -d '-' -f 1)"/configurator.py \
   && sed -i "s/GIT = False/GIT = True/g" /configurator.py \
   && apk del curl
 

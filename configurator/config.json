@@ -5,7 +5,7 @@
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
   "startup": "application",
-  "webui": "http://[HOST]:[PORT:3218]",
+  "webui": "[PROTO:ssl]://[HOST]:[PORT:3218]",
   "boot": "auto",
   "ports": {
     "3218/tcp": 3218

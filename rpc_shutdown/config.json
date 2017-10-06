@@ -17,7 +17,13 @@
     ]
   },
   "schema": {
-    "computers": [{"alias": "match(^[\w-]*$)", "address": "str", "credentials": "match(^[^%]*(?:%[^%]*)?$)"}]
+    "computers": [
+      {
+        "alias": "match(^[\w-]*$)",
+        "address": "str",
+        "credentials": "match(^[^%]*(?:%[^%]*)?$)"
+      }
+    ]
   },
   "image": "homeassistant/{arch}-addon-rpc_shutdown"
 }

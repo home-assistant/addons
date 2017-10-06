@@ -12,16 +12,16 @@
     "repository": null,
     "auto_restart": false,
     "repeat": {
-        "active": false,
-        "interval": 300
+      "active": false,
+      "interval": 300
     }
   },
   "schema": {
     "repository": "url",
     "auto_restart": "bool",
     "repeat": {
-        "active": "bool",
-        "interval": "int"
+      "active": "bool",
+      "interval": "int"
     }
   },
   "image": "homeassistant/{arch}-addon-git_pull"

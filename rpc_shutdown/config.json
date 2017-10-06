@@ -8,7 +8,7 @@
   "boot": "auto",
   "stdin": true,
   "options": {
-    computers: [
+    "computers": [
       {
         "alias": "test-pc",
         "address": "192.168.0.1",
@@ -17,7 +17,7 @@
     ]
   },
   "schema": {
-    computers: [{"alias": "match(^[\w-]*$)", "address": "str", "credentials": "match(^[^%]*(?:%[^%]*)?$)"}]
+    "computers": [{"alias": "match(^[\w-]*$)", "address": "str", "credentials": "match(^[^%]*(?:%[^%]*)?$)"}]
   },
   "image": "homeassistant/{arch}-addon-rpc_shutdown"
 }

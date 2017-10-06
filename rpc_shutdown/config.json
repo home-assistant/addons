@@ -19,7 +19,7 @@
   "schema": {
     "computers": [
       {
-        "alias": "match(^[\w-]*$)",
+        "alias": "match(^[\\w-]*$)",
         "address": "str",
         "credentials": "match(^[^%]*(?:%[^%]*)?$)"
       }

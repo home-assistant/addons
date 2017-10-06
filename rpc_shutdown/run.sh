@@ -22,7 +22,7 @@ while read -r input; do
       
         echo "[Info] Shutdown $input -> $ADDRESS"
         if ! msg="$(net rpc shutdown -I "$ADDRESS" -U "$CREDENTIALS")"; then
-            echo "[Error] Shutdown fails!\n$msg"
+            echo "[Error] Shutdown fails -> $msg"
         fi
     done
 done

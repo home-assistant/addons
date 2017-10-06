@@ -1,0 +1,23 @@
+{
+  "name": "RPC Shutdown",
+  "version": "1.1",
+  "slug": "rpc_shutdown",
+  "description": "Simple way for remote windows shutdowns",
+  "url": "https://home-assistant.io/addons/rpc_shutdown/",
+  "startup": "services",
+  "boot": "auto",
+  "stdin": true,
+  "options": {
+    computers: [
+      {
+        "alias": "test-pc",
+        "address": "192.168.0.1",
+        "credentials": "user%password"
+      }
+    ]
+  },
+  "schema": {
+    computers: [{"alias": "match(^[\w-]*$)", "address": "str", "credentials": "match(^[^%]*(?:%[^%]*)?$)"}]
+  },
+  "image": "homeassistant/{arch}-addon-rpc_shutdown"
+}

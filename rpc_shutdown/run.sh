@@ -7,6 +7,8 @@ COMPUTERS=$(jq --raw-output '.computers | length' $CONFIG_PATH)
 
 # Read from STDIN aliases to send shutdown
 while read -r input; do
+    # remove json stuff
+    input="$(echo "$input" | jq --raw-output '.')"
     echo "[Info] Read alias: $input"
 
     # Find aliases -> computer

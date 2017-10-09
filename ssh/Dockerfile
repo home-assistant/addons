@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq openssh vim curl nano git mosquitto-clients
+RUN apk add --no-cache jq openssh vim curl nano git mosquitto-clients tmux
 
 # Copy data
 COPY run.sh /

@@ -6,6 +6,7 @@
   "url": "https://home-assistant.io/addons/configurator",
   "startup": "application",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:3218]",
+  "homeassistant_api": true,
   "boot": "auto",
   "ports": {
     "3218/tcp": 3218

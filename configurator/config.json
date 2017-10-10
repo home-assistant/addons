@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "0.2.0-p1",
+  "version": "0.2.0-p2",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
@@ -12,8 +12,6 @@
   },
   "map": ["config:rw", "ssl"],
   "options": {
-    "homeassistant_api": "http://homeassistant:8123/api",
-    "homeassistant_password": "",
     "username": "admin",
     "password": null,
     "certfile": "fullchain.pem",
@@ -24,8 +22,6 @@
     "ignore_pattern": ["__pycache__"]
   },
   "schema": {
-    "homeassistant_api": "url",
-    "homeassistant_password": "str",
     "username": "str",
     "password": "match(.+)",
     "certfile": "str",

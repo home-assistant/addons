@@ -33,7 +33,7 @@ RUN apk del libcec \
     && rm -rf libcec \
     && apk del build-base cmake eudev-dev git swig \
     && if [ "$BUILD_ARCH" != "armhf" ]; then exit 0; else \
-        apk del raspberrypi-dev; fi \
+        apk del raspberrypi-dev; fi
 ENV LD_LIBRARY_PATH=/opt/vc/lib:${LD_LIBRARY_PATH}
 
 # Copy data

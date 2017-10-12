@@ -10,7 +10,7 @@ ARG BUILD_ARCH
 RUN apk del libcec \
     && apk add --no-cache build-base cmake eudev-dev git swig \
     && if [ "$BUILD_ARCH" != "armhf" ]; then exit 0; else \
-        apk add --no-cache raspberrypi-dev; fi \
+        apk add --no-cache raspberrypi-dev raspberrypi raspberrypi-libs; fi \
     && git clone --depth 1 -b p8-platform-2.1.0.1 https://github.com/Pulse-Eight/platform /usr/src/platform \
     && mkdir -p /usr/src/platform/build \
     && cd /usr/src/platform/build \

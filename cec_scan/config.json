@@ -1,0 +1,15 @@
+{
+  "name": "CEC Scanner",
+  "version": "0.1",
+  "slug": "cec_scan",
+  "description": "Scan HDMI CEC devices",
+  "url": "https://home-assistant.io/addons/cec_scan/",
+  "startup": "once",
+  "boot": "manual",
+  "devices": [
+    "/dev/vchiq:/dev/vchiq:rwm"  
+  ],
+  "options": {},
+  "schema": {},
+  "image": "homeassistant/{arch}-addon-cec_scan"
+}

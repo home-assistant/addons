@@ -8,7 +8,7 @@ ARG BUILD_ARCH
 
 # Build libcec with RPi support for HDMI-CEC on armhf
 RUN apk add --no-cache build-base cmake eudev-dev git swig \
-    && if [ "$BUILD_ARCH" != "armhf" ]; then exit 0; else \
+    && if [ "$BUILD_ARCH" != "armhf" ]; then \
         apk add --no-cache raspberrypi-dev raspberrypi raspberrypi-libs; fi \
     && git clone --depth 1 -b p8-platform-2.1.0.1 https://github.com/Pulse-Eight/platform /usr/src/platform \
     && mkdir -p /usr/src/platform/build \
@@ -31,7 +31,7 @@ RUN apk add --no-cache build-base cmake eudev-dev git swig \
     && cd /usr/src \
     && rm -rf libcec \
     && apk del build-base cmake eudev-dev git swig \
-    && if [ "$BUILD_ARCH" != "armhf" ]; then exit 0; else \
+    && if [ "$BUILD_ARCH" != "armhf" ]; then \
         apk del raspberrypi-dev; fi
 ENV LD_LIBRARY_PATH=/opt/vc/lib:${LD_LIBRARY_PATH}
 

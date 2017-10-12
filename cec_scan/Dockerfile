@@ -22,7 +22,7 @@ RUN apk add --no-cache build-base cmake eudev-dev git swig \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \
     && if [ "$BUILD_ARCH" != "armhf" ]; then \
-            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr .. \
+            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..; \
         else cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr \
             -DRPI_INCLUDE_DIR=/opt/vc/include \
             -DRPI_LIB_DIR=/opt/vc/lib ..; fi \

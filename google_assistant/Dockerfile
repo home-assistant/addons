@@ -7,7 +7,7 @@ RUN apt-get update \
         python3-six python3-pyasn1 libportaudio2 alsa-utils \
     && pip3 install google-assistant-library google-auth requests_oauthlib cherrypy \
     && apt-get remove -y --purge python3-pip python3-dev \
-    && apt autoremove -y \
+    && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy data

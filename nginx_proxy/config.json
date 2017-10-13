@@ -14,12 +14,18 @@
   "options": {
     "domain": null,
     "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem"
+    "keyfile": "privkey.pem",
+    "lets_encrypt": {
+      "accept_terms": false
+    }
   },
   "schema": {
     "domain": "str",
     "certfile": "str",
-    "keyfile": "str"
+    "keyfile": "str",
+    "lets_encrypt": {
+      "accept_terms": "bool"
+    }
   },
   "image": "homeassistant/{arch}-addon-nginx_proxy"
 }

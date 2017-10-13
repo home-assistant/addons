@@ -2,7 +2,7 @@
   "name": "Duck DNS",
   "version": "1.0",
   "slug": "duckdns",
-  "description": "Free Dynamic DNS (DynDNS or DDNS) service",
+  "description": "Free Dynamic DNS (DynDNS or DDNS) service with Let's Encrypt support",
   "url": "https://home-assistant.io/addons/duckdns/",
   "startup": "services",
   "boot": "auto",

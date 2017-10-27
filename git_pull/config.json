@@ -20,7 +20,7 @@
   },
   "schema": {
     "deployment_key": ["str"],
-    "deployment_key_protocol": "str",
+    "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
     "repository": "url",
     "auto_restart": "bool",
     "repeat": {

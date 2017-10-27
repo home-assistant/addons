@@ -3,10 +3,25 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
+DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
+DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
+
+# prepare the private key, if provided
+if [ ! -z "$DEPLOYMENT_KEY" ]; then
+    echo "[Info] setup deployment_key on id_$DEPLOYMENT_KEY_PROTOCOL"
+
+    mkdir -p ~/.ssh
+    while read -r line; do
+        echo "$line" >> ~/.ssh/id_$DEPLOYMENT_KEY_PROTOCOL
+    done <<< "$DEPLOYMENT_KEY"
+
+    chmod 600 ~/.ssh/id_$DEPLOYMENT_KEY_PROTOCOL
+fi
+
 
 # init config repositorie
 if [ ! -d /config/.git ]; then

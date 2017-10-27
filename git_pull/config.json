@@ -9,6 +9,8 @@
   "hassio_api": true,
   "map": ["config:rw"],
   "options": {
+    "deployment_key": [],
+    "deployment_key_protocol": "rsa",
     "repository": null,
     "auto_restart": false,
     "repeat": {
@@ -17,6 +19,8 @@
     }
   },
   "schema": {
+    "deployment_key": ["str"],
+    "deployment_key_protocol": "str",
     "repository": "url",
     "auto_restart": "bool",
     "repeat": {

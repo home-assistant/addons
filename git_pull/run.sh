@@ -16,10 +16,10 @@ if [ ! -z "$DEPLOYMENT_KEY" ]; then
 
     mkdir -p ~/.ssh
     while read -r line; do
-        echo "$line" >> "~/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
+        echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     done <<< "$DEPLOYMENT_KEY"
 
-    chmod 600 "~/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
+    chmod 600 "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
 fi
 
 

@@ -37,4 +37,4 @@ then
     exit 1
 fi
 
-echo "[Info] Finish :)"
+echo "[Info] Configuration check finished - no error found! :)"

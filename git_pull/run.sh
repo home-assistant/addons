@@ -12,14 +12,14 @@ REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 
 # prepare the private key, if provided
 if [ ! -z "$DEPLOYMENT_KEY" ]; then
-    echo "[Info] setup deployment_key on id_$DEPLOYMENT_KEY_PROTOCOL"
+    echo "[Info] setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
 
     mkdir -p ~/.ssh
     while read -r line; do
-        echo "$line" >> ~/.ssh/id_$DEPLOYMENT_KEY_PROTOCOL
+        echo "$line" >> "~/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     done <<< "$DEPLOYMENT_KEY"
 
-    chmod 600 ~/.ssh/id_$DEPLOYMENT_KEY_PROTOCOL
+    chmod 600 "~/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
 fi
 
 

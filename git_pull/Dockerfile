@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq curl git
+RUN apk add --no-cache jq curl git openssh-client
 
 # Copy data
 COPY run.sh /

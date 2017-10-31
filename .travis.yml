@@ -9,9 +9,11 @@ addons:
     - debian-sid    # Grab shellcheck from the Debian repo (o_O)
     packages:
     - shellcheck
+    - jq
 
 script:
  - bash -c 'shopt -s globstar; shellcheck **/*.sh'
+ - bash -c 'shopt -s globstar ; jq . **/*.json'
 
 matrix:
   fast_finish: true

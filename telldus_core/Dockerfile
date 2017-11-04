@@ -3,12 +3,10 @@ FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-# Install telldus-core on alipne linux using git source from telldus.
+# Install telldus-core on alipne linux using official git source from telldus.
 
-# Add dependancie libs, build libs
 # Patch files and script for patching to enable compilation on Alpine linux	then compile and install, without tdadmin and pointing config file in to /config.
-# NOTE: installation will overwrite /config/tellstick.conf if it exists - backup routine needed?
-# Optional - Include patch file in add-on to avoid retreiving from git or use bjornes fork of telldus with modified files.
+# Optional - Include patch file in add-on to avoid retreiving from git or use bjorne fork of telldus with premodified files.
 
 RUN mkdir /usr/src \
 	&& cd /usr/src \
@@ -24,6 +22,7 @@ RUN mkdir /usr/src \
     && cmake . -DFORCE_COMPILE_FROM_TRUNK=YES -DSYSCONF_INSTALL_DIR=/config -DBUILD_TDADMIN=false \
     && make -j1 \
     && make install \
+	&& cp /usr/src/telldus/telldus-core/service/tellstick.conf /usr/src \
     && apk del .build-dependencies \
     && rm -rf /usr/src/telldus \
 	&& rm -rf /usr/src/telldus-core-alpine

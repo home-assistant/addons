@@ -1,6 +1,13 @@
+#!/bin/bash
+
+set -e
 
 echo Starting run.sh...
 
-telldusd &
+if [ ! -f /config/tellstick.conf ]; then
+    cp /usr/src/tellstick.conf /config
+fi
 
-echo End of run.sh.
+telldusd --version 
+
+exec /usr/local/sbin/telldusd < /dev/null

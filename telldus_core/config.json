@@ -1,0 +1,12 @@
+{
+  "name": "Telldus Core",
+  "version": "0.1",
+  "slug": "telldus_core",
+  "description": "Tellstick Core daemon and tools required to communicate with Tellstick duo",
+  "startup": "services",
+  "boot": "auto",
+  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
+  "map": ["config:rw"],
+  "options": {},
+  "schema": {}
+}

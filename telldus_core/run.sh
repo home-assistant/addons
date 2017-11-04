@@ -9,5 +9,5 @@ if [ ! -f /config/tellstick.conf ]; then
 fi
 
 telldusd --version 
-
-exec /usr/local/sbin/telldusd < /dev/null
+#running telldusd with option --nodaemon otherwise the docker stops unexpectedly..
+exec /usr/local/sbin/telldusd --nodaemon

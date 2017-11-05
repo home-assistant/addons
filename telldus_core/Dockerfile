@@ -3,30 +3,24 @@ FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-# Install telldus-core on alipne linux using official git source from telldus.
+# Install telldus-core on alipne linux using forked telldus source with modifications for alpine.
 
-# Patch files and script for patching to enable compilation on Alpine linux	then compile and install, without tdadmin and pointing config file in to /config.
-# Optional - Include patch file in add-on to avoid retreiving from git or use bjorne fork of telldus with premodified files.
 
-RUN mkdir /usr/src \
-	&& cd /usr/src \
-	&& apk add --no-cache \
+# Install Telldus library for TellStick (using same approach as in hassio docker installation)
+RUN apk add --no-cache \
         confuse libftdi1 libstdc++ \
     && apk add --no-cache --virtual .build-dependencies \
         cmake build-base gcc doxygen confuse-dev argp-standalone libftdi1-dev git \
-	&& git clone -b master https://github.com/telldus/telldus \
-	&& git clone -b master https://github.com/endor-force/telldus-core-alpine \
-	&& cd /usr/src/telldus \
-    && patch -p1 -i ../telldus-core-alpine/telldus-alpine.patch \
-	&& cd telldus-core \
-    && cmake . -DFORCE_COMPILE_FROM_TRUNK=YES -DSYSCONF_INSTALL_DIR=/config -DBUILD_TDADMIN=false \
-    && make -j1 \
+    && mkdir /usr/src \
+	&& cd /usr/src \
+	&& git clone -b homeassistant-alpine --depth 1 https://github.com/bjorne/telldus \
+    && cd telldus/telldus-core \
+    && cmake . -DBUILD_LIBTELLDUS-CORE=ON -DBUILD_TDADMIN=OFF -DBUILD_TDTOOL=ON -DGENERATE_MAN=OFF -DFORCE_COMPILE_FROM_TRUNK=ON -DSYSCONF_INSTALL_DIR=/config \
+    && make \
     && make install \
 	&& cp /usr/src/telldus/telldus-core/service/tellstick.conf /usr/src \
     && apk del .build-dependencies \
-    && rm -rf /usr/src/telldus \
-	&& rm -rf /usr/src/telldus-core-alpine
-
+	&& rm -rf /usr/src/telldus
 
 
 # Copy data for add-on

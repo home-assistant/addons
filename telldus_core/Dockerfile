@@ -9,17 +9,17 @@ ENV LANG C.UTF-8
 # Install Telldus library for TellStick (using same approach as in hassio docker installation)
 RUN apk add --no-cache \
         confuse libftdi1 libstdc++ \
-    && apk add --no-cache --virtual .build-dependencies \
-        cmake build-base gcc doxygen confuse-dev argp-standalone libftdi1-dev git \
-    && mkdir /usr/src \
+	&& apk add --no-cache --virtual .build-dependencies \
+        	cmake build-base gcc doxygen confuse-dev argp-standalone libftdi1-dev git \
+	&& mkdir /usr/src \
 	&& cd /usr/src \
 	&& git clone -b homeassistant-alpine --depth 1 https://github.com/bjorne/telldus \
-    && cd telldus/telldus-core \
-    && cmake . -DBUILD_LIBTELLDUS-CORE=ON -DBUILD_TDADMIN=OFF -DBUILD_TDTOOL=ON -DGENERATE_MAN=OFF -DFORCE_COMPILE_FROM_TRUNK=ON -DSYSCONF_INSTALL_DIR=/config \
-    && make \
-    && make install \
+	&& cd telldus/telldus-core \
+	&& cmake . -DBUILD_LIBTELLDUS-CORE=ON -DBUILD_TDADMIN=OFF -DBUILD_TDTOOL=ON -DGENERATE_MAN=OFF -DFORCE_COMPILE_FROM_TRUNK=ON -DSYSCONF_INSTALL_DIR=/config \
+	&& make \
+	&& make install \
 	&& cp /usr/src/telldus/telldus-core/service/tellstick.conf /usr/src \
-    && apk del .build-dependencies \
+	&& apk del .build-dependencies \
 	&& rm -rf /usr/src/telldus
 
 

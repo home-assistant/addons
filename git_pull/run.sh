@@ -43,7 +43,7 @@ while true; do
 
     # Enable autorestart of homeassistant
     if [ "$AUTO_RESTART" == "true" ]; then
-        changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+        changed_files="$(git diff-tree -r --name-only --no-commit-id HEAD@{1} HEAD)"
 
         # Files have changed & check config
         if [ ! -z "$changed_files" ]; then

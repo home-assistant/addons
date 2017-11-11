@@ -13,9 +13,11 @@ RUN apk add --no-cache \
         	cmake build-base gcc doxygen confuse-dev argp-standalone libftdi1-dev git \
 	&& mkdir /usr/src \
 	&& cd /usr/src \
-	&& git clone -b homeassistant-alpine --depth 1 https://github.com/bjorne/telldus \
+	&& git clone -b master --depth 1 https://github.com/telldus/telldus \
 	&& cd telldus/telldus-core \
-	&& cmake . -DBUILD_LIBTELLDUS-CORE=ON -DBUILD_TDADMIN=OFF -DBUILD_TDTOOL=ON -DGENERATE_MAN=OFF -DFORCE_COMPILE_FROM_TRUNK=ON -DSYSCONF_INSTALL_DIR=/config \
+	&& sed -i "/\<sys\/socket.h\>/a \#include \<sys\/select.h\>" common/Socket_unix.cpp \
+	&& sed -i "s/nobody/root/g" service/tellstick.conf \
+	&& cmake . -DBUILD_LIBTELLDUS-CORE=ON -DBUILD_TDADMIN=OFF -DBUILD_TDTOOL=ON -DGENERATE_MAN=OFF -DFORCE_COMPILE_FROM_TRUNK=ON -DSYSCONF_INSTALL_DIR=/config -DFTDI_LIBRARY=/usr/lib/libftdi1.so \
 	&& make \
 	&& make install \
 	&& cp /usr/src/telldus/telldus-core/service/tellstick.conf /usr/src \

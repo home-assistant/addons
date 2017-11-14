@@ -1,6 +1,6 @@
 {
   "name": "Git pull",
-  "version": "2.0",
+  "version": "2.1",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://home-assistant.io/addons/git_pull/",
@@ -21,7 +21,7 @@
   "schema": {
     "deployment_key": ["str"],
     "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
-    "repository": "match((?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?))",
+    "repository": "match((?:git|ssh|https?|git@[-\\w.]+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "repeat": {
       "active": "bool",

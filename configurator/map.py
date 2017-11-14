@@ -13,15 +13,17 @@ configurator = {
     'BASEPATH': "/config",
     'HASS_API': "http://hassio/homeassistant/api/",
     'HASS_API_PASSWORD': None,
-    'CREDENTIALS': 
+    'CREDENTIALS':
         "{}:{}".format(options['username'], options['password']),
-    'SSL_CERTIFICATE': 
+    'SSL_CERTIFICATE':
         "ssl/{}".format(options['certfile']) if options['ssl'] else None,
-    'SSL_KEY': 
+    'SSL_KEY':
         "ssl/{}".format(options['keyfile']) if options['ssl'] else None,
     'ALLOWED_NETWORKS': options['allowed_networks'],
     'BANNED_IPS': options['banned_ips'],
     'IGNORE_PATTERN': options['ignore_pattern'],
+    'BANLIMIT': options['banlimit'],
+    'DIRSFIRST': options['dirsfirst'],
 }
 
 with Path(sys.argv[1]).open('w') as json_file:

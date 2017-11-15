@@ -8,7 +8,9 @@
   "boot": "auto",
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
   "map": ["config:rw"],
-  "options": {},
+  "options": {
+    devices: []
+  },
   "schema": {
     "devices": [
       {

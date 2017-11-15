@@ -8,6 +8,7 @@ RUN apk add --no-cache \
         confuse libftdi1 libstdc++ jq socat \
     && apk add --no-cache --virtual .build-dependencies \
         cmake build-base gcc doxygen confuse-dev argp-standalone libftdi1-dev git \
+    && ln -s /usr/include/libftdi1/ftdi.h /usr/include/ftdi.h \
     && mkdir -p /usr/src \
     && cd /usr/src \
     && git clone -b master --depth 1 https://github.com/telldus/telldus \

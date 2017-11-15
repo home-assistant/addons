@@ -10,7 +10,7 @@ echo "[Info] Initialize the tellstick configuration"
 echo "user = \"root\"" > /etc/tellstick.conf
 
 # devices
-for (for (( i=0; i < "$DEVICES"; i++ )); do
+for (( i=0; i < "$DEVICES"; i++ )); do
     DEV_ID = $(jq --raw-output ".DEVICES[$i].id" $CONFIG_PATH)
     DEV_NAME = $(jq --raw-output ".DEVICES[$i].name" $CONFIG_PATH)
     DEV_PROTO = $(jq --raw-output ".DEVICES[$i].protocol" $CONFIG_PATH)

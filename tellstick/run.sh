@@ -11,13 +11,13 @@ echo "user = \"root\"" > /etc/tellstick.conf
 
 # devices
 for (( i=0; i < "$DEVICES"; i++ )); do
-    DEV_ID = $(jq --raw-output ".DEVICES[$i].id" $CONFIG_PATH)
-    DEV_NAME = $(jq --raw-output ".DEVICES[$i].name" $CONFIG_PATH)
-    DEV_PROTO = $(jq --raw-output ".DEVICES[$i].protocol" $CONFIG_PATH)
-    DEV_MODEL = $(jq --raw-output ".DEVICES[$i].model // emty" $CONFIG_PATH)
-    ATTR_HOUSE = $(jq --raw-output ".DEVICES[$i].house // emty" $CONFIG_PATH)
-    ATTR_CODE = $(jq --raw-output ".DEVICES[$i].code // emty" $CONFIG_PATH)
-    ATTR_UNIT = $(jq --raw-output ".DEVICES[$i].unit // emty" $CONFIG_PATH)
+    DEV_ID=$(jq --raw-output ".DEVICES[$i].id" $CONFIG_PATH)
+    DEV_NAME=$(jq --raw-output ".DEVICES[$i].name" $CONFIG_PATH)
+    DEV_PROTO=$(jq --raw-output ".DEVICES[$i].protocol" $CONFIG_PATH)
+    DEV_MODEL=$(jq --raw-output ".DEVICES[$i].model // emty" $CONFIG_PATH)
+    ATTR_HOUSE=$(jq --raw-output ".DEVICES[$i].house // emty" $CONFIG_PATH)
+    ATTR_CODE=$(jq --raw-output ".DEVICES[$i].code // emty" $CONFIG_PATH)
+    ATTR_UNIT=$(jq --raw-output ".DEVICES[$i].unit // emty" $CONFIG_PATH)
   
     (
         echo ""

@@ -23,5 +23,6 @@
         "unit": "str?"
       }
     ]
-  }
+  },
+  "image": "homeassistant/{arch}-addon-tellstick"
 }

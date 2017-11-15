@@ -54,5 +54,6 @@ echo "[Info] Run telldusd & socat"
 
 # Expose the unix socket to internal network
 socat TCP-LISTEN:50800,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusClient &
+socat TCP-LISTEN:50801,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusEvents &
 
 exec /usr/local/sbin/telldusd --nodaemon < /dev/null

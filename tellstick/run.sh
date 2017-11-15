@@ -26,10 +26,28 @@ for (for (( i=0; i < "$DEVICES"; i++ )); do
         echo "  name = \"$DEV_NAME\""
         echo "  protocol = \"$DEV_PROTO\""
         
-        if [! -z "$DEV_MODEL"]; then
+        if [ ! -z "$DEV_MODEL" ]; then
             echo "  model = \"$DEV_MODEL\""
         fi
-    
+        
+        if [ ! -z "$ATTR_HOUSE" ] || [ ! -z "$ATTR_CODE" ] || [ ! -z "$ATTR_UNIT" ]; then
+            echo "  parameters {"
+            
+            if [ ! -z "$ATTR_HOUSE" ]; then
+                echo "    house = \"$ATTR_HOUSE\""
+            if
+            if [ ! -z "$ATTR_CODE" ]; then
+                echo "    code = \"$ATTR_CODE\""
+            if
+            if [ ! -z "$ATTR_UNIT" ]; then
+                echo "    code = \"$ATTR_UNIT\""
+            if
+            
+            echo "  }"
+        if
+        
+        echo "}"
+    ) >> /etc/tellstick.conf
 done
 
 echo "[Info] Run telldusd & socat"

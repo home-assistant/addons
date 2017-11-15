@@ -19,7 +19,6 @@ RUN apk add --no-cache \
     && apk del .build-dependencies \
     && rm -rf /usr/src/telldus
 
-
 # Copy data for add-on
 COPY run.sh /
 RUN chmod a+x /run.sh

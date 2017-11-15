@@ -3,6 +3,7 @@
   "version": "0.1",
   "slug": "telldus_core",
   "description": "Telldus tellstick daemon and tools.",
+  "url": "https://home-assistant.io/addons/tellstick/",
   "startup": "services",
   "boot": "auto",
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],

@@ -2,12 +2,11 @@
 
 set -e
 
-echo Starting run.sh...
+echo "[Info] Initialize the tellstick configuration"
 
-if [ ! -f /config/tellstick.conf ]; then
-    cp /usr/src/tellstick.conf /config
-fi
+# TODO: init config
 
-telldusd --version 
-#running telldusd with option --nodaemon otherwise the docker stops unexpectedly..
+# Expose the unix socket to internal network
+socat TCP-LISTEN:50800,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusClient &
+
 exec /usr/local/sbin/telldusd --nodaemon < /dev/null

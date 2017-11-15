@@ -35,16 +35,16 @@ for (( i=0; i < "$DEVICES"; i++ )); do
             
             if [ ! -z "$ATTR_HOUSE" ]; then
                 echo "    house = \"$ATTR_HOUSE\""
-            if
+            fi
             if [ ! -z "$ATTR_CODE" ]; then
                 echo "    code = \"$ATTR_CODE\""
-            if
+            fi
             if [ ! -z "$ATTR_UNIT" ]; then
                 echo "    code = \"$ATTR_UNIT\""
-            if
+            fi
             
             echo "  }"
-        if
+        fi
         
         echo "}"
     ) >> /etc/tellstick.conf

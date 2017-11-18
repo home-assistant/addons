@@ -1,13 +1,12 @@
 {
-  "name": "Telldus Core",
+  "name": "Tellstick",
   "version": "0.1",
-  "slug": "telldus_core",
-  "description": "Telldus tellstick daemon and tools.",
+  "slug": "tellstick",
+  "description": "Telldus Tellstick daemon and tools.",
   "url": "https://home-assistant.io/addons/tellstick/",
   "startup": "services",
   "boot": "auto",
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
-  "map": ["config:rw"],
   "options": {
     "devices": []
   },
@@ -20,7 +19,8 @@
         "model": "match(codeswitch|bell|selflearning-switch|selflearning-dimmer|selflearning|ecosavers|kp100)?",
         "house": "str?",
         "code": "str?",
-        "unit": "str?"
+        "unit": "str?",
+        "fade": "str?"
       }
     ]
   },

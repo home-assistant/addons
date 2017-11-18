@@ -20,6 +20,7 @@ for (( i=0; i < "$DEVICES"; i++ )); do
     ATTR_HOUSE=$(jq --raw-output ".devices[$i].house // empty" $CONFIG_PATH)
     ATTR_CODE=$(jq --raw-output ".devices[$i].code // empty" $CONFIG_PATH)
     ATTR_UNIT=$(jq --raw-output ".devices[$i].unit // empty" $CONFIG_PATH)
+    ATTR_FADE=$(jq --raw-output ".devices[$i].fade // empty" $CONFIG_PATH)
   
     (
         echo ""
@@ -32,7 +33,7 @@ for (( i=0; i < "$DEVICES"; i++ )); do
             echo "  model = \"$DEV_MODEL\""
         fi
         
-        if [ ! -z "$ATTR_HOUSE" ] || [ ! -z "$ATTR_CODE" ] || [ ! -z "$ATTR_UNIT" ]; then
+        if [ ! -z "$ATTR_HOUSE" ] || [ ! -z "$ATTR_CODE" ] || [ ! -z "$ATTR_UNIT" ] || [ ! -z "$ATTR_FADE" ]; then
             echo "  parameters {"
             
             if [ ! -z "$ATTR_HOUSE" ]; then
@@ -43,6 +44,9 @@ for (( i=0; i < "$DEVICES"; i++ )); do
             fi
             if [ ! -z "$ATTR_UNIT" ]; then
                 echo "    unit = \"$ATTR_UNIT\""
+            fi
+            if [ ! -z "$ATTR_FADE" ]; then
+                echo "    fade = \"$ATTR_FADE\""
             fi
             
             echo "  }"

@@ -8,7 +8,16 @@
   "boot": "auto",
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
   "options": {
-    "devices": []
+    "devices": [
+     {
+      "id": 1,
+      "name": "Example device",
+      "protocol": "everflourish",
+      "model": "selflearning-switch",
+      "house": "A",
+      "unit": "1"
+     }
+    ]
   },
   "schema": {
     "devices": [

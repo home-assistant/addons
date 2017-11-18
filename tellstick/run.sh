@@ -2,22 +2,24 @@
 set -e
 
 CONFIG_PATH=/data/options.json
-DEVICES=$(jq --raw-output '.forwards | length' $CONFIG_PATH)
+DEVICES=$(jq --raw-output '.devices | length' $CONFIG_PATH)
 
 echo "[Info] Initialize the tellstick configuration"
 
 # User access
 echo "user = \"root\"" > /etc/tellstick.conf
+echo "group = \"plugdev\"" >> /etc/tellstick.conf
+echo "ignoreControllerConfirmation = \"false\"" >> /etc/tellstick.conf
 
 # devices
 for (( i=0; i < "$DEVICES"; i++ )); do
-    DEV_ID=$(jq --raw-output ".DEVICES[$i].id" $CONFIG_PATH)
-    DEV_NAME=$(jq --raw-output ".DEVICES[$i].name" $CONFIG_PATH)
-    DEV_PROTO=$(jq --raw-output ".DEVICES[$i].protocol" $CONFIG_PATH)
-    DEV_MODEL=$(jq --raw-output ".DEVICES[$i].model // emty" $CONFIG_PATH)
-    ATTR_HOUSE=$(jq --raw-output ".DEVICES[$i].house // emty" $CONFIG_PATH)
-    ATTR_CODE=$(jq --raw-output ".DEVICES[$i].code // emty" $CONFIG_PATH)
-    ATTR_UNIT=$(jq --raw-output ".DEVICES[$i].unit // emty" $CONFIG_PATH)
+    DEV_ID=$(jq --raw-output ".devices[$i].id" $CONFIG_PATH)
+    DEV_NAME=$(jq --raw-output ".devices[$i].name" $CONFIG_PATH)
+    DEV_PROTO=$(jq --raw-output ".devices[$i].protocol" $CONFIG_PATH)
+    DEV_MODEL=$(jq --raw-output ".devices[$i].model // empty" $CONFIG_PATH)
+    ATTR_HOUSE=$(jq --raw-output ".devices[$i].house // empty" $CONFIG_PATH)
+    ATTR_CODE=$(jq --raw-output ".devices[$i].code // empty" $CONFIG_PATH)
+    ATTR_UNIT=$(jq --raw-output ".devices[$i].unit // empty" $CONFIG_PATH)
   
     (
         echo ""
@@ -40,7 +42,7 @@ for (( i=0; i < "$DEVICES"; i++ )); do
                 echo "    code = \"$ATTR_CODE\""
             fi
             if [ ! -z "$ATTR_UNIT" ]; then
-                echo "    code = \"$ATTR_UNIT\""
+                echo "    unit = \"$ATTR_UNIT\""
             fi
             
             echo "  }"

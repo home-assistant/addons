@@ -18,7 +18,7 @@ fi
 
 # Start mariadb
 echo "[INFO] Start MariaDB"
-mysqld_safe --datadir="$MARIADB_DATA" --user=root < /dev/null &
+mysqld_safe --datadir="$MARIADB_DATA" --user=root --log-bin=0 < /dev/null &
 MARIADB_PID=$!
 
 # Wait until DB is running

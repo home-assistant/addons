@@ -21,7 +21,7 @@
   "schema": {
     "deployment_key": ["str"],
     "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
-    "repository": "match((?:git|ssh|https?|git@[-\\w.]+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
+    "repository": "match((?:.+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "repeat": {
       "active": "bool",

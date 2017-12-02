@@ -42,6 +42,7 @@ while true; do
     echo "[Info] pull from $REPOSITORY"
     
     # perform pull
+    OLD_COMMIT=$(git rev-parse HEAD)
     git pull 2&> /dev/null || true
     
     # get actual (new) commit id

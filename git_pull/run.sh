@@ -52,7 +52,7 @@ while true; do
     if [ "$AUTO_RESTART" == "true" ]; then
 
         # Compare commit ids & check config
-        if [ $NEW_COMMIT != $OLD_COMMIT ]; then
+        if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
             echo "[Info] check Home-Assistant config"
             if api_ret="$(curl -s -X POST http://hassio/homeassistant/check)"; then
                 result="$(echo "$api_ret" | jq --raw-output ".result")"

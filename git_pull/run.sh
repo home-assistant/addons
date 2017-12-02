@@ -39,16 +39,16 @@ cd /config
 while true; do
 
     # get actual commit id
-    echo "[Info] pull from $REPOSITORY"
+    OLD_COMMIT=$(git rev-parse HEAD)
     
     # perform pull
-    OLD_COMMIT=$(git rev-parse HEAD)
+    echo "[Info] pull from $REPOSITORY"
     git pull 2&> /dev/null || true
     
     # get actual (new) commit id
     NEW_COMMIT=$(git rev-parse HEAD)
 
-    # Enable autorestart of homeassistant
+    # autorestart of homeassistant if enabled
     if [ "$AUTO_RESTART" == "true" ]; then
 
         # Compare commit ids & check config
@@ -65,6 +65,8 @@ while true; do
                     echo "[Error] invalid config!"
                 fi
             fi
+        else
+            echo "[Info] Nothing has changed."
         fi
     fi
 

@@ -34,19 +34,24 @@ if [ ! -d /config/.git ]; then
     fi
 fi
 
-# Run duckdns
+# Main programm
 cd /config
 while true; do
 
+    # get actual commit id
     echo "[Info] pull from $REPOSITORY"
+    
+    # perform pull
     git pull 2&> /dev/null || true
+    
+    # get actual (new) commit id
+    NEW_COMMIT=$(git rev-parse HEAD)
 
     # Enable autorestart of homeassistant
     if [ "$AUTO_RESTART" == "true" ]; then
-        changed_files="$(git diff-tree -r --name-only --no-commit-id 'HEAD@{1}' HEAD)"
 
-        # Files have changed & check config
-        if [ ! -z "$changed_files" ]; then
+        # Compare commit ids & check config
+        if [ $NEW_COMMIT != $OLD_COMMIT ]; then
             echo "[Info] check Home-Assistant config"
             if api_ret="$(curl -s -X POST http://hassio/homeassistant/check)"; then
                 result="$(echo "$api_ret" | jq --raw-output ".result")"

@@ -1,6 +1,6 @@
 {
   "name": "Tellstick",
-  "version": "0.1",
+  "version": "0.2",
   "slug": "tellstick",
   "description": "Telldus Tellstick daemon and tools.",
   "url": "https://home-assistant.io/addons/tellstick/",

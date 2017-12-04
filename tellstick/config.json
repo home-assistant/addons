@@ -1,8 +1,8 @@
 {
-  "name": "Tellstick",
+  "name": "TellStick",
   "version": "0.2",
   "slug": "tellstick",
-  "description": "Telldus Tellstick daemon and tools.",
+  "description": "Telldus TellStick and TellStick Duo service.",
   "url": "https://home-assistant.io/addons/tellstick/",
   "startup": "services",
   "stdin": true,

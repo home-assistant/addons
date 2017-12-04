@@ -56,6 +56,8 @@ for (( i=0; i < "$DEVICES"; i++ )); do
     ) >> /etc/tellstick.conf
 done
 
+echo "[Info] Exposing sockets and loading service"
+
 # Expose the unix socket to internal network
 socat TCP-LISTEN:50800,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusClient &
 socat TCP-LISTEN:50801,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusEvents &
@@ -64,7 +66,7 @@ socat TCP-LISTEN:50801,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusEvents &
 exec /usr/local/sbin/telldusd --nodaemon < /dev/null &
 
 # Listen for input to tdtool
-echo "[Info] Run event listener"
+echo "[Info] Starting event listener"
 while read -r input; do
     # removing JSON stuff
     input="$(echo "$input" | jq --raw-output '.')"

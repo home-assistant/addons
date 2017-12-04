@@ -5,6 +5,7 @@
   "description": "Telldus Tellstick daemon and tools.",
   "url": "https://home-assistant.io/addons/tellstick/",
   "startup": "services",
+  "stdin": true,
   "boot": "auto",
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
   "options": {
@@ -16,6 +17,14 @@
       "model": "selflearning-switch",
       "house": "A",
       "unit": "1"
+     },
+     {
+      "id": 2,
+      "name": "Example device two",
+      "protocol": "everflourish",
+      "model": "selflearning-switch",
+      "house": "A",
+      "unit": "2"
      }
     ]
   },

@@ -72,7 +72,9 @@ while read -r input; do
     input="$(echo "$input" | jq --raw-output '.')"
     echo "[Info] Read alias: $input"
 
-    if msg="$(tdtool "--$input")"; then
-    	echo "[Error] TellStick Command output -> $msg"
+    if ! msg="$(tdtool "--$input")"; then
+    	echo "[Error] TellStick Command fails -> $msg"
+    else
+        echo "[Info] TellStick Command success -> $msg"
     fi
 done

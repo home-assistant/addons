@@ -63,7 +63,7 @@ socat TCP-LISTEN:50800,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusClient &
 socat TCP-LISTEN:50801,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusEvents &
 
 # Run telldus-core daemon in the background
-exec /usr/local/sbin/telldusd --nodaemon < /dev/null &
+/usr/local/sbin/telldusd --nodaemon < /dev/null &
 
 # Listen for input to tdtool
 echo "[Info] Starting event listener"
@@ -72,7 +72,9 @@ while read -r input; do
     input="$(echo "$input" | jq --raw-output '.')"
     echo "[Info] Read alias: $input"
 
-    if ! msg="$(tdtool --"$input")"; then
-    	echo "[Error] TellStick Command failed -> $msg"
+    if ! msg="$(tdtool "--$input")"; then
+    	echo "[Error] TellStick Command fails -> $msg"
+    else
+        echo "[Info] TellStick Command success -> $msg"
     fi
 done

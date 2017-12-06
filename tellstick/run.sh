@@ -77,7 +77,7 @@ while read -r input; do
         input_arr+=("$word")
 	done
 	
-    if ! msg="$(tdtool --${input_arr[@]})"; then
+    if ! msg="$(tdtool --"${input_arr[*]}")"; then
     	echo "[Error] TellStick Command fails -> $msg"
     else
         echo "[Info] TellStick Command success -> $msg"

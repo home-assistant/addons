@@ -74,8 +74,8 @@ while read -r input; do
     echo "[Info] Read $funct / $devid"
     
     if ! msg="$(tdtool "--$funct" "$devid")"; then
-    	echo "[Error] TellStick "$funct" fails -> $msg"
+    	echo "[Error] TellStick $funct fails -> $msg"
     else
-        echo "[Info] TellStick "$funct" success -> $msg"
+        echo "[Info] TellStick $funct success -> $msg"
     fi
 done

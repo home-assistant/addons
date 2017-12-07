@@ -74,7 +74,7 @@ while read -r input; do
     
     input=("tdtool --$input")
     input_arr=()
-    for word in $input; do
+    for word in ${input[@]}; do
         input_arr+=("$word")
     done
 	

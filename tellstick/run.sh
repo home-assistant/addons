@@ -72,14 +72,11 @@ while read -r input; do
     input="$(echo "$input" | jq --raw-output '.')"
     echo "[Info] Read alias: $input"
     
-	input_arr=()
+    input_arr=()
     for word in $input; do
         input_arr+=("$word")
-	done
+    done
 	
-    if ! msg="$(tdtool --"${input_arr[*]}")"; then
-    	echo "[Error] TellStick Command fails -> $msg"
-    else
-        echo "[Info] TellStick Command success -> $msg"
-    fi
+    tdtool --"${input_arr[@]}"
+    
 done

@@ -68,16 +68,14 @@ socat TCP-LISTEN:50801,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusEvents &
 # Listen for input to tdtool
 echo "[Info] Starting event listener"
 while read -r input; do
-    # removing JSON stuff
-    input="$(echo "$input" | jq --raw-output '.')"
-    echo "[Info] Read alias: $input"
+    # parse JSON value
+    funct="$(echo "$input" | jq --raw-output '.function')"
+    devid="$(echo "$input" | jq --raw-output '.device // empty')"
+    echo "[Info] Read $funct / $devid"
     
-    input=("--$input")
-    input_arr=("tdtool")
-    for word in $input; do
-        input_arr+=("$word")
-    done
-	
-    "${input_arr[@]}"
-    
+    if ! msg="$(tdtool "--$funct" "$devid")"; then
+    	echo "[Error] TellStick "$funct" fails -> $msg"
+    else
+        echo "[Info] TellStick "$funct" success -> $msg"
+    fi
 done

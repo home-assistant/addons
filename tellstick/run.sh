@@ -72,11 +72,12 @@ while read -r input; do
     input="$(echo "$input" | jq --raw-output '.')"
     echo "[Info] Read alias: $input"
     
-    input_arr=()
+    input=("--$input")
+    input_arr=("tdtool")
     for word in $input; do
         input_arr+=("$word")
     done
 	
-    tdtool --"${input_arr[@]}"
+    ${input_arr[@]}
     
 done

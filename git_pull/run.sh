@@ -10,11 +10,15 @@ AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 
-# prepare the private key, if provided
+# prepare ssh access, if the deployment key has been provided
 if [ ! -z "$DEPLOYMENT_KEY" ]; then
-    echo "[Info] setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
 
     mkdir -p ~/.ssh
+    echo "[Info] disable StrictHostKeyChecking for ssh"
+    echo "Host *" > ~/.ssh/config
+    echo "    StrictHostKeyChecking no" >> ~/.ssh/config
+
+    echo "[Info] setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
         echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     done <<< "$DEPLOYMENT_KEY"

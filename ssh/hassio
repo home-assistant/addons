@@ -7,12 +7,14 @@ if [ "$1" == "help" ] || [ "$#" -lt 2 ]; then
 ---- Hass.IO Cli ----
 
 HomeAssistant:
+  $ hassio homeassistant check
+  $ hassio homeassistant info
   $ hassio homeassistant logs
   $ hassio homeassistant restart
-  $ hassio homeassistant stop
   $ hassio homeassistant start
+  $ hassio homeassistant stop
   $ hassio homeassistant update
-  $ hassio homeassistant check
+  $ hassio homeassistant downgrade
 
 Host:
   $ hassio host hardware
@@ -21,8 +23,8 @@ Host:
   $ hassio host update
 
 Supervisor
-  $ hassio supervisor logs
   $ hassio supervisor info
+  $ hassio supervisor logs
   $ hassio supervisor reload
   $ hassio supervisor update
 EOF
@@ -31,15 +33,34 @@ fi
 function call_api() {
     get_cmd=('info' 'logs' 'hardware')
 
-    command='POST'
-    if [[ ${get_cmd[*]} =~ $2 ]]; then
-        command='GET'
-    fi
-
-    if ! api_ret="$(curl -s -X $command "http://hassio/$1/$2")"; then
-        echo "API error: $api_ret"
-        return 1
-    fi
+    command='POST'                           
+    if [[ ${get_cmd[*]} =~ $2 ]]; then       
+        command='GET'                        
+    fi                                       
+                                      
+    api_ret=""                        
+    if [ "$2" == "downgrade" ]; then  
+        cver_tmp="$(curl -s -X GET "http://hassio/homeassistant/info")"
+        cver=$(echo "${cver_tmp}" | jq --raw-output '.data.version')   
+        read -r -e -p "Current verison is '${cver}', What version do you wish do downgrade to: " NEWVER
+        read -r -e -p "Downgrade from '${cver}' -> '${NEWVER}'? [y/N]: " CONFIRM                         
+        if [ "${CONFIRM}" == "y" ]; then                                                            
+            echo "Downgrading... DO NOT INTERRUPT!!!"                                               
+            api_ret="$(curl -sS -d '{"version": "'"${NEWVER}"'"}' http://hassio/homeassistant/update)"    
+            ret_code=$?                                                                             
+        else                                                                                        
+            echo "Aborted"                                                                          
+            return 0                                                                                
+        fi                                                                                          
+    else                                                                                            
+        api_ret="$(curl -sS -X $command "http://hassio/$1/$2")"                                      
+        ret_code=$?                                                                                 
+    fi                                                                                              
+                                                                                                    
+    if (( ret_code != 0 )); then                                                                      
+        echo "API error (${ret_code}): $api_ret"                                                    
+        return 1                                                                                    
+    fi                                                                                              
 
     if [ "$2" == "logs" ]; then
         echo "$api_ret"
@@ -52,7 +73,7 @@ function call_api() {
     if [ "$result" == "error" ]; then
         message="$(echo "$api_ret" | jq --raw-output ".message // empty")"
         echo "Error on $1/$2:" "$message"
-        return 0
+        return 1
     fi
 
     # On success
@@ -69,7 +90,7 @@ function call_api() {
 ######
 # homeassistant functions
 if [ "$1" == "homeassistant" ]; then
-    hass_cmd=('logs' 'restart' 'update' 'check' 'start' 'stop')
+    hass_cmd=('logs' 'restart' 'update' 'check' 'start' 'stop' 'info' 'downgrade')
     if [[ ! ${hass_cmd[*]} =~ $2 ]]; then
         echo "No homeassistant command '$2' found!"
         exit 1

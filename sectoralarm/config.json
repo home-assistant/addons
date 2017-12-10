@@ -1,0 +1,13 @@
+{
+  "name": "Sector Alarm",
+  "version": "1.0",
+  "slug": "sectoralarm",
+  "description": "Installs custom component for Sector Alarm.",
+  "url": "https://home-assistant.io/addons/sectoralarm",
+  "startup": "once",
+  "boot": "manual",
+  "map":["config:rw"],
+  "options": {},
+  "schema": {}
+  "image": "homeassistant/{arch}-addon-sectoralarm"
+}

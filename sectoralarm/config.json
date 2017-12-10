@@ -8,6 +8,6 @@
   "boot": "manual",
   "map":["config:rw"],
   "options": {},
-  "schema": {}
+  "schema": {},
   "image": "homeassistant/{arch}-addon-sectoralarm"
 }

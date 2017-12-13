@@ -1,0 +1,16 @@
+{
+  "name": "HomeMatic OCCU",
+  "version": "0.1",
+  "slug": "homematic",
+  "description": "HomeMatic central based on OCCU",
+  "url": "https://home-assistant.io/addons/homematic/",
+  "startup": "services",
+  "boot": "auto",
+  "auto_uart": true,
+  "gpio": true,
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-tellstick"
+}

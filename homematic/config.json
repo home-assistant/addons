@@ -1,10 +1,10 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "0.1",
+  "version": "2.29.22-1-p0",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
-  "arch": ["armhf", "i386"],
+  "arch": ["armhf", "i386", "amd64"],
   "startup": "services",
   "boot": "auto",
   "auto_uart": true,

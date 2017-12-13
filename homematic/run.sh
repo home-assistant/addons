@@ -20,10 +20,10 @@ fi
 
 # Init GPIO
 if [ ! -d /sys/class/gpio/gpio18 ]; then
-    echo "18" > /sys/class/gpio/export || true
+    echo 18 > /sys/class/gpio/export || true
     sleep 2
 fi
-echo "out" > /sys/class/gpio/gpio18/direction || true
+echo out > /sys/class/gpio/gpio18/direction || true
 sleep 2
 
 # Run central

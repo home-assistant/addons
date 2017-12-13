@@ -17,7 +17,10 @@ if [ "$TYPE" == "CCU2" ]; then
 fi
 
 # Init GPIO
-echo "18" > /sys/class/gpio/export
+if [ ! -d /sys/class/gpio/gpio18 ]; then
+    echo "18" > /sys/class/gpio/export
+    sleep 2
+fi
 echo "out" > /sys/class/gpio/gpio18/direction
 
 # Run central

@@ -18,10 +18,11 @@ fi
 
 # Init GPIO
 if [ ! -d /sys/class/gpio/gpio18 ]; then
-    echo "18" > /sys/class/gpio/export
+    echo "18" > /sys/class/gpio/export || true
     sleep 2
 fi
-echo "out" > /sys/class/gpio/gpio18/direction
+echo "out" > /sys/class/gpio/gpio18/direction || true
+sleep 2
 
 # Run central
 #"$HM_HOME/bin/rfd" -d -l 0 -f /opt/hm/etc/config/rfd.conf

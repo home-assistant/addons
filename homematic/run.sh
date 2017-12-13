@@ -18,6 +18,9 @@ if [ "$TYPE" == "CCU2" ]; then
     ) >> /etc/config/rfd.conf
 fi
 
+# Init folder
+mkdir -p /data/firmware
+
 # Init GPIO
 if [ ! -d /sys/class/gpio/gpio18 ]; then
     echo 18 > /sys/class/gpio/export || true

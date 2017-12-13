@@ -16,6 +16,12 @@ RUN curl -L -o /tmp/occu.tar.gz https://github.com/eq-3/occu/archive/$OCCU_VERSI
     && rm -f /tmp/occu.tar.gz \
     && cd occu-$OCCU_VERSION \
     && if "$BUILD_ARCH" == "armhf"; then cd arm-gnueabihf; else cd X86_32_Debian_Wheezy; fi \
-    && \
+    && install.sh \
+    && cp -r firmare /opt/hm/ \
     && rm -rf occu-$OCCU_VERSION
-    
+
+# Setup start script
+COPY run.sh /
+RUN chmod a+x /run.sh
+
+CMD [ "/run.sh" ]

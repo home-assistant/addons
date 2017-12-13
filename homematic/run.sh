@@ -21,6 +21,6 @@ echo "18" > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio18/direction
 
 # Run central
-#$HM_HOME/bin/rfd -d -l 0 -f /opt/hm/etc/config/rfd.conf
-$HM_HOME/bin/rfd -c -l 0 -f /opt/hm/etc/config/rfd.conf
-$HM_HOME/bin/ReGaHss -l 0 -f /opt/hm/etc/rega.conf
+#"$HM_HOME/bin/rfd" -d -l 0 -f /opt/hm/etc/config/rfd.conf
+"$HM_HOME/bin/rfd" -c -l 0 -f /opt/hm/etc/config/rfd.conf
+"$HM_HOME/bin/ReGaHss" -l 0 -f /opt/hm/etc/rega.conf

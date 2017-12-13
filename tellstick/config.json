@@ -5,7 +5,7 @@
   "description": "TellStick and TellStick Duo service.",
   "url": "https://home-assistant.io/addons/tellstick/",
   "startup": "services",
-  "stdin": "true",
+  "stdin": true,
   "boot": "auto",
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
   "options": {

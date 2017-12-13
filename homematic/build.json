@@ -1,0 +1,8 @@
+{
+  "build_from": {
+    "amd64": "homeassistant/i386-base:latest"  
+  },
+  "args": {
+    "OCCU_VERSION": "2.29.22-1"
+  }
+}

@@ -10,8 +10,11 @@
   "auto_uart": true,
   "gpio": true,
   "options": {
+    "type": "CCU2",
+    "device": "/dev/ttyAMA0"
   },
   "schema": {
-  },
-  "image": "homeassistant/{arch}-addon-homematic"
+    "type": "match(CCU2)",
+    "device": "match(^/dev/.*$)"
+  }
 }

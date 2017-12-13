@@ -23,11 +23,13 @@ mkdir -p /data/firmware
 
 # Init GPIO
 if [ ! -d /sys/class/gpio/gpio18 ]; then
-    echo 18 > /sys/class/gpio/export || true
+    echo 18 > /sys/class/gpio/export
     sleep 2
 fi
-echo out > /sys/class/gpio/gpio18/direction || true
-sleep 2
+if [ "$(cat /sys/class/gpio/gpio18/direction)" != "out" ]; then
+    echo out > /sys/class/gpio/gpio18/direction
+    sleep 2
+fi
 
 # Run central
 #"$HM_HOME/bin/rfd" -d -l 0 -f /opt/hm/etc/config/rfd.conf

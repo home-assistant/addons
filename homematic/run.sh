@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+export HM_HOME=/opt/hm
+export LD_LIBRARY_PATH=$HM_HOME/lib
 
 CONFIG_PATH=/data/options.json
 

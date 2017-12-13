@@ -13,5 +13,5 @@
   },
   "schema": {
   },
-  "image": "homeassistant/{arch}-addon-tellstick"
+  "image": "homeassistant/{arch}-addon-homematic"
 }

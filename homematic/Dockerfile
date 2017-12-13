@@ -18,7 +18,7 @@ RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.
     && if [ "$BUILD_ARCH" == "armhf" ]; then cd arm-gnueabihf; else cd X86_32_Debian_Wheezy; fi \
     && ./install.sh \
     && ln -s /opt/hm/etc/config /etc/config \
-    && cp -r firmare /opt/hm/ \
+    && cp -r ../firmware /opt/hm/ \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 
 # Update config files

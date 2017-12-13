@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 # Install packages
 RUN apk add --no-cache \
-    curl \
+    curl jq \
     libc6-compat libstdc++ libgcc libusb
 
 ARG OCCU_VERSION

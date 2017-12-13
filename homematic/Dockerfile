@@ -12,11 +12,11 @@ ARG BUILD_ARCH
 # Install OCCU
 WORKDIR /usr/src
 RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz \
-    && tar xzf occu.tar.gz \
+    && tar xzpf occu.tar.gz \
     && rm -f occu.tar.gz \
     && cd occu-${OCCU_VERSION} \
     && if [ "$BUILD_ARCH" == "armhf" ]; then cd arm-gnueabihf; else cd X86_32_Debian_Wheezy; fi \
-    && install.sh \
+    && ./install.sh \
     && ln -s /opt/hm/etc/config /etc/config \
     && cp -r firmare /opt/hm/ \
     && rm -rf /usr/src/occu-${OCCU_VERSION}

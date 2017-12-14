@@ -19,6 +19,8 @@ RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.
     && ./install.sh \
     && ln -s /opt/hm/etc/config /etc/config \
     && cp -r ../firmware /opt/hm/ \
+    && cp -R ../WebUI/* /opt/hm \
+    && ln -s /opt/hm/www /www \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 

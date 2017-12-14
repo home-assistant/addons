@@ -30,7 +30,7 @@ if [ "$(cat /sys/class/gpio/gpio18/direction)" != "out" ]; then
 fi
 
 # Run RFID
-"$HM_HOME/bin/rfd" -c -l 0 -f /opt/hm/etc/config/rfd.conf &
+"$HM_HOME/bin/rfd" -c -l 2 -f /opt/hm/etc/config/rfd.conf &
 RFD_PID=$?
 
 # Run Webfrontend

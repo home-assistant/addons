@@ -1,0 +1,10 @@
+{
+  "build_from": {
+    "armhf": "multiarch/ubuntu-core:armhf-xenial",
+    "amd64": "multiarch/ubuntu-core:i386-xenial",
+    "i386": "multiarch/ubuntu-core:i386-xenial"
+  },
+  "args": {
+    "OCCU_VERSION": "2.29.22-1"
+  }
+}

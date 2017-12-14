@@ -1,0 +1,24 @@
+{
+  "name": "HomeMatic OCCU",
+  "version": "2.29.22-1-p0",
+  "slug": "homematic",
+  "description": "HomeMatic central based on OCCU",
+  "url": "https://home-assistant.io/addons/homematic/",
+  "arch": ["armhf", "i386", "amd64"],
+  "startup": "services",
+  "boot": "auto",
+  "auto_uart": true,
+  "gpio": true,
+  "ports": {
+    "2001/tcp": 2001
+  },
+  "options": {
+    "type": "CCU2",
+    "device": "/dev/ttyAMA0"
+  },
+  "schema": {
+    "type": "match(CCU2)",
+    "device": "match(^/dev/.*$)"
+  },
+  "image": "homeassistant/{arch}-addon-homeassistant"
+}

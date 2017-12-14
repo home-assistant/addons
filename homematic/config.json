@@ -19,5 +19,6 @@
   "schema": {
     "type": "match(CCU2)",
     "device": "match(^/dev/.*$)"
-  }
+  },
+  "image": "homeassistant/{arch}-addon-homeassistant"
 }

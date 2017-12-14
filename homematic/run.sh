@@ -38,4 +38,4 @@ RFD_PID=$?
 "$HM_HOME/bin/ReGaHss" -l 0 -f /opt/hm/etc/rega.conf
 
 # Wait
-wait "$RFID_PID"
+wait "$RFD_PID"

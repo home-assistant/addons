@@ -2,9 +2,11 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Install packages
-RUN apk add --no-cache \
-    curl jq \
-    libc6-compat libstdc++ libgcc libusb
+RUN apt-get install --update -y \
+        curl \
+        jq \
+        libusb-1.0 \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG OCCU_VERSION
 ARG BUILD_ARCH

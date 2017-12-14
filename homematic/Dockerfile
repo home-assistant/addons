@@ -20,6 +20,7 @@ RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.
     && ln -s /opt/hm/etc/config /etc/config \
     && cp -r ../firmware /opt/hm/ \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
+ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files
 COPY rfd.conf /etc/config

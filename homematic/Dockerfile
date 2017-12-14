@@ -18,7 +18,7 @@ RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.
     && tar xzpf occu.tar.gz \
     && rm -f occu.tar.gz \
     && cd occu-${OCCU_VERSION} \
-    && if [ "$BUILD_ARCH" == "armhf" ]; then cd arm-gnueabihf; else cd X86_32_Debian_Wheezy; fi \
+    && if [ "${BUILD_ARCH}" == "armhf" ]; then cd arm-gnueabihf; else cd X86_32_Debian_Wheezy; fi \
     && mkdir -p /opt/hm \
     && cp -R packages-eQ-3/RFD/* /opt/hm \
     && cp -R packages-eQ-3/LinuxBasis/* /opt/hm \

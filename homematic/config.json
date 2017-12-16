@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "2.29.22-1-p0",
+  "version": "2.29.22-1-p1",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
@@ -13,12 +13,38 @@
     "2001/tcp": 2001
   },
   "options": {
-    "type": "CCU2",
-    "device": "/dev/ttyAMA0"
+    "rf_enable": true,
+    "rf": [
+      {
+        "type": "CCU2",
+        "device": "/dev/ttyAMA0"
+      }
+    ],
+    "wired_enable": false,
+    "wired": [
+      {
+        "serial": "xy",
+        "key": "abc",
+        "ip": "192.168.0.0"
+      }
+    ]
   },
   "schema": {
-    "type": "match(CCU2)",
-    "device": "match(^/dev/.*$)"
+    "rf_enable": "bool",
+    "rf": [
+      {
+        "type": "match(CCU2)",
+        "device": "match(^/dev/.*$)"
+      }
+    ],
+    "wired_enable": "bool",
+    "wired": [
+      {
+        "serial": "str",
+        "key": "str",
+        "ip": "str"
+      }
+    ]
   },
   "image": "homeassistant/{arch}-addon-homeassistant"
 }

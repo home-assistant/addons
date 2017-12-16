@@ -29,7 +29,7 @@ RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files
-COPY rfd.conf /etc/config
+COPY rfd.conf hs485d.conf /etc/config
 
 # Setup start script
 COPY run.sh /

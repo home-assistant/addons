@@ -4,9 +4,9 @@ set -e
 CONFIG_PATH=/data/options.json
 
 RF_ENABLE=$(jq --raw-output '.rf_enable' $CONFIG_PATH)
-RF_DEVICES=$(jq --raw-output '.rf | lenght' $CONFIG_PATH)
+RF_DEVICES=$(jq --raw-output '.rf | length' $CONFIG_PATH)
 WIRED_ENABLE=$(jq --raw-output '.wired_enable' $CONFIG_PATH)
-WIRED_DEVICES=$(jq --raw-output '.wired | lenght' $CONFIG_PATH)
+WIRED_DEVICES=$(jq --raw-output '.wired | length' $CONFIG_PATH)
 WAIT_PIDS=()
 
 # Init folder

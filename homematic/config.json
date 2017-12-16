@@ -11,7 +11,7 @@
   "gpio": true,
   "ports": {
     "2001/tcp": 2001,
-    "2000/tcp": 2000,
+    "2000/tcp": 2000
   },
   "options": {
     "rf_enable": true,

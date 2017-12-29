@@ -11,6 +11,8 @@
   "options": {
     "deployment_key": [],
     "deployment_key_protocol": "rsa",
+    "deployment_user": "",
+    "deployment_password": "",
     "repository": null,
     "auto_restart": false,
     "repeat": {
@@ -21,6 +23,8 @@
   "schema": {
     "deployment_key": ["str"],
     "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
+    "deployment_user": "str",
+    "deployment_password": "str",
     "repository": "match((?:.+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "repeat": {

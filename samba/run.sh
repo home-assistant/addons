@@ -69,6 +69,7 @@ else
 
     addgroup -g 1000 "$USERNAME"
     adduser -D -H -G "$USERNAME" -s /bin/false -u 1000 "$USERNAME"
+    # shellcheck disable=SC1117
     echo -e "$PASSWORD\n$PASSWORD" | smbpasswd -a -s -c /etc/smb.conf "$USERNAME"
 fi
 

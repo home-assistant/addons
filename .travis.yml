@@ -15,7 +15,8 @@ before_install:
 
 script:
  - docker run -v $(pwd):/mnt koalaman/shellcheck **/*.sh
- - jq . **/*.json'
+ - jq . **/config.json'
+ - jq . **/build.json'
 
 matrix:
   fast_finish: true

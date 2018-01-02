@@ -7,7 +7,6 @@ addons:
   apt:
     packages:
      - docker-ce
-     - jq
 
 before_install:
   - shopt -s globstar
@@ -15,8 +14,6 @@ before_install:
 
 script:
  - docker run -v $(pwd):/mnt koalaman/shellcheck **/*.sh
- - jq . **/config.json'
- - jq . **/build.json'
 
 matrix:
   fast_finish: true

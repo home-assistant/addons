@@ -10,11 +10,12 @@ addons:
      - jq
 
 before_install:
+  - shopt -s globstar
   - docker pull koalaman/shellcheck
 
 script:
- - docker run -v $(pwd):/addons koalaman/shellcheck /addons
- - bash -c 'shopt -s globstar ; jq . **/*.json'
+ - docker run -v $(pwd):/mnt koalaman/shellcheck **/*.sh
+ - jq . **/*.json'
 
 matrix:
   fast_finish: true

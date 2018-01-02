@@ -1,19 +1,19 @@
 language: bash
 
-# Use container-based infrastructure for quicker build start-up
-sudo: false
+sudo: required
+service: docker
 
 addons:
   apt:
-    sources:
-    - debian-sid    # Grab shellcheck from the Debian repo (o_O)
     packages:
-    - shellcheck
-    - jq
+     - docker-ce
+
+before_install:
+  - shopt -s globstar
+  - docker pull koalaman/shellcheck
 
 script:
- - bash -c 'shopt -s globstar; shellcheck **/*.sh'
- - bash -c 'shopt -s globstar ; jq . **/*.json'
+ - docker run -v $(pwd):/mnt koalaman/shellcheck **/*.sh
 
 matrix:
   fast_finish: true

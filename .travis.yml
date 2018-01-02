@@ -15,7 +15,7 @@ before_install:
 
 script:
  - docker run -v $(pwd):/mnt koalaman/shellcheck **/*.sh
- - docker run -v $(pwd):/mnt stedolan/jq < **/*.json '.'
+ - cat -- **/*.json | docker run -v $(pwd):/mnt stedolan/jq '.'
 
 matrix:
   fast_finish: true

@@ -1,5 +1,6 @@
 """Mapping hass.io options.json into configurator config."""
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -12,7 +13,7 @@ with hassio_options.open('r') as json_file:
 configurator = {
     'BASEPATH': "/config",
     'HASS_API': "http://hassio/homeassistant/api/",
-    'HASS_API_PASSWORD': None,
+    'HASS_API_PASSWORD': os.environ.get('API_TOKEN'),
     'CREDENTIALS':
         "{}:{}".format(options['username'], options['password']),
     'SSL_CERTIFICATE':

@@ -17,8 +17,10 @@ function add-ssh-key {
     echo "Start adding SSH key"
     mkdir -p ~/.ssh
 
-    echo "Host *" > ~/.ssh/config
-    echo "    StrictHostKeyChecking no" >> ~/.ssh/config
+    (
+        echo "Host *"
+        echo "    StrictHostKeyChecking no"
+    ) > ~/.ssh/config
 
     echo "Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
@@ -30,30 +32,25 @@ function add-ssh-key {
 }
 
 function git-clone {
-    # back to main folder
-    cd ..
-
     # create backup
-    BACKUP_LOCATION="./tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
+    BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
     echo "Backup configuration to $BACKUP_LOCATION"
     
     mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
-    cp -rf config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
+    cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
     
     # remove config folder content
-    rm -rf config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
+    rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
 
     # git clone
     echo "Start git clone"
-    git clone "$REPOSITORY" ./config || { echo "[Error] Git clone failed"; exit 1; }
+    git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
 
     # try to copy secrets file back
     cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null
-
-    cd config
 }
 
 function check-ssh-key {

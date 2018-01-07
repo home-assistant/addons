@@ -45,12 +45,12 @@ else
 fi
 
 # Persist shell history by redirecting .ash_history to /data
-touch /data/.ash_history
-chmod 600 /data/.ash_history
-ln -s -f /data/.ash_history /root/.ash_history
+touch /data/.bash_history
+chmod 600 /data/.bash_history
+ln -s -f /data/.bash_history /root/.bash_history
 
 # Store token for hass.io API
-echo "export API_TOKEN=$API_TOKEN" >> /root/.profile
+echo "export API_TOKEN=$API_TOKEN" >> /root/.bash_profile
 
 # start server
 exec /usr/sbin/sshd -D -e < /dev/null

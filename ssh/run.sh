@@ -49,5 +49,8 @@ touch /data/.ash_history
 chmod 600 /data/.ash_history
 ln -s -f /data/.ash_history /root/.ash_history
 
+# Store token for hass.io API
+echo "export API_TOKEN=$API_TOKEN" >> /root/.profile
+
 # start server
 exec /usr/sbin/sshd -D -e < /dev/null

@@ -54,7 +54,7 @@ function git-clone {
 }
 
 function check-ssh-key {
-if [ -n DEPLOYMENT_KEY ]; then
+if [ -n "$DEPLOYMENT_KEY" ]; then
     echo "Check SSH connection"
     IFS=':' read -ra GIT_URL_PARTS <<< "$REPOSITORY"
     ssh -T -o "BatchMode=yes" "${GIT_URL_PARTS[0]}"
@@ -68,7 +68,7 @@ fi
 }
 
 function git-synchronize {
-    inside_git_repo="$(git rev-parse --is-inside-git-dir 2>/dev/null)"
+    git rev-parse --is-inside-git-dir >/dev/null
     if [ $? -eq 0 ]; then
         echo "git repository exists, start pulling"
         OLD_COMMIT=$(git rev-parse HEAD)
@@ -106,7 +106,7 @@ function validate-config {
 ###################
 
 #### Main program ####
-cd /config
+cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
     git-synchronize

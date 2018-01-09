@@ -57,8 +57,9 @@ function check-ssh-key {
 if [ -n "$DEPLOYMENT_KEY" ]; then
     echo "Check SSH connection"
     IFS=':' read -ra GIT_URL_PARTS <<< "$REPOSITORY"
-    ssh -T -o "BatchMode=yes" "${GIT_URL_PARTS[0]}"
-    if [ $? -eq 0 ]; then
+    # shellcheck disable=SC2029
+    if ! ssh -T -o "BatchMode=yes" "${GIT_URL_PARTS[0]}"
+    then
         echo "Valid SSH connection for ${GIT_URL_PARTS[0]}"
     else
         echo "No valid SSH connection for ${GIT_URL_PARTS[0]}"
@@ -68,8 +69,8 @@ fi
 }
 
 function git-synchronize {
-    git rev-parse --is-inside-git-dir >/dev/null
-    if [ $? -eq 0 ]; then
+    if git rev-parse --is-inside-git-dir &>/dev/null
+    then
         echo "git repository exists, start pulling"
         OLD_COMMIT=$(git rev-parse HEAD)
         git pull || { echo "[Error] Git pull failed"; exit 1; }

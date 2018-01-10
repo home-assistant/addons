@@ -1,6 +1,6 @@
 {
   "name": "Snips.AI",
-  "version": "0.6.5",
+  "version": "0.6.5-p1",
   "slug": "snips",
   "description": "Local voice control platform",
   "url": "https://home-assistant.io/addons/snips/",

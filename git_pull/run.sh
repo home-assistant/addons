@@ -87,16 +87,11 @@ function validate-config {
         NEW_COMMIT=$(git rev-parse HEAD)
         if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
             echo "[Info] check Home-Assistant config"
-            if api_ret="$(curl -s -X POST http://hassio/homeassistant/check)"; then
-                result="$(echo "$api_ret" | jq --raw-output ".result")"
-
-                # Config is valid
-                if [ "$result" != "error" ]; then
-                    echo "[Info] restart Home-Assistant"
-                    curl -s -X POST http://hassio/homeassistant/restart 2&> /dev/null || true
-                else
-                    echo "[Error] invalid config!"
-                fi
+            if hassio homeassistant check; then
+                echo "[Info] restart Home-Assistant"
+                hassio homeassistant restart 2&> /dev/null
+            else
+                echo "[Error] invalid config!"
             fi
         else
             echo "[Info] Nothing has changed."

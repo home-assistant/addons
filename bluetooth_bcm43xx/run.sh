@@ -12,5 +12,5 @@ hciconfig hci0 up
 
 while pgrep hciattach > /dev/null
 do
-  sleep 600
+    sleep 600
 done

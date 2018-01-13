@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache tzdata jq bluez
+RUN apk add --no-cache bluez-deprecated
 
 # Copy firmware
 COPY firmware/* /lib/firmware/brcm/

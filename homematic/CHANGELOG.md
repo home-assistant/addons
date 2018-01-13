@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.31.23
+- Update OCCU to 2.31.23
+
 ## 2.29.22-1-p1
 - Fix bug in script
 - Add wired port into config

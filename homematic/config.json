@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "2.29.22-1-p2",
+  "version": "2.31.23-p0",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",

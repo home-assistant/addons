@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SERIAL="$(grep Serial /proc/cpuinfo | cut -c19-"
+SERIAL="$(grep Serial /proc/cpuinfo | cut -c19-)"
 B1=`echo $SERIAL | cut -c3-4`
 B2=`echo $SERIAL | cut -c5-6`
 B3=`echo $SERIAL | cut -c7-8`

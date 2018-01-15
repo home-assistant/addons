@@ -12,7 +12,7 @@
    },
   "map": ["ssl:rw"],
   "options": {
-    "challenge": "https",
+    "challenge": "http",
     "email": null,
     "domains": [null],
     "certfile": "fullchain.pem",

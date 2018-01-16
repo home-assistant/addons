@@ -14,7 +14,7 @@ ARG BUILD_ARCH
 
 # Install OCCU
 WORKDIR /usr/src
-RUN curl -L -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz \
+RUN curl -sL -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz \
     && tar xzpf occu.tar.gz \
     && rm -f occu.tar.gz \
     && cd occu-${OCCU_VERSION} \

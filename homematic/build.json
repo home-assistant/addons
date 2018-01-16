@@ -5,6 +5,6 @@
     "i386": "multiarch/ubuntu-core:i386-xenial"
   },
   "args": {
-    "OCCU_VERSION": "2.31.23"
+    "OCCU_VERSION": "2.31.25"
   }
 }

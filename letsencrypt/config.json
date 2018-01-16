@@ -1,8 +1,8 @@
 {
-  "name": "Let's Encrypt",
+  "name": "Lets Encrypt",
   "version": "2.0",
   "slug": "letsencrypt",
-  "description": "Manage certificate from Let's Encrypt",
+  "description": "Manage certificate from Lets Encrypt",
   "url": "https://home-assistant.io/addons/lets_encrypt/",
   "startup": "once",
   "boot": "manual",

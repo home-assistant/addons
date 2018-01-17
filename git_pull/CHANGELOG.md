@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0
+- New option `deployment_user` and `deployment_password`
+
 ## 3.0
 - New CLI
 - Update base image

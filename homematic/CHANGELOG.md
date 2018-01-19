@@ -1,7 +1,10 @@
 # Changelog
 
-## 2.31.23-p1
+## 2.31.25-p1
 - Add `reset` options for RF modules
+
+## 2.31.25-p0
+- Update OCCU to 2.31.25
 
 ## 2.31.23-p0
 - Update OCCU to 2.31.23

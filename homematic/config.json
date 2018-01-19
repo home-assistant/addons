@@ -19,7 +19,7 @@
       {
         "type": "CCU2",
         "device": "/dev/ttyAMA0",
-        "reset": false,
+        "reset": false
       }
     ],
     "wired_enable": false,

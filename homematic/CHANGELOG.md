@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.31.25-p2
+- Bugfix with reset value on GPIO
+
 ## 2.31.25-p1
 - Add `reset` options for RF modules
 

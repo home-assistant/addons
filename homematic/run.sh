@@ -30,7 +30,7 @@ if [ "$RF_ENABLE" == "true" ]; then
 
 
             # Init GPIO
-            RESET=$(jq --raw-output ".rf[$i].reset // empty" $CONFIG_PATH)
+            RESET=$(jq --raw-output ".rf[$i].reset // false" $CONFIG_PATH)
             if [ ! -d /sys/class/gpio/gpio18 ]; then
                 echo 18 > /sys/class/gpio/export
                 sleep 2

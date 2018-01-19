@@ -40,10 +40,10 @@ if [ "$RF_ENABLE" == "true" ]; then
                 sleep 2
             fi
             if [ "$RESET" == "true" ]; then
-                echo 1 > /sys/class/gpio/gpio18/direction
+                echo 1 > /sys/class/gpio/gpio18/value || echo "Can't reset module!"
                 sleep 0.5    
             fi
-            echo 0 > /sys/class/gpio/gpio18/direction
+            echo 0 > /sys/class/gpio/gpio18/value || echo "Can't set default value!"
             sleep 0.5
         fi
     done

@@ -6,6 +6,8 @@ CONFIG_PATH=/data/options.json
 
 DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
+DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
+DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
@@ -68,6 +70,42 @@ if [ -n "$DEPLOYMENT_KEY" ]; then
 fi
 }
 
+function setup-user-password {
+if [ ! -z "$DEPLOYMENT_USER" ]; then
+    cd /config || return
+    echo "[Info] setting up credential.helper for user: ${DEPLOYMENT_USER}"
+    git config --system credential.helper 'store --file=/tmp/git-credentials'
+
+    # Extract the hostname from repository
+    h="$REPOSITORY"
+
+    # Extract the protocol
+    proto=${h%%://*}
+
+    # Strip the protocol
+    h="${h#*://}"
+
+    # Strip username and password from URL
+    h="${h#*:*@}"
+    h="${h#*@}"
+
+    # Strip the tail of the URL
+    h=${h%%/*}
+
+    # Format the input for git credential commands
+    cred_data="\
+protocol=${proto}
+host=${h}
+username=${DEPLOYMENT_USER}
+password=${DEPLOYMENT_PASSWORD}
+"
+
+    # Use git commands to write the credentials to ~/.git-credentials
+    echo "[Info] Saving git credentials to /tmp/git-credentials"
+    git credential fill | git credential approve <<< "$cred_data"
+fi
+}
+
 function git-synchronize {
     if git rev-parse --is-inside-git-dir &>/dev/null
     then
@@ -105,6 +143,7 @@ function validate-config {
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
+    setup-user-password
     git-synchronize
     validate-config
      # do we repeat?

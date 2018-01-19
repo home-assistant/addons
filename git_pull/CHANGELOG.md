@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0
+- Allow to use user/password authentication for GIT
+- New options `deployment_user` and `deployment_password`
+
 ## 3.0
 - New CLI
 - Update base image

@@ -1,6 +1,6 @@
 {
   "name": "Hue MQTT Bridge",
-  "version": "0.12",
+  "version": "0.18",
   "slug": "hue_mqtt_bridge",
   "description": "Philips Hue Sensor MQTT Bridge",
   "url": "https://home-assistant.io/addons/git_pull/",

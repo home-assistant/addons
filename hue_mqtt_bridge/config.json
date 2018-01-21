@@ -8,7 +8,7 @@
   "boot": "auto",
   "options": {
    "broker": {
-     "host": "localhost",
+     "host": "core-mosquitto",
       "username": null,
       "password": null
    },

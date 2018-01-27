@@ -25,6 +25,7 @@ configurator = {
     'IGNORE_PATTERN': options['ignore_pattern'],
     'BANLIMIT': options['banlimit'],
     'DIRSFIRST': options['dirsfirst'],
+    'SESAME': options['sesame'],
 }
 
 with Path(sys.argv[1]).open('w') as json_file:

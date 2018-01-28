@@ -2,19 +2,36 @@
 set -e
 
 CONFIG_PATH=/data/options.json
-SNIPS_CONFIG=/data/config
 
 MQTT_BRIDGE=$(jq --raw-output '.mqtt_bridge.active' $CONFIG_PATH)
 ASSISTANT=$(jq --raw-output '.assistant' $CONFIG_PATH)
 SPEAKER=$(jq --raw-output '.speaker' $CONFIG_PATH)
 MIC=$(jq --raw-output '.mic' $CONFIG_PATH)
 
-echo "[Info] Show audio device"
+echo "[INFO] Show audio output device"
 aplay -l
 
-echo "[Info] Setup audio device"
-sed -i "s/%%SPEAKER%%/$SPEAKER/g" /root/.asoundrc
-sed -i "s/%%MIC%%/$MIC/g" /root/.asoundrc
+echo "[INFO] Show audio input device"
+arecord -l
+
+echo "[INFO] Setup audio device"
+if [ -f "/share/asoundrc" ]; then
+    echo "[INFO] Installing /share/asoundrc"
+    cp -v /share/asoundrc /root/.asoundrc
+else
+    echo "[INFO] Using default asound.conf"
+    sed -i "s/%%SPEAKER%%/$SPEAKER/g" /root/.asoundrc
+    sed -i "s/%%MIC%%/$MIC/g" /root/.asoundrc
+fi
+
+echo "[DEBUG] Using /root/.asoundrc"
+cat /root/.asoundrc
+
+echo "[INFO] Checking for /share/snips.toml"
+if [ -f "/share/snips.toml" ]; then
+    echo "[INFO] Installing /share/snips.toml"
+    cp -v /share/snips.toml /etc/
+fi
 
 # mqtt bridge
 if [ "$MQTT_BRIDGE" == "true" ]; then
@@ -23,7 +40,7 @@ if [ "$MQTT_BRIDGE" == "true" ]; then
     USER=$(jq --raw-output '.mqtt_bridge.user' $CONFIG_PATH)
     PASSWORD=$(jq --raw-output '.mqtt_bridge.password' $CONFIG_PATH)
 
-    echo "[Info] Setup internal mqtt bridge"
+    echo "[INFO] Setup internal mqtt bridge"
 
     {
         echo "connection main-mqtt"
@@ -36,24 +53,30 @@ if [ "$MQTT_BRIDGE" == "true" ]; then
           echo "password $PASSWORD"
       } >> /etc/mosquitto.conf
     fi
-    
+
     {
-        echo "topic # OUT"
-        echo "topic # IN hermes/ hermes/"
+        echo "topic hermes/intent/# out"
+        echo "topic hermes/hotword/toggleOn out"
+        echo "topic hermes/hotword/toggleOff out"
+        echo "topic hermes/asr/stopListening out"
+        echo "topic hermes/asr/startListening out"
+        echo "topic hermes/nlu/intentNotParsed out"
+        echo "topic # IN hermes/"
     } >> /etc/mosquitto.conf
 fi
 
-echo "[Info] Start internal mqtt broaker"
+echo "[INFO] Start internal mqtt broker"
 mosquitto -c /etc/mosquitto.conf &
 
-# init snips config
-mkdir -p "$SNIPS_CONFIG"
-
+echo "[INFO] Checking for updated $ASSISTANT in /share"
 # check if a new assistant file exists
 if [ -f "/share/$ASSISTANT" ]; then
-    echo "[Info] Install/Update snips assistant"
-    unzip -o -u "/share/$ASSISTANT" -d "$SNIPS_CONFIG"
+    echo "[INFO] Install/Update snips assistant"
+    unzip -o -u "/share/$ASSISTANT" -d /usr/share/snips
 fi
-ln -s "$SNIPS_CONFIG/assistant/" /usr/share/snips/assistant
+
+sleep 2
+echo "[INFO] Starting snips-watch"
+/usr/bin/snips-watch -vvv --no_color &
 
 /opt/snips/snips-entrypoint.sh --mqtt localhost:1883

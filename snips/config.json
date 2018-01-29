@@ -15,7 +15,7 @@
   "options": {
     "mqtt_bridge": {
       "active": true,
-      "host": "172.17.0.1",
+      "host": "core-mosquitto",
       "port": 1883,
       "user": "",
       "password": ""

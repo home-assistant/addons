@@ -3,7 +3,4 @@
     "armhf": "snipsdocker/platform:arm-0.51.14",
     "amd64": "snipsdocker/platform:x86-0.51.14"
   }
-  "args": {
-    "ASSISTANT_URL": "https://github.com/tschmidty69/hassio-snips/releases/download/0.1-pre1/assistant.zip"
-  }
 }

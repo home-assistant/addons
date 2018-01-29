@@ -1,6 +1,6 @@
 {
   "name": "Snips.AI",
-  "version": "0.7.0",
+  "version": "0.7",
   "slug": "snips",
   "description": "Local voice control platform",
   "url": "https://home-assistant.io/addons/snips/",
@@ -15,7 +15,7 @@
   "options": {
     "mqtt_bridge": {
       "active": true,
-      "host": "172.17.0.1",
+      "host": "core-mosquitto",
       "port": 1883,
       "user": "",
       "password": ""

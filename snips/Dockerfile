@@ -6,7 +6,8 @@ COPY run.sh /
 COPY mosquitto.conf /etc/
 COPY asoundrc /root/.asoundrc
 
-ADD https://github.com/tschmidty69/hassio-snips/releases/download/0.1-pre1/assistant.zip /assistant-default.zip
+ARG ASSISTANT_URL
+ADD $ASSISTANT_URL /assistant-default.zip
 
 RUN chmod a+x /run.sh
 

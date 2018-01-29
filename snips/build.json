@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armhf": "tschmidty/armhf-addon-snips",
-    "amd64": "tschmidty/armhf-addon-snips"
+    "armhf": "snipsdocker/platform:arm-0.6.5",
+    "amd64": "snipsdocker/platform:x86-0.6.5"
   }
 }

@@ -68,11 +68,16 @@ fi
 echo "[INFO] Start internal mqtt broker"
 mosquitto -c /etc/mosquitto.conf &
 
+
 echo "[INFO] Checking for updated $ASSISTANT in /share"
 # check if a new assistant file exists
 if [ -f "/share/$ASSISTANT" ]; then
     echo "[INFO] Install/Update snips assistant"
     unzip -o -u "/share/$ASSISTANT" -d /usr/share/snips
+# otherwise use the default 
+elif [ -f "/assistant-default.zip" ]; then
+    echo "[INFO] Using default snips assistant"
+    unzip -o -u "/assistant-default.zip" -d /usr/share/snips
 fi
 
 echo "[INFO] Starting snips-watch"

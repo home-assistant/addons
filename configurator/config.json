@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
@@ -34,8 +34,8 @@
     "banned_ips": ["str"],
     "banlimit": "int",
     "ignore_pattern": ["str"],
-    "dirsfirst": "bool"
+    "dirsfirst": "bool",
+    "sesame": "str?"
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }
-  

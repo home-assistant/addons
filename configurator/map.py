@@ -13,7 +13,7 @@ with hassio_options.open('r') as json_file:
 configurator = {
     'BASEPATH': "/config",
     'HASS_API': "http://hassio/homeassistant/api/",
-    'HASS_API_PASSWORD': os.environ.get('API_TOKEN'),
+    'HASS_API_PASSWORD': os.environ.get('HASSIO_TOKEN', ''),
     'CREDENTIALS':
         "{}:{}".format(options['username'], options['password']),
     'SSL_CERTIFICATE':
@@ -25,6 +25,7 @@ configurator = {
     'IGNORE_PATTERN': options['ignore_pattern'],
     'BANLIMIT': options['banlimit'],
     'DIRSFIRST': options['dirsfirst'],
+    'SESAME': options.get('sesame'),
 }
 
 with Path(sys.argv[1]).open('w') as json_file:

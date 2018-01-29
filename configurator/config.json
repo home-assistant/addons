@@ -22,8 +22,7 @@
     "banned_ips": ["8.8.8.8"],
     "banlimit": 0,
     "ignore_pattern": ["__pycache__"],
-    "dirsfirst": false,
-    "sesame": null
+    "dirsfirst": false
   },
   "schema": {
     "username": "str",
@@ -36,7 +35,7 @@
     "banlimit": "int",
     "ignore_pattern": ["str"],
     "dirsfirst": "bool",
-    "sesame": null
+    "sesame": "str?"
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

@@ -11,7 +11,7 @@
     "1883/tcp": 9898
   },
   "map": ["share"],
-  "devices": ["/dev/snd:/dev/snd:rwm"],
+  "audio": true,
   "options": {
     "mqtt_bridge": {
       "active": true,
@@ -36,5 +36,5 @@
     "speaker": "str",
     "assistant": "str"
   },
-  "image": "tschmidty/{arch}-addon-snips"
+  "image": "homeassistant/{arch}-addon-snips"
 }

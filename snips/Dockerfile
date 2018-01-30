@@ -5,6 +5,7 @@ FROM $BUILD_FROM
 COPY run.sh /
 COPY mosquitto.conf /etc/
 COPY asoundrc /root/.asoundrc
+COPY assistant.zip /assistant-default.zip
 
 RUN chmod a+x /run.sh
 

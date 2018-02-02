@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.1
+- Add support for key validation against ssh cloned GitHub repositories
+
 ## 4.0
 - Allow to use user/password authentication for GIT
 - New options `deployment_user` and `deployment_password`

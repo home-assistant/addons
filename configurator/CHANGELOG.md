@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.6
+- Displaying current filename in title
+- Added menu item to open configurator in new tab
+- Automatically load last viewed (and not closed) file via localStorage
+- CTRL+s / CMD+s can now be used to save files
+- Prompting before saving now opt-in in editor settings
+
 ## 0.2.5
 - Added warning-logs for access failure
 - Added transparency to whitespace characters

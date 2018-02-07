@@ -2,7 +2,7 @@
 
 ## 3.1
 - Update Hass.io CLI to 1.1.1
-- Change token
+- Change internal token handling for Hass.io API
 
 ## 3.0
 - Use new base images

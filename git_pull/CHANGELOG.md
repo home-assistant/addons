@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.2
+- Update Hass.io CLI to 1.1.1
+
 ## 4.1
 - Add support for key validation against ssh cloned GitHub repositories
 

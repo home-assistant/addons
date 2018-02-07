@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2
+- Downgrade Hass.io CLI to 1.0.1
+
 ## 3.1
 - Update Hass.io CLI to 1.1.1
 - Change internal token handling for Hass.io API

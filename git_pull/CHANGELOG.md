@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.4
+- Update Hass.io CLI to 1.1.2
+
 ## 4.3
 - Downgrade Hass.io CLI to 1.0.1
 

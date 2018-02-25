@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.9
+- Update preinstalled assistant for Home-Assistant
+
 ## 0.8
 - Updated to latest snips version 0.52.7
 

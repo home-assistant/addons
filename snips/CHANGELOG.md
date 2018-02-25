@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.7.0 ##
+## 0.8
+- Updated to latest snips version 0.52.7
+
+## 0.7
 - Updated to latest snips version 0.51.14
 - Added default assistant for hassio builtin intents
 

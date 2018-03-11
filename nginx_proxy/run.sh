@@ -14,12 +14,12 @@ CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
 
 # Generate dhparams
 if [ ! -f "$DHPARAMS_PATH" ]; then
-    echo "[INFO] Generate dhparams..."
+    echo "[INFO] Generating dhparams (this will take some time)..."
     openssl dhparam -dsaparam -out "$DHPARAMS_PATH" 4096 > /dev/null
 fi
 
 if [ ! -f "$SNAKEOIL_CERT" ]; then
-    echo "[INFO] Create snakeoil (self-signed certificate)"
+    echo "[INFO] Creating 'snakeoil' self-signed certificate..."
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
@@ -37,5 +37,5 @@ if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
 fi
 
 # start server
-echo "[INFO] Run nginx"
+echo "[INFO] Running nginx..."
 exec nginx -c /etc/nginx.conf < /dev/null

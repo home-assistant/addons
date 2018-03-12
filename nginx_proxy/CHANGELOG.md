@@ -1,6 +1,6 @@
 # Changelog
 
-## x.x
+## 1.1
 - Update run.sh info messages
 
 ## 1.0

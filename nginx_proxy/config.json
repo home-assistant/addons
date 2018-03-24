@@ -15,6 +15,7 @@
     "domain": null,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
+    "hsts": "max-age=31536000; includeSubDomains",
     "customize": {
       "active": false,
       "default": "nginx_proxy_default*.conf",
@@ -25,6 +26,7 @@
     "domain": "str",
     "certfile": "str",
     "keyfile": "str",
+    "hsts": "str",
     "customize": {
       "active": "bool",
       "default": "str",

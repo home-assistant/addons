@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3
+- Fix dehydrated warning from hook script
+
 ## 1.2
 - Update dehydrated to version 0.6.1
 

@@ -14,8 +14,8 @@ rm -rf /config/deps/*
 if [ ! -z "$APK" ];
     echo "[Info] Install apks for build"
     if ! ERROR="$(apk add --no-cache "${APK[@]}")"; then
-        echo "[Error] Can't install packages! $ERROR"
-        exit 1
+        echo "[Error] Can't install packages!
+        echo $ERROR && exit 1
     fi
 fi
 
@@ -23,8 +23,8 @@ fi
 echo "[Info] Install pypi modules into deps"
 export PYTHONUSERBASE=/config/deps
 if ! ERROR="$(pip3 install --user --no-cache-dir --no-dependencies "${PYPI[@]}")"; then
-    echo "[Error] Can't install pypi packages! $ERROR"
-    exit 1
+    echo "[Error] Can't install pypi packages!
+    echo $ERROR && exit 1
 fi
 
 echo "[Info] done"

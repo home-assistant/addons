@@ -4,7 +4,7 @@ set -e
 CONFIG_PATH=/data/options.json
 
 PYPI=$(jq --raw-output ".pypi[]" $CONFIG_PATH)
-APK=$(jq --raw-output ".apk[] // empy" $CONFIG_PATH)
+APK=$(jq --raw-output ".apk[] // empty" $CONFIG_PATH)
 
 # Cleanup old deps
 echo "[Info] Remove old deps"

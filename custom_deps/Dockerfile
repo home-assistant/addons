@@ -6,7 +6,7 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN apk add --no-cache \
-    jq python3 gcc g++ make cmake git python-dev
+    jq python3 gcc g++ make cmake git python3-dev
 
 # Copy data
 COPY run.sh /

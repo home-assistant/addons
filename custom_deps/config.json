@@ -8,7 +8,7 @@
   "boot": "manual",
   "map": ["config:rw"],
   "options": {
-    "pypi": [],
+    "pypi": [null],
     "apk": []
   },
   "schema": {

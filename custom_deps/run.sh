@@ -22,7 +22,7 @@ fi
 # Install pypi modules
 echo "[Info] Install pypi modules into deps"
 export PYTHONUSERBASE=/config/deps
-if ! ERROR="$(pip3 install --user --no-cache-dir --no-dependencies "${PYPI[@]}")"; then
+if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies "${PYPI[@]}")"; then
     echo "[Error] Can't install pypi packages!"
     echo "$ERROR" && exit 1
 fi

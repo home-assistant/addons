@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.7
+- Setting SO_REUSEADDR on socket for proper restarts
+- Using Threading to handle multiple connections
+- New VERIFY_HOSTNAME option to block requests without correct host header
+- Fixed filebrowser hiding
+
 ## 0.2.6
 - Displaying current filename in title
 - Added menu item to open configurator in new tab

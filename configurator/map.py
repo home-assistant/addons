@@ -26,6 +26,7 @@ configurator = {
     'BANLIMIT': options['banlimit'],
     'DIRSFIRST': options['dirsfirst'],
     'SESAME': options.get('sesame'),
+    'VERIFY_HOSTNAME': options.get('verify_hostname'),
 }
 
 with Path(sys.argv[1]).open('w') as json_file:

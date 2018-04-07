@@ -5,16 +5,16 @@ CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
 CONFIG_PATH=/data/options.json
 
-# Let's encrypt
+# Let's Encrypt
 LE_TERMS=$(jq --raw-output '.lets_encrypt.accept_terms' $CONFIG_PATH)
 LE_DOMAINS=$(jq --raw-output '.domains[]' $CONFIG_PATH)
 LE_UPDATE="0"
 
 # CloudFlare
-export CF_EMAIL=$(jq --raw-output '.cloudflare.email' $CONFIG_PATH)
-export CF_KEY=$(jq --raw-output '.cloudflare.key' $CONFIG_PATH)
+CF_EMAIL=$(jq --raw-output '.cloudflare.email' $CONFIG_PATH)
+CF_KEY=$(jq --raw-output '.cloudflare.key' $CONFIG_PATH)
 
-DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
+# Common
 WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
 
 # Function that performe a renewal
@@ -26,7 +26,7 @@ function le_renew() {
         domain_args+=("--domain" "$domain")
     done
     
-    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "$CERT_DIR" --config "$WORK_DIR/config" || true
+    CF_EMAIL=$CF_EMAIL CF_KEY=$CF_KEY dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "$CERT_DIR" --config "$WORK_DIR/config" || true
     LE_UPDATE="$(date +%s)"
 }
 
@@ -41,7 +41,7 @@ if [ "$LE_TERMS" == "true" ]; then
         # Create empty dehydrated config file so that this dir will be used for storage
         touch "$WORK_DIR/config"
         
-        dehydrated --register --accept-terms --config "$WORK_DIR/config"
+        CF_EMAIL=$CF_EMAIL CF_KEY=$CF_KEY dehydrated --register --accept-terms --config "$WORK_DIR/config"
     fi
 fi
 

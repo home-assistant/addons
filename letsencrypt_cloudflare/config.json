@@ -1,0 +1,36 @@
+{
+  "name": "Lets Encrypt CloudFlare",
+  "version": "1.0",
+  "slug": "letsencrypt_cloudflare",
+  "description": "Lets Encrypt client with CloudFlare DNS-01 support",
+  "url": "https://home-assistant.io/addons/letsencrypt_cloudflare/",
+  "startup": "services",
+  "boot": "auto",
+  "map": ["ssl:rw"],
+  "options": {
+    "lets_encrypt": {
+      "accept_terms": false,
+      "certfile": "fullchain.pem",
+      "keyfile": "privkey.pem"
+    },
+    "cloudflare": {
+      "email": null,
+      "key": null
+    },
+    "domains": [null],
+    "seconds": 300
+  },
+  "schema": {
+    "lets_encrypt": {
+      "accept_terms": "bool",
+      "certfile": "str",
+      "keyfile": "str"
+    },
+    "cloudflare": {
+      "email": "str",
+      "key": "str"
+    },
+    "domains": ["str"],
+    "seconds": "int"
+  }
+}

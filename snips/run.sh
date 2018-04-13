@@ -5,27 +5,6 @@ CONFIG_PATH=/data/options.json
 
 MQTT_BRIDGE=$(jq --raw-output '.mqtt_bridge.active' $CONFIG_PATH)
 ASSISTANT=$(jq --raw-output '.assistant' $CONFIG_PATH)
-SPEAKER=$(jq --raw-output '.speaker' $CONFIG_PATH)
-MIC=$(jq --raw-output '.mic' $CONFIG_PATH)
-
-echo "[INFO] Show audio output device"
-aplay -l
-
-echo "[INFO] Show audio input device"
-arecord -l
-
-echo "[INFO] Setup audio device"
-if [ -f "/share/asoundrc" ]; then
-    echo "[INFO] Installing /share/asoundrc"
-    cp -v /share/asoundrc /root/.asoundrc
-else
-    echo "[INFO] Using default asound.conf"
-    sed -i "s/%%SPEAKER%%/$SPEAKER/g" /root/.asoundrc
-    sed -i "s/%%MIC%%/$MIC/g" /root/.asoundrc
-fi
-
-echo "[DEBUG] Using /root/.asoundrc"
-cat /root/.asoundrc
 
 echo "[INFO] Checking for /share/snips.toml"
 if [ -f "/share/snips.toml" ]; then
@@ -74,7 +53,7 @@ echo "[INFO] Checking for updated $ASSISTANT in /share"
 if [ -f "/share/$ASSISTANT" ]; then
     echo "[INFO] Install/Update snips assistant"
     unzip -o -u "/share/$ASSISTANT" -d /usr/share/snips
-# otherwise use the default 
+# otherwise use the default
 elif [ -f "/assistant-default.zip" ]; then
     echo "[INFO] Using default snips assistant"
     unzip -o -u "/assistant-default.zip" -d /usr/share/snips

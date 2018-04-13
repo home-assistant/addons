@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0
+- Use new Supervisor Audio backend
+- Update preinstalled assistant for Home-Assistant
+
 ## 1.0
 - Updated to latest snips version 0.53.17
 

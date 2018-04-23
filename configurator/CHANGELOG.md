@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.8
+- Updated CDN libraries
+- Cosmetic improvements
+- Added event observer
+
 ## 0.2.7
 - Setting SO_REUSEADDR on socket for proper restarts
 - Using Threading to handle multiple connections

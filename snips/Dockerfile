@@ -4,7 +4,8 @@ FROM $BUILD_FROM
 # Copy data
 COPY run.sh /
 COPY mosquitto.conf /etc/
-COPY assistant.zip /assistant-default.zip
+COPY mpg123* /usr/bin/
+COPY assistant-* /
 
 RUN chmod a+x /run.sh
 

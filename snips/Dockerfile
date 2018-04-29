@@ -5,7 +5,8 @@ FROM $BUILD_FROM
 COPY run.sh /
 COPY mosquitto.conf /etc/
 COPY mpg123* /usr/bin/
-COPY assistant-* /
+COPY customtts.sh /usr/bin
+COPY assistant_* /
 
 RUN chmod a+x /run.sh
 

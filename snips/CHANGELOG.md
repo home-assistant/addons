@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1
+- Updated to snips version 0.55.1
+- Updated default assistant with additional languages
+- Added custom tts which use HA TTS platforms
+
 ## 2.0
 - Use new Supervisor Audio backend
 - Update preinstalled assistant for Home-Assistant

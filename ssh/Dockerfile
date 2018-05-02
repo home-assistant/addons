@@ -6,7 +6,7 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN apk add --no-cache \
-    jq openssh vim curl nano git mosquitto-clients tmux \
+    openssh vim curl nano git mosquitto-clients tmux \
     bash-completion
 
 # Replace bash as default shell

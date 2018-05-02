@@ -10,11 +10,11 @@ TEXT=$4
 MESSAGE="\"{\\\"message\\\": \\\"$TEXT\\\", \\\"platform\\\": \\\"$PLATFORM\\\"}\""
 echo "$MESSAGE"
 
-RESPONSE=$(eval curl -s -H \"x-ha-access: $API_KEY\" -H \"Type: application/json\" http://hassio/homeassistant/api/tts_get_url -d $MESSAGE)
+RESPONSE=$(eval curl -s -H \"x-ha-access: "$API_KEY"\" -H \"Type: application/json\" http://hassio/homeassistant/api/tts_get_url -d "$MESSAGE")
 if [ "$RESPONSE" = "" ]; then
     exit 1
 fi
-echo $RESPONSE
+echo "$RESPONSE"
 
 URL=$(echo "$RESPONSE" | jq --raw-output '.url')
 if [ "$URL" = "" ]; then

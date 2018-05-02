@@ -2,7 +2,6 @@
 
 ## 3.5
 - Update Hass.io CLI to 1.3.0
-- Use new base image
 
 ## 3.4
 - Update Hass.io CLI to 1.2.1

@@ -38,7 +38,6 @@
     "language": "str",
     "custom_tts": "bool",
     "tts_platform": "str"
-
   },
   "image": "homeassistant/{arch}-addon-snips"
 }

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -x
+#set -x
 API_KEY=$HASSIO_TOKEN
 PLATFORM=$1
 FILE=$2

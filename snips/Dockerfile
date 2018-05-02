@@ -9,5 +9,6 @@ COPY customtts.sh /usr/bin
 COPY assistant_* /
 
 RUN chmod a+x /run.sh
+RUN chmod a+x /usr/bin/customtts.sh
 
 ENTRYPOINT [ "/run.sh" ]

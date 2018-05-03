@@ -9,13 +9,6 @@ LANG=$(jq --raw-output '.language' $CONFIG_PATH| awk -F '-' '{print $1}')
 CUSTOMTTS=$(jq --raw-output '.custom_tts' $CONFIG_PATH)
 PLATFORM=$(jq --raw-output '.tts_platform' $CONFIG_PATH)
 
-if [ "$HOSTTYPE" == "x86_64" ]; then
-    ARCH="amd64"
-else
-    ARCH="armhf"
-fi
-
-echo "[INFO] ARCH: $ARCH"
 echo "[INFO] LANG: $LANG"
 
 echo "[INFO] Checking for /share/snips.toml"
@@ -35,9 +28,6 @@ if [ "$CUSTOMTTS" == "true" ]; then
 else
     echo "[INFO] - Using default tts (picotts)"
 fi
-
-echo "[INFO] Copying mpg123 for $ARCH"
-mv -v /usr/bin/mpg123-$ARCH /usr/bin/mpg123
 
 # mqtt bridge
 if [ "$MQTT_BRIDGE" == "true" ]; then

@@ -39,5 +39,5 @@
     "custom_tts": "bool",
     "tts_platform": "str"
   },
-  "image": "tschmidty/{arch}-addon-snips"
+  "image": "homeassitant/{arch}-addon-snips"
 }

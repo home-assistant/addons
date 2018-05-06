@@ -36,8 +36,10 @@
     },
     "assistant": "str",
     "language": "str",
-    "custom_tts": "bool",
-    "tts_platform": "str"
+    "custom_tts": {
+      "active": "bool",
+      "platform": "string"
+    }
   },
   "image": "homeassitant/{arch}-addon-snips"
 }

@@ -7,7 +7,7 @@ MQTT_BRIDGE=$(jq --raw-output '.mqtt_bridge.active' $CONFIG_PATH)
 ASSISTANT=$(jq --raw-output '.assistant' $CONFIG_PATH)
 LANG=$(jq --raw-output '.language' $CONFIG_PATH| awk -F '-' '{print $1}')
 CUSTOMTTS=$(jq --raw-output '.custom_tts["active"]' $CONFIG_PATH)
-PLATFORM=$(jq --raw-output '.custom_tts["platform"].' $CONFIG_PATH)
+PLATFORM=$(jq --raw-output '.custom_tts["platform"]' $CONFIG_PATH)
 
 echo "[INFO] LANG: $LANG"
 

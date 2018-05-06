@@ -1,6 +1,6 @@
 {
   "name": "Snips.AI",
-  "version": "2.1-7",
+  "version": "2.1",
   "slug": "snips",
   "description": "Local voice control platform",
   "url": "https://home-assistant.io/addons/snips/",
@@ -23,8 +23,10 @@
     },
     "assistant": "assistant.zip",
     "language": "en",
-    "custom_tts": false,
-    "tts_platform": "amazon_polly"
+    "custom_tts": {
+      "active": false,
+      "platform": "amazon_polly"
+    }
   },
   "schema": {
     "mqtt_bridge": {

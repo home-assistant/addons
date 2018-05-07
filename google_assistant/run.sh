@@ -6,8 +6,6 @@ CLIENT_JSON=/data/client.json
 CRED_JSON=/data/cred.json
 
 CLIENT_SECRETS=$(jq --raw-output '.client_secrets' $CONFIG_PATH)
-SPEAKER=$(jq --raw-output '.speaker' $CONFIG_PATH)
-MIC=$(jq --raw-output '.mic' $CONFIG_PATH)
 
 # check if a new assistant file exists
 if [ -f "/share/$CLIENT_SECRETS" ]; then

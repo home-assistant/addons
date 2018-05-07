@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armhf": "multiarch/ubuntu-core:armhf-xenial",
-    "amd64": "multiarch/ubuntu-core:amd64-xenial"
+    "armhf": "multiarch/ubuntu-debootstrap:armhf-xenial-slim",
+    "amd64": "multiarch/ubuntu-debootstrap:amd64-xenial-slim"
   }
 }

@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armhf": "snipsdocker/platform:arm-0.53.17",
-    "amd64": "snipsdocker/platform:x86-0.53.17"
+    "armhf": "snipsdocker/platform:arm-0.55.1",
+    "amd64": "snipsdocker/platform:x86-0.55.1"
   }
 }

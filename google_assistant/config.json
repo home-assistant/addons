@@ -8,7 +8,7 @@
   "boot": "auto",
   "arch": ["armhf", "amd64"],
   "map": ["share"],
-  "devices": ["/dev/snd:/dev/snd:rwm"],
+  "audio": true,
   "ports": {
     "9324/tcp": 9324
   },

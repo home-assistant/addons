@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armhf": "multiarch/debian-debootstrap:armhf-stretch",
-    "amd64": "multiarch/debian-debootstrap:amd64-stretch"  
+    "armhf": "multiarch/ubuntu-core:armhf-xenial",
+    "amd64": "multiarch/ubuntu-core:i386-xenial"
   }
 }

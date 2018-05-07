@@ -13,7 +13,6 @@ RUN apt-get update \
 # Copy data
 COPY run.sh /
 COPY *.py /
-COPY asoundrc /root/.asoundrc
 
 RUN chmod a+x /run.sh
 

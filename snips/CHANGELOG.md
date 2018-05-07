@@ -1,7 +1,7 @@
 # Changelog
 
 ## 3.0
-- Updated to snips version 0.55.1
+- Updated to snips version 0.55.2
 - Updated default assistant with additional languages
 - Added custom tts which use HA TTS platforms
 

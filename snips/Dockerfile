@@ -4,8 +4,13 @@ FROM $BUILD_FROM
 # Copy data
 COPY run.sh /
 COPY mosquitto.conf /etc/
-COPY assistant.zip /assistant-default.zip
+COPY customtts.sh /usr/bin
+COPY assistant_* /
 
-RUN chmod a+x /run.sh
+RUN chmod a+x /run.sh \
+    && chmod a+x /usr/bin/customtts.sh \
+    && apt-get update \
+    && apt-get install -y mpg123 \
+    && apt-get clean all
 
 ENTRYPOINT [ "/run.sh" ]

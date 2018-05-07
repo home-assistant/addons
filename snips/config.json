@@ -41,7 +41,7 @@
     "language": "match((?:en|de|fr))",
     "custom_tts": {
       "active": "bool",
-      "platform": "string"
+      "platform": "str"
     }
   },
   "image": "homeassistant/{arch}-addon-snips"

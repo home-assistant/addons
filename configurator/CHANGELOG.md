@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3
+- Update Configurator to version 0.2.8
+
 ## 0.2.7
 - Setting SO_REUSEADDR on socket for proper restarts
 - Using Threading to handle multiple connections

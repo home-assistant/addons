@@ -1,9 +1,7 @@
 # Changelog
 
-## 0.2.8
-- Updated CDN libraries
-- Cosmetic improvements
-- Added event observer
+## 0.3
+- Update Configurator to version 0.2.8
 
 ## 0.2.7
 - Setting SO_REUSEADDR on socket for proper restarts

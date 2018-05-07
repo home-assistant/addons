@@ -43,5 +43,5 @@
       "platform": "string"
     }
   },
-  "image": "homeassitant/{arch}-addon-snips"
+  "image": "homeassistant/{arch}-addon-snips"
 }

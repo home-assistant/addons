@@ -11,6 +11,7 @@
     "1883/tcp": 9898
   },
   "map": ["share"],
+  "tmpfs": "size=10m",
   "audio": true,
   "homeassistant_api": true,
   "options": {

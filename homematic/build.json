@@ -1,8 +1,8 @@
 {
   "build_from": {
-    "armhf": "multiarch/ubuntu-core:armhf-xenial",
-    "amd64": "multiarch/ubuntu-core:i386-xenial",
-    "i386": "multiarch/ubuntu-core:i386-xenial"
+    "armhf": "multiarch/ubuntu-debootstrap:armhf-xenial-slim",
+    "amd64": "multiarch/ubuntu-debootstrap:i386-xenial-slim",
+    "i386": "multiarch/ubuntu-debootstrap:i386-xenial-slim"
   },
   "args": {
     "OCCU_VERSION": "2.31.25"

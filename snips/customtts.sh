@@ -21,10 +21,10 @@ if [ "$URL" = "" ]; then
     exit 1
 fi
 
-rm /tmp/temp.mp3
-curl -s -H "x-ha-access: $API_KEY" "$URL" -o /tmp/temp.mp3
-if [ -f /tmp/temp.mp3 ]; then
-  /usr/bin/mpg123 -w "$FILE" /tmp/temp.mp3
+rm /tmpfs/temp.mp3
+curl -s -H "x-ha-access: $API_KEY" "$URL" -o /tmpfs/temp.mp3
+if [ -f /tmpfs/temp.mp3 ]; then
+  /usr/bin/mpg123 -w "$FILE" /tmpfs/temp.mp3
 fi
-rm /tmp/temp.mp3
+rm /tmpfs/temp.mp3
 

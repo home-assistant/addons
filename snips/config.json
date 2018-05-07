@@ -38,7 +38,7 @@
       "password": "str"
     },
     "assistant": "str",
-    "language": "str",
+    "language": "match((?:en|de|fr))",
     "custom_tts": {
       "active": "bool",
       "platform": "string"

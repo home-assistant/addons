@@ -39,6 +39,7 @@ if __name__ == '__main__':
         last_device_id = device_config.get('last_device_id', None)
     else:
         device_model_id = sys.argv[3]
+        last_device_id = None
     
     # run assistant
     with Assistant(credentials, device_model_id) as assistant:

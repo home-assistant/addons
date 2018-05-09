@@ -7,6 +7,9 @@ import google.oauth2.credentials
 
 from google.assistant.library import Assistant
 from google.assistant.library.event import EventType
+from google.assistant.library.device_helpers import register_device
+
+DEVICE_CONFIG = "/data/device.json"
 
 
 def process_event(event):
@@ -21,12 +24,36 @@ def process_event(event):
 
 if __name__ == '__main__':
     cred_json = Path(sys.argv[1])
+    device_json = Path(DEVICE_CONFIG)
 
     # open credentials
     with cred_json.open('r') as data:
         credentials = google.oauth2.credentials.Credentials(token=None, **json.load(data))
 
+    # Read device info
+    if device_json.exists():
+        with device_json.open('r') as data:
+            device_info = json.load(data)
+
+        device_model_id = device_config['model_id']
+        last_device_id = device_config.get('last_device_id', None)
+    else:
+        device_model_id = sys.argv[3]
+    
     # run assistant
-    with Assistant(credentials, sys.argv[2]) as assistant:
+    with Assistant(credentials, device_model_id) as assistant:
+        device_id = assistant.device_id
+        print("device_model_id: {}".format(device_model_id))
+        print("device_id: {}".format(device_id))
+
+        # Register device
+        if last_device_id != device_id:
+            register_device(sys.argv[2], credentials, device_model_id, device_id)
+            with device_json.open('w') as dev_file:
+                dev_file.write(json.dump({
+                    'last_device_id': device_id,
+                    'model_id': device_model_id,
+                })
+
         for event in assistant.start():
             process_event(event)

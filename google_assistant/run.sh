@@ -6,6 +6,7 @@ CLIENT_JSON=/data/client.json
 CRED_JSON=/data/cred.json
 
 CLIENT_SECRETS=$(jq --raw-output '.client_secrets' $CONFIG_PATH)
+PROJECT_ID=$(jq --raw-output '.project_id' $CONFIG_PATH)
 MODEL_ID=$(jq --raw-output '.model_id' $CONFIG_PATH)
 
 # check if a new assistant file exists
@@ -22,4 +23,4 @@ elif [ ! -f "$CRED_JSON" ]; then
     exit 1
 fi
 
-exec python3 /hassio_gassistant.py "$CRED_JSON" "$MODEL_ID" < /dev/null
+exec python3 /hassio_gassistant.py "$CRED_JSON" "$PROJECT_ID" "$MODEL_ID" < /dev/null

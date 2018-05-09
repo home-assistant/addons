@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2
+- Add model id
+
 ## 1.1
 - Bugfix OAuth webinterface
 

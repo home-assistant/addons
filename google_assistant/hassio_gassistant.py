@@ -27,6 +27,6 @@ if __name__ == '__main__':
         credentials = google.oauth2.credentials.Credentials(token=None, **json.load(data))
 
     # run assistant
-    with Assistant(credentials) as assistant:
+    with Assistant(credentials, sys.argv[2]) as assistant:
         for event in assistant.start():
             process_event(event)

@@ -42,6 +42,7 @@ if __name__ == '__main__':
         last_device_id = None
     
     # run assistant
+    print("Run Google Assistant SDK")
     with Assistant(credentials, device_model_id) as assistant:
         events = assistant.start()
         device_id = assistant.device_id
@@ -58,5 +59,7 @@ if __name__ == '__main__':
                     'model_id': device_model_id,
                 }, dev_file)
 
-        for event in event:
+        for event in events:
             process_event(event)
+
+    print("Close Google Assistant SDK")

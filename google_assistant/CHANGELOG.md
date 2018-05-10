@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4
+- Fix typo
+
+## 1.3
+- Add project id with new device register system
+
 ## 1.2
 - Add model id
 

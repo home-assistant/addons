@@ -16,7 +16,10 @@ def process_event(event):
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
         print()
 
-    print(event)
+    try:
+        print(event)
+    except UnicodeEncodeError as err:
+        print("Can't print event: {}".format(err))
 
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and event.args and not event.args['with_follow_on_turn']):
         print()
@@ -42,7 +45,7 @@ if __name__ == '__main__':
     else:
         device_model_id = sys.argv[3]
         last_device_id = None
-    
+
     # run assistant
     print("Run Google Assistant SDK")
     with Assistant(credentials, device_model_id) as assistant:

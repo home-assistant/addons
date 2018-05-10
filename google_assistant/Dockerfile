@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 # Install packages
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install -y —no-install-recommends \
         jq tzdata python3 python3-dev python3-pip libportaudio2 alsa-utils \
     && pip3 install --no-cache-dir --upgrade setuptools \
     && pip3 install --no-cache-dir \

@@ -35,8 +35,8 @@ if __name__ == '__main__':
         with device_json.open('r') as data:
             device_info = json.load(data)
 
-        device_model_id = device_config['model_id']
-        last_device_id = device_config.get('last_device_id', None)
+        device_model_id = device_info['model_id']
+        last_device_id = device_info.get('last_device_id', None)
     else:
         device_model_id = sys.argv[3]
         last_device_id = None

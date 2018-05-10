@@ -43,7 +43,9 @@ if __name__ == '__main__':
     
     # run assistant
     with Assistant(credentials, device_model_id) as assistant:
+        events = assistant.start()
         device_id = assistant.device_id
+
         print("device_model_id: {}".format(device_model_id))
         print("device_id: {}".format(device_id))
 
@@ -56,5 +58,5 @@ if __name__ == '__main__':
                     'model_id': device_model_id,
                 }, dev_file)
 
-        for event in assistant.start():
+        for event in event:
             process_event(event)

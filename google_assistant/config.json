@@ -1,6 +1,6 @@
 {
   "name": "Google Assistant SDK",
-  "version": "2.0",
+  "version": "2.1",
   "slug": "google_assistant",
   "description": "A virtual personal assistant developed by Google",
   "url": "https://home-assistant.io/addons/google_assistant/",

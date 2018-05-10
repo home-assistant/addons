@@ -51,10 +51,10 @@ if __name__ == '__main__':
         if last_device_id != device_id:
             register_device(sys.argv[2], credentials, device_model_id, device_id)
             with device_json.open('w') as dev_file:
-                dev_file.write(json.dump({
+                json.dump({
                     'last_device_id': device_id,
                     'model_id': device_model_id,
-                })
+                }, dev_file)
 
         for event in assistant.start():
             process_event(event)

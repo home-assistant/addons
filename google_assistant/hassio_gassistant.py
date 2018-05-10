@@ -27,10 +27,12 @@ if __name__ == '__main__':
     device_json = Path(DEVICE_CONFIG)
 
     # open credentials
+    print("OAth with Google")
     with cred_json.open('r') as data:
         credentials = google.oauth2.credentials.Credentials(token=None, **json.load(data))
 
     # Read device info
+    print("Initialize device infos")
     if device_json.exists():
         with device_json.open('r') as data:
             device_info = json.load(data)

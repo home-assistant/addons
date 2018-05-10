@@ -27,21 +27,24 @@ if __name__ == '__main__':
     device_json = Path(DEVICE_CONFIG)
 
     # open credentials
+    print("OAth with Google")
     with cred_json.open('r') as data:
         credentials = google.oauth2.credentials.Credentials(token=None, **json.load(data))
 
     # Read device info
+    print("Initialize device infos")
     if device_json.exists():
         with device_json.open('r') as data:
             device_info = json.load(data)
 
-        device_model_id = device_config['model_id']
-        last_device_id = device_config.get('last_device_id', None)
+        device_model_id = device_info['model_id']
+        last_device_id = device_info.get('last_device_id', None)
     else:
         device_model_id = sys.argv[3]
         last_device_id = None
     
     # run assistant
+    print("Run Google Assistant SDK")
     with Assistant(credentials, device_model_id) as assistant:
         events = assistant.start()
         device_id = assistant.device_id
@@ -58,5 +61,7 @@ if __name__ == '__main__':
                     'model_id': device_model_id,
                 }, dev_file)
 
-        for event in event:
+        for event in events:
             process_event(event)
+
+    print("Close Google Assistant SDK")

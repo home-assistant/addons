@@ -23,4 +23,5 @@ elif [ ! -f "$CRED_JSON" ]; then
     exit 1
 fi
 
+echo "[Info] Run Hass.io GAssisant SDK"
 exec python3 /hassio_gassistant.py "$CRED_JSON" "$PROJECT_ID" "$MODEL_ID" < /dev/null

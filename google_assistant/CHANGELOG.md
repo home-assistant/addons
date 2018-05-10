@@ -3,6 +3,7 @@
 ## 2.0
 - Update Google Assistant SDK 0.5.0
 - Update Google Assistant Library 1.0.0
+- Revert base images
 
 ## 1.5
 - Change event handling

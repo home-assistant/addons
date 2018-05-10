@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5
+- Change event handling
+
 ## 1.4
 - Fix typo
 

@@ -1,6 +1,6 @@
 {
   "name": "TellStick",
-  "version": "0.4",
+  "version": "0.5",
   "slug": "tellstick",
   "description": "TellStick and TellStick Duo service.",
   "url": "https://home-assistant.io/addons/tellstick/",
@@ -33,8 +33,8 @@
       {
         "id": "int(1,)",
         "name": "str",
-        "protocol": "match(arctech|brateck|everflourish|fuhaote|hasta|ikea|kangtai|risingsun|sartano|silvanchip|upm|waveman|x10|yidong)",
-        "model": "match(codeswitch|bell|selflearning-switch|selflearning-dimmer|selflearning|ecosavers|kp100)?",
+        "protocol": "match(arctech|brateck|comen|everflourish|fineoffset|fuhaote|hasta|ikea|kangtai|mandolyn|oregon|risingsun|sartano|silvanchip|upm|waveman|x10|yidong)",
+        "model": "match(codeswitch|bell|selflearning-switch|selflearning-dimmer|selflearning|ecosavers|kp100|temperaturehumidity|temperature)?",
         "house": "str?",
         "code": "str?",
         "unit": "str?",

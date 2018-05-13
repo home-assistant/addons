@@ -1,0 +1,39 @@
+{
+  "name": "Hue MQTT Bridge",
+  "version": "0.18",
+  "slug": "hue_mqtt_bridge",
+  "description": "Philips Hue Sensor MQTT Bridge",
+  "url": "https://home-assistant.io/addons/git_pull/",
+  "startup": "services",
+  "boot": "auto",
+  "options": {
+   "broker": {
+     "host": "core-mosquitto",
+      "username": null,
+      "password": null
+   },
+   "bridges" : [
+     {
+       "host": null,
+       "username": null,
+       "interval": 500,
+       "prefix": "hue"
+     }
+   ]
+  },
+  "schema": {
+      "broker": {
+        "host": "str",
+         "username": "str",
+         "password": "str"
+      },
+      "bridges": [
+        {
+          "host": "str",
+          "username": "str",
+          "interval": "int",
+          "prefix": "str"
+        }
+      ]
+  }
+}

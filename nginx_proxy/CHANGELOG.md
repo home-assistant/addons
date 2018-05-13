@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3
+- Add option for custom Homeassistant server host and port
+
 ## 1.2
 - Modify `server_names_hash_bucket_size` to add support for longer domain names
 

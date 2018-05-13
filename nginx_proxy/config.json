@@ -1,6 +1,6 @@
 {
   "name": "NGINX Home Assistant SSL proxy",
-  "version": "1.2",
+  "version": "1.3",
   "slug": "nginx_proxy",
   "description": "An SSL/TLS proxy",
   "url": "https://home-assistant.io/addons/nginx_proxy/",
@@ -13,6 +13,8 @@
   "map": ["ssl", "share"],
   "options": {
     "domain": null,
+    "server_host": "homeassistant",
+    "server_port": 8123,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
@@ -24,6 +26,8 @@
   },
   "schema": {
     "domain": "str",
+    "server_host": "str",
+    "server_port": "port",
     "certfile": "str",
     "keyfile": "str",
     "hsts": "str",

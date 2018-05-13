@@ -8,6 +8,8 @@ SNAKEOIL_CERT=/data/ssl-cert-snakeoil.pem
 SNAKEOIL_KEY=/data/ssl-cert-snakeoil.key
 
 DOMAIN=$(jq --raw-output ".domain" $CONFIG_PATH)
+SERVER_HOST=$(jq --raw-output ".server_host" $CONFIG_PATH)
+SERVER_PORT=$(jq --raw-output ".server_port" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
@@ -28,6 +30,8 @@ fi
 sed -i "s/%%FULLCHAIN%%/$CERTFILE/g" /etc/nginx.conf
 sed -i "s/%%PRIVKEY%%/$KEYFILE/g" /etc/nginx.conf
 sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
+sed -i "s/%%SERVER_HOST%%/$SERVER_HOST/g" /etc/nginx.conf
+sed -i "s/%%SERVER_PORT%%/$SERVER_PORT/g" /etc/nginx.conf
 
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\";"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf

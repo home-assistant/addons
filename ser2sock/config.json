@@ -1,0 +1,20 @@
+{
+  "name": "ser2sock",
+  "version": "1.0",
+  "slug": "ser2sock",
+  "description": "Implementation of ser2sock for Home Assistant.",
+  "url": "https://home-assistant.io/addons/ser2sock/",
+  "startup": "services",
+  "boot": "auto",
+  "auto_uart": true,
+  "options": {
+    "serialDevice": "/dev/ttyAMA0",
+    "baudRate": 115200,
+    "port": 8100
+  },
+  "schema": {
+    "serialDevice": "str",
+    "baudRate": "int",
+    "port": "port"
+  }
+}

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.7
+- Add YAML highlighting for nano
+
 ## 3.6
 - Update Hass.io CLI to 1.3.1
 

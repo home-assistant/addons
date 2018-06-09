@@ -12,6 +12,10 @@ RUN apk add --no-cache \
 # Replace bash as default shell
 RUN sed -i "s/ash/bash/" /etc/passwd
 
+# Add YAML highlighting for nano
+ADD https://raw.githubusercontent.com/scopatz/nanorc/master/yaml.nanorc /usr/share/nano/yaml.nanorc
+RUN sed -i 's/^#[[:space:]]*\(include "\/usr\/share\/nano\/\*\.nanorc".*\)/\1/' /etc/nanorc
+
 # Hass.io CLI
 ARG BUILD_ARCH
 ARG CLI_VERSION

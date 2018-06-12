@@ -61,7 +61,7 @@ if [ -n "$DEPLOYMENT_KEY" ]; then
     IFS=':' read -ra GIT_URL_PARTS <<< "$REPOSITORY"
     # shellcheck disable=SC2029
     DOMAIN="${GIT_URL_PARTS[0]}"
-    if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || ([[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]); then
+    if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || { [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]; }; then
         echo "Valid SSH connection for $DOMAIN"
     else
         echo "No valid SSH connection for $DOMAIN"

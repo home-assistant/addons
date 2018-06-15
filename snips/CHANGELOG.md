@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.1
+- Updated to latest snips version 0.56.4
+
 ## 3.0
 - Updated to snips version 0.55.2
 - Updated default assistant with additional languages

@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 set -e
 
 CONFIG_PATH=/data/options.json

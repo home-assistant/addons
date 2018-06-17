@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5
+- Fix bug with multible domains for Let's encrypt
+
 ## 1.4
 - Update dehydrated to version 0.6.2
 

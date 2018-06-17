@@ -15,8 +15,6 @@ TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
 DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
 WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
 
-# Export Dehydrated global options
-export HOOK_CHAIN=yes
 
 # Function that performe a renew
 function le_renew() {

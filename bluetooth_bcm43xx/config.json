@@ -1,6 +1,6 @@
 {
   "name": "Bluetooth BCM43xx",
-  "version": "1.1",
+  "version": "2.0",
   "slug": "bluetooth_bcm43xx",
   "description": "Activate Bluetooth for Broadcom 43xx chips",
   "url": "https://home-assistant.io/addons/bluetooth_bcm43xx/",

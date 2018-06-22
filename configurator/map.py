@@ -12,6 +12,7 @@ with hassio_options.open('r') as json_file:
 
 configurator = {
     'BASEPATH': "/config",
+    'ENFORCE_BASEPATH': options['enforce_basepath'],
     'HASS_API': "http://hassio/homeassistant/api/",
     'HASS_API_PASSWORD': os.environ.get('HASSIO_TOKEN', ''),
     'CREDENTIALS':

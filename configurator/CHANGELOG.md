@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4
+- Update Configurator to version 0.2.9
+- Material Icons and HASS-help now open in new tab instead of modal
+- Open file by URL
+- Added ENFORCE_BASEPATH option
+- Cosmetic fix for scaled viewports
+- Added search-function for entities
+- Updated Ace Editor to 1.3.3
+- Updated jQuery to 3.3.1
+- Updated js-yaml to 3.12.0
+
 ## 0.3
 - Update Configurator to version 0.2.8
 

@@ -1,0 +1,5 @@
+{
+    "name": "Official addons repository",
+    "url": "https://github.com/home-assistant/hassio-addons",
+    "maintainer": "home-assistant.io <hello@home-assistant.io>"
+}

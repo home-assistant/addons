@@ -10,7 +10,7 @@ COPY assistant_* /
 RUN chmod a+x /run.sh \
     && chmod a+x /usr/bin/customtts.sh \
     && apt-get update \
-    && apt-get install -y mpg123 \
+    && (apt-get install -y mpg123 snips-asr-injection; exit 0) \
     && apt-get clean all
 
 ENTRYPOINT [ "/run.sh" ]

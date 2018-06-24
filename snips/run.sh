@@ -88,4 +88,7 @@ fi
 echo "[INFO] Starting snips-watch"
 ( sleep 2; /usr/bin/snips-watch -vvv --no_color ) &
 
+echo "[INFO] Starting snips-asr-injection"
+( sleep 2; /usr/bin/snips-asr-injection -v --no_color ) &
+
 /opt/snips/snips-entrypoint.sh --mqtt localhost:1883

@@ -33,10 +33,10 @@ function write_config() {
 " >> /etc/smb.conf
 }
 
-sed -i "s/%%WORKGROUP%%/$WORKGROUP/g" /etc/smb.conf
-sed -i "s/%%NAME%%/$NAME/g" /etc/smb.conf
-sed -i "s/%%INTERFACE%%/$INTERFACE/g" /etc/smb.conf
-sed -i "s/%%ALLOW_HOSTS%%/$ALLOW_HOSTS/g" /etc/smb.conf
+sed -i "s|%%WORKGROUP%%|$WORKGROUP|g" /etc/smb.conf
+sed -i "s|%%NAME%%|$NAME|g" /etc/smb.conf
+sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
+sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
 
 ##
 # Write shares to config
@@ -59,15 +59,15 @@ fi
 ##
 # Set authentication options
 if [ "$GUEST" == "true" ]; then
-    sed -i "s/#guest ok/guest ok/g" /etc/smb.conf
-    sed -i "s/#guest only/guest only/g" /etc/smb.conf
-    sed -i "s/#guest account/guest account/g" /etc/smb.conf
-    sed -i "s/#map to guest/map to guest/g" /etc/smb.conf
-    sed -i "s/#public/public/g" /etc/smb.conf
+    sed -i "s|#guest ok|guest ok|g" /etc/smb.conf
+    sed -i "s|#guest only|guest only|g" /etc/smb.conf
+    sed -i "s|#guest account|guest account|g" /etc/smb.conf
+    sed -i "s|#map to guest|map to guest|g" /etc/smb.conf
+    sed -i "s|#public|public|g" /etc/smb.conf
 else
-    sed -i "s/#valid users/valid users/g" /etc/smb.conf
-    sed -i "s/#force user/force user/g" /etc/smb.conf
-    sed -i "s/#force group/force group/g" /etc/smb.conf
+    sed -i "s|#valid users|valid users|g" /etc/smb.conf
+    sed -i "s|#force user|force user|g" /etc/smb.conf
+    sed -i "s|#force group|force group|g" /etc/smb.conf
 
     addgroup -g 1000 "$USERNAME"
     adduser -D -H -G "$USERNAME" -s /bin/false -u 1000 "$USERNAME"

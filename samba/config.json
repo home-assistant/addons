@@ -21,7 +21,12 @@
     },
     "username": "",
     "password": "",
-    "interface": ""
+    "interface": "",
+    "allow_hosts": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+    ]
   },
   "schema": {
     "workgroup": "str",
@@ -36,7 +41,8 @@
     },
     "username": "str",
     "password": "str",
-    "interface": "str"
+    "interface": "str",
+    "allow_hosts": ["str"]
   },
   "image": "homeassistant/{arch}-addon-samba"
 }

@@ -4,7 +4,9 @@ set -e
 CONFIG_PATH=/data/options.json
 
 PLAIN=$(jq --raw-output ".plain" $CONFIG_PATH)
+PLAIN_WS=$(jq --raw-output ".plain_websockets" $CONFIG_PATH)
 SSL=$(jq --raw-output ".ssl" $CONFIG_PATH)
+SSL_WS=$(jq --raw-output ".ssl_websockets" $CONFIG_PATH)
 LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
@@ -13,10 +15,25 @@ CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
 
 PLAIN_CONFIG="
 listener 1883
+protocol mqtt
+"
+
+PLAIN_WS_CONFIG="
+listener 1884
+protocol websockets
 "
 
 SSL_CONFIG="
 listener 8883
+protocol mqtt
+cafile /ssl/$CERTFILE
+certfile /ssl/$CERTFILE
+keyfile /ssl/$KEYFILE
+"
+
+SSL_WS_CONFIG="
+listener 8884
+protocol websockets
 cafile /ssl/$CERTFILE
 certfile /ssl/$CERTFILE
 keyfile /ssl/$KEYFILE
@@ -26,10 +43,16 @@ keyfile /ssl/$KEYFILE
 if [ "$PLAIN" == "true" ]; then
     echo "$PLAIN_CONFIG" >> /etc/mosquitto.conf
 fi
+if [ "$PLAIN_WS" == "true" ]; then
+    echo "$PLAIN_WS_CONFIG" >> /etc/mosquitto.conf
+fi
 
 # Add ssl configs
 if [ "$SSL" == "true" ]; then
     echo "$SSL_CONFIG" >> /etc/mosquitto.conf
+fi
+if [ "$SSL_WS" == "true" ]; then
+    echo "$SSL_WS_CONFIG" >> /etc/mosquitto.conf
 fi
 
 # Allow anonymous connections

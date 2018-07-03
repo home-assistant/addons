@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
 
-SERIAL="$(grep Serial /proc/cpuinfo | cut -c19-)"
+# Read serial number
+if [ -e /proc/device-tree/serial-number ]; then
+    SERIAL="$(cat /proc/device-tree/serial-number | cut -c19-)"
+else
+    SERIAL="$(grep Serial /proc/cpuinfo | cut -c19-)"
+fi
+
+# Generate MAC
 B1="$(echo "$SERIAL" | cut -c3-4)"
 B2="$(echo "$SERIAL" | cut -c5-6)"
 B3="$(echo "$SERIAL" | cut -c7-8)"

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2
+- Fix device-tree path for Supervisor 113
+
 ## 2.1
 - Support new way to read `serial-number` from device-tree
 

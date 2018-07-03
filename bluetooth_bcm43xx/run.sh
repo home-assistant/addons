@@ -2,8 +2,8 @@
 set -e
 
 # Read serial number
-if [ -e /proc/device-tree/serial-number ]; then
-    SERIAL="$(cut -c9- /proc/device-tree/serial-number)"
+if [ -e /device-tree/serial-number ]; then
+    SERIAL="$(cut -c9- /device-tree/serial-number)"
 else
     SERIAL="$(grep Serial /proc/cpuinfo | cut -c19-)"
 fi

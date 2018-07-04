@@ -26,7 +26,7 @@ fi
 # Install pypi modules
 echo "[Info] Install pypi modules into deps"
 export PYTHONUSERBASE=/config/deps
-for package in ${packages[@]}
+for package in "${packages[@]}"
 do
   echo "About to install $package"
   if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies "$package")"; then

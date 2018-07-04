@@ -28,7 +28,7 @@ export PYTHONUSERBASE=/config/deps
 for package in $packages
 do
   echo "About to install $package"
-  if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies "${PYPI[@]}")"; then
+  if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies $package)"; then
       echo "[Error] Can't install pypi packages!"
       echo "$ERROR" && exit 1
   fi

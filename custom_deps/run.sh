@@ -6,6 +6,9 @@ CONFIG_PATH=/data/options.json
 PYPI=$(jq --raw-output ".pypi[]" $CONFIG_PATH)
 APK=$(jq --raw-output ".apk[] // empty" $CONFIG_PATH)
 
+# create bash array from comma seperated  
+IFS=',' read -r -a packages <<< $(jq --raw-output ".pypi[]" $CONFIG_PATH)
+
 # Cleanup old deps
 echo "[Info] Remove old deps"
 rm -rf /config/deps/*
@@ -22,9 +25,13 @@ fi
 # Install pypi modules
 echo "[Info] Install pypi modules into deps"
 export PYTHONUSERBASE=/config/deps
-if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies "${PYPI[@]}")"; then
-    echo "[Error] Can't install pypi packages!"
-    echo "$ERROR" && exit 1
-fi
+for package in $packages
+do
+  echo "About to install $package"
+  if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies $package)"; then
+      echo "[Error] Can't install pypi packages!"
+      echo "$ERROR" && exit 1
+  fi
+done
 
 echo "[Info] done"

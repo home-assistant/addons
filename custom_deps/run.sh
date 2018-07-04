@@ -8,7 +8,7 @@ APK=$(jq --raw-output ".apk[] // empty" $CONFIG_PATH)
 
 # create bash array from comma seperated value using Internal field seperator
 IFS=','
-read -ra packages <<< $PYPI
+read -ra packages <<< "$PYPI"
 
 # Cleanup old deps
 echo "[Info] Remove old deps"

@@ -8,6 +8,9 @@ DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
 DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
 DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
+GIT_BRANCH=$(jq --raw-output '.git_branch' $CONFIG_PATH)
+GIT_COMMAND=$(jq --raw-output '.git_command' $CONFIG_PATH)
+GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
@@ -107,11 +110,39 @@ fi
 }
 
 function git-synchronize {
-    if git rev-parse --is-inside-git-dir &>/dev/null
+    # is /config a local git repo?
+    if [ git rev-parse --is-inside-git-dir &>/dev/null] 
     then
-        echo "git repository exists, start pulling"
-        OLD_COMMIT=$(git rev-parse HEAD)
-        git pull || { echo "[Error] Git pull failed"; exit 1; }
+        echo "Git repository exists"
+
+        # Is the local repo set to the correct origin?
+        if [ $(git remote get-url --all $GIT_ORIGIN | head -n 1) == "$REPOSITORY" ]
+        then
+            echo "Git origin is correctly set to $REPOSITORY"
+            OLD_COMMIT=$(git rev-parse HEAD)
+            
+            # Pull or reset depending on user preference
+            case "$GIT_COMMAND" in
+                pull)
+                    echo "Start git pull..."
+                    git checkout $GIT_BRANCH || { echo "[Error] Git checkout failed"; exit 1; }
+                    git pull || { echo "[Error] Git pull failed"; exit 1; }
+                    ;;
+                reset)
+                    echo "Start git reset"
+                    git checkout $GIT_BRANCH || { echo "[Error] Git checkout failed"; exit 1; }
+                    git fetch $GIT_REMOTE $GIT_BRANCH || { echo "[Error] Git fetch failed"; exit 1; }
+                    git reset --hard $GIT_REMOTE/$GIT_BRANCH || { echo "[Error] Git reset failed"; exit 1; }
+                    ;;
+                *)
+                    echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
+                    exit 1
+                    ;;
+            esac
+        else
+            echo "[Error] git origin does not match $REPOSITORY!"; exit 1;
+        fi
+
     else
         echo "git repostory doesn't exist"
         git-clone

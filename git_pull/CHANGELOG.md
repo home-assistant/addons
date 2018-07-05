@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.8
+- Add option to use git reset instead of git pull
+- Validate git origin URL
+
 ## 4.7
 - Update Hass.io CLI to 1.3.1
 

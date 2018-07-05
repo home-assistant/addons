@@ -116,7 +116,8 @@ function git-synchronize {
         echo "[Info] Local git repository exists"
 
         # Is the local repo set to the correct origin?
-        if [ "$(git remote get-url --all \"$GIT_REMOTE\" | head -n 1)" = "$REPOSITORY" ]
+        CURRENTGITREMOTEURL=$(git remote get-url --all "$GIT_REMOTE" | head -n 1)
+        if [ "$CURRENTGITREMOTEURL" = "$REPOSITORY" ]
         then
             echo "[Info] Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)

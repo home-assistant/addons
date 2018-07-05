@@ -111,12 +111,12 @@ fi
 
 function git-synchronize {
     # is /config a local git repo?
-    if [ git rev-parse --is-inside-git-dir &>/dev/null] 
+    if git rev-parse --is-inside-git-dir &>/dev/null
     then
         echo "Git repository exists"
 
         # Is the local repo set to the correct origin?
-        if [ $(git remote get-url --all $GIT_ORIGIN | head -n 1) == "$REPOSITORY" ]
+        if [ "$(git remote get-url --all $GIT_REMOTE | head -n 1)" = "$REPOSITORY" ]
         then
             echo "Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
@@ -129,7 +129,7 @@ function git-synchronize {
                     git pull || { echo "[Error] Git pull failed"; exit 1; }
                     ;;
                 reset)
-                    echo "Start git reset"
+                    echo "Start git reset..."
                     git checkout $GIT_BRANCH || { echo "[Error] Git checkout failed"; exit 1; }
                     git fetch $GIT_REMOTE $GIT_BRANCH || { echo "[Error] Git fetch failed"; exit 1; }
                     git reset --hard $GIT_REMOTE/$GIT_BRANCH || { echo "[Error] Git reset failed"; exit 1; }
@@ -151,20 +151,22 @@ function git-synchronize {
 
 function validate-config {
     echo "[Info] Check if something is changed"
-    if [ "$AUTO_RESTART" == "true" ]; then
-        # Compare commit ids & check config
-        NEW_COMMIT=$(git rev-parse HEAD)
-        if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
-            echo "[Info] check Home-Assistant config"
-            if hassio homeassistant check; then
+    # Compare commit ids & check config
+    NEW_COMMIT=$(git rev-parse HEAD)
+    if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
+        echo "[Info] check Home-Assistant config"
+        if hassio homeassistant check; then
+            if [ "$AUTO_RESTART" == "true" ]; then
                 echo "[Info] restart Home-Assistant"
                 hassio homeassistant restart 2&> /dev/null
             else
-                echo "[Error] invalid config!"
+                echo "[Info] Local configuraiton has changed. Restart requried."
             fi
         else
-            echo "[Info] Nothing has changed."
+            echo "[Error] invalid config!"
         fi
+    else
+        echo "[Info] Nothing has changed."
     fi
 }
 

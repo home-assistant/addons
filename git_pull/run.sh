@@ -116,7 +116,7 @@ function git-synchronize {
         echo "[Info] Local git repository exists"
 
         # Is the local repo set to the correct origin?
-        if [ "$(git remote get-url --all $GIT_REMOTE | head -n 1)" = "$REPOSITORY" ]
+        if [ "$(git remote get-url --all \"$GIT_REMOTE\" | head -n 1)" = "$REPOSITORY" ]
         then
             echo "[Info] Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
@@ -125,14 +125,14 @@ function git-synchronize {
             case "$GIT_COMMAND" in
                 pull)
                     echo "[Info] Start git pull..."
-                    git checkout $GIT_BRANCH || { echo "[Error] Git checkout failed"; exit 1; }
+                    git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
                     git pull || { echo "[Error] Git pull failed"; exit 1; }
                     ;;
                 reset)
                     echo "[Info] Start git reset..."
-                    git checkout $GIT_BRANCH || { echo "[Error] Git checkout failed"; exit 1; }
-                    git fetch $GIT_REMOTE $GIT_BRANCH || { echo "[Error] Git fetch failed"; exit 1; }
-                    git reset --hard $GIT_REMOTE/$GIT_BRANCH || { echo "[Error] Git reset failed"; exit 1; }
+                    git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
+                    git fetch "$GIT_REMOTE" "$GIT_BRANCH" || { echo "[Error] Git fetch failed"; exit 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
                     ;;
                 *)
                     echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"

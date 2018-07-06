@@ -8,6 +8,9 @@ DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
 DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
 DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
+GIT_BRANCH=$(jq --raw-output '.git_branch' $CONFIG_PATH)
+GIT_COMMAND=$(jq --raw-output '.git_command' $CONFIG_PATH)
+GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
@@ -16,7 +19,7 @@ REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 
 #### functions ####
 function add-ssh-key {
-    echo "Start adding SSH key"
+    echo "[Info] Start adding SSH key"
     mkdir -p ~/.ssh
 
     (
@@ -24,7 +27,7 @@ function add-ssh-key {
         echo "    StrictHostKeyChecking no"
     ) > ~/.ssh/config
 
-    echo "Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
+    echo "[Info] Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
         echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     done <<< "$DEPLOYMENT_KEY"
@@ -36,7 +39,7 @@ function add-ssh-key {
 function git-clone {
     # create backup
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
-    echo "Backup configuration to $BACKUP_LOCATION"
+    echo "[Info] Backup configuration to $BACKUP_LOCATION"
     
     mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
     cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
@@ -45,7 +48,7 @@ function git-clone {
     rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
 
     # git clone
-    echo "Start git clone"
+    echo "[Info] Start git clone"
     git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
 
     # try to copy non yml files back
@@ -62,9 +65,9 @@ if [ -n "$DEPLOYMENT_KEY" ]; then
     # shellcheck disable=SC2029
     DOMAIN="${GIT_URL_PARTS[0]}"
     if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || { [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]; }; then
-        echo "Valid SSH connection for $DOMAIN"
+        echo "[Info] Valid SSH connection for $DOMAIN"
     else
-        echo "No valid SSH connection for $DOMAIN"
+        echo "[Warn] No valid SSH connection for $DOMAIN"
         add-ssh-key
     fi
 fi
@@ -107,33 +110,64 @@ fi
 }
 
 function git-synchronize {
+    # is /config a local git repo?
     if git rev-parse --is-inside-git-dir &>/dev/null
     then
-        echo "git repository exists, start pulling"
-        OLD_COMMIT=$(git rev-parse HEAD)
-        git pull || { echo "[Error] Git pull failed"; exit 1; }
+        echo "[Info] Local git repository exists"
+
+        # Is the local repo set to the correct origin?
+        CURRENTGITREMOTEURL=$(git remote get-url --all "$GIT_REMOTE" | head -n 1)
+        if [ "$CURRENTGITREMOTEURL" = "$REPOSITORY" ]
+        then
+            echo "[Info] Git origin is correctly set to $REPOSITORY"
+            OLD_COMMIT=$(git rev-parse HEAD)
+            
+            # Pull or reset depending on user preference
+            case "$GIT_COMMAND" in
+                pull)
+                    echo "[Info] Start git pull..."
+                    git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
+                    git pull || { echo "[Error] Git pull failed"; exit 1; }
+                    ;;
+                reset)
+                    echo "[Info] Start git reset..."
+                    git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
+                    git fetch "$GIT_REMOTE" "$GIT_BRANCH" || { echo "[Error] Git fetch failed"; exit 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
+                    ;;
+                *)
+                    echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
+                    exit 1
+                    ;;
+            esac
+        else
+            echo "[Error] git origin does not match $REPOSITORY!"; exit 1;
+        fi
+
     else
-        echo "git repostory doesn't exist"
+        echo "[Warn] Git repostory doesn't exist"
         git-clone
     fi
 }
 
 function validate-config {
     echo "[Info] Check if something is changed"
-    if [ "$AUTO_RESTART" == "true" ]; then
-        # Compare commit ids & check config
-        NEW_COMMIT=$(git rev-parse HEAD)
-        if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
-            echo "[Info] check Home-Assistant config"
-            if hassio homeassistant check; then
-                echo "[Info] restart Home-Assistant"
+    # Compare commit ids & check config
+    NEW_COMMIT=$(git rev-parse HEAD)
+    if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
+        echo "[Info] Something has changed, check Home-Assistant config"
+        if hassio homeassistant check; then
+            if [ "$AUTO_RESTART" == "true" ]; then
+                echo "[Info] Restart Home-Assistant"
                 hassio homeassistant restart 2&> /dev/null
             else
-                echo "[Error] invalid config!"
+                echo "[Info] Local configuraiton has changed. Restart requried."
             fi
         else
-            echo "[Info] Nothing has changed."
+            echo "[Error] Configuration updated but it does not pass the config check. Do not restart until this is fixed!"
         fi
+    else
+        echo "[Info] Nothing has changed."
     fi
 }
 

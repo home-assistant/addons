@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3
+- Enable PSCAN
+
 ## 2.2
 - Fix device-tree path for Supervisor 113
 

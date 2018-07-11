@@ -3,8 +3,8 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
-PYPI=$(jq --raw-output ".pypi[]" $CONFIG_PATH)
-APK=$(jq --raw-output ".apk[] // empty" $CONFIG_PATH)
+PYPI="$(jq --raw-output '.pypi | join(" ")' $CONFIG_PATH)"
+APK="$(jq --raw-output '.apk | join(" ") // empty' $CONFIG_PATH)"
 
 # Cleanup old deps
 echo "[Info] Remove old deps"
@@ -22,7 +22,9 @@ fi
 # Install pypi modules
 echo "[Info] Install pypi modules into deps"
 export PYTHONUSERBASE=/config/deps
-if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies "${PYPI[@]}")"; then
+
+# shellcheck disable=SC2086
+if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies $PYPI)"; then
     echo "[Error] Can't install pypi packages!"
     echo "$ERROR" && exit 1
 fi

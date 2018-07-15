@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5
+- Added basic git stash functionality
+- Added NOTIFY_SERVICE option
+- Notifying if used passwords are insecure and when SESAME has been used
+- PASSWORD can optionally be provided as SHA256 hash
+- Added SESAME_TOTP_SECRET for TOTP based IP whitelisting
+- Added git diff functionality
+- Red colored menu button as indicator for outdated version
+- Removed right dragging area for editor settings
+- Added IGNORE_SSL option to disable SSL verification when connecting to HASS API
+- Allow customizing loglevel
+- Show client IP address in network status modal
+
 ## 0.4
 - Update Configurator to version 0.2.9
 - Material Icons and HASS-help now open in new tab instead of modal

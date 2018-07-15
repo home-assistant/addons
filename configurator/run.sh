@@ -28,7 +28,8 @@ export HC_IGNORE_PATTERN
 HC_DIRSFIRST=$(jq --raw-output '.dirsfirst' $CONFIG_PATH)
 export HC_DIRSFIRST
 
-if  [ $(jq --raw-output '.ssl' $CONFIG_PATH) == "true" ]; then
+SSL=$(jq --raw-output '.ssl' $CONFIG_PATH)
+if  [ "$SSL" == "true" ]; then
     HC_SSL_CERTIFICATE=$(jq --raw-output '.certfile' $CONFIG_PATH)
     export HC_SSL_CERTIFICATE
     HC_SSL_KEY=$(jq --raw-output '.keyfile' $CONFIG_PATH)

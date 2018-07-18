@@ -8,7 +8,7 @@ export HC_HASS_API=http://hassio/homeassistant/api/
 export HC_HASS_API_PASSWORD=$HASSIO_TOKEN
 export HC_GIT=true
 export HC_VERIFY_HOSTNAME=false
-export HC_VERIFY_SSL=false
+export HC_IGNORE_SSL=false
 
 export HC_ENFORCE_BASEPATH=$(jq --raw-output '.enforce_basepath' $CONFIG_PATH)
 export HC_USERNAME=$(jq --raw-output '.username' $CONFIG_PATH)

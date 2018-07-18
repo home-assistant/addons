@@ -18,15 +18,13 @@
     "ssl": false,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
-    "verify_hostname": false,
     "allowed_networks": ["192.168.0.0/16", "172.30.0.0/16"],
     "banned_ips": ["8.8.8.8"],
     "banlimit": 0,
     "ignore_pattern": ["__pycache__"],
     "dirsfirst": false,
     "enforce_basepath": false,
-    "notify_service": "persistent_notification.create",
-    "ignore_ssl": false
+    "notify_service": "persistent_notification.create"
   },
   "schema": {
     "username": "str",
@@ -34,7 +32,6 @@
     "ssl": "bool",
     "certfile": "str",
     "keyfile": "str",
-    "verify_hostname": "bool",
     "allowed_networks": ["str"],
     "banned_ips": ["str"],
     "banlimit": "int",
@@ -42,7 +39,6 @@
     "dirsfirst": "bool",
     "enforce_basepath": "bool",
     "notify_service": "str",
-    "ignore_ssl": "bool",
     "sesame": "str?",
     "sesame_totp_secret": "str?",
     "loglevel": "str?"

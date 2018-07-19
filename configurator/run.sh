@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+# shellcheck disable=SC2155
 
 CONFIG_PATH=/data/options.json
 

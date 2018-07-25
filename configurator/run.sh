@@ -19,6 +19,7 @@ export HC_BANNED_IPS=$(jq --raw-output '.banned_ips | join(",")' $CONFIG_PATH)
 export HC_BANLIMIT=$(jq --raw-output '.banlimit' $CONFIG_PATH)
 export HC_IGNORE_PATTERN=$(jq --raw-output '.ignore_pattern | join(",")' $CONFIG_PATH)
 export HC_DIRSFIRST=$(jq --raw-output '.dirsfirst' $CONFIG_PATH)
+export HC_VERIFY_HOSTNAME=$(jq --raw-output '.verify_hostname // false' $CONFIG_PATH)
 
 SSL=$(jq --raw-output '.ssl // false' $CONFIG_PATH)
 if  [ "$SSL" == "true" ]; then

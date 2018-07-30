@@ -41,8 +41,7 @@
     "notify_service": "str",
     "sesame": "str?",
     "sesame_totp_secret": "str?",
-    "loglevel": "str?",
-    "verify_hostname": "str?"
+    "loglevel": "str?"
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

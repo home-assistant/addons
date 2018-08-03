@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "2.31.25-p2",
+  "version": "1.0",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
@@ -9,6 +9,7 @@
   "boot": "auto",
   "auto_uart": true,
   "gpio": true,
+  "apparmor": false,
   "ports": {
     "2001/tcp": 2001,
     "2000/tcp": 2000

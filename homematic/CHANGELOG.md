@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0
+- Change version format to other core add-ons
+- Update OCCU to 2.35.16
+- Disable AppArmor to work on system like HassOS
+
 ## 2.31.25-p2
 - Bugfix with reset value on GPIO
 

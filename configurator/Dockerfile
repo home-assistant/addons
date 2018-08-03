@@ -4,8 +4,7 @@ FROM $BUILD_FROM
 # Setup base
 ARG CONFIGURATOR_VERSION
 RUN apk add --no-cache git curl openssh \
-  && pip3 install GitPython \
-  && pip3 install pyotp \
+  && pip3 install --no-cache-dir GitPython pyotp \
   && curl -s -o /configurator.py https://raw.githubusercontent.com/danielperna84/hass-configurator/$CONFIGURATOR_VERSION/configurator.py \
   && apk del curl
 

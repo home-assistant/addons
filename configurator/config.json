@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "0.5",
+  "version": "1.0",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
@@ -41,7 +41,8 @@
     "notify_service": "str",
     "sesame": "str?",
     "sesame_totp_secret": "str?",
-    "loglevel": "str?"
+    "loglevel": "str?",
+    "verify_hostname": "str?"
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

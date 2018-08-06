@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.5
+## 1.1
+- Fixed ssl certificate path bug
+
+## 1.0
 - Added basic git stash functionality
 - Added NOTIFY_SERVICE option
 - Notifying if used passwords are insecure and when SESAME has been used

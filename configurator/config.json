@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "1.1",
+  "version": "1.2",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",

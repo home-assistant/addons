@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2
+- Fixed numeric password regression
+- Fixed list-options (ALLOWED_NETWORKS, BANNED_IPS, IGNORE_PATTERN)
+- Improved handling of UTF-8 encoded files
+
 ## 1.1
 - Fixed ssl certificate path bug
 

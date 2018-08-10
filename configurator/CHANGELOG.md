@@ -1,6 +1,8 @@
 # Changelog
 
 ## 1.2
+
+### Configurator 0.3.2
 - Fixed numeric password regression
 - Fixed list-options (ALLOWED_NETWORKS, BANNED_IPS, IGNORE_PATTERN)
 - Improved handling of UTF-8 encoded files
@@ -9,6 +11,8 @@
 - Fixed ssl certificate path bug
 
 ## 1.0
+
+### Configurator 0.3.1
 - Added basic git stash functionality
 - Added NOTIFY_SERVICE option
 - Notifying if used passwords are insecure and when SESAME has been used

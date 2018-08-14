@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3
+- Updated to latest snips 0.58.2
+
 ## 3.2
 - Added snips-asr-injections service to allow dynamic entity names
 

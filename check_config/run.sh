@@ -22,8 +22,7 @@ fi
 
 echo "[Info] Install done, check config now"
 
-cp -r /config /tmp/config > /dev/null
-if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"
+if ! HASS_OUTPUT="$(hass -c /config --script check_config)"
 then
     echo "[Error] Wrong config found!"
     echo "$HASS_OUTPUT"

@@ -1,6 +1,6 @@
 {
   "name": "Check Home Assistant configuration",
-  "version": "0.7",
+  "version": "0.8",
   "slug": "check_config",
   "description": "Check current Home Assistant configuration against a new version",
   "url": "https://home-assistant.io/addons/check_config/",

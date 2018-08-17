@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.9
+- Fix git repo detection in config dir - #372
+- Proper detection of the "repeat.active" config option - #375
+
 ## 4.8
 - Add option to use git reset instead of git pull
 - Validate git origin URL

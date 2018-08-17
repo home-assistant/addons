@@ -111,7 +111,7 @@ fi
 
 function git-synchronize {
     # is /config a local git repo?
-    if git rev-parse --is-inside-git-dir &>/dev/null
+    if git rev-parse --is-inside-work-tree &>/dev/null
     then
         echo "[Info] Local git repository exists"
 

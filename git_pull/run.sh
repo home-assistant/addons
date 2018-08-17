@@ -181,7 +181,7 @@ while true; do
     git-synchronize
     validate-config
      # do we repeat?
-    if [ -z "$REPEAT_ACTIVE" ]; then
+    if [ ! "$REPEAT_ACTIVE" == "true" ]; then
         exit 0
     fi
     sleep "$REPEAT_INTERVAL"

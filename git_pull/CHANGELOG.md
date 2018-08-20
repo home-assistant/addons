@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.9
+- Fix git repo detection in config-dir - #372
+- Fix repeat option detection - #375
+- Allow to stay on the currently checked out branch - set "git_branch": ""
+- Correct typo
+
 ## 4.8
 - Add option to use git reset instead of git pull
 - Validate git origin URL

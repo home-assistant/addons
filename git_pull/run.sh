@@ -40,10 +40,10 @@ function git-clone {
     # create backup
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
     echo "[Info] Backup configuration to $BACKUP_LOCATION"
-    
+
     mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
     cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
-    
+
     # remove config folder content
     rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
 
@@ -121,19 +121,35 @@ function git-synchronize {
         then
             echo "[Info] Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
-            
+
+            # Detect if we need to checkout another branch
+            GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+            if [ -z $GIT_BRANCH ] || [ $GIT_BRANCH == $GIT_CURRENT_BRANCH ]; then
+              #set this explicitly because branch could be switched manually inbetween "active" runs
+              GIT_USE_CURRENT_BRANCH="true"
+            else
+              GIT_USE_CURRENT_BRANCH="false"
+            fi
+
+            # do we switch branches?
+            if [ $GIT_USE_CURRENT_BRANCH == "false" ]; then
+              echo "[Info] Switching branches - start git checkout of branch "$GIT_BRANCH"..."
+              git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
+              GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+            else
+              echo "[Info] Staying on currently checked out branch: "$GIT_CURRENT_BRANCH"..."
+            fi
+
             # Pull or reset depending on user preference
             case "$GIT_COMMAND" in
                 pull)
                     echo "[Info] Start git pull..."
-                    git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
                     git pull || { echo "[Error] Git pull failed"; exit 1; }
                     ;;
                 reset)
                     echo "[Info] Start git reset..."
-                    git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
-                    git fetch "$GIT_REMOTE" "$GIT_BRANCH" || { echo "[Error] Git fetch failed"; exit 1; }
-                    git reset --hard "$GIT_REMOTE"/"$GIT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
+                    git fetch "$GIT_REMOTE" "$GIT_CURRENT_BRANCH" || { echo "[Error] Git fetch failed"; exit 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
                     ;;
                 *)
                     echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
@@ -161,7 +177,7 @@ function validate-config {
                 echo "[Info] Restart Home-Assistant"
                 hassio homeassistant restart 2&> /dev/null
             else
-                echo "[Info] Local configuration has changed. Restart requried."
+                echo "[Info] Local configuraiton has changed. Restart requried."
             fi
         else
             echo "[Error] Configuration updated but it does not pass the config check. Do not restart until this is fixed!"
@@ -175,6 +191,7 @@ function validate-config {
 
 #### Main program ####
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
+
 while true; do
     check-ssh-key
     setup-user-password

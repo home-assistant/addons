@@ -177,7 +177,7 @@ function validate-config {
                 echo "[Info] Restart Home-Assistant"
                 hassio homeassistant restart 2&> /dev/null
             else
-                echo "[Info] Local configuraiton has changed. Restart requried."
+                echo "[Info] Local configuration has changed. Restart required."
             fi
         else
             echo "[Error] Configuration updated but it does not pass the config check. Do not restart until this is fixed!"

@@ -130,6 +130,7 @@ function git-synchronize {
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
+              echo "[Info] Start git prune..."
               git prune || { echo "[Error] Git prune failed"; exit 1; }
             fi
 

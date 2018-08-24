@@ -123,6 +123,10 @@ function git-synchronize {
             echo "[Info] Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
 
+            # Always do a fetch to update repos
+            echo "[Info] Start git fetch..."
+            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
+
             # Detect if we need to checkout another branch
             GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             if [ -z "$GIT_BRANCH" ] || [ "$GIT_BRANCH" == "$GIT_CURRENT_BRANCH" ]; then
@@ -138,9 +142,7 @@ function git-synchronize {
               # do a git fetch first to update branches and cleanup old if requested
               if [ "$GIT_PRUNE" == "true" ]
               then
-                git fetch -p "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
-              else
-                git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
+                git prune || { echo "[Error] Git prune failed"; exit 1; }
               fi
               git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)

@@ -16,6 +16,7 @@
     "git_branch": "master",
     "git_command": "pull",
     "git_remote": "origin",
+    "git_prune": false,
     "repository": null,
     "auto_restart": false,
     "repeat": {
@@ -31,6 +32,7 @@
     "git_branch": "str",
     "git_command": "match(pull|reset)",
     "git_remote": "str",
+    "git_prune": "bool",
     "repository": "match((?:.+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "repeat": {

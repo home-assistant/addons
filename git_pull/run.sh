@@ -11,6 +11,7 @@ DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
 GIT_BRANCH=$(jq --raw-output '.git_branch' $CONFIG_PATH)
 GIT_COMMAND=$(jq --raw-output '.git_command' $CONFIG_PATH)
 GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
+GIT_PRUNE=$(jq --raw-output '.git_prune' $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
@@ -134,6 +135,14 @@ function git-synchronize {
             # do we switch branches?
             if [ "$GIT_USE_CURRENT_BRANCH" == "false" ]; then
               echo "[Info] Switching branches - start git checkout of branch $GIT_BRANCH..."
+              # do a git fetch first to update branches and cleanup old if requested
+              if [ "$GIT_PRUNE" != "true" ] && [ "$GIT_PRUNE" != "-p" ]
+              then
+                GIT_PRUNE=""
+              else
+                GIT_PRUNE="-p"
+              fi
+              git fetch $GIT_PRUNE $GIT_REMOTE || { echo "[Error] Git fetch failed"; exit 1; }
               git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             else
@@ -148,7 +157,6 @@ function git-synchronize {
                     ;;
                 reset)
                     echo "[Info] Start git reset..."
-                    git fetch "$GIT_REMOTE" "$GIT_CURRENT_BRANCH" || { echo "[Error] Git fetch failed"; exit 1; }
                     git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
                     ;;
                 *)

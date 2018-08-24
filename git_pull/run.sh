@@ -136,13 +136,12 @@ function git-synchronize {
             if [ "$GIT_USE_CURRENT_BRANCH" == "false" ]; then
               echo "[Info] Switching branches - start git checkout of branch $GIT_BRANCH..."
               # do a git fetch first to update branches and cleanup old if requested
-              if [ "$GIT_PRUNE" != "true" ] && [ "$GIT_PRUNE" != "-p" ]
+              if [ "$GIT_PRUNE" == "true" ]
               then
-                GIT_PRUNE=""
+                git fetch -p "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
               else
-                GIT_PRUNE="-p"
+                git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
               fi
-              git fetch "$GIT_PRUNE" "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
               git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             else

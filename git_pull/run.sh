@@ -127,17 +127,18 @@ function git-synchronize {
             echo "[Info] Start git fetch..."
             git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
 
+            # Prune if configured
+            if [ "$GIT_PRUNE" == "true" ]
+            then
+              git prune || { echo "[Error] Git prune failed"; exit 1; }
+            fi
+
             # Do we switch branches?
             GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             if [ -z "$GIT_BRANCH" ] || [ "$GIT_BRANCH" == "$GIT_CURRENT_BRANCH" ]; then
               echo "[Info] Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
             else
               echo "[Info] Switching branches - start git checkout of branch $GIT_BRANCH..."
-              # Prune if configured
-              if [ "$GIT_PRUNE" == "true" ]
-              then
-                git prune || { echo "[Error] Git prune failed"; exit 1; }
-              fi
               git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             fi

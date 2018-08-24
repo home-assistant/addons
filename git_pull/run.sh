@@ -142,7 +142,7 @@ function git-synchronize {
               else
                 GIT_PRUNE="-p"
               fi
-              git fetch $GIT_PRUNE $GIT_REMOTE || { echo "[Error] Git fetch failed"; exit 1; }
+              git fetch "$GIT_PRUNE" "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
               git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             else

@@ -11,7 +11,7 @@ echo "[Info] Remove old deps"
 rm -rf /config/deps/*
 
 # Need custom apk for build?
-if [ ! -z "$APK" ]; then
+if [ -n "$APK" ]; then
     echo "[Info] Install apks for build"
     if ! ERROR="$(apk add --no-cache "${APK[@]}")"; then
         echo "[Error] Can't install packages!"

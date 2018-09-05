@@ -28,17 +28,17 @@ if  [ "$SSL" == "true" ]; then
 fi
 
 LOGLEVEL=$(jq --raw-output '.loglevel // empty' $CONFIG_PATH)
-if [ ! -z "$LOGLEVEL" ]; then
+if [ -n "$LOGLEVEL" ]; then
     export HC_LOGLEVEL=$LOGLEVEL
 fi
 
 SESAME=$(jq --raw-output '.sesame // empty' $CONFIG_PATH)
-if [ ! -z "$SESAME" ]; then
+if [ -n "$SESAME" ]; then
     export HC_SESAME=$SESAME
 fi
 
 SESAME_TOTP_SECRET=$(jq --raw-output '.sesame_totp_secret // empty' $CONFIG_PATH)
-if [ ! -z "$SESAME_TOTP_SECRET" ]; then
+if [ -n "$SESAME_TOTP_SECRET" ]; then
     export HC_SESAME_TOTP_SECRET=$SESAME_TOTP_SECRET
 fi
 

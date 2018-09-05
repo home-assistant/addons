@@ -11,7 +11,7 @@ PASSWORD=$(jq --raw-output ".password" $CONFIG_PATH)
 sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
 sed -i s/#LogLevel.*/LogLevel\ DEBUG/ /etc/ssh/sshd_config
 
-if [ ! -z "$AUTHORIZED_KEYS" ]; then
+if [ -n "$AUTHORIZED_KEYS" ]; then
     echo "[INFO] Setup authorized_keys"
 
     mkdir -p ~/.ssh
@@ -21,7 +21,7 @@ if [ ! -z "$AUTHORIZED_KEYS" ]; then
 
     chmod 600 ~/.ssh/authorized_keys
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
-elif [ ! -z "$PASSWORD" ]; then
+elif [ -n "$PASSWORD" ]; then
     echo "[INFO] Setup password login"
 
     echo "root:$PASSWORD" | chpasswd 2&> /dev/null

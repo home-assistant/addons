@@ -43,7 +43,7 @@ if [ "$MQTT_BRIDGE" == "true" ]; then
         echo "address $HOST:$PORT"
     } >> /etc/mosquitto.conf
 
-    if [ ! -z "$USER" ]; then
+    if [ -n "$USER" ]; then
       {
           echo "username $USER"
           echo "password $PASSWORD"

@@ -29,23 +29,23 @@ for (( i=0; i < "$DEVICES"; i++ )); do
         echo "  name = \"$DEV_NAME\""
         echo "  protocol = \"$DEV_PROTO\""
         
-        if [ ! -z "$DEV_MODEL" ]; then
+        if [ -n "$DEV_MODEL" ]; then
             echo "  model = \"$DEV_MODEL\""
         fi
         
-        if [ ! -z "$ATTR_HOUSE" ] || [ ! -z "$ATTR_CODE" ] || [ ! -z "$ATTR_UNIT" ] || [ ! -z "$ATTR_FADE" ]; then
+        if [ -n "$ATTR_HOUSE" ] || [ -n "$ATTR_CODE" ] || [ -n "$ATTR_UNIT" ] || [ -n "$ATTR_FADE" ]; then
             echo "  parameters {"
             
-            if [ ! -z "$ATTR_HOUSE" ]; then
+            if [ -n "$ATTR_HOUSE" ]; then
                 echo "    house = \"$ATTR_HOUSE\""
             fi
-            if [ ! -z "$ATTR_CODE" ]; then
+            if [ -n "$ATTR_CODE" ]; then
                 echo "    code = \"$ATTR_CODE\""
             fi
-            if [ ! -z "$ATTR_UNIT" ]; then
+            if [ -n "$ATTR_UNIT" ]; then
                 echo "    unit = \"$ATTR_UNIT\""
             fi
-            if [ ! -z "$ATTR_FADE" ]; then
+            if [ -n "$ATTR_FADE" ]; then
                 echo "    fade = \"$ATTR_FADE\""
             fi
             

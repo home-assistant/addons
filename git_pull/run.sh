@@ -75,7 +75,7 @@ fi
 }
 
 function setup-user-password {
-if [ ! -z "$DEPLOYMENT_USER" ]; then
+if [ -n "$DEPLOYMENT_USER" ]; then
     cd /config || return
     echo "[Info] setting up credential.helper for user: ${DEPLOYMENT_USER}"
     git config --system credential.helper 'store --file=/tmp/git-credentials'

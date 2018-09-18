@@ -11,7 +11,12 @@
   "ports": {
     "3218/tcp": 3218
   },
-  "map": ["config:rw", "ssl"],
+  "map": [
+    "backup:rw",
+    "config:rw",
+    "share:rw",
+    "ssl"
+  ],
   "options": {
     "username": "admin",
     "password": null,

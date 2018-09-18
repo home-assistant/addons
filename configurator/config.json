@@ -15,7 +15,7 @@
     "backup:rw",
     "config:rw",
     "share:rw",
-    "ssl"
+    "ssl:rw"
   ],
   "options": {
     "username": "admin",

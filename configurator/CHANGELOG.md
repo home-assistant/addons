@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0
+## 1.3
 - Add access to folder: `/share`, `/backup`
 
 ## 1.2

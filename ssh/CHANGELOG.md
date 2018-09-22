@@ -1,5 +1,9 @@
 # Changelog
 
+## 4
+- Update Hass.io CLI to 1.4.0
+- Add new API role profile
+
 ## 3.7
 - Add YAML highlighting for nano
 

@@ -3,6 +3,7 @@
 ## 4
 - Update Hass.io CLI to 1.4.0
 - Add new API role profile
+- Update OpenSSH to 7.7
 
 ## 3.7
 - Add YAML highlighting for nano

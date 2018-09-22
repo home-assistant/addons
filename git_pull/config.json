@@ -1,12 +1,13 @@
 {
   "name": "Git pull",
-  "version": "4.9",
+  "version": "5",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://home-assistant.io/addons/git_pull/",
   "startup": "services",
   "boot": "manual",
   "hassio_api": true,
+  "hassio_role": "homeassistant",
   "map": ["config:rw"],
   "options": {
     "deployment_key": [],

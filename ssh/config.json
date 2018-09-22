@@ -1,12 +1,13 @@
 {
   "name": "SSH server",
-  "version": "3.7",
+  "version": "4",
   "slug": "ssh",
   "description": "Allows connections over SSH",
   "url": "https://home-assistant.io/addons/ssh/",
   "startup": "services",
   "boot": "auto",
   "hassio_api": true,
+  "hassio_role": "manager",
   "ports": {
     "22/tcp": 22
    },

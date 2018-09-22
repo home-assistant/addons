@@ -1,5 +1,9 @@
 # Changelog
 
+## 5
+- Update Hass.io CLI to 1.4.0
+- Add new API role profile
+
 ## 4.9
 - Fix git repo detection in config-dir - #372
 - Fix repeat option detection - #375

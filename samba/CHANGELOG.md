@@ -1,5 +1,8 @@
 # Changelog
 
+## 5
+- Update Samba to version 4.8.4
+
 ## 4.1
 - Bugfix sed command
 

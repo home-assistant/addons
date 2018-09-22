@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "4.1",
+  "version": "5",
   "slug": "samba",
   "description": "Expose Hass.io folders with SMB/CIFS",
   "url": "https://home-assistant.io/addons/samba/",

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2
+- Add access to folder: `/share`, `/backup`
+
 ## 1.2
 
 ### Configurator 0.3.2

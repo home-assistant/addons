@@ -1,0 +1,19 @@
+{
+  "name": "UI Development",
+  "version": "1",
+  "slug": "ui_development",
+  "description": "UI Development helper",
+  "url": "https://developers.home-assistant.io/docs/en/hassio_hass.html",
+  "startup": "once",
+  "boot": "manual",
+  "hassio_api": true,
+  "hassio_role": "admin",
+  "ports": {
+    "80/tcp": 80
+   },
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-ui_development"
+}

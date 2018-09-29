@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.1
+- Include hassio bash completion
+
 ## 4
 - Update Hass.io CLI to 1.4.0
 - Add new API role profile

@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "1.0",
+  "version": "2",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
@@ -50,5 +50,5 @@
       }
     ]
   },
-  "image": "homeassistant/{arch}-addon-homeassistant"
+  "image": "homeassistant/{arch}-addon-occu"
 }

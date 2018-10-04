@@ -7,6 +7,7 @@ RUN apt-get update \
         curl \
         jq \
         libusb-1.0 \
+        tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OCCU_VERSION

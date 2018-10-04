@@ -50,5 +50,5 @@
       }
     ]
   },
-  "image": "homeassistant/{arch}-addon-occu"
+  "image": "homeassistant/{arch}-addon-homeassistant"
 }

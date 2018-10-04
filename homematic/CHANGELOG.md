@@ -1,5 +1,9 @@
 # Changelog
 
+## 2
+- Fix wrong Timezone
+- Update OCCU to 3.37.8
+
 ## 1.0
 - Change version format to other core add-ons
 - Update OCCU to 2.35.16

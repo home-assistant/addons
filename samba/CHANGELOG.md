@@ -1,5 +1,8 @@
 # Changelog
 
+## 6
+- Enable ntlm auth for Windows10
+
 ## 5
 - Update Samba to version 4.8.4
 

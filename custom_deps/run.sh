@@ -25,7 +25,7 @@ export PYTHONUSERBASE=/config/deps
 
 # shellcheck disable=SC2086
 if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies $PYPI)"; then
-    echo "[Error] Can't install pypi packages!"
+    echo "[Error] Can't install PyPI packages!"
     echo "$ERROR" && exit 1
 fi
 

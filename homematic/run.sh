@@ -75,5 +75,14 @@ if [ "$WIRED_ENABLE" == "true" ]; then
     WAIT_PIDS+=($!)
 fi
 
+# sync time periodically
+if [ "$RF_ENABLE" == "true" ]; then
+    while true
+    do
+        sleep 30m
+        $HM_HOME/bin/SetInterfaceClock 127.0.0.1:2001
+    done
+fi
+
 # Wait until all is done
 wait "${WAIT_PIDS[@]}"

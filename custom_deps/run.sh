@@ -11,12 +11,12 @@ echo "[Info] Remove old deps"
 rm -rf /config/deps/*
 
 # Need custom apk for build?
-if [ -n "$APK" ]; then
+if [ -n "${APK}" ]; then
     echo "[Info] Install apks for build"
     # shellcheck disable=SC2086
     if ! ERROR="$(apk add --no-cache ${APK})"; then
         echo "[Error] Can't install packages!"
-        echo "$ERROR" && exit 1
+        echo "${ERROR}" && exit 1
     fi
 fi
 
@@ -27,7 +27,7 @@ export PYTHONUSERBASE=/config/deps
 # shellcheck disable=SC2086
 if ! ERROR="$(pip3 install --user --no-cache-dir --prefix= --no-dependencies ${PYPI})"; then
     echo "[Error] Can't install PyPI packages!"
-    echo "$ERROR" && exit 1
+    echo "${ERROR}" && exit 1
 fi
 
 echo "[Info] done"

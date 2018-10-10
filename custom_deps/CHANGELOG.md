@@ -1,5 +1,8 @@
 # Changelog
 
+## 1
+- Bug fix multiple pip packages v2
+
 ## 0.3
 - Bug fix multiple pip packages
 

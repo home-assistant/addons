@@ -13,6 +13,7 @@ rm -rf /config/deps/*
 # Need custom apk for build?
 if [ -n "$APK" ]; then
     echo "[Info] Install apks for build"
+    # shellcheck disable=SC2086
     if ! ERROR="$(apk add --no-cache ${APK})"; then
         echo "[Error] Can't install packages!"
         echo "$ERROR" && exit 1

@@ -80,7 +80,8 @@ if [ "$RF_ENABLE" == "true" ]; then
     while true
     do
         sleep 30m
-        $HM_HOME/bin/SetInterfaceClock 127.0.0.1:2001
+        echo "Run SetInterfaceClock"
+        "$HM_HOME/bin/SetInterfaceClock" 127.0.0.1:2001
     done
 fi
 

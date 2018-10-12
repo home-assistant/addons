@@ -6,13 +6,16 @@
   "url": "https://home-assistant.io/addons/mosquitto/",
   "startup": "system",
   "boot": "auto",
+  "map": ["ssl", "share"],
+  "discovery": ["mqtt"],
+  "services": ["mqtt:provide"],
+  "login_backend": true,
   "ports": {
     "1883/tcp": 1883,
     "1884/tcp": 1884,
     "8883/tcp": 8883,
     "8884/tcp": 8884
    },
-  "map": ["ssl", "share"],
   "options": {
     "plain": true,
     "plain_websockets": false,

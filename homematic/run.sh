@@ -75,12 +75,21 @@ if [ "$WIRED_ENABLE" == "true" ]; then
     WAIT_PIDS+=($!)
 fi
 
+# Register stop
+function stop_homematic() {
+    echo "Kill Processes..."
+    kill -15 "${WAIT_PIDS[@]}"
+    wait "${WAIT_PIDS[@]}"
+    echo "Done."
+}
+trap "stop_homematic" SIGTERM SIGHUP
+
 # sync time periodically
 if [ "$RF_ENABLE" == "true" ]; then
     while true
     do
         sleep 30m
-        echo "Run SetInterfaceClock"
+        echo "$(date '+%Y-%m-%d %H:%M:%S.%3N') Run SetInterfaceClock now."
         "$HM_HOME/bin/SetInterfaceClock" 127.0.0.1:2001
     done
 fi

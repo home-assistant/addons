@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 # Add env
 ENV LANG C.UTF-8
 
-# Install Software
+# Install mosquitto + auth plugin
 WORKDIR /usr/src
 ARG MOSQUITTO_AUTH_VERSION
 RUN apk add --no-cache \
@@ -22,12 +22,23 @@ RUN apk add --no-cache \
     && apk del .build-dependencies \
     && rm -fr /usr/src/mosquitto-auth-plug
 
+# Install auth own auth layer
+COPY auth_srv.py /usr/src/
+RUN apk add --no-cache --virtual .build-dependencies \
+        python3-dev \
+    && pip3 install --no-cache-dir pyinstaller aiohttp \
+    && mkdir -p /usr/src/auth-srv \
+    && mv auth_srv.py /usr/src/auth-srv/ \
+    && cd /usr/src/auth-srv/ \
+    && pyinstaller auth_srv.py \
+    && apk del .build-dependencies \
+    && rm -fr /usr/src/auth-srv
+
 # Copy data
 COPY run.sh /
-COPY auth_srv.sh /bin/
 COPY mosquitto.conf /etc/
 
-RUN chmod a+x /run.sh /bin/auth_srv.sh
+RUN chmod a+x /run.sh
 
 WORKDIR /
 CMD [ "/run.sh" ]

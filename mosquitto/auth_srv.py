@@ -1,9 +1,14 @@
 """Handle the internal authentication."""
 import json
+import logging
 import os
+import json
 from pathlib import Path
 
 import aiohttp
+
+logger.setLevel(logging.INFO)
+_LOGGER = logging.getLogger("MosquittoAuth")
 
 
 USER_CONFIG = Path('/data/options.json')
@@ -25,6 +30,8 @@ class MosquittoAuth:
         username = data.get('username')
         password = data.get('password')
 
+        _LOGGER.debug("Receive loging Request for %s", username)
+
         # If local user
         if username in self.local:
             if self.local[username] == password:
@@ -43,11 +50,28 @@ class MosquittoAuth:
 
     async def request_superuser(self, request):
         """Process superuser requests."""
+        data = await request.post()
+        username = data.get('username')
+
+        _LOGGER.debug("Receive superuser request for %s", username)
         return aiohttp.web.Response(status=400)
 
     async def request_acl(self, request):
         """Process ACL requests."""
+        data = await request.post()
+        username = data.get('username')
+
+        _LOGGER.debug("Receive acl request for %s", username)
         return aiohttp.web.Response(status=200)
+
+    def _read_configs(self):
+        """Read local user data."""
+        try:
+            options = json.laods(USER_CONFIG.read_text())
+            system = json.laods(SYSTEM_LOGINS.read_text())
+        except (OSError, ValueError):
+            _LOGGER.exception("Can't load config data")
+            exit(1)
 
 
 def main():

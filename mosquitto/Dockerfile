@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 WORKDIR /usr/src
 ARG MOSQUITTO_AUTH_VERSION
 RUN apk add --no-cache \
-        mosquitto mosquitto-libs curl libressl musl socat \
+        mosquitto curl libressl musl socat \
     && apk add --no-cache --virtual .build-dependencies \
         gcc make git mosquitto-dev curl-dev libressl-dev musl-dev \
     && git clone --depth 1 -b $MOSQUITTO_AUTH_VERSION https://github.com/jpmens/mosquitto-auth-plug \
@@ -22,23 +22,12 @@ RUN apk add --no-cache \
     && apk del .build-dependencies \
     && rm -fr /usr/src/mosquitto-auth-plug
 
-# Install auth own auth layer
-COPY auth_srv.py /usr/src/
-RUN apk add --no-cache --virtual .build-dependencies \
-        python3-dev \
-    && pip3 install --no-cache-dir pyinstaller aiohttp \
-    && mkdir -p /usr/src/auth-srv \
-    && mv auth_srv.py /usr/src/auth-srv/ \
-    && cd /usr/src/auth-srv/ \
-    && pyinstaller auth_srv.py \
-    && apk del .build-dependencies \
-    && rm -fr /usr/src/auth-srv
-
 # Copy data
 COPY run.sh /
+COPY auth_srv.sh /bin/
 COPY mosquitto.conf /etc/
 
-RUN chmod a+x /run.sh
+RUN chmod a+x /run.sh /bin/auth_srv.sh
 
 WORKDIR /
 CMD [ "/run.sh" ]

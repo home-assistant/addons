@@ -8,9 +8,10 @@ LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
+HOMEASSISTANT_PW=""
+ADDONS_PW=""
 PID_MOSQUITTO=0
 PID_SOCAT=0
-
 
 SSL_CONFIG="
 listener 8883
@@ -41,10 +42,13 @@ fi
 
 # Prepare System Accounts
 if [ ! -e "${SYSTEM_USER}" ]; then
-    homeassistant_pw="$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)"
-    addons_pw="$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)"
+    HOMEASSISTANT_PW="$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)"
+    ADDONS_PW="$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)"
 
-    echo "{\"homeassistant\": {\"password\": \"$homeassistant_pw\"}, \"addons\": {\"password\": \"$addons_pw\"}}" > "${SYSTEM_USER}"
+    echo "{\"homeassistant\": {\"password\": \"$HOMEASSISTANT_PW\"}, \"addons\": {\"password\": \"$ADDONS_PW\"}}" > "${SYSTEM_USER}"
+else
+    HOMEASSISTANT_PW=$(jq --raw-output '.homeassistant.password' $SYSTEM_USER)
+    ADDONS_PW=$(jq --raw-output '.addons.password' $SYSTEM_USER)
 fi
 
 # Start Auth Server

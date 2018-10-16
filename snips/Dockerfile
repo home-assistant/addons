@@ -12,7 +12,7 @@ RUN chmod a+x /run.sh \
     && curl -L -o /assistant_Hass_fr.zip https://s3.amazonaws.com/hassio-addons-data/assistant_Hass_fr.zip \
     && chmod a+x /usr/bin/customtts.sh \
     && apt-get update \
-    && (apt-get install -y mpg123 snips-asr-injection; exit 0) \
+    && apt-get install -y mpg123 curl tzdata snips-asr-injection || true \
     && apt-get clean all
 
 ENTRYPOINT [ "/run.sh" ]

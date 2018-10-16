@@ -9,7 +9,7 @@
   "map": ["ssl", "share"],
   "discovery": ["mqtt"],
   "services": ["mqtt:provide"],
-  "login_backend": true,
+  "auth_api": true,
   "ports": {
     "1883/tcp": 1883,
     "1884/tcp": 1884,

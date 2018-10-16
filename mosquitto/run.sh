@@ -8,11 +8,10 @@ LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-HOMEASSISTANT_PW=
-ADDONS_PW=
 PID_MOSQUITTO=0
 PID_SOCAT=0
-DISCOVERY_UUID=
+HOMEASSISTANT_PW=
+ADDONS_PW=
 
 SSL_CONFIG="
 listener 8883

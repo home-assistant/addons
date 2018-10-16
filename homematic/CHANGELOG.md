@@ -1,5 +1,8 @@
 # Changelog
 
+## 3
+ - Add periodically time sync
+
 ## 2
 - Fix wrong Timezone
 - Update OCCU to 3.37.8

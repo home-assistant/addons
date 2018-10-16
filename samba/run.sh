@@ -9,7 +9,7 @@ ALLOW_HOSTS=$(jq --raw-output '.allow_hosts | join(" ")' $CONFIG_PATH)
 NAME=
 
 # Read hostname from API
-if ! NAME="$(curl -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | jq --raw-output '.hostname')"; then
+if ! NAME="$(curl -q -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | jq --raw-output '.hostname')"; then
     echo "[WARN] Can't read hostname, use default!"
     NAME="hassio"
 fi

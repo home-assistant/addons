@@ -31,7 +31,7 @@ else
 fi
 
 # Use Hass.io mqtt services
-if MQTT_CONFIG="$(curl -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/services/mqtt)"; then
+if MQTT_CONFIG="$(curl -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/services/mqtt)"; then
     HOST=$(echo "${MQTT_CONFIG}" | jq --raw-output '.host')
     PORT=$(echo "${MQTT_CONFIG}" | jq --raw-output '.port')
     USER=$(echo "${MQTT_CONFIG}" | jq --raw-output '.username')
@@ -76,7 +76,7 @@ if [ -f "/share/${ASSISTANT}" ]; then
     echo "[INFO] Install/Update snips assistant"
     rm -rf /usr/share/snips/assistant
     unzip -o -u "/share/${ASSISTANT}" -d /usr/share/snips
-# otherwise use the default 
+# otherwise use the default
 else
     echo "[INFO] Checking for /assistant_Hass_${LANG}.zip"
     if [ -f "/assistant_Hass_${LANG}.zip" ]; then

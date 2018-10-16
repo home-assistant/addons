@@ -100,7 +100,7 @@ fi
 json_data="{\"username\": \"${username}\", \"password\": \"${password}\"}"
 auth_header="X-Hassio_key: ${HASSIO_TOKEN}"
 
-if curl -q -X POST -d "${json_data}" -H "${auth_header}" http://hassio/auth; then
+if curl -q -f -X POST -d "${json_data}" -H "${auth_header}" http://hassio/auth; then
     http_ok
 fi
 

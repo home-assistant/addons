@@ -47,9 +47,9 @@ function call_hassio() {
 
     # Call API
     if [ -n "${data}" ]; then
-        curl -q -X "${method}" -d "${data}" -H "${token}" "${url}"
+        curl -q -f -X "${method}" -d "${data}" -H "${token}" "${url}"
     else
-        curl -q -X "${method}" -H "${token}" "${url}"
+        curl -q -f -X "${method}" -H "${token}" "${url}"
     fi
 
     return $?

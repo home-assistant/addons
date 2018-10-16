@@ -1,5 +1,8 @@
 # Changelog
 
+## 4
+- Use new Hass.io Services API
+
 ## 3.3
 - Updated to latest snips 0.58.3
 - NOTE: This version requires an updated assistant from the Snips Console.

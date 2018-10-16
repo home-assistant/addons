@@ -96,6 +96,16 @@ else
     ADDONS_PW=$(jq --raw-output '.addons.password' $SYSTEM_USER)
 fi
 
+# Initial Service
+if ! call_hassio GET "services/mqtt"; then
+    echo "[Error] There is allready a MQTT server running!"
+    exit 1
+fi
+call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"
+
+# Setup Home Assistant
+call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"
+
 # Start Auth Server
 socat TCP-LISTEN:9123,fork,reuseaddr EXEC:/bin/auth_srv.sh &
 PID_SOCAT=$1

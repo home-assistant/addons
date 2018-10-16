@@ -5,6 +5,7 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
+WORKDIR /usr/src
 ARG HASSIO_PAM_VERSION
 RUN apk add --no-cache \
         musl libcurl linux-pam curl samba-server samba-common-tools \
@@ -24,4 +25,5 @@ COPY samba.pam /etc/pam.d/samba
 
 RUN chmod a+x /run.sh
 
+WORKDIR /
 CMD [ "/run.sh" ]

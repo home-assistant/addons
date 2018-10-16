@@ -13,15 +13,9 @@
   "map": ["share"],
   "tmpfs": "size=10m",
   "audio": true,
+  "services": ["mqtt:want"]
   "homeassistant_api": true,
   "options": {
-    "mqtt_bridge": {
-      "active": true,
-      "host": "core-mosquitto",
-      "port": 1883,
-      "user": "",
-      "password": ""
-    },
     "assistant": "assistant.zip",
     "language": "en",
     "custom_tts": {
@@ -30,13 +24,6 @@
     }
   },
   "schema": {
-    "mqtt_bridge": {
-      "active": "bool",
-      "host": "str",
-      "port": "port",
-      "user": "str",
-      "password": "str"
-    },
     "assistant": "str",
     "language": "match(en|de|fr)",
     "custom_tts": {

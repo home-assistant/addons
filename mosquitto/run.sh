@@ -4,7 +4,6 @@ set -e
 CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 
-LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
@@ -40,17 +39,17 @@ function write_system_users() {
 function call_hassio() {
     local method=$1
     local url=$2
-    local data=$1
+    local data=$3
     local token=
 
     token="X-Hassio-Key: ${HASSIO_TOKEN}"
     url="http://hassio/${url}"
 
     # Call API
-    if [ ! -z "${data}" ]; then
-        curl -q -X ${method} -d '${data}' -H "${token}" "${url}"
+    if [ -n "${data}" ]; then
+        curl -q -X "${method}" -d "${data}" -H "${token}" "${url}"
     else
-        curl -q -X ${method} -H "${token}" "${url}"
+        curl -q -X "${method}" -H "${token}" "${url}"
     fi
 
     return $?
@@ -107,7 +106,7 @@ call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSIS
 
 # Start Auth Server
 socat TCP-LISTEN:9123,fork,reuseaddr EXEC:/bin/auth_srv.sh &
-PID_SOCAT=$1
+PID_SOCAT=$!
 
 # Start Mosquitto Server
 mosquitto -c /etc/mosquitto.conf &
@@ -124,4 +123,4 @@ function stop_mqtt() {
 trap "stop_mqtt" SIGTERM SIGHUP
 
 # Wait and hold Add-on running
-wait "${PID_SOCAT}" "${PID_MOSQUITTO}"
+wait ${PID_SOCAT} ${PID_MOSQUITTO}

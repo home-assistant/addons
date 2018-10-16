@@ -8,10 +8,11 @@ LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-HOMEASSISTANT_PW=""
-ADDONS_PW=""
+HOMEASSISTANT_PW=
+ADDONS_PW=
 PID_MOSQUITTO=0
 PID_SOCAT=0
+DISCOVERY_UUID=
 
 SSL_CONFIG="
 listener 8883
@@ -26,6 +27,50 @@ cafile /ssl/$CERTFILE
 certfile /ssl/$CERTFILE
 keyfile /ssl/$KEYFILE
 "
+
+function create_password() {
+    /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32
+}
+
+function write_system_users() {
+    (
+        echo "{\"homeassistant\": {\"password\": \"$HOMEASSISTANT_PW\"}, \"addons\": {\"password\": \"$ADDONS_PW\"}}"
+    ) > "${SYSTEM_USER}"
+}
+
+function call_hassio() {
+    local method=$1
+    local url=$2
+    local data=$1
+    local token=
+
+    token="X-Hassio-Key: ${HASSIO_TOKEN}"
+    url="http://hassio/${url}"
+
+    # Call API
+    if [ ! -z "${data}" ]; then
+        curl -q -X ${method} -d '${data}' -H "${token}" "${url}"
+    else
+        curl -q -X ${method} -H "${token}" "${url}"
+    fi
+
+    return $?
+}
+
+function constrain_host_config() {
+    local user=$1
+    local password=$2
+    
+    echo "{"
+    echo "  \"host\": \"$(hostname)\","
+    echo "  \"port\": 1883,"
+    echo "  \"ssl\": false,"
+    echo "  \"username\": \"${user}\","
+    echo "  \"password\": \"${password}\","
+    echo "}"
+}
+
+## Main ##
 
 # Enable SSL if exists configs
 if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
@@ -42,10 +87,10 @@ fi
 
 # Prepare System Accounts
 if [ ! -e "${SYSTEM_USER}" ]; then
-    HOMEASSISTANT_PW="$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)"
-    ADDONS_PW="$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)"
+    HOMEASSISTANT_PW="$(create_password)"
+    ADDONS_PW="$(create_password)"
 
-    echo "{\"homeassistant\": {\"password\": \"$HOMEASSISTANT_PW\"}, \"addons\": {\"password\": \"$ADDONS_PW\"}}" > "${SYSTEM_USER}"
+    write_system_users
 else
     HOMEASSISTANT_PW=$(jq --raw-output '.homeassistant.password' $SYSTEM_USER)
     ADDONS_PW=$(jq --raw-output '.addons.password' $SYSTEM_USER)
@@ -65,7 +110,7 @@ function stop_mqtt() {
     kill -15 ${PID_MOSQUITTO}
     kill -15 ${PID_SOCAT}
 
-    curl -X DELETE -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/services/mqtt
+    call_hassio DELETE "services/mqtt" || echo "[Warn] Service unregister fails!"
 }
 trap "stop_mqtt" SIGTERM SIGHUP
 

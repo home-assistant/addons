@@ -58,7 +58,7 @@ function call_hassio() {
 function constrain_host_config() {
     local user=$1
     local password=$2
-    
+
     echo "{"
     echo "  \"host\": \"$(hostname)\","
     echo "  \"port\": 1883,"
@@ -74,7 +74,7 @@ function constrain_host_config() {
 if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
     echo "$SSL_CONFIG" >> /etc/mosquitto.conf
 else
-    echo "[Warning] SSL not enabled - No valid certs found!"
+    echo "[WARN] SSL not enabled - No valid certs found!"
 fi
 
 # Allow customize configs from share
@@ -96,7 +96,7 @@ fi
 
 # Initial Service
 if ! call_hassio GET "services/mqtt"; then
-    echo "[Error] There is allready a MQTT server running!"
+    echo "[ERROR] There is allready a MQTT server running!"
     exit 1
 fi
 call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"
@@ -114,7 +114,7 @@ PID_MOSQUITTO=$!
 
 # Handling Closing
 function stop_mqtt() {
-    echo "[Info] Shutdown mqtt system"
+    echo "[INFO] Shutdown mqtt system"
     kill -15 ${PID_MOSQUITTO}
     kill -15 ${PID_SOCAT}
 

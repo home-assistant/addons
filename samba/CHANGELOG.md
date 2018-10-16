@@ -1,5 +1,11 @@
 # Changelog
 
+## 7
+- Migrate it to Home Assistant user system. Need Home Assistant >= 0.80.0
+- Remove guest access
+- Cleanup structure
+- Use hostname for samba device name
+
 ## 6
 - Enable ntlm auth for Windows10
 

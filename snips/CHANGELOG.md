@@ -1,7 +1,7 @@
 # Changelog
 
 ## 4
-- Use new Hass.io Services API
+- Use new Hass.io Services API and cleanup config
 
 ## 3.3
 - Updated to latest snips 0.58.3

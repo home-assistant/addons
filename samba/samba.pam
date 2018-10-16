@@ -1,0 +1,2 @@
+auth    sufficient  pam_hassio.so
+account sufficient  pam_hassio.so

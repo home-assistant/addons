@@ -6,7 +6,6 @@ CONFIG_PATH=/data/options.json
 ASSISTANT=$(jq --raw-output '.assistant' $CONFIG_PATH)
 LANG=$(jq --raw-output '.language // "en"' $CONFIG_PATH)
 CUSTOMTTS=$(jq --raw-output '.custom_tts.active' $CONFIG_PATH)
-PLATFORM=$(jq --raw-output '.custom_tts.platform' $CONFIG_PATH)
 MQTT_CONFIG=
 
 echo "[INFO] LANG: ${LANG}"
@@ -18,6 +17,8 @@ if [ -f "/share/snips.toml" ]; then
 fi
 
 if [ "${CUSTOMTTS}" == "true" ]; then
+    PLATFORM=$(jq --raw-output '.custom_tts.platform' $CONFIG_PATH)
+
     if [ -z "${PLATFORM}" ]; then
         echo "[ERROR] - platform must be set to use custom tts!"
     else

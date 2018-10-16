@@ -13,7 +13,7 @@
   "map": ["share"],
   "tmpfs": "size=10m",
   "audio": true,
-  "services": ["mqtt:want"]
+  "services": ["mqtt:want"],
   "homeassistant_api": true,
   "options": {
     "assistant": "assistant.zip",

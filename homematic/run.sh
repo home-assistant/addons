@@ -7,10 +7,13 @@ RF_ENABLE=$(jq --raw-output '.rf_enable' $CONFIG_PATH)
 RF_DEVICES=$(jq --raw-output '.rf | length' $CONFIG_PATH)
 WIRED_ENABLE=$(jq --raw-output '.wired_enable' $CONFIG_PATH)
 WIRED_DEVICES=$(jq --raw-output '.wired | length' $CONFIG_PATH)
+HMIP_ENABLE=$(jq --raw-output '.hmip_enable' $CONFIG_PATH)
+HMIP_DEVICES=$(jq --raw-output '.hmip | length' $CONFIG_PATH)
 WAIT_PIDS=()
 
 # Init folder
 mkdir -p /data/firmware
+mkdir -p /data/crRFD
 
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then
@@ -41,7 +44,7 @@ if [ "$RF_ENABLE" == "true" ]; then
             fi
             if [ "$RESET" == "true" ]; then
                 echo 1 > /sys/class/gpio/gpio18/value || echo "Can't reset module!"
-                sleep 0.5    
+                sleep 0.5
             fi
             echo 0 > /sys/class/gpio/gpio18/value || echo "Can't set default value!"
             sleep 0.5
@@ -72,6 +75,25 @@ if [ "$WIRED_ENABLE" == "true" ]; then
 
     # Run hs485d
     "$HM_HOME/bin/hs485d" -g -i 0 -f /opt/hm/etc/config/hs485d.conf &
+    WAIT_PIDS+=($!)
+fi
+
+# HMIP support
+if [ "$HMIP_ENABLE" == "true" ]; then
+    for (( i=0; i < "$HMIP_DEVICES"; i++ )); do
+        TYPE=$(jq --raw-output ".hmip[$i].type" $CONFIG_PATH)
+        DEVICE=$(jq --raw-output ".hmip[$i].device" $CONFIG_PATH)
+        ADAPTER=$((i+1))
+
+        # Update config
+        (
+            echo "Adapter.${ADAPTER}.Type=${TYPE}"
+            echo "Adapter.${ADAPTER}.Port=${DEVICE}"
+        ) >> /etc/config/crRFD.conf
+    done
+
+    # Run HMIPServer
+    java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
     WAIT_PIDS+=($!)
 fi
 

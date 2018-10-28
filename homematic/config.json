@@ -13,7 +13,7 @@
   "ports": {
     "2001/tcp": 2001,
     "2000/tcp": 2000,
-    "2010/tcp": 2010,
+    "2010/tcp": 2010
   },
   "options": {
     "rf_enable": true,
@@ -30,6 +30,12 @@
         "serial": "xy",
         "key": "abc",
         "ip": "192.168.0.0"
+      }
+    ],
+    "hmip_enable": false,
+    "hmip": [
+      {
+        "device": "/dev/ttyUSB0"
       }
     ]
   },
@@ -48,6 +54,12 @@
         "serial": "str",
         "key": "str",
         "ip": "str"
+      }
+    ],
+    "hmip_enable": "bool",
+    "hmip": [
+      {
+        "device": "str"
       }
     ]
   },

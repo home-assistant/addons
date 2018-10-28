@@ -83,7 +83,7 @@ if [ "$HMIP_ENABLE" == "true" ]; then
     for (( i=0; i < "$HMIP_DEVICES"; i++ )); do
         TYPE=$(jq --raw-output ".hmip[$i].type" $CONFIG_PATH)
         DEVICE=$(jq --raw-output ".hmip[$i].device" $CONFIG_PATH)
-        ADAPTER=(($i+1))
+        ADAPTER=$((i+1))
 
         # Update config
         (

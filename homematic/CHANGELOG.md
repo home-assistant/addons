@@ -1,7 +1,12 @@
 # Changelog
 
+## 4
+- New ubuntu base images
+- Support firmware update of HM-MOD-RPI-PCB, HmIP-RFUSB
+- Add HmIP support with HmIP-RFUSB
+
 ## 3
- - Add periodically time sync
+- Add periodically time sync
 
 ## 2
 - Fix wrong Timezone

@@ -1,8 +1,8 @@
 {
   "build_from": {
-    "armhf": "multiarch/ubuntu-core:armhf-xenial",
-    "amd64": "multiarch/ubuntu-core:i386-xenial",
-    "i386": "multiarch/ubuntu-core:i386-xenial"
+    "armhf": "homeassistant/armhf-base-ubuntu:18.04",
+    "amd64": "homeassistant/i386-base-ubuntu:18.04",
+    "i386": "homeassistant/i386-base-ubuntu:18.04"
   },
   "args": {
     "OCCU_VERSION": "3.37.8"

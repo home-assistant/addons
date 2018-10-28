@@ -93,7 +93,7 @@ if [ "$HMIP_ENABLE" == "true" ]; then
     done
 
     # Run HMIPServer
-    java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar "/opt/HMServer/HMIPServer.jar" /etc/config/crRFD.conf &
+    java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
     WAIT_PIDS+=($!)
 fi
 

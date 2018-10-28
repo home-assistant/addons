@@ -35,6 +35,7 @@
     "hmip_enable": false,
     "hmip": [
       {
+        "type": "HMIP_CCU2",
         "device": "/dev/ttyUSB0"
       }
     ]
@@ -59,7 +60,8 @@
     "hmip_enable": "bool",
     "hmip": [
       {
-        "device": "str"
+        "type": "match(HMIP_CCU2)",
+        "device": "match(^/dev/.*$)"
       }
     ]
   },

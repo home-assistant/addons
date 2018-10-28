@@ -19,8 +19,10 @@ RUN curl -sL -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}
     && rm -f occu.tar.gz \
     && cd occu-${OCCU_VERSION} \
     && mkdir -p /opt/hm \
+    && mkdir -p /opt/hm/etc/config \
     && mkdir -p /opt/HmIP \
     && mkdir -p /opt/HMServer \
+    && ln -s /opt/hm/etc/config /etc/config \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
             cd arm-gnueabihf; \
@@ -29,16 +31,14 @@ RUN curl -sL -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}
         fi \
     && cp -R packages-eQ-3/RFD/bin /opt/hm/ \
     && cp -R packages-eQ-3/RFD/lib /opt/hm/ \
-    && cp -R packages-eQ-3/RFD/etc /opt/hm/ \
     && cp -R packages-eQ-3/RFD/opt/HmIP/* /opt/HmIP/ \
     && cp -R packages-eQ-3/LinuxBasis/bin /opt/hm/ \
     && cp -R packages-eQ-3/LinuxBasis/lib /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/bin /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/lib /opt/hm/ \
-    && ln -s /opt/hm/etc/config /etc/config \
     && cd ../ \
     && cp -r firmware /opt/hm/ \
-    && cp -R HMserver/etc/* /opt/hm/etc/config/ \
+    && cp -R HMserver/etc/config_templates/* /opt/hm/etc/config/ \
     && cp -R HMserver/opt/HmIP/* /opt/HmIP/ \
     && cp -a HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \

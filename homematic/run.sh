@@ -93,9 +93,8 @@ if [ "$HMIP_ENABLE" == "true" ]; then
     done
 
     # Run HMIPServer
-    #"$HM_HOME/bin/hs485d" -g -i 0 -f /opt/hm/etc/config/hs485d.conf &
-    #WAIT_PIDS+=($!)
-    sleep 3600
+    java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar "${HM_HOME}/HMServer/HMIPServer.jar" /etc/config/crRFD.conf &
+    WAIT_PIDS+=($!)
 fi
 
 # Register stop

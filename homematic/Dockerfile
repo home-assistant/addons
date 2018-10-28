@@ -40,7 +40,7 @@ RUN curl -sL -o occu.tar.gz https://github.com/eq-3/occu/archive/${OCCU_VERSION}
     && cp -r firmware /opt/hm/ \
     && cp -R HMserver/etc/* /opt/hm/etc/config/ \
     && cp -R HMserver/opt/HmIP/* /opt/HmIP/ \
-    && cp -a HMServer/opt/HMServer/HMIPServer.jar /opt/HMServer/ \
+    && cp -a HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
 	&& cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
 	&& cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \

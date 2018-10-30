@@ -54,4 +54,5 @@ COPY rfd.conf hs485d.conf crRFD.conf /etc/config/
 COPY run.sh /
 RUN chmod a+x /run.sh
 
+WORKDIR /data
 CMD [ "/run.sh" ]

@@ -15,6 +15,11 @@ WAIT_PIDS=()
 mkdir -p /data/firmware
 mkdir -p /data/crRFD
 
+# Restore data
+if [ -f /data/hmip_address.conf ]; then
+    cp -f /data/hmip_address.conf /etc/config/
+fi
+
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then
     for (( i=0; i < "$RF_DEVICES"; i++ )); do
@@ -99,6 +104,11 @@ fi
 
 # Register stop
 function stop_homematic() {
+    # Save data
+    if [ ! -f /data/hmip_address.conf ]; then
+        cp -f /etc/config/hmip_address.conf /data/
+    fi
+
     echo "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
     wait "${WAIT_PIDS[@]}"

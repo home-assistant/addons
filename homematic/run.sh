@@ -98,17 +98,18 @@ if [ "$HMIP_ENABLE" == "true" ]; then
     done
 
     # Run HMIPServer
+    # shellcheck disable=SC2086
     java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
     WAIT_PIDS+=($!)
+
+    if [ ! -f /data/hmip_address.conf ]; then
+        sleep 30
+        cp -f /etc/config/hmip_address.conf /data/
+    fi
 fi
 
 # Register stop
 function stop_homematic() {
-    # Save data
-    if [ ! -f /data/hmip_address.conf ]; then
-        cp -f /etc/config/hmip_address.conf /data/
-    fi
-
     echo "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
     wait "${WAIT_PIDS[@]}"

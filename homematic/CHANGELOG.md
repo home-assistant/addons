@@ -1,5 +1,8 @@
 # Changelog
 
+## 5
+- Save hmip_address.conf persistent
+
 ## 4
 - New ubuntu base images
 - Support firmware update of HM-MOD-RPI-PCB, HmIP-RFUSB

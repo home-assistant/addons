@@ -15,6 +15,11 @@ WAIT_PIDS=()
 mkdir -p /data/firmware
 mkdir -p /data/crRFD
 
+# Restore data
+if [ -f /data/hmip_address.conf ]; then
+    cp -f /data/hmip_address.conf /etc/config/
+fi
+
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then
     for (( i=0; i < "$RF_DEVICES"; i++ )); do
@@ -93,8 +98,14 @@ if [ "$HMIP_ENABLE" == "true" ]; then
     done
 
     # Run HMIPServer
+    # shellcheck disable=SC2086
     java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
     WAIT_PIDS+=($!)
+
+    if [ ! -f /data/hmip_address.conf ]; then
+        sleep 30
+        cp -f /etc/config/hmip_address.conf /data/
+    fi
 fi
 
 # Register stop

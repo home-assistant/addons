@@ -11,7 +11,7 @@
   "options": {
     "workgroup": "WORKGROUP",
     "name": "hassio",
-    "guest": true,
+    "guest": false,
     "map": {
       "config": true,
       "addons": true,

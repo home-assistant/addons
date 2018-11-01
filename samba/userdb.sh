@@ -27,12 +27,6 @@ function read_request() {
     while read -r line; do
         line="${line%%[[:cntrl:]]}"
 
-        # If we've reached the end of the headers, break.
-        if [ -z "$line" ]; then
-            echo "End"
-            break
-        fi
-
         # If that is the payload?
         if [[ "$line" =~ username ]] && [[ "$line" =~ password ]]; then
             echo "Found var"

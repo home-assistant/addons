@@ -45,6 +45,7 @@ function get_var() {
 function try_login() {
     username="$(get_var username)"
     password="$(get_var password)"
+
     # Ask HomeAssistant Auth
     json_data="{\"username\": \"${username}\", \"password\": \"${password}\"}"
     auth_header="X-Hassio_key: ${HASSIO_TOKEN}"
@@ -62,7 +63,7 @@ function try_login() {
 read_request
 
 # User post request?
-if [[ "${REQUEST[0]}" =~ /auth ]]; then
+if [[ "${REQUEST[0]}" =~ /auth ]] && [[ -n "${REQUEST_VAR}" ]]; then
     try_login
 fi
 

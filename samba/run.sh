@@ -20,7 +20,7 @@ sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
 sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
 
 # Run usermanager
-socat TCP-LISTEN:9124,fork,reuseaddr EXEC:/bin/userdb.sh &
+socat -t 5 TCP-LISTEN:9124,fork,reuseaddr EXEC:/bin/userdb.sh &
 NMBD_PID=$!
 
 nmbd -F -S -s /etc/smb.conf &

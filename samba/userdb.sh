@@ -30,6 +30,7 @@ function read_request() {
         if [ -z "$line" ] && [[ "${REQUEST[0]}" =~ POST ]]; then
             read -r REQUEST_VAR;
             REQUEST_VAR="${REQUEST_VAR%%[[:cntrl:]]}"
+            echo "$REQUEST_VAR"
             break
         elif [ -z "$line" ]; then
             break
@@ -55,12 +56,15 @@ function try_login() {
     password="$(get_var password)"
 
     # Ask HomeAssistant Auth
+    echo "try"
     json_data="{\"username\": \"${username}\", \"password\": \"${password}\"}"
     auth_header="X-Hassio_key: ${HASSIO_TOKEN}"
 
     if curl -q -f -X POST -d "${json_data}" -H "${auth_header}" http://hassio/auth; then
+        echo "ok"
         http_page "Success" green
     else
+        echo "nok"
         http_page "Wrong login" red
     fi
 }
@@ -72,6 +76,7 @@ read_request
 
 # User post request?
 if [[ "${REQUEST[0]}" =~ /sync ]] && [[ -n "${REQUEST_VAR}" ]]; then
+    echo "found"
     try_login
 fi
 

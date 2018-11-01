@@ -31,7 +31,7 @@ function read_request() {
             read -r REQUEST_VAR;
             REQUEST_VAR="${REQUEST_VAR%%[[:cntrl:]]}"
             break
-        elif [ -z "$line" ] then
+        elif [ -z "$line" ]; then
             break
         fi
 

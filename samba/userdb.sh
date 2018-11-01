@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-CONFIG_PATH=/data/options.json
-SYSTEM_USER=/data/system_user.json
 REQUEST=()
 REQUEST_VAR=""
 
@@ -15,8 +13,8 @@ function http_page() {
 
     template="$(cat /usr/share/userdb.html)"
 
-    template="$(echo "${template}" | sed "s|%%COLOR%%|$message_color|g")"
-    template="$(echo "${template}" | sed "s|%%MESSAGE%%|$message|g")"
+    template="${template/"%%COLOR%%"/"$message_color"}"
+    template="${template/"%%MESSAGE%%"/"$message"}"
 
     # Output page
     echo -e "HTTP/1.1 200 OK\n"

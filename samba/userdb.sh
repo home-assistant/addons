@@ -27,13 +27,14 @@ function read_request() {
     while read -r line; do
         line="${line%%[[:cntrl:]]}"
 
-        # If that is the payload?
-        if [[ "$line" =~ username ]] && [[ "$line" =~ password ]]; then
-            echo "Found var"
-            REQUEST_VAR="${line}"
+        if [ -z "$line" ] && [[ "${REQUEST[0]}" =~ POST ]]; then
+            read -r REQUEST_VAR;
+            REQUEST_VAR="${REQUEST_VAR%%[[:cntrl:]]}"
+            break
+        elif [ -z "$line" ] then
+            break
         fi
 
-        echo "Add $line"
         REQUEST+=("$line")
     done
 }

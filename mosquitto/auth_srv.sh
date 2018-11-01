@@ -47,16 +47,13 @@ function create_userdb() {
 
 function read_request() {
     while read -r line; do
-        line=${line%%$'\r'}
+        line="${line%%[[:cntrl:]]}"
 
         # If we've reached the end of the headers, break.
         if [ -z "$line" ]; then
+            read -r REQUEST_VAR;
+            REQUEST_VAR="${REQUEST_VAR%%[[:cntrl:]]}"
             break
-        fi
-
-        # If that is the payload?
-        if [[ "$line" =~ username ]] && [[ "$line" =~ password ]]; then
-            REQUEST_VAR="${line}"
         fi
 
         REQUEST+=("$line")

@@ -9,7 +9,16 @@ REQUEST_VAR=""
 ## Functions
 
 function http_page() {
-    echo -e "HTTP/1.1 200 OK\n\n"
+    local message=$1
+    local message_color=$2
+    local template=""
+
+    template="$(cat /usr/share/userdb.html)"
+
+    # Output page
+    echo -e "HTTP/1.1 200 OK\n"
+    echo "${template}"
+    echo -e "\n"
     exit 0
 }
 
@@ -63,7 +72,7 @@ function try_login() {
 read_request
 
 # User post request?
-if [[ "${REQUEST[0]}" =~ /auth ]] && [[ -n "${REQUEST_VAR}" ]]; then
+if [[ "${REQUEST[0]}" =~ /sync ]] && [[ -n "${REQUEST_VAR}" ]]; then
     try_login
 fi
 

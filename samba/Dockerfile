@@ -11,8 +11,9 @@ RUN apk add --no-cache \
 # Copy data
 COPY run.sh /
 COPY smb.conf /etc/
-COPY samba.pam /etc/pam.d/samba
+COPY userdb.sh /bin/
+COPY userdb.html /usr/share/
 
-RUN chmod a+x /run.sh
+RUN chmod a+x /run.sh /bin/userdb.sh
 
 CMD [ "/run.sh" ]

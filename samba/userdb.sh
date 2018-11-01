@@ -15,6 +15,9 @@ function http_page() {
 
     template="$(cat /usr/share/userdb.html)"
 
+    template="$(echo "${template}" | sed "s|%%COLOR%%|$message_color|g")"
+    template="$(echo "${template}" | sed "s|%%MESSAGE%%|$message|g")"
+
     # Output page
     echo -e "HTTP/1.1 200 OK\n"
     echo "${template}"

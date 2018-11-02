@@ -17,7 +17,7 @@ function http_page() {
 
     template="${template/"%%COLOR%%"/"$message_color"}"
     template="${template/"%%MESSAGE%%"/"$message"}"
-    template="${template/"%%USERS%%"/"$users"}"
+    template="${template/"%%USERDATA%%"/"$users"}"
 
     # Output page
     echo -e "HTTP/1.1 200 OK\n"
@@ -55,11 +55,8 @@ function read_request() {
 
 function user_list() {
     local userdata=""
-    local data=""
     
-    data="$(pdbedit -L -s /etc/smb.conf)"
-    for line in $data; do
-        username="$(echo "${line}" | cut -d ':' -f0)"
+    for username in $(pdbedit -L -s /etc/smb.conf | grep ':' | cut -d ':' -f0); do
         userdata="${userdata}<li>${username}</li>"
     done
 

@@ -59,7 +59,7 @@ function update_db() {
     username="$(get_var username)"
     password="$(get_var password)"
 
-    echo -e "${password}\n${password}" | smbpasswd -a -c /etc/smb.conf "${username}"
+    echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}"
 }
 
 

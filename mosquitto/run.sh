@@ -37,18 +37,18 @@ function write_system_users() {
 
 function call_hassio() {
     local method=$1
-    local url=$2
-    local data=$3
+    local path=$2
+    local data="${3}"
     local token=
 
     token="X-Hassio-Key: ${HASSIO_TOKEN}"
-    url="http://hassio/${url}"
+    url="http://hassio/${path}"
 
     # Call API
     if [ -n "${data}" ]; then
-        curl -s -f -X "${method}" -d "${data}" -H "${token}" "${url}"
+        curl -s -f -X "${method}" -d "${data}" -H "${token}" "${url}" > /dev/null
     else
-        curl -s -f -X "${method}" -H "${token}" "${url}"
+        curl -s -f -X "${method}" -H "${token}" "${url}" > /dev/null
     fi
 
     return $?

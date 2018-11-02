@@ -46,7 +46,7 @@ function read_request() {
 
 
 function try_login() {
-    auth_header="X-Hassio-key: ${HASSIO_TOKEN}"
+    auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
     content_type="Content-Type: application/x-www-form-urlencoded"
 
     # Ask HomeAssistant Auth

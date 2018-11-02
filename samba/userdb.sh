@@ -2,7 +2,7 @@
 set -e
 
 REQUEST=()
-REQUEST_VAR=""
+REQUEST_BODY=""
 
 ## Functions
 
@@ -35,9 +35,8 @@ function read_request() {
 
         if [ -z "$line" ]; then
             if [ "${content_length}" -gt 0 ]; then
-                read -r -n "${content_length}" REQUEST_VAR
+                read -r -n "${content_length}" REQUEST_BODY
             fi
-            echo "$REQUEST_VAR"
             break
         fi
 
@@ -51,7 +50,7 @@ function get_var() {
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
-    value="$(echo "$REQUEST_VAR" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
+    value="$(echo "$REQUEST_BODY" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }
 
@@ -77,7 +76,7 @@ function try_login() {
 read_request
 
 # User post request?
-if [[ "${REQUEST[0]}" =~ /sync ]] && [[ -n "${REQUEST_VAR}" ]]; then
+if [[ "${REQUEST[0]}" =~ /sync ]] && [[ -n "${REQUEST_BODY}" ]]; then
     try_login
 fi
 

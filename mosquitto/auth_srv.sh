@@ -104,7 +104,7 @@ fi
 auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
 content_type="Content-Type: application/x-www-form-urlencoded"
 
-if curl -q -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth; then
+if curl -s -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth; then
     http_ok
 fi
 

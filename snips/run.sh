@@ -31,7 +31,7 @@ else
 fi
 
 # Use Hass.io mqtt services
-if MQTT_CONFIG="$(curl -q -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/services/mqtt)"; then
+if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/services/mqtt)"; then
     HOST=$(echo "${MQTT_CONFIG}" | jq --raw-output '.host')
     PORT=$(echo "${MQTT_CONFIG}" | jq --raw-output '.port')
     USER=$(echo "${MQTT_CONFIG}" | jq --raw-output '.username')

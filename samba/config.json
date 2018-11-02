@@ -4,7 +4,6 @@
   "slug": "samba",
   "description": "Expose Hass.io folders with SMB/CIFS",
   "url": "https://home-assistant.io/addons/samba/",
-  "webui": "http://[HOST]:[PORT:9124]/",
   "startup": "services",
   "boot": "auto",
   "host_network": true,
@@ -12,23 +11,20 @@
   "auth_api": true,
   "options": {
     "workgroup": "WORKGROUP",
+    "username": "hassio",
+    "password": null,
     "interface": "",
     "allow_hosts": [
         "10.0.0.0/8",
         "172.16.0.0/12",
         "192.168.0.0/16"
-    ],
-    "ssl": false,
-    "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem"
+    ]
   },
   "schema": {
     "workgroup": "str",
+    "username": "str",
     "interface": "str",
-    "allow_hosts": ["str"],
-    "ssl": "bool",
-    "certfile": "str",
-    "keyfile": "str"
+    "allow_hosts": ["str"]
   },
   "image": "homeassistant/{arch}-addon-samba"
 }

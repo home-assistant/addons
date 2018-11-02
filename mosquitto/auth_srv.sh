@@ -11,12 +11,12 @@ declare -A LOCAL_DB
 ## Functions
 
 function http_ok() {
-    echo -e "HTTP/1.1 200 OK\n\n"
+    echo -e "HTTP/1.1 200 OK\n"
     exit 0
 }
 
 function http_error() {
-    echo -e "HTTP/1.1 400 Bad Request\n\n"
+    echo -e "HTTP/1.1 400 Bad Request\n"
     exit 1
 }
 
@@ -73,7 +73,7 @@ function get_var() {
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
-    value="$(echo "$REQUEST_BODY" | sed -i "s/.*$variable=\([^&]*\).*/\1/g")"
+    value="$(echo "$REQUEST_BODY" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }
 

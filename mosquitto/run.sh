@@ -11,6 +11,7 @@ PID_MOSQUITTO=0
 PID_SOCAT=0
 HOMEASSISTANT_PW=
 ADDONS_PW=
+WAIT_PIDS=()
 
 SSL_CONFIG="
 listener 8883
@@ -47,9 +48,9 @@ function call_hassio() {
 
     # Call API
     if [ -n "${data}" ]; then
-        curl -q -f -X "${method}" -d "${data}" -H "${token}" "${url}"
+        curl -q -s -f -X "${method}" -d "${data}" -H "${token}" "${url}" > /dev/null
     else
-        curl -q -f -X "${method}" -H "${token}" "${url}"
+        curl -q -s -f -X "${method}" -H "${token}" "${url}" > /dev/null
     fi
 
     return $?
@@ -105,22 +106,22 @@ call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")
 call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"
 
 # Start Auth Server
-socat TCP-LISTEN:9123,fork,reuseaddr EXEC:/bin/auth_srv.sh &
-PID_SOCAT=$!
+socat TCP-LISTEN:9123,fork,reuseaddr SYSTEM:/bin/auth_srv.sh &
+WAIT_PIDS+=($!)
 
 # Start Mosquitto Server
 mosquitto -c /etc/mosquitto.conf &
-PID_MOSQUITTO=$!
+WAIT_PIDS+=($!)
 
 # Handling Closing
 function stop_mqtt() {
     echo "[INFO] Shutdown mqtt system"
-    kill -15 ${PID_MOSQUITTO}
-    kill -15 ${PID_SOCAT}
-
+    kill -15 "${WAIT_PIDS[@]}"
     call_hassio DELETE "services/mqtt" || echo "[Warn] Service unregister fails!"
+
+    wait "${WAIT_PIDS[@]}"
 }
 trap "stop_mqtt" SIGTERM SIGHUP
 
 # Wait and hold Add-on running
-wait ${PID_SOCAT} ${PID_MOSQUITTO}
+wait "${WAIT_PIDS[@]}"

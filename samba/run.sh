@@ -6,12 +6,17 @@ CONFIG_PATH=/data/options.json
 WORKGROUP=$(jq --raw-output '.workgroup' $CONFIG_PATH)
 INTERFACE=$(jq --raw-output '.interface // empty' $CONFIG_PATH)
 ALLOW_HOSTS=$(jq --raw-output '.allow_hosts | join(" ")' $CONFIG_PATH)
-KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
-CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-SSL=$(jq --raw-output ".ssl // false" $CONFIG_PATH)
+USERNAME=$(jq --raw-output '.username // empty' $CONFIG_PATH)
+PASSWORD=$(jq --raw-output '.password // empty' $CONFIG_PATH)
 
 WAIT_PIDS=()
 NAME=
+
+# Check Login data
+if [ -z "${USERNAME}" ] || [ -z "${PASSWORD}" ]; then
+    echo "[ERROR] No valid login data inside options!"
+    exit 1
+fi
 
 # Read hostname from API
 if ! NAME="$(curl -q -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | jq --raw-output '.hostname')"; then
@@ -19,26 +24,20 @@ if ! NAME="$(curl -q -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | 
     NAME="hassio"
 fi
 
+# Setup config
 sed -i "s|%%WORKGROUP%%|$WORKGROUP|g" /etc/smb.conf
 sed -i "s|%%NAME%%|$NAME|g" /etc/smb.conf
 sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
 sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
+sed -i "s|%%USERNAME%%|$USERNAME|g" /etc/smb.conf
 
 # Init users
-for username in $(pdbedit -L -s /etc/smb.conf | grep ':' | cut -d ':' -f0); do
-    addgroup "${username}" > /dev/null
-    adduser -D -H -G "${username}" -s /bin/false "${username}" > /dev/null
-    echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}" > /dev/null 
-done
+addgroup "${USERNAME}"
+adduser -D -H -G "${USERNAME}" -s /bin/false "${USERNAME}"
+# shellcheck disable=SC1117
+echo -e "${PASSWORD}\n${PASSWORD}" | smbpasswd -a -s -c /etc/smb.conf "${USERNAME}"
 
-# Run usermanager
-if [ "${SSL}" == "true" ]
-    socat OPENSSL-LISTEN:9124,fork,reuseaddr,cafile="${CERTFILE}",key="${KEYFILE}" SYSTEM:/bin/userdb.sh &
-else
-    socat TCP-LISTEN:9124,fork,reuseaddr SYSTEM:/bin/userdb.sh &
-fi
-WAIT_PIDS+=($!)
-
+# Start samba
 nmbd -F -S -s /etc/smb.conf &
 WAIT_PIDS+=($!)
 

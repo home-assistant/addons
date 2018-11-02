@@ -24,6 +24,13 @@ sed -i "s|%%NAME%%|$NAME|g" /etc/smb.conf
 sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
 sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
 
+# Init users
+for username in $(pdbedit -L -s /etc/smb.conf | grep ':' | cut -d ':' -f0); do
+    addgroup "${username}" > /dev/null
+    adduser -D -H -G "${username}" -s /bin/false "${username}" > /dev/null
+    echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}" > /dev/null 
+done
+
 # Run usermanager
 if [ "${SSL}" == "true" ]
     socat OPENSSL-LISTEN:9124,fork,reuseaddr,cafile="${CERTFILE}",key="${KEYFILE}" SYSTEM:/bin/userdb.sh &

@@ -30,7 +30,7 @@ function read_request() {
         line="${line%%[[:cntrl:]]}"
 
         if [[ "${line}" =~ Content-Length ]]; then
-            content_length="${line/Content-Length: ([0-9]+)/\1}"
+            content_length="${line//[!0-9]/}"
         fi
 
         if [ -z "$line" ]; then

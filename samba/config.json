@@ -23,6 +23,7 @@
   "schema": {
     "workgroup": "str",
     "username": "str",
+    "password": "str",
     "interface": "str",
     "allow_hosts": ["str"]
   },

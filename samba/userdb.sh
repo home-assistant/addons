@@ -96,8 +96,8 @@ function add_db() {
 function del_db() {
     username="$(get_var username)"
 
-    deluser "${username}" > /dev/null
     smbpasswd -x -s -c /etc/smb.conf "${username}" > /dev/null
+    deluser "${username}" > /dev/null
 
     http_page Success green
 }

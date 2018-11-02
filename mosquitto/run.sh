@@ -26,7 +26,7 @@ keyfile /ssl/$KEYFILE
 "
 
 function create_password() {
-    /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32
+    strings /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32
 }
 
 function write_system_users() {
@@ -94,7 +94,7 @@ else
 fi
 
 # Initial Service
-if ! call_hassio GET "services/mqtt"; then
+if call_hassio GET "services/mqtt"; then
     echo "[ERROR] There is allready a MQTT server running!"
     exit 1
 fi

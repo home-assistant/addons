@@ -13,8 +13,8 @@ function http_page() {
 
     template="$(cat /usr/share/userdb.html)"
 
-    template="${template/"%%COLOR%%"/"$message_color"}"
-    template="${template/"%%MESSAGE%%"/"$message"}"
+    template="${template/%%COLOR%%/"$message_color"}"
+    template="${template/%%MESSAGE%%/"$message"}"
 
     # Output page
     echo -e "HTTP/1.1 200 OK\n"
@@ -24,15 +24,20 @@ function http_page() {
 }
 
 function read_request() {
+    local content_length=0
+
     while read -r line; do
         line="${line%%[[:cntrl:]]}"
 
-        if [ -z "$line" ] && [[ "${REQUEST[0]}" =~ POST ]]; then
-            read -r REQUEST_VAR;
-            REQUEST_VAR="${REQUEST_VAR%%[[:cntrl:]]}"
+        if [[ "${line}" =~ Content-Length ]]; then
+            content_length="${line/Content-Length: ([0-9]+)/\1}"
+        fi
+
+        if [ -z "$line" ]; then
+            if [ "${content_length}" -ge 0 ]; then
+                read -r -n "${content_length}" REQUEST_VAR
+            fi
             echo "$REQUEST_VAR"
-            break
-        elif [ -z "$line" ]; then
             break
         fi
 

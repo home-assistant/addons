@@ -26,7 +26,7 @@ keyfile /ssl/$KEYFILE
 "
 
 function create_password() {
-    strings /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32
+    strings /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c32
 }
 
 function write_system_users() {

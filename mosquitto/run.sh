@@ -63,7 +63,7 @@ function constrain_host_config() {
     echo "  \"port\": 1883,"
     echo "  \"ssl\": false,"
     echo "  \"username\": \"${user}\","
-    echo "  \"password\": \"${password}\","
+    echo "  \"password\": \"${password}\""
     echo "}"
 }
 

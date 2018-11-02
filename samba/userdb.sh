@@ -13,20 +13,18 @@ function http_page() {
 
     template="$(cat /usr/share/userdb.html)"
 
-    template="${template/%%COLOR%%/"$message_color"}"
-    template="${template/%%MESSAGE%%/"$message"}"
+    template="${template/"%%COLOR%%"/"$message_color"}"
+    template="${template/"%%MESSAGE%%"/"$message"}"
 
     # Output page
-    echo -e "HTTP/1.1 200 OK"
-    echo -e "\r\n"
+    echo -e "HTTP/1.1 200 OK\n"
     echo "${template}"
     exit 0
 }
 
 function http_auth() {
-    echo -e "HTTP/1.1 401 Unauthorized"
-    echo "WWW-Authenticate: Basic realm=\"Home Assistant Auth\""
-    echo -e "\r\n"
+    echo "HTTP/1.1 401 Unauthorized"
+    echo -e "WWW-Authenticate: Basic realm=\"Home Assistant Auth\"\n"
     exit 0
 }
 
@@ -93,7 +91,7 @@ function check_authorization() {
     fi
 
     # Ask HomeAssistant Auth
-    if ! curl -q -f -X POST -H "${authorization}" -H "${auth_header}" http://hassio/auth; then
+    if ! curl -q -f -X POST -H "${authorization}" -H "${auth_header}" http://hassio/auth > /dev/null; then
         http_auth
     fi
 }

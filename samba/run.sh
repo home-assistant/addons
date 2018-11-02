@@ -19,7 +19,7 @@ if [ -z "${USERNAME}" ] || [ -z "${PASSWORD}" ]; then
 fi
 
 # Read hostname from API
-if ! NAME="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | jq --raw-output '.hostname')"; then
+if ! NAME="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | jq --raw-output '.data.hostname')"; then
     echo "[WARN] Can't read hostname, use default!"
     NAME="hassio"
 else

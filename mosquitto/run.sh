@@ -98,14 +98,22 @@ fi
 if call_hassio GET "services/mqtt"; then
     echo "[ERROR] There is allready a MQTT server running!"
     exit 1
-else
-    echo "[INFO] Initialize Hass.io Add-on services"
-    call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"
+fi
+
+echo "[INFO] Initialize Hass.io Add-on services"
+if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"; then
+    echo "[ERROR] Can't setup Hass.io service mqtt"
+    exit 1
 fi
 
 # Setup Home Assistant
-echo "[INFO] Initialize Hass.io Add-on services"
-call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"
+echo "[INFO] Initialize Home Assistant discovery"
+if ! call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"; then
+    echo "[ERROR] Can't setup Home Assistant discovery mqtt"
+    exit 1
+fi
+
+echo "[INFO] Start Mosquitto daemon"
 
 # Start Auth Server
 socat TCP-LISTEN:9123,fork,reuseaddr SYSTEM:/bin/auth_srv.sh &

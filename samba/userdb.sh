@@ -9,12 +9,15 @@ REQUEST_BODY=""
 function http_page() {
     local message=$1
     local message_color=$2
+    local users=
     local template=""
 
     template="$(cat /usr/share/userdb.html)"
+    users="$(user_list)"
 
     template="${template/"%%COLOR%%"/"$message_color"}"
     template="${template/"%%MESSAGE%%"/"$message"}"
+    template="${template/"%%USERS%%"/"$users"}"
 
     # Output page
     echo -e "HTTP/1.1 200 OK\n"
@@ -50,11 +53,26 @@ function read_request() {
 }
 
 
+function user_list() {
+    local userdata=""
+    local data=""
+    
+    data="$(pdbedit -L -s /etc/smb.conf)"
+    for line in $data; do
+        username="$(echo "${line}" | cut -d ':' -f0)"
+        userdata="${userdata}<li>${username}</li>"
+    done
+
+    echo "<ul>${userdata}</ul>"
+}
+
+
 function get_var() {
     local variable=$1
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
+    # shellcheck disable=SC2001
     value="$(echo "$REQUEST_BODY" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }

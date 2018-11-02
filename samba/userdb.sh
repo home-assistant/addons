@@ -34,7 +34,7 @@ function read_request() {
         fi
 
         if [ -z "$line" ]; then
-            if [ "${content_length}" -ge 0 ]; then
+            if [ "${content_length}" -gt 0 ]; then
                 read -r -n "${content_length}" REQUEST_VAR
             fi
             echo "$REQUEST_VAR"

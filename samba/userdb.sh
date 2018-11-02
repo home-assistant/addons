@@ -85,9 +85,9 @@ function add_db() {
     fi
     password="${password1}"
 
-    addgroup "${username}"
-    adduser -D -H -G "${username}" -s /bin/false "${username}"
-    echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}"
+    addgroup "${username}" > /dev/null
+    adduser -D -H -G "${username}" -s /bin/false "${username}" > /dev/null
+    echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}" > /dev/null
 
     http_page Success green
 }
@@ -96,8 +96,8 @@ function add_db() {
 function del_db() {
     username="$(get_var username)"
 
-    deluser "${username}"
-    smbpasswd -x -s -c /etc/smb.conf "${username}"
+    deluser "${username}" > /dev/null
+    smbpasswd -x -s -c /etc/smb.conf "${username}" > /dev/null
 
     http_page Success green
 }

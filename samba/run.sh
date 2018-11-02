@@ -6,6 +6,11 @@ CONFIG_PATH=/data/options.json
 WORKGROUP=$(jq --raw-output '.workgroup' $CONFIG_PATH)
 INTERFACE=$(jq --raw-output '.interface // empty' $CONFIG_PATH)
 ALLOW_HOSTS=$(jq --raw-output '.allow_hosts | join(" ")' $CONFIG_PATH)
+KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
+CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
+SSL=$(jq --raw-output ".ssl // false" $CONFIG_PATH)
+
+WAIT_PIDS=()
 NAME=
 
 # Read hostname from API
@@ -20,20 +25,27 @@ sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
 sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
 
 # Run usermanager
-socat -t 5 -T 5 TCP-LISTEN:9124,fork,reuseaddr SYSTEM:/bin/userdb.sh &
-NMBD_PID=$!
+if [ "${SSL}" == "true" ]
+    socat OPENSSL-LISTEN:9124,fork,reuseaddr,cafile="${CERTFILE}",key="${KEYFILE}" SYSTEM:/bin/userdb.sh &
+else
+    socat TCP-LISTEN:9124,fork,reuseaddr SYSTEM:/bin/userdb.sh &
+fi
+WAIT_PIDS+=($!)
 
 nmbd -F -S -s /etc/smb.conf &
-NMBD_PID=$!
+WAIT_PIDS+=($!)
+
 smbd -F -S -s /etc/smb.conf &
-SMBD_PID=$!
+WAIT_PIDS+=($!)
 
 # Register stop
 function stop_samba() {
-    kill -15 "$NMBD_PID"
-    kill -15 "$SMBD_PID"
-    wait "$SMBD_PID" "$NMBD_PID"
+    echo "Kill Processes..."
+    kill -15 "${WAIT_PIDS[@]}"
+    wait "${WAIT_PIDS[@]}"
+    echo "Done."
 }
 trap "stop_samba" SIGTERM SIGHUP
 
-wait "$SMBD_PID" "$NMBD_PID"
+# Wait until all is done
+wait "${WAIT_PIDS[@]}"

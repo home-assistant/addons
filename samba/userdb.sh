@@ -55,18 +55,34 @@ function get_var() {
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
-    value="$(echo "$REQUEST_BODY" | sed -i "s/.*$variable=\([^&]*\).*/\1/g")"
+    value="$(echo "$REQUEST_BODY" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }
 
 
-function update_db() {
+function add_db() {
     username="$(get_var username)"
-    password="$(get_var password)"
+    password1="$(get_var password1)"
+    password2="$(get_var password2)"
+
+    if [ "${password1}" != "${password2}" ]; then
+        http_page "Password not equal!" red
+    fi
+    password="${password1}"
 
     addgroup "${username}"
     adduser -D -H -G "${username}" -s /bin/false "${username}"
     echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}"
+
+    http_page Success green
+}
+
+
+function del_db() {
+    username="$(get_var username)"
+
+    deluser "${username}"
+    smbpasswd -x -s -c /etc/smb.conf "${username}"
 
     http_page Success green
 }
@@ -102,9 +118,14 @@ function check_authorization() {
 read_request
 check_authorization
 
-# User post request?
+# Add user request?
 if [[ "${REQUEST[0]}" =~ /add ]] && [[ -n "${REQUEST_BODY}" ]]; then
-    update_db
+    add_db
+fi
+
+# Remove user request?
+if [[ "${REQUEST[0]}" =~ /del ]] && [[ -n "${REQUEST_BODY}" ]]; then
+    remove_db
 fi
 
 http_page

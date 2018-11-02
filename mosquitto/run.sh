@@ -87,6 +87,7 @@ if [ ! -e "${SYSTEM_USER}" ]; then
     HOMEASSISTANT_PW="$(create_password)"
     ADDONS_PW="$(create_password)"
 
+    echo "[INFO] Initialize system configuration."
     write_system_users
 else
     HOMEASSISTANT_PW=$(jq --raw-output '.homeassistant.password' $SYSTEM_USER)
@@ -97,10 +98,13 @@ fi
 if call_hassio GET "services/mqtt"; then
     echo "[ERROR] There is allready a MQTT server running!"
     exit 1
+else
+    echo "[INFO] Initialize Hass.io Add-on services"
+    call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"
 fi
-call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"
 
 # Setup Home Assistant
+echo "[INFO] Initialize Hass.io Add-on services"
 call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"
 
 # Start Auth Server

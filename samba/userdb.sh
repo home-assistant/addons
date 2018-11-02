@@ -19,7 +19,14 @@ function http_page() {
     # Output page
     echo -e "HTTP/1.1 200 OK\n"
     echo "${template}"
-    echo -e "\n"
+    echo -e "\r\n"
+    exit 0
+}
+
+function http_auth() {
+    echo -e "HTTP/1.1 401 Unauthorized\n"
+    echo "WWW-Authenticate: Basic realm=\"Home Assistant Auth\""
+    echo -e "\r\n"
     exit 0
 }
 
@@ -59,19 +66,35 @@ function update_db() {
     username="$(get_var username)"
     password="$(get_var password)"
 
+    addgroup "${username}"
+    adduser -D -H -G "${username}" -s /bin/false "${username}"
     echo -e "${password}\n${password}" | smbpasswd -a -s -c /etc/smb.conf "${username}"
+
+    http_page Success green
 }
 
 
-function try_login() {
+function get_authorization() {
+    for ((i=0; i < ${#REQUEST[@]}; ++i)); do
+        if [[ "${REQUEST[$i]}" =~ Authorization ]]; then
+            echo "${REQUEST[$i]}"
+        fi
+    done
+}
+
+
+function check_authorization() {
     auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
-    content_type="Content-Type: application/x-www-form-urlencoded"
+    authorization="$(get_authorization)"
+
+    # Check if allow to add user
+    if [ -z "${authorization}" ]; then
+        http_auth
+    fi
 
     # Ask HomeAssistant Auth
-    if curl -q -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth; then
-        http_page "Success" green
-    else
-        http_page "Wrong login" red
+    if ! curl -q -f -X POST -H "${authorization}" -H "${auth_header}" http://hassio/auth; then
+        http_auth
     fi
 }
 
@@ -79,10 +102,11 @@ function try_login() {
 ## MAIN ##
 
 read_request
+check_authorization
 
 # User post request?
-if [[ "${REQUEST[0]}" =~ /sync ]] && [[ -n "${REQUEST_BODY}" ]]; then
-    try_login
+if [[ "${REQUEST[0]}" =~ /add ]] && [[ -n "${REQUEST_BODY}" ]]; then
+    update_db
 fi
 
 http_page

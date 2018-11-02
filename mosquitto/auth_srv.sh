@@ -73,6 +73,7 @@ function get_var() {
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
+    # shellcheck disable=SC2001
     value="$(echo "$REQUEST_BODY" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }

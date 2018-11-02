@@ -95,22 +95,18 @@ else
 fi
 
 # Initial Service
-if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v $(hostname); then
-    echo "[ERROR] There is allready a MQTT server running!"
-    exit 1
-fi
+if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
+    echo "[WARN] There is allready a MQTT server running!"
+else
+    echo "[INFO] Initialize Hass.io Add-on services"
+    if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")" > /dev/null; then
+        echo "[ERROR] Can't setup Hass.io service mqtt"
+    fi
 
-echo "[INFO] Initialize Hass.io Add-on services"
-if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")"; then
-    echo "[ERROR] Can't setup Hass.io service mqtt"
-    exit 1
-fi
-
-# Setup Home Assistant
-echo "[INFO] Initialize Home Assistant discovery"
-if ! call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"; then
-    echo "[ERROR] Can't setup Home Assistant discovery mqtt"
-    exit 1
+    echo "[INFO] Initialize Home Assistant discovery"
+    if ! call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")" > /dev/null; then
+        echo "[ERROR] Can't setup Home Assistant discovery mqtt"
+    fi
 fi
 
 echo "[INFO] Start Mosquitto daemon"
@@ -127,7 +123,13 @@ WAIT_PIDS+=($!)
 function stop_mqtt() {
     echo "[INFO] Shutdown mqtt system"
     kill -15 "${WAIT_PIDS[@]}"
-    call_hassio DELETE "services/mqtt" || echo "[Warn] Service unregister fails!"
+
+    # Remove service
+    if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep "$(hostname)" > /dev/null; then
+        if ! call_hassio DELETE "services/mqtt"; then
+            echo "[Warn] Service unregister fails!"
+        fi
+    fi
 
     wait "${WAIT_PIDS[@]}"
 }

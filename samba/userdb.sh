@@ -45,25 +45,12 @@ function read_request() {
 }
 
 
-function get_var() {
-    local variable=$1
-    local value=""
-    urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
-
-    value="$(echo "$REQUEST_BODY" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
-    urldecode "${value}"
-}
-
-
 function try_login() {
-    username="$(get_var username)"
-    password="$(get_var password)"
+    auth_header="X-Hassio-key: ${HASSIO_TOKEN}"
+    content_type="Content-Type: application/x-www-form-urlencoded"
 
     # Ask HomeAssistant Auth
-    json_data="{\"username\": \"${username}\", \"password\": \"${password}\"}"
-    auth_header="X-Hassio_key: ${HASSIO_TOKEN}"
-
-    if curl -q -f -X POST -d "${json_data}" -H "${auth_header}" http://hassio/auth; then
+    if curl -q -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth; then
         http_page "Success" green
     else
         http_page "Wrong login" red

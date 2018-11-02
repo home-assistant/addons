@@ -45,6 +45,24 @@ function read_request() {
 }
 
 
+function get_var() {
+    local variable=$1
+    local value=""
+    urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
+
+    value="$(echo "$REQUEST_BODY" | sed -i "s/.*$variable=\([^&]*\).*/\1/g")"
+    urldecode "${value}"
+}
+
+
+function update_db() {
+    username="$(get_var username)"
+    password="$(get_var password)"
+
+    echo -e "${password}\n${password}" | smbpasswd -a -c /etc/smb.conf "${username}"
+}
+
+
 function try_login() {
     auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
     content_type="Content-Type: application/x-www-form-urlencoded"

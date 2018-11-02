@@ -17,14 +17,14 @@ function http_page() {
     template="${template/%%MESSAGE%%/"$message"}"
 
     # Output page
-    echo -e "HTTP/1.1 200 OK\n"
-    echo "${template}"
+    echo -e "HTTP/1.1 200 OK"
     echo -e "\r\n"
+    echo "${template}"
     exit 0
 }
 
 function http_auth() {
-    echo -e "HTTP/1.1 401 Unauthorized\n"
+    echo -e "HTTP/1.1 401 Unauthorized"
     echo "WWW-Authenticate: Basic realm=\"Home Assistant Auth\""
     echo -e "\r\n"
     exit 0

@@ -51,7 +51,7 @@ function get_var() {
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
-    value="$(echo "$REQUEST_VAR" | sed -i "s/.*$variable=\([^&]*\).*/\1/g")"
+    value="$(echo "$REQUEST_VAR" | sed "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }
 
@@ -61,15 +61,12 @@ function try_login() {
     password="$(get_var password)"
 
     # Ask HomeAssistant Auth
-    echo "try"
     json_data="{\"username\": \"${username}\", \"password\": \"${password}\"}"
     auth_header="X-Hassio_key: ${HASSIO_TOKEN}"
 
     if curl -q -f -X POST -d "${json_data}" -H "${auth_header}" http://hassio/auth; then
-        echo "ok"
         http_page "Success" green
     else
-        echo "nok"
         http_page "Wrong login" red
     fi
 }
@@ -81,7 +78,6 @@ read_request
 
 # User post request?
 if [[ "${REQUEST[0]}" =~ /sync ]] && [[ -n "${REQUEST_VAR}" ]]; then
-    echo "found"
     try_login
 fi
 

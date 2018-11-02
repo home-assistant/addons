@@ -4,7 +4,7 @@ set -e
 CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 REQUEST=()
-REQUEST_VAR=""
+REQUEST_BODY=""
 
 declare -A LOCAL_DB
 
@@ -46,13 +46,19 @@ function create_userdb() {
 
 
 function read_request() {
+    local content_length=0
+
     while read -r line; do
         line="${line%%[[:cntrl:]]}"
 
-        # If we've reached the end of the headers, break.
+        if [[ "${line}" =~ Content-Length ]]; then
+            content_length="${line//[!0-9]/}"
+        fi
+
         if [ -z "$line" ]; then
-            read -r REQUEST_VAR;
-            REQUEST_VAR="${REQUEST_VAR%%[[:cntrl:]]}"
+            if [ "${content_length}" -gt 0 ]; then
+                read -r -n "${content_length}" REQUEST_BODY
+            fi
             break
         fi
 
@@ -61,12 +67,13 @@ function read_request() {
 }
 
 
+
 function get_var() {
     local variable=$1
     local value=""
     urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
-    value="$(echo "$REQUEST_VAR" | sed -i "s/.*$variable=\([^&]*\).*/\1/g")"
+    value="$(echo "$REQUEST_BODY" | sed -i "s/.*$variable=\([^&]*\).*/\1/g")"
     urldecode "${value}"
 }
 
@@ -94,10 +101,10 @@ elif [ ${LOCAL_DB[${username}]+_} ]; then
 fi
 
 # Ask HomeAssistant Auth
-json_data="{\"username\": \"${username}\", \"password\": \"${password}\"}"
-auth_header="X-Hassio_key: ${HASSIO_TOKEN}"
+auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
+content_type="Content-Type: application/x-www-form-urlencoded"
 
-if curl -q -f -X POST -d "${json_data}" -H "${auth_header}" http://hassio/auth; then
+if curl -q -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth; then
     http_ok
 fi
 

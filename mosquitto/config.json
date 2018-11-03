@@ -18,6 +18,7 @@
    },
   "options": {
     "logins": [],
+    "anonymous": false,
     "customize": {
       "active": false,
       "folder": "mosquitto"
@@ -29,6 +30,7 @@
     "logins": [
         {"username": "str", "password": "str"}
     ],
+    "anonymous": "bool",
     "customize": {
       "active": "bool",
       "folder": "str"

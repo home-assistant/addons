@@ -4,6 +4,8 @@ set -e
 CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 
+LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
+ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
@@ -81,6 +83,9 @@ function constrain_discovery() {
 
 ## Main ##
 
+echo "[INFO] Setup mosquitto configuration"
+sed -i "s/%%ANONYMOUS%%/$ANONYMOUS/g" /etc/mosquitto.conf
+
 # Enable SSL if exists configs
 if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
     echo "$SSL_CONFIG" >> /etc/mosquitto.conf
@@ -92,6 +97,21 @@ fi
 if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
     CUSTOMIZE_FOLDER=$(jq --raw-output ".customize.folder" $CONFIG_PATH)
     sed -i "s|#include_dir .*|include_dir /share/$CUSTOMIZE_FOLDER|g" /etc/mosquitto.conf
+fi
+
+# Handle local users
+if [ "$LOGINS" -gt "0" ]; then
+    echo "[INFO] Create local user database"
+    sed -i "s/#password_file/password_file/g" /etc/mosquitto.conf
+    rm -f /data/users.db && touch /data/users.db
+
+    for (( i=0; i < "$LOGINS"; i++ )); do	    echo "[INFO] Initialize system configuration."
+        USERNAME="$(jq --raw-output ".logins[$i].username" $CONFIG_PATH)"
+        PASSWORD="$(jq --raw-output ".logins[$i].password" $CONFIG_PATH)"
+        mosquitto_passwd -b /data/users.db "${USERNAME}" "${PASSWORD}"
+    done
+else
+    echo "[INFO] No local user available"
 fi
 
 # Prepare System Accounts
@@ -107,7 +127,7 @@ else
 fi
 
 # Initial Service
-if call_hassio GET "services/mqtt"; | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
+if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
     echo "[WARN] There is allready a MQTT services running!"
 else
     echo "[INFO] Initialize Hass.io Add-on services"

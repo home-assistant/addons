@@ -74,7 +74,7 @@ function constrain_discovery() {
     local password=$2
     local config=
 
-    config="$(contrain_host_config "${user}" "${password}")"
+    config="$(constrain_host_config "${user}" "${password}")"
     echo "{"
     echo "  \"service\": \"mqtt\","
     echo "  \"config\": ${config}"

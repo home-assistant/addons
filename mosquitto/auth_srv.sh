@@ -112,5 +112,5 @@ if curl -s -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_heade
     http_ok
 fi
 
-echo "[WARN] Not found ${username}" >&2
+echo "[ERROR] Auth error with ${username}" >&2
 http_error

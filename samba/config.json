@@ -8,7 +8,6 @@
   "boot": "auto",
   "host_network": true,
   "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
-  "auth_api": true,
   "options": {
     "workgroup": "WORKGROUP",
     "username": "hassio",

@@ -101,15 +101,7 @@ fi
 
 # Handle local users
 if [ "$LOGINS" -gt "0" ]; then
-    echo "[INFO] Create local user database"
-    sed -i "s/#password_file/password_file/g" /etc/mosquitto.conf
-    rm -f /data/users.db && touch /data/users.db
-
-    for (( i=0; i < "$LOGINS"; i++ )); do	    echo "[INFO] Initialize system configuration."
-        USERNAME="$(jq --raw-output ".logins[$i].username" $CONFIG_PATH)"
-        PASSWORD="$(jq --raw-output ".logins[$i].password" $CONFIG_PATH)"
-        mosquitto_passwd -b /data/users.db "${USERNAME}" "${PASSWORD}"
-    done
+    echo "[INFO] Found local users inside config"
 else
     echo "[INFO] No local user available"
 fi

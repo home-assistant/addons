@@ -30,18 +30,18 @@ function create_userdb() {
 
     logins=$(jq --raw-output '.logins | length' $CONFIG_PATH)
     for (( i=0; i < "$logins"; i++ )); do
-        username=$(jq --raw-output ".logins[$i].username" $CONFIG_PATH)
-        password=$(jq --raw-output ".logins[$i].password" $CONFIG_PATH)
+        username="$(jq --raw-output ".logins[$i].username" $CONFIG_PATH)"
+        password="$(jq --raw-output ".logins[$i].password" $CONFIG_PATH)"
 
-        LOCAL_DB[${username}]=${password}
+        LOCAL_DB["${username}"]="${password}"
     done
 
     # Add system user to DB
     hass_pw=$(jq --raw-output '.homeassistant.password' $SYSTEM_USER)
     addons_pw=$(jq --raw-output '.addons.password' $SYSTEM_USER)
 
-    LOCAL_DB['homeassistant']=${hass_pw}
-    LOCAL_DB['addons']=${addons_pw}
+    LOCAL_DB['homeassistant']="${hass_pw}"
+    LOCAL_DB['addons']="${addons_pw}"
 }
 
 
@@ -95,10 +95,10 @@ username="$(get_var username)"
 password="$(get_var password)"
 
 # If local user
-if [ "${LOCAL_DB[${username}]}" == "${password}" ]; then
+if [ "${LOCAL_DB["${username}"]}" == "${password}" ]; then
     echo "[INFO] found ${username} on local database" >&2
     http_ok
-elif [ ${LOCAL_DB[${username}]+_} ]; then
+elif [ ${LOCAL_DB["${username}"]+_} ]; then
     echo "[WARN] Not found ${username} on local database" >&2
     http_error
 fi

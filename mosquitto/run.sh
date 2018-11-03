@@ -46,9 +46,9 @@ function call_hassio() {
 
     # Call API
     if [ -n "${data}" ]; then
-        curl -X "${method}" -d "${data}" -H "${token}" "${url}"
+        curl -s -X "${method}" -d "${data}" -H "${token}" "${url}"
     else
-        curl -X "${method}" -H "${token}" "${url}"
+        curl -s -X "${method}" -H "${token}" "${url}"
     fi
 
     return $?
@@ -95,7 +95,7 @@ else
 fi
 
 # Initial Service
-if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
+if call_hassio GET "services/mqtt"; then #| jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
     echo "[WARN] There is allready a MQTT services running!"
 else
     echo "[INFO] Initialize Hass.io Add-on services"

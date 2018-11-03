@@ -96,8 +96,10 @@ password="$(get_var password)"
 
 # If local user
 if [ "${LOCAL_DB[${username}]}" == "${password}" ]; then
+    echo "[INFO] found ${username} on local database" >&2
     http_ok
 elif [ ${LOCAL_DB[${username}]+_} ]; then
+    echo "[WARN] Not found ${username} on local database" >&2
     http_error
 fi
 
@@ -106,7 +108,9 @@ auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
 content_type="Content-Type: application/x-www-form-urlencoded"
 
 if curl -s -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth; then
+    echo "[INFO] found ${username} on Home Assistant" >&2
     http_ok
 fi
 
+echo "[WARN] Not found ${username}" >&2
 http_error

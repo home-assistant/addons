@@ -1,5 +1,10 @@
 # Changelog
 
+## 7
+- Remove guest access
+- Cleanup structure
+- Use hostname for samba device name
+
 ## 6
 - Enable ntlm auth for Windows10
 

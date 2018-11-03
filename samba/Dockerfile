@@ -5,7 +5,8 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq samba-server samba-common-tools
+RUN apk add --no-cache \
+        socat curl samba-server samba-common-tools
 
 # Copy data
 COPY run.sh /

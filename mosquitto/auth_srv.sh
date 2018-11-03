@@ -17,7 +17,7 @@ function http_ok() {
 
 function http_error() {
     echo -e "HTTP/1.1 400 Bad Request\n"
-    exit 1
+    exit 0
 }
 
 

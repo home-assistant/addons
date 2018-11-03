@@ -46,13 +46,12 @@ function call_hassio() {
 
     # Call API
     if [ -n "${data}" ]; then
-        curl -s -X "${method}" -d "${data}" -H "${token}" "${url}"
+        curl -f -s -X "${method}" -d "${data}" -H "${token}" "${url}"
     else
-        curl -s -X "${method}" -H "${token}" "${url}"
+        curl -f -s -X "${method}" -H "${token}" "${url}"
     fi
 
-    #return $?
-    return 1
+    return $?
 }
 
 function constrain_host_config() {
@@ -65,6 +64,18 @@ function constrain_host_config() {
     echo "  \"ssl\": false,"
     echo "  \"username\": \"${user}\","
     echo "  \"password\": \"${password}\""
+    echo "}"
+}
+
+function constrain_discovery() {
+    local user=$1
+    local password=$2
+    local config=
+
+    config="$(contrain_host_config "${user}" "${password}")"
+    echo "{"
+    echo "  \"service\": \"mqtt\","
+    echo "  \"config\": ${config}"
     echo "}"
 }
 
@@ -96,7 +107,7 @@ else
 fi
 
 # Initial Service
-if call_hassio GET "services/mqtt"; then #| jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
+if call_hassio GET "services/mqtt"; | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
     echo "[WARN] There is allready a MQTT services running!"
 else
     echo "[INFO] Initialize Hass.io Add-on services"
@@ -105,7 +116,7 @@ else
     fi
 
     echo "[INFO] Initialize Home Assistant discovery"
-    if ! call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"; then
+    if ! call_hassio POST "discovery" "$(constrain_discovery homeassistant "${HOMEASSISTANT_PW}")" > /dev/null; then
         echo "[ERROR] Can't setup Home Assistant discovery mqtt"
     fi
 fi

@@ -96,7 +96,7 @@ fi
 
 # Initial Service
 if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
-    echo "[WARN] There is allready a MQTT server running!"
+    echo "[WARN] There is allready a MQTT services running!"
 else
     echo "[INFO] Initialize Hass.io Add-on services"
     if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")" > /dev/null; then
@@ -112,7 +112,7 @@ fi
 echo "[INFO] Start Mosquitto daemon"
 
 # Start Auth Server
-socat TCP-LISTEN:9123,fork,reuseaddr SYSTEM:/bin/auth_srv.sh &
+socat TCP-LISTEN:8080,fork,reuseaddr SYSTEM:/bin/auth_srv.sh &
 WAIT_PIDS+=($!)
 
 # Start Mosquitto Server

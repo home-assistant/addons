@@ -51,7 +51,8 @@ function call_hassio() {
         curl -s -X "${method}" -H "${token}" "${url}"
     fi
 
-    return $?
+    #return $?
+    return 1
 }
 
 function constrain_host_config() {

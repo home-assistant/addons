@@ -11,7 +11,7 @@ RUN apk add --no-cache \
         mosquitto curl libressl musl socat \
     && apk add --no-cache --virtual .build-dependencies \
         gcc make git mosquitto-dev curl-dev libressl-dev musl-dev \
-    && git clone --depth 1 -b $MOSQUITTO_AUTH_VERSION https://github.com/jpmens/mosquitto-auth-plug \
+    && git clone --depth 1 https://github.com/jpmens/mosquitto-auth-plug \
     && cd mosquitto-auth-plug \
     && cp config.mk.in config.mk \
     && sed -i "s/?= yes/?= no/g" config.mk \

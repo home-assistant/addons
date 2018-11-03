@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "6",
+  "version": "7",
   "slug": "samba",
   "description": "Expose Hass.io folders with SMB/CIFS",
   "url": "https://home-assistant.io/addons/samba/",
@@ -10,17 +10,8 @@
   "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {
     "workgroup": "WORKGROUP",
-    "name": "hassio",
-    "guest": true,
-    "map": {
-      "config": true,
-      "addons": true,
-      "ssl": false,
-      "share": true,
-      "backup": true
-    },
-    "username": "",
-    "password": "",
+    "username": "hassio",
+    "password": null,
     "interface": "",
     "allow_hosts": [
         "10.0.0.0/8",
@@ -30,15 +21,6 @@
   },
   "schema": {
     "workgroup": "str",
-    "name": "str",
-    "guest": "bool",
-    "map": {
-      "config": "bool",
-      "addons": "bool",
-      "ssl": "bool",
-      "share": "bool",
-      "backup": "bool"
-    },
     "username": "str",
     "password": "str",
     "interface": "str",

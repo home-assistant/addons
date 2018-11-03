@@ -46,9 +46,9 @@ function call_hassio() {
 
     # Call API
     if [ -n "${data}" ]; then
-        curl -s -f -X "${method}" -d "${data}" -H "${token}" "${url}"
+        curl -X "${method}" -d "${data}" -H "${token}" "${url}"
     else
-        curl -s -f -X "${method}" -H "${token}" "${url}"
+        curl -X "${method}" -H "${token}" "${url}"
     fi
 
     return $?
@@ -104,7 +104,7 @@ else
     fi
 
     echo "[INFO] Initialize Home Assistant discovery"
-    if ! call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")" > /dev/null; then
+    if ! call_hassio POST "discovery" "$(constrain_host_config homeassistant "${HOMEASSISTANT_PW}")"; then
         echo "[ERROR] Can't setup Home Assistant discovery mqtt"
     fi
 fi

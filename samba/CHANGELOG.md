@@ -1,6 +1,6 @@
 # Changelog
 
-## 7.1
+## 8
 - Fix access to /backup
 
 ## 7

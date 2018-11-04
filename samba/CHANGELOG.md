@@ -1,5 +1,8 @@
 # Changelog
 
+## 8
+- Fix access to /backup
+
 ## 7
 - Remove guest access
 - Cleanup structure

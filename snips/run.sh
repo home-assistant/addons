@@ -23,8 +23,10 @@ if [ "${CUSTOMTTS}" == "true" ]; then
         echo "[ERROR] - platform must be set to use custom tts!"
     else
         echo "[INFO] - Using custom tts"
-        echo "provider = \"customtts\"" >> /etc/snips.toml
-        echo "customtts = { command = [\"/usr/bin/customtts.sh\", \"${PLATFORM}\", \"%%OUTPUT_FILE%%\", \"${LANG}\", \"%%TEXT%%\"] }" >> /etc/snips.toml
+        (
+            echo "provider = \"customtts\""
+            echo "customtts = { command = [\"/usr/bin/customtts.sh\", \"${PLATFORM}\", \"%%OUTPUT_FILE%%\", \"${LANG}\", \"%%TEXT%%\"] }"
+        ) >> /etc/snips.toml
     fi
 else
     echo "[INFO] - Using default tts (picotts)"
@@ -39,19 +41,19 @@ if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/se
 
     echo "[INFO] Setup Hass.io mqtt service to ${HOST}"
 
-    {
+    (
         echo "connection main-mqtt"
         echo "address ${HOST}:${PORT}"
-    } >> /etc/mosquitto.conf
+    ) >> /etc/mosquitto.conf
 
     if [ -n "${USER}" ]; then
-      {
+      (
           echo "username ${USER}"
           echo "password ${PASSWORD}"
-      } >> /etc/mosquitto.conf
+      ) >> /etc/mosquitto.conf
     fi
 
-    {
+    (
         echo "topic hermes/intent/# out"
         echo "topic hermes/hotword/toggleOn out"
         echo "topic hermes/hotword/toggleOff out"
@@ -61,9 +63,9 @@ if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/se
         echo "topic hermes/audioServer/+/playBytes/# out"
         echo "topic hermes/audioServer/+/playFinished out"
         echo "topic # IN hermes/"
-    } >> /etc/mosquitto.conf
+    ) >> /etc/mosquitto.conf
 else
-    echo "[WARN] No Hass.io mqtt service found... Need manual setup!"
+    echo "[WARN] No Hass.io mqtt service found!"
 fi
 
 echo "[INFO] Start internal mqtt broker"

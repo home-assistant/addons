@@ -1,5 +1,8 @@
 # Changelog
 
+## 2
+- Update nginx to version 1.14.0
+
 ## 1.2
 - Modify `server_names_hash_bucket_size` to add support for longer domain names
 

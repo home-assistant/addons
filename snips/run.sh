@@ -65,7 +65,7 @@ if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/se
         echo "topic # IN hermes/"
     ) >> /etc/mosquitto.conf
 else
-    echo "[WARN] No Hass.io mqtt service found!"
+    echo "[ERROR] No Hass.io mqtt service found!"
     exit 1
 fi
 

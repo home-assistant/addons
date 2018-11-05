@@ -7,13 +7,10 @@
   "startup": "application",
   "boot": "auto",
   "arch": ["armhf", "amd64"],
-  "ports": {
-    "1883/tcp": 9898
-  },
   "map": ["share"],
   "tmpfs": "size=10m",
   "audio": true,
-  "services": ["mqtt:want"],
+  "services": ["mqtt:need"],
   "homeassistant_api": true,
   "options": {
     "assistant": "assistant.zip",

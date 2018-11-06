@@ -1,5 +1,12 @@
 # Changelog
 
+## 3
+
+### Configurator 0.3.3
+- Display covered last item in file browser
+- Proper displaying of file browser
+- Added support for long-lived JWT access tokens
+
 ## 2
 - Add access to folder: `/share`, `/backup`
 

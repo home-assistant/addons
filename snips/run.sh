@@ -3,13 +3,12 @@ set -e
 
 CONFIG_PATH=/data/options.json
 
-MQTT_BRIDGE=$(jq --raw-output '.mqtt_bridge.active' $CONFIG_PATH)
 ASSISTANT=$(jq --raw-output '.assistant' $CONFIG_PATH)
 LANG=$(jq --raw-output '.language // "en"' $CONFIG_PATH)
 CUSTOMTTS=$(jq --raw-output '.custom_tts.active' $CONFIG_PATH)
-PLATFORM=$(jq --raw-output '.custom_tts.platform' $CONFIG_PATH)
+MQTT_CONFIG=
 
-echo "[INFO] LANG: $LANG"
+echo "[INFO] LANG: ${LANG}"
 
 echo "[INFO] Checking for /share/snips.toml"
 if [ -f "/share/snips.toml" ]; then
@@ -17,40 +16,44 @@ if [ -f "/share/snips.toml" ]; then
     cp -v /share/snips.toml /etc/
 fi
 
-if [ "$CUSTOMTTS" == "true" ]; then
-    if [ -z "$PLATFORM" ]; then
+if [ "${CUSTOMTTS}" == "true" ]; then
+    PLATFORM=$(jq --raw-output '.custom_tts.platform' $CONFIG_PATH)
+
+    if [ -z "${PLATFORM}" ]; then
         echo "[ERROR] - platform must be set to use custom tts!"
     else
         echo "[INFO] - Using custom tts"
-        echo "provider = \"customtts\"" >> /etc/snips.toml
-        echo "customtts = { command = [\"/usr/bin/customtts.sh\", \"$PLATFORM\", \"%%OUTPUT_FILE%%\", \"$LANG\", \"%%TEXT%%\"] }" >> /etc/snips.toml
+        (
+            echo "provider = \"customtts\""
+            echo "customtts = { command = [\"/usr/bin/customtts.sh\", \"${PLATFORM}\", \"%%OUTPUT_FILE%%\", \"${LANG}\", \"%%TEXT%%\"] }"
+        ) >> /etc/snips.toml
     fi
 else
     echo "[INFO] - Using default tts (picotts)"
 fi
 
-# mqtt bridge
-if [ "$MQTT_BRIDGE" == "true" ]; then
-    HOST=$(jq --raw-output '.mqtt_bridge.host' $CONFIG_PATH)
-    PORT=$(jq --raw-output '.mqtt_bridge.port' $CONFIG_PATH)
-    USER=$(jq --raw-output '.mqtt_bridge.user' $CONFIG_PATH)
-    PASSWORD=$(jq --raw-output '.mqtt_bridge.password' $CONFIG_PATH)
+# Use Hass.io mqtt services
+if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/services/mqtt)"; then
+    HOST="$(echo "${MQTT_CONFIG}" | jq --raw-output '.data.host')"
+    PORT="$(echo "${MQTT_CONFIG}" | jq --raw-output '.data.port')"
+    USER="$(echo "${MQTT_CONFIG}" | jq --raw-output '.data.username')"
+    PASSWORD="$(echo "${MQTT_CONFIG}" | jq --raw-output '.data.password')"
 
-    echo "[INFO] Setup internal mqtt bridge"
+    echo "[INFO] Setup Hass.io mqtt service to ${HOST}"
 
-    {
+    (
         echo "connection main-mqtt"
-        echo "address $HOST:$PORT"
-    } >> /etc/mosquitto.conf
+        echo "address ${HOST}:${PORT}"
+    ) >> /etc/mosquitto.conf
 
-    if [ -n "$USER" ]; then
-      {
-          echo "username $USER"
-          echo "password $PASSWORD"
-      } >> /etc/mosquitto.conf
+    if [ -n "${USER}" ]; then
+      (
+          echo "username ${USER}"
+          echo "password ${PASSWORD}"
+      ) >> /etc/mosquitto.conf
     fi
 
-    {
+    (
         echo "topic hermes/intent/# out"
         echo "topic hermes/hotword/toggleOn out"
         echo "topic hermes/hotword/toggleOff out"
@@ -60,26 +63,29 @@ if [ "$MQTT_BRIDGE" == "true" ]; then
         echo "topic hermes/audioServer/+/playBytes/# out"
         echo "topic hermes/audioServer/+/playFinished out"
         echo "topic # IN hermes/"
-    } >> /etc/mosquitto.conf
+    ) >> /etc/mosquitto.conf
+else
+    echo "[ERROR] No Hass.io mqtt service found!"
+    exit 1
 fi
 
 echo "[INFO] Start internal mqtt broker"
 mosquitto -c /etc/mosquitto.conf &
 
 
-echo "[INFO] Checking for updated $ASSISTANT in /share"
+echo "[INFO] Checking for updated ${ASSISTANT} in /share"
 # check if a new assistant file exists
-if [ -f "/share/$ASSISTANT" ]; then
+if [ -f "/share/${ASSISTANT}" ]; then
     echo "[INFO] Install/Update snips assistant"
     rm -rf /usr/share/snips/assistant
-    unzip -o -u "/share/$ASSISTANT" -d /usr/share/snips
-# otherwise use the default 
+    unzip -o -u "/share/${ASSISTANT}" -d /usr/share/snips
+# otherwise use the default
 else
-    echo "[INFO] Checking for /assistant_Hass_$LANG.zip"
-    if [ -f "/assistant_Hass_$LANG.zip" ]; then
-        echo "[INFO] - Using default assistant_Hass_$LANG.zip"
+    echo "[INFO] Checking for /assistant_Hass_${LANG}.zip"
+    if [ -f "/assistant_Hass_${LANG}.zip" ]; then
+        echo "[INFO] - Using default assistant_Hass_${LANG}.zip"
         rm -rf /usr/share/snips/assistant
-        unzip -o -u "/assistant_Hass_$LANG.zip" -d /usr/share/snips
+        unzip -o -u "/assistant_Hass_${LANG}.zip" -d /usr/share/snips
     else
         echo "[ERROR] Could not find assistant!"
     fi

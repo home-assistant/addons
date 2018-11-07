@@ -1,10 +1,11 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "5",
+  "version": "6",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
   "arch": ["armhf", "i386", "amd64"],
+  "map": ["share:ro"],
   "startup": "system",
   "boot": "auto",
   "auto_uart": true,
@@ -20,8 +21,7 @@
     "rf": [
       {
         "type": "CCU2",
-        "device": "/dev/ttyAMA0",
-        "reset": false
+        "device": "/dev/ttyAMA0"
       }
     ],
     "wired_enable": false,

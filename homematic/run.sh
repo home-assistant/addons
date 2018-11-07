@@ -12,13 +12,11 @@ HMIP_DEVICES=$(jq --raw-output '.hmip | length' $CONFIG_PATH)
 WAIT_PIDS=()
 
 # Init folder
-mkdir -p /data/firmware
+mkdir -p /share/firmware
 mkdir -p /data/crRFD
+mkdir -p /data/rfd
 
-# Restore data
-if [ -f /data/hmip_address.conf ]; then
-    cp -f /data/hmip_address.conf /etc/config/
-fi
+. /usr/lib/hm-firmware.sh
 
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then
@@ -56,6 +54,9 @@ if [ "$RF_ENABLE" == "true" ]; then
         fi
     done
 
+    # Update Firmware
+    firmware_update_rfd
+
     # Run RFD
     "$HM_HOME/bin/rfd" -c -l 0 -f /opt/hm/etc/config/rfd.conf &
     WAIT_PIDS+=($!)
@@ -78,6 +79,9 @@ if [ "$WIRED_ENABLE" == "true" ]; then
         ) >> /etc/config/hs485d.conf
     done
 
+    # Update Firmware
+    firmware_update_wired
+
     # Run hs485d
     "$HM_HOME/bin/hs485d" -g -i 0 -f /opt/hm/etc/config/hs485d.conf &
     WAIT_PIDS+=($!)
@@ -85,10 +89,19 @@ fi
 
 # HMIP support
 if [ "$HMIP_ENABLE" == "true" ]; then
+    # Restore data
+    if [ -f /data/hmip_address.conf ]; then
+        cp -f /data/hmip_address.conf /etc/config/
+    fi
+
+    # Setup settings
     for (( i=0; i < "$HMIP_DEVICES"; i++ )); do
         TYPE=$(jq --raw-output ".hmip[$i].type" $CONFIG_PATH)
         DEVICE=$(jq --raw-output ".hmip[$i].device" $CONFIG_PATH)
         ADAPTER=$((i+1))
+
+        # Update Firmware
+        firmware_update_hmip "${DEVICE}"
 
         # Update config
         (
@@ -99,7 +112,7 @@ if [ "$HMIP_ENABLE" == "true" ]; then
 
     # Run HMIPServer
     # shellcheck disable=SC2086
-    java -Xmx128m -Dos.arch=arm -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -Dgnu.io.rxtx.SerialPorts=${DEVICE} -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+    java -Xmx64m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
     WAIT_PIDS+=($!)
 
     if [ ! -f /data/hmip_address.conf ]; then

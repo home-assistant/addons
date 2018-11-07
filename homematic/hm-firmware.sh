@@ -3,11 +3,11 @@
 
 function firmware_update_hmip() {
     local DEVICE="$1"
-    local FROM_VERSION="$(java -jar /opt/HmIP/hmip-copro-update.jar -p "${DEVICE}" -v | grep "Application version =" | cut -d' ' -f5)"
+    local FROM_VERSION="$(java -Xmx64m -jar /opt/HmIP/hmip-copro-update.jar -p "${DEVICE}" -v | grep "Application version =" | cut -d' ' -f5)"
     local TO_VERSION="$(ls /firmware/HmIP-RFUSB/hmip_coprocessor_update-*.eq3 | sed 's/.*hmip_coprocessor_update-\(.*\)\.eq3/\1/' | tail -n1)"
      
     if [ "${FROM_VERSION}" != "${TO_VERSION}" ]; then
-        java -jar /opt/HmIP/hmip-copro-update.jar -p "${DEVICE}" -f "/firmware/HmIP-RFUSB/hmip_coprocessor_update-${TO_VERSION}.eq3"
+        java -Xmx64m -jar /opt/HmIP/hmip-copro-update.jar -p "${DEVICE}" -f "/firmware/HmIP-RFUSB/hmip_coprocessor_update-${TO_VERSION}.eq3"
     fi
 }
 

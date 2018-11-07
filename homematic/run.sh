@@ -34,9 +34,7 @@ if [ "$RF_ENABLE" == "true" ]; then
                 echo "ResetFile = /sys/class/gpio/gpio18/value"
             ) >> /etc/config/rfd.conf
 
-
             # Init GPIO
-            RESET=$(jq --raw-output ".rf[$i].reset // false" $CONFIG_PATH)
             if [ ! -d /sys/class/gpio/gpio18 ]; then
                 echo 18 > /sys/class/gpio/export
                 sleep 2
@@ -45,10 +43,7 @@ if [ "$RF_ENABLE" == "true" ]; then
                 echo out > /sys/class/gpio/gpio18/direction
                 sleep 2
             fi
-            if [ "$RESET" == "true" ]; then
-                echo 1 > /sys/class/gpio/gpio18/value || echo "Can't reset module!"
-                sleep 0.5
-            fi
+
             echo 0 > /sys/class/gpio/gpio18/value || echo "Can't set default value!"
             sleep 0.5
         fi

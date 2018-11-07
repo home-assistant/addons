@@ -12,7 +12,7 @@ HMIP_DEVICES=$(jq --raw-output '.hmip | length' $CONFIG_PATH)
 WAIT_PIDS=()
 
 # Init folder
-mkdir -p /share/firmware
+mkdir -p /share/hm-firmware
 mkdir -p /data/crRFD
 mkdir -p /data/rfd
 

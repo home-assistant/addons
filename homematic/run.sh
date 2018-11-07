@@ -15,6 +15,7 @@ WAIT_PIDS=()
 mkdir -p /share/hm-firmware
 mkdir -p /data/crRFD
 mkdir -p /data/rfd
+mkdir -p /data/hs485d
 
 . /usr/lib/hm-firmware.sh
 

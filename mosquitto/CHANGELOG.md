@@ -1,5 +1,8 @@
 # Changelog
 
+## 4
+- Use Alpine 3.7 because libwebsocket 3.0.0 is broken on Alpine 3.8
+
 ## 3
 - Use auto setup (discovery) on Home Assistant
 - Publish his service to Hass.io

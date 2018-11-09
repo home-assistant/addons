@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2012
 
 
 function firmware_update_hmip() {

@@ -14,7 +14,8 @@ if ! pip3 install --user --no-cache-dir --prefix= --no-dependencies ${PYPI}; the
 fi
 
 echo "[Info] Install TensorFlow into deps"
-if ! pip3 install --user --no-cache-dir --prefix= --no-dependencies /usr/src/tensorflow_pkg/tensorflow-$TENSORFLOW_VERSION-cp36-cp36m-linux_*.whl; then
+# shellcheck disable=SC2086
+if ! pip3 install --user --no-cache-dir --prefix= --no-dependencies /usr/src/tensorflow_pkg/tensorflow-*.whl; then
     echo "[Error] Can't install TensorFlow package!"
     exit 1
 fi

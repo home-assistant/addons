@@ -20,6 +20,8 @@ RUN curl -SL https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz | tar x
     && mkdir -p /opt/hm/etc/config \
     && mkdir -p /opt/HmIP \
     && mkdir -p /opt/HMServer \
+    && mkdir -p /boot \
+    && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \

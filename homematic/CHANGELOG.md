@@ -4,6 +4,7 @@
 - Allow customer firmware updates inside `/share`
 - Update Hardware on startup
 - Limit HmIP server to 64mb memory
+- Set `rf_enable` default to `false`
 
 ## 5
 - Save hmip_address.conf persistent

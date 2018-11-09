@@ -5,7 +5,7 @@
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
   "arch": ["armhf", "i386", "amd64"],
-  "map": ["share:ro"],
+  "map": ["share:rw"],
   "startup": "system",
   "boot": "auto",
   "auto_uart": true,

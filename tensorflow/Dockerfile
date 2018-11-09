@@ -1,8 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG TENSORFLOW_VERSION=1.12.0
-ARG BAZEL_VERSION=0.15.0
+ARG TENSORFLOW_VERSION
+ARG BAZEL_VERSION
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 RUN apk add --no-cache \
         freetype libpng libjpeg-turbo musl openblas \

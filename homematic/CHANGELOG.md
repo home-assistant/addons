@@ -3,6 +3,7 @@
 ## 6
 - Allow customer firmware updates inside `/share`
 - Update Hardware on startup
+- Limit HmIP server to 64mb memory
 
 ## 5
 - Save hmip_address.conf persistent

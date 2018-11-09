@@ -7,6 +7,7 @@
   },
   "args": {
     "TENSORFLOW_VERSION": "1.12.0",
-    "BAZEL_VERSION": "0.15.0"
+    "BAZEL_VERSION": "0.15.0",
+    "HDF5_VERSION": "1.8.21"
   }
 }

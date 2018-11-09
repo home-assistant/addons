@@ -18,6 +18,7 @@ mkdir -p /data/crRFD
 mkdir -p /data/rfd
 mkdir -p /data/hs485d
 
+# shellcheck disable=SC1091
 . /usr/lib/hm-firmware.sh
 
 # RF support

@@ -1,0 +1,13 @@
+{
+  "name": "TensorFlow installer",
+  "version": "1",
+  "slug": "tensorflow",
+  "description": "TensorFlow installer for Home Assistant.",
+  "url": "https://home-assistant.io/addons/tensorflow",
+  "startup": "once",
+  "boot": "manual",
+  "map": ["config:rw"],
+  "options": {},
+  "schema": {},
+  "image": "homeassistant/{arch}-addon-tensorflow"
+}

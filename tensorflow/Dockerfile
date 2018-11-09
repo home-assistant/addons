@@ -3,6 +3,7 @@ FROM $BUILD_FROM
 
 ARG TENSORFLOW_VERSION
 ARG BAZEL_VERSION
+ARG HDF5_VERSION
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 RUN apk add --no-cache \
         freetype libpng libjpeg-turbo musl openblas \
@@ -10,6 +11,14 @@ RUN apk add --no-cache \
         git cmake curl freetype-dev g++ libjpeg-turbo-dev libpng-dev \
         linux-headers make musl-dev openblas-dev openjdk8 zip patch \
         autoconf automake libtool file sed \
+    && curl -SL https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-$HDF5_VERSION/src/hdf5-$HDF5_VERSION.tar.gz | tar xzf - \
+    && cd /usr/src/hdf5-$HDF5_VERSION \
+    && autoreconf -f -i \
+    && ./configure --prefix=/usr/local \
+    && make \
+    && make install \
+    && cd /usr/src \
+    && rm -rf /usr/src/hdf5-$HDF5_VERSION
     && curl -SLO https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-dist.zip \
     && mkdir bazel-$BAZEL_VERSION \
     && unzip -qd bazel-$BAZEL_VERSION bazel-$BAZEL_VERSION-dist.zip \

@@ -18,7 +18,7 @@ RUN apk add --no-cache \
     && make \
     && make install \
     && cd /usr/src \
-    && rm -rf /usr/src/hdf5-$HDF5_VERSION
+    && rm -rf /usr/src/hdf5-$HDF5_VERSION \
     && curl -SLO https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-dist.zip \
     && mkdir bazel-$BAZEL_VERSION \
     && unzip -qd bazel-$BAZEL_VERSION bazel-$BAZEL_VERSION-dist.zip \

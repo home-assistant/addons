@@ -15,8 +15,7 @@ function firmware_update_hmip() {
 
 
 function firmware_update_rfd() {
-	"${HM_HOME}/bin/eq3configcmd" update-coprocessor -lgw -u -rfdconf /etc/config/rfd.conf -l 1 >/dev/null
-	"${HM_HOME}/bin/eq3configcmd" update-lgw-firmware -m /firmware/fwmap -c /etc/config/rfd.conf -l 1
+    "${HM_HOME}/bin/eq3configcmd" update-coprocessor -lgw -u -rfdconf /etc/config/rfd.conf -l 1
 }
 
 

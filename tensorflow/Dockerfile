@@ -5,6 +5,8 @@ ARG TENSORFLOW_VERSION
 ARG BAZEL_VERSION
 ARG HDF5_VERSION
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
+
+WORKDIR /usr/src
 RUN apk add --no-cache \
         freetype libpng libjpeg-turbo musl openblas \
     && apk add --no-cache --virtual=.build-dependencies \

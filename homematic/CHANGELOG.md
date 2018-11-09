@@ -1,5 +1,9 @@
 # Changelog
 
+## 6
+- Allow customer firmware updates inside `/share`
+- Update Hardware on startup
+
 ## 5
 - Save hmip_address.conf persistent
 

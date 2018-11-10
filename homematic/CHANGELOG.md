@@ -1,5 +1,8 @@
 # Changelog
 
+## 7
+- Update OCCU to 3.41.7
+
 ## 6
 - Allow customer firmware updates inside `/share`
 - Update Hardware on startup

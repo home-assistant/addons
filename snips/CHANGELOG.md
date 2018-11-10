@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.1
+## 5
 - Updated to latest snisp 0.60.1
 
 ## 4

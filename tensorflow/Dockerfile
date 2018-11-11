@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     && mkdir bazel-$BAZEL_VERSION \
     && unzip -qd bazel-$BAZEL_VERSION bazel-$BAZEL_VERSION-dist.zip \
     && cd /usr/src/bazel-$BAZEL_VERSION \
-    && ulimit -u 100000 && ./compile.sh \
+    && ulimit -c 100000 && ./compile.sh \
     && cp -p output/bazel /usr/bin/ \
     && cd /usr/src \
     && rm -rf /usr/src/bazel-$BAZEL_VERSION \

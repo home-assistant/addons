@@ -48,6 +48,8 @@ RUN apk add --no-cache \
     && rm -f /usr/bin/bazel \
     && pip3 uninstall -y wheel keras_applications keras_preprocessing \
     && rm -f /usr/src/*.zip \
+    && rm -rf /root/.cache \
+    && rm -rf /root/.keras \
     && apk del .build-dependencies
 
 # Copy data

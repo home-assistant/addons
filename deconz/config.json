@@ -1,0 +1,25 @@
+{
+    "name": "deCONZ",
+    "version": "2.05.47",
+    "slug": "deconz",
+    "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
+    "arch": ["aarch64","amd64","armhf","i386"],
+    "url": "https://home-assistant.io/addons/deconz",
+    "startup": "system",
+    "boot": "auto",
+    "webui": "http://[HOST]:[PORT:8080]",
+    "host_network": true,
+    "auto_uart": true,
+    "apparmor": false,
+    "options": {
+        "deconz_device": null,
+        "web_port": 8080,
+        "websockets_port": 8443
+    },
+    "schema": {
+        "deconz_device": "str",
+        "web_port": "port",
+        "websockets_port": "port"
+    },
+    "image": "homeassistant/{arch}-addon-homeassistant"
+}

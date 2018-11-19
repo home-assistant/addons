@@ -24,7 +24,7 @@ RUN if [ "$BUILD_ARCH" == "armhf" ]; then \
         && make install \
         && apk del .build-dependencies \
         && rm -rf /usr/src/userland; \
-    fi \
+    fi
 
 ##
 # Build libcec for HDMI-CEC

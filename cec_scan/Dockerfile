@@ -29,9 +29,9 @@ RUN if [ "$BUILD_ARCH" == "armhf" ]; then \
 ##
 # Build libcec for HDMI-CEC
 ARG LIBCEC_VERSION
-RUN apk add --no-cache p8-platform \
+RUN apk add --no-cache eudev-libs p8-platform \
     && apk add --no-cache --virtual .build-dependencies \
-        build-base cmake eudev-dev git swig raspberrypi-dev p8-platform-dev \
+        build-base cmake eudev-dev git swig p8-platform-dev \
     && git clone --depth 1 -b libcec-${LIBCEC_VERSION} https://github.com/Pulse-Eight/libcec /usr/src/libcec \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \

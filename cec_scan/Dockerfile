@@ -35,9 +35,6 @@ RUN apk add --no-cache p8-platform \
     && git clone --depth 1 -b libcec-${LIBCEC_VERSION} https://github.com/Pulse-Eight/libcec /usr/src/libcec \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \
-    && cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
-        -DRPI_INCLUDE_DIR=/opt/vc/include \
-        -DRPI_LIB_DIR=/opt/vc/lib \
     && if [ "$BUILD_ARCH" != "armhf" ] && [ "$BUILD_ARCH" != "aarch64" ]; then \
             cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..; \
         else \

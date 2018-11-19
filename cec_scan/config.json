@@ -1,6 +1,6 @@
 {
   "name": "CEC Scanner",
-  "version": "0.2",
+  "version": "1",
   "slug": "cec_scan",
   "description": "Scan HDMI CEC devices",
   "url": "https://home-assistant.io/addons/cec_scan/",

@@ -9,21 +9,8 @@ ARG BUILD_ARCH
 
 ##
 # RPi support for HDMI-CEC on armhf/aarch64
-RUN if [ "$BUILD_ARCH" == "armhf" ]; then \
+RUN if [ "$BUILD_ARCH" == "armhf" ] || [ "$BUILD_ARCH" == "aarch64" ]; then \
         apk add --no-cache raspberrypi-dev raspberrypi-libs; \
-    elif [ "$BUILD_ARCH" == "aarch64" ]; then \
-        apk add --no-cache --virtual .build-dependencies \
-            cmake make g++ git linux-headers \
-        && git clone --depth 1 https://github.com/raspberrypi/userland /usr/src/userland \
-        && mkdir -p /usr/src/userland/build \
-        && cd /usr/src/userland/build \
-        && cmake \
-            -DCMAKE_C_FLAGS="$CFLAGS -D_GNU_SOURCE -Wno-error=array-bounds" \
-            -DCMAKE_BUILD_TYPE=Release -DARM64=True -DCMAKE_INSTALL_RPATH=/opt/vc/lib .. \
-        && make -j$(nproc) \
-        && make install \
-        && apk del .build-dependencies \
-        && rm -rf /usr/src/userland; \
     fi
 
 ##

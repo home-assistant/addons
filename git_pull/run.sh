@@ -14,6 +14,7 @@ GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
 GIT_PRUNE=$(jq --raw-output '.git_prune' $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
+RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 ################
@@ -177,8 +178,26 @@ function validate-config {
         echo "[Info] Something has changed, check Home-Assistant config"
         if hassio homeassistant check; then
             if [ "$AUTO_RESTART" == "true" ]; then
-                echo "[Info] Restart Home-Assistant"
-                hassio homeassistant restart 2&> /dev/null
+                DO_RESTART="false"
+                CHANGED_FILES=$(git diff $OLD_COMMIT .. $NEW_COMMIT --name-only)
+                echo "Changed Files: $CHANGED_FILES"
+                if [ -n "$RESTART_IGNORED_FILES"]; then
+                    for file in $CHANGED_FILES; do
+                        echo $RESTART_IGNORED_FILES | grep -qw ${file}
+                        if [ $? -eq 1 ] ; then
+                            DO_RESTART="true"
+                            echo "[Info] Detected Restart Required File $file"
+                        fi
+                    done
+                else
+                    DO_RESTART = "true"
+                fi
+                if [ "$DO_RESTART" == "true"]; then
+                    echo "[Info] Restart Home-Assistant"
+                    hassio homeassistant restart 2&> /dev/null
+                else
+                    echo "[Info] No Restart Required, only ignored changes detected"
+                fi
             else
                 echo "[Info] Local configuration has changed. Restart required."
             fi

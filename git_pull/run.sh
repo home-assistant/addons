@@ -181,7 +181,7 @@ function validate-config {
                 DO_RESTART="false"
                 CHANGED_FILES=$(git diff $OLD_COMMIT .. $NEW_COMMIT --name-only)
                 echo "Changed Files: $CHANGED_FILES"
-                if [ -n "$RESTART_IGNORED_FILES"]; then
+                if [ -n "$RESTART_IGNORED_FILES" ]; then
                     for file in $CHANGED_FILES; do
                         echo $RESTART_IGNORED_FILES | grep -qw ${file}
                         if [ $? -eq 1 ] ; then
@@ -192,7 +192,7 @@ function validate-config {
                 else
                     DO_RESTART = "true"
                 fi
-                if [ "$DO_RESTART" == "true"]; then
+                if [ "$DO_RESTART" == "true" ]; then
                     echo "[Info] Restart Home-Assistant"
                     hassio homeassistant restart 2&> /dev/null
                 else

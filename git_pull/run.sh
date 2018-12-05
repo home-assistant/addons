@@ -183,7 +183,7 @@ function validate-config {
                 echo "Changed Files: $CHANGED_FILES"
                 if [ -n "$RESTART_IGNORED_FILES" ]; then
                     for file in $CHANGED_FILES; do
-                        echo "$RESTART_IGNORED_FILES" | grep -qw "${file}""
+                        echo "$RESTART_IGNORED_FILES" | grep -qw "${file}"
                         if [ $? -eq 1 ] ; then
                             DO_RESTART="true"
                             echo "[Info] Detected Restart Required File $file"

@@ -179,18 +179,18 @@ function validate-config {
         if hassio homeassistant check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"
-                CHANGED_FILES=$(git diff $OLD_COMMIT .. $NEW_COMMIT --name-only)
+                CHANGED_FILES=$(git diff "$OLD_COMMIT" .. "$NEW_COMMIT" --name-only)
                 echo "Changed Files: $CHANGED_FILES"
                 if [ -n "$RESTART_IGNORED_FILES" ]; then
                     for file in $CHANGED_FILES; do
-                        echo $RESTART_IGNORED_FILES | grep -qw ${file}
+                        echo "$RESTART_IGNORED_FILES" | grep -qw "${file}""
                         if [ $? -eq 1 ] ; then
                             DO_RESTART="true"
                             echo "[Info] Detected Restart Required File $file"
                         fi
                     done
                 else
-                    DO_RESTART = "true"
+                    DO_RESTART="true"
                 fi
                 if [ "$DO_RESTART" == "true" ]; then
                     echo "[Info] Restart Home-Assistant"

@@ -1,5 +1,8 @@
 # Changelog
 
+## 6
+- Allow to disable Home Assistant restart for specific file changes
+
 ## 5
 - Update Hass.io CLI to 1.4.0
 - Add new API role profile

@@ -1,7 +1,7 @@
 # Changelog
 
 ## 5
-- Updated to snisp 0.60.1
+- Updated to snips 0.60.1
 
 ## 4
 - Use new Hass.io Services API and cleanup config

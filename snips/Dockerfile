@@ -8,7 +8,6 @@ COPY customtts.sh /usr/bin
 
 RUN chmod a+x /run.sh \
     && chmod a+x /usr/bin/customtts.sh \
-    && echo nameserver 1.1.1.1 > /etc/resolv.conf \
     && apt-get update \
     && apt-get install -y mpg123 curl tzdata \
     && apt-get install -y snips-asr-injection || true \

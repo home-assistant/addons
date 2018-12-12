@@ -1,5 +1,8 @@
 # Changelog
 
+## 8
+- Update OCCU to 3.41.11
+
 ## 7
 - Update OCCU to 3.41.7
 

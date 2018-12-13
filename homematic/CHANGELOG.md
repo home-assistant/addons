@@ -1,26 +1,31 @@
 # Changelog
 
-## 7
+## 8.0
+- Update OCCU to 3.41.11
+- Fix write error when starting OCCU / HmIP
+- Redirect HMIPServer log to console
+
+## 7.0
 - Update OCCU to 3.41.7
 
-## 6
+## 6.0
 - Allow customer firmware updates inside `/share`
 - Update Hardware on startup
 - Limit HmIP server to 64mb memory
 - Set `rf_enable` default to `false`
 
-## 5
+## 5.0
 - Save hmip_address.conf persistent
 
-## 4
+## 4.0
 - New ubuntu base images
 - Support firmware update of HM-MOD-RPI-PCB, HmIP-RFUSB
 - Add HmIP support with HmIP-RFUSB
 
-## 3
+## 3.0
 - Add periodically time sync
 
-## 2
+## 2.0
 - Fix wrong Timezone
 - Update OCCU to 3.37.8
 

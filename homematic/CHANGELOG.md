@@ -2,6 +2,7 @@
 
 ## 8.0
 - Update OCCU to 3.41.11
+- Fix write error when starting OCCU / HmIP
 
 ## 7.0
 - Update OCCU to 3.41.7

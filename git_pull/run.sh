@@ -179,7 +179,7 @@ function validate-config {
         if hassio homeassistant check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"
-                CHANGED_FILES=$(git diff "$OLD_COMMIT" .. "$NEW_COMMIT" --name-only)
+                CHANGED_FILES=$(git diff "$OLD_COMMIT" "$NEW_COMMIT" --name-only)
                 echo "Changed Files: $CHANGED_FILES"
                 if [ -n "$RESTART_IGNORED_FILES" ]; then
                     for file in $CHANGED_FILES; do

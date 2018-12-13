@@ -1,7 +1,7 @@
 # Changelog
 
 ## 6.1
-- Bugfix in git diff command while comparing branches
+- Bugfix in git diff command while comparing commits
 
 ## 6
 - Allow to disable Home Assistant restart for specific file changes

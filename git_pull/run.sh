@@ -171,11 +171,11 @@ function git-synchronize {
 }
 
 function validate-config {
-    echo "[Info] Check if something is changed"
+    echo "[Info] Checking if something has changed..."
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
-        echo "[Info] Something has changed, check Home-Assistant config"
+        echo "[Info] Something has changed, checking Home-Assistant config..."
         if hassio homeassistant check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"

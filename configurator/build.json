@@ -7,6 +7,6 @@
   },
   "args": {
     "CONFIGURATOR_VERSION": "0.3.3",
-    "HASSIO_AUTH_VERSION": "2.0"
+    "HASSIO_AUTH_VERSION": "3.0"
   }
 }

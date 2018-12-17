@@ -20,6 +20,8 @@ RUN apk add --no-cache \
     && cp -f * /etc/nginx/ \
     && rm -r /usr/src/hassio-auth
 
+WORKDIR /
+
 # Copy data
 COPY run.sh /
 RUN chmod a+x /run.sh

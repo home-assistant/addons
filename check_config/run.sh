@@ -20,7 +20,9 @@ then
     exit 1
 fi
 
-echo "[Info] Install done, check config now"
+INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
+
+echo "[Info] Installed $INSTALLED_VERSION, check config now"
 
 cp -fr /config /tmp/config
 if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"

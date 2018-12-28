@@ -15,8 +15,8 @@ then
 fi
 
 SUPERVISORD_CONF_FILE="/etc/supervisor/conf.d/supervisord.conf"
-ASR_TYPE=`cat $ASSISTANT_FILE|jq --raw-output '.asr.type'`
-ANALYTICS_ENABLED=`cat $ASSISTANT_FILE|jq --raw-output '.analyticsEnabled'`
+ASR_TYPE=$(jq --raw-output '.asr.type' $ASSISTANT_FILE)
+ANALYTICS_ENABLED=$(jq --raw-output '.analyticsEnabled' $ASSISTANT_FILE)
 SNIPS_MOSQUITTO_FLAG="-h localhost -p 1883"
 
 
@@ -75,7 +75,7 @@ fi
 USE_INTERNAL_MQTT=true
 ALL_SNIPS_COMPONENTS=("snips-asr-google" "snips-asr" "snips-audio-server" "snips-tts" "snips-hotword" "snips-nlu" "snips-dialogue" "snips-analytics" "snips-debug")
 declare -A SNIPS_COMPONENTS
-for c in ${ALL_SNIPS_COMPONENTS[@]}
+for c in "${ALL_SNIPS_COMPONENTS[@]}"
 do
     SNIPS_COMPONENTS[$c]=true
 done
@@ -94,7 +94,7 @@ then
 fi
 
 
-for i in `seq 1 $#`
+for i in $(seq 1 $#)
 do
     j=$((i+1))
     TYPE_ARG="${!i}"
@@ -116,8 +116,10 @@ else
     SNIPS_COMPONENTS["snips-debug"]=false
 fi
 
+USE_INCLUDE=false
+USE_EXCLUDE=false
 
-for i in `seq 1 $#`
+for i in $(seq 1 $#)
 do
     j=$((i+1))
     TYPE_ARG="${!i}"
@@ -125,17 +127,17 @@ do
     if [ "$TYPE_ARG" = "--exclude-components" ]
     then
         USE_EXCLUDE=true
-        if [ "USE_INCLUDE" = true ]
+        if [ "$USE_INCLUDE" = true ]
         then
             echo "Cannot use --include-components and --exclude-components simultaneously"
             exit 1
         fi
 
-        for i in `echo $VALUE_ARG|tr ',' ' '`
+        for j in $(echo $VALUE_ARG|tr ',' ' ')
         do
             if [ -z ${SNIPS_COMPONENTS[$i]} ]
             then
-                echo "Unknown snips component $i. Must be one of [${ALL_SNIPS_COMPONENTS[@]}]."
+                echo "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
                 exit 1
             fi
             unset SNIPS_COMPONENTS["$i"]
@@ -143,25 +145,25 @@ do
     elif [ "$TYPE_ARG" = "--include-components" ]
     then
         USE_INCLUDE=true
-        if [ "USE_EXCLUDE" = true ]
+        if [ "$USE_EXCLUDE" = true ]
         then
             echo "Cannot use --include-components and --exclude-components simultaneously"
             exit 1
         elif [ -z "$VALUE_ARG" ]
         then
-            echo "--include-components must be followed by a command-line list of components to include (${ALL_SNIPS_COMPONENTS[@]})"
+            echo "--include-components must be followed by a command-line list of components to include ${ALL_SNIPS_COMPONENTS[*]}"
             exit 1
         fi
 
-        for c in ${ALL_SNIPS_COMPONENTS[@]}
+        for c in "${ALL_SNIPS_COMPONENTS[@]}"
         do
             SNIPS_COMPONENTS[$c]=false
         done
-        for i in `echo $VALUE_ARG|tr ',' ' '`
+        for j in $(echo $VALUE_ARG|tr ',' ' ')
         do
-            if [[ -z "${SNIPS_COMPONENTS[$i]}" && $i != "none" ]]
+            if [[ -z "${SNIPS_COMPONENTS[$i]}" && $j != "none" ]]
             then
-                echo "Unknown snips component $i. Must be one of [${ALL_SNIPS_COMPONENTS[@]} none]."
+                echo "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
                 exit 1
             fi
             SNIPS_COMPONENTS["$i"]=true
@@ -172,24 +174,24 @@ do
         then
             echo "'<mqtt_server>:<mqtt_port>' must be specified when using --mqtt"
             exit 1
-        elif [ `echo "$VALUE_ARG" | tr -cd ':' | wc -c` != 1 ]
+        elif [ "$(echo "$VALUE_ARG" | tr -cd ':' | wc -c)" != 1 ]
         then
             echo "--mqtt value must follow the pattern '<mqtt_server>:<mqtt_port>' with server and port separated by a single ':'"
             exit 1
-        elif [ `echo "$VALUE_ARG" | tr -cd '#' | wc -c` != 0 ]
+        elif [ "$(echo "$VALUE_ARG" | tr -cd '#' | wc -c)" != 0 ]
         then
             echo "--mqtt value must follow the pattern '<mqtt_server>:<mqtt_port>'. '#' character is not allowed."
             exit 1
         fi
 
-        SNIPS_MQTT_HOST=`echo "$VALUE_ARG"| cut -d : -f 1`
+        SNIPS_MQTT_HOST=$(echo "$VALUE_ARG"| cut -d : -f 1)
         if [ -z "$SNIPS_MQTT_HOST" ]
         then
             echo "Must specify a server when using --mqtt"
             exit 1
         fi
 
-        SNIPS_MQTT_PORT=`echo "$VALUE_ARG"| cut -d : -f 2`
+        SNIPS_MQTT_PORT=$(echo "$VALUE_ARG"| cut -d : -f 2)
         case "$SNIPS_MQTT_PORT" in
             ''|*[!0-9]*)
                 echo "Must specify a numeric value for port when using --mqtt"
@@ -214,7 +216,7 @@ EOT
 # Generate snips-asr-google
 if [ "${SNIPS_COMPONENTS['snips-asr-google']}" = true ]
 then
-    echo Spawning /usr/bin/snips-asr-google $LOGLEVEL $SNIPS_ASR_GOOGLE_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_GOOGLE_MQTT_ARGS
+    echo "Spawning /usr/bin/snips-asr-google $LOGLEVEL $SNIPS_ASR_GOOGLE_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_GOOGLE_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 
 [program:snips-asr-google]
@@ -235,7 +237,7 @@ fi
 # Generate snips-asr
 if [ "${SNIPS_COMPONENTS['snips-asr']}" = true ]
 then
-    echo Spawning /usr/bin/snips-asr $LOGLEVEL $SNIPS_ASR_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_MQTT_ARGS
+    echo "Spawning /usr/bin/snips-asr $LOGLEVEL $SNIPS_ASR_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 
 [program:snips-asr]
@@ -256,7 +258,7 @@ fi
 # Generate snips-audio-server
 if [ "${SNIPS_COMPONENTS['snips-audio-server']}" = true ]
 then
-    echo Spawning /usr/bin/snips-audio-server $LOGLEVEL $SNIPS_AUDIO_SERVER_ARGS $SNIPS_MQTT_FLAG $SNIPS_AUDIO_SERVER_MQTT_ARGS
+    echo "Spawning /usr/bin/snips-audio-server $LOGLEVEL $SNIPS_AUDIO_SERVER_ARGS $SNIPS_MQTT_FLAG $SNIPS_AUDIO_SERVER_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 
 [program:snips-audio-server]
@@ -277,7 +279,7 @@ fi
 # Generate snips-tts
 if [ "${SNIPS_COMPONENTS['snips-tts']}" = true ]
 then
-    echo Spawning /usr/bin/snips-tts $LOGLEVEL $SNIPS_TTS_ARGS $SNIPS_MQTT_FLAG $SNIPS_TTS_MQTT_FLAG
+    echo "Spawning /usr/bin/snips-tts $LOGLEVEL $SNIPS_TTS_ARGS $SNIPS_MQTT_FLAG $SNIPS_TTS_MQTT_FLAG"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-tts]
 command=/usr/bin/snips-tts $LOGLEVEL $SNIPS_TTS_ARGS $SNIPS_MQTT_FLAG $SNIPS_TTS_MQTT_FLAG
@@ -297,7 +299,7 @@ fi
 # Generate snips-hotword
 if [ "${SNIPS_COMPONENTS['snips-hotword']}" = true ]
 then
-    echo Spawning /usr/bin/snips-hotword $SNIPS_HOTWORD_ARGS $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_HOTWORD_MQTT_ARGS
+    echo "Spawning /usr/bin/snips-hotword $SNIPS_HOTWORD_ARGS $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_HOTWORD_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-hotword]
 command=/usr/bin/snips-hotword $SNIPS_HOTWORD_ARGS $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_HOTWORD_MQTT_ARGS
@@ -317,7 +319,7 @@ fi
 # Generate snips-nlu
 if [ "${SNIPS_COMPONENTS['snips-nlu']}" = true ]
 then
-    echo Spawning /usr/bin/snips-nlu $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_QUERIES_MQTT_ARGS
+    echo "Spawning /usr/bin/snips-nlu $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_QUERIES_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-nlu]
 command=/usr/bin/snips-nlu $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_QUERIES_MQTT_ARGS
@@ -337,7 +339,7 @@ fi
 # Generate snips-dialogue
 if [ "${SNIPS_COMPONENTS['snips-dialogue']}" = true ]
 then
-    echo Spawning /usr/bin/snips-dialogue $LOGLEVEL $SNIPS_DIALOGUE_ARGS $SNIPS_MQTT_FLAG $SNIPS_DIALOGUE_MQTT_ARGS
+    echo "Spawning /usr/bin/snips-dialogue $LOGLEVEL $SNIPS_DIALOGUE_ARGS $SNIPS_MQTT_FLAG $SNIPS_DIALOGUE_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-dialogue]
 command=/usr/bin/snips-dialogue $LOGLEVEL $SNIPS_DIALOGUE_ARGS $SNIPS_MQTT_FLAG $SNIPS_DIALOGUE_MQTT_ARGS
@@ -357,7 +359,7 @@ fi
 # Generate snips-analytics
 if [ "${SNIPS_COMPONENTS['snips-analytics']}" = true ]
 then
-    echo Spawning /usr/bin/snips-analytics $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_ANALYTICS_MQTT_ARGS 
+    echo "Spawning /usr/bin/snips-analytics $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_ANALYTICS_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-analytics]
 command=/usr/bin/snips-analytics $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_ANALYTICS_MQTT_ARGS
@@ -402,4 +404,3 @@ fi
 
 export RUMQTT_READ_TIMEOUT_MS=50
 /usr/bin/supervisord -c $SUPERVISORD_CONF_FILE
-

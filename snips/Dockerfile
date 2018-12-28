@@ -20,7 +20,7 @@ RUN if [ "$BUILD_FROM" = "homeassistant/amd64-base-ubuntu" ]; then bash -c 'echo
     fi
 
 RUN apt update \
-    && apt install -y snips-platform-voice snips-asr \
+    && apt install -y snips-platform-voice snips-asr snips-watch \
     && chmod a+x /run.sh \
     && chmod a+x /usr/bin/customtts.sh \
     && chmod a+x /snips-entrypoint.sh \

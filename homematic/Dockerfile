@@ -37,6 +37,7 @@ RUN curl -SL https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz | tar x
     && cp -R packages-eQ-3/LinuxBasis/lib /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/bin /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/lib /opt/hm/ \
+    && cp -a packages-eQ-3/WebUI/etc/config_templates/InterfacesList.xml /opt/hm/etc/config/ \
     && cd ../ \
     && cp -r firmware / \
     && mv /firmware/HmIP-RFUSB/hmip_coprocessor_update.eq3 /firmware/HmIP-RFUSB/hmip_coprocessor_update-2.8.6.eq3 \

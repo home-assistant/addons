@@ -1,7 +1,7 @@
 # Changelog
 
 ## 5.1
-- Updated to snips 0.60.1
+- Updated to snips 0.60.8
 - Containers built from base images
 
 ## 5.0

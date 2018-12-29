@@ -9,8 +9,7 @@ COPY snips-entrypoint.sh /
 
 ARG BUILD_ARCH
 
-RUN echo nameserver 1.1.1.1 > /etc/resolv.conf \
-    && apt update \
+RUN && apt-get update \
     && apt-get install -y dirmngr apt-utils apt-transport-https jq unzip supervisor mpg123 curl tzdata \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "$BUILD_ARCH" = "amd64" ]; then \
@@ -21,8 +20,8 @@ RUN echo nameserver 1.1.1.1 > /etc/resolv.conf \
         && apt-key adv --keyserver pgp.surfnet.nl --recv-keys D4F50CDCA10A2849; \
     fi
 
-RUN apt update \
-    && apt install -y snips-platform-voice snips-asr snips-watch \
+RUN apt-get update \
+    && apt-get install -y snips-platform-voice snips-asr snips-watch \
     && chmod a+x /run.sh \
     && chmod a+x /usr/bin/customtts.sh \
     && chmod a+x /snips-entrypoint.sh \

@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armhf": "tschmidty/armhf-addon-snips:5",
-    "amd64": "tschmidty/amd64-addon-snips:5"
+    "armhf": "raspbian/stretch",
+    "amd64": "homeassistant/amd64-base-ubuntu:16.04"
   }
 }

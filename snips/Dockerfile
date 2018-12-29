@@ -20,7 +20,7 @@ RUN if [ "$BUILD_ARCH" = "amd64" ]; then bash -c 'echo "deb https://debian.snips
     fi
 
 RUN apt update \
-    && apt install -y snips-platform-voice snips-asr \
+    && apt install -y snips-platform-voice snips-asr snips-watch \
     && chmod a+x /run.sh \
     && chmod a+x /usr/bin/customtts.sh \
     && chmod a+x /snips-entrypoint.sh \

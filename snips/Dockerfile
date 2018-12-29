@@ -11,11 +11,13 @@ ARG BUILD_ARCH
 
 RUN echo nameserver 1.1.1.1 > /etc/resolv.conf \
     && apt update \
-    && apt-get install -y dirmngr apt-utils apt-transport-https jq unzip supervisor mpg123 curl tzdata
-
-RUN if [ "$BUILD_ARCH" = "amd64" ]; then bash -c 'echo "deb https://debian.snips.ai/stretch stable main" > /etc/apt/sources.list.d/snips.list' \
+    && apt-get install -y dirmngr apt-utils apt-transport-https jq unzip supervisor mpg123 curl tzdata \
+    && rm -rf /var/lib/apt/lists/* \
+    && if [ "$BUILD_ARCH" = "amd64" ]; then \
+        bash -c 'echo "deb https://debian.snips.ai/stretch stable main" > /etc/apt/sources.list.d/snips.list' \
         && apt-key adv --keyserver pgp.surfnet.nl --recv-keys F727C778CCB0A455; \
-    else bash -c 'echo "deb https://raspbian.snips.ai/stretch stable main" > /etc/apt/sources.list.d/snips.list' \
+    else \
+        bash -c 'echo "deb https://raspbian.snips.ai/stretch stable main" > /etc/apt/sources.list.d/snips.list' \
         && apt-key adv --keyserver pgp.surfnet.nl --recv-keys D4F50CDCA10A2849; \
     fi
 

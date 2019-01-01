@@ -2,7 +2,7 @@
   "name": "Configurator",
   "version": "2",
   "slug": "configurator",
-  "description": "Browser-based configuration file editor for Home Assistant.",
+  "description": "Browser-based configuration file editor (don't forget to set a password in the configuration after install)",
   "url": "https://home-assistant.io/addons/configurator",
   "startup": "application",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:3218]",

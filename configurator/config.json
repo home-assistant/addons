@@ -19,7 +19,7 @@
   ],
   "options": {
     "username": "admin",
-    "password": "admin",
+    "password": null,
     "ssl": false,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",

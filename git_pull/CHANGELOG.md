@@ -1,12 +1,15 @@
 # Changelog
 
+## 7.0
+- Update Hass.io CLI to 2.0.1
+
 ## 6.1
 - Bugfix in git diff command while comparing commits
 
-## 6
+## 6.0
 - Allow to disable Home Assistant restart for specific file changes
 
-## 5
+## 5.0
 - Update Hass.io CLI to 1.4.0
 - Add new API role profile
 

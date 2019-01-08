@@ -9,6 +9,5 @@ RUN apk add --no-cache jq samba-common-tools samba-common
 
 # Copy data
 COPY run.sh /
-RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

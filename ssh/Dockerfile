@@ -27,6 +27,4 @@ RUN apk add --no-cache curl \
 COPY run.sh /
 COPY motd /etc/
 
-RUN chmod a+x /run.sh
-
 CMD [ "/run.sh" ]

@@ -12,6 +12,5 @@ RUN apk add --no-cache jq curl libressl \
 
 # Copy data
 COPY *.sh /
-RUN chmod a+x /*.sh
 
 CMD [ "/run.sh" ]

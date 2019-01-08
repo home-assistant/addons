@@ -1,8 +1,8 @@
 # Changelog
 
-## 2
+## 2.0
 - Use new native Alpine RPi library for 64bit
 
-## 1
+## 1.0
 - Add support for Raspberry-pi 64bit
 - Update libCEC to 4.0.3

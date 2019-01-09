@@ -21,7 +21,8 @@ ARG BUILD_ARCH
 ARG CLI_VERSION
 RUN apk add --no-cache curl \
     && curl -Lso /usr/bin/hassio https://github.com/home-assistant/hassio-cli/releases/download/${CLI_VERSION}/hassio_${BUILD_ARCH} \
-    && chmod a+x /usr/bin/hassio
+    && chmod a+x /usr/bin/hassio \
+    && /usr/bin/hassio completion | sed "s/hassio-cli/hassio/g" > /usr/share/bash-completion/completions/hassio
 
 # Copy data
 COPY run.sh /

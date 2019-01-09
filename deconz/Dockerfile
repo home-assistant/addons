@@ -27,9 +27,9 @@ RUN apt-get update \
             && rm -rf /wiringpi.deb; \
         fi
 
-ARG DECONZ_VERSION
 
 # Install deCONZ
+ARG DECONZ_VERSION
 RUN if [[ "${BUILD_ARCH}" == "armhf" || "${BUILD_ARCH}" == "aarch64" ]]; \
         then \
             wget -O /deconz.deb https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
@@ -39,16 +39,10 @@ RUN if [[ "${BUILD_ARCH}" == "armhf" || "${BUILD_ARCH}" == "aarch64" ]]; \
     && dpkg -i /deconz.deb \
     && rm -f /deconz.deb \
     && mkdir /root/otau \
-    && chown root:root /usr/bin/deCONZ*
-
-# Create directory for persistent Hass.io config data
-# Workaround to persist ZigBee network data: change root's home dir to /data
-RUN mkdir /data \
+    && chown root:root /usr/bin/deCONZ* \
+    && echo -e "E:ID_VENDOR_ID=0403\nE:ID_MODEL_ID=6015" > /root/run/udev/data/c188:0 \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-# Copy run script and Conbee udev data; set execute permissions
-COPY root /
-RUN chmod +x /run.sh \
-    && chmod +x /firmware-update.sh
+COPY *.sh /
 
 CMD ["/run.sh"]

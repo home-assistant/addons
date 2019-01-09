@@ -1,7 +1,7 @@
 # Changelog
 
 ## 5.0
-- Update Hass.io CLI to 2.0.1
+- Update Hass.io CLI to 2.0.1, include bash completion
 
 ## 4.0
 - Update Hass.io CLI to 1.4.0

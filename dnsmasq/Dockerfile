@@ -11,6 +11,4 @@ RUN apk add --no-cache jq dnsmasq
 COPY run.sh /
 COPY dnsmasq.conf /etc/
 
-RUN chmod a+x /run.sh
-
 CMD [ "/run.sh" ]

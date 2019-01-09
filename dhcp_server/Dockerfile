@@ -11,6 +11,4 @@ RUN apk add --no-cache tzdata jq dhcp
 COPY run.sh /
 COPY dhcpd.conf /etc/
 
-RUN chmod a+x /run.sh
-
 CMD [ "/run.sh" ]

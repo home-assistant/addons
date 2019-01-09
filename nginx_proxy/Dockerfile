@@ -11,6 +11,4 @@ RUN apk add --no-cache nginx libressl
 COPY run.sh /
 COPY nginx.conf /etc/
 
-RUN chmod a+x /run.sh
-
 CMD [ "/run.sh" ]

@@ -55,7 +55,6 @@ COPY rfd.conf hs485d.conf crRFD.conf log4j.xml /etc/config/
 # Setup start script
 COPY run.sh /
 COPY hm-firmware.sh /usr/lib/
-RUN chmod a+x /run.sh
 
 WORKDIR /data
 CMD [ "/run.sh" ]

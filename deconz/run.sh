@@ -14,5 +14,6 @@ exec deCONZ \
     --dbg-otau=0 \
     --http-port=80 \
     --ws-port=8080 \
+    --upnp=0 \
     --dev="${DECONZ_DEVICE}"
     

@@ -20,7 +20,7 @@ RUN apt-get update \
         sqlite3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && if [ "${BUILD_ARCH}" == "armhf" ] || [ "${BUILD_ARCH}" == "aarch64" ]; \
+    && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
             curl -q -L -o /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \
             && dpkg -i /wiringpi.deb \
@@ -28,7 +28,7 @@ RUN apt-get update \
         fi
 
 # Install deCONZ
-RUN if [ "${BUILD_ARCH}" == "armhf" ] || [ "${BUILD_ARCH}" == "aarch64" ]; \
+RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
             curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
         else \

@@ -2,6 +2,7 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
+ARG DECONZ_VERSION
 
 # Install deCONZ dependencies
 RUN apt-get update \
@@ -20,7 +21,7 @@ RUN apt-get update \
         wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && if [[ "${BUILD_ARCH}" == "armhf" || "${BUILD_ARCH}" == "aarch64" ]]; \
+    && if [ "${BUILD_ARCH}" == "armhf" ] || [ "${BUILD_ARCH}" == "aarch64" ]; \
         then \
             wget -O /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \
             && dpkg -i /wiringpi.deb \
@@ -28,8 +29,7 @@ RUN apt-get update \
         fi
 
 # Install deCONZ
-ARG DECONZ_VERSION
-RUN if [[ "${BUILD_ARCH}" == "armhf" || "${BUILD_ARCH}" == "aarch64" ]]; \
+RUN if [ "${BUILD_ARCH}" == "armhf" ] || [ "${BUILD_ARCH}" == "aarch64" ]; \
         then \
             wget -O /deconz.deb https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
         else \

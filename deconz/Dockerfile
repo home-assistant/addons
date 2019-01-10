@@ -22,11 +22,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [[ "${BUILD_ARCH}" == "armhf" || "${BUILD_ARCH}" == "aarch64" ]]; \
         then \
-            wget -O /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb; \
-            && dpkg -i /wiringpi.deb; \
+            wget -O /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \
+            && dpkg -i /wiringpi.deb \
             && rm -rf /wiringpi.deb; \
         fi
-
 
 # Install deCONZ
 ARG DECONZ_VERSION
@@ -38,7 +37,7 @@ RUN if [[ "${BUILD_ARCH}" == "armhf" || "${BUILD_ARCH}" == "aarch64" ]]; \
         fi \
     && dpkg -i /deconz.deb \
     && rm -f /deconz.deb \
-    && mkdir /root/otau \
+    && mkdir -p /root/otau \
     && chown root:root /usr/bin/deCONZ* \
     && echo -e "E:ID_VENDOR_ID=0403\nE:ID_MODEL_ID=6015" > /root/run/udev/data/c188:0 \
     && sed -i 's/\/root/\/data/' /etc/passwd

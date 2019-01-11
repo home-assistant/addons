@@ -10,6 +10,7 @@ RUN apt-get update \
         curl \
         kmod \
         lsof \
+        tzdata \
         libcap2-bin \
         libqt5core5a \
         libqt5gui5 \

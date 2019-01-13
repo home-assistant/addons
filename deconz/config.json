@@ -7,7 +7,7 @@
     "url": "https://home-assistant.io/addons/deconz",
     "startup": "system",
     "boot": "auto",
-    "webui": "http://[HOST]:[PORT:8080]",
+    "webui": "http://[HOST]:[PORT:80]",
     "ports": {
         "80/tcp": 9880,
         "8080/tcp": 9881

@@ -15,13 +15,6 @@
     "auto_uart": true,
     "gpio": true,
     "apparmor": false,
-    "devices": [
-        "/dev/mem:/dev/mem:rw"  
-    ],
-    "privileged": [
-        "SYS_ADMIN",
-        "SYS_RAWIO"
-    ],
     "options": {
         "device": null
     },

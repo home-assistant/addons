@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armhf": "raspbian/stretch:041518",
+    "armhf": "homeassistant/armhf-base-raspbian:stretch",
     "amd64": "homeassistant/amd64-base-ubuntu:16.04"
   }
 }

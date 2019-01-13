@@ -3,7 +3,7 @@
     "version": "1.0",
     "slug": "deconz",
     "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
-    "arch": ["aarch64","amd64","armhf","i386"],
+    "arch": ["aarch64","amd64","armhf"],
     "url": "https://home-assistant.io/addons/deconz",
     "startup": "system",
     "boot": "auto",

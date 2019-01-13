@@ -16,10 +16,10 @@
     "gpio": true,
     "apparmor": false,
     "options": {
-        "deconz_device": null
+        "device": null
     },
     "schema": {
-        "deconz_device": "str"
+        "device": "str"
     },
     "image": "homeassistant/{arch}-addon-deconz"
 }

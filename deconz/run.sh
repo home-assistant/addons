@@ -2,7 +2,7 @@
 set -e
 
 CONFIG_PATH=/data/options.json
-DECONZ_DEVICE="$(jq --raw-output '.deconz_device' $CONFIG_PATH)"
+DECONZ_DEVICE="$(jq --raw-output '.device' $CONFIG_PATH)"
 
 exec deCONZ \
     -platform minimal \

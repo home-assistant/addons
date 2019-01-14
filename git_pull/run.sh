@@ -215,10 +215,13 @@ function validate-config {
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 
 while true; do
-    check-ssh-key
-    setup-user-password
-    git-synchronize
-    validate-config
+    if check-ssh-key ; then
+        if setup-user-password ; then
+            if git-synchronize ; then
+                validate-config
+            fi
+        fi
+    fi
      # do we repeat?
     if [ ! "$REPEAT_ACTIVE" == "true" ]; then
         exit 0

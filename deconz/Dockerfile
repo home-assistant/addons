@@ -40,8 +40,6 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
     && rm -f /deconz.deb \
     && chown root:root /usr/bin/deCONZ* \
     && mkdir -p /root/otau \
-    && mkdir -p /run/udev/data \
-    && echo -e "E:ID_VENDOR_ID=0403\nE:ID_MODEL_ID=6015" > /run/udev/data/c188:0 \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
 COPY *.sh /

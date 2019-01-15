@@ -28,7 +28,8 @@ deCONZ-otau-dl.sh &
 WAIT_PIDS+=($!)
 
 # Start OTA updates for IKEA
-
+ika-otau-dl.sh &
+WAIT_PIDS+=($!)
 
 # Register stop
 function stop_addon() {

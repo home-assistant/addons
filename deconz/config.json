@@ -12,9 +12,18 @@
         "80/tcp": 9880,
         "8080/tcp": 9881
     },
+    "kernel_modules": true,
     "auto_uart": true,
     "gpio": true,
     "apparmor": false,
+    "privileged": [
+        "SYS_MODULE",
+        "SYS_RAWIO"
+    ],
+    "devices": [
+        "/dev/bus/usb:/dev/bus/usb:rwm",
+        "/dev/mem:/dev/mem:rw"
+    ],
     "options": {
         "device": null
     },

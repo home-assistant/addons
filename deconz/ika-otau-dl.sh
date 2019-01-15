@@ -7,7 +7,7 @@ while true; do
     # fetch data
     if ! IKEA_DATA="$(curl -sL ${URL_IKEA})"; then
         echo "[Info] Can't fetch data from ikea!"
-        sleep 1800
+        sleep 18000
         continue
     fi
 
@@ -27,5 +27,5 @@ while true; do
         curl -s -L -o "${OTAU_FILE}" "${OTAU_URL}"
     done
 
-    sleep 18000
+    sleep 259200
 done

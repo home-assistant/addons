@@ -8,6 +8,7 @@
   "boot": "auto",
   "hassio_api": true,
   "hassio_role": "manager",
+  "auto_uart": true,
   "ports": {
     "22/tcp": 22
    },

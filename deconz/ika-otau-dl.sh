@@ -15,7 +15,7 @@ while true; do
     for (( i=0; i < "${IKEA_DATA_SIZE}"; i++ )); do
         OTAU_URL=$(echo "${IKEA_DATA}" | jq --raw-output ".[$i].fw_binary_url // empty")
 
-        if [ -n "${OTAU_URL}" ]; then
+        if [ -z "${OTAU_URL}" ]; then
             continue
         fi
 

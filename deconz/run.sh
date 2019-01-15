@@ -4,6 +4,10 @@ set -e
 CONFIG_PATH=/data/options.json
 DECONZ_DEVICE="$(jq --raw-output '.device' $CONFIG_PATH)"
 
+# List all devices
+GCFFlasher_internal -l
+
+# Start Gateway
 exec deCONZ \
     -platform minimal \
     --auto-connect=1 \

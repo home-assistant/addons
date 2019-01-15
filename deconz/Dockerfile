@@ -41,6 +41,7 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-COPY *.sh /
+COPY run.sh /
+COPY ika-otau-dl.sh /bin/
 
 CMD ["/run.sh"]

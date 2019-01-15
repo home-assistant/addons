@@ -39,7 +39,6 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
     && dpkg -i /deconz.deb \
     && rm -f /deconz.deb \
     && chown root:root /usr/bin/deCONZ* \
-    && mkdir -p /root/otau \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
 COPY *.sh /

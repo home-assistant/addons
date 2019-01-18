@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.1
+- Map all serial devices into container for manual adjustments
+
 ## 5.0
 - Update Hass.io CLI to 2.0.1, include bash completion
 

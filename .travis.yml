@@ -16,7 +16,7 @@ before_install:
 
 script:
  - docker run --rm -v $(pwd):/mnt koalaman/shellcheck **/*.sh
- - for addon_docker in **/Dockerfile; do docker run --rm hadolint/hadolint:v1.15.0 < "${addon_docker}"; done
+ - for addon_folder in */; do docker run --rm hadolint/hadolint:v1.15.0 < "${addon_folder}/Dockerfile"; done
  - cat -- **/*.json | docker run --rm -v $(pwd):/mnt stedolan/jq '.'
 
 matrix:

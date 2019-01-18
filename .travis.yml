@@ -12,10 +12,12 @@ before_install:
   - shopt -s globstar
   - docker pull koalaman/shellcheck
   - docker pull stedolan/jq
+  - docker pull hadolint/hadolint:v1.15.0
 
 script:
- - docker run -v $(pwd):/mnt koalaman/shellcheck **/*.sh
- - cat -- **/*.json | docker run -v $(pwd):/mnt stedolan/jq '.'
+ - docker run --rm -v $(pwd):/mnt koalaman/shellcheck **/*.sh
+ - for addon in *; do docker run --rm hadolint/hadolint:v1.15.0 < "${addon}/Dockerfile"; done
+ - cat -- **/*.json | docker run --rm -v $(pwd):/mnt stedolan/jq '.'
 
 matrix:
   fast_finish: true

@@ -126,13 +126,13 @@ function git-synchronize {
 
             # Always do a fetch to update repos
             echo "[Info] Start git fetch..."
-            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
+            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; return 1; }
 
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
               echo "[Info] Start git prune..."
-              git prune || { echo "[Error] Git prune failed"; exit 1; }
+              git prune || { echo "[Error] Git prune failed"; return 1; }
             fi
 
             # Do we switch branches?
@@ -149,11 +149,11 @@ function git-synchronize {
             case "$GIT_COMMAND" in
                 pull)
                     echo "[Info] Start git pull..."
-                    git pull || { echo "[Error] Git pull failed"; exit 1; }
+                    git pull || { echo "[Error] Git pull failed"; return 1; }
                     ;;
                 reset)
                     echo "[Info] Start git reset..."
-                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; return 1; }
                     ;;
                 *)
                     echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
@@ -217,8 +217,9 @@ cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
     setup-user-password
-    git-synchronize
-    validate-config
+    git-synchronize; if [ $? -ne 1 ] ; then
+        validate-config
+    fi
      # do we repeat?
     if [ ! "$REPEAT_ACTIVE" == "true" ]; then
         exit 0

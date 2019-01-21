@@ -217,7 +217,7 @@ cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
     setup-user-password
-    git-synchronize; if [ $? -ne 1 ] ; then
+    if git-synchronize ; then
         validate-config
     fi
      # do we repeat?

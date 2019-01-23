@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.1
+- Fix repeat option: don't terminate if internet connection unavailable during a check
+
 ## 7.0
 - Update Hass.io CLI to 2.0.1
 

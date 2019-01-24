@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.1
+- Enhance restart_ignore to support whole directories
+
 ## 7.0
 - Update Hass.io CLI to 2.0.1
 

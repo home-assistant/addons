@@ -1,6 +1,6 @@
 # Changelog
 
-## 7.1.1
+## 7.2
 - Fix restart_ignore when specifying a sub-directory
 
 ## 7.1

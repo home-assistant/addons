@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.2
+- Fix restart_ignore when specifying a sub-directory
+
 ## 7.1
 - Enhance restart_ignore to support whole directories
 - Fix repeat option: don't terminate if internet connection unavailable during a check

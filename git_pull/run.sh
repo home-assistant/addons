@@ -185,14 +185,14 @@ function validate-config {
                     for changed_file in $CHANGED_FILES; do
                         restart_required_file=""
                         for restart_ignored_file in $RESTART_IGNORED_FILES; do
-                            if [ -z "${restart_ignored_file#*/}" ]; then
+                            if [ -d "$restart_ignored_file" ]; then
                                 # file to be ignored is a whole dir
                                 restart_required_file=$(echo "${changed_file}" | grep "^${restart_ignored_file}")
                             else
                                 restart_required_file=$(echo "${changed_file}" | grep "^${restart_ignored_file}$")
                             fi
                             # break on first match
-                            if [ -n "$restart_required_file" ]; then break ; fi
+                            if [ -n "$restart_required_file" ]; then break; fi
                         done
                         if [ -z "$restart_required_file" ]; then
                             DO_RESTART="true"

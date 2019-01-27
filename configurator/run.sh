@@ -37,7 +37,7 @@ if [ -n "$SESAME_TOTP_SECRET" ]; then
 fi
 
 HASS_WS_API=$(jq --raw-output '.hass_ws_api // empty' $CONFIG_PATH)
-if [ ! -z "$HASS_WS_API" ]; then
+if [ -n "$HASS_WS_API" ]; then
     export HC_HASS_WS_API=$HASS_WS_API
 fi
 

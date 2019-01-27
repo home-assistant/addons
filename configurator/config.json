@@ -32,7 +32,8 @@
     "ignore_pattern": ["str"],
     "dirsfirst": "bool",
     "enforce_basepath": "bool",
-    "loglevel": "str?"
+    "loglevel": "str?",
+    "hass_ws_api": "str?"
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

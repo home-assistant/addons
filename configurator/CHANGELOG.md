@@ -2,10 +2,17 @@
 
 ## 3
 
-### Configurator 0.3.3
+### Configurator 0.3.4
 - Display covered last item in file browser
 - Proper displaying of file browser
 - Added support for long-lived JWT access tokens
+- Spelling fix
+- Added env_var tag exception
+- Event observer: disconnect on modal close
+- Added editor option to hide file / directory stats
+- Added hass_ws_api option to correctly prefill the websocket URL
+- Open common image formats in new tab
+- Update dependencies
 
 ## 2
 - Add access to folder: `/share`, `/backup`

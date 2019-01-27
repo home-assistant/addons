@@ -36,5 +36,10 @@ if [ -n "$SESAME_TOTP_SECRET" ]; then
     export HC_SESAME_TOTP_SECRET=$SESAME_TOTP_SECRET
 fi
 
+HASS_WS_API=$(jq --raw-output '.hass_ws_api // empty' $CONFIG_PATH)
+if [ ! -z "$HASS_WS_API" ]; then
+    export HC_HASS_WS_API=$HASS_WS_API
+fi
+
 # Run configurator
 exec python3 /configurator.py

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3
+- Bump deCONZ to 2.05.58
+- Support now Firmware updates over the Phoscon UI
+
 ## 1.2
 - Bump deCONZ to 2.05.57
 

@@ -5,6 +5,6 @@
       "armhf": "homeassistant/armhf-base-raspbian:stretch"
     },
     "args": {
-      "DECONZ_VERSION": "2.05.57"
+      "DECONZ_VERSION": "2.05.58"
     }
   }

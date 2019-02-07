@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6
+- Add DNS alias option to allow pointing a CNAME at a Duck DNS subdomain
+
 ## 1.5
 - Fix bug with multible domains for Let's encrypt
 

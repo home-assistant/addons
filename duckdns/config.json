@@ -15,6 +15,7 @@
     },
     "token": null,
     "domains": [null],
+    "aliases": [null],
     "seconds": 300
   },
   "schema": {
@@ -25,6 +26,9 @@
     },
     "token": "str",
     "domains": ["str"],
+    "aliases": [
+      {"domain": "str", "alias": "str"}
+    ],
     "seconds": "int"
   },
   "image": "homeassistant/{arch}-addon-duckdns"

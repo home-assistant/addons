@@ -1,10 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG BUILD_ARCH
-ARG DECONZ_VERSION
-
 # Install deCONZ dependencies
+ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y \
         curl \
@@ -30,6 +28,7 @@ RUN apt-get update \
         fi
 
 # Install deCONZ
+ARG DECONZ_VERSION
 RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
             curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/rpi/deconz/beta/deconz-${DECONZ_VERSION}-qt5.deb; \

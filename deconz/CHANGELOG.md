@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4
+- Bump deCONZ to 2.05.59
+- Remove the fake aarch64 version in favor of new arch selector
+
 ## 1.3
 - Bump deCONZ to 2.05.58
 - Support now Firmware updates over the Phoscon UI

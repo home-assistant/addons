@@ -1,10 +1,9 @@
 {
     "build_from": {
-      "aarch64": "homeassistant/armhf-base-raspbian:stretch",
       "amd64": "homeassistant/amd64-base-ubuntu:18.04",
       "armhf": "homeassistant/armhf-base-raspbian:stretch"
     },
     "args": {
-      "DECONZ_VERSION": "2.05.58"
+      "DECONZ_VERSION": "2.05.59"
     }
   }

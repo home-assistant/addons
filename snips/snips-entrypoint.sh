@@ -73,7 +73,7 @@ fi
 
 # Read "global" arguments
 USE_INTERNAL_MQTT=true
-ALL_SNIPS_COMPONENTS=("snips-asr-google" "snips-asr" "snips-audio-server" "snips-tts" "snips-hotword" "snips-nlu" "snips-dialogue" "snips-analytics" "snips-debug")
+ALL_SNIPS_COMPONENTS=("snips-asr-google" "snips-asr" "snips-injection" "snips-audio-server" "snips-tts" "snips-hotword" "snips-nlu" "snips-dialogue" "snips-analytics" "snips-debug")
 declare -A SNIPS_COMPONENTS
 for c in "${ALL_SNIPS_COMPONENTS[@]}"
 do

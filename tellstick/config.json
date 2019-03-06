@@ -4,6 +4,7 @@
   "slug": "tellstick",
   "description": "TellStick and TellStick Duo service.",
   "url": "https://home-assistant.io/addons/tellstick/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "system",
   "stdin": true,
   "boot": "auto",

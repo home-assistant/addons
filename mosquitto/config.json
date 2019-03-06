@@ -4,6 +4,7 @@
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://home-assistant.io/addons/mosquitto/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
   "map": ["ssl", "share"],

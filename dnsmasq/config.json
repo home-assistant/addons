@@ -4,6 +4,7 @@
   "slug": "dnsmasq",
   "description": "A simple DNS server",
   "url": "https://home-assistant.io/addons/dnsmasq/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
   "ports": {

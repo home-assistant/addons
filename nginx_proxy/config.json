@@ -4,6 +4,7 @@
   "slug": "nginx_proxy",
   "description": "An SSL/TLS proxy",
   "url": "https://home-assistant.io/addons/nginx_proxy/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
   "ports": {

@@ -4,6 +4,7 @@
   "slug": "samba",
   "description": "Expose Hass.io folders with SMB/CIFS",
   "url": "https://home-assistant.io/addons/samba/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
   "host_network": true,

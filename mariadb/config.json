@@ -4,6 +4,7 @@
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://home-assistant.io/addons/mariadb/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
   "ports": {

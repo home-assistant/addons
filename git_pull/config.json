@@ -4,6 +4,7 @@
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://home-assistant.io/addons/git_pull/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "manual",
   "hassio_api": true,

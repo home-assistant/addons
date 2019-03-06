@@ -4,6 +4,7 @@
   "slug": "rpc_shutdown",
   "description": "Simple way for remote windows shutdowns",
   "url": "https://home-assistant.io/addons/rpc_shutdown/",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
   "stdin": true,

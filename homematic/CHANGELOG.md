@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.1
+- Update OCCU to 3.43.15
+- Migrate to new arch layering
+- Better handling for errors with Firmware updates
+
 ## 8.0
 - Update OCCU to 3.41.11
 - Fix write error when starting OCCU / HmIP

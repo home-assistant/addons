@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 RUN apk add --no-cache \
         jq gcc \
         libffi-dev libressl-dev musl-dev \
-    && pip3 install --no-cache --upgrade pip
+    && pip3 install --no-cache --upgrade pip colorlog
 
 # Copy data
 COPY run.sh /

@@ -1,10 +1,10 @@
 {
   "name": "Check Home Assistant configuration",
-  "version": "0.9",
+  "version": "1.0",
   "slug": "check_config",
   "description": "Check current Home Assistant configuration against a new version",
   "url": "https://home-assistant.io/addons/check_config/",
-  "arch": ["armhf", "aarch64", "amd64", "i386"],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "boot": "manual",
   "map": ["config", "ssl"],

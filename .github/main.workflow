@@ -2,7 +2,7 @@ workflow "Checks" {
   on = "push"
   resolves = [
     "Shell-Scripts",
-    "home-assistant/actions/jq@master",
+    "JQ",
   ]
 }
 
@@ -11,7 +11,7 @@ action "Shell-Scripts" {
   args = "**/*.sh"
 }
 
-action "home-assistant/actions/jq@master" {
+action "JQ" {
   uses = "home-assistant/actions/jq@master"
   args = "**/*.json"
 }

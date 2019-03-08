@@ -24,7 +24,7 @@ RUN curl -SL https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz | tar x
     && mkdir -p /boot \
     && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
-    && if [ "${BUILD_ARCH}" = "armhf" ]; \
+    && if [ "${BUILD_ARCH}" = "armv7" ]; \
         then \
             cd arm-gnueabihf; \
         else \

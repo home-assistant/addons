@@ -243,7 +243,7 @@ while true; do
     if [ "$REPEAT_ACTIVE" == "true" ]; then
         sleep "$REPEAT_INTERVAL"
     # or do we just wait for incoming webhooks?
-    elif [ "$WEBHOOK_ACTIVE" == "true" ]; then
+    elif [ "$WEBHOOK_ACTIVE" == "true" -a "$WEBHOOK_RUNNING" != "true" ]; then
         wait $WEBHOOK_PID
     else
         exit 0

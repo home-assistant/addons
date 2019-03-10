@@ -1,6 +1,9 @@
 # Changelog
 
-## 2
+## 2.1
+- Update python version
+
+## 2.0
 - Add access to folder: `/share`, `/backup`
 
 ## 1.2

@@ -1,6 +1,6 @@
 {
   "build_from": {
-    "armv7": "homeassistant/armv7-base-ubuntu:18.4",
-    "amd64": "homeassistant/amd64-base-ubuntu:18.4"
+    "armv7": "homeassistant/armv7-base-ubuntu:18.04",
+    "amd64": "homeassistant/amd64-base-ubuntu:18.04"
   }
 }

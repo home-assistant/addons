@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.1
+- Update Samba to version 4.8.8
+
 ## 8.0
 - Fix access to /backup
 

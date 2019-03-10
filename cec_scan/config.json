@@ -4,7 +4,7 @@
   "slug": "cec_scan",
   "description": "Scan HDMI CEC devices",
   "url": "https://home-assistant.io/addons/cec_scan/",
-  "arch": ["armhf", "aarch64", "amd64", "i386"],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "boot": "manual",
   "devices": [

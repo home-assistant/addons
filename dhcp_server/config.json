@@ -1,10 +1,10 @@
 {
   "name": "DHCP server",
-  "version": "0.4",
+  "version": "1.0",
   "slug": "dhcp_server",
   "description": "A simple DHCP server",
   "url": "https://home-assistant.io/addons/dhcp_server/",
-  "arch": ["armhf", "aarch64", "amd64", "i386"],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
   "host_network": true,

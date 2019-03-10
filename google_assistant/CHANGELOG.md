@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2
+- Use homeassistant ubuntu base images
+
 ## 2.1
 - Add error handling for decoding UTF-8
 

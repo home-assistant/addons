@@ -1,12 +1,12 @@
 {
   "name": "Google Assistant SDK",
-  "version": "2.1",
+  "version": "2.2",
   "slug": "google_assistant",
   "description": "A virtual personal assistant developed by Google",
   "url": "https://home-assistant.io/addons/google_assistant/",
   "startup": "application",
   "boot": "auto",
-  "arch": ["armhf", "amd64"],
+  "arch": ["armv7", "amd64"],
   "map": ["share"],
   "audio": true,
   "ports": {

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6
+- Update Alpine images / OpenSSL
+
 ## 1.5
 - Fix bug with multible domains for Let's encrypt
 

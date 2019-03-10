@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3
+- Update certbot to 0.30.2
+
 ## 2.2
 - Bugfix not exists jq
 

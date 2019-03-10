@@ -1,10 +1,10 @@
 {
   "name": "MariaDB",
-  "version": "0.2",
+  "version": "1.0",
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://home-assistant.io/addons/mariadb/",
-  "arch": ["armhf", "aarch64", "amd64", "i386"],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
   "ports": {

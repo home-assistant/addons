@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq certbot py2-future
+RUN apk add --no-cache certbot
 
 # Copy data
 COPY run.sh /

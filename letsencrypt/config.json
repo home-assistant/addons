@@ -1,10 +1,10 @@
 {
   "name": "Let's Encrypt",
-  "version": "2.2",
+  "version": "2.3",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://home-assistant.io/addons/lets_encrypt/",
-  "arch": ["armhf", "aarch64", "amd64", "i386"],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "boot": "manual",
   "ports": {

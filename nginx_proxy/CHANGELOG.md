@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1
+- Update nginx to version 1.14.2
+
 ## 2.0
 - Update nginx to version 1.14.0
 

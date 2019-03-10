@@ -229,10 +229,6 @@ function validate-config {
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 
 if [ "$WEBHOOK_ACTIVE" == "true" -a "$WEBHOOK_RUNNING" != "true" ]; then
-    export WEBHOOK_TYPE=$(jq --raw-output ".webhook_type" $CONFIG_PATH)
-    export WEBHOOK_SECRET=$(jq --raw-output ".webhook_secret" $CONFIG_PATH)
-    export WEBHOOK_WHITELIST=$(jq --raw-output ".webhook_whitelist" $CONFIG_PATH)
-
     webhook -verbose -template -port 8004 -hooks /hook-template.json &
     WEBHOOK_PID=$!
 fi

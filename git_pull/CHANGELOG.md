@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.4
+
+- Allow triggering the synchronization via Webhooks
+
 ## 7.3
 
 - Update Hass.io CLI to 2.2.0

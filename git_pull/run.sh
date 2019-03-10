@@ -4,7 +4,6 @@
 
 CONFIG_PATH=/data/options.json
 
-WEBHOOK=$(jq --raw-output ".webhook" $CONFIG_PATH)
 DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
 DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
@@ -18,6 +17,10 @@ AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
+WEBHOOK_ACTIVE=$(jq --raw-output ".webhook.active" $CONFIG_PATH)
+WEBHOOK_TYPE=$(jq --raw-output ".webhook.type // empty" $CONFIG_PATH)
+WEBHOOK_SECRET=$(jq --raw-output ".webhook.secret" $CONFIG_PATH)
+WEBHOOK_WHITELIST=$(jq --raw-output ".webhook.whitelist // empty" $CONFIG_PATH)
 ################
 
 #### functions ####
@@ -225,24 +228,30 @@ function validate-config {
 #### Main program ####
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 
-if [ "$WEBHOOK" == "true" -a "$WEBHOOK_ACTIVE" != "true" ]; then
-    # Merge hook configuration with user-supplied options such as custom trigger rules
-    jq -s '[ .[0] * (.[1].webhook_config // {}) ]' /hook-template.json $CONFIG_PATH > /hook.json
+if [ "$WEBHOOK_ACTIVE" == "true" -a "$WEBHOOK_RUNNING" != "true" ]; then
+    export WEBHOOK_TYPE=$(jq --raw-output ".webhook_type" $CONFIG_PATH)
+    export WEBHOOK_SECRET=$(jq --raw-output ".webhook_secret" $CONFIG_PATH)
+    export WEBHOOK_WHITELIST=$(jq --raw-output ".webhook_whitelist" $CONFIG_PATH)
 
-    webhook -verbose -port 8004 -hooks /hook.json
-else
-    while true; do
-        check-ssh-key
-        setup-user-password
-        if git-synchronize ; then
-            validate-config
-        fi
-        # do we repeat?
-        if [ ! "$REPEAT_ACTIVE" == "true" ]; then
-            exit 0
-        fi
-        sleep "$REPEAT_INTERVAL"
-    done
+    webhook -verbose -template -port 8004 -hooks /hook-template.json &
+    WEBHOOK_PID=$!
 fi
+
+while true; do
+    check-ssh-key
+    setup-user-password
+    if git-synchronize ; then
+        validate-config
+    fi
+    # do we repeat?
+    if [ "$REPEAT_ACTIVE" == "true" ]; then
+        sleep "$REPEAT_INTERVAL"
+    # or do we just wait for incoming webhooks?
+    elif [ "$WEBHOOK_ACTIVE" == "true" ]; then
+        wait $WEBHOOK_PID
+    else
+        exit 0
+    fi
+done
 
 ###################

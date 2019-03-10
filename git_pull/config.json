@@ -14,7 +14,6 @@
     "8004/tcp": 8004
   },
   "options": {
-    "webhook": true,
     "deployment_key": [],
     "deployment_key_protocol": "rsa",
     "deployment_user": "",
@@ -32,10 +31,15 @@
     "repeat": {
       "active": false,
       "interval": 300
+    },
+    "webhook": {
+      "active": false,
+      "secret": null,
+      "type": "gitlab",
+      "whitelist": "0.0.0.0/0"
     }
   },
   "schema": {
-    "webhook": "bool",
     "deployment_key": ["str"],
     "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
     "deployment_user": "str",
@@ -50,6 +54,12 @@
     "repeat": {
       "active": "bool",
       "interval": "int"
+    },
+    "webhook": {
+      "active": "bool",
+      "secret": "?str",
+      "type": "?match(gitea|gogs|github|gitlab|simple)",
+      "whitelist": "?str"
     }
   },
   "image": "homeassistant/{arch}-addon-git_pull"

@@ -1,7 +1,95 @@
-{
-  "id": "pull",
-  "execute-command": "/run.sh",
-  "pass-environment-to-command" : [
-      { "source": "string", "envname": "WEBHOOK_ACTIVE", "name": "true" }
-  ]
-}
+{{ $secret    := getenv "WEBHOOK_SECRET" | js }}
+{{ $whitelist := getenv "WEBHOOK_WHITELIST" | js }}
+{{ $type      := getenv "WEBHOOK_TYPE" }}
+[
+  {
+    "id": "pull",
+    "execute-command": "/run.sh",
+    "pass-environment-to-command" : [
+        { "source": "string", "envname": "WEBHOOK_RUNNING", "name": "true" }
+    ],
+    "trigger-rule": {
+      "and": [
+        {{ if eq $type "github" }}
+        {
+          "match": {
+            "type": "payload-hash-sha1",
+            "secret": "{{ $secret }}",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hub-Signature"
+            }
+          }
+        },
+        {{ else if eq $type "github" }}
+        {
+          "match": {
+            "type": "value",
+            "value": "{{ $secret }}",
+            "parameter": {
+              "source": "header",
+              "name": "X-Gitlab-Token"
+            }
+          }
+        },
+        {{ else if eq $type "gitea" }}
+        {
+          "match": {
+            "type": "value",
+            "value": "{{ $secret }}",
+            "parameter": {
+              "source": "payload",
+              "name": "secret"
+            }
+          }
+        },
+        {{ else if eq $type "gogs" }}
+        {
+          "match": {
+            "type": "payload-hash-sha256",
+            "secret": "{{ $secret }}",
+            "parameter":
+            {
+              "source": "header",
+              "name": "X-Gogs-Signature"
+            }
+          }
+        },
+        {{ else if eq $type "simple" }}
+        {
+          "or": [
+            {
+              "match": {
+                "type": "value",
+                "value": "{{ $secret }}",
+                "parameter": {
+                  "source": "url",
+                  "name": "token"
+                }
+              }
+            },
+            {
+              "match": {
+                "type": "value",
+                "value": "{{ $secret }}",
+                "parameter": {
+                  "source": "url",
+                  "name": "secret"
+                }
+              }
+            }
+          ]
+        },
+        {{ end }}
+        {{ if $whitelist }}
+        {
+          "match": {
+            "type": "ip-whitelist",
+            "ip-range": "{{ $whitelist }}"
+          }
+        }
+        {{ end }}
+      ]
+    }
+  }
+]

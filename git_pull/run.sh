@@ -4,6 +4,7 @@
 
 CONFIG_PATH=/data/options.json
 
+WEBHOOK=$(jq --raw-output ".webhook" $CONFIG_PATH)
 DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
 DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
@@ -224,17 +225,24 @@ function validate-config {
 #### Main program ####
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 
-while true; do
-    check-ssh-key
-    setup-user-password
-    if git-synchronize ; then
-        validate-config
-    fi
-     # do we repeat?
-    if [ ! "$REPEAT_ACTIVE" == "true" ]; then
-        exit 0
-    fi
-    sleep "$REPEAT_INTERVAL"
-done
+if [ "$WEBHOOK" == "true" -a "$WEBHOOK_ACTIVE" != "true" ]; then
+    # Merge hook configuration with user-supplied options such as custom trigger rules
+    jq -s '[ .[0] * (.[1].webhook_config // {}) ]' /hook-template.json $CONFIG_PATH > /hook.json
+
+    webhook -verbose -port 8004 -hooks /hook.json
+else
+    while true; do
+        check-ssh-key
+        setup-user-password
+        if git-synchronize ; then
+            validate-config
+        fi
+        # do we repeat?
+        if [ ! "$REPEAT_ACTIVE" == "true" ]; then
+            exit 0
+        fi
+        sleep "$REPEAT_INTERVAL"
+    done
+fi
 
 ###################

@@ -1,0 +1,7 @@
+{
+  "id": "pull",
+  "execute-command": "/run.sh",
+  "pass-environment-to-command" : [
+      { "source": "string", "envname": "WEBHOOK_ACTIVE", "name": "true" }
+  ]
+}

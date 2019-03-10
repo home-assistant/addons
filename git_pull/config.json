@@ -10,7 +10,11 @@
   "hassio_api": true,
   "hassio_role": "homeassistant",
   "map": ["config:rw"],
+  "ports": {
+    "8004/tcp": 8004
+  },
   "options": {
+    "webhook": true,
     "deployment_key": [],
     "deployment_key_protocol": "rsa",
     "deployment_user": "",
@@ -31,6 +35,7 @@
     }
   },
   "schema": {
+    "webhook": "bool",
     "deployment_key": ["str"],
     "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
     "deployment_user": "str",

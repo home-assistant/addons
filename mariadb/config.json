@@ -1,6 +1,6 @@
 {
   "name": "MariaDB",
-  "version": "1.1",
+  "version": "1.2",
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://home-assistant.io/addons/mariadb/",

@@ -14,9 +14,6 @@ if [ ! -d "$MARIADB_DATA" ]; then
     mysql_install_db --user=root --datadir="$MARIADB_DATA" > /dev/null
 else
     echo "[INFO] Use exists mariadb initial system"
-    mysqlcheck --no-defaults --check-upgrade --auto-repair --databases mysql --skip-write-binlog > /dev/null || true
-    mysqlcheck --no-defaults --all-databases --fix-db-names --fix-table-names --skip-write-binlog > /dev/null || true
-    mysqlcheck --no-defaults --check-upgrade --all-databases --auto-repair --skip-write-binlog > /dev/null || true
 fi
 
 # Start mariadb
@@ -28,6 +25,11 @@ MARIADB_PID=$!
 while ! mysql -e "" 2> /dev/null; do
     sleep 1
 done
+
+echo "[INFO] Check data integrity and fix corruptions"
+mysqlcheck --no-defaults --check-upgrade --auto-repair --databases mysql --skip-write-binlog > /dev/null || true
+mysqlcheck --no-defaults --all-databases --fix-db-names --fix-table-names --skip-write-binlog > /dev/null || true
+mysqlcheck --no-defaults --check-upgrade --all-databases --auto-repair --skip-write-binlog > /dev/null || true
 
 # Init databases
 echo "[INFO] Init custom database"

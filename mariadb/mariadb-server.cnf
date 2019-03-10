@@ -1,0 +1,10 @@
+
+[server]
+
+[mysqld]
+
+datadir=/data/databases
+
+[galera]
+
+[mariadb]

@@ -6,7 +6,7 @@ ARG CERTBOT_VERSION
 RUN apk add --no-cache \
         openssl libffi musl libstdc++ \
     && apk add --no-cache --virtual .build-dependencies \
-        gcc g++ musl-dev openssl-dev \
+        g++ musl-dev openssl-dev libffi-dev \
     && pip3 install --no-cache-dir certbot==${CERTBOT_VERSION} \
     && apk del .build-dependencies
 

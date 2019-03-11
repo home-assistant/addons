@@ -1,11 +1,9 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Add env
-ENV LANG C.UTF-8
-
 # Setup base
-RUN apk add --no-cache certbot
+ARG CERTBOT_VERSION
+RUN pip3 install --no-cache-dir certbot==${CERTBOT_VERSION}
 
 # Copy data
 COPY run.sh /

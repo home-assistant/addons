@@ -22,7 +22,6 @@
     "ssl": false,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
-    "allowed_domains": ["hassio.local"],
     "ignore_pattern": ["__pycache__"],
     "dirsfirst": false,
     "enforce_basepath": false
@@ -31,7 +30,6 @@
     "ssl": "bool",
     "certfile": "str",
     "keyfile": "str",
-    "allowed_domains": ["str"],
     "ignore_pattern": ["str"],
     "dirsfirst": "bool",
     "enforce_basepath": "bool",

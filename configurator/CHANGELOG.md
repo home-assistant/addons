@@ -13,7 +13,6 @@
 - Added hass_ws_api option to correctly prefill the websocket URL
 - Open common image formats in new tab
 - Update dependencies
-- Added allowed_domains option
 
 ## 2.1
 - Update python version

@@ -1,6 +1,15 @@
 # Changelog
 
-## 4
+## 5.2
+- Update Hass.io CLI to 2.1.0
+
+## 5.1
+- Map all serial devices into container for manual adjustments
+
+## 5.0
+- Update Hass.io CLI to 2.0.1, include bash completion
+
+## 4.0
 - Update Hass.io CLI to 1.4.0
 - Add new API role profile
 - Update OpenSSH to 7.7

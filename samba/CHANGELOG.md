@@ -1,17 +1,20 @@
 # Changelog
 
-## 8
+## 8.1
+- Update Samba to version 4.8.8
+
+## 8.0
 - Fix access to /backup
 
-## 7
+## 7.0
 - Remove guest access
 - Cleanup structure
 - Use hostname for samba device name
 
-## 6
+## 6.0
 - Enable ntlm auth for Windows10
 
-## 5
+## 5.0
 - Update Samba to version 4.8.4
 
 ## 4.1

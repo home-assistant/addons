@@ -1,9 +1,10 @@
 {
   "name": "TellStick",
-  "version": "0.5",
+  "version": "1.0",
   "slug": "tellstick",
   "description": "TellStick and TellStick Duo service.",
   "url": "https://home-assistant.io/addons/tellstick/",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "stdin": true,
   "boot": "auto",

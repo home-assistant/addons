@@ -1,10 +1,9 @@
 {
   "build_from": {
-    "armhf": "homeassistant/armhf-base-ubuntu:18.04",
-    "amd64": "homeassistant/i386-base-ubuntu:18.04",
+    "armv7": "homeassistant/armv7-base-ubuntu:18.04",
     "i386": "homeassistant/i386-base-ubuntu:18.04"
   },
   "args": {
-    "OCCU_VERSION": "3.37.8"
+    "OCCU_VERSION": "3.43.15"
   }
 }

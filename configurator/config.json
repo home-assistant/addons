@@ -4,6 +4,7 @@
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:3218]",
   "homeassistant_api": true,

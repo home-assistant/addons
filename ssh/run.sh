@@ -28,7 +28,7 @@ elif [ -n "$PASSWORD" ]; then
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ yes/ /etc/ssh/sshd_config
     sed -i s/#PermitEmptyPasswords.*/PermitEmptyPasswords\ no/ /etc/ssh/sshd_config
 else
-    echo "[Error] You need setup a login!"
+    echo "[Error] You need to setup a login!"
     exit 1
 fi
 
@@ -44,7 +44,7 @@ else
     cp -fp "$KEYS_PATH"/* /etc/ssh/
 fi
 
-# Persist shell history by redirecting .ash_history to /data
+# Persist shell history by redirecting .bash_history to /data
 touch /data/.bash_history
 chmod 600 /data/.bash_history
 ln -s -f /data/.bash_history /root/.bash_history

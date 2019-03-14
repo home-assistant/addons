@@ -1,14 +1,16 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Add env
-ENV LANG C.UTF-8
-
 # Setup base
-RUN apk add --no-cache jq certbot py2-future
+ARG CERTBOT_VERSION
+RUN apk add --no-cache \
+        openssl libffi musl libstdc++ \
+    && apk add --no-cache --virtual .build-dependencies \
+        g++ musl-dev openssl-dev libffi-dev \
+    && pip3 install --no-cache-dir certbot==${CERTBOT_VERSION} \
+    && apk del .build-dependencies
 
 # Copy data
 COPY run.sh /
-RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

@@ -5,12 +5,10 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache tzdata jq dhcp
+RUN apk add --no-cache dhcp
 
 # Copy data
 COPY run.sh /
 COPY dhcpd.conf /etc/
-
-RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

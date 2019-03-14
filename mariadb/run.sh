@@ -26,6 +26,11 @@ while ! mysql -e "" 2> /dev/null; do
     sleep 1
 done
 
+echo "[INFO] Check data integrity and fix corruptions"
+mysqlcheck --no-defaults --check-upgrade --auto-repair --databases mysql --skip-write-binlog > /dev/null || true
+mysqlcheck --no-defaults --all-databases --fix-db-names --fix-table-names --skip-write-binlog > /dev/null || true
+mysqlcheck --no-defaults --check-upgrade --all-databases --auto-repair --skip-write-binlog > /dev/null || true
+
 # Init databases
 echo "[INFO] Init custom database"
 for line in $DATABASES; do

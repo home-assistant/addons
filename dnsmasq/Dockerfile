@@ -5,12 +5,10 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Setup base
-RUN apk add --no-cache jq dnsmasq
+RUN apk add --no-cache dnsmasq
 
 # Copy data
 COPY run.sh /
 COPY dnsmasq.conf /etc/
-
-RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

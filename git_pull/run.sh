@@ -14,6 +14,7 @@ GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
 GIT_PRUNE=$(jq --raw-output '.git_prune' $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
+RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 ################
@@ -125,13 +126,13 @@ function git-synchronize {
 
             # Always do a fetch to update repos
             echo "[Info] Start git fetch..."
-            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; exit 1; }
+            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; return 1; }
 
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
               echo "[Info] Start git prune..."
-              git prune || { echo "[Error] Git prune failed"; exit 1; }
+              git prune || { echo "[Error] Git prune failed"; return 1; }
             fi
 
             # Do we switch branches?
@@ -148,11 +149,11 @@ function git-synchronize {
             case "$GIT_COMMAND" in
                 pull)
                     echo "[Info] Start git pull..."
-                    git pull || { echo "[Error] Git pull failed"; exit 1; }
+                    git pull || { echo "[Error] Git pull failed"; return 1; }
                     ;;
                 reset)
                     echo "[Info] Start git reset..."
-                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; exit 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; return 1; }
                     ;;
                 *)
                     echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
@@ -170,15 +171,43 @@ function git-synchronize {
 }
 
 function validate-config {
-    echo "[Info] Check if something is changed"
+    echo "[Info] Checking if something has changed..."
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
-        echo "[Info] Something has changed, check Home-Assistant config"
+        echo "[Info] Something has changed, checking Home-Assistant config..."
         if hassio homeassistant check; then
             if [ "$AUTO_RESTART" == "true" ]; then
-                echo "[Info] Restart Home-Assistant"
-                hassio homeassistant restart 2&> /dev/null
+                DO_RESTART="false"
+                CHANGED_FILES=$(git diff "$OLD_COMMIT" "$NEW_COMMIT" --name-only)
+                echo "Changed Files: $CHANGED_FILES"
+                if [ -n "$RESTART_IGNORED_FILES" ]; then
+                    for changed_file in $CHANGED_FILES; do
+                        restart_required_file=""
+                        for restart_ignored_file in $RESTART_IGNORED_FILES; do
+                            if [ -d "$restart_ignored_file" ]; then
+                                # file to be ignored is a whole dir
+                                restart_required_file=$(echo "${changed_file}" | grep "^${restart_ignored_file}")
+                            else
+                                restart_required_file=$(echo "${changed_file}" | grep "^${restart_ignored_file}$")
+                            fi
+                            # break on first match
+                            if [ -n "$restart_required_file" ]; then break; fi
+                        done
+                        if [ -z "$restart_required_file" ]; then
+                            DO_RESTART="true"
+                            echo "[Info] Detected restart-required file: $changed_file"
+                        fi
+                    done
+                else
+                    DO_RESTART="true"
+                fi
+                if [ "$DO_RESTART" == "true" ]; then
+                    echo "[Info] Restart Home-Assistant"
+                    hassio homeassistant restart 2&> /dev/null
+                else
+                    echo "[Info] No Restart Required, only ignored changes detected"
+                fi
             else
                 echo "[Info] Local configuration has changed. Restart required."
             fi
@@ -198,8 +227,9 @@ cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
     setup-user-password
-    git-synchronize
-    validate-config
+    if git-synchronize ; then
+        validate-config
+    fi
      # do we repeat?
     if [ ! "$REPEAT_ACTIVE" == "true" ]; then
         exit 0

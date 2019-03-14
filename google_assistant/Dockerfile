@@ -19,6 +19,4 @@ RUN apt-get update \
 COPY run.sh /
 COPY *.py /
 
-RUN chmod a+x /run.sh
-
 ENTRYPOINT [ "/run.sh" ]

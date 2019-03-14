@@ -1,6 +1,6 @@
 # Changelog
 
-## 3
+## 3.0
 
 ### Configurator 0.3.4
 - Display covered last item in file browser
@@ -14,7 +14,10 @@
 - Open common image formats in new tab
 - Update dependencies
 
-## 2
+## 2.1
+- Update python version
+
+## 2.0
 - Add access to folder: `/share`, `/backup`
 
 ## 1.2

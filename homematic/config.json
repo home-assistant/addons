@@ -1,10 +1,11 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "5",
+  "version": "8.1",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
-  "arch": ["armhf", "i386", "amd64"],
+  "arch": ["armv7", "i386"],
+  "map": ["share:rw"],
   "startup": "system",
   "boot": "auto",
   "auto_uart": true,
@@ -16,12 +17,11 @@
     "2010/tcp": 2010
   },
   "options": {
-    "rf_enable": true,
+    "rf_enable": false,
     "rf": [
       {
         "type": "CCU2",
-        "device": "/dev/ttyAMA0",
-        "reset": false
+        "device": "/dev/ttyAMA0"
       }
     ],
     "wired_enable": false,
@@ -65,5 +65,5 @@
       }
     ]
   },
-  "image": "homeassistant/{arch}-addon-homeassistant"
+  "image": "homeassistant/{arch}-addon-homematic"
 }

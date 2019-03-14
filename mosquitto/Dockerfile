@@ -27,7 +27,5 @@ COPY run.sh /
 COPY auth_srv.sh /bin/
 COPY mosquitto.conf /etc/
 
-RUN chmod a+x /run.sh /bin/auth_srv.sh
-
 WORKDIR /
 CMD [ "/run.sh" ]

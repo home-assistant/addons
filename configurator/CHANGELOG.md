@@ -2,7 +2,7 @@
 
 ## 3.0
 
-### Configurator 0.3.4
+### Configurator 0.3.5
 - Display covered last item in file browser
 - Proper displaying of file browser
 - Added support for long-lived JWT access tokens
@@ -13,6 +13,7 @@
 - Added hass_ws_api option to correctly prefill the websocket URL
 - Open common image formats in new tab
 - Update dependencies
+- Added allowed_domains option
 
 ## 2.1
 - Update python version

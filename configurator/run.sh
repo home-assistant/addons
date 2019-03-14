@@ -11,6 +11,7 @@ export HC_IGNORE_SSL=false
 export HC_LISTENIP=127.0.0.1
 export HC_PORT=80
 
+export HC_ALLOWED_DOMAINS=$(jq --raw-output '.allowed_domains | join(",")' $CONFIG_PATH)
 export HC_ENFORCE_BASEPATH=$(jq --raw-output '.enforce_basepath' $CONFIG_PATH)
 export HC_IGNORE_PATTERN=$(jq --raw-output '.ignore_pattern | join(",")' $CONFIG_PATH)
 export HC_DIRSFIRST=$(jq --raw-output '.dirsfirst' $CONFIG_PATH)

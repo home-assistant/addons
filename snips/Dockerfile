@@ -10,9 +10,8 @@ COPY snips-entrypoint.sh /
 ARG BUILD_ARCH
 
 RUN apt-get update \
-    && apt-get install -y dirmngr apt-utils apt-transport-https jq unzip supervisor mpg123 curl tzdata
-
-RUN rm -rf /var/lib/apt/lists/* \
+    && apt-get install -y dirmngr apt-utils apt-transport-https jq unzip supervisor mpg123 curl tzdata \
+    && rm -rf /var/lib/apt/lists/* \
     && if [ "$BUILD_ARCH" = "amd64" ]; \
     then \
     bash -c 'echo "deb https://debian.snips.ai/stretch stable main" > /etc/apt/sources.list.d/snips.list' \

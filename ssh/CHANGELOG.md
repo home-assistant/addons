@@ -1,8 +1,5 @@
 # Changelog
 
-## 5.3
-- Fix: User root not allowed because account is locked
-
 ## 5.2
 - Update Hass.io CLI to 2.1.0
 

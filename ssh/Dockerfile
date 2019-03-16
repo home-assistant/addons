@@ -27,6 +27,5 @@ RUN apk add --no-cache curl \
 # Copy data
 COPY run.sh /
 COPY motd /etc/
-COPY sshd_config /etc/ssh/
 
 CMD [ "/run.sh" ]

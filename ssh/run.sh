@@ -17,6 +17,10 @@ if [ -n "$AUTHORIZED_KEYS" ]; then
 
     chmod 600 ~/.ssh/authorized_keys
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
+
+    # Unlook account
+    PASSWORD="$(strings /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c32)"
+    echo "root:$PASSWORD" | chpasswd 2&> /dev/null
 elif [ -n "$PASSWORD" ]; then
     echo "[INFO] Setup password login"
 

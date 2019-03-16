@@ -7,10 +7,6 @@ KEYS_PATH=/data/host_keys
 AUTHORIZED_KEYS=$(jq --raw-output ".authorized_keys[]" $CONFIG_PATH)
 PASSWORD=$(jq --raw-output ".password" $CONFIG_PATH)
 
-# Init defaults config
-sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
-sed -i s/#LogLevel.*/LogLevel\ DEBUG/ /etc/ssh/sshd_config
-
 if [ -n "$AUTHORIZED_KEYS" ]; then
     echo "[INFO] Setup authorized_keys"
 
@@ -21,6 +17,10 @@ if [ -n "$AUTHORIZED_KEYS" ]; then
 
     chmod 600 ~/.ssh/authorized_keys
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
+
+    # Unlook account
+    PASSWORD="$(strings /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c32)"
+    echo "root:$PASSWORD" | chpasswd 2&> /dev/null
 elif [ -n "$PASSWORD" ]; then
     echo "[INFO] Setup password login"
 

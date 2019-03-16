@@ -7,6 +7,10 @@ KEYS_PATH=/data/host_keys
 AUTHORIZED_KEYS=$(jq --raw-output ".authorized_keys[]" $CONFIG_PATH)
 PASSWORD=$(jq --raw-output ".password" $CONFIG_PATH)
 
+# Init defaults config
+sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
+sed -i s/#LogLevel.*/LogLevel\ DEBUG/ /etc/ssh/sshd_config
+
 if [ -n "$AUTHORIZED_KEYS" ]; then
     echo "[INFO] Setup authorized_keys"
 

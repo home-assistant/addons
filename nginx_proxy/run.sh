@@ -24,14 +24,6 @@ if [ ! -f "$SNAKEOIL_CERT" ]; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
-# Prepare config file
-sed -i "s/%%FULLCHAIN%%/$CERTFILE/g" /etc/nginx.conf
-sed -i "s/%%PRIVKEY%%/$KEYFILE/g" /etc/nginx.conf
-sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
-
-[ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\";"
-sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
-
 # Allow customize configs from share
 if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
     CUSTOMIZE_DEFAULT=$(jq --raw-output ".customize.default" $CONFIG_PATH)
@@ -39,6 +31,14 @@ if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
     CUSTOMIZE_SERVERS=$(jq --raw-output ".customize.servers" $CONFIG_PATH)
     sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
 fi
+
+# Postpone the variable replacement until after customizing
+sed -i "s/%%FULLCHAIN%%/$CERTFILE/g" /etc/nginx.conf
+sed -i "s/%%PRIVKEY%%/$KEYFILE/g" /etc/nginx.conf
+sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
+
+[ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\";"
+sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 # start server
 echo "[INFO] Running nginx..."

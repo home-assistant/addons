@@ -1,4 +1,4 @@
-#!/bin/bashio
+#!/usr/bin/bashio
 set -e
 
 WAIT_PIDS=()

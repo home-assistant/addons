@@ -8,6 +8,7 @@
   "homeassistant": "0.91.0",
   "startup": "application",
   "ingress": true,
+  "auth_api": true,
   "homeassistant_api": true,
   "boot": "auto",
   "map": [

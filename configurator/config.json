@@ -7,6 +7,7 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "homeassistant": "0.91.0",
   "startup": "application",
+  "webui": "http://[HOST]:[PORT:8080]",
   "ingress": true,
   "auth_api": true,
   "homeassistant_api": true,

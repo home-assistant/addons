@@ -17,6 +17,9 @@
     "share:rw",
     "ssl:rw"
   ],
+  "ports": {
+    "8080/tcp": null
+  },
   "options": {},
   "schema": {},
   "image": "homeassistant/{arch}-addon-configurator"

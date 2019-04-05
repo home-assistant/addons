@@ -4,8 +4,9 @@ set -e
 WAIT_PIDS=()
 
 # Setup and run Frontend
-sed -i "s/%%PORT%%/8080/g" /etc/nginx/nginx.conf
-nginx -c /etc/nginx/nginx.conf &
+sed -i "s/%%PORT%%/8080/g" /etc/nginx/nginx-ingress.conf
+sed -i "s/%%PORT_INGRESS%%/8099/g" /etc/nginx/nginx-ingress.conf
+nginx -c /etc/nginx/nginx-ingress.conf &
 WAIT_PIDS+=($!)
 
 # Setup and run configurator

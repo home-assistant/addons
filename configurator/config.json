@@ -5,7 +5,7 @@
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
-  "homeassistant": "0.91.0",
+  "homeassistant": "0.91.1",
   "startup": "application",
   "webui": "http://[HOST]:[PORT:8080]",
   "ingress": true,

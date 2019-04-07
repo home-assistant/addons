@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0
+- Add support for Home Assistant Add-on integration
+- Add Ingress support
+
 ## 1.4
 - Bump deCONZ to 2.05.59
 - Remove the fake aarch64 version in favor of new arch selector

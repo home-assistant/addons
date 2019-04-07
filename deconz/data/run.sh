@@ -1,14 +1,13 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bashio
 
-CONFIG_PATH=/data/options.json
-DECONZ_DEVICE="$(jq --raw-output '.device' $CONFIG_PATH)"
+DECONZ_DEVICE="$(bashio::config 'device')"
 WAIT_PIDS=()
 
 # List all devices
 GCFFlasher_internal -l
 
 # Start Gateway
+bashio::log.info "Start deCONZ gateway"
 deCONZ \
     -platform minimal \
     --auto-connect=1 \
@@ -24,21 +23,29 @@ deCONZ \
 WAIT_PIDS+=($!)
 
 # Start OTA updates for deCONZ
-deCONZ-otau-dl.sh &
+bashio::log.info "Run deCONZ OTA updater"
+deCONZ-otau-dl.sh > /dev/null &
 WAIT_PIDS+=($!)
 
 # Start OTA updates for IKEA
-ika-otau-dl.sh &
+bashio::log.info "Run IKEA OTA updater"
+ika-otau-dl.sh > /dev/null &
+WAIT_PIDS+=($!)
+
+# Start Ingress handler
+bashio::log.info "Start Ingress handler"
+nginx -c /etc/nginx/ingress.conf &
 WAIT_PIDS+=($!)
 
 # Register stop
 function stop_addon() {
-    echo "Kill Processes..."
+    bashio::log.debug "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
     wait "${WAIT_PIDS[@]}"
-    echo "Done."
+    bashio::log.debug "Done."
 }
 trap "stop_addon" SIGTERM SIGHUP
 
 # Wait until all is done
+bashio::log.info "deCONZ is setup and running"
 wait "${WAIT_PIDS[@]}"

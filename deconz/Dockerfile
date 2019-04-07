@@ -5,6 +5,7 @@ FROM $BUILD_FROM
 ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y \
+        nginx \
         curl \
         kmod \
         lsof \
@@ -40,7 +41,8 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-COPY run.sh /
-COPY ika-otau-dl.sh /bin/
+COPY data/run.sh /
+COPY data/ika-otau-dl.sh /bin/
+COPY data/nginx.conf /etc/nginx/ingress.conf
 
 CMD ["/run.sh"]

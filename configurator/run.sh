@@ -1,5 +1,4 @@
 #!/usr/bin/env bashio
-set -e
 
 WAIT_PIDS=()
 
@@ -16,10 +15,10 @@ WAIT_PIDS+=($!)
 
 # Register stop
 function stop_addon() {
-    bashio::log.info "Kill Processes..."
+    bashio::log.debug "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
     wait "${WAIT_PIDS[@]}"
-    bashio::log.info "Done."
+    bashio::log.debug "Done."
 }
 trap "stop_addon" SIGTERM SIGHUP
 

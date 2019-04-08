@@ -11,7 +11,7 @@ function _discovery_config() {
     echo "  \"service\": \"deconz\","
     echo "  \"config\": {"
     echo "    \"host\": \"$(hostname)\","
-    echo "    \"port\": 8080,"
+    echo "    \"port\": 80,"
     echo "    \"api_key\": \"${api_key}\","
     echo "    \"serial\": \"${serial}\""
     echo "  }"

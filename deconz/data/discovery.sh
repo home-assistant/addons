@@ -39,7 +39,7 @@ function _deconz_api() {
     local result
 
     if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:8080/api")"; then
-        basio::log.debug "${result}"
+        bashio::log.debug "${result}"
         bashio::log.error "Can't get API key from deCONZ gateway"
         return 20
     fi
@@ -47,7 +47,7 @@ function _deconz_api() {
 
 
     if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:8080/api/${api_key}/config")"; then
-        basio::log.debug "${result}"
+        bashio::log.debug "${result}"
         bashio::log.error "Can't get data from deCONZ gateway"
         return 20
     fi
@@ -81,7 +81,7 @@ function hassio_discovery() {
     if [ ! -f "$DATA_STORE" ]; then
         sleep 20
 
-        basio::log.info "Create API data for Home Assistant"
+        bashio::log.info "Create API data for Home Assistant"
         _deconz_api
     fi
 

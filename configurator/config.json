@@ -1,54 +1,27 @@
 {
   "name": "Configurator",
-  "version": "2.1",
+  "version": "3.0",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "homeassistant": "0.91.1",
   "startup": "application",
-  "webui": "[PROTO:ssl]://[HOST]:[PORT:3218]",
+  "webui": "http://[HOST]:[PORT:8080]",
+  "ingress": true,
+  "auth_api": true,
   "homeassistant_api": true,
   "boot": "auto",
-  "ports": {
-    "3218/tcp": 3218
-  },
   "map": [
     "backup:rw",
     "config:rw",
     "share:rw",
     "ssl:rw"
   ],
-  "options": {
-    "username": "admin",
-    "password": null,
-    "ssl": false,
-    "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem",
-    "allowed_networks": ["192.168.0.0/16", "172.30.0.0/16"],
-    "banned_ips": ["8.8.8.8"],
-    "banlimit": 0,
-    "ignore_pattern": ["__pycache__"],
-    "dirsfirst": false,
-    "enforce_basepath": false,
-    "notify_service": "persistent_notification.create"
+  "ports": {
+    "8080/tcp": null
   },
-  "schema": {
-    "username": "str",
-    "password": "match(.+)",
-    "ssl": "bool",
-    "certfile": "str",
-    "keyfile": "str",
-    "allowed_networks": ["str"],
-    "banned_ips": ["str"],
-    "banlimit": "int",
-    "ignore_pattern": ["str"],
-    "dirsfirst": "bool",
-    "enforce_basepath": "bool",
-    "notify_service": "str",
-    "sesame": "str?",
-    "sesame_totp_secret": "str?",
-    "loglevel": "str?",
-    "verify_hostname": "str?"
-  },
+  "options": {},
+  "schema": {},
   "image": "homeassistant/{arch}-addon-configurator"
 }

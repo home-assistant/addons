@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0
+- Update Python to version 3.7
+- Update Configurator to version 0.3.5
+- Migrate Add-on to new Ingress
+
 ## 2.1
 - Update python version
 
@@ -7,40 +12,16 @@
 - Add access to folder: `/share`, `/backup`
 
 ## 1.2
-
-### Configurator 0.3.2
-- Fixed numeric password regression
-- Fixed list-options (ALLOWED_NETWORKS, BANNED_IPS, IGNORE_PATTERN)
-- Improved handling of UTF-8 encoded files
+- Update Configurator to version 0.3.2
 
 ## 1.1
 - Fixed ssl certificate path bug
 
 ## 1.0
-
-### Configurator 0.3.1
-- Added basic git stash functionality
-- Added NOTIFY_SERVICE option
-- Notifying if used passwords are insecure and when SESAME has been used
-- PASSWORD can optionally be provided as SHA256 hash
-- Added SESAME_TOTP_SECRET for TOTP based IP whitelisting
-- Added git diff functionality
-- Red colored menu button as indicator for outdated version
-- Removed right dragging area for editor settings
-- Added IGNORE_SSL option to disable SSL verification when connecting to HASS API
-- Allow customizing loglevel
-- Show client IP address in network status modal
+- Update Configurator to version 0.3.1
 
 ## 0.4
 - Update Configurator to version 0.2.9
-- Material Icons and HASS-help now open in new tab instead of modal
-- Open file by URL
-- Added ENFORCE_BASEPATH option
-- Cosmetic fix for scaled viewports
-- Added search-function for entities
-- Updated Ace Editor to 1.3.3
-- Updated jQuery to 3.3.1
-- Updated js-yaml to 3.12.0
 
 ## 0.3
 - Update Configurator to version 0.2.8

@@ -46,6 +46,7 @@ function _deconz_api() {
     api_key="$(echo "${result}" | jq --raw-output '.[0].success.username')"
 
 
+    sleep 15
     if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:80/api/${api_key}/config")"; then
         bashio::log.debug "${result}"
         bashio::log.error "Can't get data from deCONZ gateway"
@@ -67,7 +68,7 @@ function _send_discovery() {
 
     # Send discovery info
     payload="$(_discovery_config "${api_key}" "${serial}")"
-    if bashio::api.hassio "POST" "discovery" "${payload}"; then
+    if bashio::api.hassio "POST" "/discovery" "${payload}"; then
         bashio::log.info "Success send discovery information to Home Assistant"
     else
         bashio::log.error "Discovery message to Home Assistant fails!"
@@ -79,7 +80,7 @@ function hassio_discovery() {
 
     # No API data exists - generate
     if [ ! -f "$DATA_STORE" ]; then
-        sleep 50
+        sleep 90
 
         bashio::log.info "Create API data for Home Assistant"
         _deconz_api

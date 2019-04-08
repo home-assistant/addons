@@ -43,7 +43,7 @@ function _deconz_api() {
         bashio::log.error "Can't get API key from deCONZ gateway"
         exit 20
     fi
-    api_key="$(echo "${result}" | jq --raw-output '.success.username')"
+    api_key="$(echo "${result}" | jq --raw-output '.[0].success.username')"
 
 
     if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:80/api/${api_key}/config")"; then
@@ -79,7 +79,7 @@ function hassio_discovery() {
 
     # No API data exists - generate
     if [ ! -f "$DATA_STORE" ]; then
-        sleep 40
+        sleep 50
 
         bashio::log.info "Create API data for Home Assistant"
         _deconz_api

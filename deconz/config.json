@@ -10,7 +10,8 @@
   "homeassistant": "0.91.1",
 	"webui": "http://[HOST]:[PORT:80]/pwa",
 	"ingress": true,
-	"ingress_entry": "pwa",
+  "ingress_entry": "pwa",
+  "discovery": ["deconz"],
   "ports": {
     "80/tcp": null,
     "8080/tcp": null

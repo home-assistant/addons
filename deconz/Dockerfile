@@ -41,7 +41,7 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-COPY data/run.sh /
+COPY data/run.sh data/discovery.sh /
 COPY data/ika-otau-dl.sh /bin/
 COPY data/nginx.conf /etc/nginx/ingress.conf
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bashio
 
+. /discovery.sh
+
 DECONZ_DEVICE="$(bashio::config 'device')"
 WAIT_PIDS=()
 
@@ -25,6 +27,11 @@ WAIT_PIDS+=($!)
 # Start OTA updates for deCONZ
 bashio::log.info "Run deCONZ OTA updater"
 deCONZ-otau-dl.sh > /dev/null &
+WAIT_PIDS+=($!)
+
+# Start Hass.io discovery
+bashio::log.info "Run Hass.io discovery task"
+(hassio_discovery) &
 WAIT_PIDS+=($!)
 
 # Start OTA updates for IKEA

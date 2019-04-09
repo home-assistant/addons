@@ -1,9 +1,13 @@
 # Changelog
 
+## 3.1
+- Add options `dirsfirst` and `enforce_basepath`
+
 ## 3.0
 - Update Python to version 3.7
 - Update Configurator to version 0.3.5
 - Migrate Add-on to new Ingress
+- Pin Home Assistant requirements to 0.91.1
 
 ## 2.1
 - Update python version

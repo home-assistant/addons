@@ -13,7 +13,7 @@ RUN apk add --no-cache \
   && pip install hass-configurator==${CONFIGURATOR_VERSION}
 
 # Copy data
-COPY configurator.conf /etc/
-COPY run.sh /
+COPY data/configurator.conf /etc/
+COPY data/run.sh /
 
 CMD ["/run.sh"]

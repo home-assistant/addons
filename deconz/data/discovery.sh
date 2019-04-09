@@ -40,8 +40,7 @@ function _deconz_api() {
 
     if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:80/api")"; then
         bashio::log.debug "${result}"
-        bashio::log.error "Can't get API key from deCONZ gateway"
-        exit 20
+        bashio::exit.nok "Can't get API key from deCONZ gateway"
     fi
     api_key="$(echo "${result}" | jq --raw-output '.[0].success.username')"
 
@@ -49,8 +48,7 @@ function _deconz_api() {
     sleep 15
     if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:80/api/${api_key}/config")"; then
         bashio::log.debug "${result}"
-        bashio::log.error "Can't get data from deCONZ gateway"
-        exit 20
+        bashio::exit.nok "Can't get data from deCONZ gateway"
     fi
     serial="$(echo "${result}" | jq --raw-output '.bridgeid')"
 

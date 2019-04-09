@@ -13,9 +13,14 @@
   "ingress_entry": "pwa/index.html",
   "discovery": ["deconz"],
   "ports": {
-    "80/tcp": null,
-    "8080/tcp": null
+    "80/tcp": 40850,
+    "8080/tcp": 40860
   },
+  "ports_description": {
+    "80/tcp": "deCONZ API backend",
+    "8080/tcp": "deCONZ WebSocket Server"
+  },
+  "host_network": true,
   "kernel_modules": true,
   "auto_uart": true,
   "gpio": true,

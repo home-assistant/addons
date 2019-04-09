@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "3.0",
+  "version": "3.1",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
@@ -21,7 +21,13 @@
   "ports": {
     "8080/tcp": null
   },
-  "options": {},
-  "schema": {},
+  "options": {
+    "dirsfirst": false,
+    "enforce_basepath": false
+  },
+  "schema": {
+    "dirsfirst": "bool",
+    "enforce_basepath": "bool"
+  },
   "image": "homeassistant/{arch}-addon-configurator"
 }

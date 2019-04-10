@@ -6,10 +6,10 @@ set -e
 WAIT_PIDS=()
 
 # Load config
-DECONZ_DEVICE="$(bashio::config 'device')"
-API_PORT="$(bashio::addon.port 80)"
-WEBSOCKET_PORT="$(bashio::addon.port 8080)"
-INGRESS_PORT="$(bashio::addon.ingress_port)"
+DECONZ_DEVICE=$(bashio::config 'device')
+API_PORT=$(bashio::addon.port 80)
+WEBSOCKET_PORT=$(bashio::addon.port 8080)
+INGRESS_PORT=$(bashio::addon.ingress_port)
 
 # Check if port is available
 if [ -z "${API_PORT}" ] || [ -z "${WEBSOCKET_PORT}" ]; then

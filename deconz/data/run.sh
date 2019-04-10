@@ -1,12 +1,20 @@
 #!/usr/bin/env bashio
+set -e
 
 . /discovery.sh
 
-DECONZ_DEVICE="$(bashio::config 'device')"
 WAIT_PIDS=()
 
-# List all devices
-GCFFlasher_internal -l
+# Load config
+DECONZ_DEVICE="$(bashio::config 'device')"
+API_PORT="$(bashio::addon.port 80)"
+WEBSOCKET_PORT="$(bashio::addon.port 8080)"
+INGRESS_PORT="$(bashio::addon.ingress_port)"
+
+# Check if port is available
+if [ -n "${API_PORT}" ] || [ -n "${WEBSOCKET_PORT}" ]; then
+    bashio::exit.nok "You need set API/Websocket port!"
+fi
 
 # Start Gateway
 bashio::log.info "Start deCONZ gateway"
@@ -18,8 +26,8 @@ deCONZ \
     --dbg-zcl=0 \
     --dbg-zdp=0 \
     --dbg-otau=0 \
-    --http-port=80 \
-    --ws-port=8080 \
+    --http-port=${API_PORT} \
+    --ws-port=${WEBSOCKET_PORT} \
     --upnp=0 \
     --dev="${DECONZ_DEVICE}" &
 WAIT_PIDS+=($!)
@@ -40,7 +48,10 @@ ika-otau-dl.sh > /dev/null &
 WAIT_PIDS+=($!)
 
 # Start Ingress handler
+bashio::net.wait_for "${INGRESS_PORT}"
 bashio::log.info "Start Ingress handler"
+
+sed -i "s/%%PORT%%/${INGRESS_PORT}/g" /etc/nginx/ingress.conf
 nginx -c /etc/nginx/ingress.conf &
 WAIT_PIDS+=($!)
 
@@ -48,6 +59,7 @@ WAIT_PIDS+=($!)
 function stop_addon() {
     bashio::log.debug "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
+
     wait "${WAIT_PIDS[@]}"
     bashio::log.debug "Done."
 }

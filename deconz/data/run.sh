@@ -48,7 +48,6 @@ ika-otau-dl.sh > /dev/null &
 WAIT_PIDS+=($!)
 
 # Start Ingress handler
-bashio::net.wait_for "${INGRESS_PORT}"
 bashio::log.info "Start Ingress handler"
 
 sed -i "s/%%PORT%%/${INGRESS_PORT}/g" /etc/nginx/ingress.conf

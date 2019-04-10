@@ -12,7 +12,7 @@ WEBSOCKET_PORT="$(bashio::addon.port 8080)"
 INGRESS_PORT="$(bashio::addon.ingress_port)"
 
 # Check if port is available
-if [ -n "${API_PORT}" ] || [ -n "${WEBSOCKET_PORT}" ]; then
+if [ -z "${API_PORT}" ] || [ -z "${WEBSOCKET_PORT}" ]; then
     bashio::exit.nok "You need set API/Websocket port!"
 fi
 

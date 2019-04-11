@@ -37,6 +37,7 @@ function _deconz_api() {
     local api_port
 
     api_port=$(bashio::addon.port 80)
+    while ! nc -z localhost ${api_port} </dev/null; do sleep 10; done
 
     if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:${api_port}/api")"; then
         bashio::log.debug "${result}"
@@ -65,7 +66,6 @@ function _send_discovery() {
 
     # Send discovery info
     payload="$(_discovery_config "${api_key}" "${serial}")"
-    bashio::log.info "${payload}"
     if bashio::api.hassio "POST" "/discovery" "${payload}"; then
         bashio::log.info "Success send discovery information to Home Assistant"
     else
@@ -78,8 +78,6 @@ function hassio_discovery() {
 
     # No API data exists - generate
     if [ ! -f "$DATA_STORE" ]; then
-        sleep 90
-
         bashio::log.info "Create API data for Home Assistant"
         _deconz_api
     fi

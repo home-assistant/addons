@@ -8,8 +8,8 @@
   "startup": "system",
   "boot": "auto",
   "homeassistant": "0.91.2",
-	"webui": "http://[HOST]:[PORT:80]/pwa",
-	"ingress": true,
+  "webui": "http://[HOST]:[PORT:80]/pwa",
+  "ingress": true,
   "ingress_entry": "pwa/index.html",
   "discovery": ["deconz"],
   "ports": {

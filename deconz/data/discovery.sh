@@ -15,10 +15,9 @@ function _discovery_config() {
         serial "${serial}" \
     )
 
-    echo "$(bashio::var.json \
+    bashio::var.json \
             service deconz \
-            config "${config}" \
-    )"
+            config "${config}"
 }
 
 
@@ -27,7 +26,7 @@ function _save_data() {
     local serial=${2}
     local config
 
-    echo "$(bashio::var.json api_key "${api_key}" serial "${serial}")" > ${DATA_STORE}
+    bashio::var.json api_key "${api_key}" serial "${serial}" > ${DATA_STORE}
     bashio::log.debug "Store API information to ${DATA_STORE}"
 }
 

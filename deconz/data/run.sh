@@ -10,6 +10,7 @@ DECONZ_DEVICE=$(bashio::config 'device')
 API_PORT=$(bashio::addon.port 80)
 WEBSOCKET_PORT=$(bashio::addon.port 8080)
 INGRESS_PORT=$(bashio::addon.ingress_port)
+INGRESS_INTERFACE=$(bashio::addon.ip_address)
 
 # Check if port is available
 if [ -z "${API_PORT}" ] || [ -z "${WEBSOCKET_PORT}" ]; then
@@ -51,6 +52,7 @@ WAIT_PIDS+=($!)
 bashio::log.info "Start Ingress handler"
 
 sed -i "s/%%PORT%%/${INGRESS_PORT}/g" /etc/nginx/ingress.conf
+sed -i "s/%%INTERFACE%%/${INGRESS_INTERFACE}/g" /etc/nginx/ingress.conf
 nginx -c /etc/nginx/ingress.conf &
 WAIT_PIDS+=($!)
 

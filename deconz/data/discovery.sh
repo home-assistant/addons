@@ -65,6 +65,7 @@ function _send_discovery() {
 
     # Send discovery info
     payload="$(_discovery_config "${api_key}" "${serial}")"
+    bashio::log.info "${payload}"
     if bashio::api.hassio "POST" "/discovery" "${payload}"; then
         bashio::log.info "Success send discovery information to Home Assistant"
     else

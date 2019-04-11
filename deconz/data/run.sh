@@ -38,11 +38,6 @@ bashio::log.info "Run deCONZ OTA updater"
 deCONZ-otau-dl.sh &> /dev/null &
 WAIT_PIDS+=($!)
 
-# Start Hass.io discovery
-bashio::log.info "Run Hass.io discovery task"
-(hassio_discovery) &
-WAIT_PIDS+=($!)
-
 # Start OTA updates for IKEA
 bashio::log.info "Run IKEA OTA updater"
 ika-otau-dl.sh &> /dev/null &
@@ -65,6 +60,10 @@ function stop_addon() {
     bashio::log.debug "Done."
 }
 trap "stop_addon" SIGTERM SIGHUP
+
+# Start Hass.io discovery
+bashio::log.info "Run Hass.io discovery task"
+hassio_discovery
 
 # Wait until all is done
 bashio::log.info "deCONZ is setup and running"

@@ -79,6 +79,8 @@ function hassio_discovery() {
     # No API data exists - generate
     if [ ! -f "$DATA_STORE" ]; then
         bashio::log.info "Create API data for Home Assistant"
+        sleep 10
+
         _deconz_api
     fi
 

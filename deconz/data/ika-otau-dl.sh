@@ -2,7 +2,8 @@
 
 URL_IKEA="http://fw.ota.homesmart.ikea.net/feed/version_info.json"
 
-while true; do
+while true
+do
 
     # fetch data
     if ! IKEA_DATA="$(curl -sL ${URL_IKEA})"; then

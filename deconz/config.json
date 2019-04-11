@@ -1,34 +1,44 @@
 {
-    "name": "deCONZ",
-    "version": "1.4",
-    "slug": "deconz",
-    "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
-    "arch": ["amd64", "armhf"],
-    "url": "https://home-assistant.io/addons/deconz",
-    "startup": "system",
-    "boot": "auto",
-    "webui": "http://[HOST]:[PORT:80]",
-    "ports": {
-        "80/tcp": 9880,
-        "8080/tcp": 9881
-    },
-    "kernel_modules": true,
-    "auto_uart": true,
-    "gpio": true,
-    "apparmor": false,
-    "privileged": [
-        "SYS_MODULE",
-        "SYS_RAWIO"
-    ],
-    "devices": [
-        "/dev/bus/usb:/dev/bus/usb:rwm",
-        "/dev/mem:/dev/mem:rw"
-    ],
-    "options": {
-        "device": null
-    },
-    "schema": {
-        "device": "str"
-    },
-    "image": "homeassistant/{arch}-addon-deconz"
+  "name": "deCONZ",
+  "version": "2.0",
+  "slug": "deconz",
+  "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
+  "arch": ["amd64", "armhf"],
+  "url": "https://home-assistant.io/addons/deconz",
+  "startup": "system",
+  "boot": "auto",
+  "homeassistant": "0.91.2",
+  "webui": "http://[HOST]:[PORT:80]/pwa",
+  "ingress": true,
+  "ingress_port": 0,
+  "ingress_entry": "pwa/index.html",
+  "discovery": ["deconz"],
+  "ports": {
+    "80/tcp": 40850,
+    "8080/tcp": 40860
+  },
+  "ports_description": {
+    "80/tcp": "deCONZ API backend",
+    "8080/tcp": "deCONZ WebSocket Server"
+  },
+  "host_network": true,
+  "kernel_modules": true,
+  "auto_uart": true,
+  "gpio": true,
+  "apparmor": false,
+  "privileged": [
+    "SYS_MODULE",
+    "SYS_RAWIO"
+  ],
+  "devices": [
+    "/dev/bus/usb:/dev/bus/usb:rwm",
+    "/dev/mem:/dev/mem:rw"
+  ],
+  "options": {
+   "device": null
+  },
+  "schema": {
+    "device": "str"
+  },
+  "image": "homeassistant/{arch}-addon-deconz"
 }

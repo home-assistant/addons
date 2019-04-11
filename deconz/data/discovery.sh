@@ -17,7 +17,7 @@ function _discovery_config() {
 
     bashio::var.json \
             service deconz \
-            config "${config}"
+            config "^${config}"
 }
 
 

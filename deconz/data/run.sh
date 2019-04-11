@@ -35,7 +35,7 @@ WAIT_PIDS+=($!)
 
 # Start OTA updates for deCONZ
 bashio::log.info "Run deCONZ OTA updater"
-deCONZ-otau-dl.sh > /dev/null &
+deCONZ-otau-dl.sh &> /dev/null &
 WAIT_PIDS+=($!)
 
 # Start Hass.io discovery
@@ -45,7 +45,7 @@ WAIT_PIDS+=($!)
 
 # Start OTA updates for IKEA
 bashio::log.info "Run IKEA OTA updater"
-ika-otau-dl.sh > /dev/null &
+ika-otau-dl.sh &> /dev/null &
 WAIT_PIDS+=($!)
 
 # Start Ingress handler

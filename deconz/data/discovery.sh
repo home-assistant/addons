@@ -6,16 +6,19 @@ DATA_STORE="/data/hassio.json"
 function _discovery_config() {
     local api_key=${1}
     local serial=${2}
+    local config
 
-    echo "{"
-    echo "  \"service\": \"deconz\","
-    echo "  \"config\": {"
-    echo "    \"host\": \"$(bashio::addon.ip_address)\","
-    echo "    \"port\": $(bashio::addon.port 80),"
-    echo "    \"api_key\": \"${api_key}\","
-    echo "    \"serial\": \"${serial}\""
-    echo "  }"
-    echo "}"
+    config=$(bashio::var.json \
+        host "$(bashio::addon.ip_address)" \
+        port "^$(bashio::addon.port 80)" \
+        api_key "${api_key}" \
+        serial "${serial}" \
+    )
+
+    echo "$(bashio::var.json \
+            service deconz \
+            config "${config}" \
+    )"
 }
 
 
@@ -24,7 +27,7 @@ function _save_data() {
     local serial=${2}
     local config
 
-    $(bashio::var.json api_key "${api_key}" serial "${serial}") > ${DATA_STORE}
+    echo "$(bashio::var.json api_key "${api_key}" serial "${serial}")" > ${DATA_STORE}
     bashio::log.debug "Store API information to ${DATA_STORE}"
 }
 

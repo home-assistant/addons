@@ -22,10 +22,12 @@
     "8080/tcp": null
   },
   "options": {
+    "ignore_pattern": ["__pycache__"],
     "dirsfirst": false,
     "enforce_basepath": false
   },
   "schema": {
+    "ignore_pattern": ["str"],
     "dirsfirst": "bool",
     "enforce_basepath": "bool"
   },

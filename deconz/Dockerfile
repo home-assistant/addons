@@ -34,16 +34,14 @@ RUN apt-get update \
 
 # Install deCONZ
 ARG DECONZ_VERSION
-RUN curl -fsSL http://phoscon.de/apt/deconz.pub.key | apt-key add - \
-    && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
+RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
-            echo "deb http://phoscon.de/apt/deconz $(lsb_release -cs) main" > /etc/apt/sources.list.d/deconz.list; \
+            curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/rpi/deconz/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
         else \
-            echo "deb [arch=amd64] http://phoscon.de/apt/deconz $(lsb_release -cs) main" > /etc/apt/sources.list.d/deconz.list; \
+            curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
         fi \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends deconz=${DECONZ_VERSION} \
-    && rm -rf /var/lib/apt/lists/* \
+    && dpkg -i /deconz.deb \
+    && rm -f /deconz.deb \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 

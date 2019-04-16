@@ -1,6 +1,9 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# Set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Install deCONZ dependencies
 ARG BUILD_ARCH
 RUN apt-get update \
@@ -29,7 +32,7 @@ RUN apt-get update \
 
 # Install deCONZ
 ARG DECONZ_VERSION
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+RUN curl -fsSL http://phoscon.de/apt/deconz.pub.key | apt-key add - \
     && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
             echo "deb http://phoscon.de/apt/deconz $(lsb_release -cs) main" > /etc/apt/sources.list.d/deconz.list; \

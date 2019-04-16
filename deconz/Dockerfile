@@ -4,8 +4,7 @@ FROM $BUILD_FROM
 # Install deCONZ dependencies
 ARG BUILD_ARCH
 RUN apt-get update \
-    && apt-get install -y \
-        nginx \
+    && apt-get install -y --no-install-recommends \
         curl \
         kmod \
         lsof \
@@ -20,7 +19,6 @@ RUN apt-get update \
         libqt5websockets5 \
         libqt5widgets5 \
         sqlite3 \
-    && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
@@ -31,19 +29,20 @@ RUN apt-get update \
 
 # Install deCONZ
 ARG DECONZ_VERSION
-RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+    && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
-            curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/rpi/deconz/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
+            echo "deb http://phoscon.de/apt/deconz $(lsb_release -cs) main" > /etc/apt/sources.list.d/deconz.list; \
         else \
-            curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
+            echo "deb [arch=amd64] http://phoscon.de/apt/deconz $(lsb_release -cs) main" > /etc/apt/sources.list.d/deconz.list; \
         fi \
-    && dpkg -i /deconz.deb \
-    && rm -f /deconz.deb \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends deconz=${DECONZ_VERSION} \
+    && rm -rf /var/lib/apt/lists/* \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
 COPY data/run.sh data/discovery.sh /
 COPY data/ika-otau-dl.sh /bin/
-COPY data/nginx.conf /etc/nginx/ingress.conf
 
 CMD ["/run.sh"]

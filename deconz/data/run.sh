@@ -43,15 +43,6 @@ bashio::log.info "Run IKEA OTA updater"
 ika-otau-dl.sh &> /dev/null &
 WAIT_PIDS+=($!)
 
-# Start Ingress handler
-bashio::log.info "Start Ingress handler"
-
-sed -i "s/%%PORT%%/${API_PORT}/g" /etc/nginx/ingress.conf
-sed -i "s/%%INGRESS_PORT%%/${INGRESS_PORT}/g" /etc/nginx/ingress.conf
-sed -i "s/%%INGRESS_INTERFACE%%/${INGRESS_INTERFACE}/g" /etc/nginx/ingress.conf
-nginx -c /etc/nginx/ingress.conf &
-WAIT_PIDS+=($!)
-
 # Register stop
 function stop_addon() {
     bashio::log.debug "Kill Processes..."

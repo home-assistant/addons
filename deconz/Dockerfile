@@ -1,11 +1,13 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# Set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Install deCONZ dependencies
 ARG BUILD_ARCH
 RUN apt-get update \
-    && apt-get install -y \
-        nginx \
+    && apt-get install -y --no-install-recommends \
         curl \
         kmod \
         lsof \
@@ -20,7 +22,6 @@ RUN apt-get update \
         libqt5websockets5 \
         libqt5widgets5 \
         sqlite3 \
-    && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
@@ -44,6 +45,5 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
 
 COPY data/run.sh data/discovery.sh /
 COPY data/ika-otau-dl.sh /bin/
-COPY data/nginx.conf /etc/nginx/ingress.conf
 
 CMD ["/run.sh"]

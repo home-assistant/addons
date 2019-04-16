@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "2.0",
+  "version": "2.1",
   "slug": "deconz",
   "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf"],
@@ -8,10 +8,7 @@
   "startup": "system",
   "boot": "auto",
   "homeassistant": "0.91.2",
-  "webui": "http://[HOST]:[PORT:80]/pwa",
-  "ingress": true,
-  "ingress_port": 0,
-  "ingress_entry": "pwa/index.html",
+  "webui": "http://[HOST]:[PORT:80]/pwa/index.html",
   "discovery": ["deconz"],
   "ports": {
     "80/tcp": 40850,

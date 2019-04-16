@@ -2,8 +2,6 @@
 
 Add-on to allow Home Assistant to control a ZigBee network with Conbee or RaspBee hardware by Dresden Elektronik.
 
-**Note:** The Ingress support allow to load the Phoscon APP external of the Network, but they discovery only device inside same Network. That is a limitation of Phoscon APP and not Ingress itself.
-
 ## First Steps
 
 If using RaspBee, you may need to edit `config.txt` on the root of your SD card for your RaspBee to be recognized and assigned a device name. Add folling information to `config.txt`:

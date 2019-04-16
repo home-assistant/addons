@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1
+
+- Bump deCONZ to 2.05.63
+- Remove Ingress support / Don't run well with SSL
+
 ## 2.0
 
 - Add support for Home Assistant Add-on integration

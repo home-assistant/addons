@@ -13,8 +13,6 @@ RUN apt-get update \
         lsof \
         tzdata \
         netcat \
-        gnupg-agen \
-        software-properties-common \
         libcap2-bin \
         libqt5core5a \
         libqt5gui5 \

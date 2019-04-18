@@ -9,6 +9,7 @@ ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
+AUTH_QUIET_LOGS=$(jq --raw-output ".quiet_logs" $CONFIG_PATH)
 HOMEASSISTANT_PW=
 ADDONS_PW=
 WAIT_PIDS=()
@@ -86,6 +87,7 @@ function constrain_discovery() {
 
 echo "[INFO] Setup mosquitto configuration"
 sed -i "s/%%ANONYMOUS%%/$ANONYMOUS/g" /etc/mosquitto.conf
+sed -i "s/%%AUTH_QUIET_LOGS%%/$AUTH_QUIET_LOGS/g" /etc/mosquitto.conf
 
 # Enable SSL if exists configs
 if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then

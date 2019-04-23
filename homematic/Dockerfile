@@ -49,11 +49,11 @@ RUN curl -SL https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz | tar x
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files
-COPY rfd.conf hs485d.conf crRFD.conf log4j.xml /etc/config/
+COPY data/rfd.conf data/hs485d.conf data/crRFD.conf data/log4j.xml /etc/config/
 
 # Setup start script
-COPY run.sh /
-COPY hm-firmware.sh /usr/lib/
+COPY data/run.sh /
+COPY data/hm-firmware.sh /usr/lib/
 
 WORKDIR /data
 CMD [ "/run.sh" ]

@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.2
+- Enable quiet logging for http auth plugin
+
 ## 4.1
 - Update mosquitto 1.5.6
 

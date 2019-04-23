@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "4.1",
+  "version": "4.2",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://home-assistant.io/addons/mosquitto/",
@@ -20,6 +20,7 @@
   "options": {
     "logins": [],
     "anonymous": false,
+    "quiet_logs": true,
     "customize": {
       "active": false,
       "folder": "mosquitto"
@@ -32,6 +33,7 @@
         {"username": "str", "password": "str"}
     ],
     "anonymous": "bool",
+    "quiet_logs": "bool",
     "customize": {
       "active": "bool",
       "folder": "str"

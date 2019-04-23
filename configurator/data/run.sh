@@ -3,6 +3,7 @@ set -e
 
 DIRSFIRST=$(bashio::config 'dirsfirst')
 ENFORCE_BASEPATH=$(bashio::config 'enforce_basepath')
+IGNORE_PATTERN="$(bashio::jq "/data/options.json" ".ignore_pattern")"
 WAIT_PIDS=()
 
 # Setup and run Frontend
@@ -16,6 +17,7 @@ WAIT_PIDS+=($!)
 sed -i "s/%%TOKEN%%/${HASSIO_TOKEN}/g" /etc/configurator.conf
 sed -i "s/%%DIRSFIRST%%/${DIRSFIRST}/g" /etc/configurator.conf
 sed -i "s/%%ENFORCE_BASEPATH%%/${ENFORCE_BASEPATH}/g" /etc/configurator.conf
+sed -i "s/%%IGNORE_PATTERN%%/${IGNORE_PATTERN}/g" /etc/configurator.conf
 
 hass-configurator /etc/configurator.conf &
 WAIT_PIDS+=($!)

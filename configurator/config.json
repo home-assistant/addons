@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "3.1",
+  "version": "3.2",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant.",
   "url": "https://home-assistant.io/addons/configurator",
@@ -9,6 +9,7 @@
   "startup": "application",
   "webui": "http://[HOST]:[PORT:8080]",
   "ingress": true,
+  "ingress_panel_icon": "mdi:wrench",
   "auth_api": true,
   "homeassistant_api": true,
   "boot": "auto",
@@ -23,11 +24,15 @@
   },
   "options": {
     "dirsfirst": false,
-    "enforce_basepath": false
+    "enforce_basepath": false,
+    "ignore_pattern": [
+      "__pycache__"
+    ]
   },
   "schema": {
     "dirsfirst": "bool",
-    "enforce_basepath": "bool"
+    "enforce_basepath": "bool",
+    "ignore_pattern": ["str"]
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

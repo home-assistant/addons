@@ -3,9 +3,11 @@ FROM $BUILD_FROM
 
 # Setup base
 RUN apk add --no-cache \
-        jq gcc \
-        libffi-dev openssl-dev musl-dev \
-    && pip3 install --no-cache --upgrade pip colorlog
+        jq \
+        gcc \
+        libffi-dev \
+        openssl-dev \
+        musl-dev \
 
 # Copy data
 COPY run.sh /

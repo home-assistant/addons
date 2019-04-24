@@ -86,4 +86,3 @@ jobs:
     parameters:
       addonFolder: 'cec_scan'
       addonImage: 'addon-cec_scan'
-      buildArch: $(buildArch)

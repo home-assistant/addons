@@ -11,7 +11,7 @@ steps:
       set -e
 
       tag="$(cat ${{ parameters.addonFolder }}/config.json | jq -e ".version")"
-      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/${{ parameters.buildArch }}-${{ parameters.addonImage }}/tags/$tag/ | jq -e ".name // empty")"
+      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-${{ parameters.addonImage }}/tags/$tag/ | jq -e ".name // empty")"
 
       # Version Exists
       if [ "$metadata" = "$tag" ]; then
@@ -26,6 +26,6 @@ steps:
         -v ~/.docker:/root/.docker \
         -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
         homeassistant/amd64-builder:$(versionBuilder) \
-        --addon "--${{ parameters.buildArch }}" -t /data/${{ parameters.addonFolder }} \
+        --addon "--$(buildArch)" -t /data/${{ parameters.addonFolder }} \
         --docker-hub homeassistant
     displayName: 'Build ${{ parameters.addonFolder }}'

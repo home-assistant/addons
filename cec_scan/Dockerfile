@@ -9,7 +9,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 ##
 # RPi support for HDMI-CEC on armhf/aarch64
-RUN if [ "$BUILD_ARCH" == "armhf" ] || [ "$BUILD_ARCH" == "aarch64" ]; then \
+RUN if [ "$BUILD_ARCH" = "armhf" ] || [ "$BUILD_ARCH" = "aarch64" ]; then \
         apk add --no-cache raspberrypi-dev raspberrypi-libs; \
     fi
 
@@ -19,7 +19,7 @@ ARG LIBCEC_VERSION
 RUN apk add --no-cache eudev-libs p8-platform \
     && apk add --no-cache --virtual .build-dependencies \
         build-base cmake eudev-dev git swig p8-platform-dev \
-    && git clone --depth 1 -b libcec-${LIBCEC_VERSION} https://github.com/Pulse-Eight/libcec /usr/src/libcec \
+    && git clone --depth 1 -b "libcec-${LIBCEC_VERSION}" https://github.com/Pulse-Eight/libcec /usr/src/libcec \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \
     && if [ "$BUILD_ARCH" != "armhf" ] && [ "$BUILD_ARCH" != "aarch64" ]; then \

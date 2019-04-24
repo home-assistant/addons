@@ -37,7 +37,7 @@ function _deconz_api() {
     local api_port
 
     api_port=$(bashio::addon.port 80)
-    while ! nc -z localhost ${api_port} </dev/null; do sleep 10; done
+    while ! nc -z localhost "${api_port}" < /dev/null; do sleep 10; done
 
     if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:${api_port}/api")"; then
         bashio::log.debug "${result}"

@@ -1,14 +1,14 @@
 
 parameters:
-  addonFolder: ''
-  addonImage: ''
+  addon: ''
+  arch: ''
 
 steps:
   - script: sudo apt-get install -y jq curl
     displayName: 'Install JQ/curl'
   - script: |
-      tag="$(cat ${{ parameters.addonFolder }}/config.json | jq --raw-output ".version")"
-      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-${{ parameters.addonImage }}/tags/$tag/ | jq --raw-output '.name // empty')"
+      tag="$(cat ${{ parameters.addon }}/config.json | jq --raw-output ".version")"
+      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-addon-${{ parameters.addon }}/tags/$tag/ | jq --raw-output '.name // empty')"
 
       # Version Exists
       echo "$tag - $metadata"
@@ -24,6 +24,6 @@ steps:
         -v ~/.docker:/root/.docker \
         -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
         homeassistant/amd64-builder:$(versionBuilder) \
-        --addon "--$(buildArch)" -t /data/${{ parameters.addonFolder }} \
+        --addon ${{ parameters.arch }} -t /data/${{ parameters.addon }} \
         --docker-hub homeassistant
-    displayName: 'Build ${{ parameters.addonFolder }}'
+    displayName: 'Build ${{ parameters.addon }}'

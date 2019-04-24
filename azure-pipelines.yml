@@ -80,6 +80,8 @@ jobs:
       aarch64:
         buildArch: 'aarch64'
   steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
   - template: template-addon.yml
     parameters:
       addonFolder: 'cec_scan'

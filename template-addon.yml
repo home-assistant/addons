@@ -7,8 +7,6 @@ parameters:
 steps:
   - script: sudo apt-get install -y jq curl
     displayName: 'Install JQ/curl'
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
     displayName: 'Install Builder'
   - script: |
@@ -27,4 +25,4 @@ steps:
         homeassistant/amd64-builder:$(versionBuilder) \
         --addon "--${{ parameters.buildArch }}" -t /data/${{ parameters.addonFolder }} \
         --docker-hub homeassistant
-    displayName: 'Build Python base-images'
+    displayName: 'Build ${{ addonFolder }}'

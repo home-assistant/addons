@@ -25,4 +25,4 @@ steps:
         homeassistant/amd64-builder:$(versionBuilder) \
         --addon "--${{ parameters.buildArch }}" -t /data/${{ parameters.addonFolder }} \
         --docker-hub homeassistant
-    displayName: 'Build ${{ addonFolder }}'
+    displayName: 'Build ${{ parameters.addonFolder }}'

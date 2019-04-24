@@ -2,16 +2,13 @@
 parameters:
   addonFolder: ''
   addonImage: ''
-  buildArch: ''
 
 steps:
   - script: sudo apt-get install -y jq curl
     displayName: 'Install JQ/curl'
   - script: |
-      set -e
-
       tag="$(cat ${{ parameters.addonFolder }}/config.json | jq -e ".version")"
-      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-${{ parameters.addonImage }}/tags/$tag/ | jq -e ".name // empty")"
+      metadata="$(curl https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-${{ parameters.addonImage }}/tags/$tag/ | jq --raw-output '.name // empty')"
 
       # Version Exists
       if [ "$metadata" = "$tag" ]; then

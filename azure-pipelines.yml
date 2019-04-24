@@ -66,13 +66,25 @@ jobs:
   timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
   steps:
   - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
     displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'cec_scan'
-      arch: '--all'
 
 
 - job: 'check_config'
@@ -84,13 +96,25 @@ jobs:
   timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
   steps:
   - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
     displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'check_config'
-      arch: '--all'
 
 
 - job: 'configurator'
@@ -102,13 +126,25 @@ jobs:
   timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
   steps:
   - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
     displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'configurator'
-      arch: '--all'
 
 
 - job: 'deconz'
@@ -120,10 +156,16 @@ jobs:
   timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 1
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      armhf:
+        buildArch: 'armhf'
   steps:
   - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
     displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'deconz'
-      arch: '--armhf --amd64'

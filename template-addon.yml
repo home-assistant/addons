@@ -10,7 +10,9 @@ steps:
   - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
     displayName: 'Install Builder'
   - script: |
-      tag="$(cat /data/${{ parameters.addonFolder }}/config.json | jq -e ".version")"
+      set -e
+
+      tag="$(cat ${{ parameters.addonFolder }}/config.json | jq -e ".version")"
       metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/${{ parameters.buildArch }}-${{ parameters.addonImage }}/tags/$tag/ | jq -e ".name // empty")"
 
       # Version Exists

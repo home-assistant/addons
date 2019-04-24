@@ -7,8 +7,6 @@ parameters:
 steps:
   - script: sudo apt-get install -y jq curl
     displayName: 'Install JQ/curl'
-  - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
-    displayName: 'Install Builder'
   - script: |
       set -e
 
@@ -19,6 +17,9 @@ steps:
       if [ "$metadata" = "$tag" ]; then
         exit 0
       fi
+
+      # Download Builder
+      sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
 
       # Build new version
       sudo docker run --rm --privileged \

@@ -32,6 +32,7 @@ jobs:
       done
     displayName: 'Run Hadolint'
 
+
 - job: 'ShellCheck'
   pool:
     vmImage: 'ubuntu-16.04'
@@ -55,3 +56,32 @@ jobs:
       cat **/*.json | jq '.'
     displayName: 'Run JQ'
 
+
+- job: 'cec_scan'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  timeoutInMinutes: 120
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - template: template-addon.yml
+    parameters:
+      addonFolder: 'cec_scan'
+      addonImage: 'addon-cec_scan'
+      buildArch: $(buildArch)

@@ -1,0 +1,30 @@
+
+parameters:
+  addonFolder: ''
+  addonImage: ''
+  buildArch: ''
+
+steps:
+  - script: sudo apt-get install -y jq curl
+    displayName: 'Install JQ/curl'
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
+    displayName: 'Install Builder'
+  - script: |
+      tag="$(cat /data/${{ parameters.addonFolder }}/config.json | jq -e ".version")"
+      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/${{ parameters.buildArch }}-${{ parameters.addonImage }}/tags/$tag/ | jq -e ".name // empty")"
+
+      # Version Exists
+      if [ "$metadata" = "$tag" ]; then
+        exit 0
+      fi
+
+      # Build new version
+      sudo docker run --rm --privileged \
+        -v ~/.docker:/root/.docker \
+        -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
+        homeassistant/amd64-builder:$(versionBuilder) \
+        --addon "--${{ parameters.buildArch }}" -t /data/${{ parameters.addonFolder }} \
+        --docker-hub homeassistant
+    displayName: 'Build Python base-images'

@@ -7,10 +7,11 @@ steps:
   - script: sudo apt-get install -y jq curl
     displayName: 'Install JQ/curl'
   - script: |
-      tag="$(cat ${{ parameters.addonFolder }}/config.json | jq -e ".version")"
-      metadata="$(curl https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-${{ parameters.addonImage }}/tags/$tag/ | jq --raw-output '.name // empty')"
+      tag="$(cat ${{ parameters.addonFolder }}/config.json | jq --raw-output ".version")"
+      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-${{ parameters.addonImage }}/tags/$tag/ | jq --raw-output '.name // empty')"
 
       # Version Exists
+      echo "$tag - $metadata"
       if [ "$metadata" = "$tag" ]; then
         exit 0
       fi

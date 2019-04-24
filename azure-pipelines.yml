@@ -63,7 +63,6 @@ jobs:
   - 'Hadolint'
   - 'ShellCheck'
   - 'JQ'
-  timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
   strategy:
@@ -93,7 +92,6 @@ jobs:
   - 'Hadolint'
   - 'ShellCheck'
   - 'JQ'
-  timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
   strategy:
@@ -123,7 +121,6 @@ jobs:
   - 'Hadolint'
   - 'ShellCheck'
   - 'JQ'
-  timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
   strategy:
@@ -153,7 +150,6 @@ jobs:
   - 'Hadolint'
   - 'ShellCheck'
   - 'JQ'
-  timeoutInMinutes: 120
   pool:
     vmImage: 'ubuntu-16.04'
   strategy:
@@ -169,3 +165,426 @@ jobs:
   - template: azp-template-addon.yml
     parameters:
       addon: 'deconz'
+
+
+- job: 'dhcp_server'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'dhcp_server'
+
+
+- job: 'dnsmasq'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'dnsmasq'
+
+
+- job: 'duckdns'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'duckdns'
+
+
+- job: 'git_pull'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'git_pull'
+
+
+- job: 'google_assistant'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      armv7:
+        buildArch: 'armv7'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'google_assistant'
+
+
+- job: 'homematic'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      i386:
+        buildArch: 'i386'
+      armv7:
+        buildArch: 'armv7'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'homematic'
+
+
+- job: 'letsencrypt'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'letsencrypt'
+
+
+- job: 'mariadb'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'mariadb'
+
+
+- job: 'mosquitto'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'mosquitto'
+
+
+- job: 'nginx_proxy'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'nginx_proxy'
+
+
+- job: 'rpc_shutdown'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'rpc_shutdown'
+
+
+- job: 'samba'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'samba'
+
+
+- job: 'snips'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'snips'
+
+
+- job: 'ssh'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'ssh'
+
+
+- job: 'tellstick'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  strategy:
+    maxParallel: 3
+    matrix:
+      amd64:
+        buildArch: 'amd64'
+      i386:
+        buildArch: 'i386'
+      armhf:
+        buildArch: 'armhf'
+      armv7:
+        buildArch: 'armv7'
+      aarch64:
+        buildArch: 'aarch64'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'tellstick'

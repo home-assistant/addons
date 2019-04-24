@@ -5,7 +5,9 @@ FROM $BUILD_FROM
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         jq tzdata python3 python3-dev python3-pip libportaudio2 alsa-utils \
-    && pip3 install --no-cache-dir --upgrade setuptools \
+    && pip3 install --no-cache-dir --upgrade \
+        setuptools==41.0.1 \
+        pip==19.1 \
     && pip3 install --no-cache-dir \
         google-assistant-library==1.0.0 \
         google-assistant-sdk==0.5.0 \

@@ -10,7 +10,13 @@ COPY snips-entrypoint.sh /
 ARG BUILD_ARCH
 
 RUN apt-get update \
-    && apt-get install -y dirmngr apt-utils apt-transport-https jq unzip supervisor mpg123 curl tzdata \
+    && apt-get install -y --no-install-recommends \
+        dirmngr \
+        apt-utils \
+        apt-transport-https \
+        unzip \
+        supervisor \
+        mpg123 \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "$BUILD_ARCH" = "amd64" ]; \
         then \
@@ -22,7 +28,11 @@ RUN apt-get update \
         fi
 
 RUN apt-get update \
-    && apt-get install -y snips-platform-voice snips-asr snips-injection snips-watch \
+    && apt-get install -y --no-install-recommends \
+        snips-platform-voice \
+        snips-asr \
+        snips-injection \
+        snips-watch \
     && rm -rf /var/lib/apt/lists/* \
     && curl -L -o /assistant_Hass_de.zip https://s3.amazonaws.com/hassio-addons-data/assistant_Hass_de.zip \
     && curl -L -o /assistant_Hass_en.zip https://s3.amazonaws.com/hassio-addons-data/assistant_Hass_en.zip \

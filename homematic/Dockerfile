@@ -1,9 +1,12 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# Set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Install packages
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
         curl \
         libusb-1.0 \
         openjdk-11-jre-headless \

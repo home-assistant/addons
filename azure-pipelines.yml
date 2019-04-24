@@ -516,14 +516,8 @@ jobs:
     matrix:
       amd64:
         buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
       armhf:
         buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
   - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
     displayName: 'Docker hub login'

@@ -14,7 +14,7 @@ variables:
 
 jobs:
 
-- job: 'Linter'
+- job: 'Hadolint'
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
@@ -30,7 +30,7 @@ jobs:
           -v $(pwd)/.hadolint.yaml:/.hadolint.yaml:ro \
           hadolint/hadolint:$(versionHadolint) < "$dockerfile"
       done
-    displayName: 'Linting Dockerfiles'
+    displayName: 'Run Hadolint'
 
 - job: 'ShellCheck'
   pool:

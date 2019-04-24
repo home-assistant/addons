@@ -1,0 +1,46 @@
+# https://dev.azure.com/home-assistant
+
+trigger:
+  branches:
+    include:
+    - master
+pr:
+- master
+
+variables:
+  versionHadolint: 'v1.16.3'
+  versionShellCheck: 'v0.6.0'
+  versionBuilder: '1.3'
+
+jobs:
+
+- job: 'Linter'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo docker pull hadolint/hadolint:$(versionHadolint)
+    displayName: 'Install Hadolint'
+  - script: |
+      set -e
+      shopt -s globstar
+      for dockerfile in **/Dockerfile
+      do
+        echo "Linting: $dockerfile"
+        sudo docker run --rm -i \
+          -v $(pwd)/.hadolint.yaml:/.hadolint.yaml:ro \
+          hadolint/hadolint:$(versionHadolint) < "$dockerfile"
+      done
+    displayName: 'Linting Dockerfiles'
+
+- job: 'ShellCheck'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo docker pull koalaman/shellcheck:$(versionShellCheck)
+    displayName: 'Install ShellCheck'
+  - script: |
+      shopt -s globstar
+      sudo docker run --rm -i \
+        -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) **/*.sh
+    displayName: 'Run ShellCheck'
+

@@ -9,7 +9,7 @@
   "startup": "application",
   "webui": "http://[HOST]:[PORT:8080]",
   "ingress": true,
-  "ingress_panel_icon": "mdi:wrench",
+  "panel_icon": "mdi:wrench",
   "auth_api": true,
   "homeassistant_api": true,
   "boot": "auto",

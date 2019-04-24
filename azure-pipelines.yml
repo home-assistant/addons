@@ -44,3 +44,14 @@ jobs:
         -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) **/*.sh
     displayName: 'Run ShellCheck'
 
+- job: 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo apt-get install -y jq
+    displayName: 'Install JQ'
+  - bash: |
+      shopt -s globstar
+      cat **/*.json | jq '.'
+    displayName: 'Run JQ'
+

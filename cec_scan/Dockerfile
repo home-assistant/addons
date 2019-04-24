@@ -1,11 +1,11 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Add env
-ENV LANG C.UTF-8
-
 WORKDIR /usr/src
 ARG BUILD_ARCH
+
+# Set shell
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 ##
 # RPi support for HDMI-CEC on armhf/aarch64

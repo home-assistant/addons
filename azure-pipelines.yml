@@ -309,6 +309,7 @@ jobs:
   - template: azp-template-addon.yml
     parameters:
       addon: 'snips'
+      arch: '--amd64 --armhf'
 
 
 - job: 'ssh'

@@ -4,26 +4,15 @@ parameters:
   arch: ''
 
 steps:
-  - script: sudo apt-get install -y jq curl
-    displayName: 'Install JQ/curl'
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
+    displayName: 'Install Builder'
   - script: |
-      tag="$(cat ${{ parameters.addon }}/config.json | jq --raw-output ".version")"
-      metadata="$(curl -s https://hub.docker.com/v2/repositories/homeassistant/$(buildArch)-addon-${{ parameters.addon }}/tags/$tag/ | jq --raw-output '.name // empty')"
-
-      # Version Exists
-      echo "$tag - $metadata"
-      if [ "$metadata" = "$tag" ]; then
-        exit 0
-      fi
-
-      # Download Builder
-      sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
-
-      # Build new version
       sudo docker run --rm --privileged \
         -v ~/.docker:/root/.docker \
         -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
         homeassistant/amd64-builder:$(versionBuilder) \
-        --addon "--$(buildArch)" -t /data/${{ parameters.addon }} \
-        --docker-hub homeassistant
+        --addon ${{ parameters.arch }} -t /data/${{ parameters.addon }} \
+        --docker-hub homeassistant --docker-hub-check
     displayName: 'Build ${{ parameters.addon }}'

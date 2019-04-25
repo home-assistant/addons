@@ -10,7 +10,7 @@ pr:
 variables:
   versionHadolint: 'v1.16.3'
   versionShellCheck: 'v0.6.0'
-  versionBuilder: '1.3'
+  versionBuilder: '2.0'
 
 jobs:
 
@@ -65,25 +65,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'cec_scan'
+      arch: '--all'
 
 
 - job: 'check_config'
@@ -94,25 +80,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'check_config'
+      arch: '--all'
 
 
 - job: 'configurator'
@@ -123,25 +95,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'configurator'
+      arch: '--all'
 
 
 - job: 'deconz'
@@ -152,19 +110,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 1
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      armhf:
-        buildArch: 'armhf'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'deconz'
+      arch: '--amd64 --armhf'
 
 
 - job: 'dhcp_server'
@@ -175,25 +125,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'dhcp_server'
+      arch: '--all'
 
 
 - job: 'dnsmasq'
@@ -204,25 +140,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'dnsmasq'
+      arch: '--all'
 
 
 - job: 'duckdns'
@@ -233,25 +155,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'duckdns'
+      arch: '--all'
 
 
 - job: 'git_pull'
@@ -262,25 +170,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'git_pull'
+      arch: '--all'
 
 
 - job: 'google_assistant'
@@ -291,19 +185,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      armv7:
-        buildArch: 'armv7'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'google_assistant'
+      arch: '--amd64 --armv7'
 
 
 - job: 'homematic'
@@ -314,19 +200,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      i386:
-        buildArch: 'i386'
-      armv7:
-        buildArch: 'armv7'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'homematic'
+      arch: '--i386 --armv7'
 
 
 - job: 'letsencrypt'
@@ -337,25 +215,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'letsencrypt'
+      arch: '--all'
 
 
 - job: 'mariadb'
@@ -366,25 +230,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'mariadb'
+      arch: '--all'
 
 
 - job: 'mosquitto'
@@ -395,25 +245,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'mosquitto'
+      arch: '--all'
 
 
 - job: 'nginx_proxy'
@@ -424,25 +260,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'nginx_proxy'
+      arch: '--all'
 
 
 - job: 'rpc_shutdown'
@@ -453,25 +275,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'rpc_shutdown'
+      arch: '--all'
 
 
 - job: 'samba'
@@ -482,25 +290,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'samba'
+      arch: '--all'
 
 
 - job: 'snips'
@@ -511,16 +305,7 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      armhf:
-        buildArch: 'armhf'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'snips'
@@ -534,25 +319,11 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'ssh'
+      arch: '--all'
 
 
 - job: 'tellstick'
@@ -563,22 +334,8 @@ jobs:
   - 'JQ'
   pool:
     vmImage: 'ubuntu-16.04'
-  strategy:
-    maxParallel: 3
-    matrix:
-      amd64:
-        buildArch: 'amd64'
-      i386:
-        buildArch: 'i386'
-      armhf:
-        buildArch: 'armhf'
-      armv7:
-        buildArch: 'armv7'
-      aarch64:
-        buildArch: 'aarch64'
   steps:
-  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
-    displayName: 'Docker hub login'
   - template: azp-template-addon.yml
     parameters:
       addon: 'tellstick'
+      arch: '--all'

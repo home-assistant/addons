@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3
+
+- Fix issue with aarch64 and ingress
+
 ## 3.2
 
 - Add `mdi:wrench` as panel icon

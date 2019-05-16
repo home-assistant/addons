@@ -4,6 +4,8 @@ Add-on to allow Home Assistant to control a ZigBee network with Conbee or RaspBe
 
 ## First Steps
 
+### RaspBee
+
 If using RaspBee, you may need to edit `config.txt` on the root of your SD card for your RaspBee to be recognized and assigned a device name. Add folling information to `config.txt`:
 
 ```
@@ -11,7 +13,10 @@ enable_uart=1
 dtoverlay=pi3-miniuart-bt
 ```
 
-Before starting the add-on for the first time after installing, in the add-on config you must specify the device name that has been assigned to your RaspBee/Conbee as the `device`. Replace **null** and specify the device name in quotes (e.g. "/dev/ttyUSB0" or "/dev/ttyAMA0"). The other config options have sensible defaults that should not need to be changed unless you are debugging.
+### Config
+Before starting the add-on for the first time after installing, in the add-on config you must specify the device name that has been assigned to your RaspBee/Conbee as the `device`. Replace **null** and specify the device name in quotes (e.g. "/dev/ttyUSB0", "/dev/ttyAMA0", or "/dev/ttyACM0"). 
+If you're using Hass.io you may find the correct value for this on the `Hass.io -> System -> Host system -> Hardware` page.
+The other config options have sensible defaults that should not need to be changed unless you are debugging.
 
 Use a 2.5A power supply for your Raspberry Pi 3! Strange behaviour with this Add-on may otherwise result.
 

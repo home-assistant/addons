@@ -3,7 +3,9 @@
 Add-on to allow Home Assistant to control a ZigBee network with Conbee or RaspBee hardware by Dresden Elektronik.
 
 ## First Steps
+
 ### RaspBee
+
 If using RaspBee, you may need to edit `config.txt` on the root of your SD card for your RaspBee to be recognized and assigned a device name. Add folling information to `config.txt`:
 
 ```

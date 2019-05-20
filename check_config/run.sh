@@ -12,29 +12,29 @@ else
     CMD="homeassistant==$VERSION"
 fi
 
-echo "[Info] Start install HomeAssistant $VERSION"
+echo "[Info] Installing temporary Home Assistant $VERSION instance to test configuration..."
 
 if ! PIP_OUTPUT="$(pip3 install "$CMD")"
 then
-    echo "[Error] Install HomeAssistant: $PIP_OUTPUT"
+    echo "[Error] Install error: $PIP_OUTPUT"
     exit 1
 fi
 
 INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
 
-echo "[Info] Installed $INSTALLED_VERSION, check config now"
+echo "[Info] Install complete, checking configuration now..."
 
 cp -fr /config /tmp/config
 if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"
 then
-    echo "[Error] Wrong config found!"
+    echo "[Error] Invalid configuration detected!"
     echo "$HASS_OUTPUT"
     exit 1
 fi
 
 if echo "$HASS_OUTPUT" | grep -i ERROR > /dev/null
 then
-    echo "[Error] Found error inside log output!"
+    echo "[Error] Found error in log output!"
     echo "$HASS_OUTPUT"
     exit 1
 fi

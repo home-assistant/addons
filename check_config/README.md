@@ -50,6 +50,11 @@ The version of Home Assistant that want to check your configuration against.
 Setting this option to `latest` will result in checking your configuration
 against the latest stable release of Home Assistant.
 
+## Known issues and limitations
+
+- Currently, this add-on only support checking against Home Assistant >= 0.94
+  or less 0.91.
+
 ## Support
 
 Got questions?

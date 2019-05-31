@@ -1,42 +1,48 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 set -e
 
-CONFIG_PATH=/data/options.json
+VERSION=$(bashio::config 'version')
 
-VERSION=$(jq --raw-output ".version" $CONFIG_PATH)
-
-# generate install string
-if [ "$VERSION" == "latest" ]; then
-    CMD="homeassistant"
-else
-    CMD="homeassistant==$VERSION"
+# Generate install string
+CMD="homeassistant"
+if [ "${VERSION}" != "latest" ]; then
+    CMD="homeassistant==${VERSION}"
 fi
 
-echo "[Info] Start install HomeAssistant $VERSION"
+bashio::log.info "Installing Home Assistant: ${VERSION}..."
+bashio::log.info "Please be patient, this might take a few minutes..."
 
-if ! PIP_OUTPUT="$(pip3 install "$CMD")"
-then
-    echo "[Error] Install HomeAssistant: $PIP_OUTPUT"
-    exit 1
+# Install Home Assistant with the requested version
+if ! PIP_OUTPUT="$(pip3 install "${CMD}")"; then
+    bashio::log.error "An error occurred while installing Home Assistant:"
+    bashio::log "${PIP_OUTPUT}"
+    bashio::exit.nok
 fi
-
 INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
+bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}."
 
-echo "[Info] Installed $INSTALLED_VERSION, check config now"
-
+# Making an temporary copy of your configuration
+bashio::log.info "Making a copy of your configuration for checking..."
 cp -fr /config /tmp/config
-if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"
-then
-    echo "[Error] Wrong config found!"
-    echo "$HASS_OUTPUT"
-    exit 1
+
+# Start configuration check
+bashio::log.info "Checking your configuration against this version..."
+if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"; then
+    # The configuration check exited with an error
+    bashio::log.error "The configuration check did not pass!"
+    bashio::log.error "See the output below for more details."
+    bashio::log "${HASS_OUTPUT}"
+    bashio::exit.nok
 fi
 
-if echo "$HASS_OUTPUT" | grep -i ERROR > /dev/null
-then
-    echo "[Error] Found error inside log output!"
-    echo "$HASS_OUTPUT"
-    exit 1
+# Scan configuration check output for occurrances of "ERROR"
+if echo "${HASS_OUTPUT}" | grep -i ERROR > /dev/null; then
+    # An "ERROR" occurance has been found, exit with an error
+    bashio::log.error "Found an error in the log output of the check!"
+    bashio::log.error "See the output below for more details."
+    bashio::log "${HASS_OUTPUT}"
+    bashio::exit.nok
 fi
 
-echo "[Info] Configuration check finished - no error found! :)"
+# You rock! <(*_*)>
+bashio::log.info "Configuration check finished - no error found! :)"

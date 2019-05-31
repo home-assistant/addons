@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1
+## 2.0
 - Migrated add-on onto Bashio
 - Improved add-on log output
 - Added documentation to add-on itself

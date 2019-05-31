@@ -7,7 +7,7 @@ RUN apk add --no-cache \
         gcc \
         libffi-dev \
         openssl-dev \
-        musl-dev \
+        musl-dev
 
 # Copy data
 COPY run.sh /

@@ -13,7 +13,7 @@ bashio::log.info "Installing Home Assistant: ${VERSION}..."
 bashio::log.info "Please be patient, this might take a few minutes..."
 
 # Install Home Assistant with the requested version
-if ! PIP_OUTPUT="$(pip3 install "${CMD}")"; then
+if ! PIP_OUTPUT="$(pip3 install --find-links "${WHEELS_LINKS}" "${CMD}")"; then
     bashio::log.error "An error occurred while installing Home Assistant:"
     bashio::log "${PIP_OUTPUT}"
     bashio::exit.nok

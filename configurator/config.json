@@ -33,14 +33,16 @@
     "enforce_basepath": false,
     "ignore_pattern": [
       "__pycache__"
-    ]
+    ],
+    "ssh_keys": []
   },
   "schema": {
     "dirsfirst": "bool",
     "enforce_basepath": "bool",
     "ignore_pattern": [
       "str"
-    ]
+    ],
+    "ssh_keys": ["str"]
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

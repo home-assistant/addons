@@ -57,7 +57,8 @@ Add-on configuration:
   "enforce_basepath": false,
   "ignore_pattern": [
     "__pycache__"
-  ]
+  ],
+  "ssh_keys": []
 }
 ```
 
@@ -75,6 +76,10 @@ If set to `true`, access is limited to files within the `/config` directory.
 
 This option allows you to hide files and folders from the file browser tree.
 By default, it hides the `__pycache__` folders.
+
+### Option: `ssh_keys` (required)
+
+A list of filenames containing SSH private keys. These can be used to allow for access to remote git repositories.
 
 ## Known issues and limitations
 

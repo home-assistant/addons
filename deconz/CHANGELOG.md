@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3
+
+- Rewrite of README
+- Fixes add-on URL
+
 ## 2.2
 
 - Bump deCONZ to 2.05.64

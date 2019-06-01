@@ -1,13 +1,9 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Setup base
-RUN apk add --no-cache \
-        jq \
-        gcc \
-        libffi-dev \
-        openssl-dev \
-        musl-dev \
+# Add Hass.io wheels repository
+ARG BUILD_ARCH
+ENV WHEELS_LINKS=https://wheels.home-assistant.io/alpine-3.9/${BUILD_ARCH}/
 
 # Copy data
 COPY run.sh /

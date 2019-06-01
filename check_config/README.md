@@ -43,7 +43,7 @@ Add-on configuration:
 }
 ```
 
-### Option: `log_level` (required)
+### Option: `version` (required)
 
 The version of Home Assistant that want to check your configuration against.
 

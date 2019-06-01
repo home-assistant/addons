@@ -9,6 +9,5 @@ RUN apk add --no-cache dhcp
 
 # Copy data
 COPY run.sh /
-COPY dhcpd.conf /etc/
 
 CMD [ "/run.sh" ]

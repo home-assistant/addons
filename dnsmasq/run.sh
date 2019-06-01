@@ -27,5 +27,4 @@ done
 
 # run dnsmasq
 bashio::log.info "Starting dnsmasq..."
-exec sleep 10000
 exec dnsmasq -C "${CONFIG}" -z < /dev/null

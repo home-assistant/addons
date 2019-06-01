@@ -4,29 +4,37 @@
   "slug": "tellstick",
   "description": "TellStick and TellStick Duo service.",
   "url": "https://home-assistant.io/addons/tellstick/",
-  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64",
+    "i386"
+  ],
   "startup": "system",
   "stdin": true,
   "boot": "auto",
-  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
+  "devices": [
+    "/dev/bus/usb:/dev/bus/usb:rwm"
+  ],
   "options": {
     "devices": [
-     {
-      "id": 1,
-      "name": "Example device",
-      "protocol": "everflourish",
-      "model": "selflearning-switch",
-      "house": "A",
-      "unit": "1"
-     },
-     {
-      "id": 2,
-      "name": "Example device two",
-      "protocol": "everflourish",
-      "model": "selflearning-switch",
-      "house": "A",
-      "unit": "2"
-     }
+      {
+        "id": 1,
+        "name": "Example device",
+        "protocol": "everflourish",
+        "model": "selflearning-switch",
+        "house": "A",
+        "unit": "1"
+      },
+      {
+        "id": 2,
+        "name": "Example device two",
+        "protocol": "everflourish",
+        "model": "selflearning-switch",
+        "house": "A",
+        "unit": "2"
+      }
     ]
   },
   "schema": {

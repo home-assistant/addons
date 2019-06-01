@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.4
+
+- Adds documentation to add-on repository
+- Small code styling changes
+
 ## 3.3
 
 - Fix issue with aarch64 and ingress

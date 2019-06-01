@@ -1,10 +1,16 @@
 {
   "name": "Configurator",
-  "version": "3.3",
+  "version": "3.4",
   "slug": "configurator",
-  "description": "Browser-based configuration file editor for Home Assistant.",
+  "description": "Browser-based configuration file editor for Home Assistant",
   "url": "https://home-assistant.io/addons/configurator",
-  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64",
+    "i386"
+  ],
   "homeassistant": "0.91.1",
   "startup": "application",
   "webui": "http://[HOST]:[PORT:8080]",
@@ -32,7 +38,9 @@
   "schema": {
     "dirsfirst": "bool",
     "enforce_basepath": "bool",
-    "ignore_pattern": ["str"]
+    "ignore_pattern": [
+      "str"
+    ]
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

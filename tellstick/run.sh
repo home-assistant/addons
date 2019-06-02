@@ -1,62 +1,61 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 set -e
 
-CONFIG_PATH=/data/options.json
-DEVICES=$(jq --raw-output '.devices | length' $CONFIG_PATH)
+CONFIG="/etc/tellstick.conf"
 
-echo "[Info] Initialize the tellstick configuration"
-
+bashio::log.info "Initialize the tellstick configuration..."
 # User access
-echo "user = \"root\"" > /etc/tellstick.conf
-echo "group = \"plugdev\"" >> /etc/tellstick.conf
-echo "ignoreControllerConfirmation = \"false\"" >> /etc/tellstick.conf
+{
+    echo "user = \"root\""
+    echo "group = \"plugdev\""
+    echo "ignoreControllerConfirmation = \"false\"" 
+} > "${CONFIG}"
 
 # devices
-for (( i=0; i < "$DEVICES"; i++ )); do
-    DEV_ID=$(jq --raw-output ".devices[$i].id" $CONFIG_PATH)
-    DEV_NAME=$(jq --raw-output ".devices[$i].name" $CONFIG_PATH)
-    DEV_PROTO=$(jq --raw-output ".devices[$i].protocol" $CONFIG_PATH)
-    DEV_MODEL=$(jq --raw-output ".devices[$i].model // empty" $CONFIG_PATH)
-    ATTR_HOUSE=$(jq --raw-output ".devices[$i].house // empty" $CONFIG_PATH)
-    ATTR_CODE=$(jq --raw-output ".devices[$i].code // empty" $CONFIG_PATH)
-    ATTR_UNIT=$(jq --raw-output ".devices[$i].unit // empty" $CONFIG_PATH)
-    ATTR_FADE=$(jq --raw-output ".devices[$i].fade // empty" $CONFIG_PATH)
+for device in $(bashio::config 'devices|keys'); do
+    DEV_ID=$(bashio::config "devices[${device}].id")
+    DEV_NAME=$(bashio::config "devices[${device}].name")
+    DEV_PROTO=$(bashio::config "devices[${device}].protocol")
+    DEV_MODEL=$(bashio::config "devices[${device}].model")
+    ATTR_HOUSE=$(bashio::config "devices[${device}].house")
+    ATTR_CODE=$(bashio::config "devices[${device}].code")
+    ATTR_UNIT=$(bashio::config "devices[${device}].unit")
+    ATTR_FADE=$(bashio::config "devices[${device}].fade")
   
     (
         echo ""
         echo "device {"
-        echo "  id = $DEV_ID"
-        echo "  name = \"$DEV_NAME\""
-        echo "  protocol = \"$DEV_PROTO\""
+        echo "  id = ${DEV_ID}"
+        echo "  name = \"${DEV_NAME}\""
+        echo "  protocol = \"${DEV_PROTO}\""
         
-        if [ -n "$DEV_MODEL" ]; then
-            echo "  model = \"$DEV_MODEL\""
-        fi
+        bashio::var.has_value "${DEV_MODEL}" \
+            && echo "  model = \"${DEV_MODEL}\""
         
-        if [ -n "$ATTR_HOUSE" ] || [ -n "$ATTR_CODE" ] || [ -n "$ATTR_UNIT" ] || [ -n "$ATTR_FADE" ]; then
+        if bashio::var.has_value "${ATTR_HOUSE}${ATTR_CODE}${ATTR_UNIT}${ATTR_FADE}";
+        then
             echo "  parameters {"
-            
-            if [ -n "$ATTR_HOUSE" ]; then
-                echo "    house = \"$ATTR_HOUSE\""
-            fi
-            if [ -n "$ATTR_CODE" ]; then
-                echo "    code = \"$ATTR_CODE\""
-            fi
-            if [ -n "$ATTR_UNIT" ]; then
-                echo "    unit = \"$ATTR_UNIT\""
-            fi
-            if [ -n "$ATTR_FADE" ]; then
-                echo "    fade = \"$ATTR_FADE\""
-            fi
+
+            bashio::var.has_value "${ATTR_HOUSE}" \
+                && echo "    house = \"${ATTR_HOUSE}\""
+
+            bashio::var.has_value "${ATTR_CODE}" \
+                && echo "    code = \"${ATTR_CODE}\""
+
+            bashio::var.has_value "${ATTR_UNIT}" \
+                && echo "    unit = \"${ATTR_UNIT}\""
+
+            bashio::var.has_value "${ATTR_FADE}" \
+                && echo "    fade = \"${ATTR_FADE}\""
             
             echo "  }"
         fi
         
         echo "}"
-    ) >> /etc/tellstick.conf
+    ) >> "${CONFIG}"
 done
 
-echo "[Info] Exposing sockets and loading service"
+bashio::log.info "Exposing sockets and loading service..."
 
 # Expose the unix socket to internal network
 socat TCP-LISTEN:50800,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusClient &
@@ -66,16 +65,16 @@ socat TCP-LISTEN:50801,reuseaddr,fork UNIX-CONNECT:/tmp/TelldusEvents &
 /usr/local/sbin/telldusd --nodaemon < /dev/null &
 
 # Listen for input to tdtool
-echo "[Info] Starting event listener"
+bashio::log.info "Starting event listener..."
 while read -r input; do
     # parse JSON value
-    funct="$(echo "$input" | jq --raw-output '.function')"
-    devid="$(echo "$input" | jq --raw-output '.device // empty')"
-    echo "[Info] Read $funct / $devid"
-    
-    if ! msg="$(tdtool "--$funct" "$devid")"; then
-    	echo "[Error] TellStick $funct fails -> $msg"
+    funct=$(bashio::jq "${input}" '.function')
+    devid=$(bashio::jq "${input}" '.device // empty')
+    bashio::log.info "Read ${funct} / ${devid}"
+
+    if ! msg="$(tdtool "--${funct}" "${devid}")"; then
+        bashio::log.error "TellStick ${funct} fails -> ${msg}"
     else
-        echo "[Info] TellStick $funct success -> $msg"
+        bashio::log.info "TellStick ${funct} success -> ${msg}"
     fi
 done

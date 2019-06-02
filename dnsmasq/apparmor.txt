@@ -21,6 +21,10 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   /{,var/}run/dnsmasq/ r,
   /{,var/}run/dnsmasq/* rw,
 
+  /usr/lib/bashio/bashio ix,
+  /dev/tty rw,
+  /tmp/* rw,
+
   /run.sh rix,
   /data/** r,
 }

@@ -1,32 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 set -e
 
-CONFIG_PATH=/data/options.json
+CONFIG="/etc/dnsmasq.conf"
 
-DEFAULTS=$(jq --raw-output '.defaults[]' $CONFIG_PATH)
-FORWARDS=$(jq --raw-output '.forwards | length' $CONFIG_PATH)
-HOSTS=$(jq --raw-output '.hosts | length' $CONFIG_PATH)
-
+bashio::log.info "Configuring dnsmasq..."
 # Add default forward servers
-for line in $DEFAULTS; do
-    echo "server=$line" >> /etc/dnsmasq.conf
+for server in $(bashio::config 'defaults'); do
+    echo "server=${server}" >> "${CONFIG}"
 done
 
 # Create domain forwards
-for (( i=0; i < "$FORWARDS"; i++ )); do
-    DOMAIN=$(jq --raw-output ".forwards[$i].domain" $CONFIG_PATH)
-    SERVER=$(jq --raw-output ".forwards[$i].server" $CONFIG_PATH)
+for forward in $(bashio::config 'forwards|keys'); do
+    DOMAIN=$(bashio::config "forwards[${forward}].domain")
+    SERVER=$(bashio::config "forwards[${forward}].server")
 
-    echo "server=/$DOMAIN/$SERVER" >> /etc/dnsmasq.conf
+    echo "server=/${DOMAIN}/${SERVER}" >> "${CONFIG}"
 done
 
 # Create static hosts
-for (( i=0; i < "$HOSTS"; i++ )); do
-    HOST=$(jq --raw-output ".hosts[$i].host" $CONFIG_PATH)
-    IP=$(jq --raw-output ".hosts[$i].ip" $CONFIG_PATH)
+for host in $(bashio::config 'hosts|keys'); do
+    HOST=$(bashio::config "hosts[${host}].host")
+    IP=$(bashio::config "hosts[${host}].ip")
 
-    echo "address=/$HOST/$IP" >> /etc/dnsmasq.conf
+    echo "address=/${HOST}/${IP}" >> "${CONFIG}"
 done
 
 # run dnsmasq
-exec dnsmasq -C /etc/dnsmasq.conf -z < /dev/null
+bashio::log.info "Starting dnsmasq..."
+exec dnsmasq -C "${CONFIG}" -z < /dev/null

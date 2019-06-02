@@ -1,10 +1,10 @@
 {
   "name": "deCONZ",
-  "version": "2.2",
+  "version": "2.3",
   "slug": "deconz",
   "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf"],
-  "url": "https://home-assistant.io/addons/deconz",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/deconz",
   "startup": "system",
   "boot": "auto",
   "homeassistant": "0.91.2",

@@ -119,14 +119,12 @@ fi
 
 function git-synchronize {
     # is /config a local git repo?
-    if git rev-parse --is-inside-work-tree &>/dev/null
-    then
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
         echo "[Info] Local git repository exists"
 
         # Is the local repo set to the correct origin?
         CURRENTGITREMOTEURL=$(git remote get-url --all "$GIT_REMOTE" | head -n 1)
-        if [ "$CURRENTGITREMOTEURL" = "$REPOSITORY" ]
-        then
+        if [ "$CURRENTGITREMOTEURL" = "$REPOSITORY" ]; then
             echo "[Info] Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
 
@@ -135,8 +133,7 @@ function git-synchronize {
             git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; return 1; }
 
             # Prune if configured
-            if [ "$GIT_PRUNE" == "true" ]
-            then
+            if [ "$GIT_PRUNE" == "true" ]; then
               echo "[Info] Start git prune..."
               git prune || { echo "[Error] Git prune failed"; return 1; }
             fi

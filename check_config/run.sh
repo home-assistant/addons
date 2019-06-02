@@ -19,7 +19,8 @@ if ! PIP_OUTPUT="$(pip3 install --find-links "${WHEELS_LINKS}" "${CMD}")"; then
     bashio::exit.nok
 fi
 INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
-bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}."
+bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}"
+bashio::log.info "Don't worry, this temporary installation is not overwriting your current one."
 
 # Making an temporary copy of your configuration
 bashio::log.info "Making a copy of your configuration for checking..."

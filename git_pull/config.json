@@ -36,7 +36,9 @@
       "active": false,
       "secret": null,
       "type": "gitlab",
-      "whitelist": "0.0.0.0/0"
+      "whitelist": "0.0.0.0/0",
+      "cert": null,
+      "key": null
     }
   },
   "schema": {
@@ -59,7 +61,9 @@
       "active": "bool",
       "secret": "str?",
       "type": "match(gitea|gogs|github|gitlab|simple)?",
-      "whitelist": "str?"
+      "whitelist": "str?",
+      "cert": "str?",
+      "key": "str?"
     }
   },
   "image": "homeassistant/{arch}-addon-git_pull"

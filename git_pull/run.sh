@@ -21,6 +21,8 @@ WEBHOOK_ACTIVE=$(jq --raw-output ".webhook.active" $CONFIG_PATH)
 WEBHOOK_TYPE=$(jq --raw-output ".webhook.type // empty" $CONFIG_PATH)
 WEBHOOK_SECRET=$(jq --raw-output ".webhook.secret" $CONFIG_PATH)
 WEBHOOK_WHITELIST=$(jq --raw-output ".webhook.whitelist // empty" $CONFIG_PATH)
+WEBHOOK_CERT=$(jq --raw-output ".webhook.cert // empty" $CONFIG_PATH)
+WEBHOOK_KEY=$(jq --raw-output ".webhook.key // empty" $CONFIG_PATH)
 ################
 
 #### functions ####
@@ -223,13 +225,23 @@ function validate-config {
     fi
 }
 
+function start-webhook-server {
+    WEBHOOK_OPTS="-verbose -template -port 8004 -hooks /hook-template.json"
+
+    if [ "$WEBHOOK_CERT" != "" -a "$WEBHOOK_KEY" != ""]; then
+        WEBHOOK_OPTS+="--cert=/config/$WEBHOOK_CERT --key=/config/$WEBHOOK_KEY"
+    fi
+
+    webhook $WEBHOOK_OPTS &
+}
+
 ###################
 
 #### Main program ####
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 
 if [ "$WEBHOOK_ACTIVE" == "true" -a "$WEBHOOK_RUNNING" != "true" ]; then
-    webhook -verbose -template -port 8004 -hooks /hook-template.json &
+    start-webhook-server
     WEBHOOK_PID=$!
 fi
 

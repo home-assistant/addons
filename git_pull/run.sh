@@ -225,7 +225,7 @@ function validate-config {
 function start-webhook-server {
     WEBHOOK_OPTS="-verbose -template -port 8004 -hooks /hook-template.json"
 
-    if [ "$WEBHOOK_CERT" != "" -a "$WEBHOOK_KEY" != ""]; then
+    if [ "$WEBHOOK_CERT" != "" -a "$WEBHOOK_KEY" != "" ]; then
         WEBHOOK_OPTS+="--cert=/config/$WEBHOOK_CERT --key=/config/$WEBHOOK_KEY"
     fi
 

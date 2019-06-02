@@ -18,12 +18,14 @@ RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PA
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 WEBHOOK_ACTIVE=$(jq --raw-output ".webhook.active" $CONFIG_PATH)
+WEBHOOK_CERT=$(jq --raw-output ".webhook.cert // empty" $CONFIG_PATH)
+WEBHOOK_KEY=$(jq --raw-output ".webhook.key // empty" $CONFIG_PATH)
 WEBHOOK_TYPE=$(jq --raw-output ".webhook.type // empty" $CONFIG_PATH)
 WEBHOOK_SECRET=$(jq --raw-output ".webhook.secret" $CONFIG_PATH)
 WEBHOOK_WHITELIST=$(jq --raw-output ".webhook.whitelist // empty" $CONFIG_PATH)
-WEBHOOK_CERT=$(jq --raw-output ".webhook.cert // empty" $CONFIG_PATH)
-WEBHOOK_KEY=$(jq --raw-output ".webhook.key // empty" $CONFIG_PATH)
 ################
+
+export WEBHOOK_TYPE WEBHOOK_SECRET WEBHOOK_WHITELIST
 
 #### functions ####
 function add-ssh-key {
@@ -225,10 +227,11 @@ function validate-config {
 function start-webhook-server {
     WEBHOOK_OPTS="-verbose -template -port 8004 -hooks /hook-template.json"
 
-    if [ "$WEBHOOK_CERT" != "" -a "$WEBHOOK_KEY" != "" ]; then
+    if [ "$WEBHOOK_CERT" != "" ] && [ "$WEBHOOK_KEY" != "" ]; then
         WEBHOOK_OPTS+="--cert=/config/$WEBHOOK_CERT --key=/config/$WEBHOOK_KEY"
     fi
 
+    # shellcheck disable=SC2086
     webhook $WEBHOOK_OPTS &
 }
 
@@ -237,7 +240,7 @@ function start-webhook-server {
 #### Main program ####
 cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 
-if [ "$WEBHOOK_ACTIVE" == "true" -a "$WEBHOOK_RUNNING" != "true" ]; then
+if [ "$WEBHOOK_ACTIVE" == "true" ] && [ "$WEBHOOK_RUNNING" != "true" ]; then
     start-webhook-server
     WEBHOOK_PID=$!
 fi
@@ -252,7 +255,7 @@ while true; do
     if [ "$REPEAT_ACTIVE" == "true" ]; then
         sleep "$REPEAT_INTERVAL"
     # or do we just wait for incoming webhooks?
-    elif [ "$WEBHOOK_ACTIVE" == "true" -a "$WEBHOOK_RUNNING" != "true" ]; then
+    elif [ "$WEBHOOK_ACTIVE" == "true" ] && [ "$WEBHOOK_RUNNING" != "true" ]; then
         wait $WEBHOOK_PID
     else
         exit 0

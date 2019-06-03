@@ -8,9 +8,9 @@ ENV LANG C.UTF-8
 WORKDIR /usr/src
 ARG MOSQUITTO_AUTH_VERSION
 RUN apk add --no-cache \
-        mosquitto curl libressl musl socat \
+        mosquitto curl openssl musl socat pwgen \
     && apk add --no-cache --virtual .build-dependencies \
-        gcc make git mosquitto-dev curl-dev libressl-dev musl-dev \
+        build-base git mosquitto-dev curl-dev openssl-dev \
     && git clone --depth 1 https://github.com/jpmens/mosquitto-auth-plug \
     && cd mosquitto-auth-plug \
     && cp config.mk.in config.mk \

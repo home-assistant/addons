@@ -28,10 +28,6 @@ certfile /ssl/$CERTFILE
 keyfile /ssl/$KEYFILE
 "
 
-function create_password() {
-    strings /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c32
-}
-
 function write_system_users() {
     (
         echo "{\"homeassistant\": {\"password\": \"$HOMEASSISTANT_PW\"}, \"addons\": {\"password\": \"$ADDONS_PW\"}}"
@@ -111,8 +107,8 @@ fi
 
 # Prepare System Accounts
 if [ ! -e "${SYSTEM_USER}" ]; then
-    HOMEASSISTANT_PW="$(create_password)"
-    ADDONS_PW="$(create_password)"
+    HOMEASSISTANT_PW="$(pwgen 64 1)"
+    ADDONS_PW="$(pwgen 64 1)"
 
     echo "[INFO] Initialize system configuration."
     write_system_users

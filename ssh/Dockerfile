@@ -12,6 +12,7 @@ RUN apk add --no-cache \
     mosquitto-clients \
     nano \
     openssh \
+    pwgen \
     tmux \
     vim
 

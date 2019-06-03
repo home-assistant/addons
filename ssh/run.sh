@@ -16,7 +16,7 @@ if bashio::config.has_value 'authorized_keys'; then
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
 
     # Unlock account
-    PASSWORD="$(strings /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c32)"
+    PASSWORD="$(pwgen -s 64 1)"
     echo "root:${PASSWORD}" | chpasswd 2&> /dev/null
 elif bashio::config.has_value 'password'; then
     bashio::log.info "Setup password login"

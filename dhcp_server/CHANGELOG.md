@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2
+
+- Fixes crash when using FQDN as domain
+
 ## 1.1
 
 - Rewrite add-on onto Bashio

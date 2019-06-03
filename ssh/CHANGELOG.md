@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.6
+
+- Fixes crash when using authorized keys
+
 ## 5.5
 
 - Rewrite add-on onto Bashio

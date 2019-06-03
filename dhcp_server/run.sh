@@ -13,7 +13,7 @@ DOMAIN=$(bashio::config 'domain')
 MAX_LEASE=$(bashio::config 'max_lease')
 
 {
-    echo "option domain-name ${DOMAIN};"
+    echo "option domain-name \"${DOMAIN}\";"
     echo "option domain-name-servers ${DNS};";
     echo "default-lease-time ${DEFAULT_LEASE};"
     echo "max-lease-time ${MAX_LEASE};"

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4
+
+- Bump deCONZ to 2.05.65
+
 ## 2.3
 
 - Rewrite of README

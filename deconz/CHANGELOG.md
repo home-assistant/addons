@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5
+
+- Corrects error in installation instructions steps
+
 ## 2.4
 
 - Bump deCONZ to 2.05.65

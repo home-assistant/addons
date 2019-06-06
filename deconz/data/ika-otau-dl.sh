@@ -2,8 +2,6 @@
 
 URL_IKEA="http://fw.ota.homesmart.ikea.net/feed/version_info.json"
 
-mkdir "/data/otau"
-
 while true
 do
 

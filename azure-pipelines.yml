@@ -10,7 +10,6 @@ pr:
 variables:
   versionHadolint: 'v1.16.3'
   versionShellCheck: 'v0.6.0'
-  versionBuilder: '2.0'
 
 jobs:
 

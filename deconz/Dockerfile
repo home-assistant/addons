@@ -22,6 +22,9 @@ RUN apt-get update \
         libqt5websockets5 \
         libqt5widgets5 \
         sqlite3 \
+        iputils-ping \
+        iproute2 \
+        wget \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \

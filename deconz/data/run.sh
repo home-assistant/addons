@@ -1,6 +1,8 @@
 #!/usr/bin/env bashio
 set -e
 
+mkdir -p "/data/otau"
+
 # shellcheck disable=SC1091
 . /discovery.sh
 

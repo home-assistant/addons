@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6
+
+- Adding missing dependencies of deconz
+- Create otau storage directory on start
+
 ## 2.5
 
 - Corrects error in installation instructions steps

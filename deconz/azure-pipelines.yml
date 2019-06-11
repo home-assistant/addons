@@ -16,7 +16,7 @@ variables:
 
 
 jobs:
-- template: .azure/azp-template-addon.yml
+- template: /.azure/azp-template-addon.yml
   parameters:
     addon: 'deconz'
     arch: '--armhf --amd64'

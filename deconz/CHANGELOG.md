@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7
+
+- Bump deCONZ to 2.05.66
+
 ## 2.6
 
 - Adding missing dependencies of deconz

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0
+
+- Update and pin base image to Alpine 3.10
+
 ## 5.6
 
 - Fixes crash when using authorized keys

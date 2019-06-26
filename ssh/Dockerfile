@@ -1,9 +1,6 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Add env
-ENV LANG C.UTF-8
-
 # Setup base
 RUN apk add --no-cache \
     bash-completion \
@@ -22,8 +19,8 @@ RUN sed -i "s/ash/bash/" /etc/passwd
 # Add YAML highlighting for nano
 ADD https://raw.githubusercontent.com/scopatz/nanorc/master/yaml.nanorc /usr/share/nano/yaml.nanorc
 RUN sed -i 's/^#[[:space:]]*\(include "\/usr\/share\/nano\/\*\.nanorc".*\)/\1/' /etc/nanorc
-# Hass.io CLI
 
+# Hass.io CLI
 ARG BUILD_ARCH
 ARG CLI_VERSION
 RUN apk add --no-cache curl \
@@ -32,8 +29,8 @@ RUN apk add --no-cache curl \
     && /usr/bin/hassio completion > /usr/share/bash-completion/completions/hassio
 
 # Copy data
-COPY run.sh /
-COPY motd /etc/
-COPY sshd_config /etc/ssh/
+COPY data/run.sh /
+COPY data/motd /etc/
+COPY data/sshd_config /etc/ssh/
 
 CMD [ "/run.sh" ]

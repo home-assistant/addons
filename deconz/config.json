@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "2.7",
+  "version": "3.0",
   "slug": "deconz",
   "description": "Control a ZigBee network with Conbee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf"],
@@ -12,10 +12,12 @@
   "discovery": ["deconz"],
   "ports": {
     "80/tcp": 40850,
+    "5900/tcp": null,
     "8080/tcp": 40860
   },
   "ports_description": {
     "80/tcp": "deCONZ API backend",
+    "5900/tcp": "deCONZ graphical desktop via VNC",
     "8080/tcp": "deCONZ WebSocket Server"
   },
   "host_network": true,
@@ -32,10 +34,17 @@
     "/dev/mem:/dev/mem:rw"
   ],
   "options": {
-   "device": null
+   "device": null,
+   "vnc_password": ""
   },
   "schema": {
-    "device": "str"
+    "device": "str",
+    "vnc_password": "str",
+    "dbg_aps": "int?",
+    "dbg_info": "int?",
+    "dbg_otau": "int?",
+    "dbg_zcl": "int?",
+    "dbg_zdp": "int?"
   },
   "image": "homeassistant/{arch}-addon-deconz"
 }

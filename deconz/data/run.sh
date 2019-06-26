@@ -9,7 +9,7 @@ mkdir -p "/data/otau"
 
 WAIT_PIDS=()
 
-# Default QTinfo platform
+# Default QT platform
 PLATFORM="minimal"
 
 # Load config
@@ -28,7 +28,7 @@ bashio::config.has_value 'dbg_otau' \
     && DBG_OTAU="$(bashio::config 'dbg_otau')" || DBG_OTAU=0
 bashio::config.has_value 'dbg_zcl' \
     && DBG_ZCL="$(bashio::config 'dbg_zcl')" || DBG_ZCL=0
-bashio::config.true 'dbg_zdp' \
+bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
 
 # Check if port is available

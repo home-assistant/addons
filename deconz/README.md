@@ -84,6 +84,18 @@ To access it you need a [VNC Viewer][vnc-viewer] application.
 If you are using macOS, you are in luck, since VNC is built-in. Open the
 spotlight search and enter: `vnc://hassio.local:5900`
 
+## Upgrading RaspBee and ConBee firmware
+
+This add-on allows you to upgrade your firmware straight from the Phoscon
+web interface with ease.
+
+Go to "Settings -> Gateway" and click the upgrade button.
+
+However, some USB sticks (like the Aeotec Z-Wave sticks), can interfere with
+the upgrade process, causing the firmware upgrade to fail silently. If you end
+up with the same firmware version as before you started the upgrade, consider
+unplugging the other sticks and try again.
+
 ## Advanced debug output control
 
 Hidden controls are added to the add-on to allow control over the debug

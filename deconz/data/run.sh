@@ -57,6 +57,7 @@ if bashio::var.has_value "${VNC_PORT}"; then
     bashio::log.info "Starting VNC server..."
     echo "${VNC_PASSWORD}" | tigervncpasswd -f > /root/.vncpasswd
     tigervncserver \
+        -name "Hass.io - deCONZ" \
         -geometry 1920x1080 \
         -depth 16 \
         -localhost no \

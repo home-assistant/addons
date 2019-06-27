@@ -25,7 +25,6 @@ RUN apt-get update \
         sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \
-        tzdata \
         wget \
         wmii \
         xfonts-base \

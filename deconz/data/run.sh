@@ -44,6 +44,12 @@ if bashio::var.has_value "${VNC_PORT}"; then
         bashio::exit.nok "VNC requires the port number to be set to 5900 or higher!"
     fi
 
+    # Check if configured VNC port is free
+    if nc -z 127.0.0.1 "${VNC_PORT}"; then
+        bashio::log.fatal "VNC port ${VNC_PORT} is already in use!"
+        bashio::exit.nok "Please change the port number"
+    fi
+
     TMP_FOLDER=$(mktemp -d)
     export XDG_RUNTIME_DIR="${TMP_FOLDER}"
     export DISPLAY=":$((VNC_PORT-5900))"
@@ -57,6 +63,7 @@ if bashio::var.has_value "${VNC_PORT}"; then
     bashio::log.info "Starting VNC server..."
     echo "${VNC_PASSWORD}" | tigervncpasswd -f > /root/.vncpasswd
     tigervncserver \
+        -name "Hass.io - deCONZ" \
         -geometry 1920x1080 \
         -depth 16 \
         -localhost no \

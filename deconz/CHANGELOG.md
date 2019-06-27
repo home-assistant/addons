@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1
+
+- Improves VNC desktop name
+- Adds check if VNC port is free to use
+- Documents firmware upgrade process and caveats
+
 ## 3.0
 
 - Adds support for accessing deCONZ via VNC

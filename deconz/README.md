@@ -71,6 +71,50 @@ Phoscon WebUI, then restore that config after installing/reinstalling.
 
 However, your ZigBee devices will remain paired to your ConBee or RaspBee hardware.
 
+## Accessing the deCONZ application and viewing the mesh via VNC
+
+The add-on allows you to access the underlying deCONZ application running on
+a remote desktop via VNC. It allows you to view the ZigBee mesh (which can
+be really helpful when debugging network issues), but also gives you access
+to tons of advanced features.
+
+To enable it:
+
+- Set a port number for VNC in the "Network" configuration section of the
+  add-on and hit "SAVE". Advised is to use port 5900, but any other port above
+  5900 works as well.
+- Set a VNC password in the add-on configuration and hit "SAVE".
+- Restart the add-on.
+
+To access it you need a [VNC Viewer][vnc-viewer] application.
+
+If you are using macOS, you are in luck, since VNC is built-in. Open the
+spotlight search and enter: `vnc://hassio.local:5900`
+
+## Advanced debug output control
+
+Hidden controls are added to the add-on to allow control over the debug
+output of deCONZ. The following options are hidden, but can be added to
+the add-on configuration:
+
+- `dbg_info`
+- `dbg_aps`
+- `dbg_otau`
+- `dbg_zcl`
+- `dbg_zdp`
+
+These options require a number that represents the log level.
+
+Example add-on config with `dbg_aps` enabled on log level 1:
+
+```json
+{
+  "device": "/dev/ttyUSB0",
+  "vnc_password": "",
+  "dbg_aps": 1
+}
+```
+
 ## Configuration
 
 Add-on configuration:
@@ -120,4 +164,4 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[repository]: https://github.com/hassio-addons/repository
+[vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/

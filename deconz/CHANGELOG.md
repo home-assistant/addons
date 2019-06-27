@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0
+
+- Adds support for accessing deCONZ via VNC
+- Adds debug output control options
+
 ## 2.7
 
 - Bump deCONZ to 2.05.66

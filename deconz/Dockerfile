@@ -9,10 +9,9 @@ ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        iproute2 \
+        iputils-ping \
         kmod \
-        lsof \
-        tzdata \
-        netcat \
         libcap2-bin \
         libqt5core5a \
         libqt5gui5 \
@@ -21,10 +20,15 @@ RUN apt-get update \
         libqt5sql5 \
         libqt5websockets5 \
         libqt5widgets5 \
+        lsof \
+        netcat \
         sqlite3 \
-        iputils-ping \
-        iproute2 \
+        tigervnc-common \
+        tigervnc-standalone-server \
         wget \
+        wmii \
+        xfonts-base \
+        xfonts-scalable \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \

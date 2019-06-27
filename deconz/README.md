@@ -4,13 +4,6 @@ Control a ZigBee network using ConBee or RaspBee hardware by Dresden Elektronik.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
-## About
-
-You can use this add-on to check whether your configuration files are valid against the
-new version of Home Assistant before you actually update your Home Assistant
-installation. This add-on will help you avoid errors due to breaking changes,
-resulting in a smooth update.
-
 ## Installation
 
 The installation of this add-on is straightforward and easy to do.

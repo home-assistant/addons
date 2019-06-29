@@ -96,6 +96,8 @@ the upgrade process, causing the firmware upgrade to fail silently. If you end
 up with the same firmware version as before you started the upgrade, consider
 unplugging the other sticks and try again.
 
+If that is still not working, try [upgrading the firmware manually][manual-upgrade].
+
 ## Advanced debug output control
 
 Hidden controls are added to the add-on to allow control over the debug
@@ -168,5 +170,6 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/home-assistant/hassio-addons/issues
+[manual-upgrade]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually
 [reddit]: https://reddit.com/r/homeassistant
 [vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/

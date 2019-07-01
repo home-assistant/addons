@@ -1,15 +1,30 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM as builder
+ARG ALPINE_VERSION
+FROM homeassistant/amd64-base:$ALPINE_VERSION as builder
 
 WORKDIR /usr/src
 ARG MOSQUITTO_AUTH_VERSION
+ARG BUILD_ARCH
 RUN apk add --no-cache --virtual .build-dependencies \
         build-base go git mosquitto-dev \
-    && git clone --depth 1 https://github.com/iegomez/mosquitto-go-auth \
+    && git clone --depth 1 -b ${MOSQUITTO_AUTH_VERSION} https://github.com/iegomez/mosquitto-go-auth \
     && cd mosquitto-go-auth \
-    && export CGO_CFLAGS="-I/usr/include -fPIC" CGO_LDFLAGS="-s -w" CGO_ENABLED=0 GOARM=6 GOARCH=arm \
-    && go build -buildmode=c-archive go-auth.go \
-    && go build -buildmode=c-shared -o go-auth.so \
+    && export CGO_CFLAGS="-I/usr/include -fPIC" CGO_LDFLAGS="-s -w" \
+    && \
+        if [ "${BUILD_ARCH}" = "armhf" ]; then \
+            export CGO_ENABLED=0 GOARM=6 GOARCH=arm; \
+        elif [ "${BUILD_ARCH}" = "armv7" ]; then \
+            export CGO_ENABLED=0 GOARM=7 GOARCH=arm; \
+        elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
+            export CGO_ENABLED=0 GOARCH=arm64; \
+        elif [ "${BUILD_ARCH}" = "amd64" ]; then \
+            export CGO_ENABLED=0 GOARCH=amd64; \
+        elif [ "${BUILD_ARCH}" = "i386" ]; then \
+            export CGO_ENABLED=0 GOARCH=386; \
+        else \
+            exit 1; \
+        fi \
+    && make \
     && apk del .build-dependencies
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bashio
-set -e
+set +u
 
 CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json

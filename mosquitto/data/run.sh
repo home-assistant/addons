@@ -9,7 +9,6 @@ ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-AUTH_QUIET_LOGS=$(jq --raw-output ".quiet_logs" $CONFIG_PATH)
 LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 HOMEASSISTANT_PW=
 ADDONS_PW=

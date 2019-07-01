@@ -7,7 +7,6 @@
     "aarch64": "homeassistant/aarch64-base:3.10"
   },
   "args": {
-    "MOSQUITTO_AUTH_VERSION": "0.5.0",
-    "ALPINE_VERSION": "3.10"
+    "MOSQUITTO_AUTH_VERSION": "0.1.4"
   }
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bashio
 set -e
 
 CONFIG_PATH=/data/options.json

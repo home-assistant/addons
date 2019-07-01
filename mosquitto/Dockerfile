@@ -7,7 +7,9 @@ RUN apk add --no-cache --virtual .build-dependencies \
         build-base go git mosquitto-dev \
     && git clone --depth 1 https://github.com/iegomez/mosquitto-go-auth \
     && cd mosquitto-go-auth \
-    && CGO_CFLAGS="-I/usr/include -fPIC" CGO_LDFLAGS="-s -w" CGO_ENABLED=0 GOARM=6 GOARCH=arm make \
+    && export CGO_CFLAGS="-I/usr/include -fPIC" CGO_LDFLAGS="-s -w" CGO_ENABLED=0 GOARM=6 GOARCH=arm \
+    && go build -buildmode=c-archive go-auth.go \
+    && go build -buildmode=c-shared -o go-auth.so \
     && apk del .build-dependencies
 
 

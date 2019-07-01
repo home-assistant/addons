@@ -5,10 +5,11 @@ CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 
 LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
-ANONYMOUS=$(bashio::config '.anonymous')
-KEYFILE=$(bashio::config '.keyfile')
-CERTFILE=$(bashio::config '.certfile')
-CUSTOMIZE_ACTIVE=$(bashio::config '.customize.active')
+ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
+KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
+CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
+CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
+AUTH_QUIET_LOGS=$(jq --raw-output ".quiet_logs" $CONFIG_PATH)
 LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 HOMEASSISTANT_PW=
 ADDONS_PW=

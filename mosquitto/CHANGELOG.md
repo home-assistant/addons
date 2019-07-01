@@ -3,7 +3,8 @@
 ## 5.0
 
 - Update mosquitto 1.6.3 / Alpine 3.10
-- Migrate to `mosquitto-go-auth` plugin
+- Migrate to `mosquitto-auth-plug` from pvizeli
+- Use auth cache for faster reauthentication
 
 ## 4.3
 

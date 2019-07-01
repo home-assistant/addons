@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0
+
+- Update mosquitto 1.6.3 / Alpine 3.10
+- Migrate to `mosquitto-go-auth` plugin
+
 ## 4.3
 
 - Fix password generator with new images

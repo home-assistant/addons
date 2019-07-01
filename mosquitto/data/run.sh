@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 
 LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
-ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
-KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
-CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-AUTH_QUIET_LOGS=$(jq --raw-output ".quiet_logs" $CONFIG_PATH)
+ANONYMOUS=$(bashio::config '.anonymous')
+KEYFILE=$(bashio::config '.keyfile')
+CERTFILE=$(bashio::config '.certfile')
+CUSTOMIZE_ACTIVE=$(bashio::config '.customize.active')
+LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 HOMEASSISTANT_PW=
 ADDONS_PW=
 WAIT_PIDS=()
@@ -81,15 +81,15 @@ function constrain_discovery() {
 
 ## Main ##
 
-echo "[INFO] Setup mosquitto configuration"
+bashio::log.info "Setup mosquitto configuration"
 sed -i "s/%%ANONYMOUS%%/$ANONYMOUS/g" /etc/mosquitto.conf
-sed -i "s/%%AUTH_QUIET_LOGS%%/$AUTH_QUIET_LOGS/g" /etc/mosquitto.conf
+sed -i "s/%%LOG_LEVEL%%/$LOGGING/g" /etc/mosquitto.conf
 
 # Enable SSL if exists configs
 if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
     echo "$SSL_CONFIG" >> /etc/mosquitto.conf
 else
-    echo "[WARN] SSL not enabled - No valid certs found!"
+    bashio::log.warning "SSL not enabled - No valid certs found!"
 fi
 
 # Allow customize configs from share
@@ -100,9 +100,9 @@ fi
 
 # Handle local users
 if [ "$LOGINS" -gt "0" ]; then
-    echo "[INFO] Found local users inside config"
+    bashio::log.info "Found local users inside config"
 else
-    echo "[INFO] No local user available"
+    bashio::log.info "No local user available"
 fi
 
 # Prepare System Accounts
@@ -110,7 +110,7 @@ if [ ! -e "${SYSTEM_USER}" ]; then
     HOMEASSISTANT_PW="$(pwgen 64 1)"
     ADDONS_PW="$(pwgen 64 1)"
 
-    echo "[INFO] Initialize system configuration."
+    bashio::log.info "Initialize system configuration."
     write_system_users
 else
     HOMEASSISTANT_PW=$(jq --raw-output '.homeassistant.password' $SYSTEM_USER)
@@ -119,20 +119,20 @@ fi
 
 # Initial Service
 if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
-    echo "[WARN] There is allready a MQTT services running!"
+    bashio::log.warning "There is allready a MQTT services running!"
 else
-    echo "[INFO] Initialize Hass.io Add-on services"
+    bashio::log.info "Initialize Hass.io Add-on services"
     if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")" > /dev/null; then
-        echo "[ERROR] Can't setup Hass.io service mqtt"
+        bashio::log.error "Can't setup Hass.io service mqtt"
     fi
 
-    echo "[INFO] Initialize Home Assistant discovery"
+    bashio::log.info "Initialize Home Assistant discovery"
     if ! call_hassio POST "discovery" "$(constrain_discovery homeassistant "${HOMEASSISTANT_PW}")" > /dev/null; then
-        echo "[ERROR] Can't setup Home Assistant discovery mqtt"
+        bashio::log.error "Can't setup Home Assistant discovery mqtt"
     fi
 fi
 
-echo "[INFO] Start Mosquitto daemon"
+bashio::log.info "Start Mosquitto daemon"
 
 # Start Auth Server
 socat TCP-LISTEN:8080,fork,reuseaddr SYSTEM:/bin/auth_srv.sh &
@@ -144,13 +144,13 @@ WAIT_PIDS+=($!)
 
 # Handling Closing
 function stop_mqtt() {
-    echo "[INFO] Shutdown mqtt system"
+    bashio::log.info "Shutdown mqtt system"
     kill -15 "${WAIT_PIDS[@]}"
 
     # Remove service
     if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep "$(hostname)" > /dev/null; then
         if ! call_hassio DELETE "services/mqtt"; then
-            echo "[Warn] Service unregister fails!"
+            bashio::log.warning "Service unregister fails!"
         fi
     fi
 

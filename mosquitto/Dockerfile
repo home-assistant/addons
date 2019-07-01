@@ -9,7 +9,7 @@ RUN apk add --no-cache --virtual .build-dependencies \
         build-base go git mosquitto-dev \
     && git clone --depth 1 -b ${MOSQUITTO_AUTH_VERSION} https://github.com/iegomez/mosquitto-go-auth \
     && cd mosquitto-go-auth \
-    && export CGO_CFLAGS="-I/usr/include -fPIC" CGO_LDFLAGS="-shared" CGO_ENABLED=0 \
+    && export CGO_CFLAGS="-I/usr/include -fPIC" CGO_LDFLAGS="-shared" CGO_ENABLED=1 \
     && \
         if [ "${BUILD_ARCH}" = "armhf" ]; then \
             export GOARM=6 GOARCH=arm; \

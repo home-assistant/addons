@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "5.0",
+  "version": "5.1",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://home-assistant.io/addons/mosquitto/",
@@ -36,8 +36,10 @@
       "active": "bool",
       "folder": "str"
     },
+    "cafile": "str",
     "certfile": "str",
-    "keyfile": "str"
+    "keyfile": "str",
+    "require_certificate": "bool"
   },
   "image": "homeassistant/{arch}-addon-mosquitto"
 }

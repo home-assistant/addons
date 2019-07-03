@@ -57,6 +57,7 @@ if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/se
         echo "topic hermes/intent/# out"
         echo "topic hermes/hotword/toggleOn out"
         echo "topic hermes/hotword/toggleOff out"
+        echo "topic hermes/hotword/+/detected out"
         echo "topic hermes/asr/stopListening out"
         echo "topic hermes/asr/startListening out"
         echo "topic hermes/nlu/intentNotParsed out"

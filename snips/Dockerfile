@@ -1,7 +1,5 @@
 ARG BUILD_FROM
-#FROM $BUILD_FROM
-FROM "homeassistant/armhf-base-raspbian:stretch"
-
+FROM $BUILD_FROM
 
 # Copy data
 COPY run.sh /

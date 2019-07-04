@@ -1,6 +1,6 @@
 {
   "name": "Snips.AI",
-  "version": "5.2",
+  "version": "5.3",
   "slug": "snips",
   "description": "Local voice control platform",
   "url": "https://home-assistant.io/addons/snips/",
@@ -27,6 +27,5 @@
       "active": "bool",
       "platform": "str"
     }
-  },
-  "image": "homeassistant/{arch}-addon-snips"
+  }
 }

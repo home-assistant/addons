@@ -96,7 +96,7 @@ echo "[INFO] Starting snips-watch"
 
 /usr/bin/snips-asr --version
 /usr/bin/snips-injection --version
-/usr/bin/snips-audio-server --version
+#/usr/bin/snips-audio-server --version
 /usr/bin/snips-dialogue --version
 /usr/bin/snips-hotword --version
 /usr/bin/snips-nlu --version

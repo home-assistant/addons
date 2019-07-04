@@ -1,5 +1,7 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM
+#FROM $BUILD_FROM
+FROM "homeassistant/armhf-base-raspbian:stretch"
+
 
 # Copy data
 COPY run.sh /
@@ -28,11 +30,11 @@ RUN apt-get update \
         fi
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        snips-platform-voice \
-        snips-asr \
-        snips-injection \
-        snips-watch \
+    && apt-get install -y \
+        snips-platform-voice=0.63.2 \
+        snips-asr=0.63.2 \
+        snips-injection=0.63.2 \
+        snips-watch=0.63.2 \
     && rm -rf /var/lib/apt/lists/* \
     && curl -L -o /assistant_Hass_de.zip https://s3.amazonaws.com/hassio-addons-data/assistant_Hass_de.zip \
     && curl -L -o /assistant_Hass_en.zip https://s3.amazonaws.com/hassio-addons-data/assistant_Hass_en.zip \

@@ -27,5 +27,6 @@
       "active": "bool",
       "platform": "str"
     }
-  }
+  },
+  "image": "homeassistant/{arch}-addon-snips"
 }

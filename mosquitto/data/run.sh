@@ -8,8 +8,8 @@ LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
 ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
 KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-CAFILE=$(jq --raw-output -e ".cafile | select (.!=null)" $CONFIG_PATH || echo "$CERTFILE")
-REQUIRE_CERTIFICATE=$(jq --raw-output -e ".require_certificate | select (.!=null)" $CONFIG_PATH || echo false)
+CAFILE=$(jq --raw-output -e ".cafile" $CONFIG_PATH)
+REQUIRE_CERTIFICATE=$(jq --raw-output -e ".require_certificate" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
 LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 HOMEASSISTANT_PW=
@@ -95,7 +95,7 @@ else
 fi
 
 # Enable SSL if exists configs
-if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
+if [ -e "/ssl/$CAFILE" ] && [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
     echo "$SSL_CONFIG" >> /etc/mosquitto.conf
 else
     bashio::log.warning "SSL not enabled - No valid certs found!"

@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "5.1",
+  "version": "6.0",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://home-assistant.io/addons/mosquitto/",
@@ -24,8 +24,10 @@
       "active": false,
       "folder": "mosquitto"
     },
-    "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem"
+    "cafile": "cafile.pem",
+    "certfile": "certfile.pem",
+    "keyfile": "privkey.pem",
+    "require_certificate": false
   },
   "schema": {
     "logins": [

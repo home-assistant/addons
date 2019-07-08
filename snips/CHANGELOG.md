@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.3
+- Updated to snips 0.63.2
+- Pinned docker version to 0.63.2
+- set hermes/hotword/+/detected out to allow subscribing from other systems
+
 ## 5.2
 - Updated to snips 0.62.3
 - Add snips-injection

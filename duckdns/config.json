@@ -14,8 +14,6 @@
       "certfile": "fullchain.pem",
       "keyfile": "privkey.pem"
     },
-    "ipv4": "",
-    "ipv6": "",
     "token": null,
     "domains": [null],
     "seconds": 300
@@ -26,8 +24,8 @@
       "certfile": "str",
       "keyfile": "str"
     },
-    "ipv4": "str",
-    "ipv6": "str",
+    "ipv4": "str?",
+    "ipv6": "str?",
     "token": "str",
     "domains": ["str"],
     "seconds": "int"

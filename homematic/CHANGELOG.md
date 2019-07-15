@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.3
+
+- Update OCCU to 3.47.10
+
 ## 8.2
 
 - Update OCCU to 3.45.7

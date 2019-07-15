@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic OCCU",
-  "version": "8.2",
+  "version": "8.3",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://home-assistant.io/addons/homematic/",
@@ -15,6 +15,11 @@
     "2001/tcp": 2001,
     "2000/tcp": 2000,
     "2010/tcp": 2010
+  },
+  "ports_description": {
+    "2001/tcp": "Homematic xmlrpc",
+    "2000/tcp": "HomematicWire xmlrpc",
+    "2010/tcp": "HomematicIP xmlrpc"
   },
   "options": {
     "rf_enable": false,

@@ -4,6 +4,6 @@
     "i386": "homeassistant/i386-base-ubuntu:18.04"
   },
   "args": {
-    "OCCU_VERSION": "3.45.7"
+    "OCCU_VERSION": "3.47.10"
   }
 }

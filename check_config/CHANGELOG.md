@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2
+
+- Update python/alpine to HA 0.96
+
 ## 2.1
 
 - Adds additional information in log output to avoid confusion

@@ -1,6 +1,6 @@
 {
   "name": "Check Home Assistant configuration",
-  "version": "2.1",
+  "version": "2.2",
   "slug": "check_config",
   "description": "Check current Home Assistant configuration against a new version",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/check_config",

@@ -1,9 +1,9 @@
 {
   "build_from": {
-    "amd64": "homeassistant/amd64-base-python:3.7",
-    "i386": "homeassistant/i386-base-python:3.7",
-    "armhf": "homeassistant/armhf-base-python:3.7",
-    "armv7": "homeassistant/armv7-base-python:3.7",
-    "aarch64": "homeassistant/aarch64-base-python:3.7"
+    "amd64": "homeassistant/amd64-base-python:3.7-alpine3.10",
+    "i386": "homeassistant/i386-base-python:3.7-alpine3.10",
+    "armhf": "homeassistant/armhf-base-python:3.7-alpine3.10",
+    "armv7": "homeassistant/armv7-base-python:3.7-alpine3.10",
+    "aarch64": "homeassistant/aarch64-base-python:3.7-alpine3.10"
   }
 }

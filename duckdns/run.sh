@@ -11,8 +11,8 @@ LE_DOMAINS=$(jq --raw-output '.domains[]' $CONFIG_PATH)
 LE_UPDATE="0"
 
 # DuckDNS
-IPV4=$(jq --raw-output '.ipv4' $CONFIG_PATH)
-IPV6=$(jq --raw-output '.ipv6' $CONFIG_PATH)
+IPV4=$(jq --raw-output '.ipv4 // empty' $CONFIG_PATH)
+IPV6=$(jq --raw-output '.ipv6 // empty' $CONFIG_PATH)
 TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
 DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
 WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)

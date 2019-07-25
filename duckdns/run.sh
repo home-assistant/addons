@@ -11,6 +11,8 @@ LE_DOMAINS=$(jq --raw-output '.domains[]' $CONFIG_PATH)
 LE_UPDATE="0"
 
 # DuckDNS
+IPV4=$(jq --raw-output '.ipv4 // empty' $CONFIG_PATH)
+IPV6=$(jq --raw-output '.ipv6 // empty' $CONFIG_PATH)
 TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
 DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
 WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
@@ -45,7 +47,7 @@ fi
 
 # Run duckdns
 while true; do
-    answer="$(curl -sk "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&ip=&verbose=true")" || true
+    answer="$(curl -sk "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&ip=$IPV4&ipv6=$IPV6&verbose=true")" || true
     echo "$(date): $answer"
     
     now="$(date +%s)"

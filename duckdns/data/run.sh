@@ -1,28 +1,27 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bashio
 
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
-CONFIG_PATH=/data/options.json
 
 # Let's encrypt
-LE_TERMS=$(jq --raw-output '.lets_encrypt.accept_terms' $CONFIG_PATH)
-LE_DOMAINS=$(jq --raw-output '.domains[]' $CONFIG_PATH)
 LE_UPDATE="0"
 
 # DuckDNS
-IPV4=$(jq --raw-output '.ipv4 // empty' $CONFIG_PATH)
-IPV6=$(jq --raw-output '.ipv6 // empty' $CONFIG_PATH)
-TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
-DOMAINS=$(jq --raw-output '.domains | join(",")' $CONFIG_PATH)
-WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
+IPV4=$(bashio::config 'ipv4')
+IPV6=$(bashio::config 'ipv6')
+TOKEN=$(bashio::config 'token')
+DOMAINS=$(bashio::config 'domains|join(",")')
+WAIT_TIME=$(bashio::config 'seconds')
 
 # Function that performe a renew
 function le_renew() {
     local domain_args=()
+    local domains
   
+    domains=$(bashio::config 'domains')
+
     # Prepare domain for Let's Encrypt
-    for domain in $LE_DOMAINS; do
+    for domain in $domains; do
         domain_args+=("--domain" "$domain")
     done
     
@@ -31,7 +30,7 @@ function le_renew() {
 }
 
 # Register/generate certificate if terms accepted
-if [ "$LE_TERMS" == "true" ]; then
+if bashio::config.true 'lets_encrypt.accept_terms'; then
     # Init folder structs
     mkdir -p "$CERT_DIR"
     mkdir -p "$WORK_DIR"
@@ -47,11 +46,14 @@ fi
 
 # Run duckdns
 while true; do
-    answer="$(curl -sk "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&ip=$IPV4&ipv6=$IPV6&verbose=true")" || true
-    echo "$(date): $answer"
+    if answer="$(curl -sk "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&ip=$IPV4&ipv6=$IPV6&verbose=true")"; then
+        bashio::log.info "$answer"
+    else
+        bashio::log.warning "$answer"
+    fi
     
     now="$(date +%s)"
-    if [ "$LE_TERMS" == "true" ] && [ $((now - LE_UPDATE)) -ge 43200 ]; then
+    if bashio::config.true 'lets_encrypt.accept_terms' && [ $((now - LE_UPDATE)) -ge 43200 ]; then
         le_renew
     fi
     

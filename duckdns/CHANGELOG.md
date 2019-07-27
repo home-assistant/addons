@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8
+
+- Update dehydrated to 0.6.5
+- Migrate scripts to bashio
+
 ## 1.7
 
 - Add support for manual set IPv4 and IPv6 address

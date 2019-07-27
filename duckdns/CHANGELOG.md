@@ -3,6 +3,7 @@
 ## 1.8
 
 - Update dehydrated to 0.6.5
+- Migrate scripts to bashio
 
 ## 1.7
 

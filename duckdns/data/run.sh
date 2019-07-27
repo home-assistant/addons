@@ -30,7 +30,7 @@ function le_renew() {
 }
 
 # Register/generate certificate if terms accepted
-if $(bashio::config.true 'lets_encrypt.accept_terms'); then
+if bashio::config.true 'lets_encrypt.accept_terms'; then
     # Init folder structs
     mkdir -p "$CERT_DIR"
     mkdir -p "$WORK_DIR"
@@ -53,7 +53,7 @@ while true; do
     fi
     
     now="$(date +%s)"
-    if $(bashio::config.true 'lets_encrypt.accept_terms') && [ $((now - LE_UPDATE)) -ge 43200 ]; then
+    if bashio::config.true 'lets_encrypt.accept_terms' && [ $((now - LE_UPDATE)) -ge 43200 ]; then
         le_renew
     fi
     

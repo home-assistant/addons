@@ -1,9 +1,6 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Add env
-ENV LANG C.UTF-8
-
 # Setup base
 ARG DEHYDRATED_VERSION
 RUN apk add --no-cache curl openssl \
@@ -11,6 +8,6 @@ RUN apk add --no-cache curl openssl \
   && chmod a+x /usr/bin/dehydrated
 
 # Copy data
-COPY *.sh /
+COPY data/*.sh /
 
 CMD [ "/run.sh" ]

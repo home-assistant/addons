@@ -7,10 +7,10 @@ WORK_DIR=/data/workdir
 LE_UPDATE="0"
 
 # DuckDNS
-IPV4=$(bashio::config 'ipv4')
-IPV6=$(bashio::config 'ipv6')
+IPV4=$(bashio::config 'ipv4 // empty')
+IPV6=$(bashio::config 'ipv6 // empty')
 TOKEN=$(bashio::config 'token')
-DOMAINS=$(bashio::config 'domains|join(",")')
+DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
 
 # Function that performe a renew

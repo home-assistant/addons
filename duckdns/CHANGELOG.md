@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9
+
+- Fix issue with empty IPv4 / IPv6
+
 ## 1.8
 
 - Update dehydrated to 0.6.5

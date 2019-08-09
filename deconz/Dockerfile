@@ -30,7 +30,7 @@ RUN apt-get update \
         xfonts-base \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists/* \
-    && if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
+    && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
             curl -q -L -o /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \
             && dpkg -i /wiringpi.deb \
@@ -39,7 +39,7 @@ RUN apt-get update \
 
 # Install deCONZ
 ARG DECONZ_VERSION
-RUN if [ "${BUILD_ARCH}" = "armhf" ] || [ "${BUILD_ARCH}" = "aarch64" ]; \
+RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
             curl -q -L -o /deconz.deb https://www.dresden-elektronik.de/deconz/raspbian/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
         else \

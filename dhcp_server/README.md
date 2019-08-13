@@ -76,7 +76,7 @@ Defaults to `86400`, which is one day.
 ### Option: `max_lease` (required)
 
 The max time in seconds that the IP is leased to your client.
-Defaults to `172800`, which is one day.
+Defaults to `172800`, which is two days.
 
 ### Option: `networks` (one item required)
 

@@ -33,10 +33,10 @@ Example add-on configuration:
 
 ```json
 {
-  "domain": "mynetwork.local",
-  "dns": ["8.8.8.8", "8.8.4.4"],
   "default_lease": 86400,
   "max_lease": 172800,
+  "domain": "mynetwork.local",
+  "dns": ["8.8.8.8", "8.8.4.4"],
   "networks": [
     {
       "subnet": "192.168.1.0",
@@ -58,16 +58,6 @@ Example add-on configuration:
 }
 ```
 
-### Option: `domain` (required)
-
-Your network domain name, e.g., `mynetwork.local` or `home.local`
-
-### Option: `dns` (required)
-
-The DNS servers you DHCP server gives to your clients. This option can
-contain a list of servers. By default it is configured to have Google's
-public DNS servers: `"8.8.8.8", "8.8.4.4".
-
 ### Option: `default_lease` (required)
 
 The default time in seconds that the IP is leased to your client.
@@ -77,6 +67,16 @@ Defaults to `86400`, which is one day.
 
 The max time in seconds that the IP is leased to your client.
 Defaults to `172800`, which is two days.
+
+### Option: `domain` (required)
+
+Your network domain name, e.g., `mynetwork.local` or `home.local`
+
+### Option: `dns` (required)
+
+The DNS servers you DHCP server gives to your clients. This option can
+contain a list of servers. By default it is configured to have Google's
+public DNS servers: `"8.8.8.8", "8.8.4.4".
 
 ### Option: `networks` (one item required)
 

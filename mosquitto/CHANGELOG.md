@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.1
+## 6.0
 
 - Add cafile option in configuration
 - Add require_certificate option in configuration

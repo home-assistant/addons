@@ -23,6 +23,7 @@
   "host_network": true,
   "kernel_modules": true,
   "auto_uart": true,
+  "udev": true,
   "gpio": true,
   "apparmor": false,
   "privileged": [

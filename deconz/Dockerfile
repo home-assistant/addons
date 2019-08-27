@@ -9,6 +9,7 @@ ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        udev \
         iproute2 \
         iputils-ping \
         kmod \

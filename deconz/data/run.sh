@@ -1,6 +1,10 @@
 #!/usr/bin/env bashio
 set -e
 
+# Init own udev service
+udevd --daemon
+udevadm trigger
+
 # Ensure otau folder exists
 mkdir -p "/data/otau"
 
@@ -91,12 +95,10 @@ WAIT_PIDS+=($!)
 # Start OTA updates for deCONZ
 bashio::log.info "Running the deCONZ OTA updater..."
 deCONZ-otau-dl.sh &> /dev/null &
-WAIT_PIDS+=($!)
 
 # Start OTA updates for IKEA
 bashio::log.info "Running the IKEA OTA updater..."
 ika-otau-dl.sh &> /dev/null &
-WAIT_PIDS+=($!)
 
 # Register stop
 function stop_addon() {

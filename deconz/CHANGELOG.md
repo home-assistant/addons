@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2
+
+- Bump deCONZ to 2.05.67
+- Add own udev service
+
 ## 3.1
 
 - Improves VNC desktop name

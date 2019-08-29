@@ -149,6 +149,11 @@ In most cases this is one of the following:
 
 - Use at least 2.5A power supply for your Raspberry Pi!
   This avoids strange behavior when using this add-on.
+- When starting the addon, a syslog warning is generated:
+
+  ```[hassio.api.security] No API token provided for /api/config```
+  
+  That can be safely ignored. That's because Deconz scans the whole network and call /api/config on every port 80.
 
 ## Support
 

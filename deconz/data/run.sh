@@ -23,7 +23,7 @@ VNC_PORT=$(bashio::addon.port 5900)
 VNC_PASSWORD=$(bashio::config 'vnc_password')
 WEBSOCKET_PORT=$(bashio::addon.port 8080)
 
-# If simlink
+# Lookup udev link
 if [ -L "${DECONZ_DEVICE}" ]; then
     DECONZ_DEVICE="$(readlink "${DECONZ_DEVICE}")"
 fi

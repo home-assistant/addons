@@ -9,6 +9,7 @@ ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        udev \
         iproute2 \
         iputils-ping \
         kmod \
@@ -30,6 +31,11 @@ RUN apt-get update \
         xfonts-base \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists/* \
+    \
+    && curl -L https://github.com/gentoo/eudev/archive/master.tar.gz | tar -xz \
+    && cp eudev-master/rules/* /etc/udev/rules.d/ \
+    && rm -rf eudev-master \
+    \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
             curl -q -L -o /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \

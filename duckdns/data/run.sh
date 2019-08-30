@@ -41,6 +41,10 @@ if bashio::config.true 'lets_encrypt.accept_terms'; then
         touch "$WORK_DIR/config"
         
         dehydrated --register --accept-terms --config "$WORK_DIR/config"
+    elif [ ! -e "$WORK_DIR/lock" ]; then
+        # Some user reports issue with lock files/cleanup
+        rm -rf "$WORK_DIR/lock"
+        bashio::log.warning "Reset dehydrated lock file"
     fi
 fi
 

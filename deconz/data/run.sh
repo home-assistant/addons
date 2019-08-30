@@ -23,6 +23,11 @@ VNC_PORT=$(bashio::addon.port 5900)
 VNC_PASSWORD=$(bashio::config 'vnc_password')
 WEBSOCKET_PORT=$(bashio::addon.port 8080)
 
+# If simlink
+if [ -L "${DECONZ_DEVICE}" ]; then
+    DECONZ_DEVICE=$(readlink "${DECONZ_DEVICE}")
+fi
+
 # Load debug values
 bashio::config.has_value 'dbg_info' \
     && DBG_INFO="$(bashio::config 'dbg_info')" || DBG_INFO=1

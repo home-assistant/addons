@@ -25,7 +25,7 @@ WEBSOCKET_PORT=$(bashio::addon.port 8080)
 
 # If simlink
 if [ -L "${DECONZ_DEVICE}" ]; then
-    DECONZ_DEVICE=$(readlink "${DECONZ_DEVICE}")
+    DECONZ_DEVICE="$(readlink "${DECONZ_DEVICE}")"
 fi
 
 # Load debug values

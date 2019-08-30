@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3
+
+- Fix relative to absolut device lookup
+
 ## 3.2
 
 - Bump deCONZ to 2.05.67

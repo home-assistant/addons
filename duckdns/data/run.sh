@@ -21,35 +21,39 @@ function le_renew() {
     domains=$(bashio::config 'domains')
 
     # Prepare domain for Let's Encrypt
-    for domain in $domains; do
-        domain_args+=("--domain" "$domain")
+    for domain in ${domains}; do
+        domain_args+=("--domain" "${domain}")
     done
     
-    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "$CERT_DIR" --config "$WORK_DIR/config" || true
+    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     LE_UPDATE="$(date +%s)"
 }
 
 # Register/generate certificate if terms accepted
 if bashio::config.true 'lets_encrypt.accept_terms'; then
     # Init folder structs
-    mkdir -p "$CERT_DIR"
-    mkdir -p "$WORK_DIR"
+    mkdir -p "${CERT_DIR}"
+    mkdir -p "${WORK_DIR}"
     
     # Generate new certs
-    if [ ! -d "$CERT_DIR/live" ]; then
+    if [ ! -d "${CERT_DIR}/live" ]; then
         # Create empty dehydrated config file so that this dir will be used for storage
-        touch "$WORK_DIR/config"
+        touch "${WORK_DIR}/config"
         
-        dehydrated --register --accept-terms --config "$WORK_DIR/config"
+        dehydrated --register --accept-terms --config "${WORK_DIR}/config"
+    elif [ -e "${WORK_DIR}/lock" ]; then
+        # Some user reports issue with lock files/cleanup
+        rm -rf "${WORK_DIR}/lock"
+        bashio::log.warning "Reset dehydrated lock file"
     fi
 fi
 
 # Run duckdns
 while true; do
-    if answer="$(curl -sk "https://www.duckdns.org/update?domains=$DOMAINS&token=$TOKEN&ip=$IPV4&ipv6=$IPV6&verbose=true")"; then
-        bashio::log.info "$answer"
+    if answer="$(curl -sk "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${IPV4}&ipv6=${IPV6}&verbose=true")"; then
+        bashio::log.info "${answer}"
     else
-        bashio::log.warning "$answer"
+        bashio::log.warning "${answer}"
     fi
     
     now="$(date +%s)"
@@ -57,5 +61,5 @@ while true; do
         le_renew
     fi
     
-    sleep "$WAIT_TIME"
+    sleep "${WAIT_TIME}"
 done

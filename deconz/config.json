@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "3.2",
+  "version": "3.1",
   "slug": "deconz",
   "description": "Control a ZigBee network with ConBee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf"],
@@ -23,7 +23,6 @@
   "host_network": true,
   "kernel_modules": true,
   "auto_uart": true,
-  "udev": true,
   "gpio": true,
   "apparmor": false,
   "privileged": [

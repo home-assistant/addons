@@ -2,7 +2,7 @@
 set -e
 
 # Init own udev service
-udevd --daemon
+/lib/systemd/systemd-udevd --daemon
 udevadm trigger
 
 # Ensure otau folder exists

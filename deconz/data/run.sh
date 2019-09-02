@@ -27,6 +27,8 @@ WEBSOCKET_PORT=$(bashio::addon.port 8080)
 sleep 3
 if [ -L "${DECONZ_DEVICE}" ]; then
     DECONZ_DEVICE="$(readlink -f "${DECONZ_DEVICE}")"
+elif [ ! -e "${DECONZ_DEVICE}" ]; then
+    bashio::exit.nok "No device ${DECONZ_DEVICE} found!"
 fi
 
 # Load debug values

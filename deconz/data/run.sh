@@ -3,7 +3,7 @@ set -e
 
 # Init own udev service
 /lib/systemd/systemd-udevd --daemon
-udevadm trigger --action=change
+bashio::hardware.trigger
 
 # Ensure otau folder exists
 mkdir -p "/data/otau"
@@ -24,6 +24,7 @@ VNC_PASSWORD=$(bashio::config 'vnc_password')
 WEBSOCKET_PORT=$(bashio::addon.port 8080)
 
 # Lookup udev link
+sleep 3
 if [ -L "${DECONZ_DEVICE}" ]; then
     DECONZ_DEVICE="$(readlink -f "${DECONZ_DEVICE}")"
 fi

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4
+
+- Cleanup some udev rules
+
 ## 3.3
 
 - Fix relative to absolut device lookup

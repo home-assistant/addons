@@ -34,6 +34,10 @@ RUN apt-get update \
     \
     && curl -L https://github.com/gentoo/eudev/archive/master.tar.gz | tar -xz \
     && cp eudev-master/rules/* /etc/udev/rules.d/ \
+    && rm -f \
+        /etc/udev/rules.d/75-probe_mtd.rules \
+        /etc/udev/rules.d/80-drivers.rules \
+        /etc/udev/rules.d/80-net-name-slot.rules \
     && rm -rf eudev-master \
     \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \

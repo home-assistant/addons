@@ -31,15 +31,6 @@ RUN apt-get update \
         xfonts-base \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists/* \
-    \
-    && curl -L https://github.com/gentoo/eudev/archive/master.tar.gz | tar -xz \
-    && cp eudev-master/rules/* /etc/udev/rules.d/ \
-    && rm -f \
-        /etc/udev/rules.d/75-probe_mtd.rules \
-        /etc/udev/rules.d/80-drivers.rules \
-        /etc/udev/rules.d/80-net-name-slot.rules \
-    && rm -rf eudev-master \
-    \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
             curl -q -L -o /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \

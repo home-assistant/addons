@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.4
+
+- Cleanup some udev rules
+- Use new Hass.io API for device reload
+
 ## 3.3
 
 - Fix relative to absolut device lookup

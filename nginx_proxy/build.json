@@ -5,8 +5,5 @@
     "armhf": "homeassistant/armhf-base:3.10",
     "armv7": "homeassistant/armv7-base:3.10",
     "aarch64": "homeassistant/aarch64-base:3.10"
-  },
-  "args": {
-    "CLI_VERSION": "3.1.0"
   }
 }

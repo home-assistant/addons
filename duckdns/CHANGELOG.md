@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10
+
+- Fix issue with dehydrated lock file
+
+## 1.9
+
+- Fix issue with empty IPv4 / IPv6
+
 ## 1.8
 
 - Update dehydrated to 0.6.5

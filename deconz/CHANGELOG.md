@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.4
+
+- Cleanup some udev rules
+- Use new Hass.io API for device reload
+
+## 3.3
+
+- Fix relative to absolut device lookup
+
+## 3.2
+
+- Bump deCONZ to 2.05.67
+- Add own udev service
+- Monitoring only deCONZ process
+
 ## 3.1
 
 - Improves VNC desktop name

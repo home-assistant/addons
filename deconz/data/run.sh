@@ -1,6 +1,10 @@
 #!/usr/bin/env bashio
 set -e
 
+# Init own udev service
+/lib/systemd/systemd-udevd --daemon
+bashio::hardware.trigger
+
 # Ensure otau folder exists
 mkdir -p "/data/otau"
 
@@ -18,6 +22,14 @@ API_PORT=$(bashio::addon.port 80)
 VNC_PORT=$(bashio::addon.port 5900)
 VNC_PASSWORD=$(bashio::config 'vnc_password')
 WEBSOCKET_PORT=$(bashio::addon.port 8080)
+
+# Lookup udev link
+sleep 3
+if [ -L "${DECONZ_DEVICE}" ]; then
+    DECONZ_DEVICE="$(readlink -f "${DECONZ_DEVICE}")"
+elif [ ! -e "${DECONZ_DEVICE}" ]; then
+    bashio::exit.nok "No device ${DECONZ_DEVICE} found!"
+fi
 
 # Load debug values
 bashio::config.has_value 'dbg_info' \
@@ -91,12 +103,10 @@ WAIT_PIDS+=($!)
 # Start OTA updates for deCONZ
 bashio::log.info "Running the deCONZ OTA updater..."
 deCONZ-otau-dl.sh &> /dev/null &
-WAIT_PIDS+=($!)
 
 # Start OTA updates for IKEA
 bashio::log.info "Running the IKEA OTA updater..."
 ika-otau-dl.sh &> /dev/null &
-WAIT_PIDS+=($!)
 
 # Register stop
 function stop_addon() {

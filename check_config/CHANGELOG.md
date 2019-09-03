@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0
+
+- Use Home Assistant base image as base for this Add-on
+- Disable external UDEV
+
 ## 2.2
 
 - Update python/alpine to HA 0.96

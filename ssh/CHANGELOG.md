@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.3
+
+- Update Hass.io CLI to 3.1.0
+
+## 6.2
+
+- Update Hass.io CLI to 3.0.0
+
+## 6.1
+
+- Update Hass.io CLI to 2.3.0
+
 ## 6.0
 
 - Update and pin base image to Alpine 3.10

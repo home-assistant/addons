@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5
+
+- Add support for native aarch64
+
 ## 3.4
 
 - Cleanup some udev rules

@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.6
+
+- Bump deCONZ to 2.05.69
+- Update wiringPi to latest (2.52)
+
 ## 3.5
 
 - Add support for native aarch64

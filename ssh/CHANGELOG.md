@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.3.1
+## 6.4
 
 - Changed logging from DEBUG -> INFO
 

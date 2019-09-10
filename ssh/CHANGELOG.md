@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.4
+
+- Changed logging from DEBUG -> INFO
+
 ## 6.3
 
 - Update Hass.io CLI to 3.1.0

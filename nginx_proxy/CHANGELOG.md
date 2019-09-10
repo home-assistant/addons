@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3
+
+- Fix issue with `[warn] the "ssl" directive is deprecated` in nginx.conf
+
 ## 2.2
 
 - Fix issue with `homeassistant` connection

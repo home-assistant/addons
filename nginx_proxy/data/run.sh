@@ -29,7 +29,7 @@ fi
 
 # Generate cloudflare.conf
 if [ ! -f "$CLOUDFLARE_CONF" ]; then
-   echo "[INFO] Creating 'cloudflare.conf' for set_real_ip_from..."
+   echo "[INFO] Creating 'cloudflare.conf' for real visitor IP address..."
    echo "# Cloudflare IP addresses" > $CLOUDFLARE_CONF;
    echo "" >> $CLOUDFLARE_CONF;
 

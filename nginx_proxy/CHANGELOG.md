@@ -2,7 +2,7 @@
 
 ## 2.3
 
-- Fix issue with `nginx: [warn] the "ssl" directive is deprecated, use the "listen ... ssl" directive instead` in ngnix.conf:45
+- Fix issue with nginx warning for ssl directive
 
 ## 2.2
 

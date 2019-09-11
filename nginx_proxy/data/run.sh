@@ -14,6 +14,7 @@ KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
+CLOUDFLARE_ACTIVE=$(jq --raw-output ".cloudflare.active" $CONFIG_PATH)
 
 # Generate dhparams
 if [ ! -f "$DHPARAMS_PATH" ]; then
@@ -28,7 +29,7 @@ fi
 
 # Generate nginx_cloudflare.conf
 if [ ! -f "$CLOUDFLARE_CONF" ]; then
-   echo "[INFO] Creating 'nginx_cloudflare.conf' for set_real_ip_from..."
+   echo "[INFO] Creating 'cloudflare.conf' for set_real_ip_from..."
    echo "# Cloudflare IP addresses" > $CLOUDFLARE_CONF;
    echo "" >> $CLOUDFLARE_CONF;
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3
+
+- Fix issue with nginx warning for ssl directive
+
 ## 2.2
 
 - Fix issue with `homeassistant` connection

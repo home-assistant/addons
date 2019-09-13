@@ -14,7 +14,8 @@ KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-CLOUDFLARE_ACTIVE=$(jq --raw-output ".cloudflare.active" $CONFIG_PATH)
+CLOUDFLARE_ENABLED=$(jq --raw-output ".cloudflare.enabled" $CONFIG_PATH)
+CLOUDFLARE_REAL_IP_HEADER=$(jq --raw-output ".cloudflare.real_ip_header" $CONFIG_PATH)
 
 # Generate dhparams
 if [ ! -f "$DHPARAMS_PATH" ]; then
@@ -27,25 +28,27 @@ if [ ! -f "$SNAKEOIL_CERT" ]; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
-# Generate cloudflare.conf
-if [ ! -f "$CLOUDFLARE_CONF" ]; then
-   echo "[INFO] Creating 'cloudflare.conf' for real visitor IP address..."
-   echo "# Cloudflare IP addresses" > $CLOUDFLARE_CONF;
-   echo "" >> $CLOUDFLARE_CONF;
+if [ "$CLOUDFLARE_ENABLED" == "true" ]; then
+    # Generate cloudflare.conf
+    if [ ! -f "$CLOUDFLARE_CONF" ]; then
+        echo "[INFO] Creating 'cloudflare.conf' for real visitor IP address..."
+        echo "# Cloudflare IP addresses" > $CLOUDFLARE_CONF;
+        echo "" >> $CLOUDFLARE_CONF;
 
-   echo "# - IPv4" >> $CLOUDFLARE_CONF;
-   for i in `curl https://www.cloudflare.com/ips-v4`; do
-       echo "set_real_ip_from $i;" >> $CLOUDFLARE_CONF;
-   done
-
-   echo "" >> $CLOUDFLARE_CONF;
-   echo "# - IPv6" >> $CLOUDFLARE_CONF;
-   for i in `curl https://www.cloudflare.com/ips-v6`; do
-       echo "set_real_ip_from $i;" >> $CLOUDFLARE_CONF;
-    done
-    
-    echo "" >> $CLOUDFLARE_CONF;
-    echo "real_ip_header CF-Connecting-IP;" >> $CLOUDFLARE_CONF;
+        echo "# - IPv4" >> $CLOUDFLARE_CONF;
+        for i in `curl https://www.cloudflare.com/ips-v4`; do
+            echo "set_real_ip_from $i;" >> $CLOUDFLARE_CONF;
+        done
+        
+        echo "" >> $CLOUDFLARE_CONF;
+        echo "# - IPv6" >> $CLOUDFLARE_CONF;
+        for i in `curl https://www.cloudflare.com/ips-v6`; do
+            echo "set_real_ip_from $i;" >> $CLOUDFLARE_CONF;
+        done
+        
+        echo "" >> $CLOUDFLARE_CONF;
+        echo "real_ip_header ${CLOUDFLARE_REAL_IP_HEADER};" >> $CLOUDFLARE_CONF;
+    fi
 fi
 
 # Prepare config file

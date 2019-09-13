@@ -29,6 +29,7 @@ if [ ! -f "$SNAKEOIL_CERT" ]; then
 fi
 
 if [ "$CLOUDFLARE_ENABLED" == "true" ]; then
+    sed -i "s|#include /data/cloudflare.conf|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
     if [ ! -f "$CLOUDFLARE_CONF" ]; then
         echo "[INFO] Creating 'cloudflare.conf' for real visitor IP address..."

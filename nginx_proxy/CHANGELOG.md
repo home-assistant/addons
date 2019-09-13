@@ -2,7 +2,7 @@
 
 ## 2.4
 
-- Added cloudflare mechanism using auto-generated ipv4/ipv6 list for real visitor ip
+- Added Cloudflare mechanism for creating auto-generated ipv4/ipv6 list for real visitor ip
 
 ## 2.3
 

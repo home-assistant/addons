@@ -17,6 +17,10 @@
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
+    "cloudflare": {
+      "enable": false,
+      "real_ip_header": "CF-Connecting-IP"
+    },
     "customize": {
       "active": false,
       "default": "nginx_proxy_default*.conf",
@@ -28,6 +32,10 @@
     "certfile": "str",
     "keyfile": "str",
     "hsts": "str",
+    "cloudflare": {
+      "enable": "bool",
+      "real_ip_header": "str"
+    },
     "customize": {
       "active": "bool",
       "default": "str",

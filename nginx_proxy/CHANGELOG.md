@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4
+
+- Added cloudflare mechanism using auto-generated ipv4/ipv6 list for real visitor ip
+
 ## 2.3
 
 - Fix issue with nginx warning for ssl directive

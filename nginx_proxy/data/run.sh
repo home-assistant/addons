@@ -15,7 +15,6 @@ CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
 CLOUDFLARE_ENABLE=$(jq --raw-output ".cloudflare.enable" $CONFIG_PATH)
-CLOUDFLARE_REAL_IP_HEADER=$(jq --raw-output ".cloudflare.real_ip_header" $CONFIG_PATH)
 
 # Generate dhparams
 if [ ! -f "$DHPARAMS_PATH" ]; then
@@ -48,7 +47,7 @@ if [ "$CLOUDFLARE_ENABLE" == "true" ]; then
         done
         
         echo "" >> $CLOUDFLARE_CONF;
-        echo "real_ip_header ${CLOUDFLARE_REAL_IP_HEADER};" >> $CLOUDFLARE_CONF;
+        echo "real_ip_header CF-Connecting-IP;" >> $CLOUDFLARE_CONF;
     fi
 fi
 

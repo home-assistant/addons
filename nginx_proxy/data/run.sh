@@ -28,7 +28,7 @@ if [ ! -f "$SNAKEOIL_CERT" ]; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
-if [ "$CLOUDFLARE_ENABLED" == "true" ]; then
+if [ "$CLOUDFLARE_ENABLE" == "true" ]; then
     sed -i "s|#include /data/cloudflare.conf;|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
     if [ ! -f "$CLOUDFLARE_CONF" ]; then

@@ -14,7 +14,7 @@ KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-CLOUDFLARE_ENABLE=$(jq --raw-output ".cloudflare.enable" $CONFIG_PATH)
+CLOUDFLARE=$(jq --raw-output ".cloudflare" $CONFIG_PATH)
 
 # Generate dhparams
 if [ ! -f "$DHPARAMS_PATH" ]; then
@@ -27,7 +27,7 @@ if [ ! -f "$SNAKEOIL_CERT" ]; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
-if [ "$CLOUDFLARE_ENABLE" == "true" ]; then
+if [ "$CLOUDFLARE" == "true" ]; then
     sed -i "s|#include /data/cloudflare.conf;|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
     if [ ! -f "$CLOUDFLARE_CONF" ]; then

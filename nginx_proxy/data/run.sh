@@ -37,14 +37,14 @@ if [ "$CLOUDFLARE_ENABLE" == "true" ]; then
         echo "" >> $CLOUDFLARE_CONF;
 
         echo "# - IPv4" >> $CLOUDFLARE_CONF;
-        for i in `curl https://www.cloudflare.com/ips-v4`; do
-            echo "set_real_ip_from $i;" >> $CLOUDFLARE_CONF;
+        for i in $(curl https://www.cloudflare.com/ips-v4); do
+            echo "set_real_ip_from ${i};" >> $CLOUDFLARE_CONF;
         done
         
         echo "" >> $CLOUDFLARE_CONF;
         echo "# - IPv6" >> $CLOUDFLARE_CONF;
-        for i in `curl https://www.cloudflare.com/ips-v6`; do
-            echo "set_real_ip_from $i;" >> $CLOUDFLARE_CONF;
+        for i in $(curl https://www.cloudflare.com/ips-v6); do
+            echo "set_real_ip_from ${i};" >> $CLOUDFLARE_CONF;
         done
         
         echo "" >> $CLOUDFLARE_CONF;

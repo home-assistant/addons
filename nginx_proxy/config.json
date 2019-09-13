@@ -31,9 +31,7 @@
     "certfile": "str",
     "keyfile": "str",
     "hsts": "str",
-    "cloudflare": {
-      "enable": "bool"
-    },
+    "cloudflare": "bool",
     "customize": {
       "active": "bool",
       "default": "str",

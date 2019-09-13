@@ -14,7 +14,7 @@ KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-CLOUDFLARE_ENABLED=$(jq --raw-output ".cloudflare.enabled" $CONFIG_PATH)
+CLOUDFLARE_ENABLE=$(jq --raw-output ".cloudflare.enable" $CONFIG_PATH)
 CLOUDFLARE_REAL_IP_HEADER=$(jq --raw-output ".cloudflare.real_ip_header" $CONFIG_PATH)
 
 # Generate dhparams

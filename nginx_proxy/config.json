@@ -17,9 +17,7 @@
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
-    "cloudflare": {
-      "enable": false
-    },
+    "cloudflare": false,
     "customize": {
       "active": false,
       "default": "nginx_proxy_default*.conf",

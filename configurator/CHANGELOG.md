@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5
+
+- Add support for SSH keys
+
 ## 3.4
 
 - Adds documentation to add-on repository

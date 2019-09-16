@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "3.4",
+  "version": "3.5",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant",
   "url": "https://home-assistant.io/addons/configurator",
@@ -33,14 +33,16 @@
     "enforce_basepath": false,
     "ignore_pattern": [
       "__pycache__"
-    ]
+    ],
+    "ssh_keys": []
   },
   "schema": {
     "dirsfirst": "bool",
     "enforce_basepath": "bool",
     "ignore_pattern": [
       "str"
-    ]
+    ],
+    "ssh_keys": ["str"]
   },
   "image": "homeassistant/{arch}-addon-configurator"
 }

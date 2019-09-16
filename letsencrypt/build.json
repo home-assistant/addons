@@ -7,6 +7,6 @@
     "aarch64": "homeassistant/aarch64-base-python:3.7"
   },
   "args": {
-    "CERTBOT_VERSION": "0.32.0"
+    "CERTBOT_VERSION": "0.38.0"
   }
 }

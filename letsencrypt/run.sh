@@ -16,34 +16,34 @@ mkdir -p "/ssl"
 chmod +x /run.sh
 touch /data/dnsapikey
 
-{ echo "dns_cloudflare_email = " "$(bashio::config 'dns_cloudflare_email')"; \
-echo "dns_cloudflare_api_key = " "$(bashio::config 'dns_cloudflare_api_key')"; \
-echo "dns_cloudxns_api_key = " "$(bashio::config 'dns_cloudxns_api_key')"; \
-echo "dns_cloudxns_secret_key = " "$(bashio::config 'dns_cloudxns_secret_key')"; \
-echo "dns_digitalocean_token = " "$(bashio::config 'dns_digitalocean_token')"; \
-echo "dns_dnsimple_token = " "$(bashio::config 'dns_dnsimple_token')"; \
-echo "dns_dnsmadeeasy_api_key = " "$(bashio::config 'dns_dnsmadeeasy_api_key')"; \
-echo "dns_dnsmadeeasy_secret_key = " "$(bashio::config 'dns_dnsmadeeasy_secret_key')"; \
-echo "dns_gehirn_api_token = " "$(bashio::config 'dns_gehirn_api_token')"; \
-echo "dns_gehirn_api_secret = " "$(bashio::config 'dns_gehirn_api_secret')"; \
-echo "dns_linode_key = " "$(bashio::config 'dns_linode_key')"; \
-echo "dns_linode_version = " "$(bashio::config 'dns_linode_version')"; \
-echo "dns_luadns_email = " "$(bashio::config 'dns_luadns_email')"; \
-echo "dns_luadns_token = " "$(bashio::config 'dns_luadns_token')"; \
-echo "dns_nsone_api_key = " "$(bashio::config 'dns_nsone_api_key')"; \
-echo "dns_ovh_endpoint = " "$(bashio::config 'dns_ovh_endpoint')"; \
-echo "dns_ovh_application_key = " "$(bashio::config 'dns_ovh_application_key')"; \
-echo "dns_ovh_application_secret = " "$(bashio::config 'dns_ovh_application_secret')"; \
-echo "dns_ovh_consumer_key = " "$(bashio::config 'dns_ovh_consumer_key')"; \
-echo "dns_rfc2136_server = " "$(bashio::config 'dns_rfc2136_server')"; \
-echo "dns_rfc2136_port = " "$(bashio::config 'dns_rfc2136_port')"; \
-echo "dns_rfc2136_name = " "$(bashio::config 'dns_rfc2136_name')"; \
-echo "dns_rfc2136_secret = " "$(bashio::config 'dns_rfc2136_secret')"; \
-echo "dns_rfc2136_algorithm = " "$(bashio::config 'dns_rfc2136_algorithm')"; \
-echo "aws_access_key_id = " "$(bashio::config 'aws_access_key_id')"; \
-echo "aws_secret_access_key = " "$(bashio::config 'aws_secret_access_key')"; \
-echo "dns_sakuracloud_api_token = " "$(bashio::config 'dns_sakuracloud_api_token')"; \
-echo "dns_sakuracloud_api_secret = " "$(bashio::config 'dns_sakuracloud_api_secret')" } >> /data/dnsapikey
+echo -e "dns_cloudflare_email = " "$(bashio::config 'dns_cloudflare_email')"\n \
+  "dns_cloudflare_api_key = " "$(bashio::config 'dns_cloudflare_api_key')"\n \
+  "dns_cloudxns_api_key = " "$(bashio::config 'dns_cloudxns_api_key')"\n \
+  "dns_cloudxns_secret_key = " "$(bashio::config 'dns_cloudxns_secret_key')"\n \
+  "dns_digitalocean_token = " "$(bashio::config 'dns_digitalocean_token')"\n \
+  "dns_dnsimple_token = " "$(bashio::config 'dns_dnsimple_token')"\n \
+  "dns_dnsmadeeasy_api_key = " "$(bashio::config 'dns_dnsmadeeasy_api_key')"\n \
+  "dns_dnsmadeeasy_secret_key = " "$(bashio::config 'dns_dnsmadeeasy_secret_key')"\n \
+  "dns_gehirn_api_token = " "$(bashio::config 'dns_gehirn_api_token')"\n \
+  "dns_gehirn_api_secret = " "$(bashio::config 'dns_gehirn_api_secret')"\n \
+  "dns_linode_key = " "$(bashio::config 'dns_linode_key')"\n \
+  "dns_linode_version = " "$(bashio::config 'dns_linode_version')"\n \
+  "dns_luadns_email = " "$(bashio::config 'dns_luadns_email')"\n \
+  "dns_luadns_token = " "$(bashio::config 'dns_luadns_token')"\n \
+  "dns_nsone_api_key = " "$(bashio::config 'dns_nsone_api_key')"\n \
+  "dns_ovh_endpoint = " "$(bashio::config 'dns_ovh_endpoint')"\n \
+  "dns_ovh_application_key = " "$(bashio::config 'dns_ovh_application_key')"\n \
+  "dns_ovh_application_secret = " "$(bashio::config 'dns_ovh_application_secret')"\n \
+  "dns_ovh_consumer_key = " "$(bashio::config 'dns_ovh_consumer_key')"\n \
+  "dns_rfc2136_server = " "$(bashio::config 'dns_rfc2136_server')"\n \
+  "dns_rfc2136_port = " "$(bashio::config 'dns_rfc2136_port')"\n \
+  "dns_rfc2136_name = " "$(bashio::config 'dns_rfc2136_name')"\n \
+  "dns_rfc2136_secret = " "$(bashio::config 'dns_rfc2136_secret')"\n \
+  "dns_rfc2136_algorithm = " "$(bashio::config 'dns_rfc2136_algorithm')"\n \
+  "aws_access_key_id = " "$(bashio::config 'aws_access_key_id')"\n \
+  "aws_secret_access_key = " "$(bashio::config 'aws_secret_access_key')"\n \
+  "dns_sakuracloud_api_token = " "$(bashio::config 'dns_sakuracloud_api_token')"\n \
+  "dns_sakuracloud_api_secret = " "$(bashio::config 'dns_sakuracloud_api_secret')" >> /data/dnsapikey
 chmod 600 /data/dnsapikey
 
 bashio::log.info $"cat /data/dnsapikey"

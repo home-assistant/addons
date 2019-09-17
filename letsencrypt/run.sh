@@ -1,44 +1,15 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bashio
+
+USERNAME=$(bashio::config 'username')
+EMAIL=$(bashio::config 'email')
+DOMAINS=$(bashio::config 'domains')
+KEYFILE=$(bashio::config 'keyfile')
+CERTFILE=$(bashio::config 'certfile')
+CHALLENGE=$(bashio::config 'challenge')
+DNSPROVIDER=$(bashio::config 'dnsprovider')
 
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
-CONFIG_PATH=/data/options.json
-
-EMAIL=$(jq --raw-output ".email" $CONFIG_PATH)
-DOMAINS=$(jq --raw-output ".domains[]" $CONFIG_PATH)
-KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
-CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-CHALLENGE=$(jq --raw-output ".challenge" $CONFIG_PATH)
-DNSPROVIDER=$(jq --raw-output ".dnsprovider" $CONFIG_PATH)
-dns_cloudflare_email=$(jq --raw-output ".dns_cloudflare_email" $CONFIG_PATH)
-dns_cloudflare_api_key=$(jq --raw-output ".dns_cloudflare_api_key" $CONFIG_PATH)
-dns_cloudxns_api_key=$(jq --raw-output ".dns_cloudxns_api_key" $CONFIG_PATH)
-dns_cloudxns_secret_key=$(jq --raw-output ".dns_cloudxns_secret_key" $CONFIG_PATH)
-dns_digitalocean_token=$(jq --raw-output ".dns_digitalocean_token" $CONFIG_PATH)
-dns_dnsimple_token=$(jq --raw-output ".dns_dnsimple_token" $CONFIG_PATH)
-dns_dnsmadeeasy_api_key=$(jq --raw-output ".dns_dnsmadeeasy_api_key" $CONFIG_PATH)
-dns_dnsmadeeasy_secret_key=$(jq --raw-output ".dns_dnsmadeeasy_secret_key" $CONFIG_PATH)
-dns_gehirn_api_token=$(jq --raw-output ".dns_gehirn_api_token" $CONFIG_PATH)
-dns_gehirn_api_secret=$(jq --raw-output ".dns_gehirn_api_secret" $CONFIG_PATH)
-dns_linode_key=$(jq --raw-output ".dns_linode_key" $CONFIG_PATH)
-dns_linode_version=$(jq --raw-output ".dns_linode_version" $CONFIG_PATH)
-dns_luadns_email=$(jq --raw-output ".dns_luadns_email" $CONFIG_PATH)
-dns_luadns_token=$(jq --raw-output ".dns_luadns_token" $CONFIG_PATH)
-dns_nsone_api_key=$(jq --raw-output ".dns_nsone_api_key" $CONFIG_PATH)
-dns_ovh_endpoint=$(jq --raw-output ".dns_ovh_endpoint" $CONFIG_PATH)
-dns_ovh_application_key=$(jq --raw-output ".dns_ovh_application_key" $CONFIG_PATH)
-dns_ovh_application_secret=$(jq --raw-output ".dns_ovh_application_secret" $CONFIG_PATH)
-dns_ovh_consumer_key=$(jq --raw-output ".dns_ovh_consumer_key" $CONFIG_PATH)
-dns_rfc2136_server=$(jq --raw-output ".dns_rfc2136_server" $CONFIG_PATH)
-dns_rfc2136_port=$(jq --raw-output ".dns_rfc2136_port" $CONFIG_PATH)
-dns_rfc2136_name=$(jq --raw-output ".dns_rfc2136_name" $CONFIG_PATH)
-dns_rfc2136_secret=$(jq --raw-output ".dns_rfc2136_secret" $CONFIG_PATH)
-dns_rfc2136_algorithm=$(jq --raw-output ".dns_rfc2136_algorithm" $CONFIG_PATH)
-aws_access_key_id=$(jq --raw-output ".aws_access_key_id" $CONFIG_PATH)
-aws_secret_access_key=$(jq --raw-output ".aws_secret_access_key" $CONFIG_PATH)
-dns_sakuracloud_api_token=$(jq --raw-output ".dns_sakuracloud_api_token" $CONFIG_PATH)
-dns_sakuracloud_api_secret=$(jq --raw-output ".dns_sakuracloud_api_secret" $CONFIG_PATH)
 
 mkdir -p "$WORK_DIR"
 mkdir -p "$CERT_DIR"
@@ -46,35 +17,37 @@ mkdir -p "/ssl"
 chmod +x /run.sh
 touch /data/dnsapikey
 
-echo "dns_cloudflare_email = " $(jq --raw-output ".dns_cloudflare_email" /data/options.json) >> /data/dnsapikey
-echo "dns_cloudflare_api_key = " $(jq --raw-output ".dns_cloudflare_api_key" /data/options.json) >> /data/dnsapikey
-echo "dns_cloudxns_api_key = " $(jq --raw-output ".dns_cloudxns_api_key" /data/options.json) >> /data/dnsapikey
-echo "dns_cloudxns_secret_key = " $(jq --raw-output ".dns_cloudxns_secret_key" /data/options.json) >> /data/dnsapikey
-echo "dns_digitalocean_token = " $(jq --raw-output ".dns_digitalocean_token" /data/options.json) >> /data/dnsapikey
-echo "dns_dnsimple_token = " $(jq --raw-output ".dns_dnsimple_token" /data/options.json) >> /data/dnsapikey
-echo "dns_dnsmadeeasy_api_key = " $(jq --raw-output ".dns_dnsmadeeasy_api_key" /data/options.json) >> /data/dnsapikey
-echo "dns_dnsmadeeasy_secret_key = " $(jq --raw-output ".dns_cloudflare_email" /data/options.json) >> /data/dnsapikey
-echo "dns_gehirn_api_token = " $(jq --raw-output ".dns_gehirn_api_token" /data/options.json) >> /data/dnsapikey
-echo "dns_gehirn_api_secret = " $(jq --raw-output ".dns_gehirn_api_secret" /data/options.json) >> /data/dnsapikey
-echo "dns_linode_key = " $(jq --raw-output ".dns_linode_key" /data/options.json) >> /data/dnsapikey
-echo "dns_linode_version = " $(jq --raw-output ".dns_linode_version" /data/options.json) >> /data/dnsapikey
-echo "dns_luadns_email = " $(jq --raw-output ".dns_luadns_email" /data/options.json) >> /data/dnsapikey
-echo "dns_luadns_token = " $(jq --raw-output ".dns_luadns_token" /data/options.json) >> /data/dnsapikey
-echo "dns_nsone_api_key = " $(jq --raw-output ".dns_nsone_api_key" /data/options.json) >> /data/dnsapikey
-echo "dns_ovh_endpoint = " $(jq --raw-output ".dns_ovh_endpoint" /data/options.json) >> /data/dnsapikey
-echo "dns_ovh_application_key = " $(jq --raw-output ".dns_ovh_application_key" /data/options.json) >> /data/dnsapikey
-echo "dns_ovh_application_secret = " $(jq --raw-output ".dns_ovh_application_secret" /data/options.json) >> /data/dnsapikey
-echo "dns_ovh_consumer_key = " $(jq --raw-output ".dns_ovh_consumer_key" /data/options.json) >> /data/dnsapikey
-echo "dns_rfc2136_server = " $(jq --raw-output ".dns_rfc2136_server" /data/options.json) >> /data/dnsapikey
-echo "dns_rfc2136_port = " $(jq --raw-output ".dns_rfc2136_port" /data/options.json) >> /data/dnsapikey
-echo "dns_rfc2136_name = " $(jq --raw-output ".dns_rfc2136_name" /data/options.json) >> /data/dnsapikey
-echo "dns_rfc2136_secret = " $(jq --raw-output ".dns_rfc2136_secret" /data/options.json) >> /data/dnsapikey
-echo "dns_rfc2136_algorithm = " $(jq --raw-output ".dns_rfc2136_algorithm" /data/options.json) >> /data/dnsapikey
-echo "aws_access_key_id = " $(jq --raw-output ".aws_access_key_id" /data/options.json) >> /data/dnsapikey
-echo "aws_secret_access_key = " $(jq --raw-output ".aws_secret_access_key" /data/options.json) >> /data/dnsapikey
-echo "dns_sakuracloud_api_token = " $(jq --raw-output ".dns_sakuracloud_api_token" /data/options.json) >> /data/dnsapikey
-echo "dns_sakuracloud_api_secret = " $(jq --raw-output ".dns_sakuracloud_api_secret" /data/options.json) >> /data/dnsapikey
+echo "dns_cloudflare_email = " "$(bashio::config 'dns_cloudflare_email')" >> /data/dnsapikey
+echo "dns_cloudflare_api_key = " "$(bashio::config 'dns_cloudflare_api_key')" >> /data/dnsapikey
+echo "dns_cloudxns_api_key = " "$(bashio::config 'dns_cloudxns_api_key')" >> /data/dnsapikey
+echo "dns_cloudxns_secret_key = " "$(bashio::config 'dns_cloudxns_secret_key')" >> /data/dnsapikey
+echo "dns_digitalocean_token = " "$(bashio::config 'dns_digitalocean_token')" >> /data/dnsapikey
+echo "dns_dnsimple_token = " "$(bashio::config 'dns_dnsimple_token')" >> /data/dnsapikey
+echo "dns_dnsmadeeasy_api_key = " "$(bashio::config 'dns_dnsmadeeasy_api_key')" >> /data/dnsapikey
+echo "dns_dnsmadeeasy_secret_key = " "$(bashio::config 'dns_dnsmadeeasy_secret_key')" >> /data/dnsapikey
+echo "dns_gehirn_api_token = " "$(bashio::config 'dns_gehirn_api_token')" >> /data/dnsapikey
+echo "dns_gehirn_api_secret = " "$(bashio::config 'dns_gehirn_api_secret')" >> /data/dnsapikey
+echo "dns_linode_key = " "$(bashio::config 'dns_linode_key')" >> /data/dnsapikey
+echo "dns_linode_version = " "$(bashio::config 'dns_linode_version')" >> /data/dnsapikey
+echo "dns_luadns_email = " "$(bashio::config 'dns_luadns_email')" >> /data/dnsapikey
+echo "dns_luadns_token = " "$(bashio::config 'dns_luadns_token')" >> /data/dnsapikey
+echo "dns_nsone_api_key = " "$(bashio::config 'dns_nsone_api_key')" >> /data/dnsapikey
+echo "dns_ovh_endpoint = " "$(bashio::config 'dns_ovh_endpoint')" >> /data/dnsapikey
+echo "dns_ovh_application_key = " "$(bashio::config 'dns_ovh_application_key')" >> /data/dnsapikey
+echo "dns_ovh_application_secret = " "$(bashio::config 'dns_ovh_application_secret')" >> /data/dnsapikey
+echo "dns_ovh_consumer_key = " "$(bashio::config 'dns_ovh_consumer_key')" >> /data/dnsapikey
+echo "dns_rfc2136_server = " "$(bashio::config 'dns_rfc2136_server')" >> /data/dnsapikey
+echo "dns_rfc2136_port = " "$(bashio::config 'dns_rfc2136_port')" >> /data/dnsapikey
+echo "dns_rfc2136_name = " "$(bashio::config 'dns_rfc2136_name')" >> /data/dnsapikey
+echo "dns_rfc2136_secret = " "$(bashio::config 'dns_rfc2136_secret')" >> /data/dnsapikey
+echo "dns_rfc2136_algorithm = " "$(bashio::config 'dns_rfc2136_algorithm')" >> /data/dnsapikey
+echo "aws_access_key_id = " "$(bashio::config 'aws_access_key_id')" >> /data/dnsapikey
+echo "aws_secret_access_key = " "$(bashio::config 'aws_secret_access_key')" >> /data/dnsapikey
+echo "dns_sakuracloud_api_token = " "$(bashio::config 'dns_sakuracloud_api_token') ">> /data/dnsapikey
+echo "dns_sakuracloud_api_secret = " "$(bashio::config 'dns_sakuracloud_api_secret')" >> /data/dnsapikey
 chmod 600 /data/dnsapikey
+
+bashio::log.info $"cat /data/dnsapikey"
 
 # Generate new certs
 if [ ! -d "$CERT_DIR/live" ]; then

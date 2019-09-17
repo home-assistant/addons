@@ -6,31 +6,26 @@ ARG CERTBOT_VERSION
 
 RUN apk add --no-cache --update \
         openssl libffi musl libstdc++ wget tar python python-dev py-pip gcc \
-    && apk add --no-cache --virtual .build-dependencies g++ musl-dev openssl-dev libffi-dev
-
-# Retrieve Certbot DNS plugin code
-RUN wget -O certbot-$CERTBOT_VERSION.tar.gz https://github.com/certbot/certbot/archive/v$CERTBOT_VERSION.tar.gz \
- && tar xf certbot-$CERTBOT_VERSION.tar.gz \
- && mkdir -p /opt/certbot/src/ \
- && mkdir /data \
- && cp -r certbot-$CERTBOT_VERSION/certbot-dns* /opt/certbot/src/ \
- && rm -rf certbot-$CERTBOT_VERSION.tar.gz certbot-$CERTBOT_VERSION 
+    && apk add --no-cache --virtual .build-dependencies \
+    	g++ musl-dev openssl-dev libffi-dev \
+    && pip3 install --no-cache-dir certbot==${CERTBOT_VERSION} \
+    && apk del .build-dependencies
 
 # Install the DNS plugin
-RUN pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-cloudflare \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-cloudxns \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-digitalocean \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-dnsimple \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-dnsmadeeasy \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-gehirn \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-google \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-linode \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-luadns \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-nsone \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-ovh \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-rfc2136 \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-route53 \
-&& pip install --no-cache-dir --editable /opt/certbot/src/certbot-dns-sakuracloud
+RUN pip3 install certbot-dns-cloudflare
+&& pip3 install certbot-dns-cloudxns \
+&& pip3 install certbot-dns-digitalocean \
+&& pip3 install certbot-dns-dnsimple \
+&& pip3 install certbot-dns-dnsmadeeasy \
+&& pip3 install certbot-dns-gehirn \
+&& pip3 install certbot-dns-google \
+&& pip3 install certbot-dns-linode \
+&& pip3 install certbot-dns-luadns \
+&& pip3 install certbot-dns-nsone \
+&& pip3 install certbot-dns-ovh \
+&& pip3 install certbot-dns-rfc2136 \
+&& pip3 install certbot-dns-route53 \
+&& pip3 install certbot-dns-sakuracloud
 
 
 # Copy data

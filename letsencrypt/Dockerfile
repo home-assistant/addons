@@ -12,7 +12,7 @@ RUN apk add --no-cache --update \
     && apk del .build-dependencies
 
 # Install the DNS plugin
-RUN pip3 install certbot-dns-cloudflare
+RUN pip3 install certbot-dns-cloudflare \
 && pip3 install certbot-dns-cloudxns \
 && pip3 install certbot-dns-digitalocean \
 && pip3 install certbot-dns-dnsimple \

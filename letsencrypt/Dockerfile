@@ -12,20 +12,20 @@ RUN apk add --no-cache --update \
     && apk del .build-dependencies
 
 # Install the DNS plugin
-RUN pip3 install certbot-dns-cloudflare \
-&& pip3 install certbot-dns-cloudxns \
-&& pip3 install certbot-dns-digitalocean \
-&& pip3 install certbot-dns-dnsimple \
-&& pip3 install certbot-dns-dnsmadeeasy \
-&& pip3 install certbot-dns-gehirn \
-&& pip3 install certbot-dns-google \
-&& pip3 install certbot-dns-linode \
-&& pip3 install certbot-dns-luadns \
-&& pip3 install certbot-dns-nsone \
-&& pip3 install certbot-dns-ovh \
-&& pip3 install certbot-dns-rfc2136 \
-&& pip3 install certbot-dns-route53 \
-&& pip3 install certbot-dns-sakuracloud
+RUN pip3 install certbot-dns-cloudflare==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-cloudxns==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-digitalocean==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-dnsimple==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-dnsmadeeasy==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-gehirn==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-google==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-linode==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-luadns==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-nsone==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-ovh==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-rfc2136==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-route53==${CERTBOT_VERSION} \
+&& pip3 install certbot-dns-sakuracloud==${CERTBOT_VERSION}
 
 
 # Copy data

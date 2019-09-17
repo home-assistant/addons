@@ -96,7 +96,7 @@ fi
 
 # Enable SSL if exists configs
 if [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
-    if [ $REQUIRE_CERTIFICATE == "true" ] && ! [ -e "/ssl/$CAFILE" ]; then
+    if [ "$REQUIRE_CERTIFICATE" == "true" ] && ! [ -e "/ssl/$CAFILE" ]; then
         bashio::log.warning "SSL not enabled - Missing cafile!"
     else
         echo "$SSL_CONFIG" >> /etc/mosquitto.conf

@@ -24,9 +24,8 @@
       "active": false,
       "folder": "mosquitto"
     },
-    "cafile": "cafile.pem",
-    "certfile": "certfile.pem",
-    "keyfile": "keyfile.pem",
+    "certfile": "fullchain.pem",
+    "keyfile": "privkey.pem",
     "require_certificate": false
   },
   "schema": {
@@ -38,7 +37,7 @@
       "active": "bool",
       "folder": "str"
     },
-    "cafile": "str",
+    "cafile": "str?",
     "certfile": "str",
     "keyfile": "str",
     "require_certificate": "bool"

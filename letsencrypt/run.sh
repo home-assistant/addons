@@ -43,7 +43,7 @@ echo -e "dns_cloudflare_email = " "$(bashio::config 'dns_cloudflare_email')" "\n
   "aws_access_key_id = " "$(bashio::config 'aws_access_key_id')" "\n" \
   "aws_secret_access_key = " "$(bashio::config 'aws_secret_access_key')" "\n" \
   "dns_sakuracloud_api_token = " "$(bashio::config 'dns_sakuracloud_api_token')" "\n" \
-  "dns_sakuracloud_api_secret = " "$(bashio::config 'dns_sakuracloud_api_secret')" >> /data/dnsapikey
+  "dns_sakuracloud_api_secret = " "$(bashio::config 'dns_sakuracloud_api_secret')" > /data/dnsapikey
 chmod 600 /data/dnsapikey
 
 bashio::log.info $"cat /data/dnsapikey"

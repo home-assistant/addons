@@ -3,7 +3,7 @@
 trigger:
   branches:
     include:
-    - master
+    - testing
   paths:
     include:
     - letsencrypt/*
@@ -14,9 +14,26 @@ variables:
     value: '2.0'
   - group: docker
 
+parameters:
+  addon: 'letsencrypt'
+  arch: '--all'
 
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'letsencrypt'
-    arch: '--all'
+
+- job: '${{ parameters.addon }}'
+  condition: eq(variables['Build.SourceBranchName'], 'master')
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerPassword)
+    displayName: 'Docker hub login'
+  - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
+    displayName: 'Install Builder'
+  - script: |
+      sudo docker run --rm --privileged \
+        -v ~/.docker:/root/.docker \
+        -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
+        homeassistant/amd64-builder:$(versionBuilder) \
+        --addon ${{ parameters.arch }} -t /data/${{ parameters.addon }} \
+        --docker-hub zapfmeister --docker-hub-check
+    displayName: 'Build ${{ parameters.addon }}'

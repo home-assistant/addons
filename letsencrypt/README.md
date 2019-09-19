@@ -59,6 +59,24 @@ Add-on configuration:
   "password": ""
 }
 ```
+## Supported DNS providers
+
+```json
+dns-cloudflare
+dns-cloudxns
+dns-digitalocean
+dns-dnsimple
+dns-dnsmadeeasy
+dns-gehirn
+dns-google (Currently not fully implemented)
+dns-linode
+dns-luadns
+dns-nsone
+dns-ovh
+dns-rfc2136
+dns-route53
+dns-sakuracloud
+```
 
 ## Known issues and limitations
 

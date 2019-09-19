@@ -6,7 +6,7 @@ trigger:
     - testing
   paths:
     include:
-    - letsencrypt/*
+    - /*
 pr: none
 
 variables:
@@ -16,7 +16,7 @@ variables:
 jobs:
 
 - job: 'letsencrypt'
-  condition: eq(variables['Build.SourceBranchName'], 'master')
+  condition: eq(variables['Build.SourceBranchName'], 'testing')
   pool:
     vmImage: 'ubuntu-16.04'
   steps:

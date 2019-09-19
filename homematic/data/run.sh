@@ -128,7 +128,15 @@ function stop_homematic() {
 }
 trap "stop_homematic" SIGTERM SIGHUP
 
-# sync time periodically
+# Start Regahss
+"$HM_HOME/bin/ReGaHss" -f /etc/rega.conf /opt/hm/etc/rega.conf &
+WAIT_PIDS+=($!)
+
+# Start WebInterface
+"$HM_HOME/bin/lighttpd" -D -f /opt/hm/etc/lighttpd/lighttpd.conf -m /opt/hm/lib/lighttpd/
+WAIT_PIDS+=($!)
+
+# Sync time periodically
 if [ "$RF_ENABLE" == "true" ]; then
     while true
     do

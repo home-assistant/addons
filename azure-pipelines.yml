@@ -3,9 +3,9 @@
 trigger:
   branches:
     include:
-    - master
+    - testing
 pr:
-- master
+- testing
 
 variables:
   versionHadolint: 'v1.16.3'

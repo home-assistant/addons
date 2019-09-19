@@ -46,8 +46,6 @@ echo -e "dns_cloudflare_email = " "$(bashio::config 'dns.cloudflare_email')" "\n
   "dns_sakuracloud_api_secret = " "$(bashio::config 'dns.sakuracloud_api_secret')" > /data/dnsapikey
 chmod 600 /data/dnsapikey
 
-bashio::log.info cat /data/dnsapikey
-
 # Generate new certs
 if [ ! -d "$CERT_DIR/live" ]; then
     DOMAIN_ARR=()

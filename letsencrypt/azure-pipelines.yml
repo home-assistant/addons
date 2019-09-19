@@ -14,10 +14,6 @@ variables:
     value: '2.0'
   - group: docker
 
-parameters:
-  addon: 'letsencrypt'
-  arch: '--all'
-
 jobs:
 
 - job: '${{ parameters.addon }}'
@@ -34,6 +30,6 @@ jobs:
         -v ~/.docker:/root/.docker \
         -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
         homeassistant/amd64-builder:$(versionBuilder) \
-        --addon ${{ parameters.arch }} -t /data/${{ parameters.addon }} \
+        --addon --all -t /data/letsencrypt \
         --docker-hub zapfmeister --docker-hub-check
     displayName: 'Build ${{ parameters.addon }}'

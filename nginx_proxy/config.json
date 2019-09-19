@@ -1,6 +1,6 @@
 {
   "name": "NGINX Home Assistant SSL proxy",
-  "version": "2.3",
+  "version": "2.4",
   "slug": "nginx_proxy",
   "description": "An SSL/TLS proxy",
   "url": "https://home-assistant.io/addons/nginx_proxy/",
@@ -17,6 +17,7 @@
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
+    "cloudflare": false,
     "customize": {
       "active": false,
       "default": "nginx_proxy_default*.conf",
@@ -28,6 +29,7 @@
     "certfile": "str",
     "keyfile": "str",
     "hsts": "str",
+    "cloudflare": "bool",
     "customize": {
       "active": "bool",
       "default": "str",

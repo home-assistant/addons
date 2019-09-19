@@ -8,7 +8,7 @@
   "startup": "once",
   "boot": "manual",
   "ports": {
-    "80/tcp": 80
+    "80/tcp": "Only needed for http challenge"
             },
   "map": ["ssl:rw"],
   "options": {

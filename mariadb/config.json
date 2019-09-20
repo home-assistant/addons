@@ -1,6 +1,6 @@
 {
   "name": "MariaDB",
-  "version": "1.2",
+  "version": "1.3",
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://home-assistant.io/addons/mariadb/",
@@ -12,6 +12,7 @@
   },
   "options": {
     "databases": ["homeassistant"],
+    "datadir": "/data/databases",
     "logins": [
       {"username": "hass", "host": "%", "password": null}
     ],
@@ -21,6 +22,7 @@
   },
   "schema": {
     "databases": ["str"],
+    "datadir": "str",
     "logins": [
         {"username": "str", "host": "str", "password": "str"}
     ],

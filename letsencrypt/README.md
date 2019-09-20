@@ -57,7 +57,7 @@ Add-on configuration:
   "domains": [
     "home-assistant.io"
   ],
-  "challenge": "dns"
+  "challenge": "dns",
   "dns": {
     "provider": "dns-cloudflare",
     "cloudflare_email": "cf@home-assistant.io",

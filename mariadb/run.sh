@@ -2,7 +2,8 @@
 set -e
 
 CONFIG_PATH=/data/options.json
-MARIADB_DATA=/data/databases
+MARIADB_DATA=$(jq --raw-output ".datadir" $CONFIG_PATH)
+sed -i "s|datadir=.*|datadir=$MARIADB_DATA|" /etc/my.cnf.d/mariadb-server.cnf
 
 DATABASES=$(jq --raw-output ".databases[]" $CONFIG_PATH)
 LOGINS=$(jq --raw-output '.logins | length' $CONFIG_PATH)

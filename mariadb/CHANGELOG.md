@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3
+- Support for specifying datadir
+
 ## 1.2
 - Change the way to migrate data
 

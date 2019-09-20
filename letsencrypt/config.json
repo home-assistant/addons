@@ -12,7 +12,7 @@
   },
   "ports_description": {
     "80/tcp": "Only needed for http challenge"
-    },
+  },
   "map": ["ssl:rw"],
   "options": {
     "email": null,

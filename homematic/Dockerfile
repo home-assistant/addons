@@ -61,6 +61,10 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \
+    \
+    && touch /opt/hm/etc/config/userAckSecurityHint \
+    && touch /opt/hm/etc/config/firewallConfigured \
+    \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}

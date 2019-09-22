@@ -133,7 +133,7 @@ trap "stop_homematic" SIGTERM SIGHUP
 WAIT_PIDS+=($!)
 
 # Start WebInterface
-lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf
+lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
 WAIT_PIDS+=($!)
 
 # Sync time periodically

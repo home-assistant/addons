@@ -59,8 +59,8 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
-    && cp -R WebUI / \
-    && ln -s /WebUI/www /opt/hm/www \
+    && cp -R WebUI/* / \
+    && ln -s /www /opt/hm/www \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}

@@ -25,14 +25,17 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && mkdir -p /opt/HMServer \
     && mkdir -p /var/status \
     && mkdir -p /boot \
+    \
     && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
+    \
     && if [ "${BUILD_ARCH}" = "armv7" ]; \
         then \
             cd arm-gnueabihf; \
         else \
             cd X86_32_Debian_Wheezy; \
         fi \
+    \
     && cp -R packages-eQ-3/RFD/bin /opt/hm/ \
     && cp -R packages-eQ-3/RFD/lib /opt/hm/ \
     && cp -R packages-eQ-3/RFD/opt/HmIP/* /opt/HmIP/ \
@@ -50,6 +53,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R packages/lighttpd/lib /opt/hm/ \
     && cp -R packages/lighttpd/etc/lighttpd /opt/hm/etc/ \
     && cd ../ \
+    \
     && cp -r firmware / \
     && cp -R HMserver/opt/HmIP/* /opt/HmIP/ \
     && cp -a HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/ \
@@ -59,6 +63,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R WebUI / \
     && ln -s /WebUI/www /opt/hm/www \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
+
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files

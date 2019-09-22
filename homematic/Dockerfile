@@ -9,6 +9,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
         libusb-1.0 \
+        lighttpd \
         openjdk-11-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
@@ -48,8 +49,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && rm -rf packages-eQ-3/WebUI/etc/config* \
     && cp -R packages-eQ-3/WebUI/etc/* /opt/hm/etc/ \
     && cp -R packages-eQ-3/WebUI-Beta/bin /opt/hm/ \
-    && cp -R packages/lighttpd/bin /opt/hm/ \
-    && cp -R packages/lighttpd/lib /opt/hm/ \
+    && rm -f packages/lighttpd/etc/lighttpd/lighttpd_ssl.conf \
     && cp -R packages/lighttpd/etc/lighttpd /opt/hm/etc/ \
     && cd ../ \
     \

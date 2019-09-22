@@ -129,11 +129,11 @@ function stop_homematic() {
 trap "stop_homematic" SIGTERM SIGHUP
 
 # Start Regahss
-"$HM_HOME/bin/ReGaHss" -f /etc/rega.conf /opt/hm/etc/rega.conf &
+"$HM_HOME/bin/ReGaHss" -f /opt/hm/etc/rega.conf &
 WAIT_PIDS+=($!)
 
 # Start WebInterface
-"$HM_HOME/bin/lighttpd" -D -f /opt/hm/etc/lighttpd/lighttpd.conf -m /opt/hm/lib/lighttpd/
+lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf
 WAIT_PIDS+=($!)
 
 # Sync time periodically

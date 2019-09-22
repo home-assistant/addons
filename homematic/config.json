@@ -12,11 +12,13 @@
   "gpio": true,
   "apparmor": false,
   "ports": {
+    "80/tcp": null,
     "2001/tcp": 2001,
     "2000/tcp": 2000,
     "2010/tcp": 2010
   },
   "ports_description": {
+    "80/tcp": "Regahss Webinterface",
     "2001/tcp": "Homematic xmlrpc",
     "2000/tcp": "HomematicWire xmlrpc",
     "2010/tcp": "HomematicIP xmlrpc"

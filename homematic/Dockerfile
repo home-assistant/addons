@@ -38,7 +38,6 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     \
     && cp -R packages-eQ-3/RFD/bin /opt/hm/ \
     && cp -R packages-eQ-3/RFD/lib /opt/hm/ \
-    && cp -R packages-eQ-3/RFD/opt/HmIP/* /opt/HmIP/ \
     && cp -R packages-eQ-3/LinuxBasis/bin /opt/hm/ \
     && cp -R packages-eQ-3/LinuxBasis/lib /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/bin /opt/hm/ \

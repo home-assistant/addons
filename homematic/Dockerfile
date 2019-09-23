@@ -22,6 +22,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cd occu-${OCCU_VERSION} \
     && mkdir -p /opt/hm \
     && mkdir -p /opt/hm/etc/config \
+    && mkdir -p /opt/hm/etc/config/userprofiles \
     && mkdir -p /opt/HmIP \
     && mkdir -p /opt/HMServer \
     && mkdir -p /var/status \

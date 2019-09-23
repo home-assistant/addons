@@ -70,7 +70,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files
-COPY data/*.conf data/*.xml /opt/hm/etc/config/
+COPY data/config/* /opt/hm/etc/config/
 
 # Setup start script
 COPY data/run.sh /

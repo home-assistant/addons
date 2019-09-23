@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.1
+
+- Optimize InterfaceList handling
+
 ## 9.0
 
 - Add Regahss (WebUI) support (experimentel)

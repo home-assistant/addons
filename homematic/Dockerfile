@@ -55,7 +55,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     \
     && cp -r firmware / \
     && cp -R HMserver/opt/HmIP/* /opt/HmIP/ \
-    && cp -a HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/ \
+    && cp -a HMserver/opt/HMServer/*.jar /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \

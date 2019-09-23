@@ -59,6 +59,8 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
+    && sed -i "s/WEBUI_VERSION = \".*\";/WEBUI_VERSION = \"${OCCU_VERSION}\";/" WebUI/www/rega/pages/index.htm \
+    && sed -i "s/product == \"HM-CCU2\"/product == \"HM-HassIO\"/" WebUI/www/webui/webui.js \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \
     \

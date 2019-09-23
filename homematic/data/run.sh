@@ -18,6 +18,11 @@ mkdir -p /data/crRFD
 mkdir -p /data/rfd
 mkdir -p /data/hs485d
 
+# Init files
+touch /data/hmip_user.conf
+touch /data/rega_user.conf
+touch /data/homematic.regadom
+
 # shellcheck disable=SC1091
 . /usr/lib/hm-firmware.sh
 
@@ -117,6 +122,9 @@ if [ "$HMIP_ENABLE" == "true" ]; then
         sleep 30
         cp -f /etc/config/hmip_address.conf /data/
     fi
+else
+    java -Xmx64m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar /etc/config/HMServer.conf &
+    WAIT_PIDS+=($!)
 fi
 
 # Register stop
@@ -128,8 +136,11 @@ function stop_homematic() {
 }
 trap "stop_homematic" SIGTERM SIGHUP
 
+# Wait until interfaces are initialized
+sleep 30
+
 # Start Regahss
-"$HM_HOME/bin/ReGaHss" -f /opt/hm/etc/rega.conf &
+"$HM_HOME/bin/ReGaHss" -f /etc/config/rega.conf &
 WAIT_PIDS+=($!)
 
 # Start WebInterface

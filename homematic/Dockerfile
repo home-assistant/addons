@@ -46,7 +46,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && rm -f packages-eQ-3/WebUI/bin/ReGa* \
     && cp -R packages-eQ-3/WebUI/bin /opt/hm/ \
     && cp -R packages-eQ-3/WebUI/lib /opt/hm/ \
-    && rm -rf packages-eQ-3/WebUI/etc/config* \
+    && rm -rf packages-eQ-3/WebUI/etc/config* packages-eQ-3/WebUI/ect/rega.conf \
     && cp -R packages-eQ-3/WebUI/etc/* /opt/hm/etc/ \
     && cp -R packages-eQ-3/WebUI-Beta/bin /opt/hm/ \
     && rm -f packages/lighttpd/etc/lighttpd/lighttpd_ssl.conf \
@@ -70,7 +70,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
 ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files
-COPY data/rfd.conf data/hs485d.conf data/crRFD.conf data/log4j.xml /opt/hm/etc/config/
+COPY data/*.conf data/*.xml /opt/hm/etc/config/
 
 # Setup start script
 COPY data/run.sh /

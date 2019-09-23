@@ -3,6 +3,7 @@
 ## 9.1
 
 - Optimize InterfaceList handling
+- Make userprofiles static
 
 ## 9.0
 

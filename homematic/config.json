@@ -11,6 +11,7 @@
   "auto_uart": true,
   "gpio": true,
   "apparmor": false,
+  "webui": "http://[HOST]:[PORT:80]/",
   "ports": {
     "80/tcp": null,
     "2001/tcp": 2001,

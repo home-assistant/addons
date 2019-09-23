@@ -59,11 +59,13 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
+    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${OCCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \
     \
     && touch /opt/hm/etc/config/userAckSecurityHint \
     && touch /opt/hm/etc/config/firewallConfigured \
+    && touch /opt/hm/etc/config/legacyAPIMigrationAccepted \
     \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 

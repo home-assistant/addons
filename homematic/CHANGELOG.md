@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.1
+
+- Optimize InterfaceList handling
+- Make userprofiles static
+
 ## 9.0
 
 - Add Regahss (WebUI) support (experimentel)

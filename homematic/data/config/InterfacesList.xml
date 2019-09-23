@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<interfaces v="1.0">
+	<!--rf
+	<ipc>
+	 	<name>BidCos-RF</name>
+	 	<url>xmlrpc_bin://127.0.0.1:2001</url> 
+	 	<info>BidCos-RF</info> 
+	</ipc>
+	rf-->
+
+	<ipc>
+	 	<name>VirtualDevices</name>
+	 	<url>xmlrpc://127.0.0.1:9292/groups</url> 
+	 	<info>Virtual Devices</info> 
+	</ipc>
+	
+	<!--ip
+	<ipc>
+	 	<name>HmIP-RF</name>
+	 	<url>xmlrpc://127.0.0.1:2010</url>
+	 	<info>HmIP-RF</info>
+	</ipc>
+	ip-->
+
+	<!--wired
+	<ipc>
+	 	<name>Hm-Wired</name>
+	 	<url>xmlrpc://127.0.0.1:2000</url>
+	 	<info>Hm-Wired</info>
+	</ipc>
+	wired-->
+</interfaces>

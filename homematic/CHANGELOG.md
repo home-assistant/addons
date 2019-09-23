@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.0
+
+- Add Regahss (WebUI) support (experimentel)
+- Update OCCU to 3.47.18
+
 ## 8.3
 
 - Update OCCU to 3.47.10

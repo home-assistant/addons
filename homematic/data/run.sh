@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 set -e
 
 CONFIG_PATH=/data/options.json
@@ -18,8 +19,17 @@ mkdir -p /data/crRFD
 mkdir -p /data/rfd
 mkdir -p /data/hs485d
 
-# shellcheck disable=SC1091
+# Init files
+touch /data/hmip_user.conf
+touch /data/rega_user.conf
+touch /data/homematic.regadom
+
+# Import helpers
 . /usr/lib/hm-firmware.sh
+. /usr/lib/hm-interface.sh
+
+# Setup Interfaces
+init_interface_list "$RF_ENABLE" "$HMIP_ENABLE" "$WIRED_ENABLE"
 
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then
@@ -117,6 +127,9 @@ if [ "$HMIP_ENABLE" == "true" ]; then
         sleep 30
         cp -f /etc/config/hmip_address.conf /data/
     fi
+else
+    java -Xmx64m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar /etc/config/HMServer.conf &
+    WAIT_PIDS+=($!)
 fi
 
 # Register stop
@@ -128,7 +141,18 @@ function stop_homematic() {
 }
 trap "stop_homematic" SIGTERM SIGHUP
 
-# sync time periodically
+# Wait until interfaces are initialized
+sleep 30
+
+# Start Regahss
+"$HM_HOME/bin/ReGaHss" -f /etc/config/rega.conf &
+WAIT_PIDS+=($!)
+
+# Start WebInterface
+lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
+WAIT_PIDS+=($!)
+
+# Sync time periodically
 if [ "$RF_ENABLE" == "true" ]; then
     while true
     do

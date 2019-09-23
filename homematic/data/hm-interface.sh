@@ -8,10 +8,10 @@ function enable_interface(){
 
     (
         echo "  <ipc>"
-	 	echo "    <name>${name}</name>"
-	 	echo "    <url>xmlrpc://127.0.0.1:${port}</url>"
-	 	echo "    <info>${description}</info>"
-	    echo "  </ipc>"
+        echo "    <name>${name}</name>"
+        echo "    <url>xmlrpc://127.0.0.1:${port}</url>"
+        echo "    <info>${description}</info>"
+        echo "  </ipc>"
     ) >> /etc/config/InterfacesList.xml
 }
 

@@ -25,6 +25,10 @@ touch /data/homematic.regadom
 
 # shellcheck disable=SC1091
 . /usr/lib/hm-firmware.sh
+. /usr/lib/hm-interface.sh
+
+# Setup Interfaces
+init_interface_list "$RF_ENABLE" "$HMIP_ENABLE" "$WIRED_ENABLE"
 
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then

@@ -74,7 +74,7 @@ COPY data/config/* /opt/hm/etc/config/
 
 # Setup start script
 COPY data/run.sh /
-COPY data/hm-firmware.sh /usr/lib/
+COPY data/hm-firmware.sh data/hm-interface.sh /usr/lib/
 
 WORKDIR /data
 CMD [ "/run.sh" ]

@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 set -e
 
 CONFIG_PATH=/data/options.json
@@ -23,7 +24,7 @@ touch /data/hmip_user.conf
 touch /data/rega_user.conf
 touch /data/homematic.regadom
 
-# shellcheck disable=SC1091
+# Import helpers
 . /usr/lib/hm-firmware.sh
 . /usr/lib/hm-interface.sh
 

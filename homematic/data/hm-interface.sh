@@ -2,7 +2,7 @@
 
 
 function enable_interface(){
-    local $name=$1
+    local name=$1
 
     sed -i "/<!--$name/d" /etc/config/InterfacesList.xml
     sed -i "/$name-->/d" /etc/config/InterfacesList.xml
@@ -10,9 +10,9 @@ function enable_interface(){
 
 
 function init_interface_list() {
-    local $rf=$1
-    local $ip=$2
-    local $wired=$3
+    local rf=$1
+    local ip=$2
+    local wired=$3
 
     if [ "$rf" == "true" ]; then
         enable_interface "rf"

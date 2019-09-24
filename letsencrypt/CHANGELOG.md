@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0
+- Added support for dns challenges
+
 ## 3.0
 - Use our Python base images with cerbot 0.32.0
 

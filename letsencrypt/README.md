@@ -83,10 +83,16 @@ Add-on configuration:
 
 ```json
 {
-  "authorized_keys": [
-    "ssh-rsa AKDJD3839...== my-key"
+  "email": "hello@home-assistant.io",
+  "domains": [
+    "home-assistant.io"
   ],
-  "password": ""
+  "challenge": "dns",
+  "dns": {
+    "provider": "dns-cloudflare",
+    "cloudflare_email": "cf@home-assistant.io",
+    "cloudflare_api_key": "31242lk3j4ljlfdwsjf0"
+  }
 }
 ```
 ## Supported DNS providers

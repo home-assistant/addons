@@ -16,6 +16,10 @@ mkdir -p "/ssl"
 chmod +x /run.sh
 touch /data/dnsapikey
 
+echo "dns.provider output = " "$(bashio::config 'dns.provider')"
+echo "DNS_PROVIDER output = " "$DNS_PROVIDER"
+
+
 echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email // empty')\n" \
   "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key // empty')\n" \
   "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key // empty')\n" \

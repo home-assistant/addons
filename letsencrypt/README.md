@@ -44,7 +44,37 @@ IF you choose "dns" as "challenge", you will also need to fill:
 ```json
   "dnsprovider": "" (Add the dnsprovider of your choice from the list of "Supported DNS providers" below)
 
-In addition fill the fields according to the credentials required by your dns provider.
+In addition add the fields according to the credentials required by your dns provider:
+
+```json
+"cloudflare_email": "",
+"cloudflare_api_key": "",
+"cloudxns_api_key": "",
+"cloudxns_secret_key": "",
+"digitalocean_token": "",
+"dnsimple_token": "",
+"dnsmadeeasy_api_key": "",
+"dnsmadeeasy_secret_key": "",
+"gehirn_api_token": "",
+"gehirn_api_secret": "",
+"linode_key": "",
+"linode_version": "",
+"luadns_email": "",
+"luadns_token": "",
+"nsone_api_key": "",
+"ovh_endpoint": "",
+"ovh_application_key": "",
+"ovh_application_secret": "",
+"ovh_consumer_key": "",
+"rfc2136_server": "",
+"rfc2136_port": "",
+"rfc2136_name": "",
+"rfc2136_secret": "",
+"rfc2136_algorithm": "",
+"aws_access_key_id": "",
+"aws_secret_access_key": "",
+"sakuracloud_api_token": "",
+"sakuracloud_api_secret": ""
 ```
 
 ## Configuration

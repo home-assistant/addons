@@ -1,4 +1,6 @@
 # Changelog
+## 4.3
+- Bugfix aws route53 credential implimentation
 
 ## 4.2
 - Bugfix default empty dns setting

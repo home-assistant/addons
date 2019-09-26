@@ -77,6 +77,37 @@ In addition add the fields according to the credentials required by your dns pro
 "sakuracloud_api_secret": ""
 ```
 
+### AWS Configuration
+
+Setup an IAM with a policy like the following
+```
+{
+    "Version": "2012-10-17",
+    "Id": "certbot-dns-route53 sample policy",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:ListHostedZones",
+                "route53:GetChange"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect" : "Allow",
+            "Action" : [
+                "route53:ChangeResourceRecordSets"
+            ],
+            "Resource" : [
+                "arn:aws:route53:::hostedzone/YOURHOSTEDZONEID"
+            ]
+        }
+    ]
+}
+```
+
 ## Configuration
 
 Add-on configuration:

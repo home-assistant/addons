@@ -1,15 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 # shellcheck disable=SC1091
 set -e
 
-CONFIG_PATH=/data/options.json
-
-RF_ENABLE=$(jq --raw-output '.rf_enable' $CONFIG_PATH)
-RF_DEVICES=$(jq --raw-output '.rf | length' $CONFIG_PATH)
-WIRED_ENABLE=$(jq --raw-output '.wired_enable' $CONFIG_PATH)
-WIRED_DEVICES=$(jq --raw-output '.wired | length' $CONFIG_PATH)
-HMIP_ENABLE=$(jq --raw-output '.hmip_enable' $CONFIG_PATH)
-HMIP_DEVICES=$(jq --raw-output '.hmip | length' $CONFIG_PATH)
+RF_ENABLE=$(bashio::config 'rf_enable')
 WAIT_PIDS=()
 
 # Init folder
@@ -32,16 +25,16 @@ touch /data/homematic.regadom
 . /usr/lib/hm-interface.sh
 
 # Setup Interfaces
-init_interface_list "$RF_ENABLE" "$HMIP_ENABLE" "$WIRED_ENABLE"
+init_interface_list "$(bashio::config 'rf_enable')" "$(bashio::config 'hmip_enable')" "$(bashio::config 'wired_enable')"
 
 # RF support
-if [ "$RF_ENABLE" == "true" ]; then
-    for (( i=0; i < "$RF_DEVICES"; i++ )); do
-        TYPE=$(jq --raw-output ".rf[$i].type" $CONFIG_PATH)
+if bashio::config.true 'rf_enable'; then
+    for rf_device in $(bashio::config 'rf|keys'); do
+        TYPE=$(bashio::config "rf[${rf_device}].type")
 
         # Update config
         if [ "$TYPE" == "CCU2" ]; then
-            DEVICE=$(jq --raw-output ".rf[$i].device" $CONFIG_PATH)
+            DEVICE=$(bashio::config "rf[${rf_device}].device")
             (
                 echo "[Interface $1]"
                 echo "Type = CCU2"
@@ -74,11 +67,11 @@ if [ "$RF_ENABLE" == "true" ]; then
 fi
 
 # Wired support
-if [ "$WIRED_ENABLE" == "true" ]; then
-    for (( i=0; i < "$WIRED_DEVICES"; i++ )); do
-        SERIAL=$(jq --raw-output ".wired[$i].serial" $CONFIG_PATH)
-        KEY=$(jq --raw-output ".wired[$i].key" $CONFIG_PATH)
-        IP=$(jq --raw-output ".wired[$i].ip" $CONFIG_PATH)
+if bashio::config.true 'WIRED_ENABLE'; then
+    for wired_device in $(bashio::config 'wired|keys'); do
+        SERIAL=$(bashio::config "wired[${wired_device}].serial")
+        KEY=$(bashio::config "wired[${wired_device}].key")
+        IP=$(bashio::config "wired[${wired_device}].ip")
 
         # Update config
         (
@@ -99,17 +92,17 @@ if [ "$WIRED_ENABLE" == "true" ]; then
 fi
 
 # HMIP support
-if [ "$HMIP_ENABLE" == "true" ]; then
+if bashio::config.true 'HMIP_ENABLE'; then
     # Restore data
     if [ -f /data/hmip_address.conf ]; then
         cp -f /data/hmip_address.conf /etc/config/
     fi
 
     # Setup settings
-    for (( i=0; i < "$HMIP_DEVICES"; i++ )); do
-        TYPE=$(jq --raw-output ".hmip[$i].type" $CONFIG_PATH)
-        DEVICE=$(jq --raw-output ".hmip[$i].device" $CONFIG_PATH)
-        ADAPTER=$((i+1))
+    for hmip_device in $(bashio::config 'HMIP|keys'); do
+        TYPE=$(bashio::config "hmip[${hmip_device}].type")
+        DEVICE=$(bashio::config "hmip[${hmip_device}].device")
+        ADAPTER=$((hmip_device+1))
 
         # Update Firmware
         firmware_update_hmip "${DEVICE}"

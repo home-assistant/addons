@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.2
+
+- Update from bash to bashio
+
 ## 9.1
 
 - Optimize InterfaceList handling

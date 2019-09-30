@@ -1,6 +1,7 @@
 # Changelog
 
 ## 3.1
+
 - Moved the 'reassurance' log message "Don't worry, this temporary installation is not overwriting your current one." to earlier in the process.
 
 ## 3.0

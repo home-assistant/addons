@@ -2,7 +2,6 @@
 # shellcheck disable=SC1091
 set -e
 
-RF_ENABLE=$(bashio::config 'rf_enable')
 WAIT_PIDS=()
 
 # Init folder
@@ -25,7 +24,9 @@ touch /data/homematic.regadom
 . /usr/lib/hm-interface.sh
 
 # Setup Interfaces
-init_interface_list "$(bashio::config 'rf_enable')" "$(bashio::config 'hmip_enable')" "$(bashio::config 'wired_enable')"
+init_interface_list "$(bashio::config 'rf_enable')" \
+    "$(bashio::config 'hmip_enable')" \
+    "$(bashio::config 'wired_enable')"
 
 # RF support
 if bashio::config.true 'rf_enable'; then
@@ -67,7 +68,7 @@ if bashio::config.true 'rf_enable'; then
 fi
 
 # Wired support
-if bashio::config.true 'WIRED_ENABLE'; then
+if bashio::config.true 'wired_enable'; then
     for wired_device in $(bashio::config 'wired|keys'); do
         SERIAL=$(bashio::config "wired[${wired_device}].serial")
         KEY=$(bashio::config "wired[${wired_device}].key")
@@ -92,14 +93,14 @@ if bashio::config.true 'WIRED_ENABLE'; then
 fi
 
 # HMIP support
-if bashio::config.true 'HMIP_ENABLE'; then
+if bashio::config.true 'hmip_enable'; then
     # Restore data
     if [ -f /data/hmip_address.conf ]; then
         cp -f /data/hmip_address.conf /etc/config/
     fi
 
     # Setup settings
-    for hmip_device in $(bashio::config 'HMIP|keys'); do
+    for hmip_device in $(bashio::config 'hmip|keys'); do
         TYPE=$(bashio::config "hmip[${hmip_device}].type")
         DEVICE=$(bashio::config "hmip[${hmip_device}].device")
         ADAPTER=$((hmip_device+1))
@@ -149,7 +150,7 @@ lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
 WAIT_PIDS+=($!)
 
 # Sync time periodically
-if [ "$RF_ENABLE" == "true" ]; then
+if bashio::config.true 'rf_enable'; then
     while true
     do
         sleep 30m

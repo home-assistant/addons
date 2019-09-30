@@ -1,12 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 set -e
 
-CONFIG_PATH=/data/options.json
 MARIADB_DATA=/data/databases
 
-DATABASES=$(jq --raw-output ".databases[]" $CONFIG_PATH)
-LOGINS=$(jq --raw-output '.logins | length' $CONFIG_PATH)
-RIGHTS=$(jq --raw-output '.rights | length' $CONFIG_PATH)
+DATABASES=$(bashio::config "databases[]")
 
 # Init mariadb
 if [ ! -d "$MARIADB_DATA" ]; then
@@ -40,10 +37,10 @@ done
 
 # Init logins
 echo "[INFO] Init/Update users"
-for (( i=0; i < "$LOGINS"; i++ )); do
-    USERNAME=$(jq --raw-output ".logins[$i].username" $CONFIG_PATH)
-    PASSWORD=$(jq --raw-output ".logins[$i].password" $CONFIG_PATH)
-    HOST=$(jq --raw-output ".logins[$i].host" $CONFIG_PATH)
+for login in $(bashio::config "logins|keys"); do
+    USERNAME=$(bashio::config "logins[${login}].username")
+    PASSWORD=$(bashio::config "logins[${login}].password")
+    HOST=$(bashio::config "logins[${login}].host")
 
     if mysql -e "SET PASSWORD FOR '$USERNAME'@'$HOST' = PASSWORD('$PASSWORD');" 2> /dev/null; then
         echo "[INFO] Update user $USERNAME"
@@ -55,11 +52,11 @@ done
 
 # Init rights
 echo "[INFO] Init/Update rights"
-for (( i=0; i < "$RIGHTS"; i++ )); do
-    USERNAME=$(jq --raw-output ".rights[$i].username" $CONFIG_PATH)
-    HOST=$(jq --raw-output ".rights[$i].host" $CONFIG_PATH)
-    DATABASE=$(jq --raw-output ".rights[$i].database" $CONFIG_PATH)
-    GRANT=$(jq --raw-output ".rights[$i].grant" $CONFIG_PATH)
+for right in $(bashio::config "rights|keys"); do
+    USERNAME=$(bashio::config "rights[${right}].username")
+    HOST=$(bashio::config "rights[${right}].host")
+    DATABASE=$(bashio::config "rights[${right}].database")
+    GRANT=$(bashio::config "rights[${right}].grant")
 
     echo "[INFO] Alter rights for $USERNAME@$HOST - $DATABASE"
     mysql -e "GRANT $GRANT $DATABASE.* TO '$USERNAME'@'$HOST';" 2> /dev/null || true

@@ -1,15 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 # shellcheck disable=SC1091
 set -e
 
 CONFIG_PATH=/data/options.json
 
-RF_ENABLE=$(jq --raw-output '.rf_enable' $CONFIG_PATH)
-RF_DEVICES=$(jq --raw-output '.rf | length' $CONFIG_PATH)
-WIRED_ENABLE=$(jq --raw-output '.wired_enable' $CONFIG_PATH)
-WIRED_DEVICES=$(jq --raw-output '.wired | length' $CONFIG_PATH)
-HMIP_ENABLE=$(jq --raw-output '.hmip_enable' $CONFIG_PATH)
-HMIP_DEVICES=$(jq --raw-output '.hmip | length' $CONFIG_PATH)
+
+RF_ENABLE=$(bashio::config 'rf_enable')
+RF_DEVICES=$(bashio::config 'rf | length') 
+WIRED_ENABLE=$(bashio::config 'wired_enable')
+WIRED_DEVICES=$(bashio::config 'wired | length')
+HMIP_ENABLE=$(bashio::config 'hmip_enable')
+HMIP_DEVICES=$(bashio::config 'hmip | length')
 WAIT_PIDS=()
 
 # Init folder
@@ -37,11 +38,11 @@ init_interface_list "$RF_ENABLE" "$HMIP_ENABLE" "$WIRED_ENABLE"
 # RF support
 if [ "$RF_ENABLE" == "true" ]; then
     for (( i=0; i < "$RF_DEVICES"; i++ )); do
-        TYPE=$(jq --raw-output ".rf[$i].type" $CONFIG_PATH)
+        TYPE=$(bashio::config "rf[$i].type")
 
         # Update config
         if [ "$TYPE" == "CCU2" ]; then
-            DEVICE=$(jq --raw-output ".rf[$i].device" $CONFIG_PATH)
+            DEVICE=$(bashio::config "rf[$i].device")
             (
                 echo "[Interface $1]"
                 echo "Type = CCU2"
@@ -76,9 +77,9 @@ fi
 # Wired support
 if [ "$WIRED_ENABLE" == "true" ]; then
     for (( i=0; i < "$WIRED_DEVICES"; i++ )); do
-        SERIAL=$(jq --raw-output ".wired[$i].serial" $CONFIG_PATH)
-        KEY=$(jq --raw-output ".wired[$i].key" $CONFIG_PATH)
-        IP=$(jq --raw-output ".wired[$i].ip" $CONFIG_PATH)
+        SERIAL=$(bashio::config "wired[$i].serial")
+        KEY=$(bashio::config "wired[$i].key")
+        IP=$(bashio::config "wired[$i].ip")
 
         # Update config
         (
@@ -107,8 +108,8 @@ if [ "$HMIP_ENABLE" == "true" ]; then
 
     # Setup settings
     for (( i=0; i < "$HMIP_DEVICES"; i++ )); do
-        TYPE=$(jq --raw-output ".hmip[$i].type" $CONFIG_PATH)
-        DEVICE=$(jq --raw-output ".hmip[$i].device" $CONFIG_PATH)
+        TYPE=$(bashio::config "hmip[$i].type")
+        DEVICE=$(bashio::config "hmip[$i].device")
         ADAPTER=$((i+1))
 
         # Update Firmware

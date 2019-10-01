@@ -8,11 +8,11 @@ if [ ! -d "$MARIADB_DATA" ]; then
     bashio::log.info "Create a new mariadb initial system"
     mysql_install_db --user=root --datadir="$MARIADB_DATA" > /dev/null
 else
-    bashio::log.info "Use exists mariadb initial system"
+    bashio::log.info "Using existing mariadb initial system"
 fi
 
 # Start mariadb
-bashio::log.info "Start MariaDB"
+bashio::log.info "Starting MariaDB"
 mysqld_safe --datadir="$MARIADB_DATA" --user=root --skip-log-bin < /dev/null &
 MARIADB_PID=$!
 
@@ -28,8 +28,8 @@ mysqlcheck --no-defaults --check-upgrade --all-databases --auto-repair --skip-wr
 
 # Init databases
 bashio::log.info "Init custom database"
-for line in bashio::config "databases"; do
-    bashio::log.info "Create database ${line}"
+for line in $(bashio::config "databases"); do
+    bashio::log.info "Create database $line"
     mysql -e "CREATE DATABASE $line;" 2> /dev/null || true
 done
 

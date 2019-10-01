@@ -8,8 +8,8 @@ pr:
 - master
 
 variables:
-  versionHadolint: 'v1.16.3'
-  versionShellCheck: 'v0.6.0'
+  versionHadolint: 'v1.17.2'
+  versionShellCheck: 'v0.7.0'
 
 jobs:
 

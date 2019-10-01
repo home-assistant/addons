@@ -131,10 +131,10 @@ fi
 
 # Register stop
 function stop_homematic() {
-    echo "Kill Processes..."
+    bashio::log.info "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
     wait "${WAIT_PIDS[@]}"
-    echo "Done."
+    bashio::log.info "Done."
 }
 trap "stop_homematic" SIGTERM SIGHUP
 
@@ -154,7 +154,7 @@ if bashio::config.true 'rf_enable'; then
     while true
     do
         sleep 30m
-        echo "$(date '+%Y-%m-%d %H:%M:%S.%3N') Run SetInterfaceClock now."
+        bashio::log.info "$(date '+%Y-%m-%d %H:%M:%S.%3N') Run SetInterfaceClock now."
         "$HM_HOME/bin/SetInterfaceClock" 127.0.0.1:2001
     done
 fi

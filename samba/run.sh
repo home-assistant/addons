@@ -33,7 +33,7 @@ sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
 sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
 sed -i "s|%%USERNAME%%|$USERNAME|g" /etc/smb.conf
 
-echo "Allowed Hosts: " $ALLOW_HOSTS
+bashio::log.info "Allowed Hosts: " $ALLOW_HOSTS
 
 # Init users
 addgroup "${USERNAME}"

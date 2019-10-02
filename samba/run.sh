@@ -24,15 +24,20 @@ else
     bashio::log.info "Read hostname: ${NAME}"
 fi
 
+# Workaround to create usable IPRanges from ALLOW_HOSTS variable
+IPRANGES=
+for item in $ALLOW_HOSTS; do
+         IPRANGES="$IPRANGES ${item}"
+     done
+
 # Setup config
-sed -i "s|%%WORKGROUP%%|$WORKGROUP|g" /etc/smb.conf
-sed -i "s|%%NAME%%|$NAME|g" /etc/smb.conf
-sed -i "s|%%INTERFACE%%|$INTERFACE|g" /etc/smb.conf
-sed -i "s|%%ALLOW_HOSTS%%|$ALLOW_HOSTS|g" /etc/smb.conf
-sed -i "s|%%USERNAME%%|$USERNAME|g" /etc/smb.conf
+sed -i "s|%%WORKGROUP%%|${WORKGROUP}|g" /etc/smb.conf
+sed -i "s|%%NAME%%|${NAME}|g" /etc/smb.conf
+sed -i "s|%%INTERFACE%%|${INTERFACE}|g" /etc/smb.conf
+sed -i "s|%%USERNAME%%|${USERNAME}|g" /etc/smb.conf
+sed -i "s#%%ALLOW_HOSTS%%#${IPRANGES}#g" /etc/smb.conf
 
-bashio::log.info "Allowed Hosts: " "$ALLOW_HOSTS"
-
+cat /etc/smb.conf
 # Init users
 addgroup "${USERNAME}"
 adduser -D -H -G "${USERNAME}" -s /bin/false "${USERNAME}"

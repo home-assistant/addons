@@ -1,8 +1,6 @@
 #!/usr/bin/env bashio
 set -e
 
-CONFIG_PATH=/data/options.json
-
 WORKGROUP=$(bashio::config 'workgroup')
 INTERFACE=$(bashio::config 'interface')
 ALLOW_HOSTS=$(bashio::config 'allow_hosts')

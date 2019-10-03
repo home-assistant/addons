@@ -48,7 +48,7 @@ A list of local users that will be created with username and password. You donâ€
 
 ### Option: `anonymous`
 
-Allow anonymous connections. If logins is set, the anonymous user can only read data.
+Allow anonymous connections. If logins are set, the anonymous user can only read data.
 
 ### Option: `customize`
 

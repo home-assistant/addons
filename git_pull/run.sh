@@ -2,10 +2,8 @@
 
 #### config ####
 
-DEPLOYMENT_KEY=$(bashio::config "deployment_key")
 DEPLOYMENT_KEY_PROTOCOL=$(bashio::config "deployment_key_protocol")
 DEPLOYMENT_USER=$(bashio::config "deployment_user")
-DEPLOYMENT_PASSWORD=$(bashio::config "deployment_password")
 GIT_BRANCH=$(bashio::config 'git_branch')
 GIT_COMMAND=$(bashio::config 'git_command')
 GIT_REMOTE=$(bashio::config 'git_remote')
@@ -30,7 +28,7 @@ function add-ssh-key {
     bashio::log:info "Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
         echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
-    done <<< "$DEPLOYMENT_KEY"
+    done <<< "$(bashio::config "deployment_key")"
 
     chmod 600 "${HOME}/.ssh/config"
     chmod 600 "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
@@ -41,15 +39,15 @@ function git-clone {
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
     bashio::log:info "Backup configuration to $BACKUP_LOCATION"
 
-    mkdir "${BACKUP_LOCATION}" || { bashio::log:error "Creation of backup directory failed"; exit 1; }
-    cp -rf /config/* "${BACKUP_LOCATION}" || { bashio::log:error "Copy files to backup directory failed"; exit 1; }
+    mkdir "${BACKUP_LOCATION}" || bashio:exit:nok "Creation of backup directory failed"
+    cp -rf /config/* "${BACKUP_LOCATION}" || bashio:exit:nok "Copy files to backup directory failed"
 
     # remove config folder content
-    rm -rf /config/{,.[!.],..?}* || { bashio::log:error "Clearing /config failed"; exit 1; }
+    rm -rf /config/{,.[!.],..?}* || bashio:exit:nok "Clearing /config failed"
 
     # git clone
     bashio::log:info "Start git clone"
-    git clone "$REPOSITORY" /config || { bashio::log:error "Git clone failed"; exit 1; }
+    git clone "$REPOSITORY" /config || bashio:exit:nok "Git clone failed"
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
@@ -100,7 +98,7 @@ if bashio::config.has_value 'deployment_user'; then
 protocol=${proto}
 host=${h}
 username=${DEPLOYMENT_USER}
-password=${DEPLOYMENT_PASSWORD}
+password=$(bashio::config "deployment_password")
 "
 
     # Use git commands to write the credentials to ~/.git-credentials
@@ -124,13 +122,13 @@ function git-synchronize {
 
             # Always do a fetch to update repos
             bashio::log:info "Start git fetch..."
-            git fetch "$GIT_REMOTE" || { bashio::log:error "Git fetch failed"; return 1; }
+            git fetch "$GIT_REMOTE" || bashio:exit:nok "Git fetch failed"
 
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
               bashio::log:info "Start git prune..."
-              git prune || { bashio::log:error "Git prune failed"; return 1; }
+              git prune || bashio:exit:nok "Git prune failed"
             fi
 
             # Do we switch branches?
@@ -139,7 +137,7 @@ function git-synchronize {
               bashio::log:info "Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
             else
               bashio::log:info "Switching branches - start git checkout of branch $GIT_BRANCH..."
-              git checkout "$GIT_BRANCH" || { bashio::log:error "Git checkout failed"; exit 1; }
+              git checkout "$GIT_BRANCH" || bashio:exit:nok "Git checkout failed"
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             fi
 
@@ -147,11 +145,11 @@ function git-synchronize {
             case "$GIT_COMMAND" in
                 pull)
                     bashio::log:info "Start git pull..."
-                    git pull || { bashio::log:error "Git pull failed"; return 1; }
+                    git pull || bashio:exit:nok "Git pull failed"
                     ;;
                 reset)
                     bashio::log:info "Start git reset..."
-                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { bashio::log:error "Git reset failed"; return 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || bashio:exit:nok "Git reset failed"
                     ;;
                 *)
                     bashio::log:error "Git command is not set correctly. Should be either 'reset' or 'pull'"
@@ -220,7 +218,7 @@ function validate-config {
 ###################
 
 #### Main program ####
-cd /config || { bashio::log:error "Failed to cd into /config"; exit 1; }
+cd /config || bashio:exit:nok "Failed to cd into /config"
 
 while true; do
     check-ssh-key

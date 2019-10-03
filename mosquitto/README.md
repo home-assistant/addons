@@ -6,7 +6,7 @@ Check your current configuration against any Home Assistant version.
 
 ## About
 
-You can use this add-on to to install Eclipse Mosquitto which is an open source (EPL/EDL licensed) message broker that implements the MQTT protocol. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.
+You can use this add-on to install Eclipse Mosquitto which is an open-source (EPL/EDL licensed) message broker that implements the MQTT protocol. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.
 
 ## Installation
 

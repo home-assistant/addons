@@ -86,7 +86,6 @@ The number of seconds to wait before updating DuckDNS subdomains and renewing Le
 - To log in, DuckDNS requires a free account from any of the following services: Google, Github, Twitter, or Persona.
 - A free DuckDNS account is limited to five subdomains.
 
-
 ## Support
 
 Got questions?

@@ -1,6 +1,11 @@
 # Changelog
 
+## 4.3
+
+- Fixed route53 support
+
 ## 4.2
+
 - Bugfix default empty dns setting
 
 ## 4.1

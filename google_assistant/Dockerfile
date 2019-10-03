@@ -20,7 +20,7 @@ RUN apt-get update \
         google-assistant-grpc==0.2.0 \
         google-auth==1.6.3 \
         requests_oauthlib==1.2.0 \
-        cherrypy==18.1.1 \
+        cherrypy==18.1.1 \
     && apt-get update \
     && apt-get remove -y --purge python3-pip python3-dev \
     && apt-get update \

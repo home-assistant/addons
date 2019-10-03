@@ -60,7 +60,7 @@ If set to true additional configuration files will be read, see next option.
 
 #### Option: `customize` -> `folder`
 
-The folder to read the  additional configuration files (*.conf) from.
+The folder to read the additional configuration files (*.conf) from.
 
 ### Option: `certfile`
 

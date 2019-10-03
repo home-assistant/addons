@@ -23,7 +23,7 @@ The installation of this add-on is straightforward and easy to do.
 3. If registration was a success, the subdomain is listed in the `Domains` section along with `current ip` being the public IP address of the device you are currently using to access `duckdns.org`. The IP address will be updated by the DuckDNS add-on.
 4. In the DuckDNS add-on configuration, perform the following:
     - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from `duckdns.org` and paste into the `token` option.
-    - Update the `domains` option with the full domain name you registered. E.g. "my-domain.duckdns.org".
+    - Update the `domains` option with the full domain name you registered. E.g., `my-domain.duckdns.org`.
 
 
 ## Configuration

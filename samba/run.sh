@@ -3,7 +3,7 @@ set -e
 
 WORKGROUP=$(bashio::config 'workgroup')
 INTERFACE=$(bashio::config 'interface')
-ALLOW_HOSTS=$(bashio::config 'allow_hosts')
+ALLOW_HOSTS=$(bashio::config "allow_hosts | join(\" \")")
 USERNAME=$(bashio::config 'username')
 PASSWORD=$(bashio::config 'password')
 
@@ -11,33 +11,26 @@ WAIT_PIDS=()
 NAME=
 
 # Check Login data
-if [ -z "${USERNAME}" ] || [ -z "${PASSWORD}" ]; then
+if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password'; then
     bashio::log.error "No valid login data inside options!"
     exit 1
 fi
 
-# Read hostname from API
-if ! NAME="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/info | jq --raw-output '.data.hostname')"; then
-    bashio::log.warn "Can't read hostname, use default!"
+# Read hostname from API or setting default "hassio"
+NAME=$(bashio::info.hostname)
+if bashio::var.is_empty "${NAME}"; then
+    bashio::log.warn "Can't read hostname, using default."
     NAME="hassio"
-else
-    bashio::log.info "Read hostname: ${NAME}"
 fi
-
-# Workaround to create usable IPRanges from ALLOW_HOSTS variable
-IPRANGES=
-for item in $ALLOW_HOSTS; do
-         IPRANGES="$IPRANGES ${item}"
-     done
+bashio::log.info "Hostname: ${NAME}"
 
 # Setup config
 sed -i "s|%%WORKGROUP%%|${WORKGROUP}|g" /etc/smb.conf
 sed -i "s|%%NAME%%|${NAME}|g" /etc/smb.conf
 sed -i "s|%%INTERFACE%%|${INTERFACE}|g" /etc/smb.conf
 sed -i "s|%%USERNAME%%|${USERNAME}|g" /etc/smb.conf
-sed -i "s#%%ALLOW_HOSTS%%#${IPRANGES}#g" /etc/smb.conf
+sed -i "s#%%ALLOW_HOSTS%%#${ALLOW_HOSTS}#g" /etc/smb.conf
 
-cat /etc/smb.conf
 # Init users
 addgroup "${USERNAME}"
 adduser -D -H -G "${USERNAME}" -s /bin/false "${USERNAME}"

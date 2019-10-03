@@ -44,7 +44,7 @@ Add-on configuration:
 
 ### Option: `logins`
 
-A list of local users that will be created with username and password. You don’t need do this because you can use Home Assistant users too without any configuration.
+A list of local users that will be created with username and password. You don’t need to do this because you can use Home Assistant users too without any configuration.
 
 ### Option: `anonymous`
 

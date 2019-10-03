@@ -72,7 +72,7 @@ A file containing the private key.
 
 ### Option: `require_certificate`
 
-If set to true encryption will be enabled using the cert- and keyfile options.
+If set to `true` encryption will be enabled using the cert- and keyfile options.
 
 ## Known issues and limitations
 

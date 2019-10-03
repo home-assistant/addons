@@ -20,7 +20,7 @@ The installation of this add-on is straightforward and easy to do.
 
 1. Visit [DuckDNS.org](https://www.duckdns.org/) and create an account by logging in through any of the available account services (Google, Github, Twitter, Persona).
 2. In the `Domains` section, type the name of the subdomain you wish to register and click `add domain`.
-3. If registration was a success, the sub domain is listed in the `Domains` section along with `current ip` being the public IP address of the device you are currently using to access duckdns.org. The IP address will be updated by the DuckDNS add-on.
+3. If registration was a success, the subdomain is listed in the `Domains` section along with `current ip` being the public IP address of the device you are currently using to access `duckdns.org`. The IP address will be updated by the DuckDNS add-on.
 4. In the DuckDNS add-on configuration, perform the following:
     - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from `duckdns.org` and paste into the `token` option.
     - Update the `domains` option with the full domain name you registered. E.g. "my-domain.duckdns.org".

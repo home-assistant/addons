@@ -6,7 +6,7 @@ Check your current configuration against any Home Assistant version.
 
 ## About
 
-You can use this add-on to install Eclipse Mosquitto which is an open-source (EPL/EDL licensed) message broker that implements the MQTT protocol. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers. For more information please see [mosquitto].
+You can use this add-on to install Eclipse Mosquitto, which is an open-source (EPL/EDL licensed) message broker that implements the MQTT protocol. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers. For more information, please see [mosquitto].
 
 ## Installation
 
@@ -26,7 +26,7 @@ The add-on has a couple of options available. To get the add-on running:
 
 Create a new user for MQTT via the **Configuration** -> **Users (manage users)**. (Note: This name cannot be "homeassistant" or "addon")
 
-To use the Mosquitto as broker, go to the integration page and install the configuration with one click:
+To use the Mosquitto as a broker, go to the integration page and install the configuration with one click:
 
 1. Navigate in your Home Assistant frontend to **Configuration** -> **Integrations**.
 2. Use the Add button and search for MQTT
@@ -54,43 +54,43 @@ Add-on configuration:
 
 ### Option: `logins` (optional)
 
-A list of local users that will be created with username and password. You don’t need to do this because you can use Home Assistant users too without any configuration.
+A list of local users that will be created with username and password. You don’t need to do this because you can use Home Assistant users too, without any configuration.
 
-### Option: `anonymous` (optional)
+### Option: `anonymous`
 
 Allow anonymous connections. If logins are set, the anonymous user can only read data.
 
-Default value: false
+Default value: `false`
 
-### Option: `customize` (optional)
+#### Option: `customize.active`
 
-This option allows you to provide additional configuration files as needed.
+If set to `true` additional configuration files will be read, see the next option.
 
-Default value: false
+Default value: `false`
 
-#### Option: `customize` -> `active` (optional)
+#### Option: `customize.folder`
 
-If set to true additional configuration files will be read, see next option.
+The folder to read the additional configuration files (`*.conf`) from.
 
-#### Option: `customize` -> `folder` (optional)
+### Option: `cafile` (optional)
 
-The folder to read the additional configuration files (*.conf) from.
+A file containing a root certificate.
 
-### Option: `certfile` (optional)
+### Option: `certfile`
 
 A file containing a certificate, including its chain.
 
-### Option: `keyfile` (optional)
+### Option: `keyfile`
 
 A file containing the private key.
 
-### Option: `require_certificate` (optional)
+### Option: `require_certificate`
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
 
 ## Home Assistant user management
 
-This add-on is attached to the Home Assistant user system, so mqtt clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Hass.io ecosystem we register `homeassistant` and `addons`, so these may not be used as user names.
+This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Hass.io ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
 
 ## Disable listening on insecure (1883) ports
 
@@ -98,7 +98,7 @@ Remove the ports from the add-on page network card (set them as blank) to disabl
 
 ### Access Control Lists (ACLs)
 
-It is possible to restrict access to topics based upon the user logged in to Mosquitto. In this scenario it is recommended to create individual users for each of your clients and create an appropriate ACL.
+It is possible to restrict access to topics based upon the user logged in to Mosquitto. In this scenario, it is recommended to create individual users for each of your clients and create an appropriate ACL.
 
 See the following links for more information:
 
@@ -133,7 +133,7 @@ The `/share` folder can be accessed via SMB, or on the host filesystem under `/u
 
 ## Known issues and limitations
 
-* Since version 4.1 of the addon, an explicit ACL definition is now required if you plan to use legacy logins and `"anonymous": true` [see these instructions](#access-control-lists-acls).
+* Since version 4.1 of the add-on, an explicit ACL definition is now required if you plan to use legacy logins and `"anonymous": true` [see these instructions](#access-control-lists-acls).
 
 ## Support
 
@@ -145,7 +145,7 @@ You have several options to get them answered:
 * The Home Assistant [Community Forum][forum].
 * Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

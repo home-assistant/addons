@@ -74,8 +74,6 @@ A file containing the private key.
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
 
-## Known issues and limitations
-
 ## Support
 
 Got questions?

@@ -51,7 +51,7 @@ The following options are for the option group: `lets_encrypt`. These settings
 only apply to Let's Encrypt SSL  certificates.
 
 
-#### Option `lets_encrypt`: `accept_terms`
+### Option `lets_encrypt.accept_terms`
 
 Once you have read and accepted the Let's Encrypt [Subscriber Agreement](https://letsencrypt.org/repository/), change value to `true` in order to use Let's Encrypt services.
 

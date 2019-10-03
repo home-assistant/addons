@@ -44,15 +44,31 @@ Add-on configuration:
   ]
 }
 ```
+* **computers** (Required): 
+A list of computer objects to shutdown from Home-Assistant.
+* **computers/alias** (Required): 
+Set an alias for this record which becomes the name for the input.
+* **computers/address** (Required): 
+IP address or NetBIOS name of the computer for the shutdown.
+* **computers/credentials** (Required): 
+Credentials for logging into computer. Use a % as the delimiter of username and password.
 
 ## Home Assistant Configuration
+
+Use the following inside Home Assistant service call to use it:
 
 ```json
 service: hassio.addon_stdin 
 data: addon: core_rpc_shutdown 
 input: test-pc
 ```
-
+* **service: hassio.addon_stdin**
+Use hassio.addon_stdin service to send data over STDIN to an add-on.
+* **data/addon**
+Specify the addon.
+* **data/input**
+Alias name created for the computer in the add-on configuration.
+ 
 ## Support
 
 Got questions?

@@ -75,7 +75,7 @@ The DuckDNS authentication token found at the top of the DuckDNS account landing
 
 ### Option: `domains`
 
-A list of DuckDNS domains registered under your account. An acceptable naming convention is "my-domain.duckdns.org".
+A list of DuckDNS subdomains registered under your account. An acceptable naming convention is `my-domain.duckdns.org`.
 
 ### Option: `seconds`
 

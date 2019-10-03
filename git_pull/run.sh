@@ -1,27 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 
 #### config ####
 
-CONFIG_PATH=/data/options.json
-
-DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
-DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
-DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
-DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
-GIT_BRANCH=$(jq --raw-output '.git_branch' $CONFIG_PATH)
-GIT_COMMAND=$(jq --raw-output '.git_command' $CONFIG_PATH)
-GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
-GIT_PRUNE=$(jq --raw-output '.git_prune' $CONFIG_PATH)
-REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
-AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
-RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
-REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
-REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
+DEPLOYMENT_KEY=$(bashio::config "deployment_key")
+DEPLOYMENT_KEY_PROTOCOL=$(bashio::config "deployment_key_protocol")
+DEPLOYMENT_USER=$(bashio::config "deployment_user")
+DEPLOYMENT_PASSWORD=$(bashio::config "deployment_password")
+GIT_BRANCH=$(bashio::config 'git_branch')
+GIT_COMMAND=$(bashio::config 'git_command')
+GIT_REMOTE=$(bashio::config 'git_remote')
+GIT_PRUNE=$(bashio::config 'git_prune')
+REPOSITORY=$(bashio::config 'repository')
+AUTO_RESTART=$(bashio::config 'auto_restart')
+RESTART_IGNORED_FILES=$(bashio::config 'restart_ignore | join(" ")')
+REPEAT_ACTIVE=$(bashio::config 'repeat.active')
+REPEAT_INTERVAL=$(bashio::config 'repeat.interval')
 ################
 
 #### functions ####
 function add-ssh-key {
-    echo "[Info] Start adding SSH key"
+    bashio::log:info "Start adding SSH key"
     mkdir -p ~/.ssh
 
     (
@@ -29,7 +27,7 @@ function add-ssh-key {
         echo "    StrictHostKeyChecking no"
     ) > ~/.ssh/config
 
-    echo "[Info] Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
+    bashio::log:info "Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
         echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     done <<< "$DEPLOYMENT_KEY"
@@ -41,17 +39,17 @@ function add-ssh-key {
 function git-clone {
     # create backup
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
-    echo "[Info] Backup configuration to $BACKUP_LOCATION"
+    bashio::log:info "Backup configuration to $BACKUP_LOCATION"
 
-    mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
-    cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
+    mkdir "${BACKUP_LOCATION}" || { bashio::log:error "Creation of backup directory failed"; exit 1; }
+    cp -rf /config/* "${BACKUP_LOCATION}" || { bashio::log:error "Copy files to backup directory failed"; exit 1; }
 
     # remove config folder content
-    rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
+    rm -rf /config/{,.[!.],..?}* || { bashio::log:error "Clearing /config failed"; exit 1; }
 
     # git clone
-    echo "[Info] Start git clone"
-    git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
+    bashio::log:info "Start git clone"
+    git clone "$REPOSITORY" /config || { bashio::log:error "Git clone failed"; exit 1; }
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
@@ -61,24 +59,24 @@ function git-clone {
 }
 
 function check-ssh-key {
-if [ -n "$DEPLOYMENT_KEY" ]; then
-    echo "Check SSH connection"
+if bashio::config.has_value 'deployment_key'; then
+    bashio::log:info "Check SSH connection"
     IFS=':' read -ra GIT_URL_PARTS <<< "$REPOSITORY"
     # shellcheck disable=SC2029
     DOMAIN="${GIT_URL_PARTS[0]}"
     if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || { [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]; }; then
-        echo "[Info] Valid SSH connection for $DOMAIN"
+        bashio::log:info "Valid SSH connection for $DOMAIN"
     else
-        echo "[Warn] No valid SSH connection for $DOMAIN"
+        bashio::log:warn "No valid SSH connection for $DOMAIN"
         add-ssh-key
     fi
 fi
 }
 
 function setup-user-password {
-if [ -n "$DEPLOYMENT_USER" ]; then
+if bashio::config.has_value 'deployment_user'; then
     cd /config || return
-    echo "[Info] setting up credential.helper for user: ${DEPLOYMENT_USER}"
+    bashio::log:info "setting up credential.helper for user: ${DEPLOYMENT_USER}"
     git config --system credential.helper 'store --file=/tmp/git-credentials'
 
     # Extract the hostname from repository
@@ -106,7 +104,7 @@ password=${DEPLOYMENT_PASSWORD}
 "
 
     # Use git commands to write the credentials to ~/.git-credentials
-    echo "[Info] Saving git credentials to /tmp/git-credentials"
+    bashio::log:info "Saving git credentials to /tmp/git-credentials"
     git credential fill | git credential approve <<< "$cred_data"
 fi
 }
@@ -115,67 +113,67 @@ function git-synchronize {
     # is /config a local git repo?
     if git rev-parse --is-inside-work-tree &>/dev/null
     then
-        echo "[Info] Local git repository exists"
+        bashio::log:info "Local git repository exists"
 
         # Is the local repo set to the correct origin?
         CURRENTGITREMOTEURL=$(git remote get-url --all "$GIT_REMOTE" | head -n 1)
         if [ "$CURRENTGITREMOTEURL" = "$REPOSITORY" ]
         then
-            echo "[Info] Git origin is correctly set to $REPOSITORY"
+            bashio::log:info "Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
 
             # Always do a fetch to update repos
-            echo "[Info] Start git fetch..."
-            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; return 1; }
+            bashio::log:info "Start git fetch..."
+            git fetch "$GIT_REMOTE" || { bashio::log:error "Git fetch failed"; return 1; }
 
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
-              echo "[Info] Start git prune..."
-              git prune || { echo "[Error] Git prune failed"; return 1; }
+              bashio::log:info "Start git prune..."
+              git prune || { bashio::log:error "Git prune failed"; return 1; }
             fi
 
             # Do we switch branches?
             GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             if [ -z "$GIT_BRANCH" ] || [ "$GIT_BRANCH" == "$GIT_CURRENT_BRANCH" ]; then
-              echo "[Info] Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
+              bashio::log:info "Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
             else
-              echo "[Info] Switching branches - start git checkout of branch $GIT_BRANCH..."
-              git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
+              bashio::log:info "Switching branches - start git checkout of branch $GIT_BRANCH..."
+              git checkout "$GIT_BRANCH" || { bashio::log:error "Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             fi
 
             # Pull or reset depending on user preference
             case "$GIT_COMMAND" in
                 pull)
-                    echo "[Info] Start git pull..."
-                    git pull || { echo "[Error] Git pull failed"; return 1; }
+                    bashio::log:info "Start git pull..."
+                    git pull || { bashio::log:error "Git pull failed"; return 1; }
                     ;;
                 reset)
-                    echo "[Info] Start git reset..."
-                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; return 1; }
+                    bashio::log:info "Start git reset..."
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { bashio::log:error "Git reset failed"; return 1; }
                     ;;
                 *)
-                    echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
+                    bashio::log:error "Git command is not set correctly. Should be either 'reset' or 'pull'"
                     exit 1
                     ;;
             esac
         else
-            echo "[Error] git origin does not match $REPOSITORY!"; exit 1;
+            bashio::log:error "git origin does not match $REPOSITORY!"; exit 1;
         fi
 
     else
-        echo "[Warn] Git repostory doesn't exist"
+        bashio::log:warn "Git repostory doesn't exist"
         git-clone
     fi
 }
 
 function validate-config {
-    echo "[Info] Checking if something has changed..."
+    bashio::log:info "Checking if something has changed..."
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
-        echo "[Info] Something has changed, checking Home-Assistant config..."
+        bashio::log:info "Something has changed, checking Home-Assistant config..."
         if hassio --no-progress homeassistant check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"
@@ -196,33 +194,33 @@ function validate-config {
                         done
                         if [ -z "$restart_required_file" ]; then
                             DO_RESTART="true"
-                            echo "[Info] Detected restart-required file: $changed_file"
+                            bashio::log:info "Detected restart-required file: $changed_file"
                         fi
                     done
                 else
                     DO_RESTART="true"
                 fi
                 if [ "$DO_RESTART" == "true" ]; then
-                    echo "[Info] Restart Home-Assistant"
+                    bashio::log:info "Restart Home-Assistant"
                     hassio --no-progress homeassistant restart 2&> /dev/null
                 else
-                    echo "[Info] No Restart Required, only ignored changes detected"
+                    bashio::log:info "No Restart Required, only ignored changes detected"
                 fi
             else
-                echo "[Info] Local configuration has changed. Restart required."
+                bashio::log:info "Local configuration has changed. Restart required."
             fi
         else
-            echo "[Error] Configuration updated but it does not pass the config check. Do not restart until this is fixed!"
+            bashio::log:error "Configuration updated but it does not pass the config check. Do not restart until this is fixed!"
         fi
     else
-        echo "[Info] Nothing has changed."
+        bashio::log:info "Nothing has changed."
     fi
 }
 
 ###################
 
 #### Main program ####
-cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
+cd /config || { bashio::log:error "Failed to cd into /config"; exit 1; }
 
 while true; do
     check-ssh-key

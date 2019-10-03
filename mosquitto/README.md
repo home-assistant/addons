@@ -18,7 +18,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-The add-on has a couple of options available. For more detailed instructions see [mosquitto]. The basic thing to get the add-on running would be:
+The add-on has a couple of options available. For more detailed instructions, see [mosquitto]. To get the add-on running:
 
 1. Start the add-on.
 2. Have some patience and wait a couple of minutes.

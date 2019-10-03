@@ -64,7 +64,7 @@ The folder to read the additional configuration files (*.conf) from.
 
 ### Option: `certfile`
 
-File containing certificate including its chain.
+A file containing a certificate, including its chain.
 
 ### Option: `keyfile`
 

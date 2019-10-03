@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3
+- Update from bash to bashio
+
 ## 2.2
 - Use homeassistant ubuntu base images
 

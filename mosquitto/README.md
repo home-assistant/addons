@@ -68,7 +68,7 @@ A file containing a certificate, including its chain.
 
 ### Option: `keyfile`
 
-File containing the private key.
+A file containing the private key.
 
 ### Option: `require_certificate`
 

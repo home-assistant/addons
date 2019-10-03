@@ -9,6 +9,7 @@ if [ "${VERSION}" != "latest" ]; then
     CMD="homeassistant==${VERSION}"
 fi
 
+bashio::log.info "Don't worry, this temporary installation is not overwriting your current one."
 bashio::log.info "Installing Home Assistant: ${VERSION}..."
 bashio::log.info "Please be patient, this might take a few minutes..."
 
@@ -20,7 +21,6 @@ if ! PIP_OUTPUT="$(pip3 install --find-links "${WHEELS_LINKS}" "${CMD}")"; then
 fi
 INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
 bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}"
-bashio::log.info "Don't worry, this temporary installation is not overwriting your current one."
 
 # Making an temporary copy of your configuration
 bashio::log.info "Making a copy of your configuration for checking..."

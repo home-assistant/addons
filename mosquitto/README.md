@@ -24,6 +24,16 @@ The add-on has a couple of options available. To get the add-on running:
 2. Have some patience and wait a couple of minutes.
 3. Check the add-on log output to see the result.
 
+Create a new user for MQTT via the **Configuration** -> **Users (manage users)**. (Note: This name cannot be "homeassistant" or "addon")
+
+To use the Mosquitto as broker, go to the integration page and install the configuration with one click:
+
+1. Navigate in your Home Assistant frontend to **Configuration** -> **Integrations**.
+2. Use the Add button and search for MQTT
+3. Configure the Broker, Port, Username, Password and Submit.
+
+If you have old MQTT settings available, remove this old integration and restart Home Assistant to see the new one.
+
 ## Configuration
 
 Add-on configuration:
@@ -42,37 +52,88 @@ Add-on configuration:
 }
 ```
 
-### Option: `logins`
+### Option: `logins` (optional)
 
 A list of local users that will be created with username and password. You don’t need to do this because you can use Home Assistant users too without any configuration.
 
-### Option: `anonymous`
+### Option: `anonymous` (optional)
 
 Allow anonymous connections. If logins are set, the anonymous user can only read data.
 
-### Option: `customize`
+Default value: false
+
+### Option: `customize` (optional)
 
 This option allows you to provide additional configuration files as needed.
 
-#### Option: `customize` -> `active`
+Default value: false
+
+#### Option: `customize` -> `active` (optional)
 
 If set to true additional configuration files will be read, see next option.
 
-#### Option: `customize` -> `folder`
+#### Option: `customize` -> `folder` (optional)
 
 The folder to read the additional configuration files (*.conf) from.
 
-### Option: `certfile`
+### Option: `certfile` (optional)
 
 A file containing a certificate, including its chain.
 
-### Option: `keyfile`
+### Option: `keyfile` (optional)
 
 A file containing the private key.
 
-### Option: `require_certificate`
+### Option: `require_certificate` (optional)
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
+
+## Home Assistant user management
+
+This add-on is attached to the Home Assistant user system, so mqtt clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Hass.io ecosystem we register `homeassistant` and `addons`, so these may not be used as user names.
+
+## Disable listening on insecure (1883) ports
+
+Remove the ports from the add-on page network card (set them as blank) to disable them.
+
+### Access Control Lists (ACLs)
+
+It is possible to restrict access to topics based upon the user logged in to Mosquitto. In this scenario it is recommended to create individual users for each of your clients and create an appropriate ACL.
+
+See the following links for more information:
+
+* [Mosquitto topic restrictions](http://www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/)
+* [Mosquitto.conf man page](https://mosquitto.org/man/mosquitto-conf-5.html)
+
+Add the following configuration to enable **unrestricted** access to all topics.
+
+1. Enable the customize flag
+
+```json
+  "customize": {
+    "active": true,
+    "folder": "mosquitto"
+  },
+```
+
+1. Create `/share/mosquitto/acl.conf` with the contents:
+
+```text
+acl_file /share/mosquitto/accesscontrollist
+```
+
+1. Create `/share/mosquitto/accesscontrollist` with the contents:
+
+```text
+user [YOUR_MQTT_USER]
+topic readwrite #
+```
+
+The `/share` folder can be accessed via SMB, or on the host filesystem under `/usr/share/hassio/share`.
+
+## Known issues and limitations
+
+* Since version 4.1 of the addon, an explicit ACL definition is now required if you plan to use legacy logins and `"anonymous": true` [see these instructions](#access-control-lists-acls).
 
 ## Support
 
@@ -80,9 +141,9 @@ Got questions?
 
 You have several options to get them answered:
 
-- The [Home Assistant Discord Chat Server][discord].
-- The Home Assistant [Community Forum][forum].
-- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
+* The [Home Assistant Discord Chat Server][discord].
+* The Home Assistant [Community Forum][forum].
+* Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
 In case you've found an bug, please [open an issue on our GitHub][issue].
 

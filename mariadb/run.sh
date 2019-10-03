@@ -4,7 +4,7 @@ set -e
 MARIADB_DATA=/data/databases
 
 # Init mariadb
-if [ ! -d "$MARIADB_DATA" ]; then
+if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
     bashio::log.info "Create a new mariadb initial system"
     mysql_install_db --user=root --datadir="$MARIADB_DATA" > /dev/null
 else

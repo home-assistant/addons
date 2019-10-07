@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.2
+- Update from bash to bashio
+
 ## 8.1
 - Update Samba to version 4.8.8
 

@@ -6,7 +6,7 @@ Automatically update your Duck DNS IP address with integrated HTTPS support via 
 
 ## About
 
-[Duck DNS][duckdns] is a free service which will point a DNS (sub domains of duckdns.org) to an IP of your choice. This add-on includes support for Let’s Encrypt and will automatically create and renew your certificates. You will need to sign up for a Duck DNS account before using this add-on.
+[Duck DNS][duckdns] is a free service that will point a DNS (sub-domains of duckdns.org) to an IP of your choice. This add-on includes support for Let’s Encrypt and will automatically create and renew your certificates. You will need to sign up for a Duck DNS account before using this add-on.
 
 ## Installation
 
@@ -94,7 +94,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

@@ -12,7 +12,7 @@ NAME=
 
 # Check Login data
 if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password'; then
-    bashio::exit:nok "No valid login data inside options!"
+    bashio::exit.nok "No valid login data inside options!"
 fi
 
 # Read hostname from API or setting default "hassio"

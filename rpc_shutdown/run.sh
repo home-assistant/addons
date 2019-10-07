@@ -16,14 +16,21 @@ while read -r input; do
         ALIAS=$(jq --raw-output ".computers[$i].alias" $CONFIG_PATH)
         ADDRESS=$(jq --raw-output ".computers[$i].address" $CONFIG_PATH)
         CREDENTIALS=$(jq --raw-output ".computers[$i].credentials" $CONFIG_PATH)
+        DELAY=$(jq --raw-output ".computers[$i].delay" $CONFIG_PATH)
+        MESSAGE=$(jq --raw-output ".computers[$i].message" $CONFIG_PATH)
       
         # Not the correct alias
         if [ "$ALIAS" != "$input" ]; then
             continue
         fi
       
+	  # Check if delay is not empty
+        if [ "$DELAY" = "" ]; then
+            DELAY="0"
+        fi
+
         echo "[Info] Shutdown $input -> $ADDRESS"
-        if ! msg="$(net rpc shutdown -I "$ADDRESS" -U "$CREDENTIALS")"; then
+        if ! msg="$(net rpc shutdown -I "$ADDRESS" -U "$CREDENTIALS" -t "$DELAY" -C "$MESSAGE")"; then
             echo "[Error] Shutdown fails -> $msg"
         fi
     done

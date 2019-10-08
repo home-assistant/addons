@@ -47,11 +47,12 @@ touch /data/.bash_history
 chmod 600 /data/.bash_history
 ln -s -f /data/.bash_history /root/.bash_history
 
-# Store token for Hass.io API
+# Build bash_profile from config
 while read -r line ; do
   echo "$line" >> /root/.bash_profile
 done <<< "$(bashio::config 'bash_profile')"
 
+# Store token for Hass.io API
 echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" >> /root/.bash_profile
 
 # Start server

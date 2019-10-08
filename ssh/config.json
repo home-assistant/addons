@@ -28,13 +28,15 @@
   ],
   "options": {
     "authorized_keys": [],
-    "password": ""
+    "password": "",
+    "bash_profile": ""
   },
   "schema": {
     "authorized_keys": [
       "str"
     ],
-    "password": "str"
+    "password": "str",
+    "bash_profile": "str"
   },
   "image": "homeassistant/{arch}-addon-ssh"
 }

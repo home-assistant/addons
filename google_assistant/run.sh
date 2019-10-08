@@ -8,15 +8,15 @@ PROJECT_ID=$(bashio::config 'project_id')
 MODEL_ID=$(bashio::config 'model_id')
 
 # check if a new assistant file exists
-if bashio::config 'client_secrets'; then
+if bashio::fs.file_exists "/share/$(bashio::config 'client_secrets'); then
     bashio::log:info "Install/Update service client_secrets file"
-    cp -f "$(bashio::config 'client_secrets')" "$CLIENT_JSON"
+    cp -f "/share/$(bashio::config 'client_secrets')" "$CLIENT_JSON"
 fi
 
-if ! bashio::fs.directory_exists "${CRED_JSON}" && bashio::fs.directory_exists "${CLIENT_JSON}"; then
+if ! bashio::fs.file_exists "${CRED_JSON}" && bashio::fs.file_exists "${CLIENT_JSON}"; then
     bashio::log:info "Start WebUI for handling oauth2"
     python3 /hassio_oauth.py "$CLIENT_JSON" "$CRED_JSON"
-elif ! bashio::fs.directory_exists "${CRED_JSON}"; then
+elif ! bashio::fs.file_exists "${CRED_JSON}"; then
     bashio::exit.nok "You need initialize GoogleAssistant with a client secret json!"
 fi
 

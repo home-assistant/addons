@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0
+
+- Added bash_profile as a configurable variable
+
 ## 6.4
 
 - Changed logging from DEBUG -> INFO

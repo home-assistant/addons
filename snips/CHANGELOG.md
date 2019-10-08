@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.4 
+- Update from bash to bashio
+
 ## 5.3
 - Updated to snips 0.63.2
 - Pinned docker version to 0.63.2

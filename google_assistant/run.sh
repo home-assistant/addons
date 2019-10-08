@@ -17,8 +17,7 @@ if ! bashio::fs.directory_exists "${CRED_JSON}" && bashio::fs.directory_exists "
     bashio::log:info "Start WebUI for handling oauth2"
     python3 /hassio_oauth.py "$CLIENT_JSON" "$CRED_JSON"
 elif ! bashio::fs.directory_exists "${CRED_JSON}"; then
-    bashio::log:error "You need initialize GoogleAssistant with a client secret json!"
-    exit 1
+    bashio::exit.nok "You need initialize GoogleAssistant with a client secret json!"
 fi
 
 bashio::log:info "Run Hass.io GAssisant SDK"

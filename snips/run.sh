@@ -15,7 +15,7 @@ if [ -f "/share/snips.toml" ]; then
     cp -v /share/snips.toml /etc/
 fi
 
-if [ bashio::config.true 'custom_tts.active' ]; then
+if [ "${CUSTOMTTS}" == "true" ]; then
     PLATFORM=$(bashio::config 'custom_tts.platform')
 
     if [ -z "${PLATFORM}" ]; then

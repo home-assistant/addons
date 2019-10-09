@@ -42,13 +42,6 @@ Add-on configuration:
 
 ```json
 {
-  "mqtt_bridge": {
-    "active": true,
-    "host": "172.17.0.1",
-    "port": 1883,
-    "user": "",
-    "password": ""
-  },
   "assistant": "assistant.zip",
   "language": "en",
   "custom_tts": {

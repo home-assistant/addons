@@ -10,7 +10,6 @@ Sets up an SSL proxy with NGINX web server. It is typically used to forward SSL 
 
 Make sure you have generated a certificate before you start this add-on. The [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on can generate a Let's Encrypt certificate that can be used by this add-on.
 
-
 ## Installation
 
 The installation of this add-on is straightforward and easy to do.
@@ -23,14 +22,17 @@ The installation of this add-on is straightforward and easy to do.
 
 The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
 
-1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on or other method. Check that the certificate files exist in the `/ssl` directory.
-2. In the `configuration.yaml` file, the `http:` section is not necessary in this scenario and should be commented out or removed..
-2. Change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
-3. Leave all other options as-is.
-3. Save configuration.
-4. Start the add-on.
-5. Have some patience and wait a couple of minutes.
-6. Check the add-on log output to see the result.
+1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on or another method. Make sure that the certificate files exist in the `/ssl` directory.
+2. In the `configuration.yaml` file, some options in the `http:` section are no longer necessary for this scenario, and should be commented out or removed:
+    - `ssl_certificate`
+    - `ssl_key`
+    - `server_port`
+3. Change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
+4. Leave all other options as-is.
+5. Save configuration.
+6. Start the add-on.
+7. Have some patience and wait a couple of minutes.
+8. Check the add-on log output to see the result.
 
 ## Configuration
 
@@ -64,24 +66,17 @@ Private key file to use in the `/ssl` directory.
 
 ### Option: `hsts` (required)
 
-Value for the `Strict-Transport-Security` HTTP header to send. If empty, the header is not sent.
+Value for the [`Strict-Transport-Security`][hsts] HTTP header to send. If empty, the header is not sent.
 
-### Option group `customize`
-
----
-
-The following options are for the option group: `customize`. These settings
-allow for customized NGINX server configurations.
-
-#### Option `customize`: `active`
+### Option `customize.active` (required)
 
 If true, additional NGINX configuration files for the default server and additional servers are read from files in the `/share` directory specified by the `default` and `servers` variables.
 
-#### Option `customize`: `default`
+### Option `customize.default` (required)
 
 The filename of the NGINX configuration for the default server, found in the `/share` directory.
 
-#### Option `customize`: `servers`
+### Option `customize.servers` (required)
 
 The filename(s) of the NGINX configuration for the additional servers, found in the `/share` directory.
 
@@ -99,7 +94,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
@@ -107,6 +102,7 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
+[hsts]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant

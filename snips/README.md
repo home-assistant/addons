@@ -60,7 +60,7 @@ Add-on configuration:
 
 ### Option: `assistant`
 
-The name of your custom assistant in ```/share```. If no assistant is found then a default assistant will be used.
+The name of your custom assistant in `/share`. If no assistant is found, then a default assistant will be used.
 
 ### Option: `language`
 

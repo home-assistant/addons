@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
 # Execute cli if requested
-if bashio::var.equals "$1" "snips"
+if bashio::var.equals $1 "snips"
 then
     shift
     exec snips "$@"
@@ -8,7 +8,7 @@ fi
 
 
 ASSISTANT_FILE=/usr/share/snips/assistant/assistant.json
-if ! bashio::fs.file_exists "$ASSISTANT_FILE"
+if ! bashio::fs.file_exists $ASSISTANT_FILE
 then
     bashio::exit.nok "Couldn't find any assistant"
 fi
@@ -19,7 +19,7 @@ ANALYTICS_ENABLED=bashio::jq $ASSISTANT_FILE '.analyticsEnabled'
 SNIPS_MOSQUITTO_FLAG="-h localhost -p 1883"
 
 
-if bashio::var.is_empty "$SNIPS_AUDIO_SERVER_MQTT_ARGS"
+if bashio::var.is_empty $SNIPS_AUDIO_SERVER_MQTT_ARGS
 then
     SNIPS_AUDIO_SERVER_MQTT_ARGS="--frame=256"
 fi

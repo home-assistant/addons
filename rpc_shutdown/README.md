@@ -18,11 +18,10 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-In the configuration section define alias,address and credentials and save the configuration.
+In the configuration section, define alias, address and credentials and save the configuration.
 
 1. Start the add-on.
-2. Have some patience and wait a couple of minutes.
-3. Check the add-on log output to see the result.
+2. Check the add-on log output to see the result.
 
 ## Configuration
 
@@ -44,30 +43,41 @@ Add-on configuration:
   ]
 }
 ```
-* **computers** (Required): 
-A list of computer objects to shutdown from Home-Assistant.
-* **computers/alias** (Required): 
-Set an alias for this record which becomes the name for the input.
-* **computers/address** (Required): 
-IP address or NetBIOS name of the computer for the shutdown.
-* **computers/credentials** (Required): 
-Credentials for logging into computer. Use a % as the delimiter of username and password.
 
-## Home Assistant Configuration
+### Option: `computers` (required)
+
+A list of computer objects to be able to shutdown from Home-Assistant.
+
+### Option: `computers.alias` (required)
+
+Set an alias for this record which becomes the name for the input.
+
+### Option: `computers.address` (required)
+
+IP address or NetBIOS name of the computer to be able to shutdown.
+
+### Option:  `computers.credentials` (required)
+
+Credentials for logging into the computer.
+Use a `%` as the delimiter of username and password.
+
+## Home Assistant configuration
 
 Use the following inside Home Assistant service call to use it:
 
-```json
+```yaml
 service: hassio.addon_stdin 
-data: addon: core_rpc_shutdown 
-input: test-pc
+data:
+  addon: core_rpc_shutdown 
+  input: test-pc
 ```
-* **service: hassio.addon_stdin**
-Use hassio.addon_stdin service to send data over STDIN to an add-on.
-* **data/addon**
-Specify the addon.
-* **data/input**
-Alias name created for the computer in the add-on configuration.
+
+- `service: hassio.addon_stdin`:
+  Use hassio.addon_stdin service to send data over STDIN to an add-on.
+- `data.addon: core_rpc_shutdown`:
+  Tells the service to send the command to this add-on.
+- `data.input: test-pc`:
+   Alias name created for the computer in the add-on configuration, and shuts that one down.
  
 ## Support
 

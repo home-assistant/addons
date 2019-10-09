@@ -72,7 +72,6 @@ Indicates whether a custom tts is used or not.
 
 Specifies which TTS platform to use.
 
-
 ## Support
 
 Got questions?

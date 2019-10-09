@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 # Execute cli if requested
-if [ "$1" = "snips" ]
+if bashio::var.equals "$1" "snips"
 then
     shift
     exec snips "$@"
@@ -8,64 +8,63 @@ fi
 
 
 ASSISTANT_FILE=/usr/share/snips/assistant/assistant.json
-if [ ! -f "$ASSISTANT_FILE" ]
+if ! bashio::fs.file_exists "$ASSISTANT_FILE"
 then
-    echo "Couldn't find any assistant"
-    exit 1
+    bashio::exit.nok "Couldn't find any assistant"
 fi
 
 SUPERVISORD_CONF_FILE="/etc/supervisor/conf.d/supervisord.conf"
-ASR_TYPE=$(jq --raw-output '.asr.type' $ASSISTANT_FILE)
-ANALYTICS_ENABLED=$(jq --raw-output '.analyticsEnabled' $ASSISTANT_FILE)
+ASR_TYPE=bashio::jq $ASSISTANT_FILE '.asr.type'
+ANALYTICS_ENABLED=bashio::jq $ASSISTANT_FILE '.analyticsEnabled'
 SNIPS_MOSQUITTO_FLAG="-h localhost -p 1883"
 
 
-if [ -z "$SNIPS_AUDIO_SERVER_MQTT_ARGS" ]
+if bashio::var.is_empty "$SNIPS_AUDIO_SERVER_MQTT_ARGS"
 then
     SNIPS_AUDIO_SERVER_MQTT_ARGS="--frame=256"
 fi
 
-if [ -d "/opt/snips/asr" ]
+if bashio::fs.directory_exists "/opt/snips/asr"
 then
     SNIPS_ASR_MODEL=""
 else
     SNIPS_ASR_MODEL=""
 fi
-if [ -z "$SNIPS_ASR_ARGS" ]
+if bashio::var.is_empty $SNIPS_ASR_ARGS
 then
     SNIPS_ASR_ARGS="$SNIPS_ASR_MODEL --beam_size=8"
 fi
 
-if [ -z "$SNIPS_ASR_MQTT_ARGS" ]
+if bashio::var.is_empty $SNIPS_ASR_MQTT_ARGS 
 then
     SNIPS_ASR_MQTT_ARGS=""
 fi
 
-if [ -z "$SNIPS_DIALOGUE_MQTT_ARGS" ]
+if bashio::var.is_empty $SNIPS_DIALOGUE_MQTT_ARGS
 then
     SNIPS_DIALOGUE_MQTT_ARGS=""
 fi
 
-if [ -z "$SNIPS_ASR_GOOGLE_MQTT_ARGS" ]
+if bashio::var.is_empty $SNIPS_ASR_GOOGLE_MQTT_ARGS
 then
     SNIPS_ASR_GOOGLE_MQTT_ARGS=""
 fi
 
-if [ -z "$SNIPS_HOTWORD_ARGS" ]
+if bashio::var.is_empty $SNIPS_HOTWORD_ARGS
 then
     SNIPS_HOTWORD_ARGS=""
 fi
-if [ -z "$SNIPS_HOTWORD_MQTT_ARGS" ]
+if bashio::var.is_empty $SNIPS_HOTWORD_MQTT_ARGS
 then
     SNIPS_HOTWORD_MQTT_ARGS=""
 fi
 
-if [ -z "$SNIPS_ANALYTICS_MQTT_ARGS" ]
+if bashio::var.is_empty $SNIPS_ANALYTICS_MQTT_ARGS
 then
     SNIPS_ANALYTICS_MQTT_ARGS=""
 fi
 
-if [ -z "$SNIPS_QUERIES_MQTT_ARGS" ]
+if bashio::var.is_empty $SNIPS_QUERIES_MQTT_ARGS
 then
     SNIPS_QUERIES_MQTT_ARGS=""
 fi
@@ -80,15 +79,15 @@ do
     SNIPS_COMPONENTS[$c]=true
 done
 
-if [ "$ASR_TYPE" != "google" ]
+if ! bashio::var.equals $ASR_TYPE "google"
 then
     SNIPS_COMPONENTS["snips-asr-google"]=false
-elif [ "$ASR_TYPE" != "snips" ]
+elif ! bashio::var.equals $ASR_TYPE "snips"
 then
     SNIPS_COMPONENTS["snips-asr"]=false
 fi
 
-if [ "$ANALYTICS_ENABLED" != "true" ]
+if ! bashio::var.true $ANALYTICS_ENABLED
 then
     SNIPS_COMPONENTS["snips-analytics"]=false
 fi
@@ -99,15 +98,15 @@ do
     j=$((i+1))
     TYPE_ARG="${!i}"
     VALUE_ARG="${!j}"
-    if [[ "$TYPE_ARG" = "--verbose" || "$TYPE_ARG" = "-v" ]]
+    if bashio::var.equals $TYPE_ARG "--verbose" || bashio::var.equals $TYPE_ARG "-v" 
     then
         SNIPS_DEBUG=true
     fi
 done
 
-if [ "${SNIPS_DEBUG}" == true ]
+if bashio::var.true $SNIPS_DEBUG
 then
-    echo "Execution env:"
+    bashio::log.info "Execution env:"
     env
     LOGLEVEL="-v"
     SNIPS_COMPONENTS["snips-debug"]=true
@@ -124,35 +123,31 @@ do
     j=$((i+1))
     TYPE_ARG="${!i}"
     VALUE_ARG="${!j}"
-    if [ "$TYPE_ARG" = "--exclude-components" ]
+    if bashio::var.equals $TYPE_ARG "--exclude-components"
     then
         USE_EXCLUDE=true
-        if [ "$USE_INCLUDE" = true ]
+        if bashio::var.true $USE_INCLUDE
         then
-            echo "Cannot use --include-components and --exclude-components simultaneously"
-            exit 1
+            bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
         fi
 
         for j in $(echo $VALUE_ARG|tr ',' ' ')
         do
-            if [ -z ${SNIPS_COMPONENTS[$i]} ]
+            if bashio::var.is_empty ${SNIPS_COMPONENTS[$i]}
             then
-                echo "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
-                exit 1
+                bashio::exit.nok "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
             fi
             unset SNIPS_COMPONENTS["$i"]
         done
-    elif [ "$TYPE_ARG" = "--include-components" ]
+    elif bashio::var.equals $TYPE_ARG "--include-components"
     then
         USE_INCLUDE=true
-        if [ "$USE_EXCLUDE" = true ]
+        if bashio::var.true $USE_EXCLUDE
         then
-            echo "Cannot use --include-components and --exclude-components simultaneously"
-            exit 1
-        elif [ -z "$VALUE_ARG" ]
+            bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
+        elif bashio::var.is_empty $VALUE_ARG
         then
-            echo "--include-components must be followed by a command-line list of components to include ${ALL_SNIPS_COMPONENTS[*]}"
-            exit 1
+            bashio::exit.nok "--include-components must be followed by a command-line list of components to include ${ALL_SNIPS_COMPONENTS[*]}"
         fi
 
         for c in "${ALL_SNIPS_COMPONENTS[@]}"
@@ -161,41 +156,35 @@ do
         done
         for j in $(echo $VALUE_ARG|tr ',' ' ')
         do
-            if [[ -z "${SNIPS_COMPONENTS[$i]}" && $j != "none" ]]
+            if bashio::var.is_empty ${SNIPS_COMPONENTS[$i]} && ! bashio::var.equals $j "none" 
             then
-                echo "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
-                exit 1
+                bashio::exit.nok "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
             fi
             SNIPS_COMPONENTS["$i"]=true
         done
-    elif [ "$TYPE_ARG" = "--mqtt" ]
+    elif bashio::var.equals $TYPE_ARG "--mqtt"
     then
-        if [ -z "$VALUE_ARG" ]
+        if bashio::var.is_empty $VALUE_ARG
         then
-            echo "'<mqtt_server>:<mqtt_port>' must be specified when using --mqtt"
-            exit 1
+            bashio::exit.nok "'<mqtt_server>:<mqtt_port>' must be specified when using --mqtt"
         elif [ "$(echo "$VALUE_ARG" | tr -cd ':' | wc -c)" != 1 ]
         then
-            echo "--mqtt value must follow the pattern '<mqtt_server>:<mqtt_port>' with server and port separated by a single ':'"
-            exit 1
+            bashio::exit.nok "--mqtt value must follow the pattern '<mqtt_server>:<mqtt_port>' with server and port separated by a single ':'"
         elif [ "$(echo "$VALUE_ARG" | tr -cd '#' | wc -c)" != 0 ]
         then
-            echo "--mqtt value must follow the pattern '<mqtt_server>:<mqtt_port>'. '#' character is not allowed."
-            exit 1
+            bashio::exit.nok "--mqtt value must follow the pattern '<mqtt_server>:<mqtt_port>'. '#' character is not allowed."
         fi
 
         SNIPS_MQTT_HOST=$(echo "$VALUE_ARG"| cut -d : -f 1)
-        if [ -z "$SNIPS_MQTT_HOST" ]
+        if bashio::var.is_empty "$SNIPS_MQTT_HOST"
         then
-            echo "Must specify a server when using --mqtt"
-            exit 1
+            bashio::exit.nok "Must specify a server when using --mqtt"
         fi
 
         SNIPS_MQTT_PORT=$(echo "$VALUE_ARG"| cut -d : -f 2)
         case "$SNIPS_MQTT_PORT" in
             ''|*[!0-9]*)
-                echo "Must specify a numeric value for port when using --mqtt"
-                exit 1 ;;
+                bashio::exit.nok "Must specify a numeric value for port when using --mqtt"
             *) ;;
         esac
 
@@ -214,9 +203,9 @@ EOT
 
 
 # Generate snips-asr-google
-if [ "${SNIPS_COMPONENTS['snips-asr-google']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-asr-google']}
 then
-    echo "Spawning /usr/bin/snips-asr-google $LOGLEVEL $SNIPS_ASR_GOOGLE_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_GOOGLE_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-asr-google $LOGLEVEL $SNIPS_ASR_GOOGLE_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_GOOGLE_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 
 [program:snips-asr-google]
@@ -230,14 +219,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-asr-google is disabled"
+    bashio::log.info "snips-asr-google is disabled"
 fi
 
 
 # Generate snips-asr
-if [ "${SNIPS_COMPONENTS['snips-asr']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-asr']}
 then
-    echo "Spawning /usr/bin/snips-asr $LOGLEVEL $SNIPS_ASR_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-asr $LOGLEVEL $SNIPS_ASR_ARGS $SNIPS_MQTT_FLAG $SNIPS_ASR_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 
 [program:snips-asr]
@@ -251,14 +240,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-asr is disabled"
+    bashio::log.info "snips-asr is disabled"
 fi
 
 
 # Generate snips-audio-server
-if [ "${SNIPS_COMPONENTS['snips-audio-server']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-audio-server']}
 then
-    echo "Spawning /usr/bin/snips-audio-server $LOGLEVEL $SNIPS_AUDIO_SERVER_ARGS $SNIPS_MQTT_FLAG $SNIPS_AUDIO_SERVER_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-audio-server $LOGLEVEL $SNIPS_AUDIO_SERVER_ARGS $SNIPS_MQTT_FLAG $SNIPS_AUDIO_SERVER_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 
 [program:snips-audio-server]
@@ -272,14 +261,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-audio-server is disabled"
+    bashio::log.info "snips-audio-server is disabled"
 fi
 
 
 # Generate snips-tts
-if [ "${SNIPS_COMPONENTS['snips-tts']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-tts']}
 then
-    echo "Spawning /usr/bin/snips-tts $LOGLEVEL $SNIPS_TTS_ARGS $SNIPS_MQTT_FLAG $SNIPS_TTS_MQTT_FLAG"
+    bashio::log.info "Spawning /usr/bin/snips-tts $LOGLEVEL $SNIPS_TTS_ARGS $SNIPS_MQTT_FLAG $SNIPS_TTS_MQTT_FLAG"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-tts]
 command=/usr/bin/snips-tts $LOGLEVEL $SNIPS_TTS_ARGS $SNIPS_MQTT_FLAG $SNIPS_TTS_MQTT_FLAG
@@ -292,14 +281,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-tts is disabled"
+    bashio::log.info "snips-tts is disabled"
 fi
 
 
 # Generate snips-hotword
-if [ "${SNIPS_COMPONENTS['snips-hotword']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-hotword']}
 then
-    echo "Spawning /usr/bin/snips-hotword $SNIPS_HOTWORD_ARGS $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_HOTWORD_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-hotword $SNIPS_HOTWORD_ARGS $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_HOTWORD_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-hotword]
 command=/usr/bin/snips-hotword $SNIPS_HOTWORD_ARGS $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_HOTWORD_MQTT_ARGS
@@ -312,14 +301,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-hotword is disabled"
+    bashio::log.info "snips-hotword is disabled"
 fi
 
 
 # Generate snips-nlu
-if [ "${SNIPS_COMPONENTS['snips-nlu']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-nlu']}
 then
-    echo "Spawning /usr/bin/snips-nlu $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_QUERIES_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-nlu $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_QUERIES_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-nlu]
 command=/usr/bin/snips-nlu $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_QUERIES_MQTT_ARGS
@@ -332,14 +321,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-nlu is disabled"
+    bashio::log.info "snips-nlu is disabled"
 fi
 
 
 # Generate snips-dialogue
-if [ "${SNIPS_COMPONENTS['snips-dialogue']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-dialogue']}
 then
-    echo "Spawning /usr/bin/snips-dialogue $LOGLEVEL $SNIPS_DIALOGUE_ARGS $SNIPS_MQTT_FLAG $SNIPS_DIALOGUE_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-dialogue $LOGLEVEL $SNIPS_DIALOGUE_ARGS $SNIPS_MQTT_FLAG $SNIPS_DIALOGUE_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-dialogue]
 command=/usr/bin/snips-dialogue $LOGLEVEL $SNIPS_DIALOGUE_ARGS $SNIPS_MQTT_FLAG $SNIPS_DIALOGUE_MQTT_ARGS
@@ -352,14 +341,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-dialogue is disabled"
+    bashio::log.info "snips-dialogue is disabled"
 fi
 
 
 # Generate snips-analytics
-if [ "${SNIPS_COMPONENTS['snips-analytics']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-analytics']}
 then
-    echo "Spawning /usr/bin/snips-analytics $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_ANALYTICS_MQTT_ARGS"
+    bashio::log.info "Spawning /usr/bin/snips-analytics $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_ANALYTICS_MQTT_ARGS"
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-analytics]
 command=/usr/bin/snips-analytics $LOGLEVEL $SNIPS_MQTT_FLAG $SNIPS_ANALYTICS_MQTT_ARGS
@@ -373,14 +362,14 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-analytics is disabled"
+    bashio::log.info "snips-analytics is disabled"
 fi
 
 
 # Generate snips-debug
-if [ "${SNIPS_COMPONENTS['snips-debug']}" = true ]
+if bashio::var.true ${SNIPS_COMPONENTS['snips-debug']}
 then
-    echo Spawning snips-debug
+    bashio::log.info Spawning snips-debug
     cat <<EOT >> $SUPERVISORD_CONF_FILE
 [program:snips-debug]
 command=mosquitto_sub -v $SNIPS_MOSQUITTO_FLAG -t "hermes/#" -T "hermes/audioServer/+/audioFrame"
@@ -392,11 +381,11 @@ stdout_logfile=/dev/fd/1
 stdout_logfile_maxbytes=0
 EOT
 else
-    echo "snips-debug is disabled"
+    bashio::log.info "snips-debug is disabled"
 fi
 
 
-if [ "${USE_INTERNAL_MQTT}" = true ]
+if bashio::var.true ${USE_INTERNAL_MQTT}
 then
     service mosquitto start
     sleep 2

@@ -14,7 +14,7 @@ It lets you acess your config files with Windows and macOS devices.
 The installation of this add-on is straightforward and easy to do.
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
-2. Find the "Samba sahre" add-on and click it.
+2. Find the "Samba share" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use

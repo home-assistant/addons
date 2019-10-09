@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.6
+
+- UI Fix
+- Update dependencies
+
 ## 3.5
 
 - Add support for SSH keys

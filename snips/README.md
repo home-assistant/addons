@@ -6,7 +6,7 @@ Support for Snips.ai voice assistant.
 ## About
 
 Snips.ai is an AI-powered voice assistant that runs on the Raspberry Pi 3 and x86 platforms.
-In contrast to Google Assistant or Amazon Alexa it runs on-device and is Private by Design.
+In contrast to Google Assistant or Amazon Alexa, it runs on-device and is private by design.
 
 ## Installation
 

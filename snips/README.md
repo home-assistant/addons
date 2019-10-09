@@ -64,7 +64,7 @@ The name of your custom assistant in `/share`. If no assistant is found, then a 
 
 ### Option: `language`
 
-This is used to select the default custom assistant. Currently ```en```, ```de``` and ```fr``` are supported.
+This is used to select the default custom assistant. Currently, `en`, `de` and `fr` are supported.
 
 ### Option group `custom_tts`
 

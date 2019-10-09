@@ -30,41 +30,73 @@ then
 else
     SNIPS_ASR_MODEL=""
 fi
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_ASR_ARGS"
+=======
+if bashio::var.is_empty $SNIPS_ASR_ARGS
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_ASR_ARGS="$SNIPS_ASR_MODEL --beam_size=8"
 fi
 
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_ASR_MQTT_ARGS" 
+=======
+if bashio::var.is_empty $SNIPS_ASR_MQTT_ARGS 
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_ASR_MQTT_ARGS=""
 fi
 
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_DIALOGUE_MQTT_ARGS"
+=======
+if bashio::var.is_empty $SNIPS_DIALOGUE_MQTT_ARGS
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_DIALOGUE_MQTT_ARGS=""
 fi
 
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_ASR_GOOGLE_MQTT_ARGS"
+=======
+if bashio::var.is_empty $SNIPS_ASR_GOOGLE_MQTT_ARGS
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_ASR_GOOGLE_MQTT_ARGS=""
 fi
 
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_HOTWORD_ARGS"
 then
     SNIPS_HOTWORD_ARGS=""
 fi
 if bashio::var.is_empty "$SNIPS_HOTWORD_MQTT_ARGS"
+=======
+if bashio::var.is_empty $SNIPS_HOTWORD_ARGS
+then
+    SNIPS_HOTWORD_ARGS=""
+fi
+if bashio::var.is_empty $SNIPS_HOTWORD_MQTT_ARGS
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_HOTWORD_MQTT_ARGS=""
 fi
 
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_ANALYTICS_MQTT_ARGS"
+=======
+if bashio::var.is_empty $SNIPS_ANALYTICS_MQTT_ARGS
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_ANALYTICS_MQTT_ARGS=""
 fi
 
+<<<<<<< HEAD
 if bashio::var.is_empty "$SNIPS_QUERIES_MQTT_ARGS"
+=======
+if bashio::var.is_empty $SNIPS_QUERIES_MQTT_ARGS
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_QUERIES_MQTT_ARGS=""
 fi
@@ -79,15 +111,26 @@ do
     SNIPS_COMPONENTS[$c]=true
 done
 
+<<<<<<< HEAD
 if ! bashio::var.equals "$ASR_TYPE" "google"
 then
     SNIPS_COMPONENTS["snips-asr-google"]=false
 elif ! bashio::var.equals "$ASR_TYPE" "snips"
+=======
+if ! bashio::var.equals $ASR_TYPE "google"
+then
+    SNIPS_COMPONENTS["snips-asr-google"]=false
+elif ! bashio::var.equals $ASR_TYPE "snips"
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_COMPONENTS["snips-asr"]=false
 fi
 
+<<<<<<< HEAD
 if ! bashio::var.true "$ANALYTICS_ENABLED"
+=======
+if ! bashio::var.true $ANALYTICS_ENABLED
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     SNIPS_COMPONENTS["snips-analytics"]=false
 fi
@@ -98,13 +141,21 @@ do
     j=$((i+1))
     TYPE_ARG="${!i}"
     VALUE_ARG="${!j}"
+<<<<<<< HEAD
     if bashio::var.equals "$TYPE_ARG" "--verbose" || bashio::var.equals "$TYPE_ARG" "-v" 
+=======
+    if bashio::var.equals $TYPE_ARG "--verbose" || bashio::var.equals $TYPE_ARG "-v" 
+>>>>>>> use bashio in snips-entrypoint.sh
     then
         SNIPS_DEBUG=true
     fi
 done
 
+<<<<<<< HEAD
 if bashio::var.true "$SNIPS_DEBUG"
+=======
+if bashio::var.true $SNIPS_DEBUG
+>>>>>>> use bashio in snips-entrypoint.sh
 then
     bashio::log.info "Execution env:"
     env
@@ -123,10 +174,17 @@ do
     j=$((i+1))
     TYPE_ARG="${!i}"
     VALUE_ARG="${!j}"
+<<<<<<< HEAD
     if bashio::var.equals "$TYPE_ARG" "--exclude-components"
     then
         USE_EXCLUDE=true
         if bashio::var.true "$USE_INCLUDE"
+=======
+    if bashio::var.equals $TYPE_ARG "--exclude-components"
+    then
+        USE_EXCLUDE=true
+        if bashio::var.true $USE_INCLUDE
+>>>>>>> use bashio in snips-entrypoint.sh
         then
             bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
         fi
@@ -139,6 +197,7 @@ do
             fi
             unset SNIPS_COMPONENTS["$i"]
         done
+<<<<<<< HEAD
     elif bashio::var.equals "$TYPE_ARG" "--include-components"
     then
         USE_INCLUDE=true
@@ -146,6 +205,15 @@ do
         then
             bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
         elif bashio::var.is_empty "$VALUE_ARG"
+=======
+    elif bashio::var.equals $TYPE_ARG "--include-components"
+    then
+        USE_INCLUDE=true
+        if bashio::var.true $USE_EXCLUDE
+        then
+            bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
+        elif bashio::var.is_empty $VALUE_ARG
+>>>>>>> use bashio in snips-entrypoint.sh
         then
             bashio::exit.nok "--include-components must be followed by a command-line list of components to include ${ALL_SNIPS_COMPONENTS[*]}"
         fi
@@ -156,13 +224,21 @@ do
         done
         for j in $(echo $VALUE_ARG|tr ',' ' ')
         do
+<<<<<<< HEAD
             if bashio::var.is_empty ${SNIPS_COMPONENTS[$i]} && ! bashio::var.equals "$j" "none" 
+=======
+            if bashio::var.is_empty ${SNIPS_COMPONENTS[$i]} && ! bashio::var.equals $j "none" 
+>>>>>>> use bashio in snips-entrypoint.sh
             then
                 bashio::exit.nok "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
             fi
             SNIPS_COMPONENTS["$i"]=true
         done
+<<<<<<< HEAD
     elif bashio::var.equals "$TYPE_ARG" "--mqtt"
+=======
+    elif bashio::var.equals $TYPE_ARG "--mqtt"
+>>>>>>> use bashio in snips-entrypoint.sh
     then
         if bashio::var.is_empty $VALUE_ARG
         then
@@ -184,7 +260,11 @@ do
         SNIPS_MQTT_PORT=$(echo "$VALUE_ARG"| cut -d : -f 2)
         case "$SNIPS_MQTT_PORT" in
             ''|*[!0-9]*)
+<<<<<<< HEAD
                 bashio::exit.nok "Must specify a numeric value for port when using --mqtt";;
+=======
+                bashio::exit.nok "Must specify a numeric value for port when using --mqtt"
+>>>>>>> use bashio in snips-entrypoint.sh
             *) ;;
         esac
 

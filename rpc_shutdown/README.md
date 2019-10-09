@@ -50,7 +50,7 @@ A list of computer objects to be able to shutdown from Home-Assistant.
 
 ### Option: `computers.alias` (required)
 
-Set an alias for this record which becomes the name for the input.
+Set an alias for this record, which becomes the name for the input.
 
 ### Option: `computers.address` (required)
 
@@ -89,7 +89,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

@@ -5,14 +5,9 @@
 DEPLOYMENT_KEY_PROTOCOL=$(bashio::config "deployment_key_protocol")
 DEPLOYMENT_USER=$(bashio::config "deployment_user")
 GIT_BRANCH=$(bashio::config 'git_branch')
-GIT_COMMAND=$(bashio::config 'git_command')
 GIT_REMOTE=$(bashio::config 'git_remote')
-GIT_PRUNE=$(bashio::config 'git_prune')
 REPOSITORY=$(bashio::config 'repository')
-AUTO_RESTART=$(bashio::config 'auto_restart')
 RESTART_IGNORED_FILES=$(bashio::config 'restart_ignore | join(" ")')
-REPEAT_ACTIVE=$(bashio::config 'repeat.active')
-REPEAT_INTERVAL=$(bashio::config 'repeat.interval')
 ################
 
 #### functions ####
@@ -125,7 +120,7 @@ function git-synchronize {
             git fetch "$GIT_REMOTE" || bashio:exit:nok "Git fetch failed"
 
             # Prune if configured
-            if [ "$GIT_PRUNE" == "true" ]
+            if bashio::config.true 'git_prune'
             then
               bashio::log:info "Start git prune..."
               git prune || bashio:exit:nok "Git prune failed"
@@ -142,7 +137,7 @@ function git-synchronize {
             fi
 
             # Pull or reset depending on user preference
-            case "$GIT_COMMAND" in
+            case "$(bashio::config 'git_command')" in
                 pull)
                     bashio::log:info "Start git pull..."
                     git pull || bashio:exit:nok "Git pull failed"
@@ -173,7 +168,7 @@ function validate-config {
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
         bashio::log:info "Something has changed, checking Home-Assistant config..."
         if hassio --no-progress homeassistant check; then
-            if [ "$AUTO_RESTART" == "true" ]; then
+            if bashio::config.true 'auto_restart'; then
                 DO_RESTART="false"
                 CHANGED_FILES=$(git diff "$OLD_COMMIT" "$NEW_COMMIT" --name-only)
                 echo "Changed Files: $CHANGED_FILES"
@@ -227,10 +222,10 @@ while true; do
         validate-config
     fi
      # do we repeat?
-    if [ ! "$REPEAT_ACTIVE" == "true" ]; then
+    if [ ! "$(bashio::config 'repeat.active')" == "true" ]; then
         exit 0
     fi
-    sleep "$REPEAT_INTERVAL"
+    sleep "$(bashio::config 'repeat.interval')"
 done
 
 ###################

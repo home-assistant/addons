@@ -184,7 +184,7 @@ do
         SNIPS_MQTT_PORT=$(echo "$VALUE_ARG"| cut -d : -f 2)
         case "$SNIPS_MQTT_PORT" in
             ''|*[!0-9]*)
-                bashio::exit.nok "Must specify a numeric value for port when using --mqtt"
+                bashio::exit.nok "Must specify a numeric value for port when using --mqtt";;
             *) ;;
         esac
 

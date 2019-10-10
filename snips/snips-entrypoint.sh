@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
 # Execute cli if requested
-if bashio::var.equals $1 "snips"
+if bashio::var.equals "$1" "snips"
 then
     shift
     exec snips "$@"
@@ -8,7 +8,7 @@ fi
 
 
 ASSISTANT_FILE=/usr/share/snips/assistant/assistant.json
-if ! bashio::fs.file_exists $ASSISTANT_FILE
+if ! bashio::fs.file_exists "$ASSISTANT_FILE"
 then
     bashio::exit.nok "Couldn't find any assistant"
 fi
@@ -19,7 +19,7 @@ ANALYTICS_ENABLED=bashio::jq $ASSISTANT_FILE '.analyticsEnabled'
 SNIPS_MOSQUITTO_FLAG="-h localhost -p 1883"
 
 
-if bashio::var.is_empty $SNIPS_AUDIO_SERVER_MQTT_ARGS
+if bashio::var.is_empty "$SNIPS_AUDIO_SERVER_MQTT_ARGS"
 then
     SNIPS_AUDIO_SERVER_MQTT_ARGS="--frame=256"
 fi
@@ -30,41 +30,41 @@ then
 else
     SNIPS_ASR_MODEL=""
 fi
-if bashio::var.is_empty $SNIPS_ASR_ARGS
+if bashio::var.is_empty "$SNIPS_ASR_ARGS"
 then
     SNIPS_ASR_ARGS="$SNIPS_ASR_MODEL --beam_size=8"
 fi
 
-if bashio::var.is_empty $SNIPS_ASR_MQTT_ARGS 
+if bashio::var.is_empty "$SNIPS_ASR_MQTT_ARGS" 
 then
     SNIPS_ASR_MQTT_ARGS=""
 fi
 
-if bashio::var.is_empty $SNIPS_DIALOGUE_MQTT_ARGS
+if bashio::var.is_empty "$SNIPS_DIALOGUE_MQTT_ARGS"
 then
     SNIPS_DIALOGUE_MQTT_ARGS=""
 fi
 
-if bashio::var.is_empty $SNIPS_ASR_GOOGLE_MQTT_ARGS
+if bashio::var.is_empty "$SNIPS_ASR_GOOGLE_MQTT_ARGS"
 then
     SNIPS_ASR_GOOGLE_MQTT_ARGS=""
 fi
 
-if bashio::var.is_empty $SNIPS_HOTWORD_ARGS
+if bashio::var.is_empty "$SNIPS_HOTWORD_ARGS"
 then
     SNIPS_HOTWORD_ARGS=""
 fi
-if bashio::var.is_empty $SNIPS_HOTWORD_MQTT_ARGS
+if bashio::var.is_empty "$SNIPS_HOTWORD_MQTT_ARGS"
 then
     SNIPS_HOTWORD_MQTT_ARGS=""
 fi
 
-if bashio::var.is_empty $SNIPS_ANALYTICS_MQTT_ARGS
+if bashio::var.is_empty "$SNIPS_ANALYTICS_MQTT_ARGS"
 then
     SNIPS_ANALYTICS_MQTT_ARGS=""
 fi
 
-if bashio::var.is_empty $SNIPS_QUERIES_MQTT_ARGS
+if bashio::var.is_empty "$SNIPS_QUERIES_MQTT_ARGS"
 then
     SNIPS_QUERIES_MQTT_ARGS=""
 fi
@@ -79,15 +79,15 @@ do
     SNIPS_COMPONENTS[$c]=true
 done
 
-if ! bashio::var.equals $ASR_TYPE "google"
+if ! bashio::var.equals "$ASR_TYPE" "google"
 then
     SNIPS_COMPONENTS["snips-asr-google"]=false
-elif ! bashio::var.equals $ASR_TYPE "snips"
+elif ! bashio::var.equals "$ASR_TYPE" "snips"
 then
     SNIPS_COMPONENTS["snips-asr"]=false
 fi
 
-if ! bashio::var.true $ANALYTICS_ENABLED
+if ! bashio::var.true "$ANALYTICS_ENABLED"
 then
     SNIPS_COMPONENTS["snips-analytics"]=false
 fi
@@ -98,13 +98,13 @@ do
     j=$((i+1))
     TYPE_ARG="${!i}"
     VALUE_ARG="${!j}"
-    if bashio::var.equals $TYPE_ARG "--verbose" || bashio::var.equals $TYPE_ARG "-v" 
+    if bashio::var.equals "$TYPE_ARG" "--verbose" || bashio::var.equals "$TYPE_ARG" "-v" 
     then
         SNIPS_DEBUG=true
     fi
 done
 
-if bashio::var.true $SNIPS_DEBUG
+if bashio::var.true "$SNIPS_DEBUG"
 then
     bashio::log.info "Execution env:"
     env
@@ -123,10 +123,10 @@ do
     j=$((i+1))
     TYPE_ARG="${!i}"
     VALUE_ARG="${!j}"
-    if bashio::var.equals $TYPE_ARG "--exclude-components"
+    if bashio::var.equals "$TYPE_ARG" "--exclude-components"
     then
         USE_EXCLUDE=true
-        if bashio::var.true $USE_INCLUDE
+        if bashio::var.true "$USE_INCLUDE"
         then
             bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
         fi
@@ -139,13 +139,13 @@ do
             fi
             unset SNIPS_COMPONENTS["$i"]
         done
-    elif bashio::var.equals $TYPE_ARG "--include-components"
+    elif bashio::var.equals "$TYPE_ARG" "--include-components"
     then
         USE_INCLUDE=true
-        if bashio::var.true $USE_EXCLUDE
+        if bashio::var.true "$USE_EXCLUDE"
         then
             bashio::exit.nok "Cannot use --include-components and --exclude-components simultaneously"
-        elif bashio::var.is_empty $VALUE_ARG
+        elif bashio::var.is_empty "$VALUE_ARG"
         then
             bashio::exit.nok "--include-components must be followed by a command-line list of components to include ${ALL_SNIPS_COMPONENTS[*]}"
         fi
@@ -156,13 +156,13 @@ do
         done
         for j in $(echo $VALUE_ARG|tr ',' ' ')
         do
-            if bashio::var.is_empty ${SNIPS_COMPONENTS[$i]} && ! bashio::var.equals $j "none" 
+            if bashio::var.is_empty ${SNIPS_COMPONENTS[$i]} && ! bashio::var.equals "$j" "none" 
             then
                 bashio::exit.nok "Unknown snips component $j. Must be one of ${ALL_SNIPS_COMPONENTS[*]}."
             fi
             SNIPS_COMPONENTS["$i"]=true
         done
-    elif bashio::var.equals $TYPE_ARG "--mqtt"
+    elif bashio::var.equals "$TYPE_ARG" "--mqtt"
     then
         if bashio::var.is_empty $VALUE_ARG
         then

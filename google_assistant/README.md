@@ -12,7 +12,19 @@ If you want to integrate your Google Home or mobile phone running Google Assista
 
 </div>
 
+## About
+
 [Google Assistant][GoogleAssistant] is an AI-powered voice assistant that runs on the Raspberry Pi and x86 platforms and interact via the [DialogFlow][comp] integration with Home-Assistant. You can also use [Google Actions][GoogleActions] to extend its functionality.
+
+## Installation
+
+The installation of this add-on is straightforward and easy to do.
+
+1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+2. Find the "Google Assistant SDK" add-on and click it.
+3. Click on the "INSTALL" button.
+
+## Instructions
 
 To enable access to the Google Assistant API, do the following:
 

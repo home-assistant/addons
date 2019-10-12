@@ -32,7 +32,7 @@ there were no errors are: `[Info] Nothing has changed.`,
 `[Info] Something has changed, checking Home-Assistant config...`,
 or `[Info] Local configuration has changed. Restart required.`.
 
-If you made it this far you may want to let the add-on automatically
+If you made it this far, you might want to let the add-on automatically
 check for updates by setting the `active` field (a subfield of `repeat`)
 to `true` and turning on "Start on boot."
 

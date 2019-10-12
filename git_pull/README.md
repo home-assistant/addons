@@ -79,7 +79,7 @@ Add-on configuration:
 - **git_branch** (*Required*): Branch name of the Git repo. If left empty, the currently checked out branch will be updated. Leave this as 'master' if you are unsure.
 - **git_command** (*Required*): `pull`/`reset`: Command to run. Leave this as `pull` if you are unsure.
   - **pull**: Incorporates changes from a remote repository into the current branch. Will preserve any local changes to tracked files.
-- **reset**: Will execute `git reset --hard` and overwrite any local changes to tracked files and update from the remote repository. **Warning**: Using `reset` WILL overwrite changes to tracked files. You can list all tracked files with this command: `git ls-tree -r master --name-only`.
+  - **reset**: Will execute `git reset --hard` and overwrite any local changes to tracked files and update from the remote repository. **Warning**: Using `reset` WILL overwrite changes to tracked files. You can list all tracked files with this command: `git ls-tree -r master --name-only`.
 - **repository** (*Required*): Git URL to your repository (make sure to use double quotes). You have to add `.git` to your repository URL (see example configuration).
 - **auto_restart** (*Required*): `true`/`false`: Restart Home Assistant when the configuration has changed (and is valid).
 - **restart_ignore** (*Optional*): When `auto_restart` is enabled, changes to these files will not make HA restart. Full directories to ignore can be specified.
@@ -96,11 +96,6 @@ Add-on configuration:
   - rsa
 
 The protocol is typically known by the suffix of the private key --e.g., a key file named `id_rsa` will be a private key using `rsa` protocol.
-
-## Known issues and limitations
-
-- Currently, this add-on only support checking against Home Assistant >= 0.94
-  or less 0.91.
 
 ## Support
 

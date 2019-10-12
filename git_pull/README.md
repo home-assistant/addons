@@ -112,11 +112,11 @@ When `auto_restart` is enabled, changes to these files will not make HA restart.
 
 The following options are for the option group: `repeat` and configure the Git pull add-on to poll the repository for updates periodically automatically.
 
-### Option: `repeat.active` (required)
+#### Option: `repeat.active` (required)
 
 `true`/`false`: Enable/disable automatic polling.
 
-### Option: `repeat.interval` (required)
+#### Option: `repeat.interval` (required)
 
 The interval in seconds to poll the repo for if automatic polling is enabled.
 

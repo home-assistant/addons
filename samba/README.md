@@ -19,7 +19,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-In the configuration section, define a username and password and save teh configuratione 
+In the configuration section, define a username and password and save the configuration 
 
 
 1. Start the add-on.

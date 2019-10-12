@@ -74,22 +74,69 @@ Add-on configuration:
 
 ### Options
 
-- **git_remote** (*Required*): Name of the tracked repository. Leave this as `origin` if you are unsure.
-- **git_prune** (*Required*): `true`/`false`: If set to true, the add-on will clean-up branches that are deleted on the remote repository, but still have cached entries on the local machine. Leave this as `false` if you are unsure.
-- **git_branch** (*Required*): Branch name of the Git repo. If left empty, the currently checked out branch will be updated. Leave this as 'master' if you are unsure.
-- **git_command** (*Required*): `pull`/`reset`: Command to run. Leave this as `pull` if you are unsure.
-  - **pull**: Incorporates changes from a remote repository into the current branch. Will preserve any local changes to tracked files.
-  - **reset**: Will execute `git reset --hard` and overwrite any local changes to tracked files and update from the remote repository. **Warning**: Using `reset` WILL overwrite changes to tracked files. You can list all tracked files with this command: `git ls-tree -r master --name-only`.
-- **repository** (*Required*): Git URL to your repository (make sure to use double quotes). You have to add `.git` to your repository URL (see example configuration).
-- **auto_restart** (*Required*): `true`/`false`: Restart Home Assistant when the configuration has changed (and is valid).
-- **restart_ignore** (*Optional*): When `auto_restart` is enabled, changes to these files will not make HA restart. Full directories to ignore can be specified.
-- **repeat**: Poll the repository for updates periodically automatically.
-  - **active** (*Required*): `true`/`false`: Enable/disable automatic polling.
-  - **interval** (*Required*): The interval in seconds to poll the repo for if automatic polling is enabled.
-- **deployment_user** (*Optional*): Username to use when authenticating to a repository with a username and password.
-- **deployment_password** (*Optional*): Password to use when authenticating to a repository.  Ignored if `deployment_user` is not set.
-- **deployment_key** (*Optional*): A private SSH key that will be used for communication during Git operations. This key is mandatory for ssh-accessed repositories, which are the ones with the following pattern: `<user>@<host>:<repository path>`. This key has to be created without a passphrase.
-- **deployment_key_protocol** (*Optional*): The key protocol. Default is `rsa`. Valid protocols are:
+### Option: `git_remote` (required)
+
+Name of the tracked repository. Leave this as `origin` if you are unsure.
+
+### Option: `git_prune` (required)
+
+`true`/`false`: If set to true, the add-on will clean-up branches that are deleted on the remote repository, but still have cached entries on the local machine. Leave this as `false` if you are unsure.
+
+### Option: `git_branch` (required)
+
+Branch name of the Git repo. If left empty, the currently checked out branch will be updated. Leave this as 'master' if you are unsure.
+
+### Option: `git_command` (required)
+
+`pull`/`reset`: Command to run. Leave this as `pull` if you are unsure.
+
+- `pull`
+  
+  - Incorporates changes from a remote repository into the current branch. Will preserve any local changes to tracked files.
+
+- `reset`
+  
+  - Will execute `git reset --hard` and overwrite any local changes to tracked files and update from the remote repository. **Warning**: Using `reset` WILL overwrite changes to tracked files. You can list all tracked files with this command: `git ls-tree -r master --name-only`.
+
+### Option: `repository` (required)
+
+Git URL to your repository (make sure to use double quotes). You have to add `.git` to your repository URL (see example configuration).
+
+### Option: `auto_restart` (required)
+
+`true`/`false`: Restart Home Assistant when the configuration has changed (and is valid).
+
+### Option: `restart_ignore` (optional)
+
+When `auto_restart` is enabled, changes to these files will not make HA restart. Full directories to ignore can be specified.
+
+### Option: `repeat`
+
+Poll the repository for updates periodically automatically. See `active` and `interval`.
+
+### Option: `active` (required)
+
+`true`/`false`: Enable/disable automatic polling.
+
+### Option: `interval` (required)
+
+The interval in seconds to poll the repo for if automatic polling is enabled.
+
+### Option: `deployment_user` (optional)
+
+Username to use when authenticating to a repository with a username and password.
+
+### Option: `deployment_password` (optional)
+
+Password to use when authenticating to a repository.  Ignored if `deployment_user` is not set.
+
+### Option: `deployment_key` (optional)
+
+A private SSH key that will be used for communication during Git operations. This key is mandatory for ssh-accessed repositories, which are the ones with the following pattern: `<user>@<host>:<repository path>`. This key has to be created without a passphrase.
+
+### Option: `deployment_key_protocol` (optional)
+
+The key protocol. Default is `rsa`. Valid protocols are:
   - dsa
   - ecdsa
   - ed25519

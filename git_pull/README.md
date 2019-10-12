@@ -27,13 +27,13 @@ your repository. Next,
 2. Check the add-on log output to see the result.
 
 If the log doesn't end with an error, the add-on has successfully
-accessed your git repository. Examples of logs you will see if
+accessed your git repository. Examples of logs you might see if
 there were no errors are: `[Info] Nothing has changed.` or
-`[Info] Something has changed, checking Home-Assistant config...`
+`[Info] Something has changed, checking Home-Assistant config...`.
 
 If you made it this far you may want to let the add-on automatically
-check for updates at regular intervals by setting the `active` field (a
-subfield of `repeat`) to `true` and turning on "Start on boot."
+check for updates by setting the `active` field (a subfield of `repeat`)
+to `true` and turning on "Start on boot."
 
 ## Configuration
 
@@ -77,6 +77,25 @@ The version of Home Assistant that want to check your configuration against.
 
 Setting this option to `latest` will result in checking your configuration
 against the latest stable release of Home Assistant.
+
+- **git_remote** (*Required*): Name of the tracked repository. Leave this as `origin` if you are unsure.
+- **git_prune** (*Required*): `true`/`false`: If set to true, the add-on will clean-up branches that are deleted on the remote repository, but still have cached entries on the local machine. Leave this as `false` if you are unsure.
+- **repository** (*Required*): Git URL to your repository (make sure to use double quotes). You have to add `.git` to your repository URL (see example configuration).
+- **auto_restart** (*Required*): `true`/`false`: Restart Home Assistant when the configuration has changed (and is valid).
+- **restart_ignore** (*Optional*): When `auto_restart` is enabled, changes to these files will not make HA restart. Full directories to ignore can be specified.
+- **repeat**: Poll the repository for updates periodically automatically.
+  - **active** (*Required*): `true`/`false`: Enable/disable automatic polling.
+  - **interval** (*Required*): The interval in seconds to poll the repo for if automatic polling is enabled.
+- **deployment_user** (*Optional*): Username to use when authenticating to a repository with a username and password.
+- **deployment_password** (*Optional*): Password to use when authenticating to a repository.  Ignored if `deployment_user` is not set.
+- **deployment_key** (*Optional*): A private SSH key that will be used for communication during Git operations. This key is mandatory for ssh-accessed repositories, which are the ones with the following pattern: `<user>@<host>:<repository path>`. This key has to be created without a passphrase.
+- **deployment_key_protocol** (*Optional*): The key protocol. Default is `rsa`. Valid protocols are:
+  - **dsa**
+  - **ecdsa**
+  - **ed25519**
+  - **rsa**
+
+The protocol is typically known by the suffix of the private key --e.g., a key file named `id_rsa` will be a private key using `rsa` protocol.
 
 ## Known issues and limitations
 

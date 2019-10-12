@@ -72,8 +72,6 @@ Add-on configuration:
 }
 ```
 
-### Options
-
 ### Option: `git_remote` (required)
 
 Name of the tracked repository. Leave this as `origin` if you are unsure.
@@ -110,15 +108,15 @@ Git URL to your repository (make sure to use double quotes). You have to add `.g
 
 When `auto_restart` is enabled, changes to these files will not make HA restart. Full directories to ignore can be specified.
 
-### Option: `repeat`
+### Option group: `repeat`
 
-Poll the repository for updates periodically automatically. See `active` and `interval`.
+The following options are for the option group: `repeat` and configure the Git pull add-on to poll the repository for updates periodically automatically.
 
-### Option: `active` (required)
+### Option: `repeat.active` (required)
 
 `true`/`false`: Enable/disable automatic polling.
 
-### Option: `interval` (required)
+### Option: `repeat.interval` (required)
 
 The interval in seconds to poll the repo for if automatic polling is enabled.
 

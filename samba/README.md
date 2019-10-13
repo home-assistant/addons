@@ -19,12 +19,10 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-In the configuration section, define a username and password and save the configuration 
-
-
-1. Start the add-on.
-2. Have some patience and wait a couple of minutes.
-3. Check the add-on log output to see the result.
+1. In the configuration section, set a username and password.
+2. Save the configuration.
+3. Start the add-on.
+4. Check the add-on log output to see the result.
 
 ## Configuration
 

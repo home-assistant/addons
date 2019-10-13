@@ -1,5 +1,4 @@
 #!/usr/bin/env bashio
-set -e
 
 WORKGROUP=$(bashio::config 'workgroup')
 INTERFACE=$(bashio::config 'interface')
@@ -8,7 +7,6 @@ USERNAME=$(bashio::config 'username')
 PASSWORD=$(bashio::config 'password')
 
 WAIT_PIDS=()
-NAME=
 
 # Check Login data
 if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password'; then
@@ -18,7 +16,7 @@ fi
 # Read hostname from API or setting default "hassio"
 NAME=$(bashio::info.hostname)
 if bashio::var.is_empty "${NAME}"; then
-    bashio::log.warn "Can't read hostname, using default."
+    bashio::log.warning "Can't read hostname, using default."
     NAME="hassio"
 fi
 bashio::log.info "Hostname: ${NAME}"

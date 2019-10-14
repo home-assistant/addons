@@ -3,8 +3,6 @@ set -e
 
 ASSISTANT=$(bashio::config 'assistant')
 LANG=$(bashio::config 'language')
-# possibly not needed anymore? can be queried with bashio
-#CUSTOMTTS=$(bashio::config 'custom_tts.active')
 
 bashio::log.info "LANG: ${LANG}"
 bashio::log.info "Checking for /share/snips.toml"

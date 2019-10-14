@@ -4,38 +4,32 @@ HomeMatic central based on OCCU.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
-![Configurator in the Home Assistant Frontend][screenshot]
-
 ## About
 
-This add-on allows you to control compatible HomeMatic devices. It is based on the
+This add-on allows you to control your HomeMatic devices so they can be
+integrated into Home Assistant. It is based on the
 [HomeMatic Open Central Control Unit (OCCU) SDK][occu].
+
+Note: Requires a [HM-MOD-RPI-PCB][hm-mod-rpi-pcb] or [HmIP-RFUSB][hmip-rufsb]
+to interface with your devices.
 
 ## Features
 
-- Web-based editor to modify your files with syntax highlighting and YAML linting.
-- Upload and download files.
-- Stage, stash and commit changes in Git repositories, create and switch between
-  branches, push to remotes, view diffs.
-- Lists with available entities, triggers, events, conditions and services.
-- Restart Home Assistant directly with the click of a button. Reloading groups,
-  automations, etc. can be done as well. An API password is required.
-- Direct links to Home Assistant documentation and icons.
-- Execute shell commands within the add-on container.
-- Editor settings are saved in your browser.
-- And much more…
+- Your Raspberry Pi is your HomeMatic control center
+- WebUI (experimental)
+- Firmware updates
 
 ## Installation
 
 The installation of this add-on is straightforward and easy to do.
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
-2. Find the "Configurator" add-on and click it.
+2. Find the "HomeMatic CCU" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-In general, this add-on requires no configuration from your end.
+Currently, all .
 
 1. Toggle the "Show in sidebar" option, which adds the Configurator to the main menu.
 2. Start the add-on.
@@ -106,3 +100,5 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [repository]: https://github.com/hassio-addons/repository
 [screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/configurator/images/screenshot.png
 [occu]: https://github.com/jens-maus/occu/
+[hm-mod-rpi-pcb]: https://www.elv.ch/homematic-funkmodul-fuer-raspberry-pi-bausatz.html
+[hmip-rufsb]: https://www.elv.ch/elv-homematic-ip-rf-usb-stick-hmip-rfusb-fuer-alternative-steuerungsplattformen-arr-bausatz.html

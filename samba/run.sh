@@ -5,11 +5,9 @@ INTERFACE=$(bashio::config 'interface')
 ALLOW_HOSTS=$(bashio::config "allow_hosts | join(\" \")")
 USERNAME=$(bashio::config 'username')
 PASSWORD=$(bashio::config 'password')
+DELETE_VETO_FILES="no"
 VETO_FILES=$(bashio::config "veto_files | join(\"/\")")
-if [ -z "$VETO_FILES" ]
-then
-    DELETE_VETO_FILES="no"
-else
+if bashio::config.has_value 'veto_files'; then
     VETO_FILES="/$VETO_FILES/"
     DELETE_VETO_FILES="yes"
 fi

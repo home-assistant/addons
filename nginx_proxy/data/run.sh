@@ -1,20 +1,12 @@
 #!/usr/bin/env bashio
 set -e
 
-CONFIG_PATH=/data/options.json
 DHPARAMS_PATH=/data/dhparams.pem
 
 SNAKEOIL_CERT=/data/ssl-cert-snakeoil.pem
 SNAKEOIL_KEY=/data/ssl-cert-snakeoil.key
 
 CLOUDFLARE_CONF=/data/cloudflare.conf
-
-#DOMAIN=$(jq --raw-output ".domain" $CONFIG_PATH)
-#KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
-#CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-#HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
-#CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-#CLOUDFLARE=$(jq --raw-output ".cloudflare" $CONFIG_PATH)
 
 DOMAIN=$(bashio::config 'domain')
 KEYFILE=$(bashio::config 'keyfile')
@@ -24,12 +16,12 @@ CUSTOMIZE_ACTIVE=$(bashio::config 'customize.active')
 CLOUDFLARE=$(bashio::config 'cloudflare')
 
 # Generate dhparams
-if [ ! bashio::fs.file_exists "${DHPARAMS_PATH}" ]; then
+if ! bashio::fs.file_exists "${DHPARAMS_PATH}"; then
     bashio::log.info  "Generating dhparams (this will take some time)..."
     openssl dhparam -dsaparam -out "$DHPARAMS_PATH" 4096 > /dev/null
 fi
 
-if [ ! bashio::fs.file_exists "${SNAKEOIL_CERT}" ]; then
+if ! bashio::fs.file_exists "${SNAKEOIL_CERT}"; then
     bashio::log.info "Creating 'snakeoil' self-signed certificate..."
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
@@ -37,7 +29,7 @@ fi
 if bashio::var.true "${CLOUDFLARE}"; then
     sed -i "s|#include /data/cloudflare.conf;|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
-    if [ ! bashio::fs.file_exists "${CLOUDFLARE_CONF}" ]; then
+    if ! bashio::fs.file_exists "${CLOUDFLARE_CONF}"; then
         bashio::log.info "Creating 'cloudflare.conf' for real visitor IP address..."
         echo "# Cloudflare IP addresses" > $CLOUDFLARE_CONF;
         echo "" >> $CLOUDFLARE_CONF;
@@ -68,10 +60,8 @@ sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 # Allow customize configs from share
 if bashio::var.true "${CUSTOMIZE_ACTIVE}"; then
-    #CUSTOMIZE_DEFAULT=$(jq --raw-output ".customize.default" $CONFIG_PATH)
     CUSTOMIZE_DEFAULT=$(bashio::config 'customize.default')
     sed -i "s|#include /share/nginx_proxy_default.*|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
-    #CUSTOMIZE_SERVERS=$(jq --raw-output ".customize.servers" $CONFIG_PATH)
     CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')
     sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
 fi

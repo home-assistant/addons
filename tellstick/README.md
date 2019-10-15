@@ -93,7 +93,7 @@ you need to restart the add-on for the changes to take effect.
 ### Option: `devices` (required)
 
 Add one or more devices entries to the add-on configuration for each
-device you'd like to add. Please note the comma seperator between each
+device you'd like to add. Please note the comma separator between each
 device (see example above).
 
 #### Option: `devices` -> `id` (required)

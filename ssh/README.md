@@ -30,7 +30,7 @@ To generate them, follow the [instructions for Windows][keygen-windows]
 and [these for other platforms][keygen]. It is possible to set a password for
 login since version 2.0 but for high security use private/public keys.
 
-You can not run both variants at the same time. Enabling login via keys, will
+You cannot run both variants at the same time. Enabling login via keys, will
 simply disable password login.
 
 1. Add a ssh key to  `authorized_keys` or set a `password` in the add-on configuration.

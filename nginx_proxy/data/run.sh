@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 set -e
 
 CONFIG_PATH=/data/options.json
@@ -9,29 +9,36 @@ SNAKEOIL_KEY=/data/ssl-cert-snakeoil.key
 
 CLOUDFLARE_CONF=/data/cloudflare.conf
 
-DOMAIN=$(jq --raw-output ".domain" $CONFIG_PATH)
-KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
-CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
-CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-CLOUDFLARE=$(jq --raw-output ".cloudflare" $CONFIG_PATH)
+#DOMAIN=$(jq --raw-output ".domain" $CONFIG_PATH)
+#KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
+#CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
+#HSTS=$(jq --raw-output ".hsts // empty" $CONFIG_PATH)
+#CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
+#CLOUDFLARE=$(jq --raw-output ".cloudflare" $CONFIG_PATH)
+
+DOMAIN=$(bashio::config 'domain')
+KEYFILE=$(bashio::config 'keyfile')
+CERTFILE=$(bashio::config 'certfile')
+HSTS=$(bashio::config 'hsts')
+CUSTOMIZE_ACTIVE=$(bashio::config 'customize.active')
+CLOUDFLARE=$(bashio::config 'cloudflare')
 
 # Generate dhparams
-if [ ! -f "$DHPARAMS_PATH" ]; then
-    echo "[INFO] Generating dhparams (this will take some time)..."
+if [ ! bashio::fs.file_exists "${DHPARAMS_PATH}" ]; then
+    bashio::log.info  "Generating dhparams (this will take some time)..."
     openssl dhparam -dsaparam -out "$DHPARAMS_PATH" 4096 > /dev/null
 fi
 
-if [ ! -f "$SNAKEOIL_CERT" ]; then
-    echo "[INFO] Creating 'snakeoil' self-signed certificate..."
+if [ ! bashio::fs.file_exists "${SNAKEOIL_CERT}" ]; then
+    bashio::log.info "Creating 'snakeoil' self-signed certificate..."
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
-if [ "$CLOUDFLARE" == "true" ]; then
+if bashio::var.true "${CLOUDFLARE}"; then
     sed -i "s|#include /data/cloudflare.conf;|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
-    if [ ! -f "$CLOUDFLARE_CONF" ]; then
-        echo "[INFO] Creating 'cloudflare.conf' for real visitor IP address..."
+    if [ ! bashio::fs.file_exists "${CLOUDFLARE_CONF}" ]; then
+        bashio::log.info "Creating 'cloudflare.conf' for real visitor IP address..."
         echo "# Cloudflare IP addresses" > $CLOUDFLARE_CONF;
         echo "" >> $CLOUDFLARE_CONF;
 
@@ -39,13 +46,13 @@ if [ "$CLOUDFLARE" == "true" ]; then
         for i in $(curl https://www.cloudflare.com/ips-v4); do
             echo "set_real_ip_from ${i};" >> $CLOUDFLARE_CONF;
         done
-        
+
         echo "" >> $CLOUDFLARE_CONF;
         echo "# - IPv6" >> $CLOUDFLARE_CONF;
         for i in $(curl https://www.cloudflare.com/ips-v6); do
             echo "set_real_ip_from ${i};" >> $CLOUDFLARE_CONF;
         done
-        
+
         echo "" >> $CLOUDFLARE_CONF;
         echo "real_ip_header CF-Connecting-IP;" >> $CLOUDFLARE_CONF;
     fi
@@ -60,13 +67,15 @@ sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 # Allow customize configs from share
-if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
-    CUSTOMIZE_DEFAULT=$(jq --raw-output ".customize.default" $CONFIG_PATH)
+if bashio::var.true "${CUSTOMIZE_ACTIVE}"; then
+    #CUSTOMIZE_DEFAULT=$(jq --raw-output ".customize.default" $CONFIG_PATH)
+    CUSTOMIZE_DEFAULT=$(bashio::config 'customize.default')
     sed -i "s|#include /share/nginx_proxy_default.*|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
-    CUSTOMIZE_SERVERS=$(jq --raw-output ".customize.servers" $CONFIG_PATH)
+    #CUSTOMIZE_SERVERS=$(jq --raw-output ".customize.servers" $CONFIG_PATH)
+    CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')
     sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
 fi
 
 # start server
-echo "[INFO] Running nginx..."
+bashio::log.info "Running nginx..."
 exec nginx -c /etc/nginx.conf < /dev/null

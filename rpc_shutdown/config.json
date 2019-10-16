@@ -15,7 +15,7 @@
         "alias": "test-pc",
         "address": "192.168.0.1",
         "credentials": "user%password",
-        "delay": "0",
+        "delay": 0,
         "message": "Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!"
       }
     ]

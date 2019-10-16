@@ -24,6 +24,11 @@ while read -r input; do
             continue
         fi
       
+		# Check if delay is not empty 
+        if [ "$DELAY" = "" ]; then
+            DELAY="0"
+        fi
+
         echo "[Info] Shutdown $input -> $ADDRESS"
         if ! msg="$(net rpc shutdown -I "$ADDRESS" -U "$CREDENTIALS" -t "$DELAY" -C "$MESSAGE")"; then
             echo "[Error] Shutdown fails -> $msg"

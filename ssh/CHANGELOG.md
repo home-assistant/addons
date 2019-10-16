@@ -2,7 +2,7 @@
 
 ## 7.0
 
-- Added bash_profile as a configurable variable
+- Added bash_profile as a persistent file 
 
 ## 6.4
 

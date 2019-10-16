@@ -50,11 +50,7 @@ Add-on configuration:
   "authorized_keys": [
     "ssh-rsa AKDJD3839...== my-key"
   ],
-  "password": "",
-  "bash_profile": [ 
-    "alias ll='ls -la'",
-    "alias cp='cp -rf'"
-  ]
+  "password": ""
 }
 ```
 
@@ -66,10 +62,6 @@ keys by adding multiple public keys to the list.
 ### Option: `password`
 
 Set a password for login. **We do NOT recommend this variant**.
-
-### Option: `bash_profile`
-
-Set configurations for user environment. Each line is a new item in the list.
 
 ## Known issues and limitations
 

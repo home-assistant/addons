@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3
+- Update from bash to bashio
+
 ## 1.2
 - Change the way to migrate data
 

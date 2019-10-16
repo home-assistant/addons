@@ -28,7 +28,7 @@
   ],
   "options": {
     "authorized_keys": [],
-    "password": "",
+    "password": ""
   },
   "schema": {
     "authorized_keys": [

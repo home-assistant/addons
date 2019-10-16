@@ -2,7 +2,7 @@
 
 ## 9.0
 
-- New option `veto_files` to limit writing of specified files to the share. This is a breaking change, please add "veto_files": [] to your config.
+- New option `veto_files` to limit writing of specified files to the share
 
 ## 8.3
 

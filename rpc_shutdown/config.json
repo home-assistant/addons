@@ -1,6 +1,6 @@
 {
   "name": "RPC Shutdown",
-  "version": "1.0",
+  "version": "2.0",
   "slug": "rpc_shutdown",
   "description": "Simple way for remote windows shutdowns",
   "url": "https://home-assistant.io/addons/rpc_shutdown/",
@@ -14,7 +14,9 @@
       {
         "alias": "test-pc",
         "address": "192.168.0.1",
-        "credentials": "user%password"
+        "credentials": "user%password",
+        "delay": 0,
+        "message": "Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!"
       }
     ]
   },
@@ -23,7 +25,9 @@
       {
         "alias": "match(^[\\w-]*$)",
         "address": "str",
-        "credentials": "match(^[^%]*(?:%[^%]*)?$)"
+        "credentials": "match(^[^%]*(?:%[^%]*)?$)",
+        "delay": "int(0,600)?",
+        "message": "str?"
       }
     ]
   },

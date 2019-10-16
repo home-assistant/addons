@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.0
+
+- New option `veto_files` to limit writing of specified files to the share
+
 ## 8.3
 
 - Fixes a bug in warning log message, causing start failure

@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "8.3",
+  "version": "9.0",
   "slug": "samba",
   "description": "Expose Hass.io folders with SMB/CIFS",
   "url": "https://home-assistant.io/addons/samba/",
@@ -30,6 +30,13 @@
       "10.0.0.0/8",
       "172.16.0.0/12",
       "192.168.0.0/16"
+    ],
+    "veto_files": [
+      "._*",
+      ".DS_Store",
+      "Thumbs.db",
+      "icon?",
+      ".Trashes"
     ]
   },
   "schema": {
@@ -38,6 +45,9 @@
     "password": "str",
     "interface": "str",
     "allow_hosts": [
+      "str"
+    ],
+    "veto_files": [
       "str"
     ]
   },

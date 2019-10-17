@@ -9,19 +9,19 @@ while read -r input; do
 
     # Find aliases -> computer
     for computer in $(bashio::config 'computers|keys'); do
-	    ALIAS=$(bashio::config "computers[${computer}].alias")
-	    ADDRESS=$(bashio::config "computers[${computer}].address")
-	    CREDENTIALS=$(bashio::config "computers[${computer}].credentials")
-	    DELAY=$(bashio::config "computers[${computer}].delay")
-	    MESSAGE=$(bashio::config "computers[${computer}].message")
+        ALIAS=$(bashio::config "computers[${computer}].alias")
+        ADDRESS=$(bashio::config "computers[${computer}].address")
+        CREDENTIALS=$(bashio::config "computers[${computer}].credentials")
+        DELAY=$(bashio::config "computers[${computer}].delay")
+        MESSAGE=$(bashio::config "computers[${computer}].message")
   
         # Not the correct alias
-		if [! bashio::var.equals "$ALIAS" "$input" ]; then
+        if ! bashio::var.equals "$ALIAS" "$input"; then
             continue
         fi
-      
-		# Check if delay is not empty
-		if bashio::var.is_empty "${DELAY}"; then
+
+        # Check if delay is not empty
+        if bashio::var.is_empty "${DELAY}"; then
             DELAY="0"
         fi
 

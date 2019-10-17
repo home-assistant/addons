@@ -1,6 +1,6 @@
 {
   "name": "RPC Shutdown",
-  "version": "2.1",
+  "version": "2.2",
   "slug": "rpc_shutdown",
   "description": "Simple way for remote windows shutdowns",
   "url": "https://home-assistant.io/addons/rpc_shutdown/",

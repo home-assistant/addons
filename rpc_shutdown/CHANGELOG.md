@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2
+
+- Set delay to zero when it is empty (to not break existing configurations) (bugfix)
+
 ## 2.1
 
 - Set delay to zero when it is empty (to not break existing configurations)

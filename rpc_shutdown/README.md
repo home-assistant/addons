@@ -33,12 +33,16 @@ Add-on configuration:
     {
       "alias": "test-pc-1",
       "address": "192.168.0.1",
-      "credentials": "user%password"
+      "credentials": "user%password",
+      "delay": 0,
+      "message": "Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!"
     },
     {
       "alias": "test-pc-2",
       "address": "192.168.0.2",
-      "credentials": "user%password"
+      "credentials": "user%password",
+      "delay": 0,
+      "message": "Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!"
     }
   ]
 }
@@ -60,6 +64,14 @@ IP address or NetBIOS name of the computer to be able to shutdown.
 
 Credentials for logging into the computer.
 Use a `%` as the delimiter of username and password.
+
+### Option:  `computers.message` (optional)
+
+A delay (in seconds) before shutting down the computer. This gives a user that happens to be using that computer time to save their work.
+
+### Option:  `computers.delay` (optional)
+
+Show a custom message on the screen of the computer that will be shutdown.
 
 ## Home Assistant configuration
 

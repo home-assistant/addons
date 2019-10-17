@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1
+
+- Set delay to zero when it is empty (to not break existing configurations)
+- Update from bash to bashio
+
 ## 2.0
 
 - New option to delay shutting down the Windows PC

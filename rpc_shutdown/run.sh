@@ -21,7 +21,7 @@ while read -r input; do
         fi
 
         # Check if delay is not empty
-        if bashio::var.is_empty "${DELAY}"; then
+        if bashio::var.equals "$DELAY" "null"; then
             DELAY="0"
         fi
 

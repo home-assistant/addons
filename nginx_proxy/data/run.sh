@@ -12,8 +12,6 @@ DOMAIN=$(bashio::config 'domain')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 HSTS=$(bashio::config 'hsts')
-CUSTOMIZE_ACTIVE=$(bashio::config 'customize.active')
-CLOUDFLARE=$(bashio::config 'cloudflare')
 
 # Generate dhparams
 if ! bashio::fs.file_exists "${DHPARAMS_PATH}"; then
@@ -26,7 +24,7 @@ if ! bashio::fs.file_exists "${SNAKEOIL_CERT}"; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $SNAKEOIL_KEY -out $SNAKEOIL_CERT -subj '/CN=localhost'
 fi
 
-if bashio::var.true "${CLOUDFLARE}"; then
+if bashio::config.true 'cloudflare'; then
     sed -i "s|#include /data/cloudflare.conf;|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
     if ! bashio::fs.file_exists "${CLOUDFLARE_CONF}"; then
@@ -59,7 +57,7 @@ sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 # Allow customize configs from share
-if bashio::var.true "${CUSTOMIZE_ACTIVE}"; then
+if bashio::config.true 'customize.active'; then
     CUSTOMIZE_DEFAULT=$(bashio::config 'customize.default')
     sed -i "s|#include /share/nginx_proxy_default.*|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
     CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')

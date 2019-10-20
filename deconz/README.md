@@ -16,7 +16,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ### Using a RaspBee
 
-If your are using RaspBee, you may need to edit the `config.txt` file in the root
+If you are using RaspBee, you may need to edit the `config.txt` file in the root
 of your SD card in order for your RaspBee to be recognized and assigned a device name.
 
 Add following to your `config.txt`:

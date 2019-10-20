@@ -38,6 +38,11 @@ Add-on configuration:
     "10.0.0.0/8",
     "172.16.0.0/12",
     "192.168.0.0/16"
+  ],
+  "veto_files": [
+    "._*",
+    ".DS_Store",
+    "Thumbs.db"
   ]
 }
 ```
@@ -57,7 +62,9 @@ Change WORKGROUP to reflect your network needs.
 
 List of hosts/networks allowed to access your configuration. 
 
+### Option: `veto_files` (optional)
 
+List of files that are neither visible nor accessible. Useful to stop clients from littering the share with temporary hidden files (ex: macOS .DS_Store, Windows Thumbs.db)
 
 ## Known issues and limitations
 

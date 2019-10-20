@@ -30,7 +30,7 @@ To use this add-on, you have two options on how to get your certificate:
 2. dns challenge
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
 - Allows to request wildcard certificates (*.yourdomain.com)
-- Doesnt need you to open a port to your hass.io host on your router.
+- Doesn’t need you to open a port to your hass.io host on your router.
 
 You always need to provide the following entries within the configuration:
 

@@ -48,13 +48,14 @@ Add-on configuration:
     "active": false,
     "default": "nginx_proxy_default*.conf",
     "servers": "nginx_proxy/*.conf"
-  }
+  },
+  "cloudflare": false
 }
 ```
 
 ### Option: `domain` (required)
 
-The domain name to use for the proxy. 
+The domain name to use for the proxy.
 
 ### Option: `certfile` (required)
 
@@ -62,7 +63,7 @@ The certificate file to use in the `/ssl` directory. Keep filename as-is if you 
 
 ### Option: `keyfile` (required)
 
-Private key file to use in the `/ssl` directory. 
+Private key file to use in the `/ssl` directory.
 
 ### Option: `hsts` (required)
 
@@ -80,9 +81,14 @@ The filename of the NGINX configuration for the default server, found in the `/s
 
 The filename(s) of the NGINX configuration for the additional servers, found in the `/share` directory.
 
+### Option `cloudflare` (optional)
+
+If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
+This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
 ## Known issues and limitations
 
-- By default, port 80 is disabled in the add-on configuration in case the port is needed for other components or add-ons like `emulated_hue`. 
+- By default, port 80 is disabled in the add-on configuration in case the port is needed for other components or add-ons like `emulated_hue`.
 
 ## Support
 

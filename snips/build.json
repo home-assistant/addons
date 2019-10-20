@@ -2,5 +2,8 @@
   "build_from": {
     "armhf": "homeassistant/armhf-base-raspbian:stretch",
     "amd64": "homeassistant/amd64-base-ubuntu:16.04"
+  },
+  "args": {
+    "SNIPS_VERSION": "0.64.0"
   }
 }

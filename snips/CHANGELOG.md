@@ -1,8 +1,10 @@
 # Changelog
 
-## 5.4
+## 6.0
 
 - Updated to snips 0.64.0
+
+***Warning: Need new NLU***
 
 ## 5.3
 

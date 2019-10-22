@@ -1,6 +1,6 @@
 # Hass.io Core Add-on: Mosquitto broker
 
-Check your current configuration against any Home Assistant version.
+MQTT broker for Home Assistant.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
@@ -116,13 +116,13 @@ Add the following configuration to enable **unrestricted** access to all topics.
   },
 ```
 
-1. Create `/share/mosquitto/acl.conf` with the contents:
+2. Create `/share/mosquitto/acl.conf` with the contents:
 
 ```text
 acl_file /share/mosquitto/accesscontrollist
 ```
 
-1. Create `/share/mosquitto/accesscontrollist` with the contents:
+3. Create `/share/mosquitto/accesscontrollist` with the contents:
 
 ```text
 user [YOUR_MQTT_USER]

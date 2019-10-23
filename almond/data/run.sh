@@ -2,10 +2,11 @@
 
 WAIT_PIDS=()
 
+# HA Discovery
 config=$(\
     bashio::var.json \
         host "$(hostname)" \
-        port "3000" \
+        port "3001" \
 )
 
 if bashio::discovery "almond" "${config}" > /dev/null; then
@@ -14,6 +15,11 @@ else
     bashio::log.error "Discovery message to Home Assistant failed!"
 fi
 
+# Ingress handling
+export THINGENGINE_BASE_URL=$(bashio::addon.ingress_url)
+
+# Setup nginx
+sed -i "s/%%BASE_URL%%/${THINGENGINE_BASE_URL}/g" /etc/nginx/nginx.conf
 nginx -c /etc/nginx/nginx.conf &
 WAIT_PIDS+=($!)
 

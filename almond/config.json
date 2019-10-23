@@ -8,12 +8,7 @@
   "startup": "application",
   "boot": "auto",
   "discovery": ["almond"],
-  "ports": {
-    "3000/tcp": null
-  },
-  "ports_description": {
-    "3000/tcp": "Internal API (not needed with Ingress)"
-  },
+  "ingress": true,
   "options": {
   },
   "schema": {

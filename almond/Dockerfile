@@ -36,7 +36,10 @@ RUN git clone https://github.com/stanford-oval/almond-server . \
     && rm -rf /var/lib/apt/lists/* \
     && rm -fr /root/.cache
 
+# Base env settings
+ENV LANG=en_US.utf8
 ENV THINGENGINE_HOME=/data/almond-server
+
 COPY data/run.sh /
 COPY data/nginx.conf /etc/nginx/
 

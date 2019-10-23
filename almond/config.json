@@ -9,6 +9,7 @@
   "boot": "auto",
   "discovery": ["almond"],
   "ingress": true,
+  "ingress_icon": "mdi:comment-eye-outline",
   "options": {
   },
   "schema": {

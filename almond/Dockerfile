@@ -24,6 +24,7 @@ WORKDIR /opt/almond
 RUN git clone https://github.com/stanford-oval/almond-server . \
     && git checkout ${ALMOND_COMMIT} \
     && rm -fr .git \
+    \
     && apt-get update && apt-get install -y --no-install-recommends \
         python-dev \
         build-essential \

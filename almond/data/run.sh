@@ -6,7 +6,7 @@ WAIT_PIDS=()
 config=$(\
     bashio::var.json \
         host "$(hostname)" \
-        port "3001" \
+        port "3000" \
 )
 
 if bashio::discovery "almond" "${config}" > /dev/null; then
@@ -19,7 +19,6 @@ fi
 export THINGENGINE_BASE_URL=$(bashio::addon.ingress_url)
 
 # Setup nginx
-sed -i "s/%%BASE_URL%%/${THINGENGINE_BASE_URL}/g" /etc/nginx/nginx.conf
 nginx -c /etc/nginx/nginx.conf &
 WAIT_PIDS+=($!)
 

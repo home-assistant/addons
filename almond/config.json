@@ -4,7 +4,7 @@
   "slug": "almond",
   "description": "The home server version of Almond",
   "url": "https://home-assistant.io/addons/almond/",
-  "arch": ["armv7", "aarch64", "amd64", "i386"],
+  "arch": ["armv7", "aarch64", "amd64"],
   "startup": "application",
   "boot": "auto",
   "discovery": ["almond"],

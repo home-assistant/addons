@@ -4,9 +4,6 @@ FROM ${BUILD_FROM}
 # Install Alomond requirements
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
-        libpcre2-dev \
-        libpcre2-8-0 \
-        pcre2-utils \
         software-properties-common \
         gnupg \
     \
@@ -27,7 +24,14 @@ WORKDIR /opt/almond
 RUN git clone https://github.com/stanford-oval/almond-server . \
     && git checkout ${ALMOND_COMMIT} \
     && rm -fr .git \
+    && apt-get update && apt-get install -y --no-install-recommends \
+        python-dev \
+        build-essential \
     && yarn \
+    && apt-get purge -y --auto-remove \
+        python-dev \
+        build-essential \
+    && rm -rf /var/lib/apt/lists/* \
     && rm -fr /root/.cache
 
 ENV THINGENGINE_HOME=/data/almond-server

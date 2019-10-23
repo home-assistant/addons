@@ -43,7 +43,7 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
+[armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io

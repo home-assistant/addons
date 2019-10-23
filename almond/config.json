@@ -1,0 +1,22 @@
+{
+  "name": "Almond server",
+  "version": "0.1",
+  "slug": "almond",
+  "description": "The home server version of Almond",
+  "url": "https://home-assistant.io/addons/almond/",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "discovery": ["almond"],
+  "ports": {
+    "3000/tcp": null
+  },
+  "ports_description": {
+    "3000/tcp": "Internal API (not needed with Ingress)"
+  },
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-almond"
+}

@@ -1,5 +1,7 @@
 #!/usr/bin/env bashio
 
+WAIT_PIDS=()
+
 config=$(\
     bashio::var.json \
         host "$(hostname)" \
@@ -12,4 +14,20 @@ else
     bashio::log.error "Discovery message to Home Assistant failed!"
 fi
 
-exec yarn start < /dev/null
+nginx -c /etc/nginx/nginx.conf &
+WAIT_PIDS+=($!)
+
+yarn start &
+WAIT_PIDS+=($!)
+
+# Register stop
+function stop_addon() {
+    echo "Kill Processes..."
+    kill -15 "${WAIT_PIDS[@]}"
+    wait "${WAIT_PIDS[@]}"
+    echo "Done."
+}
+trap "stop_addon" SIGTERM SIGHUP
+
+# Wait until all is done
+wait "${WAIT_PIDS[@]}"

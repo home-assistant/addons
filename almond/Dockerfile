@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         software-properties-common \
         gnupg \
+        nginx \
     \
     && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -37,5 +38,6 @@ RUN git clone https://github.com/stanford-oval/almond-server . \
 
 ENV THINGENGINE_HOME=/data/almond-server
 COPY data/run.sh /
+COPY data/nginx.conf /etc/nginx/
 
 CMD ["/run.sh"]

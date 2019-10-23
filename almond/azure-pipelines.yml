@@ -19,4 +19,4 @@ jobs:
 - template: /.azure/azp-template-addon.yml
   parameters:
     addon: 'almond'
-    arch: '--all'
+    arch: '--amd64 --armv7 --aarch64'

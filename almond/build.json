@@ -7,6 +7,6 @@
     "aarch64": "homeassistant/aarch64-base-debian:buster"
   },
   "args": {
-    "ALMOND_COMMIT": "cab05e36f91e42abb629058a8edb9b588cd4cabd"
+    "ALMOND_COMMIT": "cab05e36f91e42abb629058a8edb9b588cd4cabd",
   }
 }

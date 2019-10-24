@@ -140,7 +140,7 @@ homematic:
 ## Raspberry Pi3
 
 If you use the HM-MOD-RPI-PCB on a Raspberry Pi 3, you need to add
-the following to your `config.txt` on the boot partition:
+the following to the `config.txt` file on the boot partition:
 
 ```text
 dtoverlay=pi3-miniuart-bt
@@ -148,7 +148,7 @@ dtoverlay=pi3-miniuart-bt
 
 ## HmIP-RFUSB
 
-HassOS versions 1.11 and later support the HmIP-RFUSB by default and dont't need any
+HassOS versions 1.11 and later support the HmIP-RFUSB by default and don't need any
 configuration. If you installed Hassio on another distribution of Linux, you need to
 follow the installation guide for the UART USB to setup the UART USB interface on
 your computer.

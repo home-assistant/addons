@@ -15,7 +15,7 @@ to interface with your devices.
 
 ## Features
 
-- Your Raspberry Pi is your HomeMatic control center
+- Your Raspberry Pi is your HomeMatic control center!
 - WebUI (experimental)
 - Firmware updates
 
@@ -29,12 +29,11 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-Currently, all .
-
-1. Toggle the "Show in sidebar" option, which adds the Configurator to the main menu.
+1. Properly configure the add-on config (see below).
 2. Start the add-on.
-3. Refresh your browser, the "Configurator" is now visible in the sidebar.
-4. Click on the "Configurator" menu option and start configuring!
+3. Check the add-on log output to see if it started successfully.
+4. Add homematic to your Home Assistant configuration (also see below).
+5. Restart Home Assistant.
 
 ## Configuration
 
@@ -42,39 +41,117 @@ Add-on configuration:
 
 ```json
 {
-  "dirsfirst": false,
-  "enforce_basepath": false,
-  "ignore_pattern": [
-    "__pycache__"
+  "rf_enable": true,
+  "rf": [
+    {
+      "type": "CCU2",
+      "device": "/dev/ttyAMA0"
+    }
   ],
-  "ssh_keys": []
+  "wired_enable": false,
+  "wired": [
+    {
+      "serial": "xy",
+      "key": "abc",
+      "ip": "192.168.0.0"
+    }
+  ],
+  "hmip_enable": false,
+  "hmip": [
+    {
+      "type": "HMIP_CCU2",
+      "device": "/dev/ttyUSB0"
+    }
+  ]
 }
 ```
 
-### Option: `dirsfirst` (required)
+### Option: `rf_enable` (required)
 
-This option allows you to list directories before files in the file browser tree.
+Enable or disable BidCoS-RF.
 
-Set it to `true` to list files first, `false` otherwise.
+### Option: `rf`
 
-### Option: `enforce_basepath` (required)
+List of RF devices.
 
-If set to `true`, access is limited to files within the `/config` directory.
+#### Option: `type` (required)
 
-### Option: `ignore_pattern` (required)
+Device type for RFD service. Check your device manual.
 
-This option allows you to hide files and folders from the file browser tree.
-By default, it hides the `__pycache__` folders.
+#### Option: `device` (required)
 
-### Option: `ssh_keys` (required)
+Device on the host.
 
-A list of filenames containing SSH private keys. These can be used to allow for access to remote git repositories.
+### Option: `wired_enable` (required)
 
-## Known issues and limitations
+Enable or disable BidCoS-Wired.
 
-- This add-on is, by default, configured for use with Hass.io Ingress. If you
-  wish to access the add-on via a its own port directly, you can simply
-  assign a port in the "Network" section of the add-on setting page.
+### Option: `wired`
+
+List of wired devices.
+
+#### Option: `serial` (required)
+
+Serial number of the device.
+
+#### Option: `key` (required)
+
+Encryption key for the device.
+
+#### Option: `ip` (required)
+
+IP address of LAN gateway.
+
+### Option: `hmip_enable` (required)
+
+Enable or disable hmip.
+
+### Option: `hmip`
+
+List of HMIP devices.
+
+#### Option: `type` (required)
+
+Device type for HMIP service. Check your device manual.
+
+#### Option: `device` (required)
+
+Device on the host.
+
+## Home Assistant configuration
+
+Add the following to your Home Assistant configuration to enable
+the integration:
+
+```yaml
+homematic:
+  interfaces:
+    rf:
+      host: core-homematic
+      port: 2001
+    wired:
+      host: core-homematic
+      port: 2000
+    hmip:
+      host: core-homematic
+      port: 2010
+```
+
+## Raspberry Pi3
+
+If you use the HM-MOD-RPI-PCB on a Raspberry Pi 3, you need to add
+the following to your `config.txt` on the boot partition:
+
+```text
+dtoverlay=pi3-miniuart-bt
+```
+
+## HmIP-RFUSB
+
+HassOS versions 1.11 and later support the HmIP-RFUSB by default and dont't need any
+configuration. If you installed Hassio on another distribution of Linux, you need to
+follow the installation guide for the UART USB to setup the UART USB interface on
+your computer.
 
 ## Support
 

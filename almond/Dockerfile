@@ -39,6 +39,7 @@ RUN git clone https://github.com/stanford-oval/almond-server . \
 # Base env settings
 ENV LANG=en_US.utf8
 ENV THINGENGINE_HOME=/data/almond-server
+ENV THINGENGINE_HOST_BASED_AUTHENTICATION=local-ip
 
 COPY data/run.sh /
 COPY data/nginx.conf /etc/nginx/

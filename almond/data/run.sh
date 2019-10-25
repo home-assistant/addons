@@ -5,7 +5,7 @@ WAIT_PIDS=()
 ha_config=$(\
     bashio::var.json \
         host "$(hostname)" \
-        port "3000" \
+        port "3001" \
 )
 
 today=$(date +%s)

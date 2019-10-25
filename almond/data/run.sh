@@ -8,13 +8,14 @@ ha_config=$(\
         port "3000" \
 )
 
+today=$(date +%s)
 almond_config=$(\
     bashio::var.json \
         kind "io.home-assistant" \
         hassUrl "http://hassio/homeassistant" \
         accessToken "${HASSIO_TOKEN}" \
         refreshToken "${HASSIO_TOKEN}" \
-        accessTokenExpires "" \
+        accessTokenExpires "$(($today + 62208000))" \
 )
 
 # HA Discovery

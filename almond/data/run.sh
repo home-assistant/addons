@@ -2,14 +2,23 @@
 
 WAIT_PIDS=()
 
-# HA Discovery
-config=$(\
+ha_config=$(\
     bashio::var.json \
         host "$(hostname)" \
         port "3000" \
 )
 
-if bashio::discovery "almond" "${config}" > /dev/null; then
+almond_config=$(\
+    bashio::var.json \
+        kind "io.home-assistant" \
+        hassUrl "http://hassio/homeassistant" \
+        accessToken "${HASSIO_TOKEN}" \
+        refreshToken "${HASSIO_TOKEN}" \
+        accessTokenExpires "" \
+)
+
+# HA Discovery
+if bashio::discovery "almond" "${ha_config}" > /dev/null; then
     bashio::log.info "Successfully send discovery information to Home Assistant."
 else
     bashio::log.error "Discovery message to Home Assistant failed!"
@@ -22,8 +31,22 @@ export THINGENGINE_BASE_URL=$(bashio::addon.ingress_url)
 nginx -c /etc/nginx/nginx.conf &
 WAIT_PIDS+=($!)
 
+# Skip Auth handling
+if not bashio::fs.exists "${THINGENGINE_HOME}/prefs.db"; then
+    mkdir -p "${THINGENGINE_HOME}"
+    echo '{"server-login":{"password":"x","salt":"x","sqliteKeySalt":"x"}}' > "${THINGENGINE_HOME}/prefs.db"
+fi
+
 yarn start &
 WAIT_PIDS+=($!)
+
+# Insert HA connection settings
+sleep 10
+if curl -X Post -H "Content-Type: application/json" -d "${almond_config}" http://localhost:3000/api/devices/create; then
+    bashio::log.info "Successfully register local Home Assistant on Almond"
+else
+    bashio::log.error "Almond registration of local Home Assistant fails!"
+fi
 
 # Register stop
 function stop_addon() {

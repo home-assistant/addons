@@ -25,24 +25,25 @@ else
 fi
 
 # Ingress handling
-export THINGENGINE_BASE_URL=$(bashio::addon.ingress_url)
+export THINGENGINE_BASE_URL=$(bashio::addon.ingress_entry)
 
 # Setup nginx
 nginx -c /etc/nginx/nginx.conf &
 WAIT_PIDS+=($!)
 
 # Skip Auth handling
-if not bashio::fs.exists "${THINGENGINE_HOME}/prefs.db"; then
+if ! bashio::fs.file_exists "${THINGENGINE_HOME}/prefs.db"; then
     mkdir -p "${THINGENGINE_HOME}"
     echo '{"server-login":{"password":"x","salt":"x","sqliteKeySalt":"x"}}' > "${THINGENGINE_HOME}/prefs.db"
 fi
 
+# Start Almond
 yarn start &
 WAIT_PIDS+=($!)
 
 # Insert HA connection settings
-sleep 10
-if curl -X Post -H "Content-Type: application/json" -d "${almond_config}" http://localhost:3000/api/devices/create; then
+bashio::net.wait_for 3000
+if curl -q -X Post -H "Content-Type: application/json" -d "${almond_config}" http://localhost:3000/api/devices/create; then
     bashio::log.info "Successfully register local Home Assistant on Almond"
 else
     bashio::log.error "Almond registration of local Home Assistant fails!"

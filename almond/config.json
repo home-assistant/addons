@@ -9,7 +9,7 @@
   "boot": "auto",
   "discovery": ["almond"],
   "ingress": true,
-  "ingress_icon": "mdi:comment-eye-outline",
+  "panel_icon": "mdi:comment-eye-outline",
   "homeassistant_api": true,
   "options": {
   },

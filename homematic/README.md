@@ -74,11 +74,11 @@ Enable or disable BidCoS-RF.
 
 List of RF devices.
 
-#### Option: `type` (required)
+#### Option: `rf.type` (required)
 
 Device type for RFD service. Check your device manual.
 
-#### Option: `device` (required)
+#### Option: `rf.device` (required)
 
 Device on the host.
 
@@ -90,15 +90,15 @@ Enable or disable BidCoS-Wired.
 
 List of wired devices.
 
-#### Option: `serial` (required)
+#### Option: `wired.serial` (required)
 
 Serial number of the device.
 
-#### Option: `key` (required)
+#### Option: `wired.key` (required)
 
 Encryption key for the device.
 
-#### Option: `ip` (required)
+#### Option: `wired.ip` (required)
 
 IP address of LAN gateway.
 
@@ -110,11 +110,11 @@ Enable or disable hmip.
 
 List of HMIP devices.
 
-#### Option: `type` (required)
+#### Option: `hmip.type` (required)
 
 Device type for HMIP service. Check your device manual.
 
-#### Option: `device` (required)
+#### Option: `hmip.device` (required)
 
 Device on the host.
 

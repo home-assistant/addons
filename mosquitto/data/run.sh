@@ -1,17 +1,16 @@
 #!/usr/bin/env bashio
 set +u
 
-CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 
-LOGINS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
-ANONYMOUS=$(jq --raw-output ".anonymous" $CONFIG_PATH)
-KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
-CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
-CAFILE=$(jq --raw-output --exit-status ".cafile | select (.!=null)" $CONFIG_PATH || echo "$CERTFILE")
-REQUIRE_CERTIFICATE=$(jq --raw-output ".require_certificate" $CONFIG_PATH)
-CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
-LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
+LOGINS=$(bashio::config ".logins | length")
+ANONYMOUS=$(bashio::config ".anonymous")
+KEYFILE=$(bashio::config ".keyfile")
+CERTFILE=$(bashio::config ".certfile")
+CAFILE=$(bashio::config ".cafile | select (.!=null)" || echo "$CERTFILE")
+REQUIRE_CERTIFICATE=$(bashio::config ".require_certificate")
+CUSTOMIZE_ACTIVE=$(bashio::config ".customize.active")
+LOGGING=$(bashio::info "hassio.info.logging" ".logging")
 HOMEASSISTANT_PW=
 ADDONS_PW=
 WAIT_PIDS=()
@@ -48,7 +47,7 @@ function call_hassio() {
     url="http://hassio/${path}"
 
     # Call API
-    if [ -n "${data}" ]; then
+    if bashio::var.has_value "${data}"; then
         curl -f -s -X "${method}" -d "${data}" -H "${token}" "${url}"
     else
         curl -f -s -X "${method}" -H "${token}" "${url}"
@@ -88,22 +87,24 @@ function constrain_discovery() {
 bashio::log.info "Setup mosquitto configuration"
 sed -i "s/%%ANONYMOUS%%/$ANONYMOUS/g" /etc/mosquitto.conf
 
-if [ "${LOGGING}" == "debug" ]; then
+if bashio::var.equals "${LOGGING}" "debug"; then
     sed -i "s/%%AUTH_QUIET_LOGS%%/false/g" /etc/mosquitto.conf
 else
     sed -i "s/%%AUTH_QUIET_LOGS%%/true/g" /etc/mosquitto.conf
 fi
 
 # Enable SSL if exists configs
-if [ -e "/ssl/$CAFILE" ] && [ -e "/ssl/$CERTFILE" ] && [ -e "/ssl/$KEYFILE" ]; then
+if bashio::fs.file_exists "/ssl/$CAFILE" &&
+   bashio::fs.file_exists "/ssl/$CERTFILE" &&
+   bashio::fs.file_exists "/ssl/$KEYFILE"; then
     echo "$SSL_CONFIG" >> /etc/mosquitto.conf
 else
     bashio::log.warning "SSL not enabled - No valid certs found!"
 fi
 
 # Allow customize configs from share
-if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
-    CUSTOMIZE_FOLDER=$(jq --raw-output ".customize.folder" $CONFIG_PATH)
+if bashio::var.true "${CUSTOMIZE_ACTIVE}"; then
+    CUSTOMIZE_FOLDER=$(bashio::config ".customize.folder")
     sed -i "s|#include_dir .*|include_dir /share/$CUSTOMIZE_FOLDER|g" /etc/mosquitto.conf
 fi
 
@@ -115,15 +116,15 @@ else
 fi
 
 # Prepare System Accounts
-if [ ! -e "${SYSTEM_USER}" ]; then
+if bashio::fs.file_exists "${SYSTEM_USER}"; then
+    HOMEASSISTANT_PW=$(bashio::jq "${SYSTEM_USER}" '.homeassistant.password')
+    ADDONS_PW=$(bashio::jq "${SYSTEM_USER}" '.addons.password')
+else
     HOMEASSISTANT_PW="$(pwgen 64 1)"
     ADDONS_PW="$(pwgen 64 1)"
 
     bashio::log.info "Initialize system configuration."
     write_system_users
-else
-    HOMEASSISTANT_PW=$(jq --raw-output '.homeassistant.password' $SYSTEM_USER)
-    ADDONS_PW=$(jq --raw-output '.addons.password' $SYSTEM_USER)
 fi
 
 # Initial Service

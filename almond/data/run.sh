@@ -13,7 +13,7 @@ almond_config=$(\
         kind "io.home-assistant" \
         hassUrl "http://hassio/homeassistant" \
         accessToken "${HASSIO_TOKEN}" \
-        refreshToken "${HASSIO_TOKEN}" \
+        refreshToken "" \
         accessTokenExpires "${TOKEN_VALID}" \
 )
 

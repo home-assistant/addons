@@ -45,7 +45,7 @@ WAIT_PIDS+=($!)
 # Insert HA connection settings
 bashio::net.wait_for 3000
 sleep 5
-if curl -s -X Post -H "Content-Type: application/json" -d "${almond_config}" http://127.0.0.1:3000/api/devices/create; then
+if curl -f -s -X Post -H "Content-Type: application/json" -d "${almond_config}" http://localhost:3001/api/devices/create; then
     bashio::log.info "Successfully register local Home Assistant on Almond"
 else
     bashio::log.error "Almond registration of local Home Assistant fails!"

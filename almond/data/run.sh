@@ -15,7 +15,7 @@ almond_config=$(\
         hassUrl "http://hassio/homeassistant" \
         accessToken "${HASSIO_TOKEN}" \
         refreshToken "${HASSIO_TOKEN}" \
-        accessTokenExpires "$(($today + 62208000))" \
+        accessTokenExpires "$((today + 62208000))" \
 )
 
 # HA Discovery
@@ -26,6 +26,7 @@ else
 fi
 
 # Ingress handling
+# shellcheck disable=SC2155
 export THINGENGINE_BASE_URL=$(bashio::addon.ingress_entry)
 
 # Setup nginx

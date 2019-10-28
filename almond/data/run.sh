@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
 WAIT_PIDS=()
-TODAY=$(date +%s)
+TOKEN_VALID="$(python3 -c "import time; print(f'{time.time() + (60 * 60 * 24 * 365 * 5) * 1000}')")"
 
 ha_config=$(\
     bashio::var.json \
@@ -14,7 +14,7 @@ almond_config=$(\
         hassUrl "http://hassio/homeassistant" \
         accessToken "${HASSIO_TOKEN}" \
         refreshToken "${HASSIO_TOKEN}" \
-        accessTokenExpires "$((TODAY + 62208000))" \
+        accessTokenExpires "${TOKEN_VALID}" \
 )
 
 # HA Discovery
@@ -44,7 +44,7 @@ WAIT_PIDS+=($!)
 
 # Insert HA connection settings
 bashio::net.wait_for 3000
-if curl -f -s -X Post -H "Content-Type: application/json" -d "${almond_config}" http://localhost:3001/api/devices/create; then
+if curl -f -s -X POST -H "Content-Type: application/json" -d "${almond_config}" http://127.0.0.1:3000/api/devices/create; then
     bashio::log.info "Successfully register local Home Assistant on Almond"
 else
     bashio::log.error "Almond registration of local Home Assistant fails!"

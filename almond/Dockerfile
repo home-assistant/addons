@@ -3,7 +3,6 @@ FROM ${BUILD_FROM}
 
 # Install Alomond requirements
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        git \
         software-properties-common \
         gnupg \
         nginx \
@@ -22,15 +21,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Almond
 ARG ALMOND_COMMIT
 WORKDIR /opt/almond
-RUN git clone https://github.com/stanford-oval/almond-server . \
-    && git checkout ${ALMOND_COMMIT} \
-    && rm -fr .git \
-    \
-    && apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git \
         python-dev \
         build-essential \
+    \
+    && git clone https://github.com/stanford-oval/almond-server . \
+    && git checkout ${ALMOND_COMMIT} \
+    && rm -fr .git \
     && yarn \
+    \
     && apt-get purge -y --auto-remove \
+        git \
         python-dev \
         build-essential \
     && rm -rf /var/lib/apt/lists/* \

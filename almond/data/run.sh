@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
-
 WAIT_PIDS=()
+TODAY=$(date +%s)
 
 ha_config=$(\
     bashio::var.json \
@@ -8,14 +8,13 @@ ha_config=$(\
         port "3001" \
 )
 
-today=$(date +%s)
 almond_config=$(\
     bashio::var.json \
         kind "io.home-assistant" \
         hassUrl "http://hassio/homeassistant" \
         accessToken "${HASSIO_TOKEN}" \
         refreshToken "${HASSIO_TOKEN}" \
-        accessTokenExpires "$((today + 62208000))" \
+        accessTokenExpires "$((TODAY + 62208000))" \
 )
 
 # HA Discovery

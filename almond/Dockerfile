@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         software-properties-common \
         gnupg \
         nginx \
+        unzip \
     \
     && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \

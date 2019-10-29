@@ -65,11 +65,11 @@ IP address or NetBIOS name of the computer to be able to shutdown.
 Credentials for logging into the computer.
 Use a `%` as the delimiter of username and password.
 
-### Option:  `computers.message` (optional)
+### Option:  `computers.delay` (optional)
 
 A delay (in seconds) before shutting down the computer. This gives a user that happens to be using that computer time to save their work.
 
-### Option:  `computers.delay` (optional)
+### Option:  `computers.message` (optional)
 
 Show a custom message on the screen of the computer that will be shutdown.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
 WAIT_PIDS=()
-TOKEN_VALID="$(python3 -c "import time; print((time.time() + 60 * 60 * 24 * 365 * 5) * 1000)"
+TOKEN_VALID="$(python3 -c "import time; print((time.time() + 60 * 60 * 24 * 365 * 5) * 1000)")"
 
 ha_config=$(\
     bashio::var.json \

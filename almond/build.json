@@ -1,0 +1,10 @@
+{
+  "build_from": {
+    "amd64": "homeassistant/amd64-base-debian:buster",
+    "armv7": "homeassistant/armv7-base-debian:buster",
+    "aarch64": "homeassistant/aarch64-base-debian:buster"
+  },
+  "args": {
+    "ALMOND_COMMIT": "87d37637c8bcaea8a86d2e1eba039184d4434049"
+  }
+}

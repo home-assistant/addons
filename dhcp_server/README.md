@@ -8,7 +8,7 @@ A simple DHCP server.
 
 This add-on provides a simple DHCP server for your network.
 It provides some basic needs, like, reserving IP addresses for your devices
-to ensure they alway get assigned the same IP address.
+to ensure they always get assigned the same IP address.
 
 ## Installation
 

@@ -1,0 +1,20 @@
+{
+  "name": "Almond",
+  "version": "0.3",
+  "slug": "almond",
+  "description": "The home server version of Almond",
+  "url": "https://home-assistant.io/addons/almond/",
+  "arch": ["armv7", "aarch64", "amd64"],
+  "startup": "system",
+  "boot": "auto",
+  "discovery": ["almond"],
+  "ingress": true,
+  "panel_icon": "mdi:comment-eye-outline",
+  "homeassistant": "0.102.0b0",
+  "homeassistant_api": true,
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-almond"
+}

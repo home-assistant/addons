@@ -19,12 +19,10 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-In the configuration section, define a username and password and save teh configuratione 
-
-
-1. Start the add-on.
-2. Have some patience and wait a couple of minutes.
-3. Check the add-on log output to see the result.
+1. In the configuration section, set a username and password.
+2. Save the configuration.
+3. Start the add-on.
+4. Check the add-on log output to see the result.
 
 ## Configuration
 
@@ -40,6 +38,11 @@ Add-on configuration:
     "10.0.0.0/8",
     "172.16.0.0/12",
     "192.168.0.0/16"
+  ],
+  "veto_files": [
+    "._*",
+    ".DS_Store",
+    "Thumbs.db"
   ]
 }
 ```
@@ -59,7 +62,9 @@ Change WORKGROUP to reflect your network needs.
 
 List of hosts/networks allowed to access your configuration. 
 
+### Option: `veto_files` (optional)
 
+List of files that are neither visible nor accessible. Useful to stop clients from littering the share with temporary hidden files (ex: macOS .DS_Store, Windows Thumbs.db)
 
 ## Known issues and limitations
 

@@ -1,14 +1,18 @@
 #!/usr/bin/env bashio
-set -e
 
 WORKGROUP=$(bashio::config 'workgroup')
 INTERFACE=$(bashio::config 'interface')
 ALLOW_HOSTS=$(bashio::config "allow_hosts | join(\" \")")
 USERNAME=$(bashio::config 'username')
 PASSWORD=$(bashio::config 'password')
+DELETE_VETO_FILES="no"
+VETO_FILES=$(bashio::config "veto_files | join(\"/\")")
+if bashio::config.has_value 'veto_files'; then
+    VETO_FILES="/$VETO_FILES/"
+    DELETE_VETO_FILES="yes"
+fi
 
 WAIT_PIDS=()
-NAME=
 
 # Check Login data
 if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password'; then
@@ -18,7 +22,7 @@ fi
 # Read hostname from API or setting default "hassio"
 NAME=$(bashio::info.hostname)
 if bashio::var.is_empty "${NAME}"; then
-    bashio::log.warn "Can't read hostname, using default."
+    bashio::log.warning "Can't read hostname, using default."
     NAME="hassio"
 fi
 bashio::log.info "Hostname: ${NAME}"
@@ -29,6 +33,8 @@ sed -i "s|%%NAME%%|${NAME}|g" /etc/smb.conf
 sed -i "s|%%INTERFACE%%|${INTERFACE}|g" /etc/smb.conf
 sed -i "s|%%USERNAME%%|${USERNAME}|g" /etc/smb.conf
 sed -i "s#%%ALLOW_HOSTS%%#${ALLOW_HOSTS}#g" /etc/smb.conf
+sed -i "s|%%VETO_FILES%%|${VETO_FILES}|g" /etc/smb.conf
+sed -i "s|%%DELETE_VETO_FILES%%|${DELETE_VETO_FILES}|g" /etc/smb.conf
 
 # Init users
 addgroup "${USERNAME}"

@@ -9,7 +9,7 @@ MODEL_ID=$(bashio::config 'model_id')
 
 # check if a new assistant file exists
 if bashio::fs.file_exists "/share/$(bashio::config 'client_secrets')"; then
-    bashio::log:info "Install/Update service client_secrets file"
+    bashio::log.info "Install/Update service client_secrets file"
     cp -f "/share/$(bashio::config 'client_secrets')" "$CLIENT_JSON"
 fi
 

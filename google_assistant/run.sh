@@ -14,7 +14,7 @@ if bashio::fs.file_exists "/share/$(bashio::config 'client_secrets')"; then
 fi
 
 if ! bashio::fs.file_exists "${CRED_JSON}" && bashio::fs.file_exists "${CLIENT_JSON}"; then
-    bashio::log:info "Start WebUI for handling oauth2"
+    bashio::log.info "Start WebUI for handling oauth2"
     python3 /hassio_oauth.py "$CLIENT_JSON" "$CRED_JSON"
 elif ! bashio::fs.file_exists "${CRED_JSON}"; then
     bashio::exit.nok "You need initialize GoogleAssistant with a client secret json!"

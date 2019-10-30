@@ -1,5 +1,4 @@
 #!/usr/bin/env bashio
-set -e
 
 CLIENT_JSON=/data/client.json
 CRED_JSON=/data/cred.json

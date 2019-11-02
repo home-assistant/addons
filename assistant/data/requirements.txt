@@ -1,0 +1,4 @@
+pvporcupine==1.6.3
+numpy==1.17.3
+PyAudio==0.2.11
+requests==2.22.0

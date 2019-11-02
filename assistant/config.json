@@ -1,0 +1,17 @@
+{
+  "name": "Assistant",
+  "version": "0.1",
+  "slug": "assistant",
+  "description": "Generic voice Assistant",
+  "url": "https://home-assistant.io/addons/assist/",
+  "arch": ["armv7", "amd64"],
+  "startup": "application",
+  "boot": "auto",
+  "audio": true,
+  "homeassistant_api": true,
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-assistant"
+}

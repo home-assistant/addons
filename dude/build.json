@@ -5,6 +5,6 @@
     "aarch64": "homeassistant/aarch64-base-debian:buster"
   },
   "args": {
-    "PORCUPINE_VERSION": "1.6.3"
+    "DUDE_VERSION": "master"
   }
 }

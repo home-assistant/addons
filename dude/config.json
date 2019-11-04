@@ -1,9 +1,9 @@
 {
-  "name": "Assistant",
+  "name": "Hey Dude!",
   "version": "0.1",
-  "slug": "assistant",
+  "slug": "dude",
   "description": "Generic voice Assistant",
-  "url": "https://home-assistant.io/addons/assist/",
+  "url": "https://home-assistant.io/addons/dude/",
   "arch": ["armv7", "amd64"],
   "startup": "application",
   "boot": "auto",
@@ -13,5 +13,5 @@
   },
   "schema": {
   },
-  "image": "homeassistant/{arch}-addon-assistant"
+  "image": "homeassistant/{arch}-addon-dude"
 }

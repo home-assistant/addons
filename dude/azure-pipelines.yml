@@ -6,7 +6,7 @@ trigger:
     - master
   paths:
     include:
-    - almond/*
+    - dude/*
 pr: none
 
 variables:
@@ -18,5 +18,5 @@ variables:
 jobs:
 - template: /.azure/azp-template-addon.yml
   parameters:
-    addon: 'almond'
-    arch: '--amd64 --armv7 --aarch64'
+    addon: 'dude'
+    arch: '--amd64 --armv7'

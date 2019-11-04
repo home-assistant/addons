@@ -1,2 +1,4 @@
 #!/usr/bin/env bashio
-WAIT_PIDS=()
+
+
+exec python3 -m dude

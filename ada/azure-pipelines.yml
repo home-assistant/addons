@@ -19,4 +19,4 @@ jobs:
 - template: /.azure/azp-template-addon.yml
   parameters:
     addon: 'ada'
-    arch: '--amd64 --armv7'
+    arch: '--amd64 --armv7 --armhf'

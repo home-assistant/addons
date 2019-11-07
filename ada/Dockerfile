@@ -3,7 +3,7 @@ FROM ${BUILD_FROM}
 
 # Install Dude
 WORKDIR /usr/src/ada
-ARG DUDE_VERSION
+ARG ADA_VERSION
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         portaudio19-dev \
@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         build-essential \
     \
-    && git clone --depth 1 -b ${DUDE_VERSION} https://github.com/home-assistant/dude . \
+    && git clone --depth 1 -b ${ADA_VERSION} https://github.com/home-assistant/dude . \
     && rm -rf .git \
     && pip3 install -U setuptools wheel \
     && pip3 install -r requirements.txt \

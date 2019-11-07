@@ -6,7 +6,7 @@ trigger:
     - master
   paths:
     include:
-    - dude/*
+    - ada/*
 pr: none
 
 variables:
@@ -18,5 +18,5 @@ variables:
 jobs:
 - template: /.azure/azp-template-addon.yml
   parameters:
-    addon: 'dude'
+    addon: 'ada'
     arch: '--amd64 --armv7'

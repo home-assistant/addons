@@ -18,9 +18,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     \
     && git clone --depth 1 -b ${ADA_VERSION} https://github.com/home-assistant/dude . \
     && rm -rf .git \
-    && pip3 install -U setuptools wheel \
-    && pip3 install -r requirements.txt \
-    && pip3 install -e . \
+    && pip3 install --no-cache-dir -U setuptools wheel \
+    && pip3 install --no-cache-dir -r requirements.txt \
+    && pip3 install --no-cache-dir -e . \
     && python3 -m compileall dude \
     \
     && apt-get purge -y --auto-remove \

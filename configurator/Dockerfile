@@ -11,7 +11,7 @@ RUN apk add --no-cache \
     && cp -f hassio-auth/nginx-frontend/ha-auth.lua /etc/nginx/ \
     && cp -f hassio-auth/nginx-frontend/example/nginx-ingress.conf /etc/nginx/ \
     && rm -fr /usr/src/hassio-auth \
-    && pip install hass-configurator==${CONFIGURATOR_VERSION}
+    && pip install --no-cache-dir hass-configurator==${CONFIGURATOR_VERSION}
 
 # Copy data
 COPY data/configurator.conf /etc/

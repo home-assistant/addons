@@ -4,7 +4,7 @@
   "slug": "ada",
   "description": "Home Assistant featured voice assist",
   "url": "https://home-assistant.io/addons/ada/",
-  "arch": ["armv7", "amd64"],
+  "arch": ["armhf", "armv7", "amd64"],
   "startup": "application",
   "boot": "auto",
   "audio": true,

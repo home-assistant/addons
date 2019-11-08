@@ -5,6 +5,6 @@
     "armhf": "homeassistant/armhf-base-debian:buster"
   },
   "args": {
-    "ADA_VERSION": "0.3"
+    "ADA_VERSION": "0.4"
   }
 }

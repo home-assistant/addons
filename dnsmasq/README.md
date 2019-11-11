@@ -71,7 +71,7 @@ This is helpful for making addresses resolve on your internal network and
 even override external domains to be answered with a local address.
 
 For example, one could set `myuser.duckdns.org` to resolve directly to a
-internal IP address, e.g., `192.168.1.10`. While outsite of this network,
+internal IP address, e.g., `192.168.1.10`. While outside of this network,
 it would resolve normally.
 
 This options allows you to create a so called: Split DNS.
@@ -94,7 +94,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

@@ -1,0 +1,22 @@
+# https://dev.azure.com/home-assistant
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - almond/*
+pr: none
+
+variables:
+  - name: versionBuilder
+    value: '2.0'
+  - group: docker
+
+
+jobs:
+- template: /.azure/azp-template-addon.yml
+  parameters:
+    addon: 'almond'
+    arch: '--amd64 --armv7 --aarch64'

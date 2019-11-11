@@ -16,7 +16,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ### Using a RaspBee
 
-If your are using RaspBee, you may need to edit the `config.txt` file in the root
+If you are using RaspBee, you may need to edit the `config.txt` file in the root
 of your SD card in order for your RaspBee to be recognized and assigned a device name.
 
 Add following to your `config.txt`:
@@ -160,7 +160,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

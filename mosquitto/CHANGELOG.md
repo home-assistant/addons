@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1
+
+- Add cafile option in configuration
+- Add require_certificate option in configuration
+
 ## 5.0
 
 - Update mosquitto 1.6.3 / Alpine 3.10

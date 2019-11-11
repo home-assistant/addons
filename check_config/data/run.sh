@@ -9,6 +9,7 @@ if [ "${VERSION}" != "latest" ]; then
     CMD="homeassistant==${VERSION}"
 fi
 
+bashio::log.info "Don't worry, this temporary installation is not overwriting your current one."
 bashio::log.info "Installing Home Assistant: ${VERSION}..."
 bashio::log.info "Please be patient, this might take a few minutes..."
 
@@ -20,9 +21,8 @@ if ! PIP_OUTPUT="$(pip3 install --find-links "${WHEELS_LINKS}" "${CMD}")"; then
 fi
 INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
 bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}"
-bashio::log.info "Don't worry, this temporary installation is not overwriting your current one."
 
-# Making an temporary copy of your configuration
+# Making a temporary copy of your configuration
 bashio::log.info "Making a copy of your configuration for checking..."
 cp -fr /config /tmp/config
 
@@ -36,9 +36,9 @@ if ! HASS_OUTPUT="$(hass -c /tmp/config --script check_config)"; then
     bashio::exit.nok
 fi
 
-# Scan configuration check output for occurrances of "ERROR"
+# Scan configuration check output for occurrences of "ERROR"
 if echo "${HASS_OUTPUT}" | grep -i ERROR > /dev/null; then
-    # An "ERROR" occurance has been found, exit with an error
+    # An "ERROR" occurrence has been found, exit with an error
     bashio::log.error "Found an error in the log output of the check!"
     bashio::log.error "See the output below for more details."
     bashio::log "${HASS_OUTPUT}"

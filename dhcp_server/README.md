@@ -8,7 +8,7 @@ A simple DHCP server.
 
 This add-on provides a simple DHCP server for your network.
 It provides some basic needs, like, reserving IP addresses for your devices
-to ensure they alway get assigned the same IP address.
+to ensure they always get assigned the same IP address.
 
 ## Installation
 
@@ -150,7 +150,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

@@ -30,7 +30,7 @@ To use this add-on, you have two options on how to get your certificate:
 2. dns challenge
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
 - Allows to request wildcard certificates (*.yourdomain.com)
-- Doesnt need you to open a port to your hass.io host on your router.
+- Doesn’t need you to open a port to your hass.io host on your router.
 
 You always need to provide the following entries within the configuration:
 
@@ -129,7 +129,7 @@ You have several options to get them answered:
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 - Check out certbots page [certbot].
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

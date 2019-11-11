@@ -93,7 +93,7 @@ you need to restart the add-on for the changes to take effect.
 ### Option: `devices` (required)
 
 Add one or more devices entries to the add-on configuration for each
-device you'd like to add. Please note the comma seperator between each
+device you'd like to add. Please note the comma separator between each
 device (see example above).
 
 #### Option: `devices` -> `id` (required)
@@ -179,7 +179,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

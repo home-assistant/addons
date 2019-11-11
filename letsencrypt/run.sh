@@ -10,10 +10,11 @@ DNS_PROVIDER=$(bashio::config 'dns.provider')
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
 
-mkdir -p "$WORK_DIR"
-mkdir -p "$CERT_DIR"
-mkdir -p "/ssl"
-mkdir -p ~/.aws/
+mkdir -p "$WORK_DIR" \
+    "$CERT_DIR" \
+    "/ssl" \
+    ~/.aws/
+
 chmod +x /run.sh
 
 # check if route53 used and create config if needed
@@ -23,7 +24,7 @@ if bashio::config 'dns.provider' == "dns-route53"; then
         "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
         "aws_secret_access_key = $(bashio::config 'dns.aws_secret_access_key')\n" > ~/.aws/config
     chmod 600 ~/.aws/config
-fi
+    fi
 
 touch /data/dnsapikey
 echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
@@ -54,7 +55,6 @@ echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
 "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')" > /data/dnsapikey
 chmod 600 /data/dnsapikey
 
-
 # Generate new certs
 if [ ! -d "$CERT_DIR/live" ]; then
     DOMAIN_ARR=()
@@ -63,17 +63,47 @@ if [ ! -d "$CERT_DIR/live" ]; then
     done
 
     echo "$DOMAINS" > /data/domains.gen
-    if bashio::config 'challenge' == "dns"; then
-        if bashio::config 'dns_provider' == "dns-route53"; then
-            certbot certonly --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "--$DNS_PROVIDER" --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
+    
+    if [[ "${CHALLENGE}" = "dns" ]]; then
+        if [[ ${DNS_PROVIDER} = "dns-route53" ]]; then
+            certbot certonly --non-interactive \
+            --config-dir "$CERT_DIR" \
+            --work-dir "$WORK_DIR" \
+            "--$DNS_PROVIDER" \
+            --email "$EMAIL" \
+            --agree-tos \
+            --config-dir "$CERT_DIR" \
+            --work-dir "$WORK_DIR" \
+            --preferred-challenges "$CHALLENGE" \
+            "${DOMAIN_ARR[@]}"
         else
-            certbot certonly --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "--$DNS_PROVIDER" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
+            certbot certonly --non-interactive \
+            --config-dir "$CERT_DIR" \
+            --work-dir "$WORK_DIR" \
+            "--$DNS_PROVIDER" \
+            "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" \
+            --email "$EMAIL" \
+            --agree-tos \
+            --config-dir "$CERT_DIR" \
+            --work-dir "$WORK_DIR" \
+            --preferred-challenges "$CHALLENGE" \
+            "${DOMAIN_ARR[@]}"
         fi
     else
-        certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
+        certbot certonly --non-interactive \
+        --standalone \
+        --email "$EMAIL" \
+        --agree-tos \
+        --config-dir "$CERT_DIR" \
+        --work-dir "$WORK_DIR" \
+        --preferred-challenges "$CHALLENGE" \
+        "${DOMAIN_ARR[@]}"
     fi
 else
-    certbot renew --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE"
+    certbot renew --non-interactive \
+    --config-dir "$CERT_DIR" \
+    --work-dir "$WORK_DIR" \
+    --preferred-challenges "$CHALLENGE"
 fi
 
 # copy certs to store

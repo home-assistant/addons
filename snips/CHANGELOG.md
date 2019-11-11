@@ -1,10 +1,15 @@
 # Changelog
 
+<<<<<<< HEAD
 ## 6.0
 
 - Updated to snips 0.64.0
 
 ***Warning: Need new NLU***
+=======
+## 5.4
+- Update from bash to bashio
+>>>>>>> 3c3c46a6843d1321d3414871ce222bdee2b1e287
 
 ## 5.3
 

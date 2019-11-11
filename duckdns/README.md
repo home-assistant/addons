@@ -18,7 +18,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-1. Visit [DuckDNS.org](https://www.duckdns.org/) and create an account by logging in through any of the available account services (Google, Github, Twitter, Persona).
+1. Visit [DuckDNS.org](https://www.duckdns.org/) and create an account by logging in through any of the available account services (Google, Github, Twitter, Persona, Reddit).
 2. In the `Domains` section, type the name of the subdomain you wish to register and click `add domain`.
 3. If registration was a success, the subdomain is listed in the `Domains` section along with `current ip` being the public IP address of the device you are currently using to access `duckdns.org`. The IP address will be updated by the DuckDNS add-on.
 4. In the DuckDNS add-on configuration, perform the following:
@@ -81,7 +81,7 @@ The number of seconds to wait before updating DuckDNS subdomains and renewing Le
 
 ## Known issues and limitations
 
-- To log in, DuckDNS requires a free account from any of the following services: Google, Github, Twitter, or Persona.
+- To log in, DuckDNS requires a free account from any of the following services: Google, Github, Twitter, Persona or Reddit.
 - A free DuckDNS account is limited to five subdomains.
 
 ## Support

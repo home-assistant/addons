@@ -1,0 +1,18 @@
+{
+  "name": "Hey Ada!",
+  "version": "0.3",
+  "slug": "ada",
+  "description": "Home Assistant featured voice assist",
+  "url": "https://home-assistant.io/addons/ada/",
+  "arch": ["armhf", "armv7", "amd64"],
+  "startup": "application",
+  "boot": "auto",
+  "audio": true,
+  "homeassistant": "0.102.0.dev",
+  "homeassistant_api": true,
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-ada"
+}

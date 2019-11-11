@@ -128,7 +128,7 @@ fi
 
 # Initial Service
 if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
-    bashio::log.warning "There is allready a MQTT services running!"
+    bashio::log.warning "There is already an MQTT service running!"
 else
     bashio::log.info "Initialize Hass.io Add-on services"
     if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")" > /dev/null; then

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7
+
+- Bump deCONZ to 2.05.70
+
 ## 3.6
 
 - Bump deCONZ to 2.05.69
@@ -71,7 +75,7 @@
 - Add support for Home Assistant Add-on integration
 - Add Ingress support
 
-**WARNING:** This version change the network modus to host network that it works with mobile apps from deCONZ. That mean you need remove the old integration and connect it again. 2min after first Startup, the Add-on provide a own Discovery details to Home Assistant.
+**WARNING:** This version change the network modus to host network that it works with mobile apps from deCONZ. That mean you need remove the old integration and connect it again. 2min after first Startup, the Add-on provides its own Discovery details to Home Assistant.
 
 ## 1.4
 

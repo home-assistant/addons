@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5
+
+- Added client certificate authentication via internal openssl CA
+
 ## 2.4
 
 - Added Cloudflare mechanism for creating auto-generated ipv4/ipv6 list for real visitor ip

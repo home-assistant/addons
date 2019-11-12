@@ -11,7 +11,7 @@
     "80/tcp": null,
     "443/tcp": 443
    },
-  "map": ["ssl", "share"],
+  "map": ["ssl:rw", "share"],
   "options": {
     "domain": null,
     "certfile": "fullchain.pem",
@@ -22,6 +22,18 @@
       "active": false,
       "default": "nginx_proxy_default*.conf",
       "servers": "nginx_proxy/*.conf"
+    },
+    "client_cert": {
+      "active": false,
+      "ca_password": "",
+      "server_password": "",
+      "user_password": "",
+      "user_export_password": "",
+      "country": "DE",
+      "state": "BW",
+      "city": "Friedrichshafen",
+      "organization": "Home Assistant",
+      "common_name": "home-assistant.io"
     }
   },
   "schema": {
@@ -34,6 +46,18 @@
       "active": "bool",
       "default": "str",
       "servers": "str"
+    },
+    "client_cert": {
+      "active": "bool",
+      "ca_password": "str",
+      "server_password": "str",
+      "user_password": "str",
+      "user_export_password": "str",
+      "country": "str",
+      "state": "str",
+      "city": "str",
+      "organization": "str",
+      "common_name": "str"
     }
   },
   "image": "homeassistant/{arch}-addon-nginx_proxy"

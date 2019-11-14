@@ -77,9 +77,9 @@ if bashio::config.true 'client_cert.active'; then
     if bashio::fs.file_exists "${CLIENT_CERT_CLIENT_EXPORT}"; then
             bashio::log.info "Certificates already created, skipping"
     else
-        bashio::log.info "Creating Certificate Authority"
+        bashio::log.info "Creating Certificate Authority private Key"
         openssl genrsa -aes256 -passout pass:"$CA_PASS" -out "${CLIENT_CERT_CA_KEY}" 2048
-        bashio::log.info "Creating root certificate"
+        bashio::log.info "Creating Certificate Authority certificate"
         openssl req -x509 -new -nodes \
             -subj "/C=${COUNTRY}/ST=${STATE}/L=${CITY}/O=${ORGANIZATION}/CN=${COMMON_NAME}" \
             -passin pass:"${CA_PASS}" \
@@ -89,11 +89,11 @@ if bashio::config.true 'client_cert.active'; then
         bashio::log.info "Generating server certificate"
         openssl genrsa -des3 -passout pass:"${SERVER_PASS}" -out "${CLIENT_CERT_SERVER_KEY}" 4096
         openssl rsa -in "${CLIENT_CERT_SERVER_KEY}" -passin pass:"${SERVER_PASS}" -out "${CLIENT_CERT_SERVER_KEY_PWLESS}"
-        bashio::log.info "Generating server signing request"
+        bashio::log.info "Generating server certificate signing request"
         openssl req -new -key "${CLIENT_CERT_SERVER_KEY_PWLESS}" \
             -subj "/C=${COUNTRY}/ST=${STATE}/L=${CITY}/O=${ORGANIZATION}/CN=${COMMON_NAME}" \
             -out "${CLIENT_CERT_SERVER_CSR}"
-        bashio::log.info "Signing server signing request"
+        bashio::log.info "Signing server certificate signing request"
         openssl x509 -req -days 1000 \
             -passin pass:"${CA_PASS}" \
             -in "${CLIENT_CERT_SERVER_CSR}" \
@@ -102,29 +102,25 @@ if bashio::config.true 'client_cert.active'; then
         
         bashio::log.info "Generating user certificate"
         openssl genrsa -des3 -passout pass:"${USER_PASS}" -out "${CLIENT_CERT_CLIENT_KEY}" 4096
-        bashio::log.info "Generating user signing request"
+        bashio::log.info "Generating user certificate signing request"
         openssl req -new -passin pass:"${USER_PASS}" -key "${CLIENT_CERT_CLIENT_KEY}" \
             -subj "/C=${COUNTRY}/ST=${STATE}/L=${CITY}/O=${ORGANIZATION}/CN=${CLIENT_COMMON_NAME}" \
             -out "${CLIENT_CERT_CLIENT_CSR}"
-        bashio::log.info "Signing user signing request"
+        bashio::log.info "Signing user certificate signing request"
         openssl x509 -req -days 1000 \
             -passin pass:"${CA_PASS}" \
             -in "${CLIENT_CERT_CLIENT_CSR}" \
             -CA "${CLIENT_CERT_CA_CERT}" -CAkey "${CLIENT_CERT_CA_KEY}" -set_serial 00001 \
             -out "${CLIENT_CERT_CLIENT_CERT}"
-        bashio::log.info "Export user certificate as PKCS#12 package"
+        bashio::log.info "Exporting user certificate and private key as PKCS#12 package"
         openssl pkcs12 -export -passin pass:"${USER_PASS}" -out "${CLIENT_CERT_CLIENT_EXPORT}" -inkey "${CLIENT_CERT_CLIENT_KEY}" -passout pass:"${USER_EXPORT_PASS}" -in "${CLIENT_CERT_CLIENT_CERT}"
 
         bashio::log.info "Enable Client Certificate validation in nginx.conf"
         sed -i "s/ssl_verify_client off/ssl_verify_client on/g" /etc/nginx.conf
 
         bashio::log.info "Copying certificates to ssl folder"
-        cp -f "${CLIENT_CERT_CA_CERT}" "/ssl/ca-root.pem"
-        # cp -f end_user_certificate.crt "/ssl/end_user_certificate.crt"        
-        cp -f "${CLIENT_CERT_CLIENT_EXPORT}" "/ssl/end_user_certificate_and_private_key.pfx"
-        # cp -f end_user_private.key_encrypted "/ssl/end_user_private.key_encrypted"
-        # cp -f server_passwordless_private.key "/ssl/server_passwordless_private.key"
-        # cp -f server_certificate.crt "/ssl/server_certificate.crt"        
+        cp -f "${CLIENT_CERT_CA_CERT}" "/ssl/ca-root.pem" 
+        cp -f "${CLIENT_CERT_CLIENT_EXPORT}" "/ssl/end_user_certificate_and_private_key.pfx"      
 
         bashio::log.info "Copying root certificate to nginx folder"
         cp -f "${CLIENT_CERT_CA_CERT}" "/etc/nginx/ca-root.pem"

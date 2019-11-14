@@ -61,6 +61,6 @@
       "common_name": "str",
       "client_common_name": "str"
     }
-  }
+  },
   "image": "homeassistant/{arch}-addon-nginx_proxy"
 }

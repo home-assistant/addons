@@ -44,12 +44,25 @@ Add-on configuration:
   "certfile": "fullchain.pem",
   "keyfile": "privkey.pem",
   "hsts": "max-age=31536000; includeSubDomains",
+  "cloudflare": false,
   "customize": {
     "active": false,
     "default": "nginx_proxy_default*.conf",
     "servers": "nginx_proxy/*.conf"
   },
-  "cloudflare": false
+  "client_cert": {
+    "active": false,
+    "ca_password": "",
+    "server_password": "",
+    "user_password": "",
+    "user_export_password": "",
+    "country": "DE",
+    "state": "BW",
+    "city": "Friedrichshafen",
+    "organization": "Example Organisation",
+    "common_name": "example.com",
+    "client_common_name": "client.example.com"
+  }
 }
 ```
 
@@ -85,6 +98,17 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
+### Option `client_cert.active` (required)
+
+If true, a Certificate Authority, a Server Certificate and a Client Certificate will be generated.
+The Client Certificate can then be used to authenticate against the Server, in addition to Username/Passwort authentication, for increased Security.
+The Client-Certificate and the CA-Certificate will be copied into the ssl folder and will need to be imported in you browser or certificate store. (Files can for example be copied via the Samba Addon)
+
+Use the `user_export_password` to import the Client-Certificate `end_user_certificate_and_private_key.pfx`. 
+Trust the file `ca-root.pem` as Certificate Authority when importing it.
+
+Please note, if HSTS was enabled and you recreate certificates, you might need to clear your Browser History or reset HSTS according to your browser, if you cannot access your Homeassistant instance via DNS name any more. (Check if you can access it in private Browsing mode to validate if the issue is related to HSTS)
 
 ## Known issues and limitations
 

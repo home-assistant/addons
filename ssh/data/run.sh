@@ -48,17 +48,13 @@ chmod 600 /data/.bash_history
 ln -s -f /data/.bash_history /root/.bash_history
 
 # Persist .bash_profile by redirecting .bash_profile to /data
-touch /data/.bash_profile
-chmod 600 /data/.bash_profile
-ln -s -f /data/.bash_profile /root/.bash_profile
-
-# Store token for Hass.io API
-if grep -q "export HASSIO_TOKEN" /root/.bash_profile;
-  then
-    sed -i "s/^export HASSIO_TOKEN=.*/export HASSIO_TOKEN=${HASSIO_TOKEN}" /root/.bash_profile
-  else
-    echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" >> /root/.bash_profile
+if bashio::fs.file_exists /data/.bash_profile; then
+  sed -i "s/export HASSIO_TOKEN=.*/export HASSIO_TOKEN=${HASSIO_TOKEN}/" /data/.bash_profile
+else
+  echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" > /root/.bash_profile
+  chmod 600 /data/.bash_profile
 fi
+ln -s -f /data/.bash_profile /root/.bash_profile
 
 # Start server
 bashio::log.info "Starting SSH daemon..."

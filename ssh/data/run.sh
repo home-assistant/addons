@@ -51,7 +51,7 @@ ln -s -f /data/.bash_history /root/.bash_history
 if bashio::fs.file_exists /data/.bash_profile; then
   sed -i "s/export HASSIO_TOKEN=.*/export HASSIO_TOKEN=${HASSIO_TOKEN}/" /data/.bash_profile
 else
-  echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" > /root/.bash_profile
+  echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" > /data/.bash_profile
 fi
 
 chmod 600 /data/.bash_profile

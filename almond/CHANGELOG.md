@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5
+
+- Update Almond to 1.7.1
+
 ## 0.4
 
 - Update Almond to 1.7.0

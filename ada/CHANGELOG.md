@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4
+
+- Update Ada to 0.5
+
 ## 0.3
 
 - Update Ada to 0.4

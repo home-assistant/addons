@@ -1,11 +1,11 @@
 {
   "name": "Almond",
-  "version": "0.6",
+  "version": "0.7",
   "slug": "almond",
   "description": "The home server version of Almond",
   "url": "https://home-assistant.io/addons/almond/",
   "arch": ["armv7", "aarch64", "amd64"],
-  "startup": "system",
+  "startup": "application",
   "boot": "auto",
   "discovery": ["almond"],
   "ingress": true,

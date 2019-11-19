@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7
+
+- Change startup type to Application
+
 ## 0.6
 
 - Fix issue with restart / Hass.io token handling

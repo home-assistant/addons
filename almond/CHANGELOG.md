@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6
+
+- Fix issue with restart / Hass.io token handling
+
 ## 0.5
 
 - Update Almond to 1.7.1

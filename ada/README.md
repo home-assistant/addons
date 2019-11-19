@@ -11,7 +11,7 @@ Home Assistant featured voice assist.
 The installation of this add-on is straightforward and easy to do.
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
-2. Find the "Almond" add-on and click it.
+2. Find the "Hey Ada!" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use

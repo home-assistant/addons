@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.8
+
+- Bump deCONZ to 2.05.71
+
 ## 3.7
 
 - Bump deCONZ to 2.05.70

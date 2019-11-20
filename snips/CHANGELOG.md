@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2
+
+- Fix build, using new GPG keys from Snips
+
 ## 6.1
 
 - set hermes/audioServer/+/playBytesStreaming/# to allow subscribing from other systems

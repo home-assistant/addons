@@ -4,6 +4,7 @@
 
 - set hermes/audioServer/+/playBytesStreaming/# to allow subscribing from other systems
 - set hermes/audioServer/+/streamFinished to allow subscribing from other systems
+- Fix GPG Key for Build
 
 ## 6.0
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7
+
+- Add missing options
+
 ## 0.6
 
 - Update Ada to 0.7

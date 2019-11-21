@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6
+
+- Update Ada to 0.7
+- Add options to change TTS / STT Home Assistant provider
+
 ## 0.5
 
 - Update Ada to 0.6

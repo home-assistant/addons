@@ -56,17 +56,17 @@ function git-clone {
     git clone "$REPOSITORY" /config-store || { echo "[Error] Git clone failed"; exit 1; }
 
     # Step into config directory
-    pushd $(realpath -s config-store/${GIT_CONFIG_DIR}) || { echo "[Error] Unable to move into git config directory"; exit 1; }
+    pushd $(realpath -s "config-store/${GIT_CONFIG_DIR}") || { echo "[Error] Unable to move into git config directory"; exit 1; }
     
     # Get list of ignored files for rsync to filter over
     echo "[Info] Generating list of ignored files from git"
     echo ".git" > /tmp/rsync-ignore.txt
-    git status --ignored -s | egrep '^\!\!' | sed 's/!! //' >> /tmp/rsync-ignore.txt
+    git status --ignored -s | grep -E '^\!\!' | sed 's/!! //' >> /tmp/rsync-ignore.txt
     
     # Copy files from git config dir to /config, excluding files not covered by git
     echo "[Info] Moving config from git dir to local"
     rsync -a --delete --exclude-from=/tmp/rsync-ignore.txt ./* /config || { echo "[Error] Failed to sync remote config to local config directory"; exit 1; }
-    popd
+    popd || { echo "[Error] Failed to return to previous directory"; exit 1; }
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null

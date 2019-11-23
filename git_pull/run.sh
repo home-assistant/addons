@@ -12,11 +12,13 @@ GIT_BRANCH=$(jq --raw-output '.git_branch' $CONFIG_PATH)
 GIT_COMMAND=$(jq --raw-output '.git_command' $CONFIG_PATH)
 GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
 GIT_PRUNE=$(jq --raw-output '.git_prune' $CONFIG_PATH)
+GIT_CONFIG_DIR=$(jq --raw-output '.git_config_dir' $CONFIG_PATH)
 REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
 AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
+
 ################
 
 #### functions ####
@@ -51,7 +53,20 @@ function git-clone {
 
     # git clone
     echo "[Info] Start git clone"
-    git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
+    git clone "$REPOSITORY" /config-store || { echo "[Error] Git clone failed"; exit 1; }
+
+    # Step into config directory
+    pushd $(realpath -s config-store/${GIT_CONFIG_DIR}) || { echo "[Error] Unable to move into git config directory"; exit 1; }
+    
+    # Get list of ignored files for rsync to filter over
+    echo "[Info] Generating list of ignored files from git"
+    echo ".git" > /tmp/rsync-ignore.txt
+    git status --ignored -s | egrep '^\!\!' | sed 's/!! //' >> /tmp/rsync-ignore.txt
+    
+    # Copy files from git config dir to /config, excluding files not covered by git
+    echo "[Info] Moving config from git dir to local"
+    rsync -a --delete --exclude-from=/tmp/rsync-ignore.txt ./* /config || { echo "[Error] Failed to sync remote config to local config directory"; exit 1; }
+    popd
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null

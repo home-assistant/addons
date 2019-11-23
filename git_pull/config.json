@@ -19,6 +19,7 @@
     "git_command": "pull",
     "git_remote": "origin",
     "git_prune": false,
+    "git_config_dir": "/",
     "repository": null,
     "auto_restart": false,
     "restart_ignore": [
@@ -39,6 +40,7 @@
     "git_command": "match(pull|reset)",
     "git_remote": "str",
     "git_prune": "bool",
+    "git_config_dir": "str",
     "repository": "match((?:.+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "restart_ignore": ["str"],

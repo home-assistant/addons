@@ -56,7 +56,7 @@ function git-clone {
     git clone "$REPOSITORY" /config-store || { echo "[Error] Git clone failed"; exit 1; }
 
     # Step into config directory
-    pushd $(realpath -s "config-store/${GIT_CONFIG_DIR}") || { echo "[Error] Unable to move into git config directory"; exit 1; }
+    pushd "$(realpath -s "config-store/${GIT_CONFIG_DIR}")" || { echo "[Error] Unable to move into git config directory"; exit 1; }
     
     # Get list of ignored files for rsync to filter over
     echo "[Info] Generating list of ignored files from git"

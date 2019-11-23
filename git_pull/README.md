@@ -46,6 +46,7 @@ Add-on configuration:
   "git_command": "pull",
   "git_remote": "origin",
   "git_prune": "false",
+  "git_config_directory": "/",
   "repository": "https://example.com/my_configs.git",
   "auto_restart": false,
   "restart_ignore": [
@@ -79,6 +80,10 @@ Name of the tracked repository. Leave this as `origin` if you are unsure.
 ### Option: `git_prune` (required)
 
 `true`/`false`: If set to true, the add-on will clean-up branches that are deleted on the remote repository, but still have cached entries on the local machine. Leave this as `false` if you are unsure.
+
+### Option `git_config_dir` (required)
+
+Name of the directory in your git repository to copy to your "/config" directory. Defaults to `/` (the root of your repository)
 
 ### Option: `git_branch` (required)
 

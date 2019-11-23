@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.7
+
+- Added git_config_dir option to allow a location on repo for config directory to be specified
+
 ## 7.6
 
 - Update Hass.io CLI to 3.1.0

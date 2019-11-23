@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8
+
+- Fix API url for access to Home Assistant
+
 ## 0.7
 
 - Add missing options

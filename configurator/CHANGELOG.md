@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.7
+
+- Rename files via UI
+- Disable browser-autocomplete on searchbox
+- Add file history button
+- Update Ace Editor to 1.4.7
+
 ## 3.6
 
 - UI Fix

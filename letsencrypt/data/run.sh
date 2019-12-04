@@ -48,6 +48,7 @@ chmod 600 /data/dnsapikey
 
 # AWS workaround
 if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.aws_secret_access_key'; then
+    # shellcheck disable=SC2155
     export AWS_ACCESS_KEY_ID="$(bashio::config 'dns.aws_access_key_id')"
     export AWS_SECRET_ACCESS_KEY="$(bashio::config 'dns.aws_secret_access_key')"
 fi

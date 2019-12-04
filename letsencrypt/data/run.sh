@@ -46,6 +46,12 @@ echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
   "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')" > /data/dnsapikey
 chmod 600 /data/dnsapikey
 
+# AWS workaround
+if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.aws_secret_access_key'; then
+    export AWS_ACCESS_KEY_ID="$(bashio::config 'dns.aws_access_key_id')"
+    export AWS_SECRET_ACCESS_KEY="$(bashio::config 'dns.aws_secret_access_key')"
+fi
+
 # Generate new certs
 if [ ! -d "$CERT_DIR/live" ]; then
     DOMAIN_ARR=()

@@ -26,6 +26,6 @@ RUN apk add --no-cache --update \
     && apk del .build-dependencies
 
 # Copy data
-COPY run.sh /
+COPY data/run.sh /
 
 CMD [ "/run.sh" ]

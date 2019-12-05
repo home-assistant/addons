@@ -24,11 +24,21 @@ VNC_PASSWORD=$(bashio::config 'vnc_password')
 WEBSOCKET_PORT=$(bashio::addon.port 8080)
 
 # Lookup udev link
-sleep 3
-if [ -L "${DECONZ_DEVICE}" ]; then
+if [[ -c "${DECONZ_DEVICE}" ]]; then
+    bashio::log.debug "Specified device points to a character special file, continuing"
+else
+    # 60 second timeout to wait for udev to finish processing
+    timeout=60
+    while [[ ! -L "${DECONZ_DEVICE}" ]]; do
+        if [[ "${timeout}" -eq 0 ]]; then
+            bashio::exit.nok "No device ${DECONZ_DEVICE} found!"
+        fi
+        bashio::log.debug "Waiting for udev to link device..,"
+        sleep 1
+        ((timeout--))
+    done
     DECONZ_DEVICE="$(readlink -f "${DECONZ_DEVICE}")"
-elif [ ! -e "${DECONZ_DEVICE}" ]; then
-    bashio::exit.nok "No device ${DECONZ_DEVICE} found!"
+    bashio::log.debug "Found device! Location: ${DECONZ_DEVICE}"
 fi
 
 # Load debug values

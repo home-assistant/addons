@@ -3,6 +3,7 @@
 ## 3.9
 
 - Adds support for enabling UPnP
+- Improve waiting for udev devices mechanism
 
 ## 3.8
 

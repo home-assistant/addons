@@ -43,6 +43,10 @@ bashio::config.has_value 'dbg_zcl' \
 bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
 
+# Handle UPNP
+bashio::config.true 'upnp' \
+    && UPNP=1 || UPNP=0
+
 # Check if port is available
 if bashio::var.is_empty "${API_PORT}" \
     || bashio::var.is_empty "${WEBSOCKET_PORT}";
@@ -96,7 +100,7 @@ deCONZ \
     --dbg-zdp="${DBG_ZDP}" \
     --http-port="${API_PORT}" \
     --ws-port="${WEBSOCKET_PORT}" \
-    --upnp=0 \
+    --upnp="${UPNP}" \
     --dev="${DECONZ_DEVICE}" &
 WAIT_PIDS+=($!)
 

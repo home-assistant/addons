@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.9
+
+- Adds support for enabling UPnP
+- Improve waiting for udev devices mechanism
+
 ## 3.8
 
 - Bump deCONZ to 2.05.71

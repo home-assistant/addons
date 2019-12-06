@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "3.9",
+  "version": "3.8",
   "slug": "deconz",
   "description": "Control a ZigBee network with ConBee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf", "aarch64"],
@@ -26,11 +26,17 @@
   "udev": true,
   "gpio": true,
   "apparmor": false,
-  "privileged": ["SYS_MODULE", "SYS_RAWIO"],
-  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
+  "privileged": [
+    "SYS_MODULE",
+    "SYS_RAWIO"
+  ],
+  "devices": [
+    "/dev/bus/usb:/dev/bus/usb:rwm",
+    "/dev/mem:/dev/mem:rw"
+  ],
   "options": {
-    "device": null,
-    "vnc_password": ""
+   "device": null,
+   "vnc_password": ""
   },
   "schema": {
     "device": "str",
@@ -39,8 +45,7 @@
     "dbg_info": "int?",
     "dbg_otau": "int?",
     "dbg_zcl": "int?",
-    "dbg_zdp": "int?",
-    "upnp": "bool?"
+    "dbg_zdp": "int?"
   },
   "image": "homeassistant/{arch}-addon-deconz"
 }

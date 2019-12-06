@@ -9,6 +9,7 @@ ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        udev \
         iproute2 \
         iputils-ping \
         kmod \
@@ -25,7 +26,6 @@ RUN apt-get update \
         sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \
-        udev \
         wget \
         wmii \
         xfonts-base \

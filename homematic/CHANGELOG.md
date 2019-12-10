@@ -1,8 +1,12 @@
 # Changelog
 
-## 9.2
+## 9.3
 
 - Update from bash to bashio
+
+## 9.2
+
+- Update OCCU to 3.47.22-3
 
 ## 9.1
 
@@ -12,7 +16,7 @@
 ## 9.0
 
 - Add Regahss (WebUI) support (experimentel)
-- Update OCCU to 3.47.18
+- Update OCCU to 3.47.18-1
 
 ## 8.3
 

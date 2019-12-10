@@ -6,7 +6,7 @@ Control a ZigBee network using ConBee or RaspBee hardware by Dresden Elektronik.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "deCONZ" add-on and click it.
@@ -16,7 +16,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ### Using a RaspBee
 
-If your are using RaspBee, you may need to edit the `config.txt` file in the root
+If you are using RaspBee, you may need to edit the `config.txt` file in the root
 of your SD card in order for your RaspBee to be recognized and assigned a device name.
 
 Add following to your `config.txt`:
@@ -34,7 +34,7 @@ you'll need to configure the add-on to point to the right device.
 If you're using Hass.io you may find the correct value for this on the
 `Hass.io -> System -> Host system -> Hardware` page.
 
-1. Replace **null** in the `device` option in the add-on configuration and specify
+1. Replace `null` in the `device` option in the add-on configuration and specify
    the device name in quotes: (e.g. `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`).
 2. Click on "SAVE" to save the add-on configuration.
 3. Start the add-on.
@@ -62,7 +62,7 @@ Phoscon WebUI, then restore that config after installing/reinstalling.
 
 **_You must perform these steps or your Light, Group names and other data will be lost!_**
 
-However, your ZigBee devices will remain paired to your ConBee or RaspBee hardware.
+However, your ZigBee devices will still paired to your ConBee or RaspBee hardware.
 
 ## Accessing the deCONZ application and viewing the mesh via VNC
 
@@ -79,7 +79,7 @@ To enable it:
 - Set a VNC password in the add-on configuration and hit "SAVE".
 - Restart the add-on.
 
-To access it you need a [VNC Viewer][vnc-viewer] application.
+To access it, you need a [VNC Viewer][vnc-viewer] application.
 
 If you are using macOS, you are in luck, since VNC is built-in. Open the
 spotlight search and enter: `vnc://hassio.local:5900`
@@ -122,6 +122,25 @@ Example add-on config with `dbg_aps` enabled on log level 1:
 }
 ```
 
+## Enabling UPnP
+
+The add-on, by default, disables the native UPnP functionality of deCONZ.
+This is because the add-on uses an alternative discovery mechanism that allows
+for an improved integration experience.
+
+Nevertheless, the add-on allows you to enable UPnP again, in case you want
+deCONZ to be discovered by other applications (that are not Home Assistant).
+
+Add the `upnp` add-on option, and set it to `true` to enable UPnP:
+
+```json
+{
+  "device": "/dev/ttyUSB0",
+  "vnc_password": "",
+  "upnp": true
+}
+```
+
 ## Configuration
 
 Add-on configuration:
@@ -160,7 +179,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

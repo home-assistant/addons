@@ -11,7 +11,7 @@ the CEC address of your devices.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "CEC Scanner" add-on and click it.
@@ -19,7 +19,7 @@ The installation of this add-on is straightforward and easy to do.
 
 ## How to use
 
-This add-on has no configuration and just runs out of the box.
+This add-on has no configuration and runs out of the box.
 
 1. Start the add-on.
 2. Check the add-on log output to see the result.
@@ -38,7 +38,7 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

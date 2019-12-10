@@ -7,7 +7,7 @@
     "aarch64": "homeassistant/aarch64-base-python:3.7"
   },
   "args": {
-    "CONFIGURATOR_VERSION": "0.3.5",
+    "CONFIGURATOR_VERSION": "0.3.7",
     "HASSIO_AUTH_VERSION": "4.0"
   }
 }

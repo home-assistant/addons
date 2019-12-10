@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.3
+
+- Update cerbot to 1.0.0
+- Fix issue with DNS provider AWS
+
+## 4.2
+
+- Bugfix default empty dns setting
+
 ## 4.1
 
 - Pin image to Alpine3.10

@@ -30,7 +30,7 @@ To use this add-on, you have two options on how to get your certificate:
 2. dns challenge
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
 - Allows to request wildcard certificates (*.yourdomain.com)
-- Doesnt need you to open a port to your hass.io host on your router.
+- Doesn’t need you to open a port to your hass.io host on your router.
 
 You always need to provide the following entries within the configuration:
 
@@ -44,7 +44,37 @@ IF you choose "dns" as "challenge", you will also need to fill:
 ```json
   "dnsprovider": "" (Add the dnsprovider of your choice from the list of "Supported DNS providers" below)
 
-In addition fill the fields according to the credentials required by your dns provider.
+In addition add the fields according to the credentials required by your dns provider:
+
+```json
+"cloudflare_email": "",
+"cloudflare_api_key": "",
+"cloudxns_api_key": "",
+"cloudxns_secret_key": "",
+"digitalocean_token": "",
+"dnsimple_token": "",
+"dnsmadeeasy_api_key": "",
+"dnsmadeeasy_secret_key": "",
+"gehirn_api_token": "",
+"gehirn_api_secret": "",
+"linode_key": "",
+"linode_version": "",
+"luadns_email": "",
+"luadns_token": "",
+"nsone_api_key": "",
+"ovh_endpoint": "",
+"ovh_application_key": "",
+"ovh_application_secret": "",
+"ovh_consumer_key": "",
+"rfc2136_server": "",
+"rfc2136_port": "",
+"rfc2136_name": "",
+"rfc2136_secret": "",
+"rfc2136_algorithm": "",
+"aws_access_key_id": "",
+"aws_secret_access_key": "",
+"sakuracloud_api_token": "",
+"sakuracloud_api_secret": ""
 ```
 
 ## Configuration
@@ -99,7 +129,7 @@ You have several options to get them answered:
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 - Check out certbots page [certbot].
 
-In case you've found an bug, please [open an issue on our GitHub][issue].
+In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install packages
 RUN apt-get update \
+    && mkdir -p /usr/share/man/man1 \
     && apt-get install -y --no-install-recommends \
         curl \
         libusb-1.0 \

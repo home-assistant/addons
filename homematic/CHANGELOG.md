@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.3
+
+- Update from bash to bashio
+- Use debian as base image
+- Fix config for group settings
+
 ## 9.2
 
 - Update OCCU to 3.47.22-3

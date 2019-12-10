@@ -15,6 +15,7 @@ almond_config=$(\
         accessToken "${HASSIO_TOKEN}" \
         refreshToken "" \
         accessTokenExpires "^${TOKEN_VALID}" \
+        isHassio "^true" \
 )
 
 # HA Discovery

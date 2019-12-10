@@ -63,6 +63,8 @@ if MQTT_CONFIG="$(curl -s -f -H "X-Hassio-Key: ${HASSIO_TOKEN}" http://hassio/se
         echo "topic hermes/nlu/intentNotParsed out"
         echo "topic hermes/audioServer/+/playBytes/# out"
         echo "topic hermes/audioServer/+/playFinished out"
+        echo "topic hermes/audioServer/+/playBytesStreaming/# out"
+        echo "topic hermes/audioServer/+/streamFinished out"
         echo "topic # IN hermes/"
     ) >> /etc/mosquitto.conf
 else

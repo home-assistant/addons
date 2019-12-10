@@ -28,6 +28,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && mkdir -p /boot \
     \
     && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
+    && cp /boot/VERSION /VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
     \
     && if [ "${BUILD_ARCH}" = "armv7" ]; \

@@ -20,15 +20,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 
 # Install Almond
-ARG ALMOND_COMMIT
+ARG ALMOND_VERSION
 WORKDIR /opt/almond
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         python-dev \
         build-essential \
     \
-    && git clone https://github.com/stanford-oval/almond-server . \
-    && git checkout ${ALMOND_COMMIT} \
+    && git clone -b ${ALMOND_VERSION} --depth 1 https://github.com/stanford-oval/almond-server . \
     && rm -fr .git \
     && yarn \
     \

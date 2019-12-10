@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.3
+
+- Update from bash to bashio
+
 ## 9.2
 
 - Update OCCU to 3.47.22-3

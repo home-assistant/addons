@@ -6,9 +6,10 @@ A simple DNS server.
 
 ## About
 
-Setup and manage a Dnsmasq DNS server. This allows you to manipulate DNS
-requests. For example, you can have your Home Assistant domain resolve with
-an internal address inside your network.
+Setup and manage a Dnsmasq DNS and DHCP server. The DNS service allows for
+serving or manipulating DNS requests. The DHCP service will perform IP address
+assignment and integrates well with the DNS service. For example, you can have
+your Home Assistant domain resolve with an internal address inside your network.
 
 ## Installation
 
@@ -40,6 +41,33 @@ Example add-on configuration:
   ],
   "hosts": [
     {"host": "home.mydomain.io", "ip": "192.168.1.10"}
+  ],
+  "networks": []
+}
+```
+
+Another example add-on configuration:
+
+```json
+{
+  "defaults": ["8.8.8.8", "8.8.4.4"],
+  "forwards": [],
+  "domain": "mynetwork.local",
+  "lease_time": "6h",
+  "networks": [
+    {
+      "netmask": "255.255.255.0",
+      "range_start": "192.168.1.100",
+      "range_end": "192.168.1.200",
+      "broadcast": "192.168.1.255"
+    }
+  ],
+  "hosts": [
+    {
+      "host": "webcam_xy",
+      "mac": "aa:bb:ee:cc",
+      "ip": "192.168.1.40"
+    }
   ]
 }
 ```
@@ -83,6 +111,54 @@ The hostname or domainname to resolve locally.
 #### Option: `hosts.ip`
 
 The IP address Dnsmasq should respond with in its DNS answer.
+
+#### Option: `hosts` -> `mac`
+
+The MAC address of the host. Setting this will allow Dnsmasq to return a
+static DHCP reserved address.
+
+#### Option: `interface`
+
+The network interface on which to listen for DNS and DHCP requests.
+
+#### Option: `address`
+
+The network address on which to listen for DNS and DHCP requests.
+
+#### Option: `lease_time`
+
+The time for DHCP leases to be valid.
+
+#### Option: `domain`
+
+The DNS domain to return for DHCP requests.
+
+#### Option: `gateway`
+
+The network gateway to return for DHCP requests.
+
+### Option: `networks` (optional)
+
+This option enables Dnsmasq to respond to DHCP requests on the specified
+networks.
+
+#### Option: `networks` -> `broadcast`
+
+The broadcast address of the network where DHCP will be enabled.
+
+#### Option: `networks` -> `netmask`
+
+The subnet mask of the network where DHCP will be enabled.
+
+#### Option: `networks` -> `range_start`
+
+Defines the start IP address for the DHCP server to lease IPs for.
+Use this together with the range_end option to define the range of IP
+addresses the DHCP server operates in.
+
+#### Option: `networks` -> `range_end`
+
+Defines the end IP address on the network where the DHCP server will lease IPs.
 
 ## Support
 

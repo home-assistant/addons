@@ -7,14 +7,12 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
-  "ports": {
-    "53/tcp": 53,
-    "53/udp": 53
-  },
+  "host_network": true,
   "options": {
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
-    "hosts": []
+    "hosts": [],
+    "networks": []
   },
   "schema": {
     "defaults": ["str"],
@@ -24,12 +22,26 @@
         "server": "str"
       }
     ],
-    "hosts": [
-      {
-        "host": "str",
-        "ip": "str"
-      }
-    ]
+    "forwards": [{
+      "domain": "str",
+      "server": "str"
+    }],
+    "hosts": [{
+      "host": "str",
+      "mac": "str?",
+      "ip": "str"
+    }],
+    "interface": "str?",
+    "address": "str?",
+    "lease_time": "str?",
+    "domain": "str?",
+    "gateway": "str?",
+    "networks": [{
+      "broadcast": "str",
+      "netmask": "str",
+      "range_start": "str",
+      "range_end": "str"
+    }]
   },
   "image": "homeassistant/{arch}-addon-dnsmasq"
 }

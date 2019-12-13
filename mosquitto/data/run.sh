@@ -3,13 +3,13 @@ set +u
 
 SYSTEM_USER=/data/system_user.json
 
-LOGINS=$(bashio::config ".logins | length")
-ANONYMOUS=$(bashio::config ".anonymous")
-KEYFILE=$(bashio::config ".keyfile")
-CERTFILE=$(bashio::config ".certfile")
-CAFILE=$(bashio::config ".cafile | select (.!=null)" || echo "$CERTFILE")
-REQUIRE_CERTIFICATE=$(bashio::config ".require_certificate")
-CUSTOMIZE_ACTIVE=$(bashio::config ".customize.active")
+LOGINS=$(bashio::config "logins | length")
+ANONYMOUS=$(bashio::config "anonymous")
+KEYFILE=$(bashio::config "keyfile")
+CERTFILE=$(bashio::config "certfile")
+CAFILE=$(bashio::config "cafile | select (.!=null)" || echo "$CERTFILE")
+REQUIRE_CERTIFICATE=$(bashio::config "require_certificate")
+CUSTOMIZE_ACTIVE=$(bashio::config "customize.active")
 LOGGING=$(bashio::info "hassio.info.logging" ".logging")
 HOMEASSISTANT_PW=
 ADDONS_PW=

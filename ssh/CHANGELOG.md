@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1
+
+- Update Hass.io CLI to 3.1.1
+
 ## 7.0
 
 - Added bash_profile as a persistent file 

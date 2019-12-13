@@ -1,16 +1,10 @@
 {
   "name": "SSH server",
-  "version": "7.0",
+  "version": "7.1",
   "slug": "ssh",
   "description": "Allows connections over SSH",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/ssh",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
   "hassio_api": true,
@@ -19,21 +13,13 @@
   "ports": {
     "22/tcp": 22
   },
-  "map": [
-    "config:rw",
-    "ssl:rw",
-    "addons:rw",
-    "share:rw",
-    "backup:rw"
-  ],
+  "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {
     "authorized_keys": [],
     "password": ""
   },
   "schema": {
-    "authorized_keys": [
-      "str"
-    ],
+    "authorized_keys": ["str"],
     "password": "str"
   },
   "image": "homeassistant/{arch}-addon-ssh"

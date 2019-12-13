@@ -1,6 +1,6 @@
 {
   "name": "Git pull",
-  "version": "7.6",
+  "version": "7.7",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://home-assistant.io/addons/git_pull/",
@@ -21,10 +21,7 @@
     "git_prune": false,
     "repository": null,
     "auto_restart": false,
-    "restart_ignore": [
-      "ui-lovelace.yaml",
-      ".gitignore"
-    ],
+    "restart_ignore": ["ui-lovelace.yaml", ".gitignore"],
     "repeat": {
       "active": false,
       "interval": 300
@@ -39,7 +36,7 @@
     "git_command": "match(pull|reset)",
     "git_remote": "str",
     "git_prune": "bool",
-    "repository": "match((?:.+):(\/\/)?(.*?)(\\.git)(\/?|\\#[-\\d\\w._]+?))",
+    "repository": "match((?:.+):(//)?(.*?)(\\.git)(/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "restart_ignore": ["str"],
     "repeat": {

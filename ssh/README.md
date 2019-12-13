@@ -35,7 +35,7 @@ simply disable password login.
 
 1. Add a ssh key to  `authorized_keys` or set a `password` in the add-on configuration.
 2. Start the add-on.
-3. Connect to your device using your preferred SSH client and use `root` as 
+3. Connect to your device using your preferred SSH client and use `root` as
    the username.
 
 After logging in, you will find yourself in this add-on’s container.

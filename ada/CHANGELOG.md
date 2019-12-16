@@ -3,6 +3,7 @@
 ## 0.9
 
 - Corrected link to documentation inside the add-on
+- Adjust source links in Dockerfile
 
 ## 0.8
 

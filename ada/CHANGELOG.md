@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9
+
+- Corrected link to documentation inside the add-on
+
 ## 0.8
 
 - Fix API url for access to Home Assistant

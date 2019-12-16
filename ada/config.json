@@ -3,7 +3,7 @@
   "version": "0.8",
   "slug": "ada",
   "description": "Home Assistant featured voice assist",
-  "url": "https://home-assistant.io/addons/ada/",
+  "url": "https://github.com/home-assistant/hassio-addons/blob/master/ada/README.md",
   "arch": ["armhf", "armv7", "amd64"],
   "startup": "application",
   "boot": "auto",

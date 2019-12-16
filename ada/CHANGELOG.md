@@ -4,6 +4,7 @@
 
 - Corrected link to documentation inside the add-on
 - Adjust source links in Dockerfile
+- Update add-on documentation to match current state
 
 ## 0.8
 

@@ -3,7 +3,7 @@
   "version": "0.7",
   "slug": "almond",
   "description": "The home server version of Almond",
-  "url": "https://home-assistant.io/addons/almond/",
+  "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",
   "arch": ["armv7", "aarch64", "amd64"],
   "startup": "application",
   "boot": "auto",

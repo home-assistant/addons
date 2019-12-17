@@ -48,6 +48,20 @@ if bashio::config.true 'lets_encrypt.accept_terms'; then
     fi
 fi
 
+# Get IPv4 address
+if bashio::config.equals 'ipv4' 'detect'; then
+    IPV4="$(curl -sk "https://ipv4.wtfismyip.com/text")"
+
+    bashio::log.info "Auto-detected IPv4 address: ${IPV4}"
+fi
+
+# Get IPv6 address 
+if bashio::config.equals 'ipv6' 'detect'; then
+    IPV6="$(curl -sk "https://ipv6.wtfismyip.com/text")"
+
+    bashio::log.info "Auto-detected IPv6 address: ${IPV6}"
+fi
+
 # Run duckdns
 while true; do
     if answer="$(curl -sk "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${IPV4}&ipv6=${IPV6}&verbose=true")"; then

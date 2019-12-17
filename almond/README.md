@@ -8,7 +8,7 @@ Almond For Home Servers.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Almond" add-on and click it.
@@ -19,15 +19,13 @@ The installation of this add-on is straightforward and easy to do.
 The basic thing to get the add-on running would be:
 
 1. Start the add-on.
+2. Go the the Home Assistant frontend -> **Configuration** -> **Integrations**
+   to configure Home Assistant to use this add-on. After starting,
+   it will be automatically discovered by Home Assistant.
 
 ## Configuration
 
-Example add-on configuration:
-
-```json
-{
-}
-```
+This add-on has no additional configuration options.
 
 ## Support
 

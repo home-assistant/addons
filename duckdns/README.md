@@ -75,6 +75,14 @@ A list of DuckDNS subdomains registered under your account. An acceptable naming
 
 The number of seconds to wait before updating DuckDNS subdomains and renewing Let's Encrypt certificates.
 
+### Option: `ipv4`
+
+The IPv4 address to configure in DuckDNS. Leave empty to let DuckDNS do the auto-detection or enter `detect` to let the addon use ipv4.wtfismyip.com to detect an IPv4 address.
+
+### Option: `ipv6`
+
+The IPv6 address to configure in DuckDNS. Leave empty to ignore IPv6 or enter `detect` to let the addon use ipv6.wtfismyip.com to detect an IPv6 address.
+
 ## Known issues and limitations
 
 - To log in, DuckDNS requires a free account from any of the following services: Google, Github, Twitter, Persona or Reddit.

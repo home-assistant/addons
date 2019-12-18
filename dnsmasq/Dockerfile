@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 RUN apk add --no-cache dnsmasq
 
 # Copy data
-COPY run.sh /
-COPY dnsmasq.conf /etc/
+COPY data/run.sh /
+COPY data/dnsmasq.conf /etc/
 
 CMD [ "/run.sh" ]

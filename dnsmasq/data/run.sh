@@ -4,6 +4,7 @@ set -e
 CONFIG="/etc/dnsmasq.conf"
 
 bashio::log.info "Configuring dnsmasq..."
+
 # Add default forward servers
 for server in $(bashio::config 'defaults'); do
     echo "server=${server}" >> "${CONFIG}"
@@ -25,6 +26,6 @@ for host in $(bashio::config 'hosts|keys'); do
     echo "address=/${HOST}/${IP}" >> "${CONFIG}"
 done
 
-# run dnsmasq
+# Run dnsmasq
 bashio::log.info "Starting dnsmasq..."
 exec dnsmasq -C "${CONFIG}" -z < /dev/null

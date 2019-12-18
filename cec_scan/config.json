@@ -4,18 +4,10 @@
   "slug": "cec_scan",
   "description": "Scan for HDMI CEC devices",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/cec_scan",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "boot": "manual",
-  "devices": [
-    "/dev/vchiq:/dev/vchiq:rwm"
-  ],
+  "devices": ["/dev/vchiq:/dev/vchiq:rwm"],
   "options": {},
   "schema": {},
   "image": "homeassistant/{arch}-addon-cec_scan"

@@ -12,6 +12,6 @@ RUN apk add --no-cache curl \
     && chmod a+x /usr/bin/hassio
 
 # Copy data
-COPY run.sh /
+COPY data/run.sh /
 
 CMD [ "/run.sh" ]

@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 RUN apk add --no-cache mariadb mariadb-client
 
 # Copy data
-COPY run.sh /
-COPY mariadb-server.cnf /etc/my.cnf.d/
+COPY data/run.sh /
+COPY data/mariadb-server.cnf /etc/my.cnf.d/
 
 CMD [ "/run.sh" ]

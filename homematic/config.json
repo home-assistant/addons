@@ -3,7 +3,7 @@
   "version": "9.3",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
-  "url": "https://home-assistant.io/addons/homematic/",
+  "url": "hhttps://github.com/home-assistant/hassio-addons/tree/master/homematic",
   "arch": ["armv7", "i386"],
   "map": ["share:rw"],
   "startup": "system",

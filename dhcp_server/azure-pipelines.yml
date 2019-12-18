@@ -3,20 +3,19 @@
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - dhcp_server/*
+      - dhcp_server/*
 pr: none
 
 variables:
   - name: versionBuilder
-    value: '2.0'
+    value: "2.0"
   - group: docker
 
-
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'dhcp_server'
-    arch: '--all'
+  - template: /.azure/azp-template-addon.yml
+    parameters:
+      addon: "dhcp_server"
+      arch: "--all"

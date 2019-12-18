@@ -16,7 +16,7 @@
   "options": {
     "dirsfirst": false,
     "enforce_basepath": false,
-    "ignore_pattern": ["__pycache__"],
+    "ignore_pattern": ["__pycache__", ".cloud", ".storage", "deps"],
     "ssh_keys": []
   },
   "schema": {

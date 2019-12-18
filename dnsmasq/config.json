@@ -4,13 +4,7 @@
   "slug": "dnsmasq",
   "description": "A simple DNS server",
   "url": "https://home-assistant.io/addons/dnsmasq/",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
   "ports": {
@@ -18,17 +12,12 @@
     "53/udp": 53
   },
   "options": {
-    "defaults": [
-      "8.8.8.8",
-      "8.8.4.4"
-    ],
+    "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
     "hosts": []
   },
   "schema": {
-    "defaults": [
-      "str"
-    ],
+    "defaults": ["str"],
     "forwards": [
       {
         "domain": "str",

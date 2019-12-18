@@ -4,13 +4,7 @@
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant",
   "url": "https://home-assistant.io/addons/configurator",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "homeassistant": "0.91.1",
   "startup": "application",
   "webui": "http://[HOST]:[PORT:8080]",
@@ -19,29 +13,20 @@
   "auth_api": true,
   "homeassistant_api": true,
   "boot": "auto",
-  "map": [
-    "backup:rw",
-    "config:rw",
-    "share:rw",
-    "ssl:rw"
-  ],
+  "map": ["backup:rw", "config:rw", "share:rw", "ssl:rw"],
   "ports": {
     "8080/tcp": null
   },
   "options": {
     "dirsfirst": false,
     "enforce_basepath": false,
-    "ignore_pattern": [
-      "__pycache__"
-    ],
+    "ignore_pattern": ["__pycache__"],
     "ssh_keys": []
   },
   "schema": {
     "dirsfirst": "bool",
     "enforce_basepath": "bool",
-    "ignore_pattern": [
-      "str"
-    ],
+    "ignore_pattern": ["str"],
     "ssh_keys": ["str"]
   },
   "image": "homeassistant/{arch}-addon-configurator"

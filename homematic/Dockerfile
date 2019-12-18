@@ -20,12 +20,13 @@ ARG BUILD_ARCH
 WORKDIR /usr/src
 RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | tar xzf - \
     && cd occu-${OCCU_VERSION} \
-    && mkdir -p /opt/hm \
-    && mkdir -p /opt/hm/etc/config \
-    && mkdir -p /opt/HmIP \
-    && mkdir -p /opt/HMServer \
-    && mkdir -p /var/status \
-    && mkdir -p /boot \
+    && mkdir -p \
+        /boot \
+        /opt/hm \
+        /opt/hm/etc/config \
+        /opt/HmIP \
+        /opt/HMServer \
+        /var/status \
     \
     && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
     && cp /boot/VERSION /VERSION \

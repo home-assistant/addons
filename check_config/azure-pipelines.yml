@@ -3,20 +3,19 @@
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - check_config/*
+      - check_config/*
 pr: none
 
 variables:
   - name: versionBuilder
-    value: '2.0'
+    value: "2.0"
   - group: docker
 
-
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'check_config'
-    arch: '--all'
+  - template: /.azure/azp-template-addon.yml
+    parameters:
+      addon: "check_config"
+      arch: "--all"

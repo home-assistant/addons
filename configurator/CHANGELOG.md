@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0
+
+- Removed direct access from the add-on, making the add-on Ingress only
+- Extended list of default ignored patterns
+- Simplified add-on code
+
 ## 3.7
 
 - Rename files via UI

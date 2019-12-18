@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "4.0",
+  "version": "4.1",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/configurator",
@@ -14,7 +14,7 @@
   "map": ["backup:rw", "config:rw", "share:rw", "ssl:rw"],
   "options": {
     "dirsfirst": false,
-    "enforce_basepath": false,
+    "enforce_basepath": true,
     "ignore_pattern": ["__pycache__", ".cloud", ".storage", "deps"],
     "ssh_keys": []
   },

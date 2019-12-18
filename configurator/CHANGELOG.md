@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1
+
+- Fixes an issue with the enforce base path option
+- Enforce secure base path by default
+
 ## 4.0
 
 - Removed direct access from the add-on, making the add-on Ingress only

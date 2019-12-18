@@ -32,7 +32,7 @@ fi
 # Setup and run configurator
 export HC_HASS_API_PASSWORD="${HASSIO_TOKEN}"
 export HC_DIRFIRST="${DIRSFIRST}"
-export HC_ENFORECE_BASEPATH="${ENFORCE_BASEPATH}"
+export HC_ENFORCE_BASEPATH="${ENFORCE_BASEPATH}"
 export HC_IGNORE_PATTERN="${IGNORE_PATTERN}"
 
 exec hass-configurator /etc/configurator.conf

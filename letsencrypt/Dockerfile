@@ -5,9 +5,14 @@ FROM $BUILD_FROM
 ARG CERTBOT_VERSION
 
 RUN apk add --no-cache --update \
-        openssl libffi musl \
+        libffi \
+        musl \
+        openssl \
     && apk add --no-cache --virtual .build-dependencies \
-        g++ musl-dev openssl-dev libffi-dev \
+        g++ \
+        libffi-dev \
+        musl-dev \
+        openssl-dev \
     && pip3 install --no-cache-dir certbot==${CERTBOT_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudxns==${CERTBOT_VERSION} \

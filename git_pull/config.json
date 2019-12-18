@@ -3,7 +3,7 @@
   "version": "7.7",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
-  "url": "https://home-assistant.io/addons/git_pull/",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/git_pull",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "manual",

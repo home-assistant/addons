@@ -4,20 +4,11 @@
   "slug": "check_config",
   "description": "Check current Home Assistant configuration against a new version",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/check_config",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "udev": true,
   "startup": "once",
   "boot": "manual",
-  "map": [
-    "config",
-    "ssl"
-  ],
+  "map": ["config", "ssl"],
   "options": {
     "version": "latest"
   },

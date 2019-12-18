@@ -29,7 +29,7 @@ function firmware_update_rfd() {
 
 
 function firmware_update_wired() {
-	if "${HM_HOME}/bin/eq3configcmd" update-lgw-firmware -m /firmware/fwmap -c /etc/config/hs485d.conf -l 1; then
+    if "${HM_HOME}/bin/eq3configcmd" update-lgw-firmware -m /firmware/fwmap -c /etc/config/hs485d.conf -l 1; then
         bashio::log.info "Wired update was successful"
     else
         bashio::log.error "Wired update fails!"

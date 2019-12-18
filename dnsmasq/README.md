@@ -12,7 +12,7 @@ an internal address inside your network.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Dnsmasq" add-on and click it.
@@ -55,11 +55,11 @@ Google's public DNS servers: `"8.8.8.8", "8.8.4.4".
 This option allows you to list domain that are forwarded to a different
 (not the default) upstream DNS server.
 
-#### Option: `forwards` -> `domain`
+#### Option: `forwards.domain`
 
 The domain to forward to a different upstream DNS server.
 
-#### Option: `forwards` -> `server`
+#### Option: `forwards.server`
 
 The DNS server to forward the request for this domain to.
 
@@ -76,11 +76,11 @@ it would resolve normally.
 
 This options allows you to create a so called: Split DNS.
 
-#### Option: `hosts` -> `host`
+#### Option: `hosts.host`
 
 The hostname or domainname to resolve locally.
 
-#### Option: `hosts` -> `ip`
+#### Option: `hosts.ip`
 
 The IP address Dnsmasq should respond with in its DNS answer.
 

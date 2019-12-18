@@ -24,7 +24,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy data
-COPY run.sh /
-COPY *.py /
+COPY data/* /
 
 ENTRYPOINT [ "/run.sh" ]

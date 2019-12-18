@@ -8,10 +8,9 @@ RUN apt-get update \
         libportaudio2 \
         python3 \
         python3-dev \
-        python3-pip \
-    && pip3 install --no-cache-dir --upgrade \
-        pip==19.1 \
-        setuptools==41.0.1 \
+    && curl --silent --show-error --retry 5 \
+        "https://bootstrap.pypa.io/get-pip.py" \
+        | python3 \
     && pip3 install --no-cache-dir \
         cherrypy==18.1.1 \
         google-assistant-grpc==0.2.0 \
@@ -19,7 +18,7 @@ RUN apt-get update \
         google-assistant-sdk==0.5.0 \
         google-auth==1.6.3 \
         requests_oauthlib==1.2.0 \
-    && apt-get remove -y --purge python3-pip python3-dev \
+    && apt-get remove -y --purge python3-dev \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 

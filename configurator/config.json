@@ -3,7 +3,7 @@
   "version": "3.7",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant",
-  "url": "https://home-assistant.io/addons/configurator",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/configurator",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "homeassistant": "0.91.1",
   "startup": "application",

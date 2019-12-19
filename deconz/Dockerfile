@@ -22,6 +22,7 @@ RUN apt-get update \
         libqt5widgets5 \
         lsof \
         netcat \
+        nginx \
         sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \
@@ -54,7 +55,8 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-COPY data/run.sh data/discovery.sh /
 COPY data/ika-otau-dl.sh /bin/
+COPY data/nginx.conf /etc/nginx/nginx.conf
+COPY data/run.sh data/discovery.sh /
 
 CMD ["/run.sh"]

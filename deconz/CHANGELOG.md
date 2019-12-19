@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0
+
+- Bump deCONZ to 2.05.72
+- Add support for Hass.io Ingress
+- Improve auto discovery handling
+- Remove support for UPnP
+
 ## 3.9
 
 - Adds support for enabling UPnP

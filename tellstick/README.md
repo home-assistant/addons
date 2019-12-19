@@ -18,7 +18,7 @@ For more details, please check the TellStick [protocol list][protocol-list].
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "TellStick" add-on and click it.
@@ -96,42 +96,42 @@ Add one or more devices entries to the add-on configuration for each
 device you'd like to add. Please note the comma separator between each
 device (see example above).
 
-#### Option: `devices` -> `id` (required)
+#### Option: `devices.id` (required)
 
 A unique number / identifier that must be unique for each device.
 
-#### Option: `devices` -> `name` (required)
+#### Option: `devices.name` (required)
 
-A name for your device, making it easy to identify it.
+A name for your device, making it easier to identify it.
 
-#### Option: `devices` -> `protocol` (required)
+#### Option: `devices.protocol` (required)
 
 This is the protocol the device uses. For a full list of supported protocols
 (and thus valid values for this configuration option), check the
 TellStick [protocol list][protocol-list].
 
-#### Option: `devices` -> `model` (optional)
+#### Option: `devices.model` (optional)
 
 The model parameter is only used by some protocols where there exists different
 types of devices using the same protocol. This can be dimmers versus non-dimmers,
 codeswitch versus self-learning, etc.
 
-#### Option: `devices` -> `house` (optional)
+#### Option: `devices.house` (optional)
 
 Depending on protocol the values here can vary a lot to identify
 or group per house or type.
 
-#### Option: `devices` -> `unit` (optional)
+#### Option: `devices.unit` (optional)
 
 Unit identifier, in most cases a value between 1 to 16 and often used in
 combination with the house.
 
-#### Option: `devices` -> `fade` (optional)
+#### Option: `devices.fade` (optional)
 
 Fade is either `true` or `false` and tells a dimmer if it should fade smooth
 or instant between values (only for IKEA protocol as it seems).
 
-#### Option: `devices` -> `code` (optional)
+#### Option: `devices.code` (optional)
 
 A number series based on ones and zeroes often used for dip-switch based devices.
 

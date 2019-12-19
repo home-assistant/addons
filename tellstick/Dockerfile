@@ -39,6 +39,6 @@ RUN apk add --no-cache \
     && rm -rf /usr/src/telldus
 
 # Copy data for add-on
-COPY run.sh /
+COPY data/run.sh /
 
 CMD [ "/run.sh" ]

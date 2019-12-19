@@ -10,7 +10,7 @@ You can use this add-on to install Eclipse Mosquitto, which is an open-source (E
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Mosquitto broker" add-on and click it.
@@ -24,7 +24,8 @@ The add-on has a couple of options available. To get the add-on running:
 2. Have some patience and wait a couple of minutes.
 3. Check the add-on log output to see the result.
 
-Create a new user for MQTT via the **Configuration** -> **Users (manage users)**. (Note: This name cannot be "homeassistant" or "addon")
+Create a new user for MQTT via the **Configuration** -> **Users (manage users)**.
+Note: This name cannot be `homeassistant` or `addon`, those are reserved usernames.
 
 To use the Mosquitto as a broker, go to the integration page and install the configuration with one click:
 
@@ -102,38 +103,38 @@ It is possible to restrict access to topics based upon the user logged in to Mos
 
 See the following links for more information:
 
-* [Mosquitto topic restrictions](http://www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/)
-* [Mosquitto.conf man page](https://mosquitto.org/man/mosquitto-conf-5.html)
+- [Mosquitto topic restrictions](http://www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/)
+- [Mosquitto.conf man page](https://mosquitto.org/man/mosquitto-conf-5.html)
 
 Add the following configuration to enable **unrestricted** access to all topics.
 
 1. Enable the customize flag
 
-```json
-  "customize": {
-    "active": true,
-    "folder": "mosquitto"
-  },
-```
+    ```json
+      "customize": {
+        "active": true,
+        "folder": "mosquitto"
+      },
+    ```
 
 2. Create `/share/mosquitto/acl.conf` with the contents:
 
-```text
-acl_file /share/mosquitto/accesscontrollist
-```
+    ```text
+    acl_file /share/mosquitto/accesscontrollist
+    ```
 
 3. Create `/share/mosquitto/accesscontrollist` with the contents:
 
-```text
-user [YOUR_MQTT_USER]
-topic readwrite #
-```
+    ```text
+    user [YOUR_MQTT_USER]
+    topic readwrite #
+    ```
 
 The `/share` folder can be accessed via SMB, or on the host filesystem under `/usr/share/hassio/share`.
 
 ## Known issues and limitations
 
-* Since version 4.1 of the add-on, an explicit ACL definition is now required if you plan to use legacy logins and `"anonymous": true` [see these instructions](#access-control-lists-acls).
+- Since version 4.1 of the add-on, an explicit ACL definition is now required if you plan to use legacy logins and `"anonymous": true` [see these instructions](#access-control-lists-acls).
 
 ## Support
 
@@ -141,9 +142,9 @@ Got questions?
 
 You have several options to get them answered:
 
-* The [Home Assistant Discord Chat Server][discord].
-* The Home Assistant [Community Forum][forum].
-* Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
+- The [Home Assistant Discord Chat Server][discord].
+- The Home Assistant [Community Forum][forum].
+- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 

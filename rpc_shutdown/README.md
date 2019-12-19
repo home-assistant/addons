@@ -1,6 +1,6 @@
 # Hass.io Core Add-on: RPC Shutdown
 
-Simple way for remote windows shutdown.
+Shutdown Windows machines remotely.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
@@ -10,7 +10,7 @@ Allows you to shut down and Windows Computer with a service call from Home Assis
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "RPC Shutdown" add-on and click it.
@@ -78,19 +78,18 @@ Show a custom message on the screen of the computer that will be shutdown.
 Use the following inside Home Assistant service call to use it:
 
 ```yaml
-service: hassio.addon_stdin 
+service: hassio.addon_stdin
 data:
-  addon: core_rpc_shutdown 
+  addon: core_rpc_shutdown
   input: test-pc
 ```
 
-- `service: hassio.addon_stdin`:
-  Use hassio.addon_stdin service to send data over STDIN to an add-on.
-- `data.addon: core_rpc_shutdown`:
-  Tells the service to send the command to this add-on.
-- `data.input: test-pc`:
-   Alias name created for the computer in the add-on configuration, and shuts that one down.
- 
+Each line explained:
+
+`service: hassio.addon_stdin`: Use hassio.addon_stdin service to send data over STDIN to an add-on.
+`data.addon: core_rpc_shutdown`: Tells the service to send the command to this add-on.
+`data.input: test-pc`: Alias name created for the computer in the add-on configuration, and shuts that one down.
+
 ## Support
 
 Got questions?

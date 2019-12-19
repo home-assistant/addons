@@ -6,12 +6,11 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN apk add --no-cache \
-        curl \
         samba-common-tools \
         samba-server
 
 # Copy data
-COPY run.sh /
-COPY smb.conf /etc/
+COPY data/run.sh /
+COPY data/smb.conf /etc/
 
 CMD [ "/run.sh" ]

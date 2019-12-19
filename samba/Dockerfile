@@ -6,7 +6,6 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN apk add --no-cache \
-        curl \
         samba-common-tools \
         samba-server
 

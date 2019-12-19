@@ -10,18 +10,18 @@ You can use this add-on to install MariaDB, which is an open-source (GPLv2 licen
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
-1. Find the "MariaDB" add-on and click it.
-1. Click on the "INSTALL" button.
+2. Find the "MariaDB" add-on and click it.
+3. Click on the "INSTALL" button.
 
 ## How to use
 
 1. Set the `logins` -> `password` field to something strong and unique.
-1. Start the add-on.
-1. Check the add-on log output to see the result.
-1. Add `recorder` component to your Home Assistnat configuration.
+2. Start the add-on.
+3. Check the add-on log output to see the result.
+4. Add `recorder` component to your Home Assistant configuration.
 
 ## Add-on Configuration
 
@@ -55,21 +55,21 @@ Example add-on configuration:
 
 ### Option: `databases` (required)
 
-Database name, e.g., `homeassistant`
+Database name, e.g., `homeassistant`. Multiple are allowed.
 
 ### Option: `logins` (required)
 
 This section defines a create user definition in MariaDB. [Create User][createuser] documentation.
 
-### Option: `logins` -> `username` (required)
+### Option: `logins.username` (required)
 
 Database user login, e.g., `hass`. [User Name][username] documentation.
 
-### Option: `logins` -> `host` (required)
+### Option: `logins.host` (required)
 
 Hostname allowed to connect to database. [Host Name][hostname] documentation.
 
-### Option: `logins` -> `password` (required)
+### Option: `logins.password` (required)
 
 Password for user login. This should be strong and unique.
 
@@ -77,25 +77,25 @@ Password for user login. This should be strong and unique.
 
 This section grant privileges to users in MariaDB. [Grant][grant] documentation.
 
-### Option: `rights` -> `username` (required)
+### Option: `rights.username` (required)
 
 This should be the same user name defined in `logins` -> `username`.
 
-### Option: `rights` -> `host` (required)
+### Option: `rights.host` (required)
 
 This should be the same hostname defined in `logins` -> `host`.
 
-### Option: `rights` -> `database` (required)
+### Option: `rights.database` (required)
 
 This should be the same database defined in `databases`.
 
-### Option: `rights` -> `grant` (required)
+### Option: `rights.grant` (required)
 
-This is the grant statement giving your user access to the databse.
+This is the grant statement giving your user access to the database.
 
 ## Home Assistant Configuration
 
-MariaDB will be used by the `recorder` and `history` components within Home Assistant.  For more information about setting this up, see the [MariaDB][mariadb-hass] documentation for Home Assistant. 
+MariaDB will be used by the `recorder` and `history` components within Home Assistant. For more information about setting this up, see the [MariaDB][mariadb-hass] documentation for Home Assistant.
 
 Example Home Assistant configuration:
 

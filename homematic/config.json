@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic CCU",
-  "version": "9.4",
+  "version": "9.5",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "hhttps://github.com/home-assistant/hassio-addons/tree/master/homematic",
@@ -19,7 +19,7 @@
     "2010/tcp": 2010
   },
   "ports_description": {
-    "80/tcp": "Regahss Webinterface",
+    "80/tcp": "ReGaHss Webinterface",
     "2001/tcp": "Homematic xmlrpc",
     "2000/tcp": "HomematicWire xmlrpc",
     "2010/tcp": "HomematicIP xmlrpc"

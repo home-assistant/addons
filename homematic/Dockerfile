@@ -45,10 +45,10 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R packages-eQ-3/LinuxBasis/lib /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/bin /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/lib /opt/hm/ \
-    && rm -f packages-eQ-3/WebUI/bin/ReGa* \
     && cp -R packages-eQ-3/WebUI/bin /opt/hm/ \
     && cp -R packages-eQ-3/WebUI/lib /opt/hm/ \
     && rm -rf packages-eQ-3/WebUI/etc/config* packages-eQ-3/WebUI/ect/rega.conf \
+    && mv /opt/hm/bin/ReGaHss.community /opt/hm/bin/ReGaHss \
     && cp -R packages-eQ-3/WebUI/etc/* /opt/hm/etc/ \
     && rm -f packages/lighttpd/etc/lighttpd/lighttpd_ssl.conf \
     && cp -R packages/lighttpd/etc/lighttpd /opt/hm/etc/ \

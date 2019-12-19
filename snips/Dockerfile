@@ -2,10 +2,10 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Copy data
-COPY run.sh /
-COPY mosquitto.conf /etc/
-COPY customtts.sh /usr/bin
-COPY snips-entrypoint.sh /
+COPY data/run.sh /
+COPY data/mosquitto.conf /etc/
+COPY data/customtts.sh /usr/bin
+COPY data/snips-entrypoint.sh /
 
 ARG BUILD_ARCH
 

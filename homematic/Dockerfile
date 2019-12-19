@@ -34,7 +34,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     \
     && if [ "${BUILD_ARCH}" = "armv7" ]; \
         then \
-            cd arm-gnueabihf; \
+            cd arm-gnueabihf-gcc8; \
         else \
             cd X86_32_Debian_Wheezy; \
         fi \
@@ -50,7 +50,6 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R packages-eQ-3/WebUI/lib /opt/hm/ \
     && rm -rf packages-eQ-3/WebUI/etc/config* packages-eQ-3/WebUI/ect/rega.conf \
     && cp -R packages-eQ-3/WebUI/etc/* /opt/hm/etc/ \
-    && cp -R packages-eQ-3/WebUI-Beta/bin /opt/hm/ \
     && rm -f packages/lighttpd/etc/lighttpd/lighttpd_ssl.conf \
     && cp -R packages/lighttpd/etc/lighttpd /opt/hm/etc/ \
     && cd ../ \

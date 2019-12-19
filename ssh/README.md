@@ -17,7 +17,7 @@ hassio help
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "SSH server" add-on and click it.
@@ -31,7 +31,7 @@ and [these for other platforms][keygen]. It is possible to set a password for
 login since version 2.0 but for high security use private/public keys.
 
 You can not run both variants at the same time. Enabling login via keys, will
-simply disable password login.
+disable password login.
 
 1. Add a ssh key to  `authorized_keys` or set a `password` in the add-on configuration.
 2. Start the add-on.

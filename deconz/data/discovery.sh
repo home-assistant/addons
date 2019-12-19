@@ -3,73 +3,66 @@
 DATA_STORE="/data/hassio.json"
 
 
-function _discovery_config() {
-    local api_key=${1}
-    local serial=${2}
-    local config
-
-    config=$(bashio::var.json \
-        host "$(bashio::addon.ip_address)" \
-        port "^$(bashio::addon.port 80)" \
-        api_key "${api_key}" \
-        serial "${serial}" \
-    )
-
-    bashio::var.json \
-            service deconz \
-            config "^${config}"
-}
-
-
-function _save_data() {
-    local api_key=${1}
-    local serial=${2}
-    local config
-
-    bashio::var.json api_key "${api_key}" serial "${serial}" > ${DATA_STORE}
-    bashio::log.debug "Store API information to ${DATA_STORE}"
-}
-
-
 function _deconz_api() {
     local api_key
     local result
-    local api_port
+    local serial
 
-    api_port=$(bashio::addon.port 80)
-    while ! nc -z localhost "${api_port}" < /dev/null; do sleep 10; done
-
-    if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:${api_port}/api")"; then
+    # Register an API key for Home Assistant
+    if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:8080/api")"; then
         bashio::log.debug "${result}"
         bashio::exit.nok "Can't get API key from deCONZ gateway"
     fi
-    api_key="$(echo "${result}" | jq --raw-output '.[0].success.username')"
+    api_key="$(bashio::jq "${result}" '.[0].success.username')"
 
-    sleep 15
-    if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:${api_port}/api/${api_key}/config")"; then
-        bashio::log.debug "${result}"
-        bashio::exit.nok "Can't get data from deCONZ gateway"
-    fi
-    serial="$(echo "${result}" | jq --raw-output '.bridgeid')"
+    # Try to get the bridge ID/serial, try to avoid using 0000000000000000
+    retries=25
+    serial="0000000000000000"
+    while [[ "${serial}" = "0000000000000000" ]]; do
+        bashio::log.debug "Waiting for bridge ID..."
+        sleep 10
 
-    _save_data "${api_key}" "${serial}"
+        # If we tried 25 times, just abort.
+        if [[ "${retries}" -eq 0 ]]; then
+            bashio::exit.nok "Failed to get a valid bridge ID. Discovery aborted."
+        fi
+
+        # Get bridge ID from API
+        if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:8080/api/${api_key}/config")";
+        then
+            bashio::log.debug "${result}"
+            bashio::exit.nok "Can't get data from deCONZ gateway"
+        fi
+        serial="$(bashio::jq "${result}" '.bridgeid')"
+
+        ((retries--))
+    done
+
+    bashio::var.json api_key "${api_key}" serial "${serial}" > "${DATA_STORE}"
+    bashio::log.debug "Stored API information to ${DATA_STORE}"
 }
 
 
 function _send_discovery() {
     local api_key
+    local config
     local result
-    local payload
 
-    api_key="$(jq --raw-output '.api_key' "${DATA_STORE}")"
-    serial="$(jq --raw-output '.serial' "${DATA_STORE}")"
+    api_key="$(bashio::jq "${DATA_STORE}" '.api_key')"
+    serial="$(bashio::jq "${DATA_STORE}" '.serial')"
+
+    config=$(bashio::var.json \
+        host "$(hostname)" \
+        port "^8080" \
+        api_key "${api_key}" \
+        serial "${serial}" \
+    )
 
     # Send discovery info
-    payload="$(_discovery_config "${api_key}" "${serial}")"
-    if bashio::api.hassio "POST" "/discovery" "${payload}"; then
-        bashio::log.info "Success send discovery information to Home Assistant"
+    if bashio::discovery "deconz" "${config}" > /dev/null; then
+        bashio::log.info "Successfully send discovery information to Home Assistant."
     else
-        bashio::log.error "Discovery message to Home Assistant fails!"
+        bashio::log.error "Discovery message to Home Assistant failed!"
     fi
 }
 
@@ -77,7 +70,7 @@ function _send_discovery() {
 function hassio_discovery() {
 
     # No API data exists - generate
-    if [ ! -f "$DATA_STORE" ]; then
+    if ! bashio::fs.file_exists "${DATA_STORE}"; then
         bashio::log.info "Create API data for Home Assistant"
         _deconz_api
     fi

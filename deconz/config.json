@@ -7,20 +7,17 @@
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/deconz",
   "startup": "system",
   "boot": "auto",
+  "ingress": true,
+  "ingress_entry": "pwa/index.html",
+  "panel_icon": "mdi:zigbee",
   "homeassistant": "0.91.2",
-  "webui": "http://[HOST]:[PORT:80]/pwa/index.html",
   "discovery": ["deconz"],
   "ports": {
-    "80/tcp": 40850,
-    "5900/tcp": null,
-    "8080/tcp": 40860
+    "5900/tcp": null
   },
   "ports_description": {
-    "80/tcp": "deCONZ API backend",
-    "5900/tcp": "deCONZ graphical desktop via VNC",
-    "8080/tcp": "deCONZ WebSocket Server"
+    "5900/tcp": "deCONZ graphical desktop via VNC"
   },
-  "host_network": true,
   "kernel_modules": true,
   "auto_uart": true,
   "udev": true,

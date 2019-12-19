@@ -37,7 +37,8 @@ If you're using Hass.io you may find the correct value for this on the
 1. Replace `null` in the `device` option in the add-on configuration and specify
    the device name in quotes: (e.g. `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`).
 2. Click on "SAVE" to save the add-on configuration.
-3. Start the add-on.
+3. Toggle the "Show in sidebar" to add it to your Home Assistant side bar.
+4. Start the add-on.
 
 After installing and starting this add-on, access the deCONZ WebUI ("Phoscon")
 with "WEB UI" button.

@@ -16,14 +16,9 @@ WAIT_PIDS=()
 # Default QT platform
 PLATFORM="minimal"
 
-# Load config
-DECONZ_DEVICE=$(bashio::config 'device')
-API_PORT=$(bashio::addon.port 80)
-VNC_PORT=$(bashio::addon.port 5900)
-VNC_PASSWORD=$(bashio::config 'vnc_password')
-WEBSOCKET_PORT=$(bashio::addon.port 8080)
-
 # Lookup udev link
+bashio::log.info "Waiting for device..."
+DECONZ_DEVICE=$(bashio::config 'device')
 if [[ -c "${DECONZ_DEVICE}" ]]; then
     bashio::log.debug "Specified device points to a character special file, continuing"
 else
@@ -53,32 +48,13 @@ bashio::config.has_value 'dbg_zcl' \
 bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
 
-# Handle UPNP
-bashio::config.true 'upnp' \
-    && UPNP=1 || UPNP=0
-
-# Check if port is available
-if bashio::var.is_empty "${API_PORT}" \
-    || bashio::var.is_empty "${WEBSOCKET_PORT}";
-then
-    bashio::exit.nok "You need set API and Websocket port!"
-fi
-
 # Check if VNC is enabled
+VNC_PORT="$(bashio::addon.port 5900)"
 if bashio::var.has_value "${VNC_PORT}"; then
-    if [[ "${VNC_PORT}" -lt 5900 ]]; then
-        bashio::exit.nok "VNC requires the port number to be set to 5900 or higher!"
-    fi
-
-    # Check if configured VNC port is free
-    if nc -z 127.0.0.1 "${VNC_PORT}"; then
-        bashio::log.fatal "VNC port ${VNC_PORT} is already in use!"
-        bashio::exit.nok "Please change the port number"
-    fi
 
     TMP_FOLDER=$(mktemp -d)
     export XDG_RUNTIME_DIR="${TMP_FOLDER}"
-    export DISPLAY=":$((VNC_PORT-5900))"
+    export DISPLAY=":0"
     PLATFORM="xcb"
 
     # Require password when VNC is enabled
@@ -87,6 +63,7 @@ if bashio::var.has_value "${VNC_PORT}"; then
     fi
 
     bashio::log.info "Starting VNC server..."
+    VNC_PASSWORD=$(bashio::config 'vnc_password')
     echo "${VNC_PASSWORD}" | tigervncpasswd -f > /root/.vncpasswd
     tigervncserver \
         -name "Hass.io - deCONZ" \
@@ -108,19 +85,19 @@ deCONZ \
     --dbg-otau="${DBG_OTAU}" \
     --dbg-zcl="${DBG_ZCL}" \
     --dbg-zdp="${DBG_ZDP}" \
-    --http-port="${API_PORT}" \
-    --ws-port="${WEBSOCKET_PORT}" \
-    --upnp="${UPNP}" \
+    --upnp=0 \
+    --http-port=8080 \
+    --ws-port=8081 \
     --dev="${DECONZ_DEVICE}" &
 WAIT_PIDS+=($!)
 
-# Start OTA updates for deCONZ
-bashio::log.info "Running the deCONZ OTA updater..."
-deCONZ-otau-dl.sh &> /dev/null &
+# Wait for deCONZ to start before continuing
+bashio::net.wait_for 8080
 
-# Start OTA updates for IKEA
-bashio::log.info "Running the IKEA OTA updater..."
-ika-otau-dl.sh &> /dev/null &
+# Start Nginx proxy
+bashio::log.info "Starting Nginx..."
+nginx &
+WAIT_PIDS+=($!)
 
 # Register stop
 function stop_addon() {
@@ -134,7 +111,15 @@ trap "stop_addon" SIGTERM SIGHUP
 
 # Start Hass.io discovery
 bashio::log.info "Running Hass.io discovery task..."
-hassio_discovery
+hassio_discovery &
+
+# Start OTA updates for deCONZ
+bashio::log.info "Running the deCONZ OTA updater..."
+deCONZ-otau-dl.sh &> /dev/null &
+
+# Start OTA updates for IKEA
+bashio::log.info "Running the IKEA OTA updater..."
+ika-otau-dl.sh &> /dev/null &
 
 # Wait until all is done
 bashio::log.info "deCONZ is set up and running!"

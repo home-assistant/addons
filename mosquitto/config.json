@@ -3,7 +3,7 @@
   "version": "5.1",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
-  "url": "https://home-assistant.io/addons/mosquitto/",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/mosquitto",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",

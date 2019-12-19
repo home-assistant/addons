@@ -3,20 +3,19 @@
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - snips/*
+      - snips/*
 pr: none
 
 variables:
   - name: versionBuilder
-    value: '2.0'
+    value: "2.0"
   - group: docker
 
-
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'snips'
-    arch: '--armhf --amd64'
+  - template: /.azure/azp-template-addon.yml
+    parameters:
+      addon: "snips"
+      arch: "--armhf --amd64"

@@ -11,7 +11,7 @@ RUN apk add --no-cache \
         samba-server
 
 # Copy data
-COPY run.sh /
-COPY smb.conf /etc/
+COPY data/run.sh /
+COPY data/smb.conf /etc/
 
 CMD [ "/run.sh" ]

@@ -6,7 +6,7 @@
 
 ## 7.0
 
-- Added bash_profile as a persistent file 
+- Added bash_profile as a persistent file
 
 ## 6.4
 

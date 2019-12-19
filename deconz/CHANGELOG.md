@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1
+
+- Change internal API port back to 40850, to prevent issue with discovery
+
 ## 4.0
 
 - Bump deCONZ to 2.05.72

@@ -86,13 +86,13 @@ deCONZ \
     --dbg-zcl="${DBG_ZCL}" \
     --dbg-zdp="${DBG_ZDP}" \
     --upnp=0 \
-    --http-port=8080 \
+    --http-port=40850 \
     --ws-port=8081 \
     --dev="${DECONZ_DEVICE}" &
 WAIT_PIDS+=($!)
 
 # Wait for deCONZ to start before continuing
-bashio::net.wait_for 8080
+bashio::net.wait_for 40850
 
 # Start Nginx proxy
 bashio::log.info "Starting Nginx..."

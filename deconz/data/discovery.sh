@@ -9,7 +9,7 @@ function _deconz_api() {
     local serial
 
     # Register an API key for Home Assistant
-    if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:8080/api")"; then
+    if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:40850/api")"; then
         bashio::log.debug "${result}"
         bashio::exit.nok "Can't get API key from deCONZ gateway"
     fi
@@ -28,7 +28,7 @@ function _deconz_api() {
         fi
 
         # Get bridge ID from API
-        if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:8080/api/${api_key}/config")";
+        if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:40850/api/${api_key}/config")";
         then
             bashio::log.debug "${result}"
             bashio::exit.nok "Can't get data from deCONZ gateway"
@@ -53,7 +53,7 @@ function _send_discovery() {
 
     config=$(bashio::var.json \
         host "$(hostname)" \
-        port "^8080" \
+        port "^40850" \
         api_key "${api_key}" \
         serial "${serial}" \
     )

@@ -10,7 +10,7 @@
   "ports": {
     "80/tcp": null,
     "443/tcp": 443
-   },
+  },
   "map": ["ssl", "share"],
   "options": {
     "domain": null,

@@ -122,25 +122,6 @@ Example add-on config with `dbg_aps` enabled on log level 1:
 }
 ```
 
-## Enabling UPnP
-
-The add-on, by default, disables the native UPnP functionality of deCONZ.
-This is because the add-on uses an alternative discovery mechanism that allows
-for an improved integration experience.
-
-Nevertheless, the add-on allows you to enable UPnP again, in case you want
-deCONZ to be discovered by other applications (that are not Home Assistant).
-
-Add the `upnp` add-on option, and set it to `true` to enable UPnP:
-
-```json
-{
-  "device": "/dev/ttyUSB0",
-  "vnc_password": "",
-  "upnp": true
-}
-```
-
 ## Configuration
 
 Add-on configuration:
@@ -168,6 +149,7 @@ In most cases this is one of the following:
 
 - Use at least 2.5A power supply for your Raspberry Pi!
   This avoids strange behavior when using this add-on.
+- The add-on has no UPnP support. UPnP interferes with Ingress.
 
 ## Support
 

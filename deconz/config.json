@@ -39,8 +39,7 @@
     "dbg_info": "int?",
     "dbg_otau": "int?",
     "dbg_zcl": "int?",
-    "dbg_zdp": "int?",
-    "upnp": "bool?"
+    "dbg_zdp": "int?"
   },
   "image": "homeassistant/{arch}-addon-deconz"
 }

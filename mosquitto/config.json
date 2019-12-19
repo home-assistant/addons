@@ -3,7 +3,7 @@
   "version": "5.1",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
-  "url": "https://home-assistant.io/addons/mosquitto/",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/mosquitto",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
@@ -16,7 +16,7 @@
     "1884/tcp": 1884,
     "8883/tcp": 8883,
     "8884/tcp": 8884
-   },
+  },
   "options": {
     "logins": [],
     "anonymous": false,
@@ -29,9 +29,7 @@
     "require_certificate": false
   },
   "schema": {
-    "logins": [
-        {"username": "str", "password": "str"}
-    ],
+    "logins": [{ "username": "str", "password": "str" }],
     "anonymous": "bool",
     "customize": {
       "active": "bool",

@@ -5,15 +5,27 @@ FROM $BUILD_FROM
 WORKDIR /usr/src
 ARG MOSQUITTO_AUTH_VERSION
 RUN apk add --no-cache \
-        mosquitto curl openssl musl socat pwgen \
+        curl \
+        mosquitto \
+        musl \
+        openssl \
+        pwgen \
+        socat \
     && apk add --no-cache --virtual .build-dependencies \
-        build-base git mosquitto-dev curl-dev openssl-dev \
-    && git clone --depth 1 -b ${MOSQUITTO_AUTH_VERSION} https://github.com/pvizeli/mosquitto-auth-plug \
+        build-base \
+        curl-dev \
+        git \
+        mosquitto-dev \
+        openssl-dev \
+    \
+    && git clone --depth 1 -b "${MOSQUITTO_AUTH_VERSION}" \
+        https://github.com/pvizeli/mosquitto-auth-plug \
     && cd mosquitto-auth-plug \
     && cp config.mk.in config.mk \
     && make \
     && mkdir -p /usr/share/mosquitto \
     && cp -f auth-plug.so /usr/share/mosquitto \
+    \
     && apk del .build-dependencies \
     && rm -fr /usr/src/mosquitto-auth-plug
 

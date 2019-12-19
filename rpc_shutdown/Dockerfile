@@ -8,6 +8,6 @@ ENV LANG C.UTF-8
 RUN apk add --no-cache samba-common-tools samba-common
 
 # Copy data
-COPY run.sh /
+COPY data/run.sh /
 
 CMD [ "/run.sh" ]

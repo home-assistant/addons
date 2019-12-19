@@ -3,7 +3,7 @@
   "version": "2.5",
   "slug": "nginx_proxy",
   "description": "An SSL/TLS proxy",
-  "url": "https://home-assistant.io/addons/nginx_proxy/",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",

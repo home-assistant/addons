@@ -18,6 +18,7 @@ ln -s /data/userprofiles /etc/config/userprofiles
 touch /data/hmip_user.conf
 touch /data/rega_user.conf
 touch /data/homematic.regadom
+touch /data/userprofiles/userAckInstallWizard_Admin
 
 # Import helpers
 . /usr/lib/hm-firmware.sh
@@ -146,6 +147,7 @@ sleep 30
 WAIT_PIDS+=($!)
 
 # Start WebInterface
+openssl req -new -x509 -nodes -keyout /etc/config/server.pem -out /etc/config/server.pem -days 3650 -subj "/C=DE/O=HomeMatic/OU=Hass.io/CN=$(hostname)"
 lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
 WAIT_PIDS+=($!)
 

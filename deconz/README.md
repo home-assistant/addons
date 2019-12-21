@@ -43,18 +43,18 @@ If you're using Hass.io you may find the correct value for this on the
 After installing and starting this add-on, access the deCONZ WebUI ("Phoscon")
 with "WEB UI" button.
 
-## Configuring the Home Assistant deCONZ Component
+## Configuring the Home Assistant deCONZ integration
 
-By default, Home Assistant has the `discovery` component enabled, which
+By default, Home Assistant has the `discovery` integration enabled, which
 automatically discovers this add-on.
 
 Navigate to **Configuration** -> **Integrations** page after starting this
-add-on to configure the deCONZ component.
+add-on to configure the deCONZ integration.
 
 In case you don't have `discovery` enabled on your Home Assistant instance,
-follow these instructions to configure the deCONZ component:
+follow these instructions to configure the deCONZ integration:
 
-<https://home-assistant.io/components/deconz/>
+<https://www.home-assistant.io/integrations/deconz/>
 
 ## Migrating to this Add-on
 
@@ -98,6 +98,21 @@ up with the same firmware version as before you started the upgrade, consider
 unplugging the other sticks and try again.
 
 If that is still not working, try [upgrading the firmware manually][manual-upgrade].
+
+## Using the deCONZ/Phoscon API with another add-on
+
+Some add-ons are capable of consuming the deCONZ API directly. Node-RED is
+one of those applications, that is available as an add-on, that can
+consume the deCONZ API using the `node-red-contrib-deconz` node.
+
+To allow these add-ons to connect to deCONZ, use the following settings:
+
+- **Host**: `core-deconz`
+- **(API) Port**: `40850`
+- **WebSocket Port**: `8081`
+
+_Please note: the above settings are likely to change in a future update
+of this add-on._
 
 ## Advanced debug output control
 
@@ -146,11 +161,65 @@ In most cases this is one of the following:
 - `"/dev/ttyAMA0"`
 - `"/dev/ttyACM0"`
 
+## Troubleshooting
+
+### My gateway shows up in Home Assistant with ID 0000000000000000
+
+This is an older bug that has been solved in the add-on. The add-on
+was too quick on sending the gateway ID in the past, before deCONZ had
+one assigned.
+
+This might cause issues in Home Assistant, like having no devices.
+It also might cause an issue when the add-on has internal changes and next
+fails to communicate new settings to Home Assistant.
+
+This can be solved by the following steps:
+
+1. Backup you deCONZ data, by going into the Web UI, from the menu choose:
+  **Settings** -> **Gateway** -> **Backup Option** button, next create
+  a new backup and download it onto your computer.
+2. Uninstall the add-on.
+3. In Home Assistant, remove the current integration you have for deCONZ.
+4. Restart Home Assistant.
+5. Install the deCONZ add-on again, and configure it again according to the [instructions](#configure-the-add-on).
+6. Restore the backup you created at the first step at the same location
+   in the Web UI as before.
+7. Restart the add-on and next, restart Home Assistant once more.
+8. Follow the instructions on [setting up the deCONZ integration](#configuring-the-home-assistant-deconz-integration).
+
+### My integration shows now devices after upgrading to 4.x
+
+_Please, be sure you don't have the issue with gateway ID 0000000000000000._
+
+It can happen that you have accidentally used an older discovery or a manual
+set up of the integration in the past. Because of this, the add-on is unable
+to inform Home Assistant of changed internal settings, which happened in 4.x.
+
+The solution for this is to do the following steps to take care of that issue
+for once and for all, so in the future, you won't end up having this issue.
+
+1. In Home Assistant, remove the current integration you have for deCONZ.
+2. Restart Home Assistant.
+3. Follow the instructions on [setting up the deCONZ integration](#configuring-the-home-assistant-deconz-integration).
+
+This will ensure you have a working integration and add-on for the future.
+
 ## Known issues and limitations
 
 - Use at least 2.5A power supply for your Raspberry Pi!
   This avoids strange behavior when using this add-on.
-- The add-on has no UPnP support. UPnP interferes with Ingress.
+- The add-on has no UPnP support.
+- Home Assistant IP Ban is triggered by the add-on. This is caused by the
+  Phoscon frontend trying out many different URLs and locations to find
+  devices, triggering an IP ban in the process. We are looking into a
+  solution for this, right now, raising the number of attempts or disabling
+  IP bans in Home Assistant, is the only workaround.
+- If for some reason the deCONZ frontend does not give you an initial setup
+  for your ConBee or RaspBee and keeps asking for a password, then most likely
+  `delight` is the default password you can use to get in.
+- The deCONZ API is not accessible from outside the Hass.io ecosystem, no
+  direct access is provided. This cannot be enabled at this since it
+  interferes with Ingress.
 
 ## Support
 

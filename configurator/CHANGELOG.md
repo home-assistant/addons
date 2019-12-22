@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2
+
+- Fixes an issue with the dirs first option
+
 ## 4.1
 
 - Fixes an issue with the enforce base path option

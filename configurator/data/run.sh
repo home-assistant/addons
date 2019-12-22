@@ -31,7 +31,7 @@ fi
 
 # Setup and run configurator
 export HC_HASS_API_PASSWORD="${HASSIO_TOKEN}"
-export HC_DIRFIRST="${DIRSFIRST}"
+export HC_DIRSFIRST="${DIRSFIRST}"
 export HC_ENFORCE_BASEPATH="${ENFORCE_BASEPATH}"
 export HC_IGNORE_PATTERN="${IGNORE_PATTERN}"
 

@@ -1,6 +1,6 @@
 {
   "name": "Configurator",
-  "version": "4.1",
+  "version": "4.2",
   "slug": "configurator",
   "description": "Browser-based configuration file editor for Home Assistant",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/configurator",

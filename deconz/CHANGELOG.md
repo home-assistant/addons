@@ -6,6 +6,7 @@
 - Fix Phoscon device scanning/probing triggering IP bans
 - Fix redirect to login page when Phoscon session expires
 - Fix incorrect manifest request from Phoscon frontend
+- Fix and improve API key handling with Hass.io discovery
 - Change Hass.io discovery to use add-on IP instead of hostname
 - Improve Phoscon discovery to work different and faster with Ingress
 - Add Websocket support to Ingress for instant and snappy UI updates

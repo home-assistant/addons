@@ -142,21 +142,21 @@ The network gateway to return for DHCP requests.
 This option enables Dnsmasq to respond to DHCP requests on the specified
 networks.
 
-#### Option: `networks` -> `broadcast`
+#### Option: `networks.broadcast`
 
 The broadcast address of the network where DHCP will be enabled.
 
-#### Option: `networks` -> `netmask`
+#### Option: `networks.netmask`
 
 The subnet mask of the network where DHCP will be enabled.
 
-#### Option: `networks` -> `range_start`
+#### Option: `networks.range_start`
 
 Defines the start IP address for the DHCP server to lease IPs for.
 Use this together with the range_end option to define the range of IP
 addresses the DHCP server operates in.
 
-#### Option: `networks` -> `range_end`
+#### Option: `networks.range_end`
 
 Defines the end IP address on the network where the DHCP server will lease IPs.
 

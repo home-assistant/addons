@@ -22,15 +22,13 @@
         "server": "str"
       }
     ],
-    "forwards": [{
-      "domain": "str",
-      "server": "str"
-    }],
-    "hosts": [{
-      "host": "str",
-      "mac": "str?",
-      "ip": "str"
-    }],
+    "hosts": [
+      {
+        "host": "str",
+        "mac": "str?",
+        "ip": "str"
+      }
+    ],
     "interface": "str?",
     "address": "str?",
     "lease_time": "str?",

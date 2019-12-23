@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "4.1",
+  "version": "5.0",
   "slug": "deconz",
   "description": "Control a ZigBee network with ConBee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf", "aarch64"],
@@ -13,10 +13,14 @@
   "homeassistant": "0.91.2",
   "discovery": ["deconz"],
   "ports": {
-    "5900/tcp": null
+    "5900/tcp": null,
+    "8081/tcp": null,
+    "40850/tcp": null
   },
   "ports_description": {
-    "5900/tcp": "deCONZ graphical desktop via VNC"
+    "5900/tcp": "deCONZ graphical desktop via VNC",
+    "8081/tcp": "deCONZ WebSocket (Not required for Hass.io Ingress)",
+    "40850/tcp": "deCONZ API backend (Not required for Hass.io Ingress)"
   },
   "kernel_modules": true,
   "auto_uart": true,

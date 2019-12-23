@@ -52,7 +52,7 @@ function _send_discovery() {
     serial="$(bashio::jq "${DATA_STORE}" '.serial')"
 
     config=$(bashio::var.json \
-        host "$(hostname)" \
+        host "$(bashio::addon.ip_address)" \
         port "^40850" \
         api_key "${api_key}" \
         serial "${serial}" \

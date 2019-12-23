@@ -1,19 +1,32 @@
 #!/usr/bin/env bashio
 
-DATA_STORE="/data/hassio.json"
+DATA_STORE="/data/.local/share/dresden-elektronik/deCONZ/zll.db"
 
-
-function _deconz_api() {
+function hassio_discovery() {
     local api_key
-    local result
+    local config
+    local query
+    local retries
     local serial
 
-    # Register an API key for Home Assistant
-    if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:40850/api")"; then
-        bashio::log.debug "${result}"
-        bashio::exit.nok "Can't get API key from deCONZ gateway"
+    # Remove old discovery data storage (cleanup)
+    # We now query the deCONZ database for it directly.
+    if bashio::fs.file_exists /data/hassio.json; then
+        rm /data/hassio.json
     fi
-    api_key="$(bashio::jq "${result}" '.[0].success.username')"
+
+    # Try to get API key from deCONZ database
+    query='SELECT apikey FROM auth WHERE devicetype="Home Assistant" ORDER BY createdate DESC LIMIT 1'
+    api_key=$(sqlite3 "${DATA_STORE}" "${query}" .exit)
+    if ! bashio::var.has_value "${api_key}"; then
+        # Register an API key for Home Assistant
+        if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:40850/api")";
+        then
+            bashio::log.debug "${result}"
+            bashio::exit.nok "Can't get API key from deCONZ gateway"
+        fi
+        api_key="$(bashio::jq "${result}" '.[0].success.username')"
+    fi
 
     # Try to get the bridge ID/serial, try to avoid using 0000000000000000
     retries=25
@@ -38,21 +51,9 @@ function _deconz_api() {
         ((retries--))
     done
 
-    bashio::var.json api_key "${api_key}" serial "${serial}" > "${DATA_STORE}"
-    bashio::log.debug "Stored API information to ${DATA_STORE}"
-}
-
-
-function _send_discovery() {
-    local api_key
-    local config
-    local result
-
-    api_key="$(bashio::jq "${DATA_STORE}" '.api_key')"
-    serial="$(bashio::jq "${DATA_STORE}" '.serial')"
-
+    # Create config payload for Home Assistant
     config=$(bashio::var.json \
-        host "$(hostname)" \
+        host "$(bashio::addon.ip_address)" \
         port "^40850" \
         api_key "${api_key}" \
         serial "${serial}" \
@@ -64,16 +65,4 @@ function _send_discovery() {
     else
         bashio::log.error "Discovery message to Home Assistant failed!"
     fi
-}
-
-
-function hassio_discovery() {
-
-    # No API data exists - generate
-    if ! bashio::fs.file_exists "${DATA_STORE}"; then
-        bashio::log.info "Create API data for Home Assistant"
-        _deconz_api
-    fi
-
-    _send_discovery
 }

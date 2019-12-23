@@ -96,6 +96,8 @@ bashio::net.wait_for 40850
 
 # Start Nginx proxy
 bashio::log.info "Starting Nginx..."
+ingress_entry=$(bashio::addon.ingress_entry)
+sed -i "s#%%ingress_entry%%#${ingress_entry}#g" /etc/nginx/nginx.conf
 nginx &
 WAIT_PIDS+=($!)
 

@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.0
+
+- Fix additional gateway visible on Phoscon login on Ingress
+- Fix Phoscon device scanning/probing triggering IP bans
+- Fix redirect to login page when Phoscon session expires
+- Fix incorrect manifest request from Phoscon frontend
+- Fix and improve API key handling with Hass.io discovery
+- Change Hass.io discovery to use add-on IP instead of hostname
+- Improve Phoscon discovery to work different and faster with Ingress
+- Add Websocket support to Ingress for instant and snappy UI updates
+- Re-instate direct access capabilities to the Phoscon/deCONZ API
+
+_Please note: This release works best with Home Assistant 0.103.4 or newer,
+that release contains fixes/optimizations for the add-on as well._
+
 ## 4.1
 
 - Change internal API port back to 40850, to prevent issue with discovery

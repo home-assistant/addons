@@ -105,6 +105,9 @@ Some add-ons are capable of consuming the deCONZ API directly. Node-RED is
 one of those applications, that is available as an add-on, that can
 consume the deCONZ API using the `node-red-contrib-deconz` node.
 
+**WARNING** Do not use the following settings to set up a integration manually
+from within Home Assistant!
+
 To allow these add-ons to connect to deCONZ, use the following settings:
 
 - **Host**: `core-deconz`
@@ -209,17 +212,9 @@ This will ensure you have a working integration and add-on for the future.
 - Use at least 2.5A power supply for your Raspberry Pi!
   This avoids strange behavior when using this add-on.
 - The add-on has no UPnP support.
-- Home Assistant IP Ban is triggered by the add-on. This is caused by the
-  Phoscon frontend trying out many different URLs and locations to find
-  devices, triggering an IP ban in the process. We are looking into a
-  solution for this, right now, raising the number of attempts or disabling
-  IP bans in Home Assistant, is the only workaround.
 - If for some reason the deCONZ frontend does not give you an initial setup
   for your ConBee or RaspBee and keeps asking for a password, then most likely
   `delight` is the default password you can use to get in.
-- The deCONZ API is not accessible from outside the Hass.io ecosystem, no
-  direct access is provided. This cannot be enabled at this since it
-  interferes with Ingress.
 
 ## Support
 

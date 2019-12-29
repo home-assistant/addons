@@ -61,6 +61,13 @@ fi
 chmod 600 /data/.bash_profile
 ln -s -f /data/.bash_profile /root/.bash_profile
 
+# Links some common directories to the user's home folder for convenience
+DIRECTORIES=(addons backup config share ssl)
+for dir in "${DIRECTORIES[@]}"; do
+    ln -s "/${dir}" "${HOME}/${dir}" \
+        || bashio::log.warning "Failed linking common directory: ${dir}"
+done
+
 # Sets up the users .ssh folder to be persistent
 if ! bashio::fs.directory_exists /data/.ssh; then
     mkdir -p /data/.ssh \

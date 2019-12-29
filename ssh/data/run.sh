@@ -3,6 +3,8 @@ set -e
 
 KEYS_PATH=/data/host_keys
 
+WAIT_PIDS=()
+
 bashio::log.info "Initializing add-on for use..."
 if bashio::config.has_value 'authorized_keys'; then
     bashio::log.info "Setup authorized_keys"
@@ -57,6 +59,27 @@ fi
 chmod 600 /data/.bash_profile
 ln -s -f /data/.bash_profile /root/.bash_profile
 
-# Start server
+# Register stop
+function stop_addon() {
+    bashio::log.debug "Kill Processes..."
+    kill -15 "${WAIT_PIDS[@]}"
+
+    wait "${WAIT_PIDS[@]}"
+    bashio::log.debug "Done."
+}
+trap "stop_addon" SIGTERM SIGHUP
+
+# Start SSH server
 bashio::log.info "Starting SSH daemon..."
-exec /usr/sbin/sshd -D -e < /dev/null
+/usr/sbin/sshd -D -e < /dev/null &
+WAIT_PIDS+=($!)
+
+# Start ttyd server
+bashio::log.info "Starting Web Terminal..."
+INGRESS_PORT=$(bashio::addon.ingress_port)
+ttyd -p "${INGRESS_PORT}" tmux -u new -A -s hassio bash -l &
+WAIT_PIDS+=($!)
+
+# Wait until all is done
+bashio::log.info "SSH add-on is set up and running!"
+wait "${WAIT_PIDS[@]}"

@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.0
+
+- Add support for a web-based terminal via Ingress
+- Upgrade Alpine Linux to 3.11
+- Improve Hass.io API token handling
+
 ## 7.1
 
 - Update Hass.io CLI to 3.1.1

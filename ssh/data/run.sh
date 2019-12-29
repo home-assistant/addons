@@ -96,6 +96,7 @@ WAIT_PIDS+=($!)
 
 # Start ttyd server
 bashio::log.info "Starting Web Terminal..."
+cd /root
 ttyd -p 8099 tmux -u new -A -s hassio bash -l &
 WAIT_PIDS+=($!)
 

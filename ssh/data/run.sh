@@ -78,8 +78,7 @@ WAIT_PIDS+=($!)
 
 # Start ttyd server
 bashio::log.info "Starting Web Terminal..."
-INGRESS_PORT=$(bashio::addon.ingress_port)
-ttyd -p "${INGRESS_PORT}" tmux -u new -A -s hassio bash -l &
+ttyd -p 8099 tmux -u new -A -s hassio bash -l &
 WAIT_PIDS+=($!)
 
 # Wait until all is done

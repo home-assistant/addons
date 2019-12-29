@@ -7,7 +7,6 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "ingress": true,
-  "ingress_port": 0,
   "panel_icon": "mdi:console",
   "panel_title": "Terminal",
   "boot": "auto",

@@ -49,13 +49,15 @@ touch /data/.bash_history
 chmod 600 /data/.bash_history
 ln -s -f /data/.bash_history /root/.bash_history
 
-# Persist .bash_profile by redirecting .bash_profile to /data
+# Make Hass.io TOKEN available on the CLI
+echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" >> /etc/profile.d/hassio.sh
+
+# Remove old HASSIO_TOKEN from bash profile (if exists)
 if bashio::fs.file_exists /data/.bash_profile; then
-  sed -i "s/export HASSIO_TOKEN=.*/export HASSIO_TOKEN=${HASSIO_TOKEN}/" /data/.bash_profile
-else
-  echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" > /data/.bash_profile
+  sed -i "/export HASSIO_TOKEN=.*/d" /data/.bash_profile
 fi
 
+# Persist .bash_profile by redirecting .bash_profile to /data
 chmod 600 /data/.bash_profile
 ln -s -f /data/.bash_profile /root/.bash_profile
 

@@ -5,6 +5,8 @@
 - Add support for a web-based terminal via Ingress
 - Upgrade Alpine Linux to 3.11
 - Improve Hass.io API token handling
+- Persist .ssh folder across restarts
+- Add helper symlink folders to user home folder
 
 ## 7.1
 

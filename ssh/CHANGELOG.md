@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.1
+
+- Fix for non existing .bash_profile startup error
+- Add current, short, path to command line prompt
+
 ## 8.0
 
 - Add support for a web-based terminal via Ingress

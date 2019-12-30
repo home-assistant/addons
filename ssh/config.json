@@ -1,6 +1,6 @@
 {
   "name": "SSH server",
-  "version": "8.0",
+  "version": "8.1",
   "slug": "ssh",
   "description": "Allows connections over SSH",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/ssh",

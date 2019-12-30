@@ -58,6 +58,7 @@ if bashio::fs.file_exists /data/.bash_profile; then
 fi
 
 # Persist .bash_profile by redirecting .bash_profile to /data
+touch /data/.bash_profile
 chmod 600 /data/.bash_profile
 ln -s -f /data/.bash_profile /root/.bash_profile
 

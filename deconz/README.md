@@ -32,10 +32,14 @@ The add-on needs to know where your ConBee/RaspBee can be found, and therefore,
 you'll need to configure the add-on to point to the right device.
 
 If you're using Hass.io you may find the correct value for this on the
-`Hass.io -> System -> Host system -> Hardware` page.
+`Hass.io -> System -> Host system -> Hardware` page. It is recommended
+to use a "by-id" path to the device if one exists, as it is not subject to
+change if other devices are added to the system.
 
 1. Replace `null` in the `device` option in the add-on configuration and specify
-   the device name in quotes: (e.g. `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`).
+   the device name in quotes: e.g. something like
+   `"/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_XXXXXXXX-if00"`,
+   `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
 2. Click on "SAVE" to save the add-on configuration.
 3. Toggle the "Show in sidebar" to add it to your Home Assistant side bar.
 4. Start the add-on.
@@ -156,10 +160,13 @@ Add-on configuration:
 The device address of your ConBee/RaspBee.
 
 If you're using Hass.io you may find the correct value for this on the
-`Hass.io -> System -> Host system -> Hardware` page.
+`Hass.io -> System -> Host system -> Hardware` page. It is recommended
+to use a "by-id" path to the device if one exists, as it is not subject to
+change if other devices are added to the system.
 
-In most cases this is one of the following:
+In most cases this looks like one of the following:
 
+- `"/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_XXXXXXXX-if00"` (and similar for RaspBee and the original ConBee, replace `XXXXXXXX` with the value you see in your above mentioned hardware page)
 - `"/dev/ttyUSB0"`
 - `"/dev/ttyAMA0"`
 - `"/dev/ttyACM0"`

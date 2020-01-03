@@ -1,6 +1,6 @@
 # Hass.io Core Add-on: deCONZ
 
-Control a ZigBee network using ConBee or RaspBee hardware by Dresden Elektronik.
+Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
@@ -67,12 +67,12 @@ Phoscon WebUI, then restore that config after installing/reinstalling.
 
 **_You must perform these steps or your Light, Group names and other data will be lost!_**
 
-However, your ZigBee devices will still paired to your ConBee or RaspBee hardware.
+However, your Zigbee devices will still paired to your ConBee or RaspBee hardware.
 
 ## Accessing the deCONZ application and viewing the mesh via VNC
 
 The add-on allows you to access the underlying deCONZ application running on
-a remote desktop via VNC. It allows you to view the ZigBee mesh (which can
+a remote desktop via VNC. It allows you to view the Zigbee mesh (which can
 be really helpful when debugging network issues), but also gives you access
 to tons of advanced features.
 

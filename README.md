@@ -31,7 +31,7 @@ systems that have installed Hass.io.
 
 - **[deCONZ](/deconz/README.md)**
 
-    Control a ZigBee network using ConBee or RaspBee hardware by Dresden Elektronik.
+    Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.
 
 - **[DHCP server](/dhcp_server/README.md)**
 

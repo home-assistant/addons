@@ -49,7 +49,8 @@ Add-on configuration:
     "default": "nginx_proxy_default*.conf",
     "servers": "nginx_proxy/*.conf"
   },
-  "cloudflare": false
+  "cloudflare": false,
+  "listen_ipv6": true
 }
 ```
 
@@ -86,9 +87,15 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
 
+### Option `listen_ipv6` (optional)
+
+If enabled, configure Nginx to listen on both IPv6 and IPv4. Default: Enabled
+
 ## Known issues and limitations
 
 - By default, port 80 is disabled in the add-on configuration in case the port is needed for other components or add-ons like `emulated_hue`.
+
+- Even with proper "trusted_proxies" configuration, Home Assistant may show an IP Ban/Notification that looks like an IPv6 Address. This is actually a translated IPv4 to IPv6 address. To change this functionality, set the `listen_ipv6` flag to false. This will prevent Nginx from listening to IPv6 and will translate addresses properly.
 
 ## Support
 

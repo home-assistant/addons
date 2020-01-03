@@ -84,10 +84,13 @@ To enable it:
 - Set a VNC password in the add-on configuration and hit "SAVE".
 - Restart the add-on.
 
-To access it, you need a [VNC Viewer][vnc-viewer] application.
+To access it, you need a [VNC Viewer][vnc-viewer] application. If you are using
+macOS, you are in luck, since VNC is built-in. Open the spotlight search and
+enter the VNC service URL.
 
-If you are using macOS, you are in luck, since VNC is built-in. Open the
-spotlight search and enter: `vnc://hassio.local:5900`
+The VNC service URL looks like [vnc://hassio.local:5900](vnc-service-url).
+Adjust port and possibly hostname if you've changed it in Hass.io host system
+settings.
 
 ## Upgrading RaspBee and ConBee firmware
 
@@ -246,3 +249,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [manual-upgrade]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually
 [reddit]: https://reddit.com/r/homeassistant
 [vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/
+[vnc-service-url]: vnc://hassio.local:5900

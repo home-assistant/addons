@@ -36,7 +36,7 @@
     "git_command": "match(pull|reset)",
     "git_remote": "str",
     "git_prune": "bool",
-    "repository": "match((?:.+):(//)?(.*?)(\\.git)(/?|\\#[-\\d\\w._]+?))",
+    "repository": "match((?:.+):(//)?(.*?)(\\)(/?|\\#[-\\d\\w._]+?))",
     "auto_restart": "bool",
     "restart_ignore": ["str"],
     "repeat": {

@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.8
+
+- Added support for Azure DevOps repositories by removing the requirement for the `.git` suffix
+
 ## 7.7
 
 - Update Hass.io CLI to 3.1.1

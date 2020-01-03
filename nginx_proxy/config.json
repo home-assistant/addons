@@ -18,6 +18,7 @@
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
     "cloudflare": false,
+    "listen_ipv6": true,
     "customize": {
       "active": false,
       "default": "nginx_proxy_default*.conf",
@@ -30,6 +31,7 @@
     "keyfile": "str",
     "hsts": "str",
     "cloudflare": "bool",
+    "listen_ipv6": "bool",
     "customize": {
       "active": "bool",
       "default": "str",

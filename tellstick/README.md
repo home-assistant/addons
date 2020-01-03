@@ -185,7 +185,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[conf]: https://developer.telldus.com/wiki/TellStick_conf
+[conf]: http://developer.telldus.com/wiki/TellStick_conf
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg

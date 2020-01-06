@@ -33,10 +33,10 @@
     "deployment_user": "str",
     "deployment_password": "str",
     "git_branch": "str",
-    "git_command": "match(pull|reset)",
+    "git_command": "list(pull|reset)",
     "git_remote": "str",
     "git_prune": "bool",
-    "repository": "match((?:.+):(//)?(.*?)(/?|\\#[-\\d\\w._]+?))",
+    "repository": "str",
     "auto_restart": "bool",
     "restart_ignore": ["str"],
     "repeat": {

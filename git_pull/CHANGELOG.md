@@ -3,6 +3,7 @@
 ## 7.8
 
 - Added support for Azure DevOps repositories by removing the requirement for the `.git` suffix
+- Update to Alpine 3.11
 
 ## 7.7
 

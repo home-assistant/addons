@@ -98,7 +98,7 @@ Branch name of the Git repo. If left empty, the currently checked out branch wil
 
 ### Option: `repository` (required)
 
-Git URL to your repository (make sure to use double quotes). You have to add `.git` to your repository URL (see example configuration).
+Git URL to your repository (make sure to use double quotes).
 
 ### Option: `auto_restart` (required)
 

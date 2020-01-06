@@ -2,7 +2,7 @@
 
 ## 5.1
 
-- Add LEDVANCE / OSRAM otau firmware downloader, respecting 10 DL/max Ratelimits
+- Add LEDVANCE / OSRAM otau firmware downloader, respecting max 10 DL per minute Ratelimits
 
 ## 5.0
 

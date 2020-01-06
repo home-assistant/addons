@@ -56,6 +56,7 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
 COPY data/ika-otau-dl.sh /bin/
+COPY data/ledvance-otau-dl.sh /bin/
 COPY data/nginx.conf /etc/nginx/nginx.conf
 COPY data/run.sh data/discovery.sh /
 

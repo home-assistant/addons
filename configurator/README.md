@@ -83,9 +83,7 @@ A list of filenames containing SSH private keys. These can be used to allow for 
 
 ## Known issues and limitations
 
-- This add-on is, by default, configured for use with Hass.io Ingress. If you
-  wish to access the add-on via its own port directly, you can do so, by
-  assign a port in the "Network" section of the add-on setting page.
+- This add-on can only be used via Ingress and has no direct access.
 
 ## Support
 

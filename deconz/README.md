@@ -200,7 +200,7 @@ This can be solved by the following steps:
 7. Restart the add-on and next, restart Home Assistant once more.
 8. Follow the instructions on [setting up the deCONZ integration](#configuring-the-home-assistant-deconz-integration).
 
-### My integration shows now devices after upgrading to 4.x
+### My integration shows no devices after upgrading to 4.x
 
 _Please, be sure you don't have the issue with gateway ID 0000000000000000._
 

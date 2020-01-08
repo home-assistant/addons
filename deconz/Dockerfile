@@ -60,4 +60,5 @@ COPY data/ledvance-otau-dl.sh /bin/
 COPY data/nginx.conf /etc/nginx/nginx.conf
 COPY data/run.sh data/discovery.sh /
 
+CMD ["/bin/chmod a+x /bin/ledvance-otau-dl.sh"]
 CMD ["/run.sh"]

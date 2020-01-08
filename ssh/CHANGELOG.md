@@ -1,5 +1,26 @@
 # Changelog
 
+## 8.1
+
+- Fix for non existing .bash_profile startup error
+- Add current, short, path to command line prompt
+
+## 8.0
+
+- Add support for a web-based terminal via Ingress
+- Upgrade Alpine Linux to 3.11
+- Improve Hass.io API token handling
+- Persist .ssh folder across restarts
+- Add helper symlink folders to user home folder
+
+## 7.1
+
+- Update Hass.io CLI to 3.1.1
+
+## 7.0
+
+- Added bash_profile as a persistent file
+
 ## 6.4
 
 - Changed logging from DEBUG -> INFO

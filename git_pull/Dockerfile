@@ -7,11 +7,11 @@ RUN apk add --no-cache jq curl git openssh-client
 # Hass.io CLI
 ARG BUILD_ARCH
 ARG CLI_VERSION
-RUN apk add --no-cache curl \
-    && curl -Lso /usr/bin/hassio https://github.com/home-assistant/hassio-cli/releases/download/${CLI_VERSION}/hassio_${BUILD_ARCH} \
+RUN curl -Lso /usr/bin/hassio \
+        "https://github.com/home-assistant/hassio-cli/releases/download/${CLI_VERSION}/hassio_${BUILD_ARCH}" \
     && chmod a+x /usr/bin/hassio
 
 # Copy data
-COPY run.sh /
+COPY data/run.sh /
 
 CMD [ "/run.sh" ]

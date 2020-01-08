@@ -13,7 +13,7 @@ The generated certificate can be used within others addons.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "letsencrypt" add-on and click it.
@@ -23,26 +23,28 @@ The installation of this add-on is straightforward and easy to do.
 
 To use this add-on, you have two options on how to get your certificate:
 
-1. http challenge
-- Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
-- Doesnt allow wildcard certificates (*.yourdomain.com).
+1. http challenge:
+   - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
+   - Doesnt allow wildcard certificates (*.yourdomain.com).
 
 2. dns challenge
-- Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
-- Allows to request wildcard certificates (*.yourdomain.com)
-- Doesn’t need you to open a port to your hass.io host on your router.
+   - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
+   - Allows to request wildcard certificates (*.yourdomain.com)
+   - Doesn’t need you to open a port to your hass.io host on your router.
 
 You always need to provide the following entries within the configuration:
 
 ```json
   "email": "your@email.com"
-  "domains": "yourdomain.com" /// in case of requesting a wildcard certificate, add "*.yourdomain.com".
+  "domains": "yourdomain.com" // use "*.yourdomain.com" for wildcard certificates.
   "challenge": "http OR dns"
 ```
 
 IF you choose "dns" as "challenge", you will also need to fill:
+
 ```json
   "dnsprovider": "" (Add the dnsprovider of your choice from the list of "Supported DNS providers" below)
+```
 
 In addition add the fields according to the credentials required by your dns provider:
 
@@ -95,6 +97,7 @@ Add-on configuration:
   }
 }
 ```
+
 ## Supported DNS providers
 
 ```json

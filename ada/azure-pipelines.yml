@@ -3,20 +3,19 @@
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - ada/*
+      - ada/*
 pr: none
 
 variables:
   - name: versionBuilder
-    value: '2.0'
+    value: "2.0"
   - group: docker
 
-
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'ada'
-    arch: '--amd64 --armv7 --armhf'
+  - template: /.azure/azp-template-addon.yml
+    parameters:
+      addon: "ada"
+      arch: "--amd64 --armv7 --armhf"

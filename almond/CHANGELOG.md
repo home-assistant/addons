@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7
+
+- Change startup type to Application
+
+## 0.6
+
+- Fix issue with restart / Hass.io token handling
+
+## 0.5
+
+- Update Almond to 1.7.1
+
 ## 0.4
 
 - Update Almond to 1.7.0

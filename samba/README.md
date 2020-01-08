@@ -1,17 +1,17 @@
 # Hass.io Core Add-on: Samba share
 
-Share your configuration over the network
+Share your configuration over the network using Windows file sharing.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
 ## About
 
-This Add-on allows you to enable file sharing across different operating systems over a network. 
-It lets you acess your config files with Windows and macOS devices.
+This Add-on allows you to enable file sharing across different operating systems over a network.
+It lets you access your config files with Windows and macOS devices.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Samba share" add-on and click it.
@@ -53,21 +53,27 @@ Change WORKGROUP to reflect your network needs.
 
 ### Option: `username` (required)
 
+The username you would like to use to authenticate with the Samba server.
 
 ### Option: `password` (required)
 
+The password that goes with the username configured for authentication.
 
 ### Option: `interface` (required)
+
+The network interface Samba should listen on for incoming connections.
+This option should only be used in advanced cases. In general, setting this
+option is not needed.
+
 ### Option: `allow_hosts` (required)
 
-List of hosts/networks allowed to access your configuration. 
+List of hosts/networks allowed to access the shared folders.
 
 ### Option: `veto_files` (optional)
 
-List of files that are neither visible nor accessible. Useful to stop clients from littering the share with temporary hidden files (ex: macOS .DS_Store, Windows Thumbs.db)
-
-## Known issues and limitations
-
+List of files that are neither visible nor accessible. Useful to stop clients
+from littering the share with temporary hidden files
+(e.g., macOS `.DS_Store` or Windows `Thumbs.db` files)
 
 ## Support
 

@@ -2,16 +2,21 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 # Install Alomond requirements
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
         software-properties-common \
         gnupg \
         nginx \
         unzip \
     \
-    && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
+    && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key \
+        | apt-key add - \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg \
+        | apt-key add - \
+    && echo "deb https://deb.nodesource.com/node_12.x buster main" \
+        > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" \
+        > /etc/apt/sources.list.d/yarn.list \
     \
     && apt-get update && apt-get install -y --no-install-recommends \
         nodejs \
@@ -22,12 +27,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Almond
 ARG ALMOND_VERSION
 WORKDIR /opt/almond
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
         git \
         python-dev \
         build-essential \
     \
-    && git clone -b ${ALMOND_VERSION} --depth 1 https://github.com/stanford-oval/almond-server . \
+    && git clone -b "${ALMOND_VERSION}" --depth 1 \
+        "https://github.com/stanford-oval/almond-server" . \
     && rm -fr .git \
     && yarn \
     \
@@ -35,8 +42,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         python-dev \
         build-essential \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -fr /root/.cache
+    && rm -rf \
+        /var/lib/apt/lists/* \
+        /root/.cache
 
 # Base env settings
 ENV LANG=en_US.utf8

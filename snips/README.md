@@ -3,6 +3,7 @@
 Support for Snips.ai voice assistant.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
+
 ## About
 
 Snips.ai is an AI-powered voice assistant that runs on the Raspberry Pi 3 and x86 platforms.
@@ -10,7 +11,7 @@ In contrast to Google Assistant or Amazon Alexa, it runs on-device and is privat
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Snips.AI" add-on and click it.
@@ -62,7 +63,7 @@ This is used to select the default custom assistant. Currently, `en`, `de` and `
 ### Option group `custom_tts`
 
 Specifies whether a custom tts should be used. And if so,
-which custom tts. 
+which custom tts.
 
 #### Option `custom_tts.active`
 

@@ -1,42 +1,37 @@
 {
   "name": "deCONZ",
-  "version": "3.7",
+  "version": "5.0",
   "slug": "deconz",
-  "description": "Control a ZigBee network with ConBee or RaspBee by Dresden Elektronik",
+  "description": "Control a Zigbee network with ConBee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf", "aarch64"],
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/deconz",
   "startup": "system",
   "boot": "auto",
+  "ingress": true,
+  "ingress_entry": "pwa/index.html",
+  "panel_icon": "mdi:zigbee",
   "homeassistant": "0.91.2",
-  "webui": "http://[HOST]:[PORT:80]/pwa/index.html",
   "discovery": ["deconz"],
   "ports": {
-    "80/tcp": 40850,
     "5900/tcp": null,
-    "8080/tcp": 40860
+    "8081/tcp": null,
+    "40850/tcp": null
   },
   "ports_description": {
-    "80/tcp": "deCONZ API backend",
     "5900/tcp": "deCONZ graphical desktop via VNC",
-    "8080/tcp": "deCONZ WebSocket Server"
+    "8081/tcp": "deCONZ WebSocket (Not required for Hass.io Ingress)",
+    "40850/tcp": "deCONZ API backend (Not required for Hass.io Ingress)"
   },
-  "host_network": true,
   "kernel_modules": true,
   "auto_uart": true,
   "udev": true,
   "gpio": true,
   "apparmor": false,
-  "privileged": [
-    "SYS_MODULE",
-    "SYS_RAWIO"
-  ],
-  "devices": [
-    "/dev/bus/usb:/dev/bus/usb:rwm",
-    "/dev/mem:/dev/mem:rw"
-  ],
+  "privileged": ["SYS_MODULE", "SYS_RAWIO"],
+  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "options": {
-   "device": null,
-   "vnc_password": ""
+    "device": null,
+    "vnc_password": ""
   },
   "schema": {
     "device": "str",

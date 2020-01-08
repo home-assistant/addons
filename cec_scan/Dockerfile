@@ -45,7 +45,7 @@ RUN \
 ENV LD_LIBRARY_PATH=/opt/vc/lib:${LD_LIBRARY_PATH}
 
 # Copy data
-COPY run.sh /
+COPY data/run.sh /
 
 WORKDIR /
 CMD [ "/run.sh" ]

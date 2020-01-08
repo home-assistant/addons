@@ -3,53 +3,27 @@
   "version": "9.0",
   "slug": "samba",
   "description": "Expose Hass.io folders with SMB/CIFS",
-  "url": "https://home-assistant.io/addons/samba/",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/samba",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
   "host_network": true,
-  "map": [
-    "config:rw",
-    "ssl:rw",
-    "addons:rw",
-    "share:rw",
-    "backup:rw"
-  ],
+  "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {
     "workgroup": "WORKGROUP",
     "username": "hassio",
     "password": null,
     "interface": "",
-    "allow_hosts": [
-      "10.0.0.0/8",
-      "172.16.0.0/12",
-      "192.168.0.0/16"
-    ],
-    "veto_files": [
-      "._*",
-      ".DS_Store",
-      "Thumbs.db",
-      "icon?",
-      ".Trashes"
-    ]
+    "allow_hosts": ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"],
+    "veto_files": ["._*", ".DS_Store", "Thumbs.db", "icon?", ".Trashes"]
   },
   "schema": {
     "workgroup": "str",
     "username": "str",
     "password": "str",
     "interface": "str",
-    "allow_hosts": [
-      "str"
-    ],
-    "veto_files": [
-      "str"
-    ]
+    "allow_hosts": ["str"],
+    "veto_files": ["str"]
   },
   "image": "homeassistant/{arch}-addon-samba"
 }

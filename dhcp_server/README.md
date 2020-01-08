@@ -12,7 +12,7 @@ to ensure they always get assigned the same IP address.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "DHCP server" add-on and click it.
@@ -64,8 +64,8 @@ Your network domain name, e.g., `mynetwork.local` or `home.local`
 
 ### Option: `dns` (required)
 
-The DNS servers you DHCP server gives to your clients. This option can
-contain a list of servers. By default it is configured to have Google's
+The DNS servers your DHCP server gives to your clients. This option can
+contain a list of servers. By default, it is configured to have Google's
 public DNS servers: `"8.8.8.8", "8.8.4.4".
 
 ### Option: `default_lease` (required)
@@ -86,37 +86,37 @@ to hand out IP addresses for.
 At least one network definition in your configuration is required for the
 DHCP server to work.
 
-#### Option: `networks` -> `subnet`
+#### Option: `networks.subnet`
 
 Your network schema/subnet. For example, if your IP addresses are `192.168.1.x`
 the subnet becomes `192.168.1.0`.
 
-#### Option: `networks` -> `netmask`
+#### Option: `networks.netmask`
 
 Your network netmask. For example, if your IP addresses are `192.168.1.x` the
 netmask becomes `255.255.255.0`.
 
-#### Option: `networks` -> `range_start`
+#### Option: `networks.range_start`
 
 Defines the start IP address for the DHCP server to lease IPs for.
 Use this together with the `range_end` option to define the range of IP
 addresses the DHCP server operates in.
 
-#### Option: `networks` -> `range_end`
+#### Option: `networks.range_end`
 
 Defines the end IP address for the DHCP server to lease IPs for.
 
-#### Option: `networks` -> `broadcast`
+#### Option: `networks.broadcast`
 
 The broadcast address specific to the lease range. For example, if your
 IP addresses are `192.168.1.x`, the broadcast address is usually `192.168.1.255`.
 
-#### Option: `networks` -> `gateway`
+#### Option: `networks.gateway`
 
 Sets the gateway address for that the DHCP server hands out to its clients.
 This is usually the IP address of your router.
 
-#### Option: `networks` -> `interface`
+#### Option: `networks.interface`
 
 The network interface to listen to for this network, e.g., `eth0`.
 
@@ -128,15 +128,15 @@ It allows you to fix a host to a specific IP address.
 
 By default, non are configured.
 
-#### Option: `hosts` -> `name`
+#### Option: `hosts.name`
 
 The name of the hostname you'd like to fix an address for.
 
-#### Option: `hosts` -> `mac`
+#### Option: `hosts.mac`
 
 The MAC address of the client device.
 
-#### Option: `hosts` -> `ip`
+#### Option: `hosts.ip`
 
 The IP address you want the DHCP server to assign.
 

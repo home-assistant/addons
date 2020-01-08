@@ -11,7 +11,7 @@ repository.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Git pull" add-on and click it.
@@ -98,7 +98,7 @@ Branch name of the Git repo. If left empty, the currently checked out branch wil
 
 ### Option: `repository` (required)
 
-Git URL to your repository (make sure to use double quotes). You have to add `.git` to your repository URL (see example configuration).
+Git URL to your repository (make sure to use double quotes).
 
 ### Option: `auto_restart` (required)
 
@@ -135,10 +135,11 @@ A private SSH key that will be used for communication during Git operations. Thi
 ### Option: `deployment_key_protocol` (optional)
 
 The key protocol. Default is `rsa`. Valid protocols are:
-  - dsa
-  - ecdsa
-  - ed25519
-  - rsa
+
+- dsa
+- ecdsa
+- ed25519
+- rsa
 
 The protocol is typically known by the suffix of the private key --e.g., a key file named `id_rsa` will be a private key using `rsa` protocol.
 

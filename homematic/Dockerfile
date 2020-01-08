@@ -6,8 +6,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install packages
 RUN apt-get update \
+    && mkdir -p /usr/share/man/man1 \
     && apt-get install -y --no-install-recommends \
-        curl \
         libusb-1.0 \
         lighttpd \
         openjdk-11-jre-headless \
@@ -20,21 +20,23 @@ ARG BUILD_ARCH
 WORKDIR /usr/src
 RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | tar xzf - \
     && cd occu-${OCCU_VERSION} \
-    && mkdir -p /opt/hm \
-    && mkdir -p /opt/hm/etc/config \
-    && mkdir -p /opt/HmIP \
-    && mkdir -p /opt/HMServer \
-    && mkdir -p /var/status \
-    && mkdir -p /boot \
+    && mkdir -p \
+        /boot \
+        /opt/hm \
+        /opt/hm/etc/config \
+        /opt/HmIP \
+        /opt/HMServer \
+        /var/status \
     \
     && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
+    && cp /boot/VERSION /VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
     \
     && if [ "${BUILD_ARCH}" = "armv7" ]; \
         then \
-            cd arm-gnueabihf; \
+            cd arm-gnueabihf-gcc8; \
         else \
-            cd X86_32_Debian_Wheezy; \
+            cd X86_32_GCC8; \
         fi \
     \
     && cp -R packages-eQ-3/RFD/bin /opt/hm/ \
@@ -43,22 +45,24 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R packages-eQ-3/LinuxBasis/lib /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/bin /opt/hm/ \
     && cp -R packages-eQ-3/HS485D/lib /opt/hm/ \
-    && rm -f packages-eQ-3/WebUI/bin/ReGa* \
+    \
     && cp -R packages-eQ-3/WebUI/bin /opt/hm/ \
     && cp -R packages-eQ-3/WebUI/lib /opt/hm/ \
     && rm -rf packages-eQ-3/WebUI/etc/config* packages-eQ-3/WebUI/ect/rega.conf \
+    && mv /opt/hm/bin/ReGaHss.normal /opt/hm/bin/ReGaHss \
+    && rm -f /opt/hm/bin/ReGaHss.* \
     && cp -R packages-eQ-3/WebUI/etc/* /opt/hm/etc/ \
-    && cp -R packages-eQ-3/WebUI-Beta/bin /opt/hm/ \
-    && rm -f packages/lighttpd/etc/lighttpd/lighttpd_ssl.conf \
     && cp -R packages/lighttpd/etc/lighttpd /opt/hm/etc/ \
-    && cd ../ \
+    && sed -i "s|/etc/lighttpd/||" /opt/hm/etc/lighttpd/conf.d/proxy.conf \
     \
+    && cd ../ \
     && cp -r firmware / \
     && cp -R HMserver/opt/HmIP/* /opt/HmIP/ \
     && cp -a HMserver/opt/HMServer/*.jar /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
+    \
     && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${OCCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \

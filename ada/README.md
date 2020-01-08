@@ -8,17 +8,19 @@ Home Assistant featured voice assist.
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
-2. Find the "Almond" add-on and click it.
+2. Find the "Hey Ada!" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
 The basic thing to get the add-on running would be:
 
-1. Start the add-on.
+1. Select input and output audio device to use in the "Audio" configuration
+   section of the add-on configuration.
+2. Start the add-on.
 
 ## Configuration
 
@@ -26,8 +28,26 @@ Example add-on configuration:
 
 ```json
 {
+  "stt": "cloud",
+  "tts": "cloud"
 }
 ```
+
+### Option: `stt` (required)
+
+The Home Assistant STT (Speech-to-Text) integration to use when converting
+detected audio to text for Almond to process.
+
+Please note, this STT integration has to be configured and active in
+Home Assistant before using it with this add-on!
+
+### Option: `tts` (required)
+
+The Home Assistant TTS (Text-to-Speech) integration to use when converting
+the response from Almond back to audio.
+
+Please note, this TTS integration has to be configured and active in
+Home Assistant before using it with this add-on!
 
 ## Support
 

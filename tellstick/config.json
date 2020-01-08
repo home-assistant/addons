@@ -4,19 +4,11 @@
   "slug": "tellstick",
   "description": "TellStick and TellStick Duo service",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/tellstick",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "stdin": true,
   "boot": "auto",
-  "devices": [
-    "/dev/bus/usb:/dev/bus/usb:rwm"
-  ],
+  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm"],
   "options": {
     "devices": [
       {

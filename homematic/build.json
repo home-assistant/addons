@@ -1,9 +1,9 @@
 {
   "build_from": {
-    "armv7": "homeassistant/armv7-base-ubuntu:18.04",
-    "i386": "homeassistant/i386-base-ubuntu:18.04"
+    "armv7": "homeassistant/armv7-base-debian:buster",
+    "i386": "homeassistant/i386-base-debian:buster"
   },
   "args": {
-    "OCCU_VERSION": "3.47.22-3"
+    "OCCU_VERSION": "3.49.17-4"
   }
 }

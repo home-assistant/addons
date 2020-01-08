@@ -1,5 +1,27 @@
 # Changelog
 
+## 9.6
+
+- Update OCCU to 3.49.17-4
+- Use new gcc8 binary for i386
+- Change ReGaHass to normal version
+
+## 9.5
+
+- Fix ReGaHss binary
+
+## 9.4
+
+- Update OCCU to 3.49.17-2
+- Use new gcc8 binary for armhf
+- Don't use ReGaHss-beta
+
+## 9.3
+
+- Update from bash to bashio
+- Use debian as base image
+- Fix config for group settings
+
 ## 9.2
 
 - Update OCCU to 3.47.22-3

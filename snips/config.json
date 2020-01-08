@@ -1,9 +1,9 @@
 {
   "name": "Snips.AI",
-  "version": "6.0",
+  "version": "6.1",
   "slug": "snips",
   "description": "Local voice control platform",
-  "url": "https://home-assistant.io/addons/snips/",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/snips",
   "arch": ["armhf", "amd64"],
   "startup": "application",
   "boot": "auto",

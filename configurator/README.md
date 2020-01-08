@@ -10,7 +10,7 @@ Browser-based configuration file editor for Home Assistant.
 
 The Configurator is a small web-app (you access it via web browser) that provides a
 filesystem-browser and text-editor to modify files on the machine the Configurator is
-running on. It has been created to allow easy configuration of Home Assistant.
+running on. It has been created to allow configuration of Home Assistant.
 
 It is powered by Ace editor, which supports syntax highlighting for various
 code/markup languages. YAML files (the default language for Home Assistant
@@ -32,7 +32,7 @@ configuration files) will be automatically checked for syntax errors while editi
 
 ## Installation
 
-The installation of this add-on is straightforward and easy to do.
+Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
 2. Find the "Configurator" add-on and click it.
@@ -83,9 +83,7 @@ A list of filenames containing SSH private keys. These can be used to allow for 
 
 ## Known issues and limitations
 
-- This add-on is, by default, configured for use with Hass.io Ingress. If you
-  wish to access the add-on via its own port directly, you can simply
-  assign a port in the "Network" section of the add-on setting page.
+- This add-on can only be used via Ingress and has no direct access.
 
 ## Support
 

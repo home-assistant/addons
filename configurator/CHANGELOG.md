@@ -1,5 +1,27 @@
 # Changelog
 
+## 4.2
+
+- Fixes an issue with the dirs first option
+
+## 4.1
+
+- Fixes an issue with the enforce base path option
+- Enforce secure base path by default
+
+## 4.0
+
+- Removed direct access from the add-on, making the add-on Ingress only
+- Extended list of default ignored patterns
+- Simplified add-on code
+
+## 3.7
+
+- Rename files via UI
+- Disable browser-autocomplete on searchbox
+- Add file history button
+- Update Ace Editor to 1.4.7
+
 ## 3.6
 
 - UI Fix

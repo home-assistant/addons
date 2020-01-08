@@ -61,4 +61,3 @@ COPY data/nginx.conf /etc/nginx/nginx.conf
 COPY data/run.sh data/discovery.sh /
 
 CMD ["/run.sh"]
-# Dummy commit

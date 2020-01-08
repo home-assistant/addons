@@ -31,7 +31,7 @@ do
         fi
         curl -s -L -o "${OTAU_FILE}" "${OTAU_URL}"
         ((DL_DONE++))
-        if [ $(expr $DL_DONE % 10) == 0 ]; then
+        if [ "$(($DL_DONE % 10))" == "0" ]; then
           # LEDVANCE/OSRAM API RateLimits : The rate limit 10 calls per 60 seconds or quota 100 MB per month.
           DL_DONE=0
         	sleep 65

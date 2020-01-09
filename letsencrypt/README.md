@@ -23,20 +23,20 @@ Follow these steps to get the add-on installed on your system:
 
 To use this add-on, you have two options on how to get your certificate:
 
-1. http challenge:
+### 1. http challenge:
    - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
    - Doesnt allow wildcard certificates (*.yourdomain.com).
 
-2. dns challenge
+### 2. dns challenge
    - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
    - Allows to request wildcard certificates (*.yourdomain.com)
    - Doesn’t need you to open a port to your hass.io host on your router.
 
-You always need to provide the following entries within the configuration:
+### You always need to provide the following entries within the configuration:
 
 ```json
   "email": "your@email.com"
-  "domains": "yourdomain.com" // use "*.yourdomain.com" for wildcard certificates.
+  "domains": ["yourdomain.com"] // use "*.yourdomain.com" for wildcard certificates.
   "challenge": "http OR dns"
 ```
 
@@ -57,6 +57,7 @@ In addition add the fields according to the credentials required by your dns pro
 "dnsimple_token": "",
 "dnsmadeeasy_api_key": "",
 "dnsmadeeasy_secret_key": "",
+"google_creds": "", (Credentials file)
 "gehirn_api_token": "",
 "gehirn_api_secret": "",
 "linode_key": "",
@@ -79,16 +80,34 @@ In addition add the fields according to the credentials required by your dns pro
 "sakuracloud_api_secret": ""
 ```
 
-## Configuration
+## Example Configurations
 
-Add-on configuration:
 
+### http challenge:
 ```json
 {
   "email": "hello@home-assistant.io",
   "domains": [
     "home-assistant.io"
   ],
+  "certfile": "fullchain.pem",
+  "keyfile": "privkey.pem",
+  "challenge": "http",
+  "dns": {
+    }
+}
+```
+
+
+### dns challenge:
+```json
+{
+  "email": "hello@home-assistant.io",
+  "domains": [
+    "home-assistant.io"
+  ],
+  "certfile": "fullchain.pem",
+  "keyfile": "privkey.pem",
   "challenge": "dns",
   "dns": {
     "provider": "dns-cloudflare",
@@ -97,6 +116,29 @@ Add-on configuration:
   }
 }
 ```
+
+
+### google dns challenge:
+```json
+{
+  "email": "hello@home-assistant.io",
+  "domains": [
+    "home-assistant.io"
+  ],
+  "certfile": "fullchain.pem",
+  "keyfile": "privkey.pem",
+  "challenge": "dns",
+  "dns": {
+    "provider": "dns-google",
+    "google_creds": "google.json"
+  }
+}
+```
+Please copy your the credentials file "google.json" into the "ssl" shared folder on the hass.io host before starting the service. For example you can use the "Samba" add on to do so.
+The credential file can be created and downloaded when creating the service user within the Google cloud.
+You can find additional information in regards to the required permissions in the "credentials" section here:
+https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py
+
 
 ## Supported DNS providers
 
@@ -107,7 +149,7 @@ dns-digitalocean
 dns-dnsimple
 dns-dnsmadeeasy
 dns-gehirn
-dns-google (Currently not fully implemented)
+dns-google
 dns-linode
 dns-luadns
 dns-nsone
@@ -119,7 +161,6 @@ dns-sakuracloud
 
 ## Known issues and limitations
 
-- Currently the google dns provider is not supported. Let us know if you want to use google, so we can test the required settings together.
 
 ## Support
 

@@ -15,9 +15,9 @@ do
     OSRAM_DATA_SIZE="$(echo "${OSRAM_DATA}" | jq --raw-output '.firmwares | length')"
     DL_DONE=0
     for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
-        OSRAM_COMPANY=$( echo "${OSRAM_DATA})" | jq --raw-output ".firmwares[$i].identity.company  // empty" 2>/dev/null)
-        OSRAM_PRODUCT=$( echo "${OSRAM_DATA})" | jq --raw-output ".firmwares[$i].identity.product  // empty" 2>/dev/null)
-        OTAU_FILENAME=$( echo "${OSRAM_DATA})" | jq --raw-output ".firmwares[$i].name  // empty" 2>/dev/null)
+        OSRAM_COMPANY=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.company  // empty" 2>/dev/null)
+        OSRAM_PRODUCT=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.product  // empty" 2>/dev/null)
+        OTAU_FILENAME=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].name  // empty" 2>/dev/null)
         OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"
 				
         if [ -z "${OTAU_URL}" ]; then

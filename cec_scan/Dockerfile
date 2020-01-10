@@ -27,14 +27,10 @@ RUN \
         "https://github.com/Pulse-Eight/libcec" /usr/src/libcec \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \
-    && if [[ "armhf armv7 aarch64" = *"$BUILD_ARCH"* ]]; then \
-            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..; \
-        else \
-            cmake \
-                -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
-                -DRPI_INCLUDE_DIR=/opt/vc/include \
-                -DRPI_LIB_DIR=/opt/vc/lib ..; \
-        fi \
+    && cmake \
+        -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
+        -DRPI_INCLUDE_DIR=/opt/vc/include \
+        -DRPI_LIB_DIR=/opt/vc/lib ..; \
     && make -j$(nproc) \
     && make install \
     && apk del --no-cache .build-dependencies \

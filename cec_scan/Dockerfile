@@ -30,7 +30,7 @@ RUN \
     && cmake \
         -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
         -DRPI_INCLUDE_DIR=/opt/vc/include \
-        -DRPI_LIB_DIR=/opt/vc/lib ..; \
+        -DRPI_LIB_DIR=/opt/vc/lib .. \
     && make -j$(nproc) \
     && make install \
     && apk del --no-cache .build-dependencies \

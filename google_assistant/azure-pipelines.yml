@@ -3,20 +3,19 @@
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - google_assistant/*
+      - google_assistant/*
 pr: none
 
 variables:
   - name: versionBuilder
-    value: '2.0'
+    value: "2.0"
   - group: docker
 
-
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'google_assistant'
-    arch: '--armv7 --amd64'
+  - template: /.azure/azp-template-addon.yml
+    parameters:
+      addon: "google_assistant"
+      arch: "--armv7 --amd64"

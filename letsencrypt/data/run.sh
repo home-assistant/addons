@@ -13,11 +13,6 @@ else
   bashio::log.info "Selected http verification"
 fi
 
-if [[ "$EMAIL" == "hello@home-assistant.io" ]] || [[ "$DOMAINS" == "home-assistant.io" ]]; then
-  bashio::log.error "Please update the Email and Domain section with your details"
-  exit
-fi
-
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
 
@@ -71,7 +66,13 @@ elif bashio::config.exists 'dns.google_creds'; then
     GOOGLE_CREDS="$(bashio::config 'dns.google_creds')"
 
     export GOOGLE_CREDS
-    PROVIDER_ARGUMENTS=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /ssl/"$GOOGLE_CREDS")
+    if [ -f /share/"$GOOGLE_CREDS" ]; then
+      cp -f /share/"$GOOGLE_CREDS" /data/"$GOOGLE_CREDS"
+      chmod 600 /data/"$GOOGLE_CREDS"
+    else
+      bashio::log.info "Google Credentials File doesnt exists in folder share."
+    fi
+    PROVIDER_ARGUMENTS=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/"$GOOGLE_CREDS")
 #All others
 else
     PROVIDER_ARGUMENTS=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)

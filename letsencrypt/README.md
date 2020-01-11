@@ -134,7 +134,7 @@ In addition add the fields according to the credentials required by your dns pro
   }
 }
 ```
-Please copy your the credentials file "google.json" into the "ssl" shared folder on the hass.io host before starting the service. For example you can use the "Samba" add on to do so.
+Please copy your the credentials file "google.json" into the "share" shared folder on the hass.io host before starting the service. For example you can use the "Samba" add on to do so.
 The credential file can be created and downloaded when creating the service user within the Google cloud.
 You can find additional information in regards to the required permissions in the "credentials" section here:
 https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py

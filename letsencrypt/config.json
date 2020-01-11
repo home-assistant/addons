@@ -13,10 +13,10 @@
   "ports_description": {
     "80/tcp": "Only needed for http challenge"
   },
-  "map": ["ssl:rw"],
+  "map": ["ssl:rw","share"],
   "options": {
-    "email": "hello@home-assistant.io",
-    "domains": ["home-assistant.io"],
+    "email": null,
+    "domains": [null],
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "challenge": "http",

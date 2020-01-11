@@ -28,12 +28,12 @@ RUN \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \
     && if [[ "armhf armv7 aarch64" = *"$BUILD_ARCH"* ]]; then \
-            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..; \
-        else \
             cmake \
                 -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
                 -DRPI_INCLUDE_DIR=/opt/vc/include \
                 -DRPI_LIB_DIR=/opt/vc/lib ..; \
+        else \
+            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..; \
         fi \
     && make -j$(nproc) \
     && make install \

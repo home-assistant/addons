@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2
+
+- Fix a cause of "autodetect FAILED" on Raspberry Pi introduced in 2.1
+
 ## 2.1
 
 - Added README into the add-on repository

@@ -123,6 +123,10 @@ deCONZ-otau-dl.sh &> /dev/null &
 bashio::log.info "Running the IKEA OTA updater..."
 ika-otau-dl.sh &> /dev/null &
 
+# Start OTA updates for LEDVANCE/OSRAM
+bashio::log.info "Running the LEDVANCE/OSRAM OTA updater..."
+ledvance-otau-dl.sh &> /dev/null &
+
 # Wait until all is done
 bashio::log.info "deCONZ is set up and running!"
 wait "${WAIT_PIDS[@]}"

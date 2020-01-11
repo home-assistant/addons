@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1
+
+- Add LEDVANCE / OSRAM otau firmware downloader, respecting max 10 DL per minute Ratelimits
+
 ## 5.0
 
 - Fix additional gateway visible on Phoscon login on Ingress

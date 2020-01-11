@@ -3,6 +3,7 @@
 ## 2.2
 
 - Fix a cause of "autodetect FAILED" on Raspberry Pi introduced in 2.1
+- Update to Alpine 3.11
 
 ## 2.1
 

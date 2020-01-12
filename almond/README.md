@@ -6,6 +6,10 @@ Almond For Home Servers.
 
 ## About
 
+[Almond][almondhome] is an open, privacy-preserving virtual assistant that is open source. With Almond, you can run a virtual assistant at home, that can tell you the news or control your house. It is powered by [LUInet][luinet], a state-of-the-art neural network developed at Stanford. And it now works with Home Assistant.
+
+More information can be found on the [Home Assistant blog][hablog].
+
 ## Installation
 
 Follow these steps to get the add-on installed on your system:
@@ -16,7 +20,7 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-The basic thing to get the add-on running would be:
+To get the add-on running:
 
 1. Start the add-on.
 2. Go the the Home Assistant frontend -> **Configuration** -> **Integrations**
@@ -34,18 +38,22 @@ Got questions?
 You have several options to get them answered:
 
 - The [Home Assistant Discord Chat Server][discord].
-- The Home Assistant [Community Forum][forum].
+- The [Home Assistant Community Forum][forum].
+- The [Home Assistant Blog announcement][hablog].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[almondhome]: https://almond.stanford.edu/
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
+[hablog]: https://www.home-assistant.io/blog/2019/11/20/privacy-focused-voice-assistant/
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/home-assistant/hassio-addons/issues
+[luinet]: https://almond.stanford.edu/doc/genie-intro.md
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6
+
+- Remove ipv6 listener because we run only inside virtual network on a ipv4 range
+
+## 2.5
+
+- Migrate to Bashio
+
 ## 2.4
 
 - Added Cloudflare mechanism for creating auto-generated ipv4/ipv6 list for real visitor ip

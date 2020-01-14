@@ -9,7 +9,7 @@ Let's Encrypt is a certificate authority that provides free X.509 certificates f
 Setting up Letsencrypt allows you to use validated certificates for your webpages and webinterfaces.
 It requires you to own the domain you are requesting the certificate for.
 
-The generated certificate can be used within others addons.
+The generated certificate can be used within others addons. By default the path and file for the certificates within other addons will refer to the files generated within this addon.
 
 ## Installation
 
@@ -134,10 +134,23 @@ In addition add the fields according to the credentials required by your dns pro
   }
 }
 ```
-Please copy your the credentials file "google.json" into the "share" shared folder on the hass.io host before starting the service. For example you can use the "Samba" add on to do so.
+Please copy your credentials file "google.json" into the "share" shared folder on the hass.io host before starting the service. 
+
+One way is to use the "Samba" add on to make the folder available via network.
+Alternatively you can put it in the folder on the host filessystem "/usr/share/hassio/share" via ssh.
+
 The credential file can be created and downloaded when creating the service user within the Google cloud.
+
 You can find additional information in regards to the required permissions in the "credentials" section here:
+
 https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py
+
+## Certificate files
+
+The certificate files will be available within the "ssl" share after sucessful request of the certificates.
+
+By default other addons are refering to the correct path of the certificates.
+You can in addition find the files via the "samba" addon within the "ssl" share, or directly on the hass.io host in the folder "/usr/share/hassio/ssl".
 
 
 ## Supported DNS providers

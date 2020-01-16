@@ -21,7 +21,7 @@ mkdir -p "$CERT_DIR"
 mkdir -p "/ssl"
 chmod +x /run.sh
 touch /data/dnsapikey
-PROVIDER_ARGUMENTS=""
+PROVIDER_ARGUMENTS=()
 
 echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
   "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" \
@@ -60,7 +60,7 @@ if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.a
 
     export AWS_ACCESS_KEY_ID
     export AWS_SECRET_ACCESS_KEY
-    PROVIDER_ARGUMENTS="--${DNS_PROVIDER}"
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}")
 #Google
 elif bashio::config.exists 'dns.google_creds'; then
     GOOGLE_CREDS="$(bashio::config 'dns.google_creds')"
@@ -72,10 +72,10 @@ elif bashio::config.exists 'dns.google_creds'; then
     else
       bashio::log.info "Google Credentials File doesnt exists in folder share."
     fi
-    PROVIDER_ARGUMENTS=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/"$GOOGLE_CREDS")
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/"$GOOGLE_CREDS")
 #All others
 else
-    PROVIDER_ARGUMENTS=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)
 fi
 
 # Generate new certs

@@ -2,8 +2,10 @@
 
 ## 4.3
 
+- Added support for google dns
+- Fixed AWS support
+- Updated documentation
 - Update cerbot to 1.0.0
-- Fix issue with DNS provider AWS
 
 ## 4.2
 

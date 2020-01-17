@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "4.2",
+  "version": "4.3",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt",
@@ -13,7 +13,7 @@
   "ports_description": {
     "80/tcp": "Only needed for http challenge"
   },
-  "map": ["ssl:rw"],
+  "map": ["ssl:rw", "share"],
   "options": {
     "email": null,
     "domains": [null],
@@ -40,6 +40,7 @@
       "dnsmadeeasy_secret_key": "str?",
       "gehirn_api_token": "str?",
       "gehirn_api_secret": "str?",
+      "google_creds": "str?",
       "linode_key": "str?",
       "linode_version": "str?",
       "luadns_email": "email?",

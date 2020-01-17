@@ -61,7 +61,7 @@ systems that have installed Hass.io.
 
     HomeMatic central based on OCCU.
 
-- **[Let's Encrypt](/duckdns/README.md)**
+- **[Let's Encrypt](/letsencrypt/README.md)**
 
     Manage an create certificates from Let's Encrypt.
 

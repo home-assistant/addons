@@ -136,11 +136,10 @@ In addition add the fields according to the credentials required by your dns pro
 ```
 Please copy your credentials file "google.json" into the "share" shared folder on the hass.io host before starting the service. 
 
-One way is to use the "Samba" add on to make the folder available via network.
-Alternatively you can put it in the folder on the host filessystem "/usr/share/hassio/share" via ssh.
+One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
+
 
 The credential file can be created and downloaded when creating the service user within the Google cloud.
-
 You can find additional information in regards to the required permissions in the "credentials" section here:
 
 https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py
@@ -150,7 +149,7 @@ https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_go
 The certificate files will be available within the "ssl" share after sucessful request of the certificates.
 
 By default other addons are refering to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share, or directly on the hass.io host in the folder "/usr/share/hassio/ssl".
+You can in addition find the files via the "samba" addon within the "ssl" share.
 
 
 ## Supported DNS providers

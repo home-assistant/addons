@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "4.4",
+  "version": "4.3",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt",
@@ -13,7 +13,7 @@
   "ports_description": {
     "80/tcp": "Only needed for http challenge"
   },
-  "map": ["ssl:rw","share"],
+  "map": ["ssl:rw", "share"],
   "options": {
     "email": null,
     "domains": [null],

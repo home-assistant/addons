@@ -1,15 +1,11 @@
 # Changelog
 
-## 4.4
+## 4.3
 
 - Added support for google dns
 - Fixed AWS support
 - Updated documentation
-
-## 4.3
-
 - Update cerbot to 1.0.0
-- Fix issue with DNS provider AWS
 
 ## 4.2
 

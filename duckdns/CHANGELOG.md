@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11
+
+- Do not skip TLS security checks on Duck DNS API access
+
 ## 1.10
 
 - Fix issue with dehydrated lock file

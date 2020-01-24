@@ -71,9 +71,7 @@ IPv4 address manually.
 
 ### Option: `ipv6` (optional)
 
-By default, Duck DNS will auto detect your IPv6 address and use that.
-This option allows you to override the auto-detection and specify an
-IPv6 address manually.
+This option allows you to specify an IPv6 address to send to Duck DNS. At time of writing, they [do not support IPv6 auto detection](https://www.duckdns.org/faqs.jsp), so this value needs to be set in order for the assignment to work. This value is `eval`ed by the shell, so you can use its command substitution here to get the address programmatically.
 
 ### Option: `token`
 

@@ -73,6 +73,8 @@ IPv4 address manually.
 
 This option allows you to specify an IPv6 address to send to Duck DNS. At time of writing, they [do not support IPv6 auto detection](https://www.duckdns.org/faqs.jsp), so this value needs to be set in order for the assignment to work. This value is `eval`ed by the shell, so you can use its command substitution here to get the address programmatically.
 
+Default value: `$(curl -6s -m 10 https://api6.ipify.org)`, set to `""` to disable trying this.
+
 ### Option: `token`
 
 The DuckDNS authentication token found at the top of the DuckDNS account landing page. The token is required to make any changes to the subdomains registered to your account.

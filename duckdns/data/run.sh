@@ -8,7 +8,7 @@ LE_UPDATE="0"
 
 # DuckDNS
 IPV4=$(bashio::config 'ipv4 // empty')
-IPV6=$(bashio::config 'ipv6 // empty')
+IPV6=$(bashio::config 'ipv6 // "$(curl -6s -m 10 https://api6.ipify.org)"')
 TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')

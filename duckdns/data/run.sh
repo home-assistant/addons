@@ -50,7 +50,7 @@ fi
 
 # Run duckdns
 while true; do
-    if answer="$(curl -sk "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${IPV4}&ipv6=${IPV6}&verbose=true")"; then
+    if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${IPV4}&ipv6=${IPV6}&verbose=true")"; then
         bashio::log.info "${answer}"
     else
         bashio::log.warning "${answer}"

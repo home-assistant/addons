@@ -28,6 +28,7 @@ RUN apk add --no-cache --update \
         certbot-dns-rfc2136==${CERTBOT_VERSION} \
         certbot-dns-route53==${CERTBOT_VERSION} \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
+        certbot-dns-netcup \
     && apk del .build-dependencies
 
 # Copy data

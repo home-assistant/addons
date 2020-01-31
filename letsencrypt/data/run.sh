@@ -37,6 +37,9 @@ echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
   "dns_linode_version = $(bashio::config 'dns.linode_version')\n" \
   "dns_luadns_email = $(bashio::config 'dns.luadns_email')\n" \
   "dns_luadns_token = $(bashio::config 'dns.luadns_token')\n" \
+  "certbot_dns_netcup:dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \
+  "certbot_dns_netcup:dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
+  "certbot_dns_netcup:dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \
   "dns_nsone_api_key = $(bashio::config 'dns.nsone_api_key')\n" \
   "dns_ovh_endpoint = $(bashio::config 'dns.ovh_endpoint')\n" \
   "dns_ovh_application_key = $(bashio::config 'dns.ovh_application_key')\n" \
@@ -73,6 +76,19 @@ elif bashio::config.exists 'dns.google_creds'; then
       bashio::log.info "Google Credentials File doesnt exists in folder share."
     fi
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/${GOOGLE_CREDS}")
+#Netcup
+elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dns.netcup_api_key' && bashio::config.exists 'dns.netcup_api_password'; then
+    if bashio::config.exists 'dns.netcup_propagation_seconds'; then
+      bashio::log.info "propagation time found for netcup"
+      NETCUP_DNS_PROPAGATION_SECONDS="$(bashio::config 'dns.netcup_propagation_seconds')"
+    else
+      NETCUP_DNS_PROPAGATION_SECONDS=30
+      bashio::log.info "no propagation time found for netcup, using default value"
+    fi
+
+    export NETCUP_DNS_PROPAGATION_SECONDS
+    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${NETCUP_DNS_PROPAGATION_SECONDS}")
+
 #All others
 else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)

@@ -30,7 +30,7 @@ To enable access to the Google Assistant API, do the following:
 1. After you created the project on the bottom of the page click "Device registration". Keep this tab open for later use.
 1. Enable the Google Assistant API on the new project through [this][google-assistant-api] link. Make sure you have the right project selected (shown in the middle of the screen in the top bar). If you can't select the right project, it may help to open the link in an incognito window.
 1. Configure the [OAuth consent screen][google-oauth-concent]. Also again check that you have the right project and don't forget to hit "Save" at the bottom of the page. You only have to fill in a project name and your e-mail.
-1. You back to you device registration tab and click "Device registration". Or open you project in the [Google Actions Console][oogle-actions-console] start the Quick setup, and in the left bar click "Device registration".
+1. You back to you device registration tab and click "Device registration". Or open you project in the [Google Actions Console][google-actions-console] start the Quick setup, and in the left bar click "Device registration".
 1. Give you project a name, think of a nice manufacturer and for device type select "speaker".
 1. Edit you "model id", if you want to and copy it for later use.
 1. Download the credentials.

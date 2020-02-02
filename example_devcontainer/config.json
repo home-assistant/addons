@@ -1,0 +1,12 @@
+{
+    "name": "Demo Addon",
+    "version": "0.1",
+    "slug": "myaddon",
+    "description": "Add-on that prints 'Hello, world' to the log and exits",
+	"url": "https://github.com/home-assistant/hassio-addons/tree/master/example_devcontainer",
+    "startup": "application",
+    "boot": "manual",
+    "options": {},
+    "schema": {}, 
+    "arch": ["amd64", "armv7", "armhf", "i386" , "aarch64"]
+  }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8
+
+- Update Almond to 1.7.2
+
 ## 0.7
 
 - Change startup type to Application

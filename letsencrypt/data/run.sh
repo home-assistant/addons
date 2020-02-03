@@ -79,14 +79,12 @@ elif bashio::config.exists 'dns.google_creds'; then
 #Netcup
 elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dns.netcup_api_key' && bashio::config.exists 'dns.netcup_api_password'; then
     if bashio::config.exists 'dns.netcup_propagation_seconds'; then
-      bashio::log.info "propagation time found for netcup"
       NETCUP_DNS_PROPAGATION_SECONDS="$(bashio::config 'dns.netcup_propagation_seconds')"
     else
-      NETCUP_DNS_PROPAGATION_SECONDS=30
+      NETCUP_DNS_PROPAGATION_SECONDS=600
       bashio::log.info "no propagation time found for netcup, using default value"
     fi
 
-    export NETCUP_DNS_PROPAGATION_SECONDS
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${NETCUP_DNS_PROPAGATION_SECONDS}")
 
 #All others

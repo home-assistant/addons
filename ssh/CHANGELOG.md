@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.2
+
+- Update welcome logo
+- Fix SSH folder issue with authorized keys
+
 ## 8.1
 
 - Fix for non existing .bash_profile startup error

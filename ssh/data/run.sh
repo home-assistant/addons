@@ -11,6 +11,7 @@ if bashio::config.has_value 'authorized_keys'; then
 
     mkdir -p /data/.ssh
     chmod 700 /data/.ssh
+    rm -f /data/.ssh/authorized_keys
     while read -r line; do
         echo "$line" >> /data/.ssh/authorized_keys
     done <<< "$(bashio::config 'authorized_keys')"

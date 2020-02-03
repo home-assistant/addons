@@ -1,0 +1,41 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Hass.io",
+            "type": "shell",
+            "command": "/usr/local/bin/start_hassio.sh",
+            "group": {
+                "kind": "test",
+                "isDefault": true,
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },{
+            "label": "Cleanup stale Hass.io environment",
+            "type": "shell",
+            "command": "/usr/local/bin/start_hassio.sh --cleanup",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },{
+            "label": "Run Hass.io CLI",
+            "type": "shell",
+            "command": "docker run --rm -ti -v /etc/machine-id:/etc/machine-id --network=hassio --add-host hassio:172.30.32.2 homeassistant/amd64-hassio-cli:dev",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

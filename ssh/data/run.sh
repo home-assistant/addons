@@ -9,12 +9,14 @@ bashio::log.info "Initializing add-on for use..."
 if bashio::config.has_value 'authorized_keys'; then
     bashio::log.info "Setup authorized_keys"
 
-    mkdir -p ~/.ssh
+    mkdir -p /data/.ssh
+    chmod 700 /data/.ssh
+    rm -f /data/.ssh/authorized_keys
     while read -r line; do
-        echo "$line" >> ~/.ssh/authorized_keys
+        echo "$line" >> /data/.ssh/authorized_keys
     done <<< "$(bashio::config 'authorized_keys')"
 
-    chmod 600 ~/.ssh/authorized_keys
+    chmod 600 /data/.ssh/authorized_keys
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
 
     # Unlock account

@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.2
+
+- Fix creation of new tmux terminal windows
+- Add add-on icon
+
 ## 8.1
 
 - Fix for non existing .bash_profile startup error

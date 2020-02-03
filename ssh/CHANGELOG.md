@@ -2,6 +2,8 @@
 
 ## 8.2
 
+- Fix creation of new tmux terminal windows
+- Add add-on icon
 - Update welcome logo
 - Fix SSH folder issue with authorized keys
 

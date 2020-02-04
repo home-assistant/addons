@@ -30,10 +30,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY .devcontainer/start_hassio.sh /usr/local/bin/start_hassio.sh
 
-# Install dependencies for the add-on development below.  For example, if you're running Node.js,
-# you may want something like the following...
-# RUN apt-get install -y --no-install-recommends nodejs npm
-
 # Generate a machine-id for this container
 RUN rm /etc/machine-id && dbus-uuidgen --ensure=/etc/machine-id
 

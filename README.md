@@ -85,10 +85,6 @@ systems that have installed Hass.io.
 
     Expose Hass.io folders with SMB/CIFS.
 
-- **[Snips.AI](/snips/README.md)**
-
-    Local voice control platform.
-
 - **[SSH server](/ssh/README.md)**
 
     Allow logging in remotely to Hass.io using SSH.

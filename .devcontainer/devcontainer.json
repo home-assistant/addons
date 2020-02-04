@@ -1,0 +1,17 @@
+// Based on https://github.com/issacg/hassio-addon-devcontainer
+{
+	"name": "Hass.io Community Add-Ons",
+	"context": "..",
+	"dockerFile": "Dockerfile",
+	"appPort": 8123,
+	"runArgs": [
+		"-e",
+		"GIT_EDITOR=code --wait",
+		"--privileged"
+	],
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/test_hassio/addons/local,type=bind,consistency=delegated",
+	"workspaceFolder": "/workspaces/test_hassio/addons/local"
+}

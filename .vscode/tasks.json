@@ -6,7 +6,7 @@
         {
             "label": "Start Hass.io",
             "type": "shell",
-            "command": "/usr/local/bin/start_hassio.sh",
+            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_hassio.sh",
             "group": {
                 "kind": "test",
                 "isDefault": true,
@@ -19,7 +19,7 @@
         },{
             "label": "Cleanup stale Hass.io environment",
             "type": "shell",
-            "command": "/usr/local/bin/start_hassio.sh --cleanup",
+            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_hassio.sh --cleanup",
             "group": "test",
             "presentation": {
                 "reveal": "always",

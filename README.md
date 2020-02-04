@@ -1,4 +1,4 @@
-# Home Assistant Addons: The official core repository
+# Home Assistant Addons: The official repository
 
 [![Build Status](https://dev.azure.com/home-assistant/Hass.io/_apis/build/status/addons?branchName=master)](https://dev.azure.com/home-assistant/Hass.io/_build/latest?definitionId=7&branchName=master)
 

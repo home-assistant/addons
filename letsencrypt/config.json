@@ -62,7 +62,7 @@
       "netcup_customer_id": "str?",
       "netcup_api_key": "str?",
       "netcup_api_password": "str?",
-      "netcup_propagation_seconds": "int(min=60, max=3600)?"
+      "netcup_propagation_seconds": "int(60,3600)?"
     }
   },
   "image": "homeassistant/{arch}-addon-letsencrypt"

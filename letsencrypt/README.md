@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Letsencrypt
+# Home Assistant Add-on: Letsencrypt
 
 Let's Encrypt is a certificate authority that provides free X.509 certificates for Transport Layer Security encryption via an automated process designed to eliminate the hitherto complex process of manual creation, validation, signing, installation, and renewal of certificates for secure websites.
 
@@ -30,7 +30,7 @@ To use this add-on, you have two options on how to get your certificate:
 ### 2. dns challenge
    - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
    - Allows to request wildcard certificates (*.yourdomain.com)
-   - Doesn’t need you to open a port to your hass.io host on your router.
+   - Doesn’t need you to open a port to your Home Assistant host on your router.
 
 ### You always need to provide the following entries within the configuration:
 
@@ -134,7 +134,7 @@ In addition add the fields according to the credentials required by your dns pro
   }
 }
 ```
-Please copy your credentials file "google.json" into the "share" shared folder on the hass.io host before starting the service. 
+Please copy your credentials file "google.json" into the "share" shared folder on the Home Assistant host before starting the service. 
 
 One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
 

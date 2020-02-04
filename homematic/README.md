@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: HomeMatic
+# Home Assistant Add-on: HomeMatic
 
 HomeMatic central based on OCCU.
 

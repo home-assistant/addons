@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Almond
+# Home Assistant Add-on: Almond
 
 Almond For Home Servers.
 

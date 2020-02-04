@@ -1,15 +1,15 @@
-# Hass.io Addons: The official core repository
+# Home Assistant Addons: The official repository
 
 [![Build Status](https://dev.azure.com/home-assistant/Hass.io/_apis/build/status/addons?branchName=master)](https://dev.azure.com/home-assistant/Hass.io/_build/latest?definitionId=7&branchName=master)
 
-Add-ons for the Hass.io ecosystem, allow you to extend the functionality
+Add-ons for Home Assistant, allow you to extend the functionality
 around your Home Assistant setup. These add-on can consist of an application
 that Home Assistant can integrate with (e.g., a MQTT broker or database server)
 or allow access to your Home Assistant configuration (e.g., via Samba or using
 the Configurator).
 
 Add-ons can be installed and configured via the Home Assistant frontend on
-systems that have installed Hass.io.
+systems that have installed Home Assistant.
 
 ## Add-ons provided by this repository
 
@@ -55,7 +55,7 @@ systems that have installed Hass.io.
 
 - **[Hey Ada!](/ada/README.md)**
 
-    Home Assistant featured voice assistant.
+    Voice assistant powered by Home Assistant.
 
 - **[HomeMatic](/homematic/README.md)**
 
@@ -83,11 +83,11 @@ systems that have installed Hass.io.
 
 - **[Samba share](/samba/README.md)**
 
-    Expose Hass.io folders with SMB/CIFS.
+    Expose Home Assistant folders with SMB/CIFS.
 
 - **[SSH server](/ssh/README.md)**
 
-    Allow logging in remotely to Hass.io using SSH.
+    Allow logging in remotely to Home Assistant using SSH.
 
 - **[TellStick](/tellstick/README.md)**
 

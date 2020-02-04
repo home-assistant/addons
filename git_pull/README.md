@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Git pull
+# Home Assistant Add-on: Git pull
 
 Load and update configuration files for Home Assistant from a Git repository.
 

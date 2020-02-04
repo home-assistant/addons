@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Mosquitto broker
+# Home Assistant Add-on: Mosquitto broker
 
 MQTT broker for Home Assistant.
 
@@ -91,7 +91,7 @@ If set to `true` encryption will be enabled using the cert- and keyfile options.
 
 ## Home Assistant user management
 
-This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Hass.io ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
+This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Home Assistant ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
 
 ## Disable listening on insecure (1883) ports
 

@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Dnsmasq
+# Home Assistant Add-on: Dnsmasq
 
 A simple DNS server.
 

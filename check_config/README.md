@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Check Home Assistant configuration
+# Home Assistant Add-on: Check Home Assistant configuration
 
 Check your current configuration against any Home Assistant version.
 

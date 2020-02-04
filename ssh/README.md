@@ -1,13 +1,13 @@
-# Hass.io Core Add-on: SSH server
+# Home Assistant Add-on: SSH server
 
-Allow logging in remotely to Hass.io using SSH.
+Allow logging in remotely to Home Assistant using SSH.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
 ## About
 
-Setting up an SSH server allows access to your Hass.io folders with any SSH
-client. It also includes a command-line tool to access the Hass.io API.
+Setting up an SSH server allows access to your Home Assistant folders with any SSH
+client. It also includes a command-line tool to access the Home Assistant API.
 
 Try it out using:
 
@@ -66,7 +66,7 @@ Set a password for login. **We do NOT recommend this variant**.
 ## Known issues and limitations
 
 - This add-on will not enable you to install packages or do anything as root.
-  This is not working with Hass.io.
+  This is not working with Home Assistant.
 
 ## Support
 

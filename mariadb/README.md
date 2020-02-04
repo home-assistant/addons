@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: MariaDB
+# Home Assistant Add-on: MariaDB
 
 MariaDB database for Home Assistant.
 

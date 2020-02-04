@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: TellStick
+# Home Assistant Add-on: TellStick
 
 TellStick and TellStick Duo service.
 

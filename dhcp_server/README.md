@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: DHCP server
+# Home Assistant Add-on: DHCP server
 
 A simple DHCP server.
 

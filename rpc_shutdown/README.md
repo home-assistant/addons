@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: RPC Shutdown
+# Home Assistant Add-on: RPC Shutdown
 
 Shutdown Windows machines remotely.
 

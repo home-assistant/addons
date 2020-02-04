@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Samba share
+# Home Assistant Add-on: Samba share
 
 Share your configuration over the network using Windows file sharing.
 

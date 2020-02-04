@@ -66,7 +66,7 @@ if bashio::var.has_value "${VNC_PORT}"; then
     VNC_PASSWORD=$(bashio::config 'vnc_password')
     echo "${VNC_PASSWORD}" | tigervncpasswd -f > /root/.vncpasswd
     tigervncserver \
-        -name "Hass.io - deCONZ" \
+        -name "Home Assistant - deCONZ" \
         -geometry 1920x1080 \
         -depth 16 \
         -localhost no \
@@ -111,8 +111,8 @@ function stop_addon() {
 }
 trap "stop_addon" SIGTERM SIGHUP
 
-# Start Hass.io discovery
-bashio::log.info "Running Hass.io discovery task..."
+# Start Home Assistant discovery
+bashio::log.info "Running Home Assistant discovery task..."
 hassio_discovery &
 
 # Start OTA updates for deCONZ

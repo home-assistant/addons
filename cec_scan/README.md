@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: CEC Scanner
+# Home Assistant Add-on: CEC Scanner
 
 Scan & discover HDMI CEC devices and their addresses.
 

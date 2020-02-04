@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: NGINX Home Assistant SSL proxy
+# Home Assistant Add-on: NGINX Home Assistant SSL proxy
 
 Sets up an SSL proxy with NGINX and redirects traffic from port 80 to 443.
 

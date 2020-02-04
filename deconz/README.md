@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: deCONZ
+# Home Assistant Add-on: deCONZ
 
 Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.
 
@@ -31,7 +31,7 @@ dtoverlay=pi3-miniuart-bt
 The add-on needs to know where your ConBee/RaspBee can be found, and therefore,
 you'll need to configure the add-on to point to the right device.
 
-If you're using Hass.io you may find the correct value for this on the
+If you're using Home Assistant you may find the correct value for this on the
 `Hass.io -> System -> Host system -> Hardware` page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
@@ -62,7 +62,7 @@ follow these instructions to configure the deCONZ integration:
 
 ## Migrating to this Add-on
 
-To migrate deCONZ to Hass.io and this add-on, backup your deCONZ config via the
+To migrate deCONZ to Home Assistant and this add-on, backup your deCONZ config via the
 Phoscon WebUI, then restore that config after installing/reinstalling.
 
 **_You must perform these steps or your Light, Group names and other data will be lost!_**
@@ -89,7 +89,7 @@ macOS, you are in luck, since VNC is built-in. Open the spotlight search and
 enter the VNC service URL.
 
 The VNC service URL looks like [vnc://hassio.local:5900](vnc-service-url).
-Adjust port and possibly hostname if you've changed it in Hass.io host system
+Adjust port and possibly hostname if you've changed it in Home Assistant host system
 settings.
 
 ## Upgrading RaspBee and ConBee firmware
@@ -162,7 +162,7 @@ Add-on configuration:
 
 The device address of your ConBee/RaspBee.
 
-If you're using Hass.io you may find the correct value for this on the
+If you're using Home Assistant you may find the correct value for this on the
 `Hass.io -> System -> Host system -> Hardware` page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.

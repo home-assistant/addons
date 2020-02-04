@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 # Setup base
 RUN apk add --no-cache jq curl git openssh-client
 
-# Hass.io CLI
+# Home Assistant CLI
 ARG BUILD_ARCH
 ARG CLI_VERSION
 RUN curl -Lso /usr/bin/hassio \

@@ -21,6 +21,6 @@ elif ! bashio::fs.file_exists "${CRED_JSON}"; then
     bashio::exit.nok "You need initialize Google Assistant with a client secret JSON!"
 fi
 
-basio::log.info "Starting Hass.io GAssisant SDK..."
+basio::log.info "Starting Home Assistant GAssisant SDK..."
 exec python3 /hassio_gassistant.py \
     "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}" < /dev/null

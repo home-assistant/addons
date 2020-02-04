@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Configurator
+# Home Assistant Add-on: Configurator
 
 Browser-based configuration file editor for Home Assistant.
 

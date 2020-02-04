@@ -51,7 +51,7 @@ touch /data/.bash_history
 chmod 600 /data/.bash_history
 ln -s -f /data/.bash_history /root/.bash_history
 
-# Make Hass.io TOKEN available on the CLI
+# Make Home Assistant TOKEN available on the CLI
 echo "export HASSIO_TOKEN=${HASSIO_TOKEN}" >> /etc/profile.d/hassio.sh
 
 # Remove old HASSIO_TOKEN from bash profile (if exists)

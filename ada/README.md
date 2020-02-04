@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Ada
+# Home Assistant Add-on: Ada
 
 Home Assistant featured voice assist.
 

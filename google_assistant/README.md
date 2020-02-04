@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Google Assistant SDK
+# Home Assistant Add-on: Google Assistant SDK
 
 Load and update configuration files for Home Assistant from a Git repository.
 

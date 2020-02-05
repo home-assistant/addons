@@ -84,10 +84,10 @@ aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
 sakuracloud_api_secret: ''
-"netcup_customer_id": "",
-"netcup_api_key": "",
-"netcup_api_password": "",
-"netcup_propagation_seconds": ""
+"netcup_customer_id": ''
+"netcup_api_key": ''
+"netcup_api_password": ''
+"netcup_propagation_seconds": ''
 ```
 
 ## Example Configurations

@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Check Home Assistant configuration
+# Home Assistant Add-on: Check Home Assistant configuration
 
 Check your current configuration against any Home Assistant version.
 
@@ -15,7 +15,7 @@ resulting in a smooth update.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Check Home Assistant configuration" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -37,10 +37,8 @@ Home Assistant version.
 
 Add-on configuration:
 
-```json
-{
-  "version": "latest"
-}
+```yaml
+version: latest
 ```
 
 ### Option: `version` (required)

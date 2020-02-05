@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Configurator
+# Home Assistant Add-on: Configurator
 
 Browser-based configuration file editor for Home Assistant.
 
@@ -34,7 +34,7 @@ configuration files) will be automatically checked for syntax errors while editi
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Configurator" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -51,15 +51,12 @@ In general, this add-on requires no configuration from your end.
 
 Add-on configuration:
 
-```json
-{
-  "dirsfirst": false,
-  "enforce_basepath": false,
-  "ignore_pattern": [
-    "__pycache__"
-  ],
-  "ssh_keys": []
-}
+```yaml
+dirsfirst: false
+enforce_basepath: false
+ignore_pattern:
+  - __pycache__
+ssh_keys: []
 ```
 
 ### Option: `dirsfirst` (required)

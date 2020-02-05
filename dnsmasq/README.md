@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Dnsmasq
+# Home Assistant Add-on: Dnsmasq
 
 A simple DNS server.
 
@@ -14,7 +14,7 @@ an internal address inside your network.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Dnsmasq" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -32,16 +32,16 @@ describes each of the add-on configuration options.
 
 Example add-on configuration:
 
-```json
-{
-  "defaults": ["8.8.8.8", "8.8.4.4"],
-  "forwards": [
-    {"domain": "mystuff.local", "server": "192.168.1.40"}
-  ],
-  "hosts": [
-    {"host": "home.mydomain.io", "ip": "192.168.1.10"}
-  ]
-}
+```yaml
+defaults:
+  - 8.8.8.8
+  - 8.8.4.4
+forwards:
+  - domain: mystuff.local
+    server: 192.168.1.40
+hosts:
+  - host: home.mydomain.io
+    ip: 192.168.1.10
 ```
 
 ### Option: `defaults` (required)

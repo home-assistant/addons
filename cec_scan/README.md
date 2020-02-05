@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: CEC Scanner
+# Home Assistant Add-on: CEC Scanner
 
 Scan & discover HDMI CEC devices and their addresses.
 
@@ -13,7 +13,7 @@ the CEC address of your devices.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "CEC Scanner" add-on and click it.
 3. Click on the "INSTALL" button.
 

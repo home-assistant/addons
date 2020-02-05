@@ -1,6 +1,6 @@
-# Hass.io Core Add-on: Ada
+# Home Assistant Add-on: Ada
 
-Home Assistant featured voice assist.
+Voice assistant powered by Home Assistant.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
@@ -10,7 +10,7 @@ Home Assistant featured voice assist.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Hey Ada!" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -26,11 +26,9 @@ The basic thing to get the add-on running would be:
 
 Example add-on configuration:
 
-```json
-{
-  "stt": "cloud",
-  "tts": "cloud"
-}
+```yaml
+stt: cloud
+tts: cloud
 ```
 
 ### Option: `stt` (required)

@@ -130,9 +130,9 @@ fi
 if call_hassio GET "services/mqtt" | jq --raw-output ".data.host" | grep -v "$(hostname)" > /dev/null; then
     bashio::log.warning "There is already an MQTT service running!"
 else
-    bashio::log.info "Initialize Hass.io Add-on services"
+    bashio::log.info "Initialize Home Assistant Add-on services"
     if ! call_hassio POST "services/mqtt" "$(constrain_host_config addons "${ADDONS_PW}")" > /dev/null; then
-        bashio::log.error "Can't setup Hass.io service mqtt"
+        bashio::log.error "Can't setup Home Assistant service mqtt"
     fi
 
     bashio::log.info "Initialize Home Assistant discovery"

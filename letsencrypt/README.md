@@ -143,23 +143,19 @@ You can find additional information in regards to the required permissions in th
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
 
 ### netcup dns challenge:
-```json
-{
-  "email": "hello@home-assistant.io",
-  "domains": [
-    "home-assistant.io"
-  ],
-  "certfile": "fullchain.pem",
-  "keyfile": "privkey.pem",
-  "challenge": "dns",
-  "dns": {
-    "provider": "dns-netcup",
-    "netcup_customer_id": "12345",
-    "netcup_api_key": "ABCDEFGHIJKLMNOPQRST",
-    "netcup_api_password": "1234567890ABCDEFGHIJK",
-    "netcup_propagation_seconds": "600"
-  }
-}
+```yaml
+email: hello@home-assistant.io
+domains:
+- home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-netcup
+  netcup_customer_id: '12345'
+  netcup_api_key: ABCDEFGHIJKLMNOPQRST
+  netcup_api_password: 1234567890ABCDEFGHIJK
+  netcup_propagation_seconds: '600'
 ```
 
 You can create the api key and api password in your netcup customer control panel. Here you'll also find you customer id.

@@ -12,7 +12,7 @@ You can use this add-on to install Eclipse Mosquitto, which is an open-source (E
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Mosquitto broker" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -39,18 +39,15 @@ If you have old MQTT settings available, remove this old integration and restart
 
 Add-on configuration:
 
-```json
-{
-  "logins": [],
-  "anonymous": false,
-  "customize": {
-    "active": false,
-    "folder": "mosquitto"
-  },
-  "certfile": "fullchain.pem",
-  "keyfile": "privkey.pem",
-  "require_certificate": false
-}
+```yaml
+logins: []
+anonymous: false
+customize:
+  active: false
+  folder: mosquitto
+certfile: fullchain.pem
+keyfile: privkey.pem
+require_certificate: false
 ```
 
 ### Option: `logins` (optional)
@@ -110,11 +107,10 @@ Add the following configuration to enable **unrestricted** access to all topics.
 
 1. Enable the customize flag
 
-    ```json
-      "customize": {
-        "active": true,
-        "folder": "mosquitto"
-      },
+    ```yaml
+      customize:
+        active: true
+        folder: mosquitto
     ```
 
 2. Create `/share/mosquitto/acl.conf` with the contents:

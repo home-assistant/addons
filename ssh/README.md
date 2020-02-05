@@ -19,7 +19,7 @@ hassio help
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "SSH server" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -45,13 +45,10 @@ The Home Assistant configuration directory is mounted on the path `/config`.
 
 Add-on configuration:
 
-```json
-{
-  "authorized_keys": [
-    "ssh-rsa AKDJD3839...== my-key"
-  ],
-  "password": ""
-}
+```yaml
+authorized_keys:
+  - ssh-rsa AKDJD3839...== my-key
+password: ''
 ```
 
 ### Option: `authorized_keys`

@@ -14,7 +14,7 @@ to ensure they always get assigned the same IP address.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "DHCP server" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -31,31 +31,25 @@ describes each of the add-on configuration options.
 
 Example add-on configuration:
 
-```json
-{
-  "domain": "mynetwork.local",
-  "dns": ["8.8.8.8", "8.8.4.4"],
-  "default_lease": 86400,
-  "max_lease": 172800,
-  "networks": [
-    {
-      "subnet": "192.168.1.0",
-      "netmask": "255.255.255.0",
-      "range_start": "192.168.1.100",
-      "range_end": "192.168.1.200",
-      "broadcast": "192.168.1.255",
-      "gateway": "192.168.1.1",
-      "interface": "eth0"
-    }
-  ],
-  "hosts": [
-    {
-      "name": "webcam_xy",
-      "mac": "aa:bb:ee:cc",
-      "ip": "192.168.1.40"
-    }
-  ]
-}
+```yaml
+domain: mynetwork.local
+dns:
+  - 8.8.8.8
+  - 8.8.4.4
+default_lease: 86400
+max_lease: 172800
+networks:
+  - subnet: 192.168.1.0
+    netmask: 255.255.255.0
+    range_start: 192.168.1.100
+    range_end: 192.168.1.200
+    broadcast: 192.168.1.255
+    gateway: 192.168.1.1
+    interface: eth0
+hosts:
+  - name: webcam_xy
+    mac: aa:bb:ee:cc
+    ip: 192.168.1.40
 ```
 
 ### Option: `domain` (required)

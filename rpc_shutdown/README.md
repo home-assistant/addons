@@ -12,7 +12,7 @@ Allows you to shut down and Windows Computer with a service call from Home Assis
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "RPC Shutdown" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -27,25 +27,18 @@ In the configuration section, define alias, address and credentials and save the
 
 Add-on configuration:
 
-```json
-{
-  "computers": [
-    {
-      "alias": "test-pc-1",
-      "address": "192.168.0.1",
-      "credentials": "user%password",
-      "delay": 0,
-      "message": "Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!"
-    },
-    {
-      "alias": "test-pc-2",
-      "address": "192.168.0.2",
-      "credentials": "user%password",
-      "delay": 0,
-      "message": "Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!"
-    }
-  ]
-}
+```yaml
+computers:
+  - alias: test-pc-1
+    address: 192.168.0.1
+    credentials: user%password
+    delay: 0
+    message: Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!
+  - alias: test-pc-2
+    address: 192.168.0.2
+    credentials: user%password
+    delay: 0
+    message: Home Assistant is shutting down this PC. This cannot be canceled. Please save your work!
 ```
 
 ### Option: `computers` (required)

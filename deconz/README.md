@@ -8,7 +8,7 @@ Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "deCONZ" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -140,22 +140,19 @@ These options require a number that represents the log level.
 
 Example add-on config with `dbg_aps` enabled on log level 1:
 
-```json
-{
-  "device": "/dev/ttyUSB0",
-  "vnc_password": "",
-  "dbg_aps": 1
-}
+```yaml
+device: /dev/ttyUSB0
+vnc_password: ""
+dbg_aps: 1
+
 ```
 
 ## Configuration
 
 Add-on configuration:
 
-```json
-{
-  "device": "/dev/ttyAMA0"
-}
+```yaml
+device: /dev/ttyAMA0
 ```
 
 ### Option: `device` (required)

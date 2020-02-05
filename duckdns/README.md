@@ -12,7 +12,7 @@ Automatically update your Duck DNS IP address with integrated HTTPS support via 
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "DuckDNS" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -29,17 +29,15 @@ Follow these steps to get the add-on installed on your system:
 
 Add-on configuration:
 
-```json
-{
-  "lets_encrypt": {
-    "accept_terms": true,
-    "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem"
-  },
-  "token": "sdfj-2131023-dslfjsd-12321",
-  "domains": ["my-domain.duckdns.org"],
-  "seconds": 300
-}
+```yaml
+lets_encrypt:
+  accept_terms: true
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+token: sdfj-2131023-dslfjsd-12321
+domains:
+  - my-domain.duckdns.org
+seconds: 300
 ```
 
 ### Option group `lets_encrypt`

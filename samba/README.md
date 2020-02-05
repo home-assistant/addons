@@ -13,7 +13,7 @@ It lets you access your config files with Windows and macOS devices.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Samba share" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -28,23 +28,19 @@ Follow these steps to get the add-on installed on your system:
 
 Add-on configuration:
 
-```json
-{
-  "workgroup": "WORKGROUP",
-  "username": "Hassio",
-  "password": "null",
-  "interface": "",
-  "allow_hosts": [
-    "10.0.0.0/8",
-    "172.16.0.0/12",
-    "192.168.0.0/16"
-  ],
-  "veto_files": [
-    "._*",
-    ".DS_Store",
-    "Thumbs.db"
-  ]
-}
+```yaml
+workgroup: WORKGROUP
+username: Hassio
+password: 'null'
+interface: ''
+allow_hosts:
+  - 10.0.0.0/8
+  - 172.16.0.0/12
+  - 192.168.0.0/16
+veto_files:
+  - "._*"
+  - ".DS_Store"
+  - Thumbs.db
 ```
 
 ### Option: `workgroup` (required)

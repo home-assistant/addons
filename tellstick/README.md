@@ -20,7 +20,7 @@ For more details, please check the TellStick [protocol list][protocol-list].
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "TellStick" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -64,27 +64,20 @@ the [valid parameters for Tellstick configuration file (tellstick.conf)][conf].
 
 Example add-on configuration:
 
-```json
-{
-  "devices": [
-    {
-      "id": 1,
-      "name": "Example device",
-      "protocol": "everflourish",
-      "model": "selflearning-switch",
-      "house": "A",
-      "unit": "1"
-    },
-    {
-      "id": 2,
-      "name": "Example device two",
-      "protocol": "everflourish",
-      "model": "selflearning-switch",
-      "house": "A",
-      "unit": "2"
-    }
-  ]
-}
+```yaml
+devices:
+  - id: 1
+    name: Example device
+    protocol: everflourish
+    model: selflearning-switch
+    house: A
+    unit: '1'
+  - id: 2
+    name: Example device two
+    protocol: everflourish
+    model: selflearning-switch
+    house: A
+    unit: '2'
 ```
 
 Please note: After any changes have been made to the configuration,

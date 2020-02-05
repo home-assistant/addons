@@ -12,7 +12,7 @@ You can use this add-on to install MariaDB, which is an open-source (GPLv2 licen
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "MariaDB" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -30,27 +30,18 @@ describes each of the add-on configuration options.
 
 Example add-on configuration:
 
-```json
-{
-  "databases": [
-    "homeassistant"
-  ],
-  "logins": [
-    {
-      "username": "hass",
-      "host": "%",
-      "password": null
-    }
-  ],
-  "rights": [
-    {
-      "username": "hass",
-      "host": "%",
-      "database": "homeassistant",
-      "grant": "ALL PRIVILEGES ON"
-    }
-  ]
-}
+```yaml
+databases:
+  - homeassistant
+logins:
+  - username: hass
+    host: "%"
+    password: 
+rights:
+  - username: hass
+    host: "%"
+    database: homeassistant
+    grant: ALL PRIVILEGES ON
 ```
 
 ### Option: `databases` (required)
@@ -99,7 +90,7 @@ MariaDB will be used by the `recorder` and `history` components within Home Assi
 
 Example Home Assistant configuration:
 
-```json
+```yaml
 recorder:
   db_url: mysql://hass:password@core-mariadb/homeassistant?charset=utf8
 ```

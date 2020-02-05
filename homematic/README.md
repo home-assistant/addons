@@ -23,7 +23,7 @@ to interface with your devices.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "HomeMatic CCU" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -39,31 +39,20 @@ Follow these steps to get the add-on installed on your system:
 
 Add-on configuration:
 
-```json
-{
-  "rf_enable": true,
-  "rf": [
-    {
-      "type": "CCU2",
-      "device": "/dev/ttyAMA0"
-    }
-  ],
-  "wired_enable": false,
-  "wired": [
-    {
-      "serial": "xy",
-      "key": "abc",
-      "ip": "192.168.0.0"
-    }
-  ],
-  "hmip_enable": false,
-  "hmip": [
-    {
-      "type": "HMIP_CCU2",
-      "device": "/dev/ttyUSB0"
-    }
-  ]
-}
+```yaml
+rf_enable: true
+rf:
+  - type: CCU2
+    device: "/dev/ttyAMA0"
+wired_enable: false
+wired:
+  - serial: xy
+    key: abc
+    ip: 192.168.0.0
+hmip_enable: false
+hmip:
+  - type: HMIP_CCU2
+    device: "/dev/ttyUSB0"
 ```
 
 ### Option: `rf_enable` (required)

@@ -14,7 +14,7 @@ Make sure you have generated a certificate before you start this add-on. The [Du
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "NGINX Home Assistant SSL proxy" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -38,19 +38,16 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
 
 Add-on configuration:
 
-```json
-{
-  "domain": "home.example.com",
-  "certfile": "fullchain.pem",
-  "keyfile": "privkey.pem",
-  "hsts": "max-age=31536000; includeSubDomains",
-  "customize": {
-    "active": false,
-    "default": "nginx_proxy_default*.conf",
-    "servers": "nginx_proxy/*.conf"
-  },
-  "cloudflare": false
-}
+```yaml
+domain: home.example.com
+certfile: fullchain.pem
+keyfile: privkey.pem
+hsts: "max-age=31536000; includeSubDomains"
+customize:
+  active: false
+  default: "nginx_proxy_default*.conf"
+  servers: "nginx_proxy/*.conf"
+cloudflare: false
 ```
 
 ### Option: `domain` (required)

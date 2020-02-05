@@ -84,10 +84,10 @@ aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
 sakuracloud_api_secret: ''
-"netcup_customer_id": ''
-"netcup_api_key": ''
-"netcup_api_password": ''
-"netcup_propagation_seconds": ''
+netcup_customer_id: ''
+netcup_api_key: ''
+netcup_api_password: ''
+netcup_propagation_seconds: 60
 ```
 
 ## Example Configurations
@@ -141,25 +141,6 @@ The credential file can be created and downloaded when creating the service user
 You can find additional information in regards to the required permissions in the "credentials" section here:
 
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
-
-### netcup dns challenge:
-```yaml
-email: hello@home-assistant.io
-domains:
-- home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-netcup
-  netcup_customer_id: '12345'
-  netcup_api_key: ABCDEFGHIJKLMNOPQRST
-  netcup_api_password: 1234567890ABCDEFGHIJK
-  netcup_propagation_seconds: '600'
-```
-
-You can create the api key and api password in your netcup customer control panel. Here you'll also find you customer id.
-The "netcup_propagation_seconds" parameter sets the waiting time for DNS to propagate before asking the ACME server to verify the DNS record. It is highly recommended to setup a value >600 seconds.
 
 ## Certificate files
 

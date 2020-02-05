@@ -53,6 +53,7 @@ dnsprovider: ""
 
 In addition add the fields according to the credentials required by your dns provider:
 
+
 ```yaml
 cloudflare_email: ''
 cloudflare_api_key: ''
@@ -83,6 +84,10 @@ aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
 sakuracloud_api_secret: ''
+"netcup_customer_id": ''
+"netcup_api_key": ''
+"netcup_api_password": ''
+"netcup_propagation_seconds": ''
 ```
 
 ## Example Configurations
@@ -137,11 +142,34 @@ You can find additional information in regards to the required permissions in th
 
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
 
+### netcup dns challenge:
+```json
+{
+  "email": "hello@home-assistant.io",
+  "domains": [
+    "home-assistant.io"
+  ],
+  "certfile": "fullchain.pem",
+  "keyfile": "privkey.pem",
+  "challenge": "dns",
+  "dns": {
+    "provider": "dns-netcup",
+    "netcup_customer_id": "12345",
+    "netcup_api_key": "ABCDEFGHIJKLMNOPQRST",
+    "netcup_api_password": "1234567890ABCDEFGHIJK",
+    "netcup_propagation_seconds": "600"
+  }
+}
+```
+
+You can create the api key and api password in your netcup customer control panel. Here you'll also find you customer id.
+The "netcup_propagation_seconds" parameter sets the waiting time for DNS to propagate before asking the ACME server to verify the DNS record. It is highly recommended to setup a value >600 seconds.
+
 ## Certificate files
 
-The certificate files will be available within the "ssl" share after sucessful request of the certificates.
+The certificate files will be available within the "ssl" share after successful request of the certificates.
 
-By default other addons are refering to the correct path of the certificates.
+By default other addons are referring to the correct path of the certificates.
 You can in addition find the files via the "samba" addon within the "ssl" share.
 
 ## Supported DNS providers
@@ -161,6 +189,7 @@ dns-ovh
 dns-rfc2136
 dns-route53
 dns-sakuracloud
+dns-netcup
 ```
 
 ## Support

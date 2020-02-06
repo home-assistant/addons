@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4
+
+- Use new `video` feature of Supervisor 199
+
 ## 2.3
 
 - Add support for Meson AOCEC

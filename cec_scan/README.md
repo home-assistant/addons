@@ -24,10 +24,6 @@ This add-on has no configuration and runs out of the box.
 1. Start the add-on.
 2. Check the add-on log output to see the result.
 
-## Known issues and limitations
-
-- This add-on can only be used on devices that support the Video Core (vc).
-
 ## Support
 
 Got questions?

@@ -2,7 +2,7 @@
   "name": "Hey Ada!",
   "version": "0.9",
   "slug": "ada",
-  "description": "Home Assistant featured voice assist",
+  "description": "Voice assistant powered by Home Assistant",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/ada",
   "arch": ["armhf", "armv7", "amd64"],
   "startup": "application",

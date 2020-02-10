@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Google Assistant SDK
+# Home Assistant Add-on: Google Assistant SDK
 
 Load and update configuration files for Home Assistant from a Git repository.
 
@@ -16,7 +16,7 @@ If you want to integrate your Google Home or mobile phone running Google Assista
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Google Assistant SDK" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -49,12 +49,10 @@ The next step is to authenticate your Google account with Google Assistant. Star
 
 Add-on configuration:
 
-```json
-{
-  "client_secrets": "google_assistant.json",
-  "project_id": "project_id_from_google",
-  "model_id": "model_id_from_google"
-}
+```yaml
+client_secrets: google_assistant.json
+project_id: project_id_from_google
+model_id: model_id_from_google
 ```
 
 ### Option: `clients_secrets` (required)

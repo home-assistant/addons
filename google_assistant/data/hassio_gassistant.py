@@ -1,4 +1,4 @@
-"""Hass.IO Google Assistant."""
+"""Home Assistant Google Assistant."""
 import json
 import sys
 from pathlib import Path

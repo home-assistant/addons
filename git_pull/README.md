@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Git pull
+# Home Assistant Add-on: Git pull
 
 Load and update configuration files for Home Assistant from a Git repository.
 
@@ -13,7 +13,7 @@ repository.
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Git pull" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -40,36 +40,31 @@ to `true` and turning on "Start on boot."
 
 Add-on configuration:
 
-```json
-{
-  "git_branch": "master",
-  "git_command": "pull",
-  "git_remote": "origin",
-  "git_prune": "false",
-  "repository": "https://example.com/my_configs.git",
-  "auto_restart": false,
-  "restart_ignore": [
-    "ui-lovelace.yaml",
-    ".gitignore",
-    "exampledirectory/"
-  ],
-  "repeat": {
-    "active": false,
-    "interval": 300
-  },
-  "deployment_user": "",
-  "deployment_password": "",
-  "deployment_key": [
-"-----BEGIN RSA PRIVATE KEY-----",
-"MIIEowIBAAKCAQEAv3hUrCvqGZKpXQ5ofxTOuH6pYSOZDsCqPqmaGBdUzBFgauQM",
-"xDEcoODGHIsWd7t9meAFqUtKXndeiKjfP0MMKsttnDohL1kb9mRvHre4VUqMsT5F",
-"...",
-"i3RUtnIHxGi1NqknIY56Hwa3id2yk7cEzvQGAAko/t6PCbe20AfmSQczs7wDNtBD",
-"HgXRyIqIXHYk2+5w+N2eunURIBqCI9uWYK/r81TMR6V84R+XhtvM",
-"-----END RSA PRIVATE KEY-----"
-  ],
-  "deployment_key_protocol": "rsa"
-}
+```yaml
+git_branch: master
+git_command: pull
+git_remote: origin
+git_prune: 'false'
+repository: https://example.com/my_configs.git
+auto_restart: false
+restart_ignore:
+  - ui-lovelace.yaml
+  - ".gitignore"
+  - exampledirectory/
+repeat:
+  active: false
+  interval: 300
+deployment_user: ''
+deployment_password: ''
+deployment_key:
+  - "-----BEGIN RSA PRIVATE KEY-----"
+  - MIIEowIBAAKCAQEAv3hUrCvqGZKpXQ5ofxTOuH6pYSOZDsCqPqmaGBdUzBFgauQM
+  - xDEcoODGHIsWd7t9meAFqUtKXndeiKjfP0MMKsttnDohL1kb9mRvHre4VUqMsT5F
+  - "..."
+  - i3RUtnIHxGi1NqknIY56Hwa3id2yk7cEzvQGAAko/t6PCbe20AfmSQczs7wDNtBD
+  - HgXRyIqIXHYk2+5w+N2eunURIBqCI9uWYK/r81TMR6V84R+XhtvM
+  - "-----END RSA PRIVATE KEY-----"
+deployment_key_protocol: rsa
 ```
 
 ### Option: `git_remote` (required)

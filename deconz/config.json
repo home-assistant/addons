@@ -19,8 +19,8 @@
   },
   "ports_description": {
     "5900/tcp": "deCONZ graphical desktop via VNC",
-    "8081/tcp": "deCONZ WebSocket (Not required for Hass.io Ingress)",
-    "40850/tcp": "deCONZ API backend (Not required for Hass.io Ingress)"
+    "8081/tcp": "deCONZ WebSocket (Not required for Ingress)",
+    "40850/tcp": "deCONZ API backend (Not required for Ingress)"
   },
   "kernel_modules": true,
   "auto_uart": true,

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.4
+
+- Use new `video` feature of Supervisor 199
+
+## 2.3
+
+- Add support for Meson AOCEC
+- Add support for EXYNOS
+- Add support for linux native CEC
+
 ## 2.2
 
 - Fix a cause of "autodetect FAILED" on Raspberry Pi introduced in 2.1

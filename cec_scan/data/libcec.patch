@@ -1,0 +1,887 @@
+From 467cc79fd289403e7d4f6e4e817b906c0c0027dd Mon Sep 17 00:00:00 2001
+From: Jonas Karlman <jonas@kwiboo.se>
+Date: Wed, 6 Sep 2017 17:37:05 +0200
+Subject: [PATCH] Add Linux CEC Adapter
+
+---
+ docs/README.linux.md                          |   6 +
+ include/cectypes.h                            |  11 +
+ src/libcec/CECTypeUtils.h                     |   2 +
+ src/libcec/CMakeLists.txt                     |   2 +
+ src/libcec/adapter/AdapterFactory.cpp         |  26 +-
+ .../Linux/LinuxCECAdapterCommunication.cpp    | 438 ++++++++++++++++++
+ .../Linux/LinuxCECAdapterCommunication.h      |  95 ++++
+ .../Linux/LinuxCECAdapterDetection.cpp        |  50 ++
+ .../adapter/Linux/LinuxCECAdapterDetection.h  |  51 ++
+ src/libcec/cmake/CheckPlatformSupport.cmake   |  12 +
+ src/libcec/cmake/DisplayPlatformSupport.cmake |   6 +
+ src/libcec/env.h.in                           |   3 +
+ 12 files changed, 700 insertions(+), 2 deletions(-)
+ create mode 100644 src/libcec/adapter/Linux/LinuxCECAdapterCommunication.cpp
+ create mode 100644 src/libcec/adapter/Linux/LinuxCECAdapterCommunication.h
+ create mode 100644 src/libcec/adapter/Linux/LinuxCECAdapterDetection.cpp
+ create mode 100644 src/libcec/adapter/Linux/LinuxCECAdapterDetection.h
+
+diff --git a/docs/README.linux.md b/docs/README.linux.md
+index c59fb80..e8053cc 100644
+--- a/docs/README.linux.md
++++ b/docs/README.linux.md
+@@ -51,5 +51,11 @@ Pass the argument `-DHAVE_TDA995X_API=1` to the cmake command in the compilation
+ cmake -DHAVE_TDA995X_API=1 ..
+ ```
+ 
++### Linux CEC Framework (v4.10+)
++Pass the argument `-DHAVE_LINUX_API=1` to the cmake command in the compilation instructions:
++```
++cmake -DHAVE_LINUX_API=1 ..
++```
++
+ ### Debian / Ubuntu .deb packaging
+ See [docs/README.debian.md](README.debian.md).
+\ No newline at end of file
+diff --git a/include/cectypes.h b/include/cectypes.h
+index 9c91842..2c32e4d 100644
+--- a/include/cectypes.h
++++ b/include/cectypes.h
+@@ -281,6 +281,16 @@ namespace CEC {
+  */
+ #define CEC_MAX_DATA_PACKET_SIZE (16 * 4)
+ 
++/*!
++ * the path to use for the Linux CEC device
++ */
++#define CEC_LINUX_PATH		"/dev/cec0"
++
++/*!
++ * the name of the virtual COM port to use for the Linux' CEC wire
++ */
++#define CEC_LINUX_VIRTUAL_COM		"Linux"
++
+ /*!
+  * the path to use for the AOCEC HDMI CEC device
+  */
+@@ -861,6 +871,7 @@ typedef enum cec_adapter_type
+   ADAPTERTYPE_RPI              = 0x100,
+   ADAPTERTYPE_TDA995x          = 0x200,
+   ADAPTERTYPE_EXYNOS           = 0x300,
++  ADAPTERTYPE_LINUX            = 0x400,
+   ADAPTERTYPE_AOCEC            = 0x500
+ } cec_adapter_type;
+ 
+diff --git a/src/libcec/CECTypeUtils.h b/src/libcec/CECTypeUtils.h
+index 25c1c6e..15f9543 100644
+--- a/src/libcec/CECTypeUtils.h
++++ b/src/libcec/CECTypeUtils.h
+@@ -766,6 +766,8 @@ namespace CEC
+         return "Raspberry Pi";
+       case ADAPTERTYPE_TDA995x:
+         return "TDA995x";
++      case ADAPTERTYPE_LINUX:
++        return "Linux";
+       default:
+         return "unknown";
+       }
+diff --git a/src/libcec/CMakeLists.txt b/src/libcec/CMakeLists.txt
+index 6baee69..74fe5f3 100644
+--- a/src/libcec/CMakeLists.txt
++++ b/src/libcec/CMakeLists.txt
+@@ -89,6 +89,8 @@ set(CEC_HEADERS devices/CECRecordingDevice.h
+                 adapter/Exynos/ExynosCEC.h
+                 adapter/Exynos/ExynosCECAdapterDetection.h
+                 adapter/Exynos/ExynosCECAdapterCommunication.h
++                adapter/Linux/LinuxCECAdapterDetection.h
++                adapter/Linux/LinuxCECAdapterCommunication.h
+                 adapter/AOCEC/AOCEC.h
+                 adapter/AOCEC/AOCECAdapterDetection.h
+                 adapter/AOCEC/AOCECAdapterCommunication.h
+diff --git a/src/libcec/adapter/AdapterFactory.cpp b/src/libcec/adapter/AdapterFactory.cpp
+index 91195ea..323c272 100644
+--- a/src/libcec/adapter/AdapterFactory.cpp
++++ b/src/libcec/adapter/AdapterFactory.cpp
+@@ -58,6 +58,11 @@
+ #include "Exynos/ExynosCECAdapterCommunication.h"
+ #endif
+ 
++#if defined(HAVE_LINUX_API)
++#include "Linux/LinuxCECAdapterDetection.h"
++#include "Linux/LinuxCECAdapterCommunication.h"
++#endif
++
+ #if defined(HAVE_AOCEC_API)
+ #include "AOCEC/AOCECAdapterDetection.h"
+ #include "AOCEC/AOCECAdapterCommunication.h"
+@@ -131,6 +136,18 @@ int8_t CAdapterFactory::DetectAdapters(cec_adapter_descriptor *deviceList, uint8
+   }
+ #endif
+ 
++#if defined(HAVE_LINUX_API)
++  if (iAdaptersFound < iBufSize && CLinuxCECAdapterDetection::FindAdapter())
++  {
++    snprintf(deviceList[iAdaptersFound].strComPath, sizeof(deviceList[iAdaptersFound].strComPath), CEC_LINUX_PATH);
++    snprintf(deviceList[iAdaptersFound].strComName, sizeof(deviceList[iAdaptersFound].strComName), CEC_LINUX_VIRTUAL_COM);
++    deviceList[iAdaptersFound].iVendorId = 0;
++    deviceList[iAdaptersFound].iProductId = 0;
++    deviceList[iAdaptersFound].adapterType = ADAPTERTYPE_LINUX;
++    iAdaptersFound++;
++  }
++#endif
++
+ #if defined(HAVE_AOCEC_API)
+   if (iAdaptersFound < iBufSize && CAOCECAdapterDetection::FindAdapter())
+   {
+@@ -144,7 +161,7 @@ int8_t CAdapterFactory::DetectAdapters(cec_adapter_descriptor *deviceList, uint8
+ #endif
+ 
+ 
+-#if !defined(HAVE_RPI_API) && !defined(HAVE_P8_USB) && !defined(HAVE_TDA995X_API) && !defined(HAVE_AOCEC_API)
++#if !defined(HAVE_RPI_API) && !defined(HAVE_P8_USB) && !defined(HAVE_TDA995X_API) && !defined(HAVE_LINUX_API) && !defined(HAVE_AOCEC_API)
+ #error "libCEC doesn't have support for any type of adapter. please check your build system or configuration"
+ #endif
+ 
+@@ -163,6 +180,11 @@ IAdapterCommunication *CAdapterFactory::GetInstance(const char *strPort, uint16_
+     return new CExynosCECAdapterCommunication(m_lib->m_cec);
+ #endif
+ 
++#if defined(HAVE_LINUX_API)
++  if (!strcmp(strPort, CEC_LINUX_VIRTUAL_COM))
++    return new CLinuxCECAdapterCommunication(m_lib->m_cec);
++#endif
++
+ #if defined(HAVE_AOCEC_API)
+   if (!strcmp(strPort, CEC_AOCEC_VIRTUAL_COM))
+     return new CAOCECAdapterCommunication(m_lib->m_cec);
+@@ -177,7 +199,7 @@ IAdapterCommunication *CAdapterFactory::GetInstance(const char *strPort, uint16_
+   return new CUSBCECAdapterCommunication(m_lib->m_cec, strPort, iBaudRate);
+ #endif
+ 
+-#if !defined(HAVE_RPI_API) && !defined(HAVE_P8_USB) && !defined(HAVE_TDA995X_API) && !defined(HAVE_EXYNOS_API) && !defined(HAVE_AOCEC_API)
++#if !defined(HAVE_RPI_API) && !defined(HAVE_P8_USB) && !defined(HAVE_TDA995X_API) && !defined(HAVE_EXYNOS_API) && !defined(HAVE_LINUX_API) && !defined(HAVE_AOCEC_API)
+   return NULL;
+ #endif
+ }
+diff --git a/src/libcec/adapter/Linux/LinuxCECAdapterCommunication.cpp b/src/libcec/adapter/Linux/LinuxCECAdapterCommunication.cpp
+new file mode 100644
+index 0000000..6a28835
+--- /dev/null
++++ b/src/libcec/adapter/Linux/LinuxCECAdapterCommunication.cpp
+@@ -0,0 +1,438 @@
++/*
++ * This file is part of the libCEC(R) library.
++ *
++ * libCEC Linux CEC Adapter is Copyright (C) 2017-2019 Jonas Karlman
++ * based heavily on:
++ * libCEC AOCEC Code is Copyright (C) 2016 Gerald Dachs
++ * libCEC Exynos Code is Copyright (C) 2014 Valentin Manea
++ * libCEC(R) is Copyright (C) 2011-2015 Pulse-Eight Limited.  All rights reserved.
++ * libCEC(R) is an original work, containing original code.
++ *
++ * libCEC(R) is a trademark of Pulse-Eight Limited.
++ *
++ * This program is dual-licensed; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ *
++ * Alternatively, you can license this library under a commercial license,
++ * please contact Pulse-Eight Licensing for more information.
++ *
++ * For more information contact:
++ * Pulse-Eight Licensing       <license@pulse-eight.com>
++ *     http://www.pulse-eight.com/
++ *     http://www.pulse-eight.net/
++ */
++
++#include "env.h"
++#include <fcntl.h>
++#include <sys/ioctl.h>
++
++#if defined(HAVE_LINUX_API)
++#include "LinuxCECAdapterCommunication.h"
++#include "CECTypeUtils.h"
++#include "LibCEC.h"
++#include "p8-platform/util/buffer.h"
++#include <linux/cec.h>
++
++using namespace CEC;
++using namespace P8PLATFORM;
++
++#define LIB_CEC m_callback->GetLib()
++
++// Required capabilities
++#define CEC_LINUX_CAPABILITIES (CEC_CAP_LOG_ADDRS | CEC_CAP_TRANSMIT | CEC_CAP_PASSTHROUGH)
++
++CLinuxCECAdapterCommunication::CLinuxCECAdapterCommunication(IAdapterCommunicationCallback *callback)
++  : IAdapterCommunication(callback)
++{
++  m_fd = INVALID_SOCKET_VALUE;
++}
++
++CLinuxCECAdapterCommunication::~CLinuxCECAdapterCommunication(void)
++{
++  Close();
++}
++
++bool CLinuxCECAdapterCommunication::Open(uint32_t UNUSED(iTimeoutMs), bool UNUSED(bSkipChecks), bool bStartListening)
++{
++  if (IsOpen())
++    Close();
++
++  if ((m_fd = open(CEC_LINUX_PATH, O_RDWR)) >= 0)
++  {
++    LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Open - m_fd=%d bStartListening=%d", m_fd, bStartListening);
++
++    // Ensure the CEC device supports required capabilities
++    struct cec_caps caps = {};
++    if (ioctl(m_fd, CEC_ADAP_G_CAPS, &caps) || (caps.capabilities & CEC_LINUX_CAPABILITIES) != CEC_LINUX_CAPABILITIES)
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_G_CAPS failed - capabilities=%02x errno=%d", caps.capabilities, errno);
++      Close();
++      return false;
++    }
++
++    if (!bStartListening)
++    {
++      Close();
++      return true;
++    }
++
++    // This is an exclusive follower, in addition put the CEC device into passthrough mode
++    uint32_t mode = CEC_MODE_INITIATOR | CEC_MODE_EXCL_FOLLOWER_PASSTHRU;
++    if (ioctl(m_fd, CEC_S_MODE, &mode))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Open - ioctl CEC_S_MODE failed - errno=%d", errno);
++      Close();
++      return false;
++    }
++
++    uint16_t addr;
++    if (ioctl(m_fd, CEC_ADAP_G_PHYS_ADDR, &addr))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_G_PHYS_ADDR failed - errno=%d", errno);
++      Close();
++      return false;
++    }
++
++    LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_G_PHYS_ADDR - addr=%04x", addr);
++
++    if (addr == CEC_PHYS_ADDR_INVALID)
++      LIB_CEC->AddLog(CEC_LOG_WARNING, "CLinuxCECAdapterCommunication::Open - physical address is invalid");
++
++    // Clear existing logical addresses and set the CEC device to the unconfigured state
++    struct cec_log_addrs log_addrs = {};
++    if (ioctl(m_fd, CEC_ADAP_S_LOG_ADDRS, &log_addrs))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_S_LOG_ADDRS failed - errno=%d", errno);
++      Close();
++      return false;
++    }
++
++    LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_S_LOG_ADDRS - log_addr_mask=%04x num_log_addrs=%u", log_addrs.log_addr_mask, log_addrs.num_log_addrs);
++
++    // Set logical address to unregistered, without any logical address configured no messages is transmitted or received
++    log_addrs = {};
++    log_addrs.cec_version = CEC_OP_CEC_VERSION_1_4;
++    log_addrs.vendor_id = CEC_VENDOR_PULSE_EIGHT;
++    log_addrs.num_log_addrs = 1;
++    log_addrs.flags = CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK;
++    log_addrs.log_addr[0] = CEC_LOG_ADDR_UNREGISTERED;
++    log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_SWITCH;
++    log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_UNREGISTERED;
++    log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_SWITCH;
++    if (ioctl(m_fd, CEC_ADAP_S_LOG_ADDRS, &log_addrs))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_S_LOG_ADDRS failed - errno=%d", errno);
++      Close();
++      return false;
++    }
++
++    LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Open - ioctl CEC_ADAP_S_LOG_ADDRS - log_addr_mask=%04x num_log_addrs=%u", log_addrs.log_addr_mask, log_addrs.num_log_addrs);
++
++    if (CreateThread())
++      return true;
++
++    Close();
++  }
++
++  return false;
++}
++
++void CLinuxCECAdapterCommunication::Close(void)
++{
++  StopThread(0);
++
++  LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Close - m_fd=%d", m_fd);
++
++  close(m_fd);
++  m_fd = INVALID_SOCKET_VALUE;
++}
++
++bool CLinuxCECAdapterCommunication::IsOpen(void)
++{
++  return m_fd != INVALID_SOCKET_VALUE;
++}
++
++cec_adapter_message_state CLinuxCECAdapterCommunication::Write(const cec_command &data, bool &bRetry, uint8_t UNUSED(iLineTimeout), bool UNUSED(bIsReply))
++{
++  if (IsOpen())
++  {
++    struct cec_msg msg;
++    cec_msg_init(&msg, data.initiator, data.destination);
++
++    if (data.opcode_set)
++    {
++      msg.msg[msg.len++] = data.opcode;
++
++      if (data.parameters.size)
++      {
++        memcpy(&msg.msg[msg.len], data.parameters.data, data.parameters.size);
++        msg.len += data.parameters.size;
++      }
++    }
++
++    if (ioctl(m_fd, CEC_TRANSMIT, &msg))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Write - ioctl CEC_TRANSMIT failed - tx_status=%02x errno=%d", msg.tx_status, errno);
++      return ADAPTER_MESSAGE_STATE_ERROR;
++    }
++
++    LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Write - ioctl CEC_TRANSMIT - tx_status=%02x len=%d addr=%02x opcode=%02x", msg.tx_status, msg.len, msg.msg[0], cec_msg_opcode(&msg));
++
++    // The CEC driver will make re-transmission attempts
++    bRetry = false;
++
++    if (msg.tx_status & CEC_TX_STATUS_OK)
++      return ADAPTER_MESSAGE_STATE_SENT_ACKED;
++
++    if (msg.tx_status & CEC_TX_STATUS_NACK)
++      return ADAPTER_MESSAGE_STATE_SENT_NOT_ACKED;
++
++    return ADAPTER_MESSAGE_STATE_ERROR;
++  }
++
++  return ADAPTER_MESSAGE_STATE_UNKNOWN;
++}
++
++bool CLinuxCECAdapterCommunication::SetLogicalAddresses(const cec_logical_addresses &addresses)
++{
++  if (IsOpen())
++  {
++    struct cec_log_addrs log_addrs = {};
++    if (ioctl(m_fd, CEC_ADAP_G_LOG_ADDRS, &log_addrs))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::SetLogicalAddresses - ioctl CEC_ADAP_G_LOG_ADDRS failed - errno=%d", errno);
++      return false;
++    }
++
++    // TODO: Claiming a logical address will only work when CEC device has a valid physical address
++
++    // Clear existing logical addresses and set the CEC device to the unconfigured state
++    if (log_addrs.num_log_addrs)
++    {
++      log_addrs = {};
++      if (ioctl(m_fd, CEC_ADAP_S_LOG_ADDRS, &log_addrs))
++      {
++        LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::SetLogicalAddresses - ioctl CEC_ADAP_S_LOG_ADDRS failed - errno=%d", errno);
++        return false;
++      }
++
++      LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::SetLogicalAddresses - ioctl CEC_ADAP_S_LOG_ADDRS - log_addr_mask=%04x num_log_addrs=%u", log_addrs.log_addr_mask, log_addrs.num_log_addrs);
++    }
++
++    if (!addresses.IsEmpty())
++    {
++      // NOTE: This can only be configured when num_log_addrs > 0
++      //       and gets reset when num_log_addrs = 0
++      log_addrs.cec_version = CEC_OP_CEC_VERSION_1_4;
++      log_addrs.vendor_id = CEC_VENDOR_PULSE_EIGHT;
++
++      // TODO: Support more then the primary logical address
++      log_addrs.num_log_addrs = 1;
++      log_addrs.log_addr[0] = addresses.primary;
++
++      switch (addresses.primary)
++      {
++        case CECDEVICE_AUDIOSYSTEM:
++          log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_AUDIOSYSTEM;
++          log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_AUDIOSYSTEM;
++          log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_AUDIOSYSTEM;
++          break;
++        case CECDEVICE_PLAYBACKDEVICE1:
++        case CECDEVICE_PLAYBACKDEVICE2:
++        case CECDEVICE_PLAYBACKDEVICE3:
++          log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_PLAYBACK;
++          log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_PLAYBACK;
++          log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_PLAYBACK;
++          break;
++        case CECDEVICE_RECORDINGDEVICE1:
++        case CECDEVICE_RECORDINGDEVICE2:
++        case CECDEVICE_RECORDINGDEVICE3:
++          log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_RECORD;
++          log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_RECORD;
++          log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_RECORD;
++          break;
++        case CECDEVICE_TUNER1:
++        case CECDEVICE_TUNER2:
++        case CECDEVICE_TUNER3:
++        case CECDEVICE_TUNER4:
++          log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_TUNER;
++          log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_TUNER;
++          log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_TUNER;
++          break;
++        case CECDEVICE_TV:
++          log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_TV;
++          log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_TV;
++          log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_TV;
++          break;
++        default:
++          log_addrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_SWITCH;
++          log_addrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_UNREGISTERED;
++          log_addrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_SWITCH;
++          break;
++      }
++    }
++    else
++      log_addrs.num_log_addrs = 0;
++
++    if (ioctl(m_fd, CEC_ADAP_S_LOG_ADDRS, &log_addrs))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::SetLogicalAddresses - ioctl CEC_ADAP_S_LOG_ADDRS failed - errno=%d", errno);
++      return false;
++    }
++
++    LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::SetLogicalAddresses - ioctl CEC_ADAP_S_LOG_ADDRS - log_addr_mask=%04x num_log_addrs=%u", log_addrs.log_addr_mask, log_addrs.num_log_addrs);
++
++    if (log_addrs.num_log_addrs && !log_addrs.log_addr_mask)
++        return false;
++
++    return true;
++  }
++
++  return false;
++}
++
++cec_logical_addresses CLinuxCECAdapterCommunication::GetLogicalAddresses(void) const
++{
++  cec_logical_addresses addresses;
++  addresses.Clear();
++
++  if (m_fd != INVALID_SOCKET_VALUE)
++  {
++    struct cec_log_addrs log_addrs = {};
++    if (ioctl(m_fd, CEC_ADAP_G_LOG_ADDRS, &log_addrs))
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::GetLogicalAddresses - ioctl CEC_ADAP_G_LOG_ADDRS failed - errno=%d", errno);
++      return addresses;
++    }
++
++    for (int i = 0; i < log_addrs.num_log_addrs; i++)
++      addresses.Set(cec_logical_address(log_addrs.log_addr[i]));
++  }
++
++  return addresses;
++}
++
++uint16_t CLinuxCECAdapterCommunication::GetPhysicalAddress(void)
++{
++  if (IsOpen())
++  {
++    uint16_t addr;
++    if (!ioctl(m_fd, CEC_ADAP_G_PHYS_ADDR, &addr))
++      return addr;
++
++    LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::GetPhysicalAddress - ioctl CEC_ADAP_G_PHYS_ADDR failed - errno=%d", errno);
++  }
++
++  return CEC_INVALID_PHYSICAL_ADDRESS;
++}
++
++cec_vendor_id CLinuxCECAdapterCommunication::GetVendorId(void)
++{
++  if (IsOpen())
++  {
++    struct cec_log_addrs log_addrs = {};
++    if (!ioctl(m_fd, CEC_ADAP_G_LOG_ADDRS, &log_addrs))
++      return cec_vendor_id(log_addrs.vendor_id);
++
++    LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::GetVendorId - ioctl CEC_ADAP_G_LOG_ADDRS failed - errno=%d", errno);
++  }
++
++  return CEC_VENDOR_UNKNOWN;
++}
++
++void *CLinuxCECAdapterCommunication::Process(void)
++{
++  CTimeout phys_addr_timeout;
++  bool phys_addr_changed = false;
++  uint16_t phys_addr = CEC_INVALID_PHYSICAL_ADDRESS;
++  fd_set rd_fds;
++  fd_set ex_fds;
++
++  while (!IsStopped())
++  {
++    struct timeval timeval = {};
++    timeval.tv_sec = 1;
++
++    FD_ZERO(&rd_fds);
++    FD_ZERO(&ex_fds);
++    FD_SET(m_fd, &rd_fds);
++    FD_SET(m_fd, &ex_fds);
++
++    if (select(m_fd + 1, &rd_fds, NULL, &ex_fds, &timeval) < 0)
++    {
++      LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Process - select failed - errno=%d", errno);
++      break;
++    }
++
++    if (FD_ISSET(m_fd, &ex_fds))
++    {
++      struct cec_event ev = {};
++      if (ioctl(m_fd, CEC_DQEVENT, &ev))
++        LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Process - ioctl CEC_DQEVENT failed - errno=%d", errno);
++      else if (ev.event == CEC_EVENT_STATE_CHANGE)
++      {
++        LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Process - CEC_DQEVENT - CEC_EVENT_STATE_CHANGE - log_addr_mask=%04x phys_addr=%04x", ev.state_change.log_addr_mask, ev.state_change.phys_addr);
++
++        // TODO: handle ev.state_change.log_addr_mask change
++
++        phys_addr = ev.state_change.phys_addr;
++        phys_addr_changed = true;
++
++        if (ev.state_change.phys_addr == CEC_PHYS_ADDR_INVALID)
++        {
++          // Debounce change to invalid physical address with 2 seconds because
++          // EDID refresh and other events may cause short periods of invalid physical address
++          phys_addr_timeout.Init(2000);
++        }
++        else
++        {
++          // Debounce change to valid physical address with 500 ms when no logical address have been claimed
++          phys_addr_timeout.Init(ev.state_change.log_addr_mask ? 0 : 500);
++        }
++      }
++    }
++
++    if (phys_addr_changed && !phys_addr_timeout.TimeLeft() && !IsStopped())
++    {
++      phys_addr_changed = false;
++      m_callback->HandlePhysicalAddressChanged(phys_addr);
++    }
++
++    if (FD_ISSET(m_fd, &rd_fds))
++    {
++      struct cec_msg msg = {};
++      if (ioctl(m_fd, CEC_RECEIVE, &msg))
++        LIB_CEC->AddLog(CEC_LOG_ERROR, "CLinuxCECAdapterCommunication::Process - ioctl CEC_RECEIVE failed - rx_status=%02x errno=%d", msg.rx_status, errno);
++      else if (msg.len > 0)
++      {
++        LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Process - ioctl CEC_RECEIVE - rx_status=%02x len=%d addr=%02x opcode=%02x", msg.rx_status, msg.len, msg.msg[0], cec_msg_opcode(&msg));
++
++        cec_command cmd;
++        cmd.PushArray(msg.len, msg.msg);
++
++        if (!IsStopped())
++          m_callback->OnCommandReceived(cmd);
++      }
++    }
++
++    if (!IsStopped())
++      Sleep(5);
++  }
++
++  LIB_CEC->AddLog(CEC_LOG_DEBUG, "CLinuxCECAdapterCommunication::Process - stopped - m_fd=%d", m_fd);
++  return 0;
++}
++
++#endif
+diff --git a/src/libcec/adapter/Linux/LinuxCECAdapterCommunication.h b/src/libcec/adapter/Linux/LinuxCECAdapterCommunication.h
+new file mode 100644
+index 0000000..f4fac87
+--- /dev/null
++++ b/src/libcec/adapter/Linux/LinuxCECAdapterCommunication.h
+@@ -0,0 +1,95 @@
++#pragma once
++/*
++ * This file is part of the libCEC(R) library.
++ *
++ * libCEC Linux CEC Adapter is Copyright (C) 2017-2018 Jonas Karlman
++ * based heavily on:
++ * libCEC AOCEC Code is Copyright (C) 2016 Gerald Dachs
++ * libCEC Exynos Code is Copyright (C) 2014 Valentin Manea
++ * libCEC(R) is Copyright (C) 2011-2015 Pulse-Eight Limited.  All rights reserved.
++ * libCEC(R) is an original work, containing original code.
++ *
++ * libCEC(R) is a trademark of Pulse-Eight Limited.
++ *
++ * This program is dual-licensed; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ *
++ * Alternatively, you can license this library under a commercial license,
++ * please contact Pulse-Eight Licensing for more information.
++ *
++ * For more information contact:
++ * Pulse-Eight Licensing       <license@pulse-eight.com>
++ *     http://www.pulse-eight.com/
++ *     http://www.pulse-eight.net/
++ */
++
++#include "env.h"
++
++#if defined(HAVE_LINUX_API)
++#include "p8-platform/threads/threads.h"
++#include "../AdapterCommunication.h"
++
++namespace CEC
++{
++  class CLinuxCECAdapterCommunication : public IAdapterCommunication, public P8PLATFORM::CThread
++  {
++  public:
++    /*!
++     * @brief Create a new Linux CEC communication handler.
++     * @param callback The callback to use for incoming CEC commands.
++     */
++    CLinuxCECAdapterCommunication(IAdapterCommunicationCallback *callback);
++    virtual ~CLinuxCECAdapterCommunication(void);
++
++    /** @name IAdapterCommunication implementation */
++    ///{
++    bool Open(uint32_t iTimeoutMs = CEC_DEFAULT_CONNECT_TIMEOUT, bool bSkipChecks = false, bool bStartListening = true) override;
++    void Close(void) override;
++    bool IsOpen(void) override;
++    cec_adapter_message_state Write(const cec_command &data, bool &bRetry, uint8_t iLineTimeout, bool bIsReply) override;
++
++    bool SetLineTimeout(uint8_t UNUSED(iTimeout)) override { return true; }
++    bool StartBootloader(void) override { return false; }
++    bool SetLogicalAddresses(const cec_logical_addresses &addresses) override;
++    cec_logical_addresses GetLogicalAddresses(void) const override;
++    bool PingAdapter(void) override { return true; }
++    uint16_t GetFirmwareVersion(void) override { return 0; }
++    uint32_t GetFirmwareBuildDate(void) override { return 0; }
++    bool IsRunningLatestFirmware(void) override { return true; }
++    bool SetControlledMode(bool UNUSED(controlled)) override { return true; }
++    bool PersistConfiguration(const libcec_configuration & UNUSED(configuration)) override { return false; }
++    bool SetAutoMode(bool UNUSED(automode)) override { return false; }
++    bool GetConfiguration(libcec_configuration & UNUSED(configuration)) override { return false; }
++    std::string GetPortName(void) override { return std::string("LINUX"); }
++    uint16_t GetPhysicalAddress(void) override;
++    cec_vendor_id GetVendorId(void) override;
++    bool SupportsSourceLogicalAddress(const cec_logical_address address) override { return address > CECDEVICE_TV && address <= CECDEVICE_BROADCAST; }
++    cec_adapter_type GetAdapterType(void) override { return ADAPTERTYPE_LINUX; }
++    uint16_t GetAdapterVendorId(void) const override { return 1; }
++    uint16_t GetAdapterProductId(void) const override { return 1; }
++    void SetActiveSource(bool UNUSED(bSetTo), bool UNUSED(bClientUnregistered)) override {}
++    ///}
++
++    /** @name P8PLATFORM::CThread implementation */
++    ///{
++    void *Process(void) override;
++    ///}
++
++  private:
++    int m_fd;
++  };
++};
++
++#endif
+diff --git a/src/libcec/adapter/Linux/LinuxCECAdapterDetection.cpp b/src/libcec/adapter/Linux/LinuxCECAdapterDetection.cpp
+new file mode 100644
+index 0000000..7b72238
+--- /dev/null
++++ b/src/libcec/adapter/Linux/LinuxCECAdapterDetection.cpp
+@@ -0,0 +1,50 @@
++/*
++ * This file is part of the libCEC(R) library.
++ *
++ * libCEC Linux CEC Adapter is Copyright (C) 2017 Jonas Karlman
++ * based heavily on:
++ * libCEC AOCEC Code is Copyright (C) 2016 Gerald Dachs
++ * libCEC Exynos Code is Copyright (C) 2014 Valentin Manea
++ * libCEC(R) is Copyright (C) 2011-2015 Pulse-Eight Limited.  All rights reserved.
++ * libCEC(R) is an original work, containing original code.
++ *
++ * libCEC(R) is a trademark of Pulse-Eight Limited.
++ *
++ * This program is dual-licensed; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ *
++ * Alternatively, you can license this library under a commercial license,
++ * please contact Pulse-Eight Licensing for more information.
++ *
++ * For more information contact:
++ * Pulse-Eight Licensing       <license@pulse-eight.com>
++ *     http://www.pulse-eight.com/
++ *     http://www.pulse-eight.net/
++ */
++
++#include "env.h"
++#include <stdio.h>
++
++#if defined(HAVE_LINUX_API)
++#include "LinuxCECAdapterDetection.h"
++
++using namespace CEC;
++
++bool CLinuxCECAdapterDetection::FindAdapter(void)
++{
++  return access(CEC_LINUX_PATH, 0) == 0;
++}
++
++#endif
+diff --git a/src/libcec/adapter/Linux/LinuxCECAdapterDetection.h b/src/libcec/adapter/Linux/LinuxCECAdapterDetection.h
+new file mode 100644
+index 0000000..f5ea2c4
+--- /dev/null
++++ b/src/libcec/adapter/Linux/LinuxCECAdapterDetection.h
+@@ -0,0 +1,51 @@
++#pragma once
++/*
++ * This file is part of the libCEC(R) library.
++ *
++ * libCEC Linux CEC Adapter is Copyright (C) 2017 Jonas Karlman
++ * based heavily on:
++ * libCEC AOCEC Code is Copyright (C) 2016 Gerald Dachs
++ * libCEC Exynos Code is Copyright (C) 2014 Valentin Manea
++ * libCEC(R) is Copyright (C) 2011-2015 Pulse-Eight Limited.  All rights reserved.
++ * libCEC(R) is an original work, containing original code.
++ *
++ * libCEC(R) is a trademark of Pulse-Eight Limited.
++ *
++ * This program is dual-licensed; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ *
++ * Alternatively, you can license this library under a commercial license,
++ * please contact Pulse-Eight Licensing for more information.
++ *
++ * For more information contact:
++ * Pulse-Eight Licensing       <license@pulse-eight.com>
++ *     http://www.pulse-eight.com/
++ *     http://www.pulse-eight.net/
++ */
++
++#include "env.h"
++
++#if defined(HAVE_LINUX_API)
++
++namespace CEC
++{
++  class CLinuxCECAdapterDetection
++  {
++  public:
++    static bool FindAdapter(void);
++  };
++};
++
++#endif
+diff --git a/src/libcec/cmake/CheckPlatformSupport.cmake b/src/libcec/cmake/CheckPlatformSupport.cmake
+index 2d7102f..dacca0f 100644
+--- a/src/libcec/cmake/CheckPlatformSupport.cmake
++++ b/src/libcec/cmake/CheckPlatformSupport.cmake
+@@ -9,6 +9,7 @@
+ #       HAVE_RPI_API              ON if Raspberry Pi is supported
+ #       HAVE_TDA995X_API          ON if TDA995X is supported
+ #       HAVE_EXYNOS_API           ON if Exynos is supported
++#       HAVE_LINUX_API            ON if Linux is supported
+ #       HAVE_AOCEC_API            ON if AOCEC is supported
+ #       HAVE_P8_USB               ON if Pulse-Eight devices are supported
+ #       HAVE_P8_USB_DETECT        ON if Pulse-Eight devices can be auto-detected
+@@ -30,6 +31,7 @@ SET(HAVE_LIBUDEV         OFF CACHE BOOL "udev not supported")
+ SET(HAVE_RPI_API         OFF CACHE BOOL "raspberry pi not supported")
+ SET(HAVE_TDA995X_API     OFF CACHE BOOL "tda995x not supported")
+ SET(HAVE_EXYNOS_API      OFF CACHE BOOL "exynos not supported")
++SET(HAVE_LINUX_API       OFF CACHE BOOL "linux not supported")
+ SET(HAVE_AOCEC_API       OFF CACHE BOOL "aocec not supported")
+ # Pulse-Eight devices are always supported
+ set(HAVE_P8_USB          ON  CACHE BOOL "p8 usb-cec supported" FORCE)
+@@ -139,6 +141,16 @@ else()
+     list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_EXYNOS})
+   endif()
+ 
++  # Linux
++  if (${HAVE_LINUX_API})
++    set(LIB_INFO "${LIB_INFO}, Linux")
++    SET(HAVE_LINUX_API ON CACHE BOOL "linux supported" FORCE)
++    set(CEC_SOURCES_ADAPTER_LINUX adapter/Linux/LinuxCECAdapterDetection.cpp
++                                  adapter/Linux/LinuxCECAdapterCommunication.cpp)
++    source_group("Source Files\\adapter\\Linux" FILES ${CEC_SOURCES_ADAPTER_LINUX})
++    list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_LINUX})
++  endif()
++
+   # AOCEC
+   if (${HAVE_AOCEC_API})
+     set(LIB_INFO "${LIB_INFO}, AOCEC")
+diff --git a/src/libcec/cmake/DisplayPlatformSupport.cmake b/src/libcec/cmake/DisplayPlatformSupport.cmake
+index 83a778a..f47b1f7 100644
+--- a/src/libcec/cmake/DisplayPlatformSupport.cmake
++++ b/src/libcec/cmake/DisplayPlatformSupport.cmake
+@@ -44,6 +44,12 @@ else()
+   message(STATUS "DRM support:                            no")
+ endif()
+ 
++if (HAVE_LINUX_API)
++  message(STATUS "Linux support:                          yes")
++else()
++  message(STATUS "Linux support:                          no")
++endif()
++
+ if (HAVE_AOCEC_API)
+   message(STATUS "AOCEC support:                          yes")
+ else()
+diff --git a/src/libcec/env.h.in b/src/libcec/env.h.in
+index 456a2e7..71895a8 100644
+--- a/src/libcec/env.h.in
++++ b/src/libcec/env.h.in
+@@ -76,6 +76,9 @@
+ /* Define to 1 for Exynos support */
+ #cmakedefine HAVE_EXYNOS_API @HAVE_EXYNOS_API@
+ 
++/* Define to 1 for Linux support */
++#cmakedefine HAVE_LINUX_API @HAVE_LINUX_API@
++
+ /* Define to 1 for AOCEC support */
+ #cmakedefine HAVE_AOCEC_API @HAVE_AOCEC_API@
+ 

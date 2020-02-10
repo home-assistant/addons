@@ -1,4 +1,4 @@
-# Hass.io Core Add-on: Mosquitto broker
+# Home Assistant Add-on: Mosquitto broker
 
 MQTT broker for Home Assistant.
 
@@ -12,7 +12,7 @@ You can use this add-on to install Eclipse Mosquitto, which is an open-source (E
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Hass.io** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "Mosquitto broker" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -39,18 +39,15 @@ If you have old MQTT settings available, remove this old integration and restart
 
 Add-on configuration:
 
-```json
-{
-  "logins": [],
-  "anonymous": false,
-  "customize": {
-    "active": false,
-    "folder": "mosquitto"
-  },
-  "certfile": "fullchain.pem",
-  "keyfile": "privkey.pem",
-  "require_certificate": false
-}
+```yaml
+logins: []
+anonymous: false
+customize:
+  active: false
+  folder: mosquitto
+certfile: fullchain.pem
+keyfile: privkey.pem
+require_certificate: false
 ```
 
 ### Option: `logins` (optional)
@@ -91,7 +88,7 @@ If set to `true` encryption will be enabled using the cert- and keyfile options.
 
 ## Home Assistant user management
 
-This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Hass.io ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
+This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Home Assistant ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
 
 ## Disable listening on insecure (1883) ports
 
@@ -110,11 +107,10 @@ Add the following configuration to enable **unrestricted** access to all topics.
 
 1. Enable the customize flag
 
-    ```json
-      "customize": {
-        "active": true,
-        "folder": "mosquitto"
-      },
+    ```yaml
+      customize:
+        active: true
+        folder: mosquitto
     ```
 
 2. Create `/share/mosquitto/acl.conf` with the contents:

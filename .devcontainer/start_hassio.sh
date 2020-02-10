@@ -68,6 +68,11 @@ function cleanup_hass_data() {
 function cleanup_docker() {
     echo "Cleaning up stopped containers..."
     docker rm $(docker ps -a -q)
+
+    # Clean homeassistant instance
+    if docker rm -f homeassistant 2> /dev/null; then
+        echo "Cleanup HomeAssistant instance"
+    fi
 }
 
 function run_supervisor() {

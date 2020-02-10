@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "4.3",
+  "version": "4.4",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt",
@@ -29,7 +29,7 @@
     "keyfile": "str",
     "challenge": "list(dns|http)",
     "dns": {
-      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud)?",
+      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup)?",
       "cloudflare_email": "email?",
       "cloudflare_api_key": "str?",
       "cloudxns_api_key": "str?",
@@ -58,7 +58,11 @@
       "aws_access_key_id": "str?",
       "aws_secret_access_key": "str?",
       "sakuracloud_api_token": "str?",
-      "sakuracloud_api_secret": "str?"
+      "sakuracloud_api_secret": "str?",
+      "netcup_customer_id": "str?",
+      "netcup_api_key": "str?",
+      "netcup_api_password": "str?",
+      "netcup_propagation_seconds": "int(60,3600)?"
     }
   },
   "image": "homeassistant/{arch}-addon-letsencrypt"

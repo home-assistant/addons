@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4
+
+- Added support for nectup dns
+
 ## 4.3
 
 - Added support for google dns

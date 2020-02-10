@@ -70,6 +70,15 @@ function cleanup_docker() {
     docker rm $(docker ps -a -q)
 }
 
+function cleanup_lastboot() {
+    if [[ -f /workspaces/test_hassio/config.json ]]; then
+        echo "Cleaning up last boot"
+        cp /workspaces/test_hassio/config.json /tmp/config.json
+        jq -rM 'del(.last_boot)' /tmp/config.json > /workspaces/test_hassio/config.json
+        rm /tmp/config.json
+    fi
+}
+
 function run_supervisor() {
     docker run --rm --privileged \
         --name hassio_supervisor \
@@ -97,6 +106,7 @@ case "$1" in
         start_docker
         trap "stop_docker" ERR
         cleanup_docker || true
+        cleanup_lastboot || true
         install
         run_supervisor
         stop_docker;; 

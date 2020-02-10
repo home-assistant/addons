@@ -68,10 +68,14 @@ function cleanup_hass_data() {
 function cleanup_docker() {
     echo "Cleaning up stopped containers..."
     docker rm $(docker ps -a -q)
+}
 
-    # Clean homeassistant instance
-    if docker rm -f homeassistant 2> /dev/null; then
-        echo "Cleanup HomeAssistant instance"
+function cleanup_lastboot() {
+    if [[ -f /workspaces/test_hassio/config.json ]]; then
+        echo "Cleaning up last boot"
+        cp /workspaces/test_hassio/config.json /tmp/config.json
+        jq -rM 'del(.last_boot)' /tmp/config.json > /workspaces/test_hassio/config.json
+        rm /tmp/config.json
     fi
 }
 
@@ -102,6 +106,7 @@ case "$1" in
         start_docker
         trap "stop_docker" ERR
         cleanup_docker || true
+        cleanup_lastboot || true
         install
         run_supervisor
         stop_docker;; 

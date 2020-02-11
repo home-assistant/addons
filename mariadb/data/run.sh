@@ -14,8 +14,8 @@ else
 fi
 
 # Redirect log output
-rm -f /data/databases/local-mariadb.err
-ln -s /proc/1/fd/1 /data/databases/local-mariadb.err
+rm -f /data/databases/mariadb.err
+ln -s /proc/1/fd/1 /data/databases/mariadb.err
 
 # Start mariadb
 bashio::log.info "Starting MariaDB"

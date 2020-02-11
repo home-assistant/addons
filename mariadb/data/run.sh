@@ -2,11 +2,13 @@
 set -e
 
 MARIADB_DATA=/data/databases
+NEW_INSTALL=false
 
 # Init mariadb
 if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
     bashio::log.info "Create a new mariadb initial system"
     mysql_install_db --user=root --datadir="$MARIADB_DATA" > /dev/null
+    NEW_INSTALL=true
 else
     bashio::log.info "Using existing mariadb initial system"
 fi
@@ -26,9 +28,25 @@ while ! mysql -e "" 2> /dev/null; do
 done
 
 bashio::log.info "Check data integrity and fix corruptions"
-mysqlcheck --no-defaults --check-upgrade --auto-repair --databases mysql --skip-write-binlog > /dev/null || true
-mysqlcheck --no-defaults --all-databases --fix-db-names --fix-table-names --skip-write-binlog > /dev/null || true
-mysqlcheck --no-defaults --check-upgrade --all-databases --auto-repair --skip-write-binlog > /dev/null || true
+# Set default secure values after inital setup
+if bashio::var.true "${NEW_INSTALL}"; then
+    # Secure the installation.
+    mysql <<-EOSQL
+        SET @@SESSION.SQL_LOG_BIN=0;
+        DELETE FROM
+            mysql.user
+        WHERE
+            user NOT IN ('mysql.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
+                OR host NOT IN ('localhost');
+        DELETE FROM
+            mysql.proxies_priv
+        WHERE
+            user NOT IN ('mysql.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
+                OR host NOT IN ('localhost');
+        DROP DATABASE IF EXISTS test;
+        FLUSH PRIVILEGES;
+EOSQL
+fi
 
 # Init databases
 bashio::log.info "Init custom database"

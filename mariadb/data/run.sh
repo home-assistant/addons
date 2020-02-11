@@ -38,17 +38,16 @@ for line in $(bashio::config "databases"); do
 done
 
 # Init logins
-bashio::log.info "Init/Update users"
+bashio::log.info "Ensure users exists and are updated"
 for login in $(bashio::config "logins|keys"); do
     USERNAME=$(bashio::config "logins[${login}].username")
     PASSWORD=$(bashio::config "logins[${login}].password")
-    HOST=$(bashio::config "logins[${login}].host")
 
-    if mysql -e "SET PASSWORD FOR '$USERNAME'@'$HOST' = PASSWORD('$PASSWORD');" 2> /dev/null; then
-        bashio::log.info "Update user $USERNAME"
+    if mysql -e "SET PASSWORD FOR '${USERNAME}'@'%' = PASSWORD('${PASSWORD}');" 2> /dev/null; then
+        bashio::log.info "Update user ${USERNAME}"
     else
-        bashio::log.info "Create user $USERNAME"
-        mysql -e "CREATE USER '$USERNAME'@'$HOST' IDENTIFIED BY '$PASSWORD';" 2> /dev/null || true
+        bashio::log.info "Create user ${USERNAME}"
+        mysql -e "CREATE USER '${USERNAME}'@'%' IDENTIFIED BY '${PASSWORD}';" 2> /dev/null || true
     fi
 done
 
@@ -56,12 +55,10 @@ done
 bashio::log.info "Init/Update rights"
 for right in $(bashio::config "rights|keys"); do
     USERNAME=$(bashio::config "rights[${right}].username")
-    HOST=$(bashio::config "rights[${right}].host")
     DATABASE=$(bashio::config "rights[${right}].database")
-    GRANT=$(bashio::config "rights[${right}].grant")
 
-    bashio::log.info "Alter rights for $USERNAME@$HOST - $DATABASE"
-    mysql -e "GRANT $GRANT $DATABASE.* TO '$USERNAME'@'$HOST';" 2> /dev/null || true
+    bashio::log.info "Alter rights for ${USERNAME} to ${DATABASE}"
+    mysql -e "GRANT ALL PRIVILEGES ${DATABASE}.* TO '${USERNAME}'@'%';" 2> /dev/null || true
 done
 
 # Register stop

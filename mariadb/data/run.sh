@@ -61,8 +61,36 @@ for right in $(bashio::config "rights|keys"); do
     mysql -e "GRANT ALL PRIVILEGES ${DATABASE}.* TO '${USERNAME}'@'%';" 2> /dev/null || true
 done
 
+# Generate service user
+if ! bashio::fs.file_exists "/data/secret"; then
+    pwgen 64 1 > /data/secret
+fi
+SECRET=$(</data/secret)
+mysql -e "CREATE USER 'service'@'172.30.32.%' IDENTIFIED BY '${SECRET}';" 2> /dev/null || true
+mysql -e "CREATE USER 'service'@'172.30.33.%' IDENTIFIED BY '${SECRET}';" 2> /dev/null || true
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'service'@'172.30.32.%' WITH GRANT OPTION;" 2> /dev/null || true
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'service'@'172.30.33.%' WITH GRANT OPTION;" 2> /dev/null || true
+
+# Flush privileges
+mysql -e "FLUSH PRIVILEGES;" 2> /dev/null || true
+
+# Send service information to the Supervisor
+PAYLOAD=$(\
+    bashio::var.json \
+        host "$(hostname)" \
+        port "^3306" \
+        username "service" \
+        password "${SECRET}"
+)
+if bashio::services.publish "mysql" "${PAYLOAD}"; then
+    bashio::log.info "Successfully send service information to Home Assistant."
+else
+    bashio::log.warning "Service message to Home Assistant failed!"
+fi
+
 # Register stop
 function stop_mariadb() {
+    bashio::services.delete "mysql"
     mysqladmin shutdown
 }
 trap "stop_mariadb" SIGTERM SIGHUP

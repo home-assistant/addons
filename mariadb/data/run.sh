@@ -7,7 +7,7 @@ NEW_INSTALL=false
 # Init mariadb
 if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
     bashio::log.info "Create a new mariadb initial system"
-    mysql_install_db --user=root --datadir="$MARIADB_DATA" > /dev/null
+    mysql_install_db --user=root --datadir="$MARIADB_DATA" --skip-name-resolve --skip-test-db > /dev/null
     NEW_INSTALL=true
 else
     bashio::log.info "Using existing mariadb initial system"

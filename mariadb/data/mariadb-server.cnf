@@ -1,7 +1,8 @@
 
 [server]
 
-[mysqld]
+# Do not resolve DNS names
+skip-name-resolve
 
 datadir=/data/databases
 

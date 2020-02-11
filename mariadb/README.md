@@ -35,13 +35,10 @@ databases:
   - homeassistant
 logins:
   - username: hass
-    host: "%"
-    password: 
+    password: PASSWORD
 rights:
   - username: hass
-    host: "%"
     database: homeassistant
-    grant: ALL PRIVILEGES ON
 ```
 
 ### Option: `databases` (required)
@@ -56,10 +53,6 @@ This section defines a create user definition in MariaDB. [Create User][createus
 
 Database user login, e.g., `hass`. [User Name][username] documentation.
 
-### Option: `logins.host` (required)
-
-Hostname allowed to connect to database. [Host Name][hostname] documentation.
-
 ### Option: `logins.password` (required)
 
 Password for user login. This should be strong and unique.
@@ -72,17 +65,9 @@ This section grant privileges to users in MariaDB. [Grant][grant] documentation.
 
 This should be the same user name defined in `logins` -> `username`.
 
-### Option: `rights.host` (required)
-
-This should be the same hostname defined in `logins` -> `host`.
-
 ### Option: `rights.database` (required)
 
 This should be the same database defined in `databases`.
-
-### Option: `rights.grant` (required)
-
-This is the grant statement giving your user access to the database.
 
 ## Home Assistant Configuration
 

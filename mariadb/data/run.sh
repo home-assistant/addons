@@ -19,7 +19,7 @@ ln -s /proc/1/fd/1 /data/databases/local-mariadb.err
 
 # Start mariadb
 bashio::log.info "Starting MariaDB"
-mysqld_safe --datadir="$MARIADB_DATA" --user=root --skip-log-bin < /dev/null &
+mysqld_safe --datadir="$MARIADB_DATA" --user=root < /dev/null &
 MARIADB_PID=$!
 
 # Wait until DB is running
@@ -28,6 +28,11 @@ while ! mysql -e "" 2> /dev/null; do
 done
 
 bashio::log.info "Check data integrity and fix corruptions"
+mysqlcheck --no-defaults --databases mysql --fix-db-names --fix-table-names || true
+mysqlcheck --no-defaults --databases mysql --check --check-upgrade --auto-repair || true
+mysqlcheck --no-defaults --all-databases --skip-database=mysql --fix-db-names --fix-table-names || true
+mysqlcheck --no-defaults --all-databases --skip-database=mysql --check --check-upgrade --auto-repair || true
+
 # Set default secure values after inital setup
 if bashio::var.true "${NEW_INSTALL}"; then
     # Secure the installation.

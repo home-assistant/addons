@@ -11,6 +11,10 @@ else
     bashio::log.info "Using existing mariadb initial system"
 fi
 
+# Redirect log output
+rm -f /data/databases/local-mariadb.err
+ln -s /proc/1/fd/1 /data/databases/local-mariadb.err
+
 # Start mariadb
 bashio::log.info "Starting MariaDB"
 mysqld_safe --datadir="$MARIADB_DATA" --user=root --skip-log-bin < /dev/null &

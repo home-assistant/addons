@@ -7,7 +7,7 @@ NEW_INSTALL=false
 # Init mariadb
 if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
     bashio::log.info "Create a new mariadb initial system"
-    mysql_install_db --user=root --datadir="$MARIADB_DATA" --skip-name-resolve --skip-test-db > /dev/null
+    mysql_install_db --user=root --datadir="${MARIADB_DATA}" --skip-name-resolve --skip-test-db > /dev/null
     NEW_INSTALL=true
 else
     bashio::log.info "Using existing mariadb initial system"
@@ -19,7 +19,7 @@ ln -s /proc/1/fd/1 /data/databases/local-mariadb.err
 
 # Start mariadb
 bashio::log.info "Starting MariaDB"
-mysqld_safe --datadir="$MARIADB_DATA" --user=root < /dev/null &
+mysqld_safe --datadir="${MARIADB_DATA}" --user=root < /dev/null &
 MARIADB_PID=$!
 
 # Wait until DB is running
@@ -54,10 +54,10 @@ EOSQL
 fi
 
 # Init databases
-bashio::log.info "Init custom database"
-for line in $(bashio::config "databases"); do
-    bashio::log.info "Create database $line"
-    mysql -e "CREATE DATABASE $line;" 2> /dev/null || true
+bashio::log.info "Ensure databases exists"
+for database in $(bashio::config "databases"); do
+    bashio::log.info "Create database ${database}"
+    mysql -e "CREATE DATABASE ${database};" 2> /dev/null || true
 done
 
 # Init logins
@@ -118,4 +118,4 @@ function stop_mariadb() {
 }
 trap "stop_mariadb" SIGTERM SIGHUP
 
-wait "$MARIADB_PID"
+wait "${MARIADB_PID}"

@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.3
+
+- Update Home Assistant CLI to 4.0.1
+- Add backward compatibility with the hassio command
+- Update Web terminal to ttyd 1.6.0 with Libwebsockets 3.2.2
+- Rename HASSIO_TOKEN to SUPERVISOR_TOKEN in shell profile
+
 ## 8.2
 
 - Fix creation of new tmux terminal windows

@@ -1,6 +1,6 @@
 {
   "name": "SSH server",
-  "version": "8.2",
+  "version": "8.3",
   "slug": "ssh",
   "description": "Allow logging in remotely to Home Assistant using SSH",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/ssh",

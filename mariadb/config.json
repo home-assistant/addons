@@ -9,7 +9,7 @@
   "boot": "auto",
   "services": ["mysql:provide"],
   "ports": {
-    "3306/tcp": 3306
+    "3306/tcp": null
   },
   "options": {
     "databases": ["homeassistant"],

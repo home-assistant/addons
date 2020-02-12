@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.8
+
+- Update OCCU to 3.51.6-1
+
 ## 9.7
 
 - Fix glibc error on i386/amd64

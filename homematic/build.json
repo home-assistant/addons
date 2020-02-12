@@ -1,9 +1,10 @@
 {
   "build_from": {
     "armv7": "homeassistant/armv7-base-debian:buster",
-    "i386": "homeassistant/i386-base-debian:bullseye"
+    "i386": "homeassistant/i386-base-debian:bullseye",
+    "amd64": "homeassistant/i386-base-debian:bullseye"
   },
   "args": {
-    "OCCU_VERSION": "3.49.17-4"
+    "OCCU_VERSION": "3.51.6-1"
   }
 }

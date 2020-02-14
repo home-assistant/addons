@@ -71,7 +71,7 @@ This should be the same database defined in `databases`.
 
 ## Home Assistant Configuration
 
-MariaDB will be used by the `recorder` and `history` components within Home Assistant. For more information about setting this up, see the [MariaDB][mariadb-hass] documentation for Home Assistant.
+MariaDB will be used by the `recorder` and `history` components within Home Assistant. For more information about setting this up, see the [recorder integration][mariadb-ha-recorder] documentation for Home Assistant.
 
 Example Home Assistant configuration:
 
@@ -101,7 +101,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [username]: https://mariadb.com/kb/en/library/create-user/#user-name-component
 [hostname]: https://mariadb.com/kb/en/library/create-user/#host-name-component
 [grant]: https://mariadb.com/kb/en/library/grant
-[mariadb-hass]: https://www.home-assistant.io/addons/mariadb
+[mariadb-ha-recorder]: https://www.home-assistant.io/integrations/recorder/
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg

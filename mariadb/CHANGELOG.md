@@ -10,6 +10,10 @@
 - Skip DNS name resolving
 - Improve integrity checks and recovery
 - Tune MariaDB for lower memory usage
+- Close port 3306 by default
+- Ensure a proper collation set is used
+- Adds database upgrade process during startup
+- Change default configuration username from "hass" to "homeassistant"
 
 ## 1.3
 

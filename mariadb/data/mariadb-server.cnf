@@ -5,6 +5,10 @@ log_error=mariadb.err
 # Persistent storage location
 datadir=/data/databases
 
+# Use a proper collation set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
 # Do not resolve DNS names
 skip-name-resolve
 

@@ -3,7 +3,7 @@
 	"name": "Hass.io Community Add-Ons",
 	"context": "..",
 	"dockerFile": "Dockerfile",
-	"appPort": 8123,
+	"appPort": 7123,
 	"runArgs": [
 		"-e",
 		"GIT_EDITOR=code --wait",

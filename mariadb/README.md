@@ -34,10 +34,10 @@ Example add-on configuration:
 databases:
   - homeassistant
 logins:
-  - username: hass
+  - username: homeassistant
     password: PASSWORD
 rights:
-  - username: hass
+  - username: homeassistant
     database: homeassistant
 ```
 
@@ -51,7 +51,7 @@ This section defines a create user definition in MariaDB. [Create User][createus
 
 ### Option: `logins.username` (required)
 
-Database user login, e.g., `hass`. [User Name][username] documentation.
+Database user login, e.g., `homeassistant`. [User Name][username] documentation.
 
 ### Option: `logins.password` (required)
 
@@ -77,7 +77,7 @@ Example Home Assistant configuration:
 
 ```yaml
 recorder:
-  db_url: mysql://hass:password@core-mariadb/homeassistant?charset=utf8
+  db_url: mysql://homeassistant:password@core-mariadb/homeassistant?charset=utf8
 ```
 
 ## Support

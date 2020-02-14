@@ -101,7 +101,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [username]: https://mariadb.com/kb/en/library/create-user/#user-name-component
 [hostname]: https://mariadb.com/kb/en/library/create-user/#host-name-component
 [grant]: https://mariadb.com/kb/en/library/grant
-[mariadb-hass]: https://www.home-assistant.io/addons/mariadb
 [mariadb-ha-recorder]: https://www.home-assistant.io/integrations/recorder/
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io

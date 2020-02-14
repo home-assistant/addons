@@ -142,6 +142,14 @@ You can find additional information in regards to the required permissions in th
 
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
 
+### CloudFlare
+
+Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
+
+Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
+
+However, due to some shortcomings in Cloudflare’s implementation of Tokens, Tokens created for Certbot currently require `Zone:Zone:Read` and `Zone:DNS:Edit` permissions for all zones in your account.
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.

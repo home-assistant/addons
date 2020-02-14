@@ -81,7 +81,7 @@ for right in $(bashio::config "rights|keys"); do
     DATABASE=$(bashio::config "rights[${right}].database")
 
     bashio::log.info "Alter rights for ${USERNAME} to ${DATABASE}"
-    mysql -e "GRANT ALL PRIVILEGES ${DATABASE}.* TO '${USERNAME}'@'%';" 2> /dev/null || true
+    mysql -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USERNAME}'@'%';" 2> /dev/null || true
 done
 
 # Generate service user

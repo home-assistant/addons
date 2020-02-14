@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5
+
+- Update cerbot to 1.2.0
+- Update image to Alpine 3.11
+- Support CloudFlare API Token
+
 ## 4.4
 
 - Added support for nectup dns

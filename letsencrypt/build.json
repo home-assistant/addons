@@ -1,13 +1,13 @@
 {
   "build_from": {
-    "aarch64": "homeassistant/aarch64-base-python:3.7-alpine3.10",
-    "amd64": "homeassistant/amd64-base-python:3.7-alpine3.10",
-    "armhf": "homeassistant/armhf-base-python:3.7-alpine3.10",
-    "armv7": "homeassistant/armv7-base-python:3.7-alpine3.10",
-    "i386": "homeassistant/i386-base-python:3.7-alpine3.10"
+    "aarch64": "homeassistant/aarch64-base-python:3.7-alpine3.11",
+    "amd64": "homeassistant/amd64-base-python:3.7-alpine3.11",
+    "armhf": "homeassistant/armhf-base-python:3.7-alpine3.11",
+    "armv7": "homeassistant/armv7-base-python:3.7-alpine3.11",
+    "i386": "homeassistant/i386-base-python:3.7-alpine3.11"
   },
   "args": {
-    "CERTBOT_VERSION": "1.0.0",
+    "CERTBOT_VERSION": "1.2.0",
     "CERTBOT_NETCUP_VERSION": "0.31.0.1"
   }
 }

@@ -33,6 +33,9 @@ mysqlcheck --no-defaults --databases mysql --check --check-upgrade --auto-repair
 mysqlcheck --no-defaults --all-databases --skip-database=mysql --fix-db-names --fix-table-names || true
 mysqlcheck --no-defaults --all-databases --skip-database=mysql --check --check-upgrade --auto-repair || true
 
+bashio::log.info "Ensuring internal database upgrades are performed"
+mysql_upgrade --silent
+
 # Set default secure values after inital setup
 if bashio::var.true "${NEW_INSTALL}"; then
     # Secure the installation.

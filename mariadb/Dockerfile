@@ -8,6 +8,7 @@ ENV LANG C.UTF-8
 RUN apk add --no-cache \
     mariadb \
     mariadb-client \
+    mariadb-server-utils \
     pwgen
 
 # Copy data

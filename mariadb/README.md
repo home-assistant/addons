@@ -34,14 +34,11 @@ Example add-on configuration:
 databases:
   - homeassistant
 logins:
-  - username: hass
-    host: "%"
-    password: 
+  - username: homeassistant
+    password: PASSWORD
 rights:
-  - username: hass
-    host: "%"
+  - username: homeassistant
     database: homeassistant
-    grant: ALL PRIVILEGES ON
 ```
 
 ### Option: `databases` (required)
@@ -54,11 +51,7 @@ This section defines a create user definition in MariaDB. [Create User][createus
 
 ### Option: `logins.username` (required)
 
-Database user login, e.g., `hass`. [User Name][username] documentation.
-
-### Option: `logins.host` (required)
-
-Hostname allowed to connect to database. [Host Name][hostname] documentation.
+Database user login, e.g., `homeassistant`. [User Name][username] documentation.
 
 ### Option: `logins.password` (required)
 
@@ -72,17 +65,9 @@ This section grant privileges to users in MariaDB. [Grant][grant] documentation.
 
 This should be the same user name defined in `logins` -> `username`.
 
-### Option: `rights.host` (required)
-
-This should be the same hostname defined in `logins` -> `host`.
-
 ### Option: `rights.database` (required)
 
 This should be the same database defined in `databases`.
-
-### Option: `rights.grant` (required)
-
-This is the grant statement giving your user access to the database.
 
 ## Home Assistant Configuration
 
@@ -92,7 +77,7 @@ Example Home Assistant configuration:
 
 ```yaml
 recorder:
-  db_url: mysql://hass:password@core-mariadb/homeassistant?charset=utf8
+  db_url: mysql://homeassistant:password@core-mariadb/homeassistant?charset=utf8
 ```
 
 ## Support

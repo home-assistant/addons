@@ -1,33 +1,30 @@
 {
   "name": "MariaDB",
-  "version": "1.3",
+  "version": "2.0",
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mariadb",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
+  "services": ["mysql:provide"],
   "ports": {
-    "3306/tcp": 3306
+    "3306/tcp": null
   },
   "options": {
     "databases": ["homeassistant"],
-    "logins": [{ "username": "hass", "host": "%", "password": null }],
+    "logins": [{ "username": "homeassistant", "password": null }],
     "rights": [
       {
-        "username": "hass",
-        "host": "%",
-        "database": "homeassistant",
-        "grant": "ALL PRIVILEGES ON"
+        "username": "homeassistant",
+        "database": "homeassistant"
       }
     ]
   },
   "schema": {
     "databases": ["str"],
-    "logins": [{ "username": "str", "host": "str", "password": "str" }],
-    "rights": [
-      { "username": "str", "host": "str", "database": "str", "grant": "str" }
-    ]
+    "logins": [{ "username": "str", "password": "str" }],
+    "rights": [{ "username": "str", "database": "str" }]
   },
   "image": "homeassistant/{arch}-addon-mariadb",
   "timeout": 20

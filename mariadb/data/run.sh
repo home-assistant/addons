@@ -2,18 +2,24 @@
 set -e
 
 MARIADB_DATA=/data/databases
+NEW_INSTALL=false
 
 # Init mariadb
 if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
     bashio::log.info "Create a new mariadb initial system"
-    mysql_install_db --user=root --datadir="$MARIADB_DATA" > /dev/null
+    mysql_install_db --user=root --datadir="${MARIADB_DATA}" --skip-name-resolve --skip-test-db > /dev/null
+    NEW_INSTALL=true
 else
     bashio::log.info "Using existing mariadb initial system"
 fi
 
+# Redirect log output
+rm -f /data/databases/mariadb.err
+ln -s /proc/1/fd/1 /data/databases/mariadb.err
+
 # Start mariadb
 bashio::log.info "Starting MariaDB"
-mysqld_safe --datadir="$MARIADB_DATA" --user=root --skip-log-bin < /dev/null &
+mysqld_safe --datadir="${MARIADB_DATA}" --user=root < /dev/null &
 MARIADB_PID=$!
 
 # Wait until DB is running
@@ -22,29 +28,52 @@ while ! mysql -e "" 2> /dev/null; do
 done
 
 bashio::log.info "Check data integrity and fix corruptions"
-mysqlcheck --no-defaults --check-upgrade --auto-repair --databases mysql --skip-write-binlog > /dev/null || true
-mysqlcheck --no-defaults --all-databases --fix-db-names --fix-table-names --skip-write-binlog > /dev/null || true
-mysqlcheck --no-defaults --check-upgrade --all-databases --auto-repair --skip-write-binlog > /dev/null || true
+mysqlcheck --no-defaults --databases mysql --fix-db-names --fix-table-names || true
+mysqlcheck --no-defaults --databases mysql --check --check-upgrade --auto-repair || true
+mysqlcheck --no-defaults --all-databases --skip-database=mysql --fix-db-names --fix-table-names || true
+mysqlcheck --no-defaults --all-databases --skip-database=mysql --check --check-upgrade --auto-repair || true
+
+bashio::log.info "Ensuring internal database upgrades are performed"
+mysql_upgrade --silent
+
+# Set default secure values after inital setup
+if bashio::var.true "${NEW_INSTALL}"; then
+    # Secure the installation.
+    mysql <<-EOSQL
+        SET @@SESSION.SQL_LOG_BIN=0;
+        DELETE FROM
+            mysql.user
+        WHERE
+            user NOT IN ('mysql.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
+                OR host NOT IN ('localhost');
+        DELETE FROM
+            mysql.proxies_priv
+        WHERE
+            user NOT IN ('mysql.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
+                OR host NOT IN ('localhost');
+        DROP DATABASE IF EXISTS test;
+        FLUSH PRIVILEGES;
+EOSQL
+fi
 
 # Init databases
-bashio::log.info "Init custom database"
-for line in $(bashio::config "databases"); do
-    bashio::log.info "Create database $line"
-    mysql -e "CREATE DATABASE $line;" 2> /dev/null || true
+bashio::log.info "Ensure databases exists"
+for database in $(bashio::config "databases"); do
+    bashio::log.info "Create database ${database}"
+    mysql -e "CREATE DATABASE ${database};" 2> /dev/null || true
 done
 
 # Init logins
-bashio::log.info "Init/Update users"
+bashio::log.info "Ensure users exists and are updated"
 for login in $(bashio::config "logins|keys"); do
     USERNAME=$(bashio::config "logins[${login}].username")
     PASSWORD=$(bashio::config "logins[${login}].password")
-    HOST=$(bashio::config "logins[${login}].host")
 
-    if mysql -e "SET PASSWORD FOR '$USERNAME'@'$HOST' = PASSWORD('$PASSWORD');" 2> /dev/null; then
-        bashio::log.info "Update user $USERNAME"
+    if mysql -e "SET PASSWORD FOR '${USERNAME}'@'%' = PASSWORD('${PASSWORD}');" 2> /dev/null; then
+        bashio::log.info "Update user ${USERNAME}"
     else
-        bashio::log.info "Create user $USERNAME"
-        mysql -e "CREATE USER '$USERNAME'@'$HOST' IDENTIFIED BY '$PASSWORD';" 2> /dev/null || true
+        bashio::log.info "Create user ${USERNAME}"
+        mysql -e "CREATE USER '${USERNAME}'@'%' IDENTIFIED BY '${PASSWORD}';" 2> /dev/null || true
     fi
 done
 
@@ -52,18 +81,44 @@ done
 bashio::log.info "Init/Update rights"
 for right in $(bashio::config "rights|keys"); do
     USERNAME=$(bashio::config "rights[${right}].username")
-    HOST=$(bashio::config "rights[${right}].host")
     DATABASE=$(bashio::config "rights[${right}].database")
-    GRANT=$(bashio::config "rights[${right}].grant")
 
-    bashio::log.info "Alter rights for $USERNAME@$HOST - $DATABASE"
-    mysql -e "GRANT $GRANT $DATABASE.* TO '$USERNAME'@'$HOST';" 2> /dev/null || true
+    bashio::log.info "Alter rights for ${USERNAME} to ${DATABASE}"
+    mysql -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USERNAME}'@'%';" 2> /dev/null || true
 done
+
+# Generate service user
+if ! bashio::fs.file_exists "/data/secret"; then
+    pwgen 64 1 > /data/secret
+fi
+SECRET=$(</data/secret)
+mysql -e "CREATE USER 'service'@'172.30.32.%' IDENTIFIED BY '${SECRET}';" 2> /dev/null || true
+mysql -e "CREATE USER 'service'@'172.30.33.%' IDENTIFIED BY '${SECRET}';" 2> /dev/null || true
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'service'@'172.30.32.%' WITH GRANT OPTION;" 2> /dev/null || true
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'service'@'172.30.33.%' WITH GRANT OPTION;" 2> /dev/null || true
+
+# Flush privileges
+mysql -e "FLUSH PRIVILEGES;" 2> /dev/null || true
+
+# Send service information to the Supervisor
+PAYLOAD=$(\
+    bashio::var.json \
+        host "$(hostname)" \
+        port "^3306" \
+        username "service" \
+        password "${SECRET}"
+)
+if bashio::services.publish "mysql" "${PAYLOAD}"; then
+    bashio::log.info "Successfully send service information to Home Assistant."
+else
+    bashio::log.warning "Service message to Home Assistant failed!"
+fi
 
 # Register stop
 function stop_mariadb() {
+    bashio::services.delete "mysql"
     mysqladmin shutdown
 }
 trap "stop_mariadb" SIGTERM SIGHUP
 
-wait "$MARIADB_PID"
+wait "${MARIADB_PID}"

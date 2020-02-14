@@ -57,6 +57,7 @@ In addition add the fields according to the credentials required by your dns pro
 ```yaml
 cloudflare_email: ''
 cloudflare_api_key: ''
+cloudflare_api_token: ''
 cloudxns_api_key: ''
 cloudxns_secret_key: ''
 digitalocean_token: ''
@@ -149,6 +150,22 @@ Previously, Cloudflare’s “Global API Key” was used for authentication, how
 Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
 
 However, due to some shortcomings in Cloudflare’s implementation of Tokens, Tokens created for Certbot currently require `Zone:Zone:Read` and `Zone:DNS:Edit` permissions for all zones in your account.
+
+Example credentials file using restricted API Token (recommended):
+```yaml
+dns:
+  provider: dns-clooudflare
+  dns_cloudflare_api_token = 0123456789abcdef0123456789abcdef01234
+```
+
+Example credentials file using Global API Key (not recommended):
+```yaml
+dns:
+  provider: dns-clooudflare
+  dns_cloudflare_email = cloudflare@example.com
+  dns_cloudflare_api_key = 0123456789abcdef0123456789abcdef01234
+```
+
 
 ## Certificate files
 

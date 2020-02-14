@@ -25,6 +25,7 @@ PROVIDER_ARGUMENTS=()
 
 echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
   "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" \
+  "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')\n" \
   "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
   "dns_cloudxns_secret_key = $(bashio::config 'dns.cloudxns_secret_key')\n" \
   "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \

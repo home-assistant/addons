@@ -143,7 +143,7 @@ trap "stop_homematic" SIGTERM SIGHUP
 sleep 30
 
 # Start Regahss
-"$HM_HOME/bin/ReGaHss" -f /etc/config/rega.conf &
+"$HM_HOME/bin/ReGaHss" -c -f /etc/config/rega.conf &
 WAIT_PIDS+=($!)
 
 # Start WebInterface

@@ -7,7 +7,7 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
-  "map": ["ssl:rw"],
+  "map": ["ssl:rw", "share:ro"],
   "options": {
     "lets_encrypt": {
       "accept_terms": false,

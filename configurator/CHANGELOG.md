@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3
+
+- Visual name change, the "Configurator", is now called the "File editor".
+
 ## 4.2
 
 - Fixes an issue with the dirs first option

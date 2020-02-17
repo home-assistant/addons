@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Configurator
+# Home Assistant Add-on: File editor
 
 Browser-based configuration file editor for Home Assistant.
 
@@ -8,8 +8,8 @@ Browser-based configuration file editor for Home Assistant.
 
 ## About
 
-The Configurator is a small web-app (you access it via web browser) that provides a
-filesystem-browser and text-editor to modify files on the machine the Configurator is
+The File editor, formerly known as Configurator, is a small web-app (you access it via web browser) that provides a
+filesystem-browser and text-editor to modify files on the machine the File editor is
 running on. It has been created to allow configuration of Home Assistant.
 
 It is powered by Ace editor, which supports syntax highlighting for various
@@ -35,17 +35,17 @@ configuration files) will be automatically checked for syntax errors while editi
 Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
-2. Find the "Configurator" add-on and click it.
+2. Find the "File editor" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
 In general, this add-on requires no configuration from your end.
 
-1. Toggle the "Show in sidebar" option, which adds the Configurator to the main menu.
+1. Toggle the "Show in sidebar" option, which adds the File editor to the main menu.
 2. Start the add-on.
-3. Refresh your browser, the "Configurator" is now visible in the sidebar.
-4. Click on the "Configurator" menu option and start configuring!
+3. Refresh your browser, the "File editor" is now visible in the sidebar.
+4. Click on the "File editor" menu option and start configuring!
 
 ## Configuration
 
@@ -104,4 +104,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository
-[screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/configurator/images/screenshot.png
+[screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/File editor/images/screenshot.png

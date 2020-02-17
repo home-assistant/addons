@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0
+
+- Support aarch64 in armv7 combat mode
+
 ## 0.9
 
 - Corrected link to documentation inside the add-on

@@ -1,6 +1,6 @@
 {
   "name": "Hey Ada!",
-  "version": "0.9",
+  "version": "1.0",
   "slug": "ada",
   "description": "Voice assistant powered by Home Assistant",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/ada",

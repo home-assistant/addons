@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.2
+
+- Bump deCONZ to 2.05.73
+- Small adjustments to NGINX configuration
+
 ## 5.1
 
 - Add LEDVANCE / OSRAM otau firmware downloader, respecting max 10 DL per minute Ratelimits

@@ -9,6 +9,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libusb-1.0 \
         lighttpd \
+        nginx \
         openjdk-11-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
@@ -76,6 +77,7 @@ ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 # Update config files
 COPY data/config/* /opt/hm/etc/config/
+COPY data/nginx.conf /etc/nginx/nginx.conf
 
 # Setup start script
 COPY data/run.sh /

@@ -151,6 +151,13 @@ openssl req -new -x509 -nodes -keyout /etc/config/server.pem -out /etc/config/se
 lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
 WAIT_PIDS+=($!)
 
+# Start Ingress
+bashio::log.info "Starting Nginx..."
+ingress_entry=$(bashio::addon.ingress_entry)
+sed -i "s#%%INGRESS_ENTRY%%#${ingress_entry}#g" /etc/nginx/nginx.conf
+nginx &
+WAIT_PIDS+=($!)
+
 # Sync time periodically
 if bashio::config.true 'rf_enable'; then
     while true

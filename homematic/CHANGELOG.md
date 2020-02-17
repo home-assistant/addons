@@ -1,5 +1,12 @@
 # Changelog
 
+## 10.0
+
+- Add Ingress support
+- Disable external ports per default
+- Fix wrong version number
+- Speedup start without sleeps
+
 ## 9.9
 
 - Update glibc for armv7

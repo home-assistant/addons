@@ -140,7 +140,7 @@ function stop_homematic() {
 trap "stop_homematic" SIGTERM SIGHUP
 
 # Wait until interfaces are initialized
-sleep 30
+bashio::net.wait_for 9292
 
 # Start Regahss
 "$HM_HOME/bin/ReGaHss" -c -f /etc/config/rega.conf &
@@ -149,6 +149,13 @@ WAIT_PIDS+=($!)
 # Start WebInterface
 openssl req -new -x509 -nodes -keyout /etc/config/server.pem -out /etc/config/server.pem -days 3650 -subj "/C=DE/O=HomeMatic/OU=Hass.io/CN=$(hostname)"
 lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
+WAIT_PIDS+=($!)
+
+# Start Ingress
+bashio::log.info "Starting Nginx..."
+ingress_entry=$(bashio::addon.ingress_entry)
+sed -i "s#%%INGRESS_ENTRY%%#${ingress_entry}#g" /etc/nginx/nginx.conf
+nginx &
 WAIT_PIDS+=($!)
 
 # Sync time periodically

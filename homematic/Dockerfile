@@ -14,6 +14,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OCCU_VERSION
+ARG CCU_VERSION
 ARG BUILD_ARCH
 
 # Install OCCU
@@ -28,7 +29,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
         /opt/HMServer \
         /var/status \
     \
-    && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
+    && echo "VERSION=${CCU_VERSION}" > /boot/VERSION \
     && cp /boot/VERSION /VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
     \
@@ -63,7 +64,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
     \
-    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${OCCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
+    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${CCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \
     \

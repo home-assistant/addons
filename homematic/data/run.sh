@@ -140,7 +140,7 @@ function stop_homematic() {
 trap "stop_homematic" SIGTERM SIGHUP
 
 # Wait until interfaces are initialized
-sleep 30
+bashio::net.wait_for 9292
 
 # Start Regahss
 "$HM_HOME/bin/ReGaHss" -c -f /etc/config/rega.conf &

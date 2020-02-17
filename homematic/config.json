@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic CCU",
-  "version": "9.9",
+  "version": "10.0",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/homematic",
@@ -12,17 +12,19 @@
   "gpio": true,
   "apparmor": false,
   "ingress": true,
+  "panel_title": "HomeMatic",
+  "panel_icon": "mdi:router-wireless",
   "ports": {
     "80/tcp": null,
-    "2001/tcp": 2001,
-    "2000/tcp": 2000,
-    "2010/tcp": 2010
+    "2001/tcp": null,
+    "2000/tcp": null,
+    "2010/tcp": null
   },
   "ports_description": {
     "80/tcp": "ReGaHss Webinterface (Not required for Ingress)",
-    "2001/tcp": "Homematic xmlrpc",
-    "2000/tcp": "HomematicWire xmlrpc",
-    "2010/tcp": "HomematicIP xmlrpc"
+    "2001/tcp": "Homematic xmlrpc (Extern)",
+    "2000/tcp": "HomematicWire xmlrpc (Extern)",
+    "2010/tcp": "HomematicIP xmlrpc (Extern)"
   },
   "options": {
     "rf_enable": false,
@@ -72,5 +74,6 @@
         "device": "match(^/dev/.*$)"
       }
     ]
-  }
+  },
+  "image": "homeassistant/{arch}-addon-homematic"
 }

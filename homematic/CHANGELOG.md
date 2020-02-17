@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.1
+
+- Fix issue with SSL
+
 ## 10.0
 
 - Add Ingress support

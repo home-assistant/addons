@@ -1,8 +1,8 @@
 {
-  "name": "Configurator",
-  "version": "4.2",
+  "name": "File editor",
+  "version": "4.3",
   "slug": "configurator",
-  "description": "Browser-based configuration file editor for Home Assistant",
+  "description": "Simple browser-based file editor for Home Assistant",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/configurator",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "homeassistant": "0.91.1",

@@ -10,7 +10,7 @@ Browser-based configuration file editor for Home Assistant.
 
 The File editor, formerly known as Configurator, is a small web-app (you access it via web browser) that provides a
 filesystem-browser and text-editor to modify files on the machine the File editor is
-running on. It has been created to allow configuration of Home Assistant.
+running on.
 
 It is powered by Ace editor, which supports syntax highlighting for various
 code/markup languages. YAML files (the default language for Home Assistant

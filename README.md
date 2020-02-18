@@ -25,10 +25,6 @@ systems that have installed Home Assistant.
 
     Check your current configuration against any Home Assistant version.
 
-- **[Configurator](/configurator/README.md)**
-
-    Browser-based configuration file editor for Home Assistant.
-
 - **[deCONZ](/deconz/README.md)**
 
     Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.
@@ -44,6 +40,10 @@ systems that have installed Home Assistant.
 - **[Duck DNS](/duckdns/README.md)**
 
     Automatically update your Duck DNS IP address with integrated HTTPS support via Let's Encrypt.
+
+- **[File editor](/configurator/README.md)**
+
+    Simple browser-based file editor for Home Assistant.
 
 - **[Git pull](/git_pull/README.md)**
 

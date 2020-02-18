@@ -25,9 +25,9 @@ systems that have installed Home Assistant.
 
     Check your current configuration against any Home Assistant version.
 
-- **[Configurator](/configurator/README.md)**
+- **[File editor](/configurator/README.md)**
 
-    Browser-based configuration file editor for Home Assistant.
+    Formerly known as, **Configurator** is a browser-based configuration file editor for Home Assistant.
 
 - **[deCONZ](/deconz/README.md)**
 

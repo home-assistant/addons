@@ -8,11 +8,10 @@ CHALLENGE=$(bashio::config 'challenge')
 
 if [[ "$CHALLENGE" == "dns" ]]; then
     bashio::log.info "Selected DNS Provider: $(bashio::config 'dns.provider')"
-  
+
+    PROPAGATION_SECONDS=60
     if bashio::config.exists 'dns.propagation_seconds'; then
-        PROPAGATION_SECONDS="$(bashio::config 'dns.propagation_seconds')"
-    else
-        PROPAGATION_SECONDS=60
+        PROPAGATION_SECONDS="$(bashio::config 'dns.propagation_seconds')" 
     fi
     bashio::log.info "Use propagation seconds: ${PROPAGATION_SECONDS}"
 else

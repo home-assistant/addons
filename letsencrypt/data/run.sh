@@ -7,7 +7,7 @@ CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 
-if [ "$CHALLENGE" == "dns" ]; then
+if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
 
     PROPAGATION_SECONDS=60

@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.6
+
+- Streamline propagation seconds
+- Add propagation seconds to CloudFlare / option selection
+
 ## 4.5
 
 - Update cerbot to 1.2.0

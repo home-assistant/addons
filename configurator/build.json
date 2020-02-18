@@ -7,6 +7,6 @@
     "i386": "homeassistant/i386-base-python:3.7"
   },
   "args": {
-    "CONFIGURATOR_VERSION": "0.3.7"
+    "CONFIGURATOR_VERSION": "0.3.8"
   }
 }

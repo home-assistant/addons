@@ -104,4 +104,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository
-[screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/File editor/images/screenshot.png
+[screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/configurator/images/screenshot.png

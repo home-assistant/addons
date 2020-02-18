@@ -1,10 +1,5 @@
 # Changelog
 
-## 4.4
-
-- Update Ace Editor to 1.4.8
-- Some online dependencies are now included in the package
-
 ## 4.3
 
 - Visual name change, the "Configurator", is now called the "File editor".

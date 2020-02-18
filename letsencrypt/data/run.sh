@@ -5,9 +5,10 @@ DOMAINS=$(bashio::config 'domains')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
+DNS_PROVIDER=$(bashio::config 'dns.provider')
 
-if [[ "$CHALLENGE" == "dns" ]]; then
-    bashio::log.info "Selected DNS Provider: $(bashio::config 'dns.provider')"
+if [ "${CHALLENGE}" == "dns" ]; then
+    bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
 
     PROPAGATION_SECONDS=60
     if bashio::config.exists 'dns.propagation_seconds'; then
@@ -85,7 +86,7 @@ elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dn
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # CloudFlare
-elif [[ "${DNS_PROVIDER}" == "dns-cloudflare" ]]; then
+elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
     if bashio::config.exists 'dns.cloudflare_api_token'; then
         bashio::log.info "Use CloudFlare token"
         echo "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')" >> /data/dnsapikey

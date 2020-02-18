@@ -89,10 +89,10 @@ elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dn
 elif [[ "${DNS_PROVIDER}" == "dns-cloudflare" ]]; then
     if bashio::config.exists 'dns.cloudflare_api_token'; then
         bashio::log.info "Use CloudFlare token"
-        echo "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')\n" >> /data/dnsapikey
+        echo "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')" >> /data/dnsapikey
     else
         bashio::log.warning "Use CloudFlare global key (not recommended!)"
-        echo -n "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
+        echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
             "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" >> /data/dnsapikey
     fi
 

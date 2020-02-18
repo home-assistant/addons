@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5
+
+- Reverts upgrade of hass-configurator as it is causing loading problems.
+
 ## 4.4
 
 - Update Ace Editor to 1.4.8

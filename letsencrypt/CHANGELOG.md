@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.7
+
+- Fix issue with DNS challenge
+
 ## 4.6
 
 - Streamline propagation seconds

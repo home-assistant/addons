@@ -55,6 +55,7 @@ In addition add the fields according to the credentials required by your dns pro
 
 
 ```yaml
+propagation_seconds: 60
 cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
@@ -88,7 +89,6 @@ sakuracloud_api_secret: ''
 netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
-netcup_propagation_seconds: 60
 ```
 
 ## Example Configurations

@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.6
+
+- Fixed release, includes changes from 4.4:
+  - Update Ace Editor to 1.4.8
+  - Some online dependencies are now included in the package
+
 ## 4.5
 
 - Reverts upgrade of hass-configurator as it is causing loading problems.

@@ -55,6 +55,7 @@ In addition add the fields according to the credentials required by your dns pro
 
 
 ```yaml
+propagation_seconds: 60
 cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
@@ -88,7 +89,6 @@ sakuracloud_api_secret: ''
 netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
-netcup_propagation_seconds: 60
 ```
 
 ## Example Configurations
@@ -154,14 +154,14 @@ However, due to some shortcomings in Cloudflare’s implementation of Tokens, To
 Example credentials file using restricted API Token (recommended):
 ```yaml
 dns:
-  provider: dns-clooudflare
+  provider: dns-cloudflare
   dns_cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
 ```
 
 Example credentials file using Global API Key (not recommended):
 ```yaml
 dns:
-  provider: dns-clooudflare
+  provider: dns-cloudflare
   dns_cloudflare_email: cloudflare@example.com
   dns_cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
 ```

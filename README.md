@@ -43,7 +43,7 @@ systems that have installed Home Assistant.
 
 - **[File editor](/configurator/README.md)**
 
-    Simple browser-based file editor for Home Assistant
+    Simple browser-based file editor for Home Assistant.
 
 - **[Git pull](/git_pull/README.md)**
 

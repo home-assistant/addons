@@ -5,6 +5,7 @@
   "description": "A simple DHCP server",
   "url": "https://home-assistant.io/addons/dhcp_server/",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "advanced": true,
   "startup": "system",
   "boot": "auto",
   "host_network": true,

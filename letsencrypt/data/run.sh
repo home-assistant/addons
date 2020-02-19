@@ -90,10 +90,13 @@ elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
     if bashio::config.exists 'dns.cloudflare_api_token'; then
         bashio::log.info "Use CloudFlare token"
         echo "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')" >> /data/dnsapikey
-    else
+    elif bashio::config.exists 'dns.cloudflare_api_key' && bashio::config.exists 'dns.cloudflare_email'; then
         bashio::log.warning "Use CloudFlare global key (not recommended!)"
         echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
             "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" >> /data/dnsapikey
+    else
+        bashio::log.error "dns-cloudflare selected but both token and key are missing."
+        exit 2
     fi
 
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--dns-cloudflare-propagation-seconds" "${PROPAGATION_SECONDS}")

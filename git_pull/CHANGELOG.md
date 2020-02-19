@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.9
+
+- Update Home Assistant CLI to 4.0.1
+
 ## 7.8
 
 - Added support for Azure DevOps repositories by removing the requirement for the `.git` suffix

@@ -5,6 +5,7 @@
   "description": "A simple DNS server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/dnsmasq",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "advanced": true,
   "startup": "system",
   "boot": "auto",
   "ports": {

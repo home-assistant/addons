@@ -7,6 +7,8 @@
   "startup": "application",
   "boot": "auto",
   "arch": ["armv7", "amd64"],
+  "advanced": true,
+  "stage": "experimental",
   "map": ["share"],
   "audio": true,
   "ports": {

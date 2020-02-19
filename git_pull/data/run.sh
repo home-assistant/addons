@@ -176,7 +176,7 @@ function validate-config {
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
         echo "[Info] Something has changed, checking Home-Assistant config..."
-        if ha --no-progress homeassistant check; then
+        if ha --no-progress core check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"
                 CHANGED_FILES=$(git diff "$OLD_COMMIT" "$NEW_COMMIT" --name-only)
@@ -204,7 +204,7 @@ function validate-config {
                 fi
                 if [ "$DO_RESTART" == "true" ]; then
                     echo "[Info] Restart Home-Assistant"
-                    ha --no-progress homeassistant restart 2&> /dev/null
+                    ha --no-progress core restart 2&> /dev/null
                 else
                     echo "[Info] No Restart Required, only ignored changes detected"
                 fi

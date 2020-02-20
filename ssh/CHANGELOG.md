@@ -1,5 +1,7 @@
 # Changelog
 
+- Support to use only web terminal without SSH server
+
 ## 8.3
 
 - Update Home Assistant CLI to 4.0.1

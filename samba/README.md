@@ -30,8 +30,8 @@ Add-on configuration:
 
 ```yaml
 workgroup: WORKGROUP
-username: Hassio
-password: 'null'
+username: homeassistant
+password: YOUR_PASSWORD
 interface: ''
 allow_hosts:
   - 10.0.0.0/8

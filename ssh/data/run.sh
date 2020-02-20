@@ -6,6 +6,7 @@ KEYS_PATH=/data/host_keys
 WAIT_PIDS=()
 
 bashio::log.info "Initializing add-on for use..."
+USE_SSHD=true
 if bashio::config.has_value 'authorized_keys'; then
     bashio::log.info "Setup authorized_keys"
 
@@ -30,8 +31,11 @@ elif bashio::config.has_value 'password'; then
 
     sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ yes/ /etc/ssh/sshd_config
     sed -i s/#PermitEmptyPasswords.*/PermitEmptyPasswords\ no/ /etc/ssh/sshd_config
-else
+elif bashio::var.has_value "$(bashio::addon.port 22)"; then
     bashio::exit.nok "You need to setup a login!"
+else
+    USE_SSHD=false
+    bashio::log.info "Disable SSH remote access because of missing login credential!"
 fi
 
 # Generate host keys
@@ -93,9 +97,11 @@ function stop_addon() {
 trap "stop_addon" SIGTERM SIGHUP
 
 # Start SSH server
-bashio::log.info "Starting SSH daemon..."
-/usr/sbin/sshd -D -e < /dev/null &
-WAIT_PIDS+=($!)
+if bashio::var.true "${USE_SSHD}"; then
+    bashio::log.info "Starting SSH daemon..."
+    /usr/sbin/sshd -D -e < /dev/null &
+    WAIT_PIDS+=($!)
+fi
 
 # Start ttyd server
 bashio::log.info "Starting Web Terminal..."

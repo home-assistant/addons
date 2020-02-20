@@ -1,6 +1,6 @@
 # Home Assistant Add-on: SSH server
 
-Allow logging in remotely to Home Assistant using SSH.
+Allow logging in remotely to Home Assistant using SSH or just the web terminal with Ingress.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
@@ -12,7 +12,7 @@ client. It also includes a command-line tool to access the Home Assistant API.
 Try it out using:
 
 ```bash
-hassio help
+ha help
 ```
 
 ## Installation
@@ -24,6 +24,9 @@ Follow these steps to get the add-on installed on your system:
 3. Click on the "INSTALL" button.
 
 ## How to use
+
+You need enable the port for external access. You can just enter 22 as value or any other
+value like you want. This recommend to add login credentials.
 
 To use this add-on, you must have a private/public key to log in.
 To generate them, follow the [instructions for Windows][keygen-windows]

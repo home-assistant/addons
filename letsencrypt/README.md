@@ -155,15 +155,15 @@ Example credentials file using restricted API Token (recommended):
 ```yaml
 dns:
   provider: dns-cloudflare
-  dns_cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
+  cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
 ```
 
 Example credentials file using Global API Key (not recommended):
 ```yaml
 dns:
   provider: dns-cloudflare
-  dns_cloudflare_email: cloudflare@example.com
-  dns_cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
+  cloudflare_email: cloudflare@example.com
+  cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
 ```
 
 

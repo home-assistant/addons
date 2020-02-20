@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.2
+
+- Update Bashio to fix the wait function
+- Extend the log output
+
 ## 10.1
 
 - Fix issue with SSL

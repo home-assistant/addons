@@ -2,7 +2,7 @@
 
 ## 1.12
 
-- Add option to specify a service or file URL as IPv4 and IPv6 address source
+- Add option to specify a service or URL as IPv4 and IPv6 address source
 
 ## 1.11
 

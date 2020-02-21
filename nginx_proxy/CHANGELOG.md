@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0
+
+- Update Alpine to 3.11
+- Use mozilla Recommended SSL settings
+
 ## 2.6
 
 - Remove ipv6 listener because we run only inside virtual network on a ipv4 range

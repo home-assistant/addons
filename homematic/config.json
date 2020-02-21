@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic CCU",
-  "version": "10.2",
+  "version": "10.3",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/homematic",
@@ -8,6 +8,7 @@
   "map": ["share:rw"],
   "startup": "system",
   "boot": "auto",
+  "timeout": 15,
   "auto_uart": true,
   "gpio": true,
   "apparmor": false,
@@ -28,27 +29,8 @@
   },
   "options": {
     "rf_enable": false,
-    "rf": [
-      {
-        "type": "CCU2",
-        "device": "/dev/ttyAMA0"
-      }
-    ],
     "wired_enable": false,
-    "wired": [
-      {
-        "serial": "xy",
-        "key": "abc",
-        "ip": "192.168.0.0"
-      }
-    ],
-    "hmip_enable": false,
-    "hmip": [
-      {
-        "type": "HMIP_CCU2",
-        "device": "/dev/ttyUSB0"
-      }
-    ]
+    "hmip_enable": false
   },
   "schema": {
     "rf_enable": "bool",
@@ -73,7 +55,8 @@
         "type": "match(HMIP_CCU2)",
         "device": "match(^/dev/.*$)"
       }
-    ]
+    ],
+    "regahss_reset": "bool?"
   },
   "image": "homeassistant/{arch}-addon-homematic"
 }

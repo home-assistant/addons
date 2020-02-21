@@ -16,7 +16,7 @@ to interface with your devices.
 ## Features
 
 - Your Raspberry Pi is your HomeMatic control center!
-- WebUI (experimental)
+- WebUI ReGaHss with ingress support
 - Firmware updates
 
 ## Installation
@@ -53,6 +53,7 @@ hmip_enable: false
 hmip:
   - type: HMIP_CCU2
     device: "/dev/ttyUSB0"
+regahss_reset: false
 ```
 
 ### Option: `rf_enable` (required)
@@ -107,6 +108,10 @@ Device type for HMIP service. Check your device manual.
 
 Device on the host.
 
+#### Option: `regahss_reset`
+
+If this is set and enabled, the ReGaHss setting will be removed before it will be started.
+
 ## Home Assistant configuration
 
 Add the following to your Home Assistant configuration to enable
@@ -124,6 +129,10 @@ homematic:
     hmip:
       host: core-homematic
       port: 2010
+    group:
+      host: core-homematic
+      port: 9292
+      path: /groups
 ```
 
 ## Raspberry Pi3

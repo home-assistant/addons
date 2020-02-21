@@ -129,6 +129,10 @@ homematic:
     hmip:
       host: core-homematic
       port: 2010
+    group:
+      host: core-homematic
+      port: 9292
+      path: /groups
 ```
 
 ## Raspberry Pi3

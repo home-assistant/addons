@@ -31,6 +31,8 @@ init_interface_list "$(bashio::config 'rf_enable')" \
 
 # RF support
 if bashio::config.true 'rf_enable'; then
+    bashio::log.info "Setup BidCos-RF"
+
     for rf_device in $(bashio::config 'rf|keys'); do
         TYPE=$(bashio::config "rf[${rf_device}].type")
 
@@ -70,6 +72,8 @@ fi
 
 # Wired support
 if bashio::config.true 'wired_enable'; then
+    bashio::log.info "Setup Hm-Wired"
+
     for wired_device in $(bashio::config 'wired|keys'); do
         SERIAL=$(bashio::config "wired[${wired_device}].serial")
         KEY=$(bashio::config "wired[${wired_device}].key")
@@ -95,6 +99,8 @@ fi
 
 # HMIP support
 if bashio::config.true 'hmip_enable'; then
+    bashio::log.info "Setup HmIP-RF"
+
     # Restore data
     if [ -f /data/hmip_address.conf ]; then
         cp -f /data/hmip_address.conf /etc/config/
@@ -122,7 +128,9 @@ if bashio::config.true 'hmip_enable'; then
     WAIT_PIDS+=($!)
 
     if [ ! -f /data/hmip_address.conf ]; then
-        sleep 30
+        bashio::log.info "Wait for HMIPServer"
+
+        bashio::net.wait_for 9292
         cp -f /etc/config/hmip_address.conf /data/
     fi
 else
@@ -140,19 +148,22 @@ function stop_homematic() {
 trap "stop_homematic" SIGTERM SIGHUP
 
 # Wait until interfaces are initialized
+bashio::log.info "Wait until HomeMatic is setup"
 bashio::net.wait_for 9292
 
 # Start Regahss
+bashio::log.info "Start ReGaHss"
 "$HM_HOME/bin/ReGaHss" -c -f /etc/config/rega.conf &
 WAIT_PIDS+=($!)
 
 # Start WebInterface
+bashio::log.info "Initialize webinterface routing"
 openssl req -new -x509 -nodes -keyout /etc/config/server.pem -out /etc/config/server.pem -days 3650 -subj "/C=DE/O=HomeMatic/OU=Hass.io/CN=$(hostname)"
 lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
 WAIT_PIDS+=($!)
 
 # Start Ingress
-bashio::log.info "Starting Nginx..."
+bashio::log.info "Starting Nginx"
 ingress_entry=$(bashio::addon.ingress_entry)
 sed -i "s#%%INGRESS_ENTRY%%#${ingress_entry}#g" /etc/nginx/nginx.conf
 nginx &

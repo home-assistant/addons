@@ -1,6 +1,6 @@
 {
   "name": "HomeMatic CCU",
-  "version": "10.1",
+  "version": "10.2",
   "slug": "homematic",
   "description": "HomeMatic central based on OCCU",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/homematic",

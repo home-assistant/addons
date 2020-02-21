@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.3
+
+- Flush ReGaHss config on shutdown
+- Add ReGaHss reset option
+
 ## 10.2
 
 - Update Bashio to fix the wait function

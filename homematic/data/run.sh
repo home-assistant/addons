@@ -140,6 +140,11 @@ fi
 
 # Register stop
 function stop_homematic() {
+    # Store Regahss
+    echo "load tclrega.so; rega system.Save()" | "${HM_HOME}/bin/tclsh" 2> /dev/null || true
+    sleep 5
+
+    # Forward kill process
     bashio::log.info "Kill Processes..."
     kill -15 "${WAIT_PIDS[@]}"
     wait "${WAIT_PIDS[@]}"
@@ -151,6 +156,13 @@ trap "stop_homematic" SIGTERM SIGHUP
 bashio::log.info "Wait until HomeMatic is setup"
 bashio::net.wait_for 9292
 
+# Reset Regahss
+if bashio::config.true "regahss_reset"; then
+    bashio::log.warning "Reset ReGaHss"
+    rm -f /data/homematic.regadom
+    touch /data/homematic.regadom
+fi
+
 # Start Regahss
 bashio::log.info "Start ReGaHss"
 "$HM_HOME/bin/ReGaHss" -c -f /etc/config/rega.conf &
@@ -159,7 +171,7 @@ WAIT_PIDS+=($!)
 # Start WebInterface
 bashio::log.info "Initialize webinterface routing"
 openssl req -new -x509 -nodes -keyout /etc/config/server.pem -out /etc/config/server.pem -days 3650 -subj "/C=DE/O=HomeMatic/OU=Hass.io/CN=$(hostname)"
-lighttpd-angel -D -f /opt/hm/etc/lighttpd/lighttpd.conf &
+lighttpd-angel -D -f "${HM_HOME}/etc/lighttpd/lighttpd.conf" &
 WAIT_PIDS+=($!)
 
 # Start Ingress

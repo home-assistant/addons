@@ -53,7 +53,7 @@ sed -i "s/%%FULLCHAIN%%/$CERTFILE/g" /etc/nginx.conf
 sed -i "s/%%PRIVKEY%%/$KEYFILE/g" /etc/nginx.conf
 sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
 
-[ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\";"
+[ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 # Allow customize configs from share

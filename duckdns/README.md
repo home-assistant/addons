@@ -70,7 +70,6 @@ IPv4 address manually.
 If you specify a URL here, contents of the resource it points to will be
 fetched and used as the address. This enables getting the address using
 a service like https://api4.ipify.org/ or https://ipv4.wtfismyip.com/text
-or from a local `file:/` URL.
 
 ### Option: `ipv6` (optional)
 
@@ -79,8 +78,8 @@ This option allows you to override the auto-detection and specify an
 IPv6 address manually.
 
 If you specify a URL here, contents of the resource it points to will be
-fetched and used as the address. This enables getting the address from
-an external service or from a local `file:/` URL.
+fetched and used as the address. This enables getting the address using
+a service like https://api6.ipify.org/ or https://ipv6.wtfismyip.com/text
 
 ### Option: `token`
 
@@ -101,14 +100,6 @@ The number of seconds to wait before updating DuckDNS subdomains and renewing Le
 - At time of writing, Duck DNS' own IPv6 autodetection
   [does not actually work][duckdns-faq], but you can use the URL option
   for `ipv6` to get around this, read on.
-- IPv6 IP address detection service URLs are likely to not work for the time
-  being, because the add-on is run in a container without IPv6 connectivity.
-  IPv4 services that provide the IPv6 address do work, as well as pointing to a
-  local `file:/` URL. You can for example create a script that gets the IPv6
-  address and writes it to `/share/my-ipv6.txt` periodically using `cron`
-  with the [Community SSH add-on][community-ssh-addon] which can have IPv6
-  connectivity, and have this add-on use it by specifying
-  `"ipv6": "file:///share/my-ipv6.txt"`
 
 ## Support
 
@@ -133,4 +124,3 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [reddit]: https://reddit.com/r/homeassistant
 [duckdns]: https://duckdns.org
 [duckdns-faq]: https://www.duckdns.org/faqs.jsp
-[community-ssh-addon]: https://github.com/hassio-addons/addon-ssh

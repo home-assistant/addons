@@ -1,6 +1,6 @@
 {
   "name": "Terminal & SSH",
-  "version": "8.4",
+  "version": "8.5",
   "slug": "ssh",
   "description": "Allow logging in remotely to Home Assistant using SSH",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/ssh",
@@ -15,7 +15,7 @@
   "hassio_role": "manager",
   "auto_uart": true,
   "ports": {
-    "22/tcp": null
+    "22/tcp": 22
   },
   "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {

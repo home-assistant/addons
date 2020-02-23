@@ -40,7 +40,9 @@ If you have old MQTT settings available, remove this old integration and restart
 Add-on configuration:
 
 ```yaml
-logins: []
+# logins:
+#   - username: user
+#     password: passwd
 anonymous: false
 customize:
   active: false
@@ -52,13 +54,8 @@ require_certificate: false
 
 ### Option: `logins` (optional)
 
-A list of local users that will be created with username and password. You don’t need to do this because you can use Home Assistant users too, without any configuration. If a local user is specifically desired:
-
-```yaml
-logins:
-  - username: user
-    password: passwd
-```
+A list of local users that will be created with username and password.
+This configuration part is optional as you may make use of the Home Assistant user management support.
 
 ### Option: `anonymous`
 

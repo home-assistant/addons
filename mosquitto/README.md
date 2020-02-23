@@ -54,7 +54,7 @@ require_certificate: false
 
 A list of local users that will be created with username and password. You don’t need to do this because you can use Home Assistant users too, without any configuration. If a local user is specifically desired:
 
-```
+```yaml
 logins:
   - username: user
     password: passwd

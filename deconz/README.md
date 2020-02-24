@@ -32,7 +32,7 @@ The add-on needs to know where your ConBee/RaspBee can be found, and therefore,
 you'll need to configure the add-on to point to the right device.
 
 If you're using Home Assistant you may find the correct value for this on the
-`Hass.io -> System -> Host system -> Hardware` page. It is recommended
+`Supervisor -> System -> Host system -> Hardware` page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
 
@@ -160,7 +160,7 @@ device: /dev/ttyAMA0
 The device address of your ConBee/RaspBee.
 
 If you're using Home Assistant you may find the correct value for this on the
-`Hass.io -> System -> Host system -> Hardware` page. It is recommended
+`Supervisor -> System -> Host system -> Hardware` page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
 

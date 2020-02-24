@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.7
+
+- Fix file history width
+- Store HASS-panel visibility state
+
 ## 4.6
 
 - Fixed release, includes changes from 4.4:

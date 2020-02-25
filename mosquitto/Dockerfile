@@ -34,5 +34,7 @@ COPY data/run.sh /
 COPY data/auth_srv.sh /bin/
 COPY data/mosquitto.conf /etc/
 
+RUN mkdir -p /data
+
 WORKDIR /
 CMD [ "/run.sh" ]

@@ -63,7 +63,7 @@ ssh_keys: []
 
 This option allows you to list directories before files in the file browser tree.
 
-Set it to `true` to list files first, `false` otherwise.
+Set it to `true` to list directories first, `false` otherwise.
 
 ### Option: `enforce_basepath` (required)
 

@@ -1,6 +1,10 @@
 # Changelog
 
+## 8.4
+
 - Support to use only web terminal without SSH server
+
+**ATTENTION:** If you want access with SSH, you need maybe add the Port setting option back.
 
 ## 8.3
 

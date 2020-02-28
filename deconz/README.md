@@ -88,7 +88,7 @@ To access it, you need a [VNC Viewer][vnc-viewer] application. If you are using
 macOS, you are in luck, since VNC is built-in. Open the spotlight search and
 enter the VNC service URL.
 
-The VNC service URL looks like [vnc://hassio.local:5900](vnc-service-url).
+The VNC service URL looks like [vnc://homeassistant.local:5900](vnc-service-url).
 Adjust port and possibly hostname if you've changed it in Home Assistant host system
 settings.
 
@@ -246,4 +246,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [manual-upgrade]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually
 [reddit]: https://reddit.com/r/homeassistant
 [vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/
-[vnc-service-url]: vnc://hassio.local:5900
+[vnc-service-url]: vnc://homeassistant.local:5900

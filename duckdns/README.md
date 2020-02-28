@@ -100,6 +100,7 @@ The number of seconds to wait before updating DuckDNS subdomains and renewing Le
 - At time of writing, Duck DNS' own IPv6 autodetection
   [does not actually work][duckdns-faq], but you can use the URL option
   for `ipv6` to get around this, read on.
+- When starting the add-on one of the first lines in the log should have "INFO: OK". If you get "WARNING:" make sure you are not blocking port 53 from LAN in your firewall.
 
 ## Support
 

@@ -123,6 +123,7 @@ else
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" --standalone
 fi
 
-# copy certs to store
-cp "$CERT_DIR"/live/*/privkey.pem "/ssl/$KEYFILE"
-cp "$CERT_DIR"/live/*/fullchain.pem "/ssl/$CERTFILE"
+# Get the last modified cert directory and copy the cert and private key to store
+CERT_DIR=$(ls -td $CERT_DIR/live/* | head -1)
+cp "$CERT_DIR"/privkey.pem "/ssl/$KEYFILE"
+cp "$CERT_DIR"/fullchain.pem "/ssl/$CERTFILE"

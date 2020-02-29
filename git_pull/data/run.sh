@@ -40,7 +40,8 @@ function add-ssh-key {
 
 function git-clone {
     # create backup
-    BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
+    BACKUP_FOLDER="config-$(date +%Y-%m-%d_%H-%M-%S"
+    BACKUP_LOCATION="/tmp/$(BACKUP_FOLDER)"
     echo "[Info] Backup configuration to $BACKUP_LOCATION"
 
     mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
@@ -48,6 +49,9 @@ function git-clone {
 
     # remove config folder content
     rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
+    
+    # copy backup back to /config so they're not lost if container restarts
+    cp -rf "${BACKUP_LOCATION}" "/config/$(BACKUP_FOLDER)" || { echo "[Error] Copy backup files to config directory failed"; exit 1; }
 
     # git clone
     echo "[Info] Start git clone"

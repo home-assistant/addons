@@ -48,11 +48,11 @@ function git-clone {
     cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
 
     # remove config folder content
-    echo "[Info] Copying backup from $BACKUP_LOCATION to /config/$BACKUP_FOLDER"
+    echo "[Info] Clearing existing config"
     rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
     
-    
     # copy backup back to /config so they're not lost if container restarts
+    echo "[Info] Copying backup from $BACKUP_LOCATION to /config/$BACKUP_FOLDER"
     cp -rf "${BACKUP_LOCATION}" "/config/$(BACKUP_FOLDER)" || { echo "[Error] Copy backup files to config directory failed"; exit 1; }
 
     # git clone

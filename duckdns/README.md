@@ -79,7 +79,7 @@ IPv6 address manually.
 
 If you specify a URL here, contents of the resource it points to will be
 fetched and used as the address. This enables getting the address using
-a service like https://api6.ipify.org/ or https://ipv6.wtfismyip.com/text
+an external service.
 
 ### Option: `token`
 
@@ -98,8 +98,14 @@ The number of seconds to wait before updating DuckDNS subdomains and renewing Le
 - To log in, DuckDNS requires a free account from any of the following services: Google, Github, Twitter, Persona or Reddit.
 - A free DuckDNS account is limited to five subdomains.
 - At time of writing, Duck DNS' own IPv6 autodetection
-  [does not actually work][duckdns-faq], but you can use the URL option
+  [does not actually work][duckdns-faq], but you may be able to use the URL option
   for `ipv6` to get around this, read on.
+- IPv6 IP address detection service URLs are likely to not work for the time
+  being, because the add-on is run in a container without IPv6 connectivity.
+  IPv4 services that provide the IPv6 address would work, ditto custom solutions
+  that get the IPv6 address to a `file:/` URL available in the container. If you
+  are aware of a public generally available service that works here even given
+  these limitations, let us know!
 
 ## Support
 

@@ -40,7 +40,7 @@ function add-ssh-key {
 
 function git-clone {
     # create backup
-    BACKUP_FOLDER="config-$(date +%Y-%m-%d_%H-%M-%S"
+    BACKUP_FOLDER="config-$(date +%Y-%m-%d_%H-%M-%S)"
     BACKUP_LOCATION="/tmp/$(BACKUP_FOLDER)"
     echo "[Info] Backup configuration to $BACKUP_LOCATION"
 

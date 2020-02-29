@@ -1,0 +1,2 @@
+/data/.ssh false root 0644 0700
+/data/.ssh/authorized_keys false root 0600 0755

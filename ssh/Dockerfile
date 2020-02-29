@@ -16,6 +16,8 @@ RUN \
     \
     && apk add --no-cache \
         bash-completion \
+        pulseaudio-utils \
+        alsa-plugins-pulse \
         git \
         libuv \
         mosquitto-clients \
@@ -77,11 +79,4 @@ RUN curl -Lso /usr/bin/ha \
     && /usr/bin/ha completion > /usr/share/bash-completion/completions/ha
 
 # Copy data
-COPY data/.tmux.conf /root/
-COPY data/hassio /usr/bin/
-COPY data/homeassistant.sh /etc/profile.d/
-COPY data/motd /etc/
-COPY data/run.sh /
-COPY data/sshd_config /etc/ssh/
-
-CMD [ "/run.sh" ]
+COPY rootfs /

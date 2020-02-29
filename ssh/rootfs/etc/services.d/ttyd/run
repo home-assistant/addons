@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start ttyd service for ingress
+# ==============================================================================
+bashio::log.info "Starting Web Terminal..."
+cd /root
+
+exec ttyd -p 8099 tmux -u new -A -s homeassistant bash -l

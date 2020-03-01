@@ -8,6 +8,7 @@ ARG ADA_VERSION
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         portaudio19-dev \
+        libasound2-plugins \
         libsndfile1 \
         mplayer \
         libffi-dev \
@@ -32,6 +33,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
-COPY data/run.sh /
-
-CMD ["/run.sh"]
+COPY rootfs /

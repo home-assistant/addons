@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM debian
 
 WORKDIR /workspaces
 
@@ -15,19 +15,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         apt-transport-https \
         ca-certificates \
         curl \
-        dbus \
         software-properties-common \
-        gpg-agent \
-        git \
-        jq \
-        sudo \
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
-    && add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+        gnupg \
+    && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+    && add-apt-repository "deb https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
     && apt-get update && apt-get install -y --no-install-recommends \
         docker-ce \
         docker-ce-cli \
-        containerd.io
-# This is a development container.  Don't bother to clean up apt cache, this way we have it handy later
+        containerd.io \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install tools
+ARG SHELLCHECK_VERSION=0.7.0
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        jq \
+        dbus \
+        network-manager \
+        libpulse0 \
+        git \
+        tar \
+    && rm -rf /var/lib/apt/lists/* \
+    \
+    && curl -SL "https://storage.googleapis.com/shellcheck/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar xzf - \
+    && cp "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/bin/ \
+    && rm -rf shellcheck-v${SHELLCHECK_VERSION}
 
 # Generate a machine-id for this container
 RUN rm /etc/machine-id && dbus-uuidgen --ensure=/etc/machine-id

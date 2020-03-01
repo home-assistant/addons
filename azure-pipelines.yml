@@ -39,7 +39,8 @@ jobs:
       - script: |
           shopt -s globstar
           sudo docker run --rm -i \
-            -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) **/*.sh
+            -v $(pwd):/mnt:ro -e SHELLCHECK_OPTS="-e SC1008" \
+            koalaman/shellcheck:$(versionShellCheck) **/*.sh
         displayName: "Run ShellCheck"
 
   - job: "JQ"

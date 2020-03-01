@@ -9,6 +9,10 @@
 		"GIT_EDITOR=code --wait",
 		"--privileged"
 	],
+	"extensions": [
+		"timonwong.shellcheck",
+		"esbenp.prettier-vscode"
+	],
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},

@@ -26,14 +26,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install tools
+ARG SHELLCHECK_VERSION=0.7.0
 RUN apt-get update && apt-get install -y --no-install-recommends \
         jq \
         dbus \
         network-manager \
         libpulse0 \
-        shellcheck \
         git \
-    && rm -rf /var/lib/apt/lists/*
+        tar \
+    && rm -rf /var/lib/apt/lists/* \
+    \
+    && curl -SL "https://storage.googleapis.com/shellcheck/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar xzf - \
+    && cp "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/bin/ \
+    && rm -rf shellcheck-v${SHELLCHECK_VERSION}
 
 # Generate a machine-id for this container
 RUN rm /etc/machine-id && dbus-uuidgen --ensure=/etc/machine-id

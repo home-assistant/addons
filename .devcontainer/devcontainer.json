@@ -1,6 +1,6 @@
 // Based on https://github.com/issacg/hassio-addon-devcontainer
 {
-	"name": "Hass.io Community Add-Ons",
+	"name": "Home Assistant Add-Ons",
 	"context": "..",
 	"dockerFile": "Dockerfile",
 	"appPort": "7123:8123",

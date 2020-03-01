@@ -27,3 +27,14 @@ for dir in "${DIRECTORIES[@]}"; do
     ln -s "/${dir}" "${HOME}/${dir}" \
         || bashio::log.warning "Failed linking common directory: ${dir}"
 done
+
+# Sets up the users .ssh folder to be persistent
+if ! bashio::fs.directory_exists /data/.ssh; then
+    mkdir -p /data/.ssh \
+        || bashio::exit.nok 'Failed to create a persistent .ssh folder'
+
+    chmod 700 /data/.ssh \
+        || bashio::exit.nok \
+            'Failed setting permissions on persistent .ssh folder'
+fi
+ln -s /data/.ssh /root/.ssh

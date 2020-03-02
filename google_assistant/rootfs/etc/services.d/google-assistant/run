@@ -1,5 +1,7 @@
-#!/usr/bin/env bashio
-
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start Google Assistant service
+# ==============================================================================
 CLIENT_JSON=/data/client.json
 CRED_JSON=/data/cred.json
 
@@ -16,11 +18,11 @@ fi
 if ! bashio::fs.file_exists "${CRED_JSON}" && bashio::fs.file_exists "${CLIENT_JSON}";
 then
     bashio::log.info "Starting WebUI for handling OAuth2..."
-    python3 /hassio_oauth.py "${CLIENT_JSON}" "${CRED_JSON}"
+    python3 /usr/bin/hassio_oauth.py "${CLIENT_JSON}" "${CRED_JSON}"
 elif ! bashio::fs.file_exists "${CRED_JSON}"; then
     bashio::exit.nok "You need initialize Google Assistant with a client secret JSON!"
 fi
 
 basio::log.info "Starting Home Assistant GAssisant SDK..."
-exec python3 /hassio_gassistant.py \
-    "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}" < /dev/null
+exec python3 /usr/bin/hassio_gassistant.py \
+    "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}"

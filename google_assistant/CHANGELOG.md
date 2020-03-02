@@ -1,42 +1,23 @@
 # Changelog
 
-## 2.2
+## 2.3.0
+
+- Update Google Assistant SDK 0.5.1
+- Update Google Assistant Library 1.1.0
+- Use homeassistant debian base images
+- Support new audio backend
+- Migrate to s6-overlay
+
+## 2.2.0
 
 - Use homeassistant ubuntu base images
 
-## 2.1
+## 2.1.0
 
 - Add error handling for decoding UTF-8
 
-## 2.0
+## 2.0.0
 
 - Update Google Assistant SDK 0.5.0
 - Update Google Assistant Library 1.0.0
 - Revert base images
-
-## 1.5
-
-- Change event handling
-
-## 1.4
-
-- Fix typo
-
-## 1.3
-
-- Add project id with new device register system
-
-## 1.2
-
-- Add model id
-
-## 1.1
-
-- Bugfix OAuth webinterface
-
-## 1.0
-
-- Update Google Assistant SDK 0.4.4
-- Update Google Assistant Library 0.1.1
-- Use new Hass.io Audio System
-- Use now a ubuntu based image

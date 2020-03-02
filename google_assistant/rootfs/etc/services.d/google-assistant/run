@@ -25,4 +25,4 @@ fi
 
 basio::log.info "Starting Home Assistant GAssisant SDK..."
 exec python3 /usr/bin/hassio_gassistant.py \
-    "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}" < /dev/null
+    "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}"

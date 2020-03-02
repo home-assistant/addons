@@ -124,6 +124,6 @@ else
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store
-CERT_DIR=$(realpath $(ls -td $CERT_DIR/live/*/ | head -1))
+CERT_DIR=$(realpath "$(ls -td $CERT_DIR/live/*/ | head -1)")
 cp "$CERT_DIR"/privkey.pem "/ssl/$KEYFILE"
 cp "$CERT_DIR"/fullchain.pem "/ssl/$CERTFILE"

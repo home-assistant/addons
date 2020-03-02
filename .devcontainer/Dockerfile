@@ -34,9 +34,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libpulse0 \
         git \
         tar \
+        xz-utils \
     && rm -rf /var/lib/apt/lists/* \
     \
-    && curl -SL "https://storage.googleapis.com/shellcheck/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar xzf - \
+    && curl -SL "https://storage.googleapis.com/shellcheck/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar xJf - \
     && cp "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/bin/ \
     && rm -rf shellcheck-v${SHELLCHECK_VERSION}
 

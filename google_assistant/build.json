@@ -1,6 +1,15 @@
 {
   "build_from": {
-    "armv7": "homeassistant/armv7-base-ubuntu:18.04",
-    "amd64": "homeassistant/amd64-base-ubuntu:18.04"
+    "armhf": "homeassistant/armhf-base-debian:buster",
+    "armv7": "homeassistant/armv7-base-debian:buster",
+    "amd64": "homeassistant/amd64-base-debian:buster"
+  },
+  "args": {
+    "GOOGLE_GRPC_VERSION": "0.2.1",
+    "GOOGLE_LIBRARY_VERSION": "1.0.1",
+    "GOOGLE_SDK_VERSION": "0.5.1",
+    "GOOGLE_AUTH_VERSION": "1.11.2",
+    "REQUESTS_OAUTHLIB_VERSION": "1.3.0",
+    "CHERRYPY_VERSION": "18.5.0"
   }
 }

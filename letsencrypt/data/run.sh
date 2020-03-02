@@ -124,6 +124,6 @@ else
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store
-CERT_DIR=$(find $CERT_DIR/live/* -type d -maxdepth 1 | awk '{ "stat -c '%Y' "$0 | getline ts; if (ts >= ots) printf "%d\t%s\n", ts, $0; ots=ts; }' | sort -nk1 | tail -1 | awk '{ print $2 }')
+CERT_DIR=$(find $CERT_DIR/live/* -type d -maxdepth 1 | awk '{ "stat -c '%Y' "$0 | getline ts; printf "%d\t%s\n", ts, $0 }' | sort -nk1 | tail -1 | awk '{ print $2 }')
 cp "$CERT_DIR"/privkey.pem "/ssl/$KEYFILE"
 cp "$CERT_DIR"/fullchain.pem "/ssl/$CERTFILE"

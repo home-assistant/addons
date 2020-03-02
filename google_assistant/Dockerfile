@@ -20,12 +20,12 @@ RUN apt-get update \
         "https://bootstrap.pypa.io/get-pip.py" \
         | python3 \
     && pip3 install --no-cache-dir \
-        cherrypy==${CHERRYPY_VERSION} \
-        google-assistant-grpc==${GOOGLE_GRPC_VERSION} \
-        google-assistant-library==${GOOGLE_LIBRARY_VERSION} \
-        google-assistant-sdk==${GOOGLE_SDK_VERSION} \
-        google-auth==${GOOGLE_AUTH_VERSION} \
-        requests_oauthlib==${REQUESTS_OAUTHLIB_VERSION} \
+        cherrypy=="${CHERRYPY_VERSION}" \
+        google-assistant-grpc=="${GOOGLE_GRPC_VERSION}" \
+        google-assistant-library=="${GOOGLE_LIBRARY_VERSION}" \
+        google-assistant-sdk=="${GOOGLE_SDK_VERSION}" \
+        google-auth=="${GOOGLE_AUTH_VERSION}" \
+        requests_oauthlib=="${REQUESTS_OAUTHLIB_VERSION}" \
     && apt-get remove -y --purge python3-dev \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*

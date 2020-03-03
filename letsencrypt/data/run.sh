@@ -124,6 +124,7 @@ else
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store
+# shellcheck disable=SC2012
 CERT_DIR_LATEST="$(ls -td $CERT_DIR/live/*/ | head -1)"
 cp "${CERT_DIR_LATEST}privkey.pem" "/ssl/$KEYFILE"
 cp "${CERT_DIR_LATEST}fullchain.pem" "/ssl/$CERTFILE"

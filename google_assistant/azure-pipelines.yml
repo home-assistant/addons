@@ -18,4 +18,4 @@ jobs:
   - template: /.azure/azp-template-addon.yml
     parameters:
       addon: "google_assistant"
-      arch: "--armv7 --amd64"
+      arch: "--armv7 --armhf --amd64"

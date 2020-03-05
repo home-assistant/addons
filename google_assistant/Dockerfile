@@ -15,6 +15,7 @@ RUN apt-get update \
         libasound2-plugins \
         python3 \
         python3-dev \
+        build-essential \
     && curl --silent --show-error --retry 5 \
         "https://bootstrap.pypa.io/get-pip.py" \
         | python3 \
@@ -25,7 +26,9 @@ RUN apt-get update \
         google-assistant-sdk=="${GOOGLE_SDK_VERSION}" \
         google-auth=="${GOOGLE_AUTH_VERSION}" \
         requests_oauthlib=="${REQUESTS_OAUTHLIB_VERSION}" \
-    && apt-get remove -y --purge python3-dev \
+    && apt-get remove -y --purge \
+        python3-dev \
+        build-essential \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 

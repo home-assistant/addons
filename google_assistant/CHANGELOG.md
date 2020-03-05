@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.1
+
+- Fix build armv7/armhf
+- Spell error break startup
+
 ## 2.3.0
 
 - Update Google Assistant SDK 0.5.1

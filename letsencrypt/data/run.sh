@@ -103,23 +103,28 @@ else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)
 fi
 
-# Generate new certs
-if [ ! -d "$CERT_DIR/live" ]; then
-    DOMAIN_ARR=()
-    for line in $DOMAINS; do
-        DOMAIN_ARR+=(-d "$line")
-    done
+# Gather all domains into a plaintext file
+DOMAIN_ARR=()
+for line in $DOMAINS; do
+    DOMAIN_ARR+=(-d "$line")
+done
+echo "$DOMAINS" > /data/domains.gen
 
-    echo "$DOMAINS" > /data/domains.gen
-    if [ "$CHALLENGE" == "dns" ]; then
-        certbot certonly --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "${PROVIDER_ARGUMENTS[@]}" --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
-    else
-        certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
-    fi
+# Generate a new certificate if necessary or expand a previous certificate if domains has changed
+if [ "$CHALLENGE" == "dns" ]; then
+    certbot certonly --non-interactive --keep-until-expiring --expand \
+        --email "$EMAIL" --agree-tos \
+        --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}"
 else
-    certbot renew --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE"
+    certbot certonly --non-interactive --keep-until-expiring --expand \
+        --email "$EMAIL" --agree-tos \
+        --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" --standalone
 fi
 
-# copy certs to store
-cp "$CERT_DIR"/live/*/privkey.pem "/ssl/$KEYFILE"
-cp "$CERT_DIR"/live/*/fullchain.pem "/ssl/$CERTFILE"
+# Get the last modified cert directory and copy the cert and private key to store
+# shellcheck disable=SC2012
+CERT_DIR_LATEST="$(ls -td $CERT_DIR/live/*/ | head -1)"
+cp "${CERT_DIR_LATEST}privkey.pem" "/ssl/$KEYFILE"
+cp "${CERT_DIR_LATEST}fullchain.pem" "/ssl/$CERTFILE"

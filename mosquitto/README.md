@@ -131,6 +131,11 @@ Add the following configuration to enable **unrestricted** access to all topics.
     user [YOUR_MQTT_USER]
     topic readwrite #
     ```
+    For anonymous mode ( `"anonymous": true` ), your have to remove the `user [YOUR_MQTT_USER]` line like so:
+
+    ```text
+    topic readwrite #
+    ```
 
 The `/share` folder can be accessed via SMB, or on the host filesystem under `/usr/share/hassio/share`.
 

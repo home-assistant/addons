@@ -22,8 +22,8 @@ DECONZ_DEVICE=$(bashio::config 'device')
 if [[ -c "${DECONZ_DEVICE}" ]]; then
     bashio::log.debug "Specified device points to a character special file, continuing"
 else
-    # 60 second timeout to wait for udev to finish processing
-    timeout=60
+    # 180 second timeout to wait for udev to finish processing
+    timeout=180
     while [[ ! -L "${DECONZ_DEVICE}" ]]; do
         if [[ "${timeout}" -eq 0 ]]; then
             bashio::exit.nok "No device ${DECONZ_DEVICE} found!"

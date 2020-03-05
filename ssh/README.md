@@ -63,6 +63,9 @@ keys by adding multiple public keys to the list.
 
 Set a password for login. **We do NOT recommend this variant**.
 
+## Network
+To enable ssh access via the network, you need to enter the port number ‘22’ or the port you want to use. This will map that port from the hassio host into the running “Terminal & SSH” container.
+
 ## Known issues and limitations
 
 - This add-on will not enable you to install packages or do anything as root.

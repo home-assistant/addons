@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.5.2
+
+- Update Home Assistant CLI to 4.1.0
+
 ## 8.5.1
 
 - Show warning if SSH port is disabled

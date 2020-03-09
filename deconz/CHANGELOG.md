@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.2
+
+- Bump deCONZ to 2.05.75
+
 ## 5.3.1
 
 - Increase wait time for show device

@@ -30,8 +30,8 @@ Note: This name cannot be `homeassistant` or `addon`, those are reserved usernam
 To use the Mosquitto as a broker, go to the integration page and install the configuration with one click:
 
 1. Navigate in your Home Assistant frontend to **Configuration** -> **Integrations**.
-2. Use the Add button and search for MQTT
-3. Configure the Broker, Port, Username, Password and Submit.
+2. MQTT should appear as a dicovered integration at the top of the page
+3. Select it and check the box to enable MQTT discovery if desired, and hit submit.
 
 If you have old MQTT settings available, remove this old integration and restart Home Assistant to see the new one.
 

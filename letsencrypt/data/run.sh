@@ -1,16 +1,14 @@
 #!/usr/bin/env bashio
 
+# shellcheck disable=SC1091
 source "/opt/letsencrypt/lib/letsencrypt.sh"
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
-KEYFILE=$(bashio::config 'keyfile')
-CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 CERT_DIR=$(letsencrypt::cert_dir)
 WORK_DIR=$(letsencrypt::work_dir)
-RENEWAL_OPTIONS=$(letsencrypt::renewal_options)
 SERVER_OPTIONS=$(letsencrypt::server_options)
 RENEWAL_TIME=$(bashio::config 'renewal_check_time')
 RENEWAL_CRONTAB=$(letsencrypt::crontab_convert "${RENEWAL_TIME}")
@@ -119,13 +117,13 @@ if [ "$CHALLENGE" == "dns" ]; then
     --email "$EMAIL" --agree-tos "${PROVIDER_ARGUMENTS[@]}" \
     --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
     --preferred-challenges "$CHALLENGE" --deploy-hook "/deploy.sh" \
-    $SERVER_OPTIONS "${DOMAIN_ARR[@]}"
+    --server "${SERVER_OPTIONS}"  "${DOMAIN_ARR[@]}"
 
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
     --email "$EMAIL" --agree-tos  --config-dir "$CERT_DIR" \
     --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" \
-    --deploy-hook "/deploy.sh" $SERVER_OPTIONS --standalone \
+    --deploy-hook "/deploy.sh" --server "${SERVER_OPTIONS}"  --standalone \
     "${DOMAIN_ARR[@]}"
 
 fi

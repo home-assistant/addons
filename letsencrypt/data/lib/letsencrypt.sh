@@ -5,7 +5,6 @@
 # ==============================================================================
 
 # Stores the location of this library
-readonly __LETSENCRYPT_LIB_DIR=$(dirname "${BASH_SOURCE[0]}")
 readonly __LETSENCRYPT_DEFAULT_CERT_DIR="/data/letsencrypt"
 readonly __LETSENCRYPT_DEFAULT_WORK_DIR="/data/workdir"
 
@@ -34,9 +33,9 @@ function letsencrypt::renewal_options() {
 function letsencrypt::server_options() {
     if bashio::config.true 'dev_use_staging'; then
         bashio::log.warning "Using Lets Encrypt Staging Server. A valid certificate will not be issued"
-        echo -n -e "--server https://acme-staging-v02.api.letsencrypt.org/directory"
+        echo -n -e "https://acme-staging-v02.api.letsencrypt.org/directory"
     else
-        echo -n -e ""
+        echo -n -e "https://acme-v02.api.letsencrypt.org/directory"
     fi
 }
 
@@ -51,7 +50,7 @@ function letsencrypt::cert_dir() {
 # Gets the working directory to use with the certbot
 # ------------------------------------------------------------------------------
 function letsencrypt::work_dir() {
-    echo -n -e "${__LETSENCRYPT_CERT_DIR}"
+    echo -n -e "${__LETSENCRYPT_WORK_DIR}"
 }
 
 # ------------------------------------------------------------------------------

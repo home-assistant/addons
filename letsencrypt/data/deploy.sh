@@ -1,5 +1,6 @@
 #!/usr/bin/env bashio
 
+# shellcheck disable=SC1091
 source "/opt/letsencrypt/lib/letsencrypt.sh"
 
 DOMAINS=$(bashio::config 'domains')
@@ -12,8 +13,8 @@ DOMAINS_ARRAY=(${DOMAINS[@]})
 PRIMARY_DOMAIN="${DOMAINS_ARRAY[0]}"
 
 # copy certs to store
-cp "$CERT_DIR"/live/${PRIMARY_DOMAIN}/privkey.pem "/ssl/$KEYFILE"
-cp "$CERT_DIR"/live/${PRIMARY_DOMAIN}/fullchain.pem "/ssl/$CERTFILE"
+cp "${CERT_DIR}/live/${PRIMARY_DOMAIN}/privkey.pem" "/ssl/$KEYFILE"
+cp "${CERT_DIR}/live/${PRIMARY_DOMAIN}/fullchain.pem" "/ssl/$CERTFILE"
 
 # see if we need to restart the core
 if bashio::config.exists 'restart_core' && bashio::config.true 'restart_core'; then

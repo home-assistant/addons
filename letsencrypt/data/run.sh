@@ -108,20 +108,26 @@ else
 fi
 
 # Generate new certs
-if [ ! -d "$CERT_DIR/live" ]; then
-    DOMAIN_ARR=()
-    for line in $DOMAINS; do
-        DOMAIN_ARR+=(-d "$line")
-    done
+DOMAIN_ARR=()
+for line in $DOMAINS; do
+    DOMAIN_ARR+=(-d "$line")
+done
 
-    echo "$DOMAINS" > /data/domains.gen
-    if [ "$CHALLENGE" == "dns" ]; then
-        certbot certonly --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "${PROVIDER_ARGUMENTS[@]}" --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" --deploy-hook "/deploy.sh" $SERVER_OPTIONS "${DOMAIN_ARR[@]}"
-    else
-        certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" --deploy-hook "/deploy.sh" $SERVER_OPTIONS "${DOMAIN_ARR[@]}"
-    fi
+echo "$DOMAINS" > /data/domains.gen
+if [ "$CHALLENGE" == "dns" ]; then
+    certbot certonly --non-interactive --keep-until-expiring --expand \
+    --email "$EMAIL" --agree-tos "${PROVIDER_ARGUMENTS[@]}" \
+    --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+    --preferred-challenges "$CHALLENGE" --deploy-hook "/deploy.sh" \
+    $SERVER_OPTIONS "${DOMAIN_ARR[@]}"
+
 else
-    /renew.sh
+    certbot certonly --non-interactive --keep-until-expiring --expand \
+    --email "$EMAIL" --agree-tos  --config-dir "$CERT_DIR" \
+    --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" \
+    --deploy-hook "/deploy.sh" $SERVER_OPTIONS --standalone \
+    "${DOMAIN_ARR[@]}"
+
 fi
 
 #Setup Environment for Cronjob

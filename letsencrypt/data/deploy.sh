@@ -9,6 +9,7 @@ CERTFILE=$(bashio::config 'certfile')
 
 CERT_DIR=$(letsencrypt::cert_dir)
 
+# shellcheck disable=SC2206
 DOMAINS_ARRAY=(${DOMAINS[@]})
 PRIMARY_DOMAIN="${DOMAINS_ARRAY[0]}"
 

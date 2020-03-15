@@ -36,5 +36,9 @@ RUN apk add --no-cache --update \
 
 # Copy data
 COPY data/run.sh /
+COPY data/deploy.sh /
+COPY data/renew.sh /
+COPY data/lib /opt/letsencrypt/lib
+RUN chmod 755 /run.sh /deploy.sh /renew.sh
 
 CMD [ "/run.sh" ]

@@ -1,11 +1,19 @@
 #!/usr/bin/env bashio
 
+source "/opt/letsencrypt/lib/letsencrypt.sh"
+
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
+CERT_DIR=$(letsencrypt::cert_dir)
+WORK_DIR=$(letsencrypt::work_dir)
+RENEWAL_OPTIONS=$(letsencrypt::renewal_options)
+SERVER_OPTIONS=$(letsencrypt::server_options)
+RENEWAL_TIME=$(bashio::config 'renewal_check_time')
+RENEWAL_CRONTAB=$(letsencrypt::crontab_convert "${RENEWAL_TIME}")
 
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
@@ -19,13 +27,9 @@ else
     bashio::log.info "Selected http verification"
 fi
 
-CERT_DIR=/data/letsencrypt
-WORK_DIR=/data/workdir
-
 mkdir -p "$WORK_DIR"
 mkdir -p "$CERT_DIR"
 mkdir -p "/ssl"
-chmod +x /run.sh
 touch /data/dnsapikey
 PROVIDER_ARGUMENTS=()
 
@@ -112,14 +116,26 @@ if [ ! -d "$CERT_DIR/live" ]; then
 
     echo "$DOMAINS" > /data/domains.gen
     if [ "$CHALLENGE" == "dns" ]; then
-        certbot certonly --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "${PROVIDER_ARGUMENTS[@]}" --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
+        certbot certonly --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" "${PROVIDER_ARGUMENTS[@]}" --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" --deploy-hook "/deploy.sh" $SERVER_OPTIONS "${DOMAIN_ARR[@]}"
     else
-        certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}"
+        certbot certonly --non-interactive --standalone --email "$EMAIL" --agree-tos --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE" --deploy-hook "/deploy.sh" $SERVER_OPTIONS "${DOMAIN_ARR[@]}"
     fi
 else
-    certbot renew --non-interactive --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --preferred-challenges "$CHALLENGE"
+    /renew.sh
 fi
 
-# copy certs to store
-cp "$CERT_DIR"/live/*/privkey.pem "/ssl/$KEYFILE"
-cp "$CERT_DIR"/live/*/fullchain.pem "/ssl/$CERTFILE"
+#Setup Environment for Cronjob
+declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID|SUPERVISOR_TOKEN' > /data/container.env
+
+
+if  bashio::config.exists  'renewal_daily_check' && bashio::config.true 'renewal_daily_check'; then
+    bashio::log.info "Setting up daily renewal check at ${RENEWAL_TIME}"
+    # Setup a cron schedule
+    echo "SHELL=/bin/bash
+    BASH_ENV=/data/container.env
+    ${RENEWAL_CRONTAB} /renew.sh >> /dev/stdout 2>&1
+    # This extra line makes it a valid cron" > /data/scheduler.txt
+
+    crontab /data/scheduler.txt
+    crond -f -d 8
+fi

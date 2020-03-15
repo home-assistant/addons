@@ -7,6 +7,8 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "boot": "manual",
+  "hassio_api": true,
+  "hassio_role": "manager",
   "ports": {
     "80/tcp": 80
   },
@@ -20,7 +22,11 @@
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "challenge": "http",
-    "dns": {}
+    "dns": {},
+    "renewal_daily_check": true,
+    "renewal_check_time": "02:00",
+    "restart_core": true,
+    "restart_addons":[null]
   },
   "schema": {
     "email": "email",
@@ -28,6 +34,12 @@
     "certfile": "str",
     "keyfile": "str",
     "challenge": "list(dns|http)",
+    "renewal_daily_check": "bool",
+    "refresh_check_time": "str",
+    "restart_core": "bool",
+    "restart_addons":["str"],
+    "dev_use_staging": "bool",
+    "dev_force_renewal": "bool",
     "dns": {
       "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup)?",
       "propagation_seconds": "int(60,3600)?",

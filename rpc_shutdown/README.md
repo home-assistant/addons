@@ -6,7 +6,7 @@ Shutdown Windows machines remotely.
 
 ## About
 
-Allows you to shut down and Windows Computer with a service call from Home Assistant.
+Allows you to shut down Windows Computers with a service call from Home Assistant.
 
 ## Installation
 

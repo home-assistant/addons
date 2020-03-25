@@ -3,6 +3,7 @@
 ## 4.7
 
 - Fix issue with DNS challenge
+- Convert to s6-overlay
 
 ## 4.6
 

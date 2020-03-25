@@ -14,7 +14,7 @@ variables:
 jobs:
   - job: "Hadolint"
     pool:
-      vmImage: "ubuntu-16.04"
+      vmImage: "ubuntu-latest"
     steps:
       - script: sudo docker pull hadolint/hadolint:$(versionHadolint)
         displayName: "Install Hadolint"
@@ -32,20 +32,19 @@ jobs:
 
   - job: "ShellCheck"
     pool:
-      vmImage: "ubuntu-16.04"
+      vmImage: "ubuntu-latest"
     steps:
       - script: sudo docker pull koalaman/shellcheck:$(versionShellCheck)
         displayName: "Install ShellCheck"
       - script: |
           shopt -s globstar
           sudo docker run --rm -i \
-            -v $(pwd):/mnt:ro -e SHELLCHECK_OPTS="-e SC1008" \
-            koalaman/shellcheck:$(versionShellCheck) **/*.sh
+            -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) -s bash **/{*.sh,run,finish}
         displayName: "Run ShellCheck"
 
   - job: "JQ"
     pool:
-      vmImage: "ubuntu-16.04"
+      vmImage: "ubuntu-latest"
     steps:
       - script: sudo apt-get install -y jq
         displayName: "Install JQ"

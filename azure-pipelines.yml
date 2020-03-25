@@ -39,7 +39,7 @@ jobs:
       - script: |
           shopt -s globstar
           sudo docker run --rm -i \
-            -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) -s bash **/{*.sh,run,finish}
+            -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) -s bash **/{*.sh,run}
         displayName: "Run ShellCheck"
 
   - job: "JQ"

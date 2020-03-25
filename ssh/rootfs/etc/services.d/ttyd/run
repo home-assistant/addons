@@ -3,6 +3,6 @@
 # Start ttyd service for ingress
 # ==============================================================================
 bashio::log.info "Starting Web Terminal..."
-cd /root
+cd /root || bashio::exit.nok "Can't find root folder!"
 
 exec ttyd -p 8099 tmux -u new -A -s homeassistant bash -l

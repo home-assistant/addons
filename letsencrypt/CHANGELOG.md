@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.7.1
+
+- Adjust init settings
+
 ## 4.7.0
 
 - Fix issue with DNS challenge

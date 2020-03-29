@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.11
+
+- Update Home Assistant CLI to 4.2.0
+
 ## 7.10
 
 - Update Home Assistant CLI to 4.1.0

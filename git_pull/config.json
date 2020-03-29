@@ -1,11 +1,12 @@
 {
   "name": "Git pull",
-  "version": "7.10",
+  "version": "7.11",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/git_pull",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "advanced": true,
+  "init": false,
   "startup": "services",
   "boot": "manual",
   "hassio_api": true,

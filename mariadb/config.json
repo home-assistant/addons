@@ -8,6 +8,7 @@
   "startup": "system",
   "boot": "auto",
   "init": false,
+  "timeout": 20,
   "services": ["mysql:provide"],
   "ports": {
     "3306/tcp": null
@@ -27,6 +28,5 @@
     "logins": [{ "username": "str", "password": "str" }],
     "rights": [{ "username": "str", "database": "str" }]
   },
-  "image": "homeassistant/{arch}-addon-mariadb",
-  "timeout": 20
+  "image": "homeassistant/{arch}-addon-mariadb"
 }

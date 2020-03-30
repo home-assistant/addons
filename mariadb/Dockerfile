@@ -9,6 +9,7 @@ RUN apk add --no-cache \
     pwgen
 
 # Install jemalloc
+WORKDIR /usr/src
 ARG JEMALLOC_VERSION
 RUN apk add --no-cache --virtual .build-deps \
         build-base \
@@ -24,3 +25,5 @@ ENV LD_PRELOAD="/usr/local/lib/libjemalloc.so.2"
 
 # Copy data
 COPY rootfs /
+
+WORKDIR /

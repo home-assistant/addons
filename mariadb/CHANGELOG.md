@@ -20,18 +20,18 @@
 - Adds database upgrade process during startup
 - Change default configuration username from "hass" to "homeassistant"
 
-## 1.3
+## 1.3.0
 
 - Update from bash to bashio
 
-## 1.2
+## 1.2.0
 
 - Change the way to migrate data
 
-## 1.1
+## 1.1.0
 
 - Fix connection issue with 10.3.13
 
-## 1.0
+## 1.0.0
 
 - Update MariaDB to 10.3.13

@@ -2,7 +2,7 @@
 
 ## 2.3.2
 
-- Update Google Assistant SDK back to 0.5.0
+- Update Google Assistant SDK back to 0.5.1
 - Update Google Assistant Library back to 1.0.0
 
 ## 2.3.1

@@ -1,6 +1,11 @@
 # Changelog
 
-## 2.0
+## 2.1.0
+
+- Migrate to S6-Overlay
+- Use jemalloc for faster database memory management
+
+## 2.0.0
 
 - Pin add-on to Alpine Linux 3.11
 - Redirect MariaDB error log to add-on logs

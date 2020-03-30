@@ -6,7 +6,7 @@
         {
             "label": "Start Home Assistant",
             "type": "shell",
-            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_hassio.sh",
+            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_supervisor.sh",
             "group": {
                 "kind": "test",
                 "isDefault": true,

@@ -1,12 +1,13 @@
 {
   "name": "MariaDB",
-  "version": "2.0",
+  "version": "2.1.1",
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mariadb",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "boot": "auto",
+  "init": false,
   "services": ["mysql:provide"],
   "ports": {
     "3306/tcp": null

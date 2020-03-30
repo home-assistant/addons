@@ -1,6 +1,7 @@
-#!/usr/bin/env bashio
-set -e
-
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start MariaDB service if enabled
+# ==============================================================================
 MARIADB_DATA=/data/databases
 NEW_INSTALL=false
 

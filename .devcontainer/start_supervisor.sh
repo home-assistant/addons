@@ -57,7 +57,6 @@ function stop_docker() {
 
 function install() {
     docker pull homeassistant/amd64-hassio-supervisor:dev
-    docker pull homeassistant/amd64-hassio-cli:dev
 }
 
 function cleanup_hass_data() {
@@ -102,7 +101,7 @@ case "$1" in
         cleanup_hass_data || true
         exit 0;;
     *)
-        echo "Creating development Hass.io environment"
+        echo "Creating development Supervisor environment"
         start_docker
         trap "stop_docker" ERR
         cleanup_docker || true

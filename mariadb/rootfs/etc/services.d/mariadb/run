@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start sshd service if enabled
+# Start MariaDB service if enabled
 # ==============================================================================
 MARIADB_DATA=/data/databases
 NEW_INSTALL=false

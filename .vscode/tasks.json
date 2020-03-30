@@ -19,7 +19,7 @@
         },{
             "label": "Cleanup stale Home Assistant environment",
             "type": "shell",
-            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_hassio.sh --cleanup",
+            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_supervisor.sh --cleanup",
             "group": "test",
             "presentation": {
                 "reveal": "always",
@@ -29,7 +29,7 @@
         },{
             "label": "Run Home Assistant CLI",
             "type": "shell",
-            "command": "docker run --rm -ti -v /etc/machine-id:/etc/machine-id --network=hassio --add-host hassio:172.30.32.2 homeassistant/amd64-hassio-cli:dev",
+            "command": "docker exec -ti hassio_cli /usr/bin/cli.sh",
             "group": "test",
             "presentation": {
                 "reveal": "always",

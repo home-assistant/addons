@@ -1,7 +1,12 @@
-#!/usr/bin/env bashio
-set -e
-
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start config checker service
+# ==============================================================================
 VERSION=$(bashio::config 'version')
+
+# Create udev devices
+bashio::log.info "Setup udev devices"
+bashio::hardware.trigger
 
 # Generate install string
 CMD="homeassistant"

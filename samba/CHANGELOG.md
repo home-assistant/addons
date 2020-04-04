@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.1
+
+- Allow IPv6 link-local hosts by default, consistent with IPv4
+
 ## 9.0
 
 - New option `veto_files` to limit writing of specified files to the share

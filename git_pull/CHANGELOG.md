@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.12
+
+- Fix error of deployment_key eventually failing by overwriting the deployment_key every cycle
+
 ## 7.11
 
 - Update Home Assistant CLI to 4.2.0

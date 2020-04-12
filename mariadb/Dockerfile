@@ -21,7 +21,9 @@ RUN apk add --no-cache --virtual .build-deps \
     && apk del .build-deps \
     && rm -rf /usr/src/jemalloc-${JEMALLOC_VERSION}
 
-ENV LD_PRELOAD="/usr/local/lib/libjemalloc.so.2"
+ENV \
+    LD_PRELOAD="/usr/local/lib/libjemalloc.so.2" \
+    S6_SERVICES_GRACETIME=18000
 
 # Copy data
 COPY rootfs /

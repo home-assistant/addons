@@ -6,6 +6,7 @@
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/ssh",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "init": false,
+  "advanced": true,
   "startup": "services",
   "ingress": true,
   "panel_icon": "mdi:console",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.5.4
+
+- Update Home Assistant CLI to 4.3.0
+
 ## 8.5.3
 
 - Update Home Assistant CLI to 4.2.0

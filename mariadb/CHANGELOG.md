@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.2
+
+- Fix S6-Overlay shutdown timeout
+
 ## 2.1.0
 
 - Migrate to S6-Overlay

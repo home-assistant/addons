@@ -1,6 +1,6 @@
 {
   "name": "Samba share",
-  "version": "9.1",
+  "version": "9.1.0",
   "slug": "samba",
   "description": "Expose Home Assistant folders with SMB/CIFS",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/samba",

@@ -1,9 +1,11 @@
-#!/usr/bin/env bashio
-set -e
-
-DIRSFIRST=$(bashio::config 'dirsfirst')
-ENFORCE_BASEPATH=$(bashio::config 'enforce_basepath')
-IGNORE_PATTERN="$(bashio::config 'ignore_pattern | join(",")')"
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start Configurator service
+# ==============================================================================
+export HC_DIRSFIRST
+export HC_ENFORCE_BASEPATH
+export HC_HASS_API_PASSWORD
+export HC_IGNORE_PATTERN
 
 # If any SSH key files are defined in the configuration options, add them for use by git
 if bashio::config.has_value "ssh_keys"; then
@@ -20,19 +22,12 @@ if bashio::config.has_value "ssh_keys"; then
       bashio::log.error "SSH key file \"${filename}\" not found"
     fi
   done <<< "$(bashio::config 'ssh_keys')"
-
-  # Disable strict host key checking
-  mkdir -p ~/.ssh
-  {
-    echo "Host *"
-    echo "    StrictHostKeyChecking no"
-  } > ~/.ssh/config
 fi
 
 # Setup and run configurator
-export HC_HASS_API_PASSWORD="${HASSIO_TOKEN}"
-export HC_DIRSFIRST="${DIRSFIRST}"
-export HC_ENFORCE_BASEPATH="${ENFORCE_BASEPATH}"
-export HC_IGNORE_PATTERN="${IGNORE_PATTERN}"
+HC_DIRSFIRST=$(bashio::config 'dirsfirst')
+HC_ENFORCE_BASEPATH=$(bashio::config 'enforce_basepath')
+HC_HASS_API_PASSWORD="${SUPERVISOR_TOKEN}"
+HC_IGNORE_PATTERN="$(bashio::config 'ignore_pattern | join(",")')"
 
 exec hass-configurator /etc/configurator.conf

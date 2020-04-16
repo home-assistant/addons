@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0
+## 1.0.0
 
 - Update Almond to 1.8.0
 - Rewrite onto S6 overlay

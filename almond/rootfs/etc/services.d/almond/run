@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start Almond service
+# ==============================================================================
+export THINGENGINE_BASE_URL
+
+# Set the Ingress URL as Almond base URL for correct handling
+THINGENGINE_BASE_URL=$(bashio::addon.ingress_entry)
+
+# Send out discovery information to Home Assistant
+./discovery &
+
+# Register Home Assistant with Almond
+./register &
+
+# Start Almond
+cd /opt/almond || bashio::exit.nok "Failed to change directory to Almond"
+exec node main.js

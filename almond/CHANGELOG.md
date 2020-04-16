@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.0
+
+- Update Almond to 1.8.0
+- Rewrite onto S6 overlay
+- Reduce add-on image size
+- Updates Supervisor API token and endpoint
+
+## 0.9
+
+- Update Almond to 1.7.3
+
 ## 0.8
 
 - Update Almond to 1.7.2

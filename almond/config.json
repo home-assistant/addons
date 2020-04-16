@@ -1,11 +1,12 @@
 {
   "name": "Almond",
-  "version": "0.9",
+  "version": "1.0.0",
   "slug": "almond",
   "description": "The home server version of Almond",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",
   "arch": ["armv7", "aarch64", "amd64"],
   "startup": "application",
+  "init": false,
   "boot": "auto",
   "discovery": ["almond"],
   "ingress": true,

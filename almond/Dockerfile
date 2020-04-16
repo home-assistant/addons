@@ -1,12 +1,23 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-# Install Alomond requirements
-RUN apt-get update \
+# Base env settings
+ENV \
+    LANG="en_US.utf8" \
+    THINGENGINE_HOME="/data/almond-server" \
+    THINGENGINE_HOST_BASED_AUTHENTICATION="local-ip"
+
+WORKDIR /opt/almond
+ARG ALMOND_VERSION
+RUN \
+    apt-get update \
     && apt-get install -y --no-install-recommends \
-        software-properties-common \
+        build-essential \
+        git \
         gnupg \
         nginx \
+        python-dev \
+        software-properties-common \
         unzip \
     \
     && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key \
@@ -18,40 +29,43 @@ RUN apt-get update \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" \
         > /etc/apt/sources.list.d/yarn.list \
     \
-    && apt-get update && apt-get install -y --no-install-recommends \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
         nodejs \
         yarn \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# Install Almond
-ARG ALMOND_VERSION
-WORKDIR /opt/almond
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        git \
-        python-dev \
-        build-essential \
     \
     && git clone -b "${ALMOND_VERSION}" --depth 1 \
         "https://github.com/stanford-oval/almond-server" . \
     && rm -fr .git \
     && yarn \
     \
+    && yarn global add modclean \
+    && modclean \
+        --path /opt/almond \
+        --no-progress \
+        --keep-empty \
+        --run \
+    && yarn global remove modclean \
+    \
+    && yarn cache clean \
     && apt-get purge -y --auto-remove \
-        git \
-        python-dev \
         build-essential \
+        git \
+        gnupg \
+        python-dev \
+        software-properties-common \
+        unzip \
+        yarn \
     && rm -rf \
+        /opt/almond/.[!.]* \
+        /root/.cache \
+        /root/.config \
+        /tmp/.[!.]* \
+        /tmp/* \
+        /usr/lib/nginx \
+        /usr/local/share/.cache \
+        /usr/local/share/.config \
         /var/lib/apt/lists/* \
-        /root/.cache
+        /var/www
 
-# Base env settings
-ENV LANG=en_US.utf8
-ENV THINGENGINE_HOME=/data/almond-server
-ENV THINGENGINE_HOST_BASED_AUTHENTICATION=local-ip
-
-COPY data/run.sh /
-COPY data/nginx.conf /etc/nginx/
-
-CMD ["/run.sh"]
+COPY rootfs /

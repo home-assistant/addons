@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.0
+
+- Rewrite add-on to S6 Overlay
+- Reduced add-on size
+
 ## 4.7
 
 - Fix file history width

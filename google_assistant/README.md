@@ -1,6 +1,6 @@
 # Home Assistant Add-on: Google Assistant SDK
 
-Load and update configuration files for Home Assistant from a Git repository.
+A virtual personal assistant developed by Google.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 

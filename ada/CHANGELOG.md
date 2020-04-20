@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Fix aarch64 support
+
 ## 1.1.0
 
 - Renaming Home Assistant

@@ -54,7 +54,6 @@ RUN \
         gnupg \
         python-dev \
         software-properties-common \
-        unzip \
         yarn \
     && rm -rf \
         /opt/almond/.[!.]* \

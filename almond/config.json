@@ -1,6 +1,6 @@
 {
   "name": "Almond",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "slug": "almond",
   "description": "The home server version of Almond",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",

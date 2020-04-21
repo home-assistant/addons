@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Keep unzip dependency installed
+
 ## 1.0.0
 
 - Update Almond to 1.8.0

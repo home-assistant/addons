@@ -1,5 +1,13 @@
 # Changelog
 
+## 9.2.0
+
+- Pin base image version
+- Rewrite add-on onto S6 Overlay
+- Use default configuration location
+- Add support for running in compatibility mode (SMB1/NT1)
+- Add dummy files to reduce number of errors/warnings in log output
+
 ## 9.1.0
 
 - Allow IPv6 link-local hosts by default, consistent with IPv4

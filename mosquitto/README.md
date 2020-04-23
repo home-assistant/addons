@@ -92,6 +92,14 @@ A file containing the private key.
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
 
+Even if set to `false` you need to ensure that there are no invalid cert files. The add-on will not work if there are invalid cert files (invalid includes blank). If the following errors are present, then you have invalid and/or blank cert files.
+Error: Unable to load server key file "/ssl/privkey.pem". Check keyfile.
+Error: Protocol not available
+
+Navigate to the following files and delete them:
+/ssl/privkey.pem
+/ssl/fullchain.pem
+
 ## Home Assistant user management
 
 This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Home Assistant ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.

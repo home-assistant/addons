@@ -42,6 +42,7 @@ veto_files:
   - "._*"
   - ".DS_Store"
   - Thumbs.db
+compatibility_mode: false
 ```
 
 ### Option: `workgroup` (required)
@@ -71,6 +72,15 @@ List of hosts/networks allowed to access the shared folders.
 List of files that are neither visible nor accessible. Useful to stop clients
 from littering the share with temporary hidden files
 (e.g., macOS `.DS_Store` or Windows `Thumbs.db` files)
+
+### Option: `compatibility_mode`
+
+Setting this option to `true` will enable old legacy Samba protocols
+on the Samba add-on. This might solve issues with some clients that cannot
+handle the newer protocols, however, it lowers security. Only use this
+when you absolutely need it and understand the possible consequences.
+
+Defaults to `false`.
 
 ## Support
 

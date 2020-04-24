@@ -71,7 +71,9 @@ List of hosts/networks allowed to access the shared folders.
 
 List of files that are neither visible nor accessible. Useful to stop clients
 from littering the share with temporary hidden files
-(e.g., macOS `.DS_Store` or Windows `Thumbs.db` files)
+(e.g., macOS `.DS_Store` or Windows `Thumbs.db` files). 
+If you transfer files with rsync, *._ will then prevent rsync to transfer 
+files beginning with underscore(like __init__.py).
 
 ### Option: `compatibility_mode`
 

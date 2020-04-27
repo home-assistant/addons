@@ -19,10 +19,10 @@ ha help
 
 Follow these steps to get the add-on installed on your system:
 
-0. This addon is only enabled for "Advanced Mode" users. To enable: **Profile** -> **Advanced Mode** 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
-2. Find the "SSH server" add-on and click it.
-3. Click on the "INSTALL" button.
+1. This addon is only enabled for "Advanced Mode" users. To enable: **Profile** -> **Advanced Mode** 
+2. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+3. Find the "SSH server" add-on and click it.
+4. Click on the "INSTALL" button.
 
 ## How to use
 

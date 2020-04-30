@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.3.0
+
+- Update base image to version 7.2.0
+- Add access to `share` folder for when using `whitelist_external_dirs`
+- Fixes `fatal: unable to control: supervisor not listening`
+- Show only top of the error log in add-on output
+- Write full check config output to `/share/check_config.txt`
+- Ensure service script does not crash when check config fails
+- Hide pip version warning to avoid confusion
+
 ## 3.2.0
 
 - Update base image to version 7.1.0

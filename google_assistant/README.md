@@ -33,18 +33,18 @@ To do so, do the following:
 1. Configure the [OAuth consent screen][google-oauth-concent]. Again, check that you have the right project.
     1. Choose "**External**" as the User Type.
     1. Fill in a project name and your e-mail.
-    1. Hit <kbd>Save</kbd> at the bottom of the page.
-1. Go back to you device registration tab and click on <kbd>REGISTER MODEL</kbd>. If you closed the tab, you can also open you project in the [Google Actions Console][google-actions-console], start the Quick setup, and in the left bar click "**Device registration**".
+    1. Hit "**Save**" at the bottom of the page.
+1. Go back to you device registration tab and click on "**REGISTER MODEL**". If you closed the tab, you can also open you project in the [Google Actions Console][google-actions-console], start the Quick setup, and in the left bar click "**Device registration**".
     1. Give you project a name and think of a nice manufacturer. Select "**speaker**" for the device type. If you want to, edit your model id, and copy it for later use.
-    1. Click <kbd>REGISTER MODEL</kbd>, and download the credentials.
-    1. Click <kbd>Next</kbd> and click <kbd>SKIP</kbd>.
+    1. Click "**REGISTER MODEL**", and download the credentials.
+    1. Click "**Next**" and click "**SKIP**".
 1. Upload your credentials as `google_assistant.json` to the "hassio/share" folder, for example by using the [Samba][samba-addon] add-on.
 1. On the add-on Configuration tab:
-    1. In the "Config" section, fill-in you `project_id` and your `model_id` and hit <kbd>Save</kbd>. Your project id can be found in the Google Actions console by clicking on the top right menu button and selecting "**Project settings**". This id may differ from the project name that you choose!
-    1. In the "Audio" section, select the input and output audio devices to use for the Assistant and hit <kbd>Save</kbd>. On a Raspberry Pi 3, `ALSA device 0` is the built-in headset port and `ALSA device 1` is the HDMI port.
+    1. In the "Config" section, fill-in you `project_id` and your `model_id` and hit "**Save**". Your project id can be found in the Google Actions console by clicking on the top right menu button and selecting "**Project settings**". This id may differ from the project name that you choose!
+    1. In the "Audio" section, select the input and output audio devices to use for the Assistant and hit "**Save**". On a Raspberry Pi 3, `ALSA device 0` is the built-in headset port and `ALSA device 1` is the HDMI port.
 1. The final step is to authenticate your Google account with Google Assistant.
     1. Start the add-on. Check the log and click refresh till it says: `ENGINE Bus STARTED`.
-    1. Now click <kbd>Open Web UI</kbd> and follow the authentication process.
+    1. Now click "**Open Web UI**" and follow the authentication process.
     1. Once you've signed in with Google and authorized the app, copy the code back in the web UI. You will get an empty response after you have send your token.
     1. After that, you can close the web UI tab.
 

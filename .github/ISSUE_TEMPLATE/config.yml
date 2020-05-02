@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Feature Request
+    url: https://community.home-assistant.io/c/feature-requests
+    about: Please use our Community Forum for making feature requests.
+  - name: Check the Home Assistant Discord chat server
+    url: https://discord.gg/c5DvZ4e
+    about: The Home Assistant Discord chat server
+  - name: Join the reddit subreddit in /r/homeassistant
+    url: https://reddit.com/r/homeassistant
+    about: The Home Assistant subreddit
+  - name: I'm unsure where to go
+    url: https://www.home-assistant.io/join-chat
+    about: If you are unsure where to go, then joining our chat is recommended; Just ask!

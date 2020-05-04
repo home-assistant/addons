@@ -15,8 +15,7 @@ if bashio::fs.file_exists "/share/${CLIENT_SECRETS}"; then
     cp -f "/share/${CLIENT_SECRETS}" "${CLIENT_JSON}"
 fi
 
-if ! bashio::fs.file_exists "${CRED_JSON}" && bashio::fs.file_exists "${CLIENT_JSON}";
-then
+if ! bashio::fs.file_exists "${CRED_JSON}" && bashio::fs.file_exists "${CLIENT_JSON}"; then
     bashio::log.info "Starting WebUI for handling OAuth2..."
     python3 /usr/bin/hassio_oauth.py "${CLIENT_JSON}" "${CRED_JSON}"
 elif ! bashio::fs.file_exists "${CRED_JSON}"; then

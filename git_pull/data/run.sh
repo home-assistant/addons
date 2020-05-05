@@ -30,6 +30,7 @@ function add-ssh-key {
     ) > ~/.ssh/config
 
     echo "[Info] Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
+    rm -f "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
         echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     done <<< "$DEPLOYMENT_KEY"

@@ -11,7 +11,7 @@ from requests_oauthlib import OAuth2Session
 from google.oauth2.credentials import Credentials
 
 HEADERS = str("""
-  <link rel="icon" href="/static/favicon.ico">
+  <link rel="icon" href="/static/favicon.ico?v=1">
   <link href="/static/css/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 """)
@@ -124,6 +124,6 @@ if __name__ == '__main__':
     cherrypy.quickstart(oauth2Site(user_data, cred_json), config={
         '/static': { 
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join(os.path.abspath(os.getcwd()), 'public')
+            'tools.staticdir.dir': '/usr/share/public'
         }
     })

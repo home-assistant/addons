@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start OpenZwave service for zwave radio
+# ==============================================================================
+OZW_CONFIG=/data/ozw/config
+OZW_NETWORK_KEY=$(bashio::config 'network_key')
+OZW_DEVICE=$(bashio::config 'device')
+
+# Wait until mosqitto is up and running
+bashio::log.info "Starting OpenZwave..."
+bashio::net.wait_for 1883
+
+# Run daemon
+export OZW_NETWORK_KEY
+exec ozwdaemon \
+    -s "${OZW_DEVICE}" \
+    --config-dir "${OZW_CONFIG}" \
+    --user-dir "${OZW_CONFIG}" \
+    --mqtt-server 127.0.0.1 \
+    --mqtt-port 1883 \
+    --mqtt-instance 1 \
+    --stop-on-failure

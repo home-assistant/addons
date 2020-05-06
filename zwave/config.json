@@ -1,0 +1,27 @@
+{
+  "name": "OpenZwave",
+  "version": "0.1.0",
+  "slug": "zwave",
+  "description": "Control a ZWave network with Home Assistant",
+  "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave",
+  "startup": "system",
+  "boot": "auto",
+  "stage": "experimental",
+  "homeassistant": "0.110.0",
+  "services": ["want:mqtt"],
+  "auto_uart": true,
+  "gpio": true,
+  "apparmor": false,
+  "privileged": ["SYS_RAWIO"],
+  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
+  "options": {
+    "device": null,
+    "network_key": null
+  },
+  "schema": {
+    "device": "str",
+    "network_key": "password"
+  },
+  "image": "homeassistant/{arch}-addon-zwave"
+}

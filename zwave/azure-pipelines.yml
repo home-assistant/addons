@@ -6,7 +6,7 @@ trigger:
       - master
   paths:
     include:
-      - ada/*
+      - zwave/*
 pr: none
 
 variables:
@@ -17,5 +17,5 @@ variables:
 jobs:
   - template: /.azure/azp-template-addon.yml
     parameters:
-      addon: "ada"
-      arch: "--amd64 --armv7 --armhf"
+      addon: "zwave"
+      arch: "--all"

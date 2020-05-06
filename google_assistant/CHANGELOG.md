@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.0
+
+- Improve OAuth connection process UI
+- Fix error 500 after submitting the OAuth token
+
 ## 2.3.2
 
 - Update Google Assistant SDK back to 0.5.1

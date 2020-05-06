@@ -2,11 +2,18 @@
 import json
 import sys
 from pathlib import Path
+import threading
+import time
 
 import cherrypy
 from requests_oauthlib import OAuth2Session
 from google.oauth2.credentials import Credentials
 
+HEADERS = str("""
+  <link rel="icon" href="/static/favicon.ico?v=1">
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+""")
 
 class oauth2Site(object):
     """Website for handling oauth2."""
@@ -26,24 +33,38 @@ class oauth2Site(object):
 
     @cherrypy.expose
     def index(self):
-        """Landingpage."""
+        """Landing page."""
         return str("""<html>
-          <head></head>
+          <head>{headers}</head>
           <body>
-            <p>
-                Get token from google: <a href="{url}" target="_blank">Authentication</a>
-            </p>
             <form method="get" action="token">
-              <input type="text" value="" name="token" />
-              <button type="submit">Connect</button>
+              <div class="card">
+                <div class="card-content">
+                  <img src="/static/logo.png" alt="Google Assistant Logo" />
+                  <h1>Google Assistant SDK</h1>
+                  <p>Initial setup</p>
+                  <ol>
+                    <li><a href="{url}" target="_blank">Get a code from Google here</a></li>
+                    <li><input type="text" value="" name="token" placeholder="Paste the code here" /></li>
+                  </ol>
+                </div>
+                <div class="card-actions">
+                  <button type="submit">CONNECT</button>
+                </div>
+              </div>
             </form>
           </body>
-        </html>""").format(url=self.auth_url)
+        </html>""").format(url=self.auth_url, headers=HEADERS)
 
     @cherrypy.expose
     def token(self, token):
         """Read access token and process it."""
-        self.oauth2.fetch_token(self.user_data['token_uri'], client_secret=self.user_data['client_secret'], code=token)
+        try:
+            self.oauth2.fetch_token(self.user_data['token_uri'], client_secret=self.user_data['client_secret'], code=token)
+        except Exception as e:
+            cherrypy.log("Error with the given token: {error}".format(error=str(e)))
+            cherrypy.log("Restarting authentication process.")
+            raise cherrypy.HTTPRedirect('/')
 
         # create credentials
         credentials = Credentials(
@@ -65,8 +86,30 @@ class oauth2Site(object):
                 'scopes': credentials.scopes,
             }))
 
-        sys.exit(0)
+        threading.Thread(target=self.exit_app).start()
+        return str("""<html>
+          <head>{headers}</head>
+          <body>
+            <div class="card">
+              <div class="card-content">
+                <img src="/static/logo.png" alt="Google Assistant Logo" />
+                <h1>Google Assistant SDK</h1>
+                <p>Setup completed.</p>
+                <p>You can now close this window.</p>
+              </div>
+            </div>
+          </body>
+        </html>""").format(url=self.auth_url, headers=HEADERS)
 
+    def exit_app(self):
+      time.sleep(2)
+      cherrypy.engine.exit()
+
+def hide_access_logs():
+    """Hide file access logging for cleaner logs"""
+    access_log = cherrypy.log.access_log
+    for handler in tuple(access_log.handlers):
+        access_log.removeHandler(handler)
 
 if __name__ == '__main__':
     oauth_json = Path(sys.argv[1])
@@ -75,5 +118,11 @@ if __name__ == '__main__':
     with oauth_json.open('r') as data:
         user_data = json.load(data)['installed']
 
+    hide_access_logs()
     cherrypy.config.update({'server.socket_port': 9324, 'server.socket_host': '0.0.0.0'})
-    cherrypy.quickstart(oauth2Site(user_data, cred_json))
+    cherrypy.quickstart(oauth2Site(user_data, cred_json), config={
+        '/static': { 
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': '/usr/share/public'
+        }
+    })

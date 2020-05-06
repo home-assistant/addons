@@ -5,7 +5,6 @@
 
 if ! bashio::services.available "mqtt"; then
     bashio::log.info "No internal MqTT service found"
-    bashio::exit.ok
 else
     host=$(bashio::services "mqtt" "host")
     password=$(bashio::services "mqtt" "password")
@@ -21,4 +20,6 @@ else
         echo "topic OpenZWave/# out"
         echo "topic # IN OpenZWave/"
     ) >> /etc/mosquitto.conf
+
+    bashio::log.info "Connect to internal MqTT service"
 fi

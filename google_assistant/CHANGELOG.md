@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.3.3
+## 2.4.0
 
 - Improve OAuth connection process UI
 - Fix error 500 after submitting the OAuth token

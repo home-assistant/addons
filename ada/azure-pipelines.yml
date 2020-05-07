@@ -8,14 +8,21 @@ trigger:
     include:
       - ada/*
 pr: none
+resources:
+  repositories:
+    - repository: azure
+      type: github
+      name: "home-assistant/ci-azure"
+      endpoint: "home-assistant"
 
 variables:
-  - name: versionBuilder
-    value: "2.0"
   - group: docker
 
 jobs:
-  - template: /.azure/azp-template-addon.yml
+  - template: templates/azp-job-version.yaml@azure
     parameters:
       addon: "ada"
-      arch: "--amd64 --armv7 --armhf"
+      arch:
+      - amd64
+      - armv7
+      - armhf

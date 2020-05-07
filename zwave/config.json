@@ -10,7 +10,7 @@
   "init": false,
   "stage": "experimental",
   "homeassistant": "0.110.0",
-  "services": ["want:mqtt"],
+  "services": ["mqtt:want"],
   "discovery": ["zwave_mqtt"],
   "auto_uart": true,
   "gpio": true,

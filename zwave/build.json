@@ -1,0 +1,15 @@
+{
+  "build_from": {
+    "amd64": "homeassistant/amd64-base:3.11",
+    "i386": "homeassistant/i386-base:3.11",
+    "armhf": "homeassistant/armhf-base:3.11",
+    "armv7": "homeassistant/armv7-base:3.11",
+    "aarch64": "homeassistant/aarch64-base:3.11"
+  },
+  "args": {
+    "OZW_VERSION": "6289ebb56eca7182638d41dce19a5c3d70c9045b",
+    "QTOZW_VERSION": "73842d79b6eda5c532d673b53a3861c46abe8e01",
+    "QTMQTT_VERSION": "5.12.8",
+    "QTWEBSOCKETS_VERSION": "5.12.8"
+  }
+}

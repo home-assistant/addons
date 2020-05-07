@@ -8,14 +8,17 @@ trigger:
     include:
       - dhcp_server/*
 pr: none
+resources:
+  repositories:
+    - repository: azure
+      type: github
+      name: "home-assistant/ci-azure"
+      endpoint: "home-assistant"
 
 variables:
-  - name: versionBuilder
-    value: "2.0"
   - group: docker
 
 jobs:
-  - template: /.azure/azp-template-addon.yml
+  - template: templates/azp-job-addon.yaml@azure
     parameters:
       addon: "dhcp_server"
-      arch: "--all"

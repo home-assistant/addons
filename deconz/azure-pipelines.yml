@@ -19,7 +19,7 @@ variables:
   - group: docker
 
 jobs:
-  - template: templates/azp-job-version.yaml@azure
+  - template: templates/azp-job-addon.yaml@azure
     parameters:
       addon: "deconz"
       arch:

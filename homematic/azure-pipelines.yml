@@ -8,14 +8,20 @@ trigger:
     include:
       - homematic/*
 pr: none
+resources:
+  repositories:
+    - repository: azure
+      type: github
+      name: "home-assistant/ci-azure"
+      endpoint: "home-assistant"
 
 variables:
-  - name: versionBuilder
-    value: "2.0"
   - group: docker
 
 jobs:
-  - template: /.azure/azp-template-addon.yml
+  - template: templates/azp-job-addon.yaml@azure
     parameters:
       addon: "homematic"
-      arch: "--armv7 --i386"
+      arch:
+      - armv7
+      - i386

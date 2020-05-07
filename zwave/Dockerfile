@@ -19,6 +19,7 @@ RUN \
         mosquitto \
         libunwind \
         libcurl \
+        pwgen \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         cmake \

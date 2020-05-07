@@ -2,6 +2,10 @@
 # ==============================================================================
 # Setup mqtt settings
 # ==============================================================================
+declare host
+declare password
+declare port
+declare username
 
 if ! bashio::services.available "mqtt"; then
     bashio::log.info "No internal MqTT service found"
@@ -14,9 +18,17 @@ else
     (
         echo "connection main-mqtt"
         echo "address ${host}:${port}"
-        echo "username ${username}"
-        echo "password ${password}"
+    ) >> /etc/mosquitto.conf
 
+    # Need auth?
+    if bashio::var.has_value "${username}" && bashio::var.has_value "${password}"; then
+        (
+            echo "username ${username}"
+            echo "password ${password}"
+        ) >> /etc/mosquitto.conf
+    fi
+
+    (
         echo "topic OpenZWave/# out"
         echo "topic # IN OpenZWave/"
     ) >> /etc/mosquitto.conf

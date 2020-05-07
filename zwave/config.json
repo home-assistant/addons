@@ -5,7 +5,7 @@
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave",
-  "startup": "system",
+  "startup": "services",
   "boot": "auto",
   "stage": "experimental",
   "homeassistant": "0.110.0",

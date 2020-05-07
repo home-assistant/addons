@@ -2,7 +2,7 @@
 # ==============================================================================
 # Setup auth data
 # ==============================================================================
-declare homeassistant_password
+declare homeassistant_pw
 declare ozw_pw
 
 AUTH_FILE=/data/auth.db

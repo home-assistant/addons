@@ -62,7 +62,9 @@ RUN \
     && make \
     && make install \
     \
-    && apk del --no-cache .build-dependencies libunwind-dev \
+    && apk del --no-cache \
+        .build-dependencies \
+        libunwind-dev \
     && rm -rf /usr/src/*
 
 WORKDIR /

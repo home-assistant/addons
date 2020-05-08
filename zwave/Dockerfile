@@ -17,9 +17,11 @@ RUN \
         coreutils \
         rapidjson \
         mosquitto \
-        libunwind \
         libcurl \
         pwgen \
+    && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
+        libunwind \
+        libunwind-dev \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         cmake \
@@ -29,7 +31,6 @@ RUN \
         qt5-qtremoteobjects-dev \
         openssl-dev \
         rapidjson-dev \
-        libunwind-dev \
         curl-dev \
     \
     && git clone --depth 1 -b \
@@ -61,7 +62,7 @@ RUN \
     && make \
     && make install \
     \
-    && apk del --no-cache .build-dependencies \
+    && apk del --no-cache .build-dependencies libunwind-dev \
     && rm -rf /usr/src/*
 
 WORKDIR /

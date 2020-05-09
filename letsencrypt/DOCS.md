@@ -78,6 +78,8 @@ sakuracloud_api_secret: ''
 netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
+gandi_api_key: ''
+gandi_sharing_id: ''
 ```
 
 ## Example Configurations
@@ -224,6 +226,7 @@ dns-rfc2136
 dns-route53
 dns-sakuracloud
 dns-netcup
+dns-gandi
 ```
 
 ## Support

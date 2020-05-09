@@ -34,6 +34,7 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "aws_secret_access_key = $(bashio::config 'dns.aws_secret_access_key')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
-      "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')" > /data/dnsapikey
+      "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
+      "certbot_plugin_gandi:dns_api_key = $(bashio::config 'dns.gandi_api_key')" > /data/dnsapikey
 
 chmod 600 /data/dnsapikey

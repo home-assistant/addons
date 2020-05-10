@@ -24,7 +24,7 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-[Click here for the full documentation](DOC.md)
+[Click here for the full documentation][documentation]
 
 ## Configuration
 
@@ -69,6 +69,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [dialogflow-integration]: https://www.home-assistant.io/integrations/dialogflow/
 [discord]: https://discord.gg/c5DvZ4e
+[documentation]: https://github.com/home-assistant/hassio-addons/blob/master/google_assistant/DOCS.md
 [forum]: https://community.home-assistant.io
 [google-actions]: https://actions.google.com/
 [google-actions-console]: https://console.actions.google.com/

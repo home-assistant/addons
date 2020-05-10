@@ -26,9 +26,6 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-You need enable the port for external access. You can just enter 22 as value or any other
-value like you want. This recommend to add login credentials.
-
 To use this add-on, you must have a private/public key to log in.
 To generate them, follow the [instructions for Windows][keygen-windows]
 and [these for other platforms][keygen]. It is possible to set a password for
@@ -38,8 +35,10 @@ You can not run both variants at the same time. Enabling login via keys, will
 disable password login.
 
 1. Add a ssh key to  `authorized_keys` or set a `password` in the add-on configuration.
-2. Start the add-on.
-3. Connect to your device using your preferred SSH client and use `root` as
+2. Add a host port in the 'Network' section of the add-on configuration. You can use 22
+   or any other value that you wish.
+3. Start the add-on.
+4. Connect to your device using your preferred SSH client and use `root` as
    the username.
 
 After logging in, you will find yourself in this add-on’s container.

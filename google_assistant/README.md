@@ -14,8 +14,9 @@ You can simply say "Ok Google" following by your command, and Google Assistant w
 
 If you want to integrate your Google Home or mobile phone running Google Assistant, with Home Assistant, then you want the [Google Assistant integration][google-assistant-integration].
 
-[aarch64-shield]: https://img.shields.io/badge/aarch64-no-red.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[google-assistant-integration]: https://www.home-assistant.io/integrations/google_assistant/
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
+[aarch64-shield]: https://img.shields.io/badge/aarch64-no-red.svg

@@ -95,7 +95,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [google-actions-console]: https://console.actions.google.com/
 [google-actions]: https://actions.google.com/
 [google-assistant-api]: https://console.developers.google.com/apis/api/embeddedassistant.googleapis.com/overview
-[google-assistant-integration]: https://www.home-assistant.io/integrations/google_assistant/
 [google-assistant]: https://assistant.google.com/
 [google-oauth-client]: https://console.developers.google.com/apis/credentials/oauthclient
 [google-oauth-concent]: https://console.developers.google.com/apis/credentials/consent

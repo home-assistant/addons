@@ -232,6 +232,7 @@ You have several options to get them answered:
 - The [Home Assistant Discord Chat Server][discord].
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
+- The [deCONZ discord server](https://discord.gg/QFhTxqN).
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 

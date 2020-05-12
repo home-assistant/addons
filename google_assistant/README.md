@@ -17,6 +17,9 @@ If you want to integrate your Google Home or mobile phone running Google Assista
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[dialogflow-integration]: https://www.home-assistant.io/integrations/dialogflow/
+[google-actions]: https://actions.google.com/
 [google-assistant-integration]: https://www.home-assistant.io/integrations/google_assistant/
+[google-assistant]: https://assistant.google.com/
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [aarch64-shield]: https://img.shields.io/badge/aarch64-no-red.svg

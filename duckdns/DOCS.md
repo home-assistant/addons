@@ -17,6 +17,9 @@ Follow these steps to get the add-on installed on your system:
     - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from `duckdns.org` and paste into the `token` option.
     - Update the `domains` option with the full domain name you registered. E.g., `my-domain.duckdns.org`.
 
+*Optional*:
+When using the Nginx Add-On with DuckDNS, the generated SSL certificate by DuckDNS will automatically be used for Nginx. To access your Home Assistant instance from outside, open the Nginx Ports (80 and/or 443 in default setup) on your router to be able to access Home Assistant via the DuckDNS Domain
+
 ## Configuration
 
 Add-on configuration:

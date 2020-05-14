@@ -132,6 +132,49 @@ You can find additional information in regards to the required permissions in th
 
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
 
+### route53 dns challenge
+
+```yaml
+email: hello@home-assistant.io
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-route53
+  aws_access_key_id: 0123456789ABCDEF0123
+  aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
+```
+
+For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ChangeSpecificDomainsRecordSet",
+            "Effect": "Allow",
+            "Action": "route53:ChangeResourceRecordSets",
+            "Resource": "arn:aws:route53:::hostedzone/01234567890ABC"
+        },
+        {
+            "Sid": "ListAllHostedZones",
+            "Effect": "Allow",
+            "Action": "route53:ListHostedZones",
+            "Resource": "*"
+        },
+        {
+            "Sid": "ReadChanges",
+            "Effect": "Allow",
+            "Action": "route53:GetChange",
+            "Resource": "arn:aws:route53:::change/*"
+        }
+    ]
+}
+```
+
 ### CloudFlare
 
 Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.

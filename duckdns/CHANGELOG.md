@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.13
+
+- Add DNS alias option to allow pointing a CNAME at a Duck DNS subdomain
+
 ## 1.12
 
 - Add option to specify a service or URL as IPv4 and IPv6 address source

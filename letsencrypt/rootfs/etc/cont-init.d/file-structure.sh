@@ -35,6 +35,16 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "aws_secret_access_key = $(bashio::config 'dns.aws_secret_access_key')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
       "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
-      "certbot_plugin_gandi:dns_api_key = $(bashio::config 'dns.gandi_api_key')" > /data/dnsapikey
+      "certbot_plugin_gandi:dns_api_key = $(bashio::config 'dns.gandi_api_key')\n" \
+      "certbot_dns_transip:dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
+      "certbot_dns_transip:dns_transip_key_file = /data/transip-rsa.key\n" > /data/dnsapikey
 
 chmod 600 /data/dnsapikey
+
+## Prepare TransIP RSA key
+if bashio::config.exists 'dns.transip_api_key'; then
+      echo "$(bashio::config 'dns.transip_api_key')" > /data/transip-api.key
+      chmod 600 /data/transip-api.key
+      openssl rsa -in /data/transip-api.key -out /data/transip-rsa.key
+      chmod 600 /data/transip-rsa.key
+fi

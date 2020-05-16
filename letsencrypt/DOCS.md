@@ -80,6 +80,8 @@ netcup_api_key: ''
 netcup_api_password: ''
 gandi_api_key: ''
 gandi_sharing_id: ''
+transip_username: ''
+transip_api_key: ''
 ```
 
 ## Example Configurations
@@ -200,6 +202,29 @@ dns:
   cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
 ```
 
+### TransIP
+
+You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
+
+The propagation limit will be automatically raised to 240 seconds.
+
+Example configuration:
+```yaml
+email: hello@home-assistant.io
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-transip
+  transip_username: transip-user
+  transip_api_key: |
+    -----BEGIN PRIVATE KEY-----
+    MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    AAAAAABCDEFGHIJKLMNOPQRSTUVWXYZ
+    -----END PRIVATE KEY-----
+```
 
 ## Certificate files
 
@@ -227,6 +252,7 @@ dns-route53
 dns-sakuracloud
 dns-netcup
 dns-gandi
+dns-transip
 ```
 
 ## Support

@@ -30,7 +30,7 @@
     "keyfile": "str",
     "challenge": "list(dns|http)",
     "dns": {
-      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi)?",
+      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip)?",
       "propagation_seconds": "int(60,3600)?",
       "cloudflare_email": "email?",
       "cloudflare_api_key": "str?",
@@ -66,7 +66,9 @@
       "netcup_api_key": "str?",
       "netcup_api_password": "str?",
       "gandi_api_key": "str?",
-      "gandi_sharing_id": "str?"
+      "gandi_sharing_id": "str?",
+      "transip_username": "str?",
+      "transip_api_key": "str?"
     }
   },
   "image": "homeassistant/{arch}-addon-letsencrypt"

@@ -9,6 +9,7 @@
   "args": {
     "CERTBOT_VERSION": "1.2.0",
     "CERTBOT_NETCUP_VERSION": "0.31.0.1",
-    "CERTBOT_GANDI_VERSION": "1.2.5"
+    "CERTBOT_GANDI_VERSION": "1.2.5",
+    "CERTBOT_DNS_TRANSIP_VERSION": "0.3.0"
   }
 }

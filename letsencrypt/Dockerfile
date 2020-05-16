@@ -5,6 +5,7 @@ FROM $BUILD_FROM
 ARG CERTBOT_VERSION
 ARG CERTBOT_NETCUP_VERSION
 ARG CERTBOT_GANDI_VERSION
+ARG CERTBOT_DNS_TRANSIP_VERSION
 
 RUN apk add --no-cache --update \
         libffi \
@@ -34,6 +35,7 @@ RUN apk add --no-cache --update \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
+        certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
     && apk del .build-dependencies
 
 # Copy data

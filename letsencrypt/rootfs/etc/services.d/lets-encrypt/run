@@ -51,16 +51,14 @@ elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dn
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #TransIP
-elif [ "${DNS_PROVIDER}" == "dns-transip" ]; then
-    if bashio::config.exists 'dns.transip_username' && bashio::config.exists 'dns.transip_api_key'; then
-        if [ ${PROPAGATION_SECONDS} -lt 240 ]; then
-            bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
-            PROPAGATION_SECONDS=240
-        fi
-        PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-transip:dns-transip" "--certbot-dns-transip:dns-transip-credentials" /data/dnsapikey "--certbot-dns-transip:dns-transip-propagation-seconds" "${PROPAGATION_SECONDS}")
-    else
-        bashio::log.error "Selected dns-transip but dns.transip_username or dns.transip_api_key missing. Please check your configuration."
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
+    bashio::config.require.username 'dns.transip_username'
+    bashio::config.require 'dns.transip_api_key'
+    if (( ${PROPAGATION_SECONDS} < 240 )); then
+        bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
+        PROPAGATION_SECONDS=240
     fi
+    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-${DNS_PROVIDER}:${DNS_PROVIDER}" "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-credentials" /data/dnsapikey "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # CloudFlare
 elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then

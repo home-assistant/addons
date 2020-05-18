@@ -63,6 +63,14 @@ elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
 
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--dns-cloudflare-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Gandi
+elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
+    if bashio::config.exists 'dns.gandi_sharing_id'; then
+        bashio::log.info "Use Gandi sharing ID"
+        echo "certbot_plugin_gandi:dns_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> /data/dnsapikey
+    fi
+    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-plugin-gandi:dns" "--certbot-plugin-gandi:dns-credentials" /data/dnsapikey)
+
 #All others
 else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)

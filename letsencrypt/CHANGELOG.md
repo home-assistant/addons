@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.8.0
+
+- Add support for Gandi DNS
+
 ## 4.7.1
 
 - Adjust init settings

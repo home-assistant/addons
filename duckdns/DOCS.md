@@ -89,17 +89,15 @@ Create a CNAME record to point at the DuckDNS subdomain and set this value accor
 
 For example:
 ```yaml
-aliases:
-    - domain: ha.my-domain.com
-      alias: my-domain.duckdns.org
-```
-
-Also, add your custom domain name to the `domains` array to create the certificate for both domains
-```yaml
 domains:
   - my-domain.duckdns.org
   - ha.my-domain.com
-``` 
+aliases:
+  - domain: ha.my-domain.com
+    alias: my-domain.duckdns.org
+```
+
+Also, add your custom domain name to the `domains` array to create the certificate for both domains
 
 ### Option: `seconds`
 

@@ -54,7 +54,7 @@ elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dn
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
     bashio::config.require.username 'dns.transip_username'
     bashio::config.require 'dns.transip_api_key'
-    if (( ${PROPAGATION_SECONDS} < 240 )); then
+    if (( PROPAGATION_SECONDS < 240 )); then
         bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
         PROPAGATION_SECONDS=240
     fi

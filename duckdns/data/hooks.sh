@@ -11,7 +11,8 @@ SYS_KEYFILE=$(jq --raw-output '.lets_encrypt.keyfile' $CONFIG_PATH)
 # https://github.com/lukas2511/dehydrated/blob/master/docs/examples/hook.sh
 
 deploy_challenge() {
-    local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}"
+    local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}" ALIAS
+    ALIAS="$(jq --raw-output --exit-status "[.aliases[]|{(.domain):.alias}]|add.\"$DOMAIN\"" $CONFIG_PATH)" || ALIAS="$DOMAIN"
 
     # This hook is called once for every domain that needs to be
     # validated, including any alternative names you may have listed.
@@ -30,11 +31,12 @@ deploy_challenge() {
     #   TXT record. For HTTP validation it is the value that is expected
     #   be found in the $TOKEN_FILENAME file.
 
-    curl -s "https://www.duckdns.org/update?domains=$DOMAIN&token=$SYS_TOKEN&txt=$TOKEN_VALUE"
+    curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=$TOKEN_VALUE"
 }
 
 clean_challenge() {
-    local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}"
+    local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}" ALIAS
+    ALIAS="$(jq --raw-output --exit-status "[.aliases[]|{(.domain):.alias}]|add.\"$DOMAIN\"" $CONFIG_PATH)" || ALIAS="$DOMAIN"
 
     # This hook is called after attempting to validate each domain,
     # whether or not validation was successful. Here you can delete
@@ -42,7 +44,7 @@ clean_challenge() {
     #
     # The parameters are the same as for deploy_challenge.
 
-    curl -s "https://www.duckdns.org/update?domains=$DOMAIN&token=$SYS_TOKEN&txt=removed&clear=true"
+    curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=removed&clear=true"
 }
 
 deploy_cert() {

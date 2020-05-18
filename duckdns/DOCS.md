@@ -81,6 +81,24 @@ The DuckDNS authentication token found at the top of the DuckDNS account landing
 
 A list of DuckDNS subdomains registered under your account. An acceptable naming convention is `my-domain.duckdns.org`.
 
+### Option: `aliases` (optional)
+
+A list aliases of domains configured on the `domains` option.
+This is useful in cases where you would like to use your own domain.
+Create a CNAME record to point at the DuckDNS subdomain and set this value accordingly.
+
+For example:
+```yaml
+domains:
+  - my-domain.duckdns.org
+  - ha.my-domain.com
+aliases:
+  - domain: ha.my-domain.com
+    alias: my-domain.duckdns.org
+```
+
+Also, add your custom domain name to the `domains` array to create the certificate for both domains
+
 ### Option: `seconds`
 
 The number of seconds to wait before updating DuckDNS subdomains and renewing Let's Encrypt certificates.

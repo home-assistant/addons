@@ -1,51 +1,18 @@
 # Changelog
 
-## 1.12
+## 1.12.0
 
 - Add option to specify a service or URL as IPv4 and IPv6 address source
+- Add DNS alias option to allow pointing a CNAME at a Duck DNS subdomain
 
-## 1.11
+## 1.11.0
 
 - Do not skip TLS security checks on Duck DNS API access
 
-## 1.10
+## 1.10.0
 
 - Fix issue with dehydrated lock file
 
-## 1.9
+## 1.9.0
 
 - Fix issue with empty IPv4 / IPv6
-
-## 1.8
-
-- Update dehydrated to 0.6.5
-- Migrate scripts to bashio
-
-## 1.7
-
-- Add support for manual set IPv4 and IPv6 address
-
-## 1.6
-
-- Update Alpine images / OpenSSL
-
-## 1.5
-
-- Fix bug with multible domains for Let's encrypt
-
-## 1.4
-
-- Update dehydrated to version 0.6.2
-
-## 1.3
-
-- Fix dehydrated warning from hook script
-
-## 1.2
-
-- Update dehydrated to version 0.6.1
-
-## 1.1
-
-- Update dehydrated to version 0.5.0
-- Update base image to alpine 3.7

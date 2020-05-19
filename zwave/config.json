@@ -1,6 +1,6 @@
 {
   "name": "OpenZwave",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
@@ -11,7 +11,6 @@
   "stage": "experimental",
   "homeassistant": "0.110.0.dev",
   "services": ["mqtt:want"],
-  "discovery": ["ozw"],
   "auto_uart": true,
   "gpio": true,
   "apparmor": false,

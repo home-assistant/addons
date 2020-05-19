@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Send zwave_mqtt discovery information to Home Assistant
+# Send ozw discovery information to Home Assistant
 # ==============================================================================
 declare ha_config
 
@@ -13,7 +13,7 @@ ha_config=$(\
         password $(bashio::jq /data/auth.json ".homeassistant_password") \
 )
 
-if bashio::discovery "zwave_mqtt" "${ha_config}" > /dev/null; then
+if bashio::discovery "ozw" "${ha_config}" > /dev/null; then
     bashio::log.info "Successfully send discovery information to Home Assistant."
 else
     bashio::log.error "Discovery message to Home Assistant failed!"

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.3
+
+- Bump deCONZ to 2.05.76
+
 ## 5.3.2
 
 - Bump deCONZ to 2.05.75

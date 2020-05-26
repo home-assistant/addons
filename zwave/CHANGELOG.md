@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Add port to allow ozw-admin to connect (https://github.com/OpenZWave/ozw-admin)
+
 ## 0.2.1
 
 - Disable discovery for 0.110.0

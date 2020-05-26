@@ -226,6 +226,9 @@ dns:
     -----END PRIVATE KEY-----
 ```
 
+### OVH
+Access to https://eu.api.ovh.com/createToken/ to create the required keys. (Use https://ca.api.ovh.com/createToken/ for north america region)
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.

@@ -1,6 +1,6 @@
 {
   "name": "OpenZwave",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
@@ -10,7 +10,14 @@
   "init": false,
   "stage": "experimental",
   "homeassistant": "0.110.0.dev",
+  "ports": {
+    "1983/tcp": null
+  },
+  "ports_description": {
+    "1983/tcp": "ozw-admin port"
+  },  
   "services": ["mqtt:want"],
+  "discovery": ["ozw"],
   "auto_uart": true,
   "gpio": true,
   "apparmor": false,
@@ -18,7 +25,7 @@
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "options": {
     "device": null,
-    "network_key": null
+    "network_key": ""
   },
   "schema": {
     "device": "str",

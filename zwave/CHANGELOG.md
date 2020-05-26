@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Add port to allow ozw-admin to connect
+- Enable discovery again 
+- Set network key default to empty
+
 ## 0.2.1
 
 - Disable discovery for 0.110.0

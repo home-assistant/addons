@@ -2,6 +2,7 @@
 import json
 import sys
 from pathlib import Path
+import subprocess
 
 import google.oauth2.credentials
 
@@ -11,11 +12,16 @@ from google.assistant.library.device_helpers import register_device
 
 DEVICE_CONFIG = "/data/device.json"
 
-
-def process_event(event):
+def process_event(event, use_feedback_sound):
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
+        if use_feedback_sound:
+            subprocess.Popen(["aplay", "-q", "/usr/share/sounds/start_sound.wav"])
         print()
 
+    if event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
+        if use_feedback_sound:
+            subprocess.Popen(["aplay", "-q", "/usr/share/sounds/end_sound.wav"])
+        
     try:
         print(event)
     except UnicodeEncodeError as err:
@@ -28,9 +34,10 @@ def process_event(event):
 if __name__ == '__main__':
     cred_json = Path(sys.argv[1])
     device_json = Path(DEVICE_CONFIG)
+    use_feedback_sound = True if sys.argv[4] == "true" else False
 
-    # open credentials
-    print("OAth with Google")
+    # Open credentials
+    print("OAuth with Google")
     with cred_json.open('r') as data:
         credentials = google.oauth2.credentials.Credentials(token=None, **json.load(data))
 
@@ -46,7 +53,7 @@ if __name__ == '__main__':
         device_model_id = sys.argv[3]
         last_device_id = None
 
-    # run assistant
+    # Run assistant
     print("Run Google Assistant SDK")
     with Assistant(credentials, device_model_id) as assistant:
         events = assistant.start()
@@ -65,6 +72,6 @@ if __name__ == '__main__':
                 }, dev_file)
 
         for event in events:
-            process_event(event)
+            process_event(event, use_feedback_sound)
 
     print("Close Google Assistant SDK")

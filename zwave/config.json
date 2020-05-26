@@ -10,6 +10,12 @@
   "init": false,
   "stage": "experimental",
   "homeassistant": "0.110.0.dev",
+  "ports": {
+    "1983/tcp": null
+  },
+  "ports_description": {
+    "1983/tcp": "ozw-admin port"
+  },  
   "services": ["mqtt:want"],
   "auto_uart": true,
   "gpio": true,

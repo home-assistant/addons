@@ -17,6 +17,7 @@
     "1983/tcp": "ozw-admin port"
   },  
   "services": ["mqtt:want"],
+  "discovery": ["ozw"],
   "auto_uart": true,
   "gpio": true,
   "apparmor": false,
@@ -24,7 +25,7 @@
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "options": {
     "device": null,
-    "network_key": null
+    "network_key": ""
   },
   "schema": {
     "device": "str",

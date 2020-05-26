@@ -2,7 +2,9 @@
 
 ## 0.3.0
 
-- Add port to allow ozw-admin to connect (https://github.com/OpenZWave/ozw-admin)
+- Add port to allow ozw-admin to connect
+- Enable discovery again 
+- Set network key default to empty
 
 ## 0.2.1
 

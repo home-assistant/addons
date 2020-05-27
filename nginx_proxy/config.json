@@ -1,6 +1,6 @@
 {
   "name": "NGINX Home Assistant SSL proxy",
-  "version": "3.0",
+  "version": "3.0.1",
   "slug": "nginx_proxy",
   "description": "An SSL/TLS proxy",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy",

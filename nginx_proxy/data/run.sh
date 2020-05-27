@@ -49,8 +49,8 @@ if bashio::config.true 'cloudflare'; then
 fi
 
 # Prepare config file
-sed -i "s/%%FULLCHAIN%%/$CERTFILE/g" /etc/nginx.conf
-sed -i "s/%%PRIVKEY%%/$KEYFILE/g" /etc/nginx.conf
+sed -i "s#%%FULLCHAIN%%#$CERTFILE#g" /etc/nginx.conf
+sed -i "s#%%PRIVKEY%%#$KEYFILE#g" /etc/nginx.conf
 sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
 
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"

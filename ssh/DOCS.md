@@ -55,6 +55,12 @@ keys by adding multiple public keys to the list.
 
 Set a password for login. **We do NOT recommend this variant**.
 
+### Option: `allow_tcp_forwarding`
+
+Specifies whether TCP forwarding is permitted or not.
+
+**Note**: _Enabling this option lowers the security of your SSH server! Nevertheless, this warning is debatable._
+
 ## Network
 To enable ssh access via the network, you need to enter the port number ‘22’ or the port you want to use. This will map that port from the hassio host into the running “Terminal & SSH” container.
 

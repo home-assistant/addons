@@ -22,11 +22,13 @@
   "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw"],
   "options": {
     "authorized_keys": [],
-    "password": ""
+    "password": "",
+    "allow_tcp_forwarding": false
   },
   "schema": {
     "authorized_keys": ["str"],
-    "password": "str"
+    "password": "str",
+    "allow_tcp_forwarding": "bool"
   },
   "image": "homeassistant/{arch}-addon-ssh"
 }

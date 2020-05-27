@@ -29,6 +29,7 @@ lets_encrypt:
 token: sdfj-2131023-dslfjsd-12321
 domains:
   - my-domain.duckdns.org
+aliases: []
 seconds: 300
 ```
 
@@ -88,6 +89,7 @@ This is useful in cases where you would like to use your own domain.
 Create a CNAME record to point at the DuckDNS subdomain and set this value accordingly.
 
 For example:
+
 ```yaml
 domains:
   - my-domain.duckdns.org

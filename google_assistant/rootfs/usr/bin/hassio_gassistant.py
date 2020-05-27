@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 import subprocess
-
+import json
 import google.oauth2.credentials
 
 from google.assistant.library import Assistant
@@ -12,15 +12,22 @@ from google.assistant.library.device_helpers import register_device
 
 DEVICE_CONFIG = "/data/device.json"
 
-def process_event(event, use_feedback_sound):
+PACAT_MAX_VOLUME = 65536
+
+feedback = json.loads(sys.argv[4])
+feedback_volume = feedback.get("volume", 0) * PACAT_MAX_VOLUME // 100
+
+def play_sound(sound_file):
+    if feedback["enable"] and feedback_volume > 0:
+        subprocess.Popen(["paplay", "--volume={v}".format(v=feedback_volume), "/usr/share/sounds/{f}".format(f=sound_file)])
+
+def process_event(event):
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
-        if use_feedback_sound:
-            subprocess.Popen(["aplay", "-q", "/usr/share/sounds/start_sound.wav"])
+        play_sound("start_sound.wav")
         print()
 
     if event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
-        if use_feedback_sound:
-            subprocess.Popen(["aplay", "-q", "/usr/share/sounds/end_sound.wav"])
+        play_sound("end_sound.wav")
         
     try:
         print(event)
@@ -34,7 +41,6 @@ def process_event(event, use_feedback_sound):
 if __name__ == '__main__':
     cred_json = Path(sys.argv[1])
     device_json = Path(DEVICE_CONFIG)
-    use_feedback_sound = True if sys.argv[4] == "true" else False
 
     # Open credentials
     print("OAuth with Google")
@@ -72,6 +78,6 @@ if __name__ == '__main__':
                 }, dev_file)
 
         for event in events:
-            process_event(event, use_feedback_sound)
+            process_event(event)
 
     print("Close Google Assistant SDK")

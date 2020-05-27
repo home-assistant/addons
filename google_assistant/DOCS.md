@@ -33,7 +33,7 @@ The ID of the model you've registered at Google for this add-on.
 
 The model id can also be found under the "Develop - Device registration" tab in the [Google Actions Console][google-actions-console].
 
-### Option: `feedback_sound`
+### Option: `feedback`
 
 If you want to hear feedback sounds when Google Assistant starts and stops listening to your command.
 

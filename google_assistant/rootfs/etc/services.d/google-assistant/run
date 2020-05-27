@@ -24,5 +24,5 @@ elif ! bashio::fs.file_exists "${CRED_JSON}"; then
 fi
 
 bashio::log.info "Starting Home Assistant GAssisant SDK..."
-python3 /usr/bin/hassio_gassistant.py \
+exec python3 /usr/bin/hassio_gassistant.py \
     "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}" "${FEEDBACK_SOUND}"

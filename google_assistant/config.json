@@ -22,7 +22,7 @@
     "model_id": null,
     "feedback": {
       "enable": false,
-      "volume": 0
+      "volume": 80
     }
   },
   "schema": {

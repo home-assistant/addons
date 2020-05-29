@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-# Install Ada
+# Install QT Open Z-Wave 
 WORKDIR /usr/src
 ARG OZW_VERSION
 ARG QTOZW_VERSION

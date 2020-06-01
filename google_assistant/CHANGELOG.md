@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0
+
+- Add an option to enable feedback sounds
+
 ## 2.4.0
 
 - Improve OAuth connection process UI

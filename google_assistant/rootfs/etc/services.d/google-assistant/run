@@ -8,6 +8,7 @@ CRED_JSON=/data/cred.json
 CLIENT_SECRETS=$(bashio::config 'client_secrets')
 MODEL_ID=$(bashio::config 'model_id')
 PROJECT_ID=$(bashio::config 'project_id')
+FEEDBACK=$(bashio::config 'feedback')
 
 # check if a new assistant file exists
 if bashio::fs.file_exists "/share/${CLIENT_SECRETS}"; then
@@ -24,4 +25,4 @@ fi
 
 bashio::log.info "Starting Home Assistant GAssisant SDK..."
 exec python3 /usr/bin/hassio_gassistant.py \
-    "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}"
+    "${CRED_JSON}" "${PROJECT_ID}" "${MODEL_ID}" "${FEEDBACK}"

@@ -13,6 +13,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libportaudio2 \
         libasound2-plugins \
+        pulseaudio-utils \
         python3 \
         python3-dev \
         build-essential \

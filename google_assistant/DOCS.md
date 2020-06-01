@@ -33,6 +33,18 @@ The ID of the model you've registered at Google for this add-on.
 
 The model id can also be found under the "Develop - Device registration" tab in the [Google Actions Console][google-actions-console].
 
+### Option group: `feedback`
+
+The following options are for the option group: `feedback`.
+
+#### Option: `feedback.enabled`
+
+Set to `true` if you want to hear feedback sounds when Google Assistant starts and stops listening to your command.
+
+#### Option: `feedback.volume`
+
+The percentage of volume to use for feedback sounds.
+
 ## How to use
 
 You first need to enable access to the Google Assistant API.

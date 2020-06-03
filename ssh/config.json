@@ -23,12 +23,16 @@
   "options": {
     "authorized_keys": [],
     "password": "",
-    "allow_tcp_forwarding": false
+    "server": {
+      "tcp_forwarding": false
+    }
   },
   "schema": {
     "authorized_keys": ["str"],
     "password": "str",
-    "allow_tcp_forwarding": "bool"
+    "server": {
+      "tcp_forwarding": "bool"
+    }
   },
   "image": "homeassistant/{arch}-addon-ssh"
 }

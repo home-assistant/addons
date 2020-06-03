@@ -31,6 +31,6 @@ elif bashio::var.has_value "$(bashio::addon.port 22)"; then
 fi
 
 # Allow TCP forwarding
-if bashio::config.true 'allow_tcp_forwarding'; then
+if bashio::config.true 'server.tcp_forwarding'; then
     sed -i s/AllowTcpForwarding.*/AllowTcpForwarding\ yes/ /etc/ssh/sshd_config
 fi

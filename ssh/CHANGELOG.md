@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.6.0
+
+- Add support for local TCP forwarding
+
 ## 8.5.4
 
 - Update Home Assistant CLI to 4.3.0

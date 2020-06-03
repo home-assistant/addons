@@ -29,3 +29,8 @@ elif bashio::config.has_value 'password'; then
 elif bashio::var.has_value "$(bashio::addon.port 22)"; then
     bashio::exit.nok "You need to setup a login!"
 fi
+
+# Allow TCP forwarding
+if bashio::config.true 'server.tcp_forwarding'; then
+    sed -i "s/AllowTcpForwarding.*/AllowTcpForwarding\\ yes/" /etc/ssh/sshd_config
+fi

@@ -55,7 +55,11 @@ keys by adding multiple public keys to the list.
 
 Set a password for login. **We do NOT recommend this variant**.
 
-### Option: `allow_tcp_forwarding`
+### Option group  `server`
+
+Some SSH server options.
+
+#### Option `tcp_forwarding`
 
 Specifies whether TCP forwarding is permitted or not.
 

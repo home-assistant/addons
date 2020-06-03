@@ -32,5 +32,5 @@ fi
 
 # Allow TCP forwarding
 if bashio::config.true 'server.tcp_forwarding'; then
-    sed -i s/AllowTcpForwarding.*/AllowTcpForwarding\ yes/ /etc/ssh/sshd_config
+    sed -i "s/AllowTcpForwarding.*/AllowTcpForwarding\\ yes/" /etc/ssh/sshd_config
 fi

@@ -5,6 +5,7 @@
 OZW_CONFIG=/data/ozw/config
 OZW_NETWORK_KEY=$(bashio::config 'network_key')
 OZW_DEVICE=$(bashio::config 'device')
+OZW_INSTANCE=$(bashio::config 'instance')
 MQTT_PASSWORD="$(bashio::jq /data/auth.json ".ozw_password")"
 
 # Wait until mosqitto is up and running
@@ -24,5 +25,5 @@ exec ozwdaemon \
     --mqtt-server 127.0.0.1 \
     --mqtt-port 1883 \
     --mqtt-username ozw \
-    --mqtt-instance 1 \
+    --mqtt-instance "${OZW_INSTANCE}" \
     --stop-on-failure

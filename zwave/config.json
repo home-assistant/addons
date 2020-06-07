@@ -15,7 +15,7 @@
   },
   "ports_description": {
     "1983/tcp": "ozw-admin port"
-  },  
+  },
   "services": ["mqtt:want"],
   "discovery": ["ozw"],
   "auto_uart": true,
@@ -25,11 +25,13 @@
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "options": {
     "device": null,
-    "network_key": ""
+    "network_key": "",
+    "instance": 1
   },
   "schema": {
     "device": "str",
-    "network_key": "password"
+    "network_key": "password",
+    "instance": "int(1,)"
   },
   "image": "homeassistant/{arch}-addon-zwave"
 }

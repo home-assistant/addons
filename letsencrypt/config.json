@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "4.8.0",
+  "version": "4.9.0",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt",
@@ -30,7 +30,7 @@
     "keyfile": "str",
     "challenge": "list(dns|http)",
     "dns": {
-      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip)?",
+      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip)?",
       "propagation_seconds": "int(60,3600)?",
       "cloudflare_email": "email?",
       "cloudflare_api_key": "str?",
@@ -38,6 +38,9 @@
       "cloudxns_api_key": "str?",
       "cloudxns_secret_key": "str?",
       "digitalocean_token": "str?",
+      "directadmin_url": "str?",
+      "directadmin_username": "str?",
+      "directadmin_password": "str?",
       "dnsimple_token": "str?",
       "dnsmadeeasy_api_key": "str?",
       "dnsmadeeasy_secret_key": "str?",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.9.0
+
+- Add support for DirectAdmin DNS
+
 ## 4.8.0
 
 - Add support for Gandi DNS

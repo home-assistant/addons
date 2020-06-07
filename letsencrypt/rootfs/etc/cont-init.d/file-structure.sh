@@ -9,6 +9,9 @@ mkdir -p /data/letsencrypt
 echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "dns_cloudxns_secret_key = $(bashio::config 'dns.cloudxns_secret_key')\n" \
       "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
+      "certbot_dns_directadmin:directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
+      "certbot_dns_directadmin:directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
+      "certbot_dns_directadmin:directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
       "dns_dnsimple_token = $(bashio::config 'dns.dnsimple_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \

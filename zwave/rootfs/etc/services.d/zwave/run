@@ -5,7 +5,9 @@
 OZW_CONFIG=/data/ozw/config
 OZW_NETWORK_KEY=$(bashio::config 'network_key')
 OZW_DEVICE=$(bashio::config 'device')
-OZW_INSTANCE=$(bashio::config 'instance')
+bashio::config.has_value 'instance' \
+    && OZW_INSTANCE="$(bashio::config 'instance')" || OZW_INSTANCE=1
+
 MQTT_PASSWORD="$(bashio::jq /data/auth.json ".ozw_password")"
 
 # Wait until mosqitto is up and running

@@ -5,6 +5,7 @@
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
 PROVIDER_ARGUMENTS=()
+ACME_CUSTOM_SERVER_ARGUMENTS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
@@ -12,6 +13,8 @@ KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
+ACME_SERVER=$(bashio::config 'acme_server')
+ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
 
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
@@ -93,6 +96,16 @@ else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)
 fi
 
+if bashio::config.has_value 'acme_server' ; then
+    ACME_CUSTOM_SERVER_ARGUMENTS+=("--server" "${ACME_SERVER}")
+
+    if bashio::config.has_value 'acme_root_ca_cert'; then
+      echo "${ACME_ROOT_CA}" > /tmp/root-ca-cert.crt
+      # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
+      export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
+    fi
+fi
+
 # Gather all domains into a plaintext file
 DOMAIN_ARR=()
 for line in $DOMAINS; do
@@ -110,7 +123,7 @@ else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" --standalone
+        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store

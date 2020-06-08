@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.10.0
+
+- Add support for custom ACME server and Certificate Authority
+
 ## 4.9.0
 
 - Add support for DirectAdmin DNS

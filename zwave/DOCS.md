@@ -17,12 +17,19 @@ Add-on configuration:
 ```yaml
 device: /dev/ttyUSB0
 network_key: 
+instance: 1
 ```
 
 ### Option `device`
 
 
 ### Option `network_key`
+
+
+### Option `instance`
+
+Zwave instance number as reported to MQTT.  This corresponds with the
+`instance_id` attribute of `ozw` services in Home Assistant.
 
 
 ## Known issues and limitations

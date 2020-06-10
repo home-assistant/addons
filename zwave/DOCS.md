@@ -96,7 +96,7 @@ server.
 
 ## Accessing the ozw-admin application
 
-The add-on allows you to access the underlying ozw-admin application running on
+The add-on allows you to access the underlying ozw-admin application running
 in this add-on. This allows you to view, configure and control your Z-Wave
 network and its devices.
 

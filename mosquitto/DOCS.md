@@ -29,6 +29,8 @@ If you have old MQTT settings available, remove this old integration and restart
 
 ## Configuration
 
+After the initial installation process described above, the configuration editor can be found in **Supervisor** -> **Mosquitto broker** -> **Configuration** tab.
+
 Add-on configuration:
 
 ```yaml

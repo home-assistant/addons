@@ -157,7 +157,7 @@ Next, click on "Start" to connect.
 
 ## Known issues and limitations
 
-- Your hardware need to be compatible with OpenZWave library
+- Your hardware needs to be compatible with OpenZWave library
 
 ## Support
 

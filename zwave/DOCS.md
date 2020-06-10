@@ -138,7 +138,7 @@ settings.
 ### Connecting remotely using a local ozw-admin application
 
 Alternatively, the ozw-admin application can be downloaded an installed on
-remote machine, like your desktop computer. To connect your
+remote machine, like your desktop computer. To connect your remote machine:
 
 - Set a port number for the ozw-admin in the "Network" configuration section of
   the add-on and hit "SAVE". Advised is to use port 1983, as this is the default.

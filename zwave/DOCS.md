@@ -144,7 +144,7 @@ remote machine, like your desktop computer. To connect your
   the add-on and hit "SAVE". Advised is to use port 1983, as this is the default.
 - Restart the add-on.
 
-The access it, you need to download the ozw-admin application. The latest
+To access your Z-Wave network with the ozw-admin, you need to first download the ozw-admin application. The latest
 version can be found here:
 
 <http://bamboo.my-ho.st/bamboo/browse/OZW-OZW/latestSuccessful/artifact>

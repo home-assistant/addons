@@ -1,5 +1,5 @@
 {
-  "name": "OpenZwave",
+  "name": "OpenZWave",
   "version": "0.4.0",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",

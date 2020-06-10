@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start OpenZwave service for zwave radio
+# Start OpenZWave service for zwave radio
 # ==============================================================================
 export MQTT_PASSWORD
 export OZW_NETWORK_KEY
@@ -17,7 +17,7 @@ if bashio::config.has_value 'instance'; then
 fi
 
 # Wait until mosqitto is up and running
-bashio::log.info "Starting OpenZwave..."
+bashio::log.info "Starting OpenZWave..."
 bashio::net.wait_for 1883
 
 # Send out discovery information to Home Assistant

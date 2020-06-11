@@ -13,6 +13,7 @@
 - Documentation improvements
 - Update OpenZWave (and database) to d2de699
 - Update ozwdaemon to 337e488
+- Add logo and icon
 
 ## 0.3.0
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.2
+
+- Improve error message when using documented network_key
+
 ## 0.4.1
 
 - Fix optional instance parameter

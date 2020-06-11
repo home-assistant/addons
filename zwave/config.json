@@ -1,6 +1,6 @@
 {
   "name": "OpenZWave",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
@@ -36,7 +36,7 @@
   "schema": {
     "device": "str",
     "network_key": "password",
-    "instance": "int(1,)"
+    "instance": "int(1,)?"
   },
   "image": "homeassistant/{arch}-addon-zwave"
 }

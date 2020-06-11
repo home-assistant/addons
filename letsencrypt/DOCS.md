@@ -51,6 +51,9 @@ cloudflare_api_token: ''
 cloudxns_api_key: ''
 cloudxns_secret_key: ''
 digitalocean_token: ''
+directadmin_url: ''
+directadmin_username: ''
+directadmin_password: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
@@ -202,6 +205,34 @@ dns:
   cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
 ```
 
+### DirectAdmin
+
+It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
+Instructions on how to create such key can be found at https://help.directadmin.com/item.php?id=523.
+
+Make sure to grant the following permissions:
+- `CMD_API_LOGIN_TEST`
+- `CMD_API_DNS_CONTROL`
+- `CMD_API_SHOW_DOMAINS`
+
+Username and password can also be used in case your DirectAdmin instance has no support for login keys.
+
+Example configuration:
+```yaml
+email: mail@domain.tld
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  propagation_seconds: 60
+  provider: dns-directadmin
+  directadmin_url: 'https://domain.tld:2222/'
+  directadmin_username: da_user
+  directadmin_password: da_password_or_key
+```
+
 ### TransIP
 
 You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
@@ -242,6 +273,7 @@ You can in addition find the files via the "samba" addon within the "ssl" share.
 dns-cloudflare
 dns-cloudxns
 dns-digitalocean
+dns-directadmin
 dns-dnsimple
 dns-dnsmadeeasy
 dns-gehirn

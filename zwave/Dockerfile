@@ -16,7 +16,6 @@ RUN \
         coreutils \
         eudev-libs \
         fontconfig \
-        libcurl \
         mosquitto \
         openssl \
         pwgen \

@@ -105,7 +105,7 @@ network and its devices.
 You can access the built-in ozw-admin application directly via Home Assistant
 Ingress. Click on the "OPEN WEBUI" button to access it.
 
-If is does not auto connect to your Z-Wave network automatically:
+If it does not auto connect to your Z-Wave network automatically:
 Click on the "Open" button in the menu bar of the application and click on
 the start button in the **"Remote OZWDaemon"** section.
 

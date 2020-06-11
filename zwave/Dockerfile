@@ -13,7 +13,6 @@ ARG QTWEBSOCKETS_VERSION
 WORKDIR /usr/src
 RUN \
     apk add --no-cache \
-        coreutils \
         eudev-libs \
         fontconfig \
         mosquitto \
@@ -34,6 +33,7 @@ RUN \
         binutils \
         build-base \
         cmake \
+        coreutils \
         curl-dev \
         eudev-dev \
         git \

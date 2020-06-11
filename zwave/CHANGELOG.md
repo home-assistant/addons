@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- Fix optional instance parameter
+
 ## 0.4.0
 
 - Add OZW instance ID configuration option

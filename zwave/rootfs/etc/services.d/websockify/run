@@ -1,5 +1,10 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Setup folder structure
+# Start ozw-admin
 # ==============================================================================
-mkdir -p /data/ozw/config
+
+# Wait until ozwadmin is up and running
+bashio::net.wait_for 5900
+bashio::log.info "Starting websockify..."
+
+exec websockify --web /usr/share/novnc/ 8099 127.0.0.1:5900

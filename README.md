@@ -93,7 +93,7 @@ systems that have installed Home Assistant.
 
     TellStick and TellStick Duo service.
 
-- **[OpenZwave](/zwave/README.md)**
+- **[OpenZWave](/zwave/README.md)**
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 

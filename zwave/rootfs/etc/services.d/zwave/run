@@ -1,25 +1,30 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start OpenZwave service for zwave radio
+# Start OpenZWave service for zwave radio
 # ==============================================================================
-OZW_CONFIG=/data/ozw/config
-OZW_NETWORK_KEY=$(bashio::config 'network_key')
-OZW_DEVICE=$(bashio::config 'device')
-bashio::config.has_value 'instance' \
-    && OZW_INSTANCE="$(bashio::config 'instance')" || OZW_INSTANCE=1
+export MQTT_PASSWORD
+export OZW_NETWORK_KEY
 
-MQTT_PASSWORD="$(bashio::jq /data/auth.json ".ozw_password")"
+MQTT_PASSWORD="$(bashio::jq /data/auth.json '.ozw_password')"
+OZW_CONFIG=/data/ozw/config
+OZW_DEVICE=$(bashio::config 'device')
+OZW_INSTANCE=1
+OZW_NETWORK_KEY=$(bashio::config 'network_key')
+
+# Set custom instance ID if configured
+if bashio::config.has_value 'instance'; then
+    OZW_INSTANCE=$(bashio::config 'instance')
+fi
 
 # Wait until mosqitto is up and running
-bashio::log.info "Starting OpenZwave..."
+bashio::log.info "Starting OpenZWave..."
 bashio::net.wait_for 1883
 
 # Send out discovery information to Home Assistant
 ./discovery &
 
 # Run daemon
-export OZW_NETWORK_KEY
-export MQTT_PASSWORD
+cd /data/ozw || bashio::exit.nok "Could not change to OZW working directory"
 exec ozwdaemon \
     -s "${OZW_DEVICE}" \
     --config-dir "${OZW_CONFIG}" \

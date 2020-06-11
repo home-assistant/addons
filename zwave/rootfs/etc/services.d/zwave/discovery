@@ -10,7 +10,7 @@ ha_config=$(\
         host "$(hostname)" \
         port "^1883" \
         username "homeassistant" \
-        password $(bashio::jq /data/auth.json ".homeassistant_password") \
+        password "$(bashio::jq /data/auth.json '.homeassistant_password')" \
 )
 
 if bashio::discovery "ozw" "${ha_config}" > /dev/null; then

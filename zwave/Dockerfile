@@ -76,7 +76,6 @@ RUN \
         https://github.com/OpenZWave/ozw-admin.git /usr/src/ozw-admin \
     && cd /usr/src/ozw-admin \
     && git checkout ${QTOZWADMIN_VERSION} \
-    && if [ -f Makefile ]; then /usr/lib/qt5/bin/qmake -r; make distclean; fi \
     && /usr/lib/qt5/bin/qmake -r CONFIG+=release \
     && make -j $(( $(nproc) + 1 )) \
     && make install \

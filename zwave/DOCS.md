@@ -21,7 +21,7 @@ to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
 
 1. Replace `null` in the `device` option in the add-on configuration and specify
-   the device name in quotes: e.g. something like
+   the device name in quotes: e.g., something like
    `"/dev/serial/by-id/usb-0658_0200-if00"`,
    `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
 2. Set your 16-byte network key in the form `0x01, 0x02...` used in order to

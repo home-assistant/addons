@@ -81,7 +81,7 @@ just remember to put `0x` before each pair of characters:
 <https://www.random.org/cgi-bin/randbyte?nbytes=16&format=h>
 
 Ensure you keep a backup of this key. If you have to rebuild your system and
-don’t have a backup of this key, you won’t be able to reconnect to any security
+don't have a backup of this key, you won't be able to reconnect to any security
 devices. This may mean you have to do a factory reset on those devices, and your
 controller, before rebuilding your Z-Wave network.
 

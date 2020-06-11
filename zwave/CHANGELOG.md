@@ -14,6 +14,7 @@
 - Update OpenZWave (and database) to d2de699
 - Update ozwdaemon to 337e488
 - Add logo and icon
+- Detect use of example network key from documentation
 
 ## 0.3.0
 

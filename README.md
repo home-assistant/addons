@@ -1,4 +1,4 @@
-# Home Assistant Addons: The official repository
+# Home Assistant Add-ons: The official repository
 
 [![Build Status](https://dev.azure.com/home-assistant/Hass.io/_apis/build/status/addons?branchName=master)](https://dev.azure.com/home-assistant/Hass.io/_build/latest?definitionId=7&branchName=master)
 
@@ -121,4 +121,4 @@ about developing an add-on, please see our
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[dev-docs]: https://developers.home-assistant.io/docs/en/hassio_addon_index.html
+[dev-docs]: https://developers.home-assistant.io/docs/add-ons

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.3
+
+- Update OpenZWave to 6cec95b
+- Update ozw-admin to 167180c
+
 ## 0.4.2
 
 - Improve error message when using documented network_key

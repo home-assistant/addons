@@ -87,6 +87,24 @@ transip_username: ''
 transip_api_key: ''
 ```
 
+## Advanced
+
+### Changing the ACME Server
+By default, The addon uses Let’s Encrypt’s default server at https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+
+```yaml
+acme_server: 'https://my.custom-acme-server.com'
+```
+
+If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
+```yaml
+acme_server: 'https://my.custom-acme-server.com'
+acme_root_ca_cert: |
+  -----BEGIN CERTIFICATE-----
+  MccBfTCCASugAwIBAgIRAPPIPTKNBXkBozsoE46UPZcwCGYIKoZIzj0EAwIwHTEb...kg==
+  -----END CERTIFICATE-----
+```
+
 ## Example Configurations
 
 ### http challenge

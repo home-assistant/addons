@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.4
+
+- Update OpenZWave to a35732f
+- Update ozw-admin to 278427b
+
 ## 0.4.3
 
 - Update OpenZWave to 6cec95b

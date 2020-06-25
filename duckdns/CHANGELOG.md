@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.1
+
+- Clean up dehydrated lock file at start also if no live cert exists
+
 ## 1.12.0
 
 - Add option to specify a service or URL as IPv4 and IPv6 address source

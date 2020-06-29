@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0
+
+- Upgrade Alpine Linux to 3.12
+- Increase innodb_buffer_pool_size to 128M
+
 ## 2.1.2
 
 - Fix S6-Overlay shutdown timeout

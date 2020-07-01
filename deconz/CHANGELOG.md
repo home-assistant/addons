@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.6
+
+- Bump deCONZ to 2.05.78
+
 ## 5.3.5
 
 - Downgrade deCONZ to 2.05.75, since it has been reported that 2.05.77, and possibly also 2.05.76, is causing issues for several users.

@@ -11,6 +11,7 @@ Follow these steps to get the add-on installed on your system:
 ## How to use
 
 1. In the configuration section, set a username and password.
+   You can specify any username and password; these are not related in any way to the login credentials you use to log in to Home Assistant or to log in to the computer with which you will use Samba share.
 2. Save the configuration.
 3. Start the add-on.
 4. Check the add-on log output to see the result.

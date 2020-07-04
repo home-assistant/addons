@@ -37,7 +37,8 @@ IF you choose "dns" as "challenge", you will also need to fill:
 
 ```yaml
 # Add the dnsprovider of your choice from the list of "Supported DNS providers" below
-dnsprovider: ""
+dns:
+  provider: ""
 ```
 
 In addition add the fields according to the credentials required by your dns provider:

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+- Update OpenZWave to 5d3978d5
+- Update ozw-admin to da04ebfb
+- Update qt-openzwave to 3ad9138f
+- Update alpine to 3.12
+
 ## 0.4.4
 
 - Update OpenZWave to a35732f

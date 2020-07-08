@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.5
+
+- Update OpenZWave to 0dba812c
+- Update ozw-admin to da04ebfb
+- Update qt-openzwave to 3ad9138f
+
 ## 0.4.4
 
 - Update OpenZWave to a35732f

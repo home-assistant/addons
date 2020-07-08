@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.5
+## 0.5.0
 
 - Update OpenZWave to 5d3978d5
 - Update ozw-admin to da04ebfb

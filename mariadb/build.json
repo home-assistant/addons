@@ -5,8 +5,5 @@
     "armhf": "homeassistant/armhf-base:3.12",
     "armv7": "homeassistant/armv7-base:3.12",
     "i386": "homeassistant/i386-base:3.12"
-  },
-  "args": {
-    "JEMALLOC_VERSION": "5.2.1"
   }
 }

@@ -7,9 +7,9 @@
     "aarch64": "homeassistant/aarch64-base:3.11"
   },
   "args": {
-    "OZW_VERSION": "a35732f107e3620578c1cb9f027e0a71b5410697",
-    "QTOZW_VERSION": "337e48807568e4e7f90d3b8441cc126c9e057cde",
-    "QTOZWADMIN_VERSION": "278427be5d52a04aaab8e9d767f7e9a210bc1b58",
+    "OZW_VERSION": "0dba812c2568a59e1cbe9f06c84b5f1adbda3ccb",
+    "QTOZW_VERSION": "3ad9138f40a856366a7d85fb110b1ed91e1534a0",
+    "QTOZWADMIN_VERSION": "da04ebfbadc57484c487ebc846431eb283e83176",
     "QTMQTT_VERSION": "5.12.8",
     "QTWEBSOCKETS_VERSION": "5.12.8"
   }

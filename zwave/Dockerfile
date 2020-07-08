@@ -20,6 +20,7 @@ RUN \
         pwgen \
         qt5-qtbase \
         qt5-qtremoteobjects \
+        qt5-qtserialport \
         qt5-qtsvg \
         rapidjson \
         ttf-freefont \
@@ -40,6 +41,7 @@ RUN \
         openssl-dev \
         qt5-qtbase-dev \
         qt5-qtremoteobjects-dev \
+        qt5-qtserialport-dev \
         qt5-qtsvg-dev \
         rapidjson-dev \
     \

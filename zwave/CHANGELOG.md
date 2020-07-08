@@ -2,9 +2,10 @@
 
 ## 0.4.5
 
-- Update OpenZWave to 0dba812c
+- Update OpenZWave to 5d3978d5
 - Update ozw-admin to da04ebfb
 - Update qt-openzwave to 3ad9138f
+- Update alpine to 3.12
 
 ## 0.4.4
 

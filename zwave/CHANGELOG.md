@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1
+
+- Roll-back alpine to 3.11 and qt 5.12
+- Roll-back OpenZWave to 6c2ca613
+
 ## 0.5.0
 
 - Update OpenZWave to 5d3978d5

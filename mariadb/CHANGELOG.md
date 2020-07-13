@@ -1,4 +1,6 @@
 # Changelog
+## 2.2.1
+- Don't delete the mariadb.sys user, it's needed in MariaDB >= 10.4.13
 
 ## 2.2.0
 

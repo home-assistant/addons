@@ -1,4 +1,4 @@
-# Home Assistant Add-on: SSH server
+# Home Assistant Add-on: SSH Server
 
 ## Installation
 
@@ -12,13 +12,11 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-Once installed (following the steps above) you need to
-* enable external access by selecting which TCP port to open up (see Network section), and
-* supply login credentials,
-* start the add-on.
+This add-on enables two main features to your Home Assistant installation:
+- a Terminal that you can use from your browser, and
+- enable connecting to your system using an SSH client.
 
-You can then connect to the port specified, and using the username `root`
-you will end up in this add-on's container. The Home Assistant configuration 
+Regardless of how you connect (using the Terminal, or a using an SSH client), you end up in this add-on's container. The Home Assistant configuration 
 directory is mounted on the path `/config`.
 
 This add-on comes bundled with [The Home Assistant CLI](https://www.home-assistant.io/hassio/commandline/). Try it out using:
@@ -27,14 +25,23 @@ This add-on comes bundled with [The Home Assistant CLI](https://www.home-assista
 ha help
 ```
 
-### General Note on Security
 
-You are strongly recommended to use private/public keys to log in. 
-To generate them, follow the [instructions for Windows][keygen-windows]
-and [these for other platforms][keygen]. It is possible to set a password for
-login since version 2.0 but for high security use private/public keys.
+### The In-Browser Terminal
 
-Enabling login via password, will disable password login. You can not run both variants at the same time.
+To enable the in-browser Terminal all you need to do is start the add-on, and click the Terminal menu item.
+
+### SSH Server Connection
+
+To connect using an SSH client, such as PuTTY, you need to supply additional configuration for this add-on. To enable SSH connectivity, you need to:
+
+- Provide authentication credentials - a password or SSH key(s)
+- Specify which TCP port to bind to, on the Home Assistant host
+
+You can then connect to the port specified, using the username `root`. Please note that enabling the SSH Server potentially makes your Home Assistant system less secure, as it might enable anyone on the internet to try to access your system. The security of your system also depends on your network set up, router settings, use of firewalls, etc. As a general recommendation, you should not activate this part of the add-on unless you understand the ramifications.
+
+If you enable connecting to the SSH Server using an SSH client, you are strongly recommended to use private/public keys to log in. As long as you keep the private part of your key safe, this makes your system much harder to break into. Using passwords is therefor generally considered a less secure mechanism. To generate private/public SSH keys, follow the [instructions for Windows][keygen-windows] and [these for other platforms][keygen].
+
+Enabling login via password, will disable key based login. You can not run both variants at the same time.
 
 
 ## Configuration
@@ -51,12 +58,9 @@ server:
 
 ### Option: `authorized_keys`
 
-Your **public keys** for the authorized key file. You can authorize multiple
-keys by adding multiple public keys to the list. If you're on Linux, you can
-likely issue the command `ssh-add -L` to get a list of your public keys that 
-are available to you.
+Your **public keys** that you wish to accept for login. You can authorize multiple keys by adding multiple public keys to the list.
 
-If you get errors when adding your key, try enclosing it in double quotes to avoid .
+If you get errors when adding your key, it is likely that the public key you're trying to add, contains characters that intervene with Yaml syntax. Try enclosing your key in double quotes to avoid this issue.
 
 ### Option: `password`
 
@@ -75,11 +79,9 @@ Specifies whether TCP forwarding is permitted or not.
 
 ## Network
 
-To enable ssh access via the network, you need to specify which external port to use. 
-The number you enter, will be used to map that port from the hassio host into the 
-running "Terminal & SSH" container.
+This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY. To enable SSH access via the network, you need to specify which port to use on the Home Assistant host. The number you enter, will be used to map that port from the host into the running "Terminal & SSH" container.
 
-The standard port for the SSH protocol is `22`.
+The standard port used for the SSH protocol is `22`.
 
 
 ## Known issues and limitations

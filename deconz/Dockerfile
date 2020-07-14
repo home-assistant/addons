@@ -34,7 +34,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            curl -q -L -o /wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
+            echo "deb http://ftp.de.debian.org/debian sid main" >> /etc/apt/sources.list.d/libc6.list \
+            && apt-get update && apt-get install libc6 -y --no-install-recommends --allow-unauthenticated \
+            && rm -rf /var/lib/apt/lists/* \
+            && curl -q -L -o /wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
             && dpkg -i /wiringpi.deb \
             && rm -rf /wiringpi.deb; \
         fi

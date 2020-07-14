@@ -45,12 +45,12 @@ if bashio::var.true "${NEW_INSTALL}"; then
         DELETE FROM
             mysql.user
         WHERE
-            user NOT IN ('mysql.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
+            user NOT IN ('mysql.sys', 'mariadb.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
                 OR host NOT IN ('localhost');
         DELETE FROM
             mysql.proxies_priv
         WHERE
-            user NOT IN ('mysql.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
+            user NOT IN ('mysql.sys', 'mariadb.sys', 'mysqlxsys', 'root', 'mysql', 'proxies_priv')
                 OR host NOT IN ('localhost');
         DROP DATABASE IF EXISTS test;
         FLUSH PRIVILEGES;

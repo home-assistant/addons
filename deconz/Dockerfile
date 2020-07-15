@@ -34,7 +34,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            curl -q -L -o /wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
+            curl -q -L -o /wiringpi.deb https://unicorn.drogon.net/wiringpi-2.46-1.deb \
             && dpkg -i /wiringpi.deb \
             && rm -rf /wiringpi.deb; \
         fi

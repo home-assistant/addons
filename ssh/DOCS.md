@@ -9,7 +9,6 @@ Follow these steps to get the add-on installed on your system:
 3. Find the "Terminal & SSH" add-on and click it.
 4. Click on the "INSTALL" button.
 
-
 ## How to use
 
 This add-on enables two main features to your Home Assistant installation:
@@ -24,7 +23,6 @@ This add-on comes bundled with [The Home Assistant CLI](https://www.home-assista
 ```bash
 ha help
 ```
-
 
 ### The In-Browser Terminal
 
@@ -42,7 +40,6 @@ You can then connect to the port specified, using the username `root`. Please no
 If you enable connecting to the SSH Server using an SSH client, you are strongly recommended to use private/public keys to log in. As long as you keep the private part of your key safe, this makes your system much harder to break into. Using passwords is therefor generally considered a less secure mechanism. To generate private/public SSH keys, follow the [instructions for Windows][keygen-windows] and [these for other platforms][keygen].
 
 Enabling login via password, will disable key based login. You can not run both variants at the same time.
-
 
 ## Configuration
 
@@ -76,19 +73,14 @@ Specifies whether TCP forwarding is permitted or not.
 
 **Note**: _Enabling this option lowers the security of your SSH server! Nevertheless, this warning is debatable._
 
-
 ## Network
 
-This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY. To enable SSH access via the network, you need to specify which port to use on the Home Assistant host. The number you enter, will be used to map that port from the host into the running "Terminal & SSH" container.
-
-The standard port used for the SSH protocol is `22`.
-
+This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY. To enable SSH access via the network, you need to specify which port to use on the Home Assistant host. The number you enter, will be used to map that port from the host into the running "Terminal & SSH" container. The standard port used for the SSH protocol is `22`.
 
 ## Known issues and limitations
 
 - This add-on will not enable you to install packages or do anything as root.
   This is not working with Home Assistant.
-
 
 ## Support
 

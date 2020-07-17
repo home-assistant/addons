@@ -57,7 +57,7 @@ server:
 
 Your **public keys** that you wish to accept for login. You can authorize multiple keys by adding multiple public keys to the list.
 
-If you get errors when adding your key, it is likely that the public key you're trying to add, contains characters that intervene with Yaml syntax. Try enclosing your key in double quotes to avoid this issue.
+If you get errors when adding your key, it is likely that the public key you're trying to add, contains characters that intervene with YAML syntax. Try enclosing your key in double quotes to avoid this issue.
 
 ### Option: `password`
 

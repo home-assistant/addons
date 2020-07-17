@@ -1,4 +1,4 @@
-# Home Assistant Add-on: SSH Server
+# Home Assistant Add-on: Terminal & SSH
 
 ## Installation
 

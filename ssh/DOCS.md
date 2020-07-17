@@ -75,7 +75,7 @@ Specifies whether TCP forwarding is permitted or not.
 
 ## Network
 
-This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY. To enable SSH access via the network, you need to specify which port to use on the Home Assistant host. The number you enter, will be used to map that port from the host into the running "Terminal & SSH" container. The standard port used for the SSH protocol is `22`.
+This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY. To enable SSH access via the network, you need to specify which port to use on the Home Assistant host. The number you enter will be used to map that port from the host into the running "Terminal & SSH" add-on. The standard port used for the SSH protocol is `22`.
 
 ## Known issues and limitations
 

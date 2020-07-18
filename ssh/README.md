@@ -6,9 +6,12 @@ Allow logging in remotely to Home Assistant using SSH or just the web terminal w
 
 ## About
 
-Setting up an SSH server allows access to your Home Assistant folders with any SSH
-client. It also includes a command-line tool to access the Home Assistant API.
+Setting up an environment which allows to access Home Assistant using a shell.
+The environment has access to Home Assistant folders and comes with command-line
+editors such as nano and vim. Furthermore, the Home Assistant CLI
+(command-line tool) allows accessing the Home Assistant API using the shell.
 
+The shell is accessible as a web terminal and remotely via SSH.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

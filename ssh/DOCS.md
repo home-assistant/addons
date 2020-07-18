@@ -11,26 +11,39 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-You need enable the port for external access. You can just enter 22 as value or any other
-value like you want. This recommend to add login credentials.
+To use the web terminal, just start the add-on and click on "Open Web UI" in the
+add-on page.
 
-To use this add-on, you must have a private/public key to log in.
-To generate them, follow the [instructions for Windows][keygen-windows]
-and [these for other platforms][keygen]. It is possible to set a password for
-login since version 2.0 but for high security use private/public keys.
+To login via SSH remotely you need to expose the SSH service port and enable an
+authentication mechanism.
+
+To expose a port, you can choose any port you like your SSH service to be
+accessible on. If you are using Home Assistant Operating System or do not run a
+SSH service on your host operating system, just use the default SSH port 22.
+
+For remote access you need to enable an authentication mechanism. You can use
+public key authentication (recommended) or password authentication.
+To use public key authentication, you have to generate a public/private key pair.
+Follow the [instructions for Windows][keygen-windows]
+and [these for other platforms][keygen] to generate them.
+To use password authentication configure a password in the configuration
+section.
 
 You can not run both variants at the same time. Enabling login via keys, will
-disable password login.
+disable password login. Especially when exposing the port to the public
+internet, public key authentication is highly recommended.
 
 1. Add a ssh key to  `authorized_keys` or set a `password` in the add-on configuration.
 2. Start the add-on.
 3. Connect to your device using your preferred SSH client and use `root` as
    the username.
 
-After logging in, you will find yourself in this add-on’s container.
-The Home Assistant configuration directory is mounted on the path `/config`.
+After logging in, you will find yourself in this add-on’s container. You can use
+`df` to get a list of available Home Assistant folders. E.g. the Home Assistant
+configuration directory is mounted on the path `/config`.
 
-Try it out using:
+To use the Home Assistant CLI use the `ha` command. To get a list of available
+Home Assistant CLI commands use:
 
 ```bash
 ha help
@@ -70,8 +83,9 @@ To enable ssh access via the network, you need to enter the port number ‘22’
 
 ## Known issues and limitations
 
-- This add-on will not enable you to install packages or do anything as root.
-  This is not working with Home Assistant.
+- This add-on does not give you access to the underlying operating system.
+  This means you won't be able to install packages or do anything as root on the
+  host operating system.
 
 ## Support
 

@@ -5,6 +5,7 @@
 # STATUS: Disabled. This script isn't working and hasn't been working
 # for a long time. Commented out the whole file for now.
 # Sleeping to act as a NOOP.
+# shellcheck disable=SC2093
 exec sleep 259200
 
 readonly URL_OSRAM="https://api.update.ledvance.com/v1/zigbee/firmwares"

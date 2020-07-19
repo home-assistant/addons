@@ -35,9 +35,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            curl -q -L -o /wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
-            && dpkg -i /wiringpi.deb \
-            && rm -rf /wiringpi.deb; \
+            curl -q -L -o /tmp/wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
+            && dpkg --force-architecture -i /tmp/wiringpi.deb \
+            && rm -rf /tmp/wiringpi.deb; \
         fi
 
 # Install deCONZ

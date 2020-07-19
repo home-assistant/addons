@@ -2,12 +2,6 @@
 # ==============================================================================
 # Download available firmware update for OSRAM Ledvance
 # ==============================================================================
-# STATUS: Disabled. This script isn't working and hasn't been working
-# for a long time. Commented out the whole file for now.
-# Sleeping to act as a NOOP.
-# shellcheck disable=SC2093
-exec sleep 259200
-
 readonly URL_OSRAM="https://api.update.ledvance.com/v1/zigbee/firmwares"
 
 # Ensure otau folder exists
@@ -27,15 +21,10 @@ for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
     OSRAM_COMPANY=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.company  // empty" 2>/dev/null)
     OSRAM_PRODUCT=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.product  // empty" 2>/dev/null)
     OTAU_FILENAME=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].name  // empty" 2>/dev/null)
-    OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"
-            
-    if [ -z "${OTAU_URL}" ]; then
-        continue
-    fi
-            
+    OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"    
             
     OTAU_FILE="/data/otau/${OTAU_FILENAME}"
-    if [ -f "${OTAU_FILE}" ] &&  [[ $(file --mime-type -b "${OTAU_FILE}") == "application/octet-stream" ]]  ; then
+    if [ -e "${OTAU_FILE}" ]; then
         continue
     fi
     curl -s -L -o "${OTAU_FILE}" "${OTAU_URL}" || true

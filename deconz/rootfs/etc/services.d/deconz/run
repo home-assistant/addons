@@ -1,20 +1,7 @@
-#!/usr/bin/env bashio
-set -e
-
-# Init own udev service
-/lib/systemd/systemd-udevd --daemon
-bashio::hardware.trigger
-
-# Ensure otau folder exists
-mkdir -p "/data/otau"
-
-# shellcheck disable=SC1091
-. /discovery.sh
-
-WAIT_PIDS=()
-
-# Default QT platform
-PLATFORM="minimal"
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start deCONZ service
+# ==============================================================================
 
 # Lookup udev link
 bashio::log.info "Waiting for device..."
@@ -48,23 +35,19 @@ bashio::config.has_value 'dbg_zcl' \
 bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
 
+
 # Check if VNC is enabled
+# VNC is not enabled as a seperate service, as it cannot handle multiple
+# session when running in the foreground.
+PLATFORM="minimal"
 VNC_PORT="$(bashio::addon.port 5900)"
 if bashio::var.has_value "${VNC_PORT}"; then
-
     TMP_FOLDER=$(mktemp -d)
     export XDG_RUNTIME_DIR="${TMP_FOLDER}"
     export DISPLAY=":0"
     PLATFORM="xcb"
 
-    # Require password when VNC is enabled
-    if ! bashio::config.has_value 'vnc_password'; then
-        bashio::exit.nok "VNC has been enabled, but no password has been set!"
-    fi
-
     bashio::log.info "Starting VNC server..."
-    VNC_PASSWORD=$(bashio::config 'vnc_password')
-    echo "${VNC_PASSWORD}" | tigervncpasswd -f > /root/.vncpasswd
     tigervncserver \
         -name "Home Assistant - deCONZ" \
         -geometry 1920x1080 \
@@ -73,11 +56,19 @@ if bashio::var.has_value "${VNC_PORT}"; then
         -PasswordFile /root/.vncpasswd \
         "${DISPLAY}" \
         &> /dev/null
+
+    # Wait for VNC server to start before continuing
+    bashio::log.info "Waiting for VNC to start"
+    bashio::net.wait_for "${VNC_PORT}"
 fi
+
+
+# Send out discovery information to Home Assistant
+./discovery &
 
 # Start deCONZ
 bashio::log.info "Starting the deCONZ gateway..."
-deCONZ \
+exec deCONZ \
     -platform "${PLATFORM}" \
     --auto-connect=1 \
     --dbg-info="${DBG_INFO}" \
@@ -88,45 +79,4 @@ deCONZ \
     --upnp=0 \
     --http-port=40850 \
     --ws-port=8081 \
-    --dev="${DECONZ_DEVICE}" &
-WAIT_PIDS+=($!)
-
-# Wait for deCONZ to start before continuing
-bashio::net.wait_for 40850
-
-# Start Nginx proxy
-bashio::log.info "Starting Nginx..."
-ingress_entry=$(bashio::addon.ingress_entry)
-sed -i "s#%%ingress_entry%%#${ingress_entry}#g" /etc/nginx/nginx.conf
-nginx &
-WAIT_PIDS+=($!)
-
-# Register stop
-function stop_addon() {
-    bashio::log.debug "Kill Processes..."
-    kill -15 "${WAIT_PIDS[@]}"
-
-    wait "${WAIT_PIDS[@]}"
-    bashio::log.debug "Done."
-}
-trap "stop_addon" SIGTERM SIGHUP
-
-# Start Home Assistant discovery
-bashio::log.info "Running Home Assistant discovery task..."
-hassio_discovery &
-
-# Start OTA updates for deCONZ
-bashio::log.info "Running the deCONZ OTA updater..."
-deCONZ-otau-dl.sh &> /dev/null &
-
-# Start OTA updates for IKEA
-bashio::log.info "Running the IKEA OTA updater..."
-ika-otau-dl.sh &> /dev/null &
-
-# Start OTA updates for LEDVANCE/OSRAM
-bashio::log.info "Running the LEDVANCE/OSRAM OTA updater..."
-ledvance-otau-dl.sh &> /dev/null &
-
-# Wait until all is done
-bashio::log.info "deCONZ is set up and running!"
-wait "${WAIT_PIDS[@]}"
+    --dev="${DECONZ_DEVICE}"

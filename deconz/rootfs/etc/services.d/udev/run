@@ -1,0 +1,10 @@
+#!/usr/bin/env bashio
+# ==============================================================================
+# Start udevd service
+# ==============================================================================
+
+# Triggers udev reload in the background
+./trigger &
+
+bashio::log.info "Starting udevd..."
+exec /lib/systemd/systemd-udevd 2>/dev/null

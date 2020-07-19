@@ -42,5 +42,5 @@
     "dbg_zcl": "int?",
     "dbg_zdp": "int?"
   },
-  "image": "homeassistant/{arch}-addon-deconz"
+  "_image": "homeassistant/{arch}-addon-deconz"
 }

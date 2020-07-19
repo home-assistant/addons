@@ -9,6 +9,7 @@ ARG BUILD_ARCH
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        file \
         iproute2 \
         iputils-ping \
         kmod \
@@ -55,9 +56,4 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-COPY data/ika-otau-dl.sh /bin/
-COPY data/ledvance-otau-dl.sh /bin/
-COPY data/nginx.conf /etc/nginx/nginx.conf
-COPY data/run.sh data/discovery.sh /
-
-CMD ["/run.sh"]
+COPY rootfs /

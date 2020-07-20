@@ -43,7 +43,7 @@ RUN apt-get update \
             && cd wiringPi \
             && make \
             && make install \
-            && cd ../devLibi \
+            && cd ../devLib \
             && make \
             && make install \
             && cd ../gpio \

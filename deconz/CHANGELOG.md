@@ -7,6 +7,7 @@
 - Fix LEDVANCE / OSRAM otau firmware downloader
 - Bump deCONZ to 2.05.79
 - New deCONZ firmware management on startup
+- Exclude OTAU folder from snapshot
 
 ## 5.3.6
 

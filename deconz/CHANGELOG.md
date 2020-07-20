@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.0
+
+- Fix issue with armhf / move back to raspbian
+- Add wiringPi to aarch64
+
 ## 6.0.1
 
 - Fix wiringPi and built it from source

@@ -32,7 +32,7 @@ RUN apt-get update \
         xfonts-base \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists/* \
-    && if [ "${BUILD_ARCH}" = "armhf" ]; \
+    && if [[ "armhf aarch64" = *"$BUILD_ARCH"* ]]; \
         then \
             apt-get update \
             && apt-get install -y --no-install-recommends \

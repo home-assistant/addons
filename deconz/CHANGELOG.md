@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.1
+
+- Fix wiringPi and built it from source
+
 ## 6.0.0
 
 - Use debian buster for all arch types
@@ -60,14 +64,3 @@
 
 _Please note: This release works best with Home Assistant 0.103.4 or newer,
 that release contains fixes/optimizations for the add-on as well._
-
-## 4.1.0
-
-- Change internal API port back to 40850, to prevent issue with discovery
-
-## 4.0.0
-
-- Bump deCONZ to 2.05.72
-- Add support for Hass.io Ingress
-- Improve auto discovery handling
-- Remove support for UPnP

@@ -34,9 +34,26 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            curl -q -L -o /tmp/wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
-            && dpkg --force-architecture -i /tmp/wiringpi.deb \
-            && rm -rf /tmp/wiringpi.deb; \
+            apt-get install -y --no-install-recommends \
+                build-essential \
+                git \
+            && git clone --depth 1 https://github.com/WiringPi/WiringPi /usr/src/wiringpi \
+            && cd /usr/src/wiringpi \
+            && cd wiringPi \
+            && make \
+            && make install \
+            && cd ../devLibi \
+            && make \
+            && make install \
+            && cd ../gpio \
+            && make \
+            && make install \
+            && apt-get purge -y --auto-remove \
+                build-essential \
+                git \
+            && rm -rf \
+                /var/lib/apt/lists/* \
+                /usr/src/wiringpi; \
         fi
 
 # Install deCONZ

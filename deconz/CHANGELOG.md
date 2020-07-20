@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.1
+
+- Fix LEDVANCE / OSRAM otau firmware downloader to restart each 65 seconds
+- Fix issue with VNC not starting on armhf, armv7 & aarch64 based systems
+
 ## 6.1.0
 
 - Fix issue with armhf / move back to raspbian

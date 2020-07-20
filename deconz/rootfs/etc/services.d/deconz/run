@@ -49,7 +49,7 @@ if bashio::var.has_value "${VNC_PORT}"; then
     PLATFORM="xcb"
 
     # Fix tigervnc for 32 bits ARM
-    if [[ "armhf aarch64" = *"${ARCH}"* ]]; then
+    if [[ "armhf armv7" = *"${ARCH}"* ]]; then
         export LD_PRELOAD=/lib/arm-linux-gnueabihf/libgcc_s.so.1
     fi
 

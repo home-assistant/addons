@@ -34,7 +34,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            apt-get install -y --no-install-recommends \
+            apt-get update \
+            && apt-get install -y --no-install-recommends \
                 build-essential \
                 git \
             && git clone --depth 1 https://github.com/WiringPi/WiringPi /usr/src/wiringpi \

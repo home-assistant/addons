@@ -34,9 +34,26 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            curl -q -L -o /tmp/wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
-            && dpkg --force-architecture -i /tmp/wiringpi.deb \
-            && rm -rf /tmp/wiringpi.deb; \
+            apt-get update \
+            && apt-get install -y --no-install-recommends \
+                build-essential \
+                git \
+            && git clone --depth 1 https://github.com/WiringPi/WiringPi /usr/src/wiringpi \
+            && cd /usr/src/wiringpi/wiringPi \
+            && make \
+            && make install \
+            && cd ../devLib \
+            && make \
+            && make install \
+            && cd ../gpio \
+            && make \
+            && make install \
+            && apt-get purge -y --auto-remove \
+                build-essential \
+                git \
+            && rm -rf \
+                /var/lib/apt/lists/* \
+                /usr/src/wiringpi; \
         fi
 
 # Install deCONZ
@@ -50,7 +67,7 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
         else \
             curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/ubuntu/beta/deconz-${DECONZ_VERSION}-qt5.deb; \
         fi \
-    && dpkg -i /deconz.deb \
+    && dpkg --force-all -i /deconz.deb \
     && rm -f /deconz.deb \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd

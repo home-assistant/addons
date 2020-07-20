@@ -34,9 +34,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
-            curl -q -L -o /wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
-            && dpkg -i /wiringpi.deb \
-            && rm -rf /wiringpi.deb; \
+            curl -q -L -o /tmp/wiringpi.deb https://project-downloads.drogon.net/wiringpi-latest.deb \
+            && dpkg --force-architecture -i /tmp/wiringpi.deb \
+            && rm -rf /tmp/wiringpi.deb; \
         fi
 
 # Install deCONZ
@@ -55,9 +55,4 @@ RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
-COPY data/ika-otau-dl.sh /bin/
-COPY data/ledvance-otau-dl.sh /bin/
-COPY data/nginx.conf /etc/nginx/nginx.conf
-COPY data/run.sh data/discovery.sh /
-
-CMD ["/run.sh"]
+COPY rootfs /

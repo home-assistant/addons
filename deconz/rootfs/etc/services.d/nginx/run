@@ -1,0 +1,10 @@
+#!/usr/bin/env bashio
+# ==============================================================================
+# Start NGINX service
+# ==============================================================================
+
+# Wait for deCONZ to start before continuing
+bashio::net.wait_for 40850
+
+bashio::log.info "Starting Nginx..."
+exec nginx

@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.0.0
+
+- Use debian buster for all arch types
+- Migrate to new S6-Overlay
+- Fix LEDVANCE / OSRAM otau firmware downloader
+- Bump deCONZ to 2.05.79
+- New deCONZ firmware management on startup
+- Exclude OTAU folder from snapshot
+
 ## 5.3.6
 
 - Bump deCONZ to 2.05.78

@@ -39,8 +39,7 @@ RUN apt-get update \
                 build-essential \
                 git \
             && git clone --depth 1 https://github.com/WiringPi/WiringPi /usr/src/wiringpi \
-            && cd /usr/src/wiringpi \
-            && cd wiringPi \
+            && cd /usr/src/wiringpi/wiringPi \
             && make \
             && make install \
             && cd ../devLib \

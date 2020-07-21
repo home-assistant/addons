@@ -23,7 +23,7 @@ if bashio::services.available "mqtt"; then
     fi
 
     # Ensure upstream MQTT server has the right OZW status on shutdown
-    # In this case, the LTW is no relayed to the upstream MQTT server
+    # In this case, the LTW is not relayed to the upstream MQTT server
     # Workaround for an incorrect retained OZW status in MQTT
     # https://github.com/home-assistant/hassio-addons/issues/1462
     ozw_status=$(\

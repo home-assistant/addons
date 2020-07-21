@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Setup MQTT settings
+# Ensure upstream MQTT server has the correct OZW status retained on shutdown.
 # ==============================================================================
 declare host
 declare ozw_instance
@@ -9,33 +9,12 @@ declare password
 declare port
 declare username
 
-if ! bashio::services.available "mqtt"; then
-    bashio::log.info "No internal MqTT service found"
-else
+if bashio::services.available "mqtt"; then
+    bashio::log.info "Ensure upstream MQTT server has the correct OZW status"
     host=$(bashio::services "mqtt" "host")
     password=$(bashio::services "mqtt" "password")
     port=$(bashio::services "mqtt" "port")
     username=$(bashio::services "mqtt" "username")
-
-    (
-        echo "connection main-mqtt"
-        echo "address ${host}:${port}"
-    ) >> /etc/mosquitto.conf
-
-    # Need auth?
-    if bashio::var.has_value "${username}" && bashio::var.has_value "${password}"; then
-        (
-            echo "username ${username}"
-            echo "password ${password}"
-        ) >> /etc/mosquitto.conf
-    fi
-
-    (
-        echo "topic OpenZWave/# out"
-        echo "topic # IN OpenZWave/"
-    ) >> /etc/mosquitto.conf
-
-    bashio::log.info "Connect to internal MQTT service"
 
     if bashio::config.has_value 'instance'; then
         ozw_instance=$(bashio::config 'instance')
@@ -43,9 +22,9 @@ else
         ozw_instance=1
     fi
 
-    # Ensure upstream MQTT server has the right OZW status
+    # Ensure upstream MQTT server has the right OZW status on shutdown
+    # In this case, the LTW is no relayed to the upstream MQTT server
     # Workaround for an incorrect retained OZW status in MQTT
-    # In this case, the LTW is no relayed to the upstream MQTT server.
     # https://github.com/home-assistant/hassio-addons/issues/1462
     ozw_status=$(\
         mosquitto_sub \

@@ -16,6 +16,7 @@ RUN \
         eudev-libs \
         fontconfig \
         mosquitto \
+        mosquitto-clients \
         openssl \
         pwgen \
         qt5-qtbase \

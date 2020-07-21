@@ -45,7 +45,7 @@ else
 
     # Ensure upstream MQTT server has the right OZW status
     # Workaround for an incorrect retained OZW status in MQTT
-    # In this case, the LTW is not relayed to the upstream MQTT server.
+    # In this case, the LWT is not relayed to the upstream MQTT server.
     # https://github.com/home-assistant/hassio-addons/issues/1462
     ozw_status=$(\
         mosquitto_sub \

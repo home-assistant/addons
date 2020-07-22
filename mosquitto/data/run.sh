@@ -11,6 +11,7 @@ CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CAFILE=$(jq --raw-output --exit-status ".cafile | select (.!=null)" $CONFIG_PATH || echo "$CERTFILE")
 REQUIRE_CERTIFICATE=$(jq --raw-output ".require_certificate" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
+HASSIO_HOSTNAME=$(jq --raw-output ".hassio.hostname" $CONFIG_PATH)
 LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 HOMEASSISTANT_PW=
 ADDONS_PW=
@@ -45,7 +46,7 @@ function call_hassio() {
     local token=
 
     token="X-Hassio-Key: ${HASSIO_TOKEN}"
-    url="http://hassio/${path}"
+    url="http://${HASSIO_HOSTNAME}/${path}"
 
     # Call API
     if [ -n "${data}" ]; then

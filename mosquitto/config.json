@@ -26,7 +26,10 @@
     },
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
-    "require_certificate": false
+    "require_certificate": false,
+    "hassio": {
+      "hostname": "hassio"
+    }
   },
   "schema": {
     "logins": [{ "username": "str", "password": "str" }],
@@ -38,6 +41,9 @@
     "cafile": "str?",
     "certfile": "str",
     "keyfile": "str",
+    "hassio": {
+      "hostname": "str"
+    },
     "require_certificate": "bool"
   },
   "image": "homeassistant/{arch}-addon-mosquitto"

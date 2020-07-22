@@ -2,6 +2,9 @@
 # ==============================================================================
 # Start OpenZWave service for zwave radio
 # ==============================================================================
+# shellcheck source=../../usr/lib/mqtt_helper.sh
+source /usr/lib/mqtt_helper.sh
+
 export MQTT_PASSWORD
 export OZW_NETWORK_KEY
 
@@ -23,29 +26,8 @@ bashio::net.wait_for 1883
 # Ensure local MQTT server has the right OZW status
 # Workaround for an incorrect retained OZW status in MQTT
 # https://github.com/home-assistant/hassio-addons/issues/1462
-OZW_STATUS=$(\
-    mosquitto_sub \
-        --host 127.0.0.1 \
-        --port 1883 \
-        --username ozw \
-        --pw "${MQTT_PASSWORD}" \
-        -C 1 \
-        -W 3 \
-        --retained-only \
-        --topic "OpenZWave/${OZW_INSTANCE}/status/" \
-)
-if bashio::var.has_value "${OZW_STATUS}" \
-    && [[ $(bashio::jq "${OZW_STATUS}" ".Status") != "Offline" ]];
-then
-    mosquitto_pub \
-        --host 127.0.0.1 \
-        --port 1883 \
-        --username ozw \
-        --pw "${MQTT_PASSWORD}" \
-        --retain \
-        --topic "OpenZWave/${OZW_INSTANCE}/status/" \
-        --message "$(bashio::var.json "Status" "Offline")"
-fi
+mqtt::ensure_ozw_offline_status \
+    127.0.0.1 1883 ozw "${MQTT_PASSWORD}" "${OZW_INSTANCE}"
 
 # Send out discovery information to Home Assistant
 ./discovery &

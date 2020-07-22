@@ -2,6 +2,9 @@
 # ==============================================================================
 # Start OpenZWave service for zwave radio
 # ==============================================================================
+# shellcheck disable=SC1091
+source /usr/lib/mqtt_helper.sh
+
 export MQTT_PASSWORD
 export OZW_NETWORK_KEY
 
@@ -19,6 +22,12 @@ fi
 # Wait until mosqitto is up and running
 bashio::log.info "Starting OpenZWave..."
 bashio::net.wait_for 1883
+
+# Ensure local MQTT server has the right OZW status
+# Workaround for an incorrect retained OZW status in MQTT
+# https://github.com/home-assistant/hassio-addons/issues/1462
+mqtt::ensure_ozw_offline_status \
+    127.0.0.1 1883 ozw "${MQTT_PASSWORD}" "${OZW_INSTANCE}"
 
 # Send out discovery information to Home Assistant
 ./discovery &

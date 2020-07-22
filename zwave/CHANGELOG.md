@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.2
+
+- Fix startup failure due to stray OZW Daemon status retained in MQTT
+- Propagate shutdown OZW Daemon status to upstream MQTT on shutdown
+- Update OpenZWave to 6cf3729
+
 ## 0.5.1
 
 - Roll-back alpine to 3.11 and qt 5.12

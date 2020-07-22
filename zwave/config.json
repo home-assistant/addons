@@ -1,15 +1,9 @@
 {
   "name": "OpenZWave",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
-  "arch": [
-    "amd64",
-    "i386",
-    "armhf",
-    "armv7",
-    "aarch64"
-  ],
+  "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave",
   "ingress": true,
   "ingress_entry": "vnc_lite.html",
@@ -28,22 +22,13 @@
     "1983/tcp": "ozw-admin port",
     "5900/tcp": "VNC port"
   },
-  "services": [
-    "mqtt:want"
-  ],
-  "discovery": [
-    "ozw"
-  ],
+  "services": ["mqtt:want"],
+  "discovery": ["ozw"],
   "auto_uart": true,
   "gpio": true,
   "apparmor": false,
-  "privileged": [
-    "SYS_RAWIO"
-  ],
-  "devices": [
-    "/dev/bus/usb:/dev/bus/usb:rwm",
-    "/dev/mem:/dev/mem:rw"
-  ],
+  "privileged": ["SYS_RAWIO"],
+  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "options": {
     "device": null,
     "network_key": ""

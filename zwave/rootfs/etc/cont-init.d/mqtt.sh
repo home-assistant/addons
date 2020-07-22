@@ -1,7 +1,10 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Setup mqtt settings
+# Setup MQTT settings
 # ==============================================================================
+# shellcheck disable=SC1091
+source /usr/lib/mqtt_helper.sh
+
 declare host
 declare password
 declare port
@@ -18,6 +21,11 @@ else
     (
         echo "connection main-mqtt"
         echo "address ${host}:${port}"
+        echo "remote_clientid zwave"
+        echo "local_clientid zwave"
+        echo "cleansession true"
+        echo "notifications true"
+        echo "try_private true"
     ) >> /etc/mosquitto.conf
 
     # Need auth?
@@ -33,5 +41,13 @@ else
         echo "topic # IN OpenZWave/"
     ) >> /etc/mosquitto.conf
 
-    bashio::log.info "Connect to internal MqTT service"
+    # Ensure upstream MQTT server has the right OZW status
+    # Workaround for an incorrect retained OZW status in MQTT
+    # In this case, the LWT is not relayed to the upstream MQTT server.
+    # https://github.com/home-assistant/hassio-addons/issues/1462
+    mqtt::ensure_ozw_offline_status \
+        "${host}" "${port}" "${username}" "${password}"
+
+
+    bashio::log.info "Connected to internal MQTT service"
 fi

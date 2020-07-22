@@ -2,7 +2,7 @@
 # ==============================================================================
 # Start OpenZWave service for zwave radio
 # ==============================================================================
-# shellcheck source=../../usr/lib/mqtt_helper.sh
+# shellcheck disable=SC1091
 source /usr/lib/mqtt_helper.sh
 
 export MQTT_PASSWORD

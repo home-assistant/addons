@@ -2,7 +2,7 @@
 # ==============================================================================
 # Setup MQTT settings
 # ==============================================================================
-# shellcheck source=../../usr/lib/mqtt_helper.sh
+# shellcheck disable=SC1091
 source /usr/lib/mqtt_helper.sh
 
 declare host

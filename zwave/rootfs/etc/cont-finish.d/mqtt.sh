@@ -2,7 +2,7 @@
 # ==============================================================================
 # Ensure upstream MQTT server has the correct OZW status retained on shutdown.
 # ==============================================================================
-# shellcheck source=../../usr/lib/mqtt_helper.sh
+# shellcheck disable=SC1091
 source /usr/lib/mqtt_helper.sh
 
 declare host

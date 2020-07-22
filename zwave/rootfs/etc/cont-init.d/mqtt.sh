@@ -20,8 +20,8 @@ else
     (
         echo "connection main-mqtt"
         echo "address ${host}:${port}"
-        echo "remote_clientid ozw"
-        echo "local_clientid ozw"
+        echo "remote_clientid zwave"
+        echo "local_clientid zwave"
         echo "cleansession true"
         echo "notifications true"
         echo "try_private true"

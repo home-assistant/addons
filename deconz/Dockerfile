@@ -6,7 +6,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install deCONZ dependencies
 ARG BUILD_ARCH
-RUN apt-get update \
+RUN set -x \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
         iproute2 \
@@ -32,6 +33,17 @@ RUN apt-get update \
         xfonts-base \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists/* \
+    && if [[ "amd64" = "$BUILD_ARCH" ]]; \
+        then \
+            apt-get update \
+            && apt-get install -y --no-install-recommends \
+                binutils \
+            && strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5* \
+            && apt-get purge -y --auto-remove \
+                binutils \
+            && rm -rf \
+                /var/lib/apt/lists/*; \
+        fi \
     && if [[ "armhf aarch64" = *"$BUILD_ARCH"* ]]; \
         then \
             apt-get update \

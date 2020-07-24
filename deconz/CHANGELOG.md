@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.2
+
+- Fix ABI compatibility with old unsupported linux kernel on amd64
+
 ## 6.1.1
 
 - Fix LEDVANCE / OSRAM otau firmware downloader to restart each 65 seconds

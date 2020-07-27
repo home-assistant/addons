@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.2.0
+
+- Enable VNC per default
+- Ingress entry page to select noVNC or Phoscon
+
 ## 6.1.2
 
 - Disable default init system

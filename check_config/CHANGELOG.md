@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.0
+
+- Update base image to version 8.1.0
+
 ## 3.3.0
 
 - Update base image to version 7.2.0

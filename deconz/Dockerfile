@@ -23,6 +23,7 @@ RUN apt-get update \
         lsof \
         netcat \
         nginx \
+        novnc \
         sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \

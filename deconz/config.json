@@ -9,7 +9,7 @@
   "boot": "auto",
   "init": false,
   "ingress": true,
-  "ingress_entry": "pwa/index.html",
+  "ingress_entry": "ingress.html",
   "panel_icon": "mdi:zigbee",
   "homeassistant": "0.91.2",
   "discovery": ["deconz"],

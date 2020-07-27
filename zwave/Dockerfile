@@ -83,8 +83,6 @@ RUN \
     && make -j $(( $(nproc) + 1 )) \
     && make install \
     \
-    && strip --remove-section=.note.ABI-tag /usr/lib/libQt5Core.so \
-    \
     && mkdir -p /usr/share/OpenZWave \
     && mv /usr/share/qt5/qt-openzwavedatabase.rcc /usr/share/OpenZWave/ \
     \

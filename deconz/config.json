@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "slug": "deconz",
   "description": "Control a Zigbee network with ConBee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf", "aarch64"],
@@ -19,7 +19,7 @@
     "40850/tcp": null
   },
   "ports_description": {
-    "5900/tcp": "deCONZ desktop via VNC (Not required for Ingress)",
+    "5900/tcp": "deCONZ via VNC (Not required for Ingress. Not secure!)",
     "8081/tcp": "deCONZ WebSocket (Not required for Ingress)",
     "40850/tcp": "deCONZ API backend (Not required for Ingress)"
   },

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.1
+
+- Fix old fashon VNC access
+
 ## 6.2.0
 
 - Enable VNC per default

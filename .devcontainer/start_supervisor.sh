@@ -90,7 +90,7 @@ function run_supervisor() {
         -e SUPERVISOR_SHARE="/workspaces/test_hassio" \
         -e SUPERVISOR_NAME=hassio_supervisor \
         -e SUPERVISOR_DEV=1 \
-        -e HOMEASSISTANT_REPOSITORY="homeassistant/qemux86-64-homeassistant" \
+        -e SUPERVISOR_MACHINE="qemux86-64" \
         homeassistant/amd64-hassio-supervisor:dev
 }
 

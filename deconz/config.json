@@ -29,10 +29,10 @@
   "gpio": true,
   "apparmor": false,
   "privileged": ["SYS_MODULE", "SYS_RAWIO"],
-  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
+  "_devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "snapshot_exclude": ["/data/otau/*"],
   "options": {
-    "device": null,
+    "device": null
   },
   "schema": {
     "device": "str",
@@ -42,5 +42,5 @@
     "dbg_zcl": "int?",
     "dbg_zdp": "int?"
   },
-  "image": "homeassistant/{arch}-addon-deconz"
+  "_image": "homeassistant/{arch}-addon-deconz"
 }

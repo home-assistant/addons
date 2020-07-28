@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # Wait until ozwadmin is up and running
-bashio::log.info "Waiting for VNC to start"
+bashio::log.info "Websockify waiting for VNC to start"
 bashio::net.wait_for 5900
 
 bashio::log.info "Starting websockify..."

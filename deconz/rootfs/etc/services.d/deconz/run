@@ -4,11 +4,12 @@
 # ==============================================================================
 
 # Lookup udev link
-bashio::log.info "Waiting for device..."
 DECONZ_DEVICE=$(bashio::config 'device')
 if [[ -c "${DECONZ_DEVICE}" ]]; then
     bashio::log.debug "Specified device points to a character special file, continuing"
 else
+    bashio::log.info "Waiting for device..."
+
     # 180 second timeout to wait for udev to finish processing
     timeout=180
     while [[ ! -L "${DECONZ_DEVICE}" ]]; do
@@ -23,6 +24,10 @@ else
     bashio::log.debug "Found device! Location: ${DECONZ_DEVICE}"
 fi
 
+# Wait for VNC server to start before continuing
+bashio::log.info "deCONZ waiting for VNC to start"
+bashio::net.wait_for 5900
+
 # Load debug values
 bashio::config.has_value 'dbg_info' \
     && DBG_INFO="$(bashio::config 'dbg_info')" || DBG_INFO=1
@@ -34,10 +39,6 @@ bashio::config.has_value 'dbg_zcl' \
     && DBG_ZCL="$(bashio::config 'dbg_zcl')" || DBG_ZCL=0
 bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
-
-# Wait for VNC server to start before continuing
-bashio::log.info "Waiting for VNC to start"
-bashio::net.wait_for 5900
 
 # Send out discovery information to Home Assistant
 ./discovery &

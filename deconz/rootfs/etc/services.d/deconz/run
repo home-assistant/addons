@@ -2,13 +2,15 @@
 # ==============================================================================
 # Start deCONZ service
 # ==============================================================================
+TMP_FOLDER=$(mktemp -d)
 
 # Lookup udev link
-bashio::log.info "Waiting for device..."
 DECONZ_DEVICE=$(bashio::config 'device')
 if [[ -c "${DECONZ_DEVICE}" ]]; then
     bashio::log.debug "Specified device points to a character special file, continuing"
 else
+    bashio::log.info "Waiting for device..."
+
     # 180 second timeout to wait for udev to finish processing
     timeout=180
     while [[ ! -L "${DECONZ_DEVICE}" ]]; do
@@ -23,6 +25,45 @@ else
     bashio::log.debug "Found device! Location: ${DECONZ_DEVICE}"
 fi
 
+# VNC is not enabled as a seperate service, as it cannot handle multiple
+# session when running in the foreground.
+VNC_PORT="$(bashio::addon.port 5900)"
+ARCH="$(bashio::info.arch)"
+
+# Fix tigervnc for 32 bits ARM
+if [[ "armhf armv7" = *"${ARCH}"* ]]; then
+    export LD_PRELOAD=/lib/arm-linux-gnueabihf/libgcc_s.so.1
+fi
+
+# Fix tigervnc for 64 bits ARM
+if [[ "aarch64" = "${ARCH}" ]]; then
+    export LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1
+fi
+
+# Run it only on localhost if not expose
+if bashio::var.has_value "${VNC_PORT}"; then
+    LOCAL_ONLY=no
+else
+    LOCAL_ONLY=yes
+fi
+
+export XDG_RUNTIME_DIR="${TMP_FOLDER}"
+export DISPLAY=":0"
+
+bashio::log.info "Starting VNC server (local/${LOCAL_ONLY})..."
+tigervncserver \
+    -name "Home Assistant - deCONZ" \
+    -geometry 1920x1080 \
+    -depth 16 \
+    -localhost ${LOCAL_ONLY} \
+    -SecurityTypes None \
+    "${DISPLAY}" \
+    &> /dev/null
+
+# Wait for VNC server to start before continuing
+bashio::log.info "deCONZ waiting for VNC to start"
+bashio::net.wait_for 5900
+
 # Load debug values
 bashio::config.has_value 'dbg_info' \
     && DBG_INFO="$(bashio::config 'dbg_info')" || DBG_INFO=1
@@ -35,52 +76,13 @@ bashio::config.has_value 'dbg_zcl' \
 bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
 
-
-# Check if VNC is enabled
-# VNC is not enabled as a seperate service, as it cannot handle multiple
-# session when running in the foreground.
-PLATFORM="minimal"
-VNC_PORT="$(bashio::addon.port 5900)"
-if bashio::var.has_value "${VNC_PORT}"; then
-    ARCH="$(bashio::info.arch)"
-    TMP_FOLDER=$(mktemp -d)
-    export XDG_RUNTIME_DIR="${TMP_FOLDER}"
-    export DISPLAY=":0"
-    PLATFORM="xcb"
-
-    # Fix tigervnc for 32 bits ARM
-    if [[ "armhf armv7" = *"${ARCH}"* ]]; then
-        export LD_PRELOAD=/lib/arm-linux-gnueabihf/libgcc_s.so.1
-    fi
-
-    # Fix tigervnc for 64 bits ARM
-    if [[ "aarch64" = "${ARCH}" ]]; then
-        export LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1
-    fi
-
-    bashio::log.info "Starting VNC server..."
-    tigervncserver \
-        -name "Home Assistant - deCONZ" \
-        -geometry 1920x1080 \
-        -depth 16 \
-        -localhost no \
-        -PasswordFile /root/.vncpasswd \
-        "${DISPLAY}" \
-        &> /dev/null
-
-    # Wait for VNC server to start before continuing
-    bashio::log.info "Waiting for VNC to start"
-    bashio::net.wait_for "${VNC_PORT}"
-fi
-
-
 # Send out discovery information to Home Assistant
 ./discovery &
 
 # Start deCONZ
 bashio::log.info "Starting the deCONZ gateway..."
 exec deCONZ \
-    -platform "${PLATFORM}" \
+    -platform "xcb" \
     --auto-connect=1 \
     --dbg-info="${DBG_INFO}" \
     --dbg-aps="${DBG_APS}" \

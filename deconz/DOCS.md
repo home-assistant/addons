@@ -77,7 +77,6 @@ To enable it:
 - Set a port number for VNC in the "Network" configuration section of the
   add-on and hit "SAVE". Advised is to use port 5900, but any other port above
   5900 works as well.
-- Set a VNC password in the add-on configuration and hit "SAVE".
 - Restart the add-on.
 
 To access it, you need a [VNC Viewer][vnc-viewer] application. If you are using
@@ -138,7 +137,6 @@ Example add-on config with `dbg_aps` enabled on log level 1:
 
 ```yaml
 device: /dev/ttyUSB0
-vnc_password: ""
 dbg_aps: 1
 
 ```

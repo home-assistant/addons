@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start ozw-admin
+# ==============================================================================
+
+# Wait until ozwadmin is up and running
+bashio::log.info "Websockify waiting for VNC to start"
+bashio::net.wait_for 5900
+
+bashio::log.info "Starting websockify..."
+exec websockify -v --web /usr/share/novnc/ 127.0.0.1:5901 127.0.0.1:5900

@@ -1,6 +1,6 @@
 {
   "name": "deCONZ",
-  "version": "6.1.2",
+  "version": "6.2.0",
   "slug": "deconz",
   "description": "Control a Zigbee network with ConBee or RaspBee by Dresden Elektronik",
   "arch": ["amd64", "armhf", "aarch64"],
@@ -9,7 +9,7 @@
   "boot": "auto",
   "init": false,
   "ingress": true,
-  "ingress_entry": "pwa/index.html",
+  "ingress_entry": "ingress.html",
   "panel_icon": "mdi:zigbee",
   "homeassistant": "0.91.2",
   "discovery": ["deconz"],
@@ -19,7 +19,7 @@
     "40850/tcp": null
   },
   "ports_description": {
-    "5900/tcp": "deCONZ graphical desktop via VNC",
+    "5900/tcp": "deCONZ desktop via VNC (Not required for Ingress)",
     "8081/tcp": "deCONZ WebSocket (Not required for Ingress)",
     "40850/tcp": "deCONZ API backend (Not required for Ingress)"
   },
@@ -32,12 +32,10 @@
   "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "snapshot_exclude": ["/data/otau/*"],
   "options": {
-    "device": null,
-    "vnc_password": ""
+    "device": null
   },
   "schema": {
     "device": "str",
-    "vnc_password": "str",
     "dbg_aps": "int?",
     "dbg_info": "int?",
     "dbg_otau": "int?",

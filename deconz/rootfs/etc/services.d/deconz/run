@@ -57,7 +57,7 @@ tigervncserver \
     -depth 16 \
     -localhost ${LOCAL_ONLY} \
     -SecurityTypes None \
-    "${DISPLAY}"
+    "${DISPLAY}" \
     &> /dev/null
 
 # Wait for VNC server to start before continuing

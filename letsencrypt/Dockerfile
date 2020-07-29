@@ -4,6 +4,7 @@ FROM $BUILD_FROM
 # setup base
 ARG CERTBOT_VERSION
 ARG CERTBOT_DNS_DIRECTADMIN_VERSION
+ARG CERTBOT_DNS_CPANEL_VERSION
 ARG CERTBOT_NETCUP_VERSION
 ARG CERTBOT_GANDI_VERSION
 ARG CERTBOT_DNS_TRANSIP_VERSION
@@ -24,6 +25,7 @@ RUN apk add --no-cache --update \
         certbot-dns-cloudxns==${CERTBOT_VERSION} \
         certbot-dns-digitalocean==${CERTBOT_VERSION} \
         certbot-dns-directadmin==${CERTBOT_DNS_DIRECTADMIN_VERSION} \
+        certbot-dns-cpanel==${CERTBOT_DNS_CPANEL_VERSION} \
         certbot-dns-dnsimple==${CERTBOT_VERSION} \
         certbot-dns-dnsmadeeasy==${CERTBOT_VERSION} \
         certbot-dns-gehirn==${CERTBOT_VERSION} \

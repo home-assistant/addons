@@ -83,6 +83,13 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; 
     bashio::config.require 'dns.directadmin_password'
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-directadmin:directadmin" "--certbot-dns-directadmin:directadmin-credentials" /data/dnsapikey "--certbot-dns-directadmin:directadmin-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Cpanel
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-cpanel" ]; then
+    bashio::config.require 'dns.cpanel_url'
+    bashio::config.require 'dns.cpanel_username'
+    bashio::config.require 'dns.cpanel_password'
+    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-cpanel:cpanel" "--certbot-dns-cpanel:cpanel-credentials" /data/dnsapikey "--certbot-dns-cpanel:cpanel-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Gandi
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     if bashio::config.exists 'dns.gandi_sharing_id'; then

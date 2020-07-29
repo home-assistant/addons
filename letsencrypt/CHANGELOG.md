@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.11.0
+
+- Add support for cPanel DNS 
+
 ## 4.10.0
 
 - Add support for custom ACME server and Certificate Authority

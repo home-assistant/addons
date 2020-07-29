@@ -55,6 +55,10 @@ digitalocean_token: ''
 directadmin_url: ''
 directadmin_username: ''
 directadmin_password: ''
+cpanel_url: ''
+cpanel_username: ''
+cpanel_password: ''
+dnsimple_token: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
@@ -252,6 +256,31 @@ dns:
   directadmin_password: da_password_or_key
 ```
 
+
+
+### cPanel
+
+Additional Documentation: https://documentation.cpanel.net/display/DD/Guide+to+cPanel+API+2
+
+
+Example configuration:
+```yaml
+email: mail@domain.tld
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: cpanel
+  cpanel_url: 'https://cpanel.exemple.com:2083'
+  cpanel_username: 'cpanel-username'
+  cpanel_password: 'password'
+  propagation_seconds: 90 (Default: 30)
+```
+
+
+
 ### TransIP
 
 You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
@@ -315,6 +344,7 @@ You can in addition find the files via the "samba" addon within the "ssl" share.
 ```txt
 dns-cloudflare
 dns-cloudxns
+dns-cpanel
 dns-digitalocean
 dns-directadmin
 dns-dnsimple

@@ -62,7 +62,7 @@ IPv4 address manually.
 
 If you specify a URL here, contents of the resource it points to will be
 fetched and used as the address. This enables getting the address using
-a service like https://api4.ipify.org/ or https://ipv4.wtfismyip.com/text
+a service like https://api.ipify.org/ or https://ipv4.text.wtfismyip.com
 
 ### Option: `ipv6` (optional)
 
@@ -72,7 +72,7 @@ IPv6 address manually.
 
 If you specify a URL here, contents of the resource it points to will be
 fetched and used as the address. This enables getting the address using
-a service like https://api6.ipify.org/ or https://ipv6.wtfismyip.com/text
+a service like https://api6.ipify.org/ or https://ipv6.text.wtfismyip.com
 
 ### Option: `token`
 

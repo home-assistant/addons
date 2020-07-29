@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.2
+
+- Add styling to the ingress entry page
+
 ## 6.2.1
 
 - Fix old fashon VNC access

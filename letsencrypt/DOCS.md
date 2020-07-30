@@ -111,7 +111,7 @@ acme_root_ca_cert: |
 ### http challenge
 
 ```yaml
-email: hello@home-assistant.io
+email: your.email@example.com
 domains:
   - home-assistant.io
 certfile: fullchain.pem
@@ -123,7 +123,7 @@ dns: {}
 ### dns challenge
 
 ```yaml
-email: hello@home-assistant.io
+email: your.email@example.com
 domains:
   - home-assistant.io
 certfile: fullchain.pem
@@ -131,14 +131,14 @@ keyfile: privkey.pem
 challenge: dns
 dns:
   provider: dns-cloudflare
-  cloudflare_email: cf@home-assistant.io
+  cloudflare_email: your.email@example.com
   cloudflare_api_key: 31242lk3j4ljlfdwsjf0
 ```
 
 ### google dns challenge
 
 ```yaml
-email: hello@home-assistant.io
+email: your.email@example.com
 domains:
   - home-assistant.io
 certfile: fullchain.pem
@@ -161,7 +161,7 @@ You can find additional information in regards to the required permissions in th
 ### route53 dns challenge
 
 ```yaml
-email: hello@home-assistant.io
+email: your.email@example.com
 domains:
   - home-assistant.io
 certfile: fullchain.pem
@@ -260,7 +260,7 @@ The propagation limit will be automatically raised to 240 seconds.
 
 Example configuration:
 ```yaml
-email: hello@home-assistant.io
+email: your.email@example.com
 domains:
   - your.domain.tld
 certfile: fullchain.pem
@@ -287,7 +287,7 @@ When creating the API Key, you must ensure that the following rights are granted
 
 Example configuration
 ```yaml
-email: hello@home-assistant.io
+email: your.email@example.com
 domains:
   - home-assistant.io
 certfile: fullchain.pem

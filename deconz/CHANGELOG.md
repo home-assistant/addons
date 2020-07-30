@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.3
+
+- Add background color to the ingress entry page
+
 ## 6.2.2
 
 - Add styling to the ingress entry page

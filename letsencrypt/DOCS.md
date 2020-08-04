@@ -277,19 +277,54 @@ dns:
 ```
 
 ### OVH
-You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north america). 
 
-When creating the API Key, you must ensure that the following rights are granted:
+First, create a new application linked to your OVH account at https://eu.api.ovh.com/createApp/ (for Europe) or https://ca.api.ovh.com/createApp/ (for North America).  
+Give it a name and description of your choosing.  
+Note the `Application Key` and `Application Secret`.
+
+Request a new credential for this application by sending a cURL request. See the syntax at https://api.ovh.com/console/#/auth/credential#POST  
+Change `eu` to `ca` if you're based in North America. Don't forget to enter your `Application Key`
+
+When creating the credential, you must ensure that the following rights are granted:
 * ``GET /domain/zone/*``
 * ``PUT /domain/zone/*``
 * ``POST /domain/zone/*``
 * ``DELETE /domain/zone/*``
 
-Example configuration
+```bash
+curl -XPOST -H"X-Ovh-Application: <Application Key>" -H "Content-type: application/json" https://eu.api.ovh.com/1.0/auth/credential  -d '{
+    "accessRules": [
+        {
+            "method": "GET",
+            "path": "/domain/zone/*"
+        },
+        {
+            "method": "POST",
+            "path": "/domain/zone/*"
+        },
+        {
+            "method": "PUT",
+            "path": "/domain/zone/*"
+        },
+        {
+            "method": "DELETE",
+            "path": "/domain/zone/*"
+        }
+    ],
+    "redirection":"https://www.example.org"
+}'
+```
+
+Note the `consumerkey` and open the `ValidationURL` in your browser.
+
+At the validation page, login with your OVH account again to link the credential to your application.
+
+Now add the `Application Key`, `Application Secret` and `consumerkey` in your configuration:
+
 ```yaml
-email: your.email@example.com
+email: your.email@yourdomain.tld
 domains:
-  - home-assistant.io
+  - home-assistant@yourdomain.tld
 certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns

@@ -15,13 +15,13 @@ To use this add-on, you have two options on how to get your certificate:
 ### 1. http challenge
 
 - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
-- Doesnt allow wildcard certificates (*.yourdomain.com).
+- Doesn't allow wildcard certificates (*.yourdomain.com).
 
 ### 2. dns challenge
 
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
 - Allows to request wildcard certificates (*.yourdomain.com)
-- Doesn’t need you to open a port to your Home Assistant host on your router.
+- Doesn't need you to open a port to your Home Assistant host on your router.
 
 ### You always need to provide the following entries within the configuration
 
@@ -283,7 +283,8 @@ Give it a name and description of your choosing.
 Note the `Application Key` and `Application Secret`.
 
 Request a new credential for this application by sending a cURL request. See the syntax at https://api.ovh.com/console/#/auth/credential#POST  
-Change `eu` to `ca` if you're based in North America. Don't forget to enter your `Application Key`
+Change `eu` to `ca` if you're based in North America. Don't forget to enter your `Application Key`.  
+Upon successful validation of the credential, youe browser will be redirected to the URL entered as the `redirection` parameter.
 
 When creating the credential, you must ensure that the following rights are granted:
 * ``GET /domain/zone/*``
@@ -311,7 +312,7 @@ curl -XPOST -H"X-Ovh-Application: <Application Key>" -H "Content-type: applicati
             "path": "/domain/zone/*"
         }
     ],
-    "redirection":"https://www.example.org"
+    "redirection":"https://home-assistant.io"
 }'
 ```
 
@@ -322,9 +323,9 @@ At the validation page, login with your OVH account again to link the credential
 Now add the `Application Key`, `Application Secret` and `consumerkey` in your configuration:
 
 ```yaml
-email: your.email@yourdomain.tld
+email: your.email@example.com
 domains:
-  - home-assistant@yourdomain.tld
+  - home-assistant.io
 certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns

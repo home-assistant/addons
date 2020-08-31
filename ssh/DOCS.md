@@ -15,7 +15,7 @@ This add-on enables two main features to your Home Assistant installation:
 - a Terminal that you can use from your browser, and
 - enable connecting to your system using an SSH client.
 
-Regardless of how you connect (using the Terminal, or a using an SSH client), you end up in this add-on's container. The Home Assistant configuration 
+Regardless of how you connect (using the web Terminal or using an SSH client), you end up in this add-on's container. The Home Assistant configuration
 directory is located on the path `/config`.
 
 This add-on comes bundled with [The Home Assistant CLI](https://www.home-assistant.io/hassio/commandline/). Try it out using:

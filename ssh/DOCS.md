@@ -24,9 +24,9 @@ This add-on comes bundled with [The Home Assistant CLI](https://www.home-assista
 ha help
 ```
 
-### The In-Browser Terminal
+### The Web Terminal
 
-To enable the in-browser Terminal all you need to do is start the add-on, and click the Terminal menu item.
+To enable the web Terminal all you need to do is start the add-on, and click the Terminal menu item.
 
 ### SSH Server Connection
 

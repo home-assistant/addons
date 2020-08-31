@@ -11,11 +11,11 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-This add-on enables two main features to your Home Assistant installation:
-- a Terminal that you can use from your browser, and
+This add-on adds two main features to your Home Assistant installation:
+- a web terminal that you can use from your browser, and
 - enable connecting to your system using an SSH client.
 
-Regardless of how you connect (using the web Terminal or using an SSH client), you end up in this add-on's container. The Home Assistant configuration
+Regardless of how you connect (using the web terminal or using an SSH client), you end up in this add-on's container. The Home Assistant configuration
 directory is located on the path `/config`.
 
 This add-on comes bundled with [The Home Assistant CLI](https://www.home-assistant.io/hassio/commandline/). Try it out using:
@@ -26,7 +26,7 @@ ha help
 
 ### The Web Terminal
 
-To enable the web Terminal all you need to do is start the add-on, and click the Terminal menu item.
+You can access the web terminal by clicking the "Open Web UI" button on this add-on's Info tab. If you set the "Show in sidebar" setting (found on the same Info tab) to "on", a shortcut is added to the sidebar allowing you to quickly access to the web terminal.
 
 ### SSH Server Connection
 

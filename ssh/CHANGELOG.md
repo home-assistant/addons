@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.7.0
+
+- Update Home Assistant CLI to 4.4.0
+- Upgrade Alpine Linux to 3.12
+
+
 ## 8.6.0
 
 - Add support for local TCP forwarding

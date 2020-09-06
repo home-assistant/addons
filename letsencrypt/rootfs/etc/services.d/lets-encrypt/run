@@ -21,6 +21,7 @@ ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
 CERTBOT_ARGUMENTS+=("--non-interactive" "--keep-until-expiring" "--expand" "--agree-tos")
 CERTBOT_ARGUMENTS+=("--config-dir" "$CERT_DIR" "--work-dir" "$WORK_DIR")
 CERTBOT_ARGUMENTS+=("--preferred-challenges" "$CHALLENGE")
+CERTBOT_ARGUMENTS+=("--email" "$EMAIL")
 
 if [ "${ENVIRONMENT}" == "staging" ]; then
     CERTBOT_ARGUMENTS+=("--dry-run")

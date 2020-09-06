@@ -135,6 +135,21 @@ dns:
   cloudflare_api_key: 31242lk3j4ljlfdwsjf0
 ```
 
+### Staging Environment
+
+Let's Encrypt includes a number of [rate limits](https://letsencrypt.org/docs/rate-limits/) which you might run into - for example, if you fail validation too many times in a row, or request too many duplicate certificates. If you hit one of these limts, there's no way to reset it - you'll have to wait anywhere from an hour to a week to get things moving again. To help avoid that, Let's Encrypt offers a [staging environment](https://letsencrypt.org/docs/staging-environment/) for testing purposes. You can target this environment by adding an "environment: staging" entry to your yaml; we recommend this when you're getting started, especially if things don't work on your first attempt.
+
+```yaml
+email: your.email@example.com
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: http
+dns: {}
+environment: staging
+```
+
 ### google dns challenge
 
 ```yaml

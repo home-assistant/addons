@@ -21,6 +21,7 @@
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "challenge": "http",
+    "environment": "production",
     "dns": {}
   },
   "schema": {
@@ -29,6 +30,7 @@
     "certfile": "str",
     "keyfile": "str",
     "challenge": "list(dns|http)",
+    "environment": "list(staging|production)",
     "acme_server": "url?",
     "acme_root_ca_cert": "str?",
     "dns": {

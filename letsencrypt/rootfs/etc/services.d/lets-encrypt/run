@@ -4,6 +4,7 @@
 # ==============================================================================
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
+CERTBOT_ARGUMENTS=()
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
 
@@ -12,9 +13,21 @@ DOMAINS=$(bashio::config 'domains')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
+ENVIRONMENT=$(bashio::config 'environment')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 ACME_SERVER=$(bashio::config 'acme_server')
 ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
+
+CERTBOT_ARGUMENTS+=("--non-interactive" "--keep-until-expiring" "--expand" "--agree-tos")
+CERTBOT_ARGUMENTS+=("--config-dir" "$CERT_DIR" "--work-dir" "$WORK_DIR")
+CERTBOT_ARGUMENTS+=("--preferred-challenges" "$CHALLENGE")
+
+if [ "${ENVIRONMENT}" == "staging" ]; then
+    CERTBOT_ARGUMENTS+=("--dry-run")
+    bashio::log.info "Targeting staging environment"
+else
+    bashio::log.info "Targeting production environment"
+fi
 
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
@@ -115,15 +128,9 @@ echo "$DOMAINS" > /data/domains.gen
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
 if [ "$CHALLENGE" == "dns" ]; then
-    certbot certonly --non-interactive --keep-until-expiring --expand \
-        --email "$EMAIL" --agree-tos \
-        --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}"
+    certbot certonly "${CERTBOT_ARGUMENTS[@]}" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}"
 else
-    certbot certonly --non-interactive --keep-until-expiring --expand \
-        --email "$EMAIL" --agree-tos \
-        --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone
+    certbot certonly "${CERTBOT_ARGUMENTS[@]}" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store

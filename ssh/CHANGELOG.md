@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.8.0
+
+- Update Home Assistant CLI to 4.4.1
+- Wrap system shutdown/reboot to supervisor
+
 ## 8.7.0
 
 - Update Home Assistant CLI to 4.4.0

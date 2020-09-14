@@ -1,6 +1,6 @@
 {
   "name": "OpenZWave",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],

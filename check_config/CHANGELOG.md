@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.5.0
+
+- Update base image to version 8.4.0
+- Add media folder
+
 ## 3.4.0
 
 - Update base image to version 8.1.0

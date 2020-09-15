@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.4
+
+- Bump deCONZ to 2.05.81
+
 ## 6.2.3
 
 - Add background color to the ingress entry page

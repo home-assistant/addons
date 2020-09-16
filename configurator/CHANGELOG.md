@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1.0
+
+- Update base image to Alpine 3.12
+- Add access to new media folder
+
 ## 5.0.0
 
 - Rewrite add-on to S6 Overlay

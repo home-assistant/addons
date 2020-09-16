@@ -1,6 +1,6 @@
 # Changelog
 
-## 8.8.0
+## 8.9.0
 
 - Update Home Assistant CLI to 4.4.1
 - Add Bluetooth support

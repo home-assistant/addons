@@ -12,7 +12,7 @@
   "panel_icon": "mdi:wrench",
   "homeassistant_api": true,
   "boot": "auto",
-  "map": ["backup:rw", "config:rw", "share:rw", "ssl:rw"],
+  "map": ["backup:rw", "config:rw", "media:rw", "share:rw", "ssl:rw"],
   "options": {
     "dirsfirst": false,
     "enforce_basepath": true,

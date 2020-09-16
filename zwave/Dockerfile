@@ -25,9 +25,6 @@ RUN \
         qt5-qtsvg \
         rapidjson \
         ttf-freefont \
-    && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
-        libunwind \
-        libunwind-dev \
     && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
         novnc \
         websockify \
@@ -39,13 +36,15 @@ RUN \
         curl-dev \
         eudev-dev \
         git \
-        pkgconf-dev \
         openssl-dev \
         qt5-qtbase-dev \
         qt5-qtremoteobjects-dev \
         qt5-qtserialport-dev \
         qt5-qtsvg-dev \
         rapidjson-dev \
+    && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.12/main \
+        libunwind \
+        libunwind-dev \
     \
     && git clone --depth 1 -b \
         ${QTWEBSOCKETS_VERSION} https://github.com/qt/qtwebsockets /usr/src/qtwebsockets \

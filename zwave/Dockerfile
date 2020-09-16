@@ -90,7 +90,7 @@ RUN \
     && cd noVNC \
     && mkdir -p /usr/share/noVNC \
     && rm -rf .git utils \
-    && cp -rf * /usr/share/noVNC/ \
+    && cp -rf ./* /usr/share/noVNC/ \
     \
     && git clone --depth 1 -b \
         v${WEBSOCKIFY_VERSION} https://github.com/novnc/websockify \

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+- Fix vnc / ozwadmin
+
 ## 0.5.4
 
 - Fix build issues with 32bit CPU

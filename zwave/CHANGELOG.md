@@ -1,9 +1,5 @@
 # Changelog
 
-## 0.5.3
-
--  Update Openzwave to 7eaae21
-
 ## 0.5.2
 
 - Fix startup failure due to stray OZW Daemon status retained in MQTT

@@ -39,7 +39,6 @@ RUN \
         curl-dev \
         eudev-dev \
         git \
-        pkgconf-dev \
         openssl-dev \
         qt5-qtbase-dev \
         qt5-qtremoteobjects-dev \

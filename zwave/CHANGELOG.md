@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.4
+
+- Fix build issues with 32bit CPU
+
 ## 0.5.3
 
 -  Update Openzwave to 7eaae21

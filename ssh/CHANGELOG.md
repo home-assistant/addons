@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.8.0
+
+- Update Home Assistant CLI to 4.4.1
+- Add Bluetooth support
+
 ## 8.8.1
 
 - Support new media folder

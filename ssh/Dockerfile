@@ -18,6 +18,7 @@ RUN \
         bash-completion \
         pulseaudio-utils \
         alsa-plugins-pulse \
+        bluez \
         git \
         libuv \
         mosquitto-clients \

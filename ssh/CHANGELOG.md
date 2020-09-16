@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.9.1
+
+- Fix bluez package
+
 ## 8.9.0
 
 - Update Home Assistant CLI to 4.4.1

@@ -8,6 +8,7 @@ RUN \
     apk add --no-cache \
         git \
         openssh-client \
+        py3-pip \
         python3 \
     && pip3 install \
         --no-cache-dir \

@@ -105,6 +105,34 @@ Also, add your custom domain name to the `domains` array to create the certifica
 
 The number of seconds to wait before updating DuckDNS subdomains and renewing Let's Encrypt certificates.
 
+
+## Home Assistant HTTPS configuration
+
+If Home Assistant was not already setup to use HTTPS, we now need to configure this in `configuration.yaml`.
+
+**Note**: _Ensure the DuckDNS add-on succeeded with LetsEncrypt enabled by checking the Logs tab for the add-on._
+
+The suggested method below uses the "File Editor" add-on:
+
+1. Install and start the "File Editor" add-on in the same manner as the DuckDNS add-on.
+2. On the add-on page, click the "OPEN WEB UI" button.
+3. Open the `configuration.yaml` file.
+4. If an `http:` section already exists in the file, modify it. Otherwise, add the following to the end of the file:
+
+	```
+	# HTTPS with DuckDNS and LetsEncrypt
+	http:
+	  base_url: https://my-domain.duckdns.org:8123
+	  ssl_certificate: /ssl/fullchain.pem
+	  ssl_key: /ssl/privkey.pem
+	```
+	**Note**: _This `base_url` uses port 8123 but you may wish to change it, e.g. to port 443_
+
+5. Save `configuration.yaml`.
+6. Navigate in your Home Assistant frontend to **Configuration** -> **Server Controls**.
+7. Click "Check Configuration".
+8. Assuming "Configuration valid!" is seen, click "RESTART" under "Server Management".
+
 ## Known issues and limitations
 
 - To log in, DuckDNS requires a free account from any of the following services: Google, Github, Twitter, Persona or Reddit.

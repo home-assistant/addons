@@ -78,7 +78,7 @@ Specifies whether TCP forwarding is permitted or not.
 
 This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY or Linux terminal. To enable SSH remote access from the Network, specify the desired SSH TCP server port in the Network configuration input box. The number you enter will be used to map that port from the host into the running "Terminal & SSH" add-on. The standard port used for the SSH protocol is `22`.  
 
-SSH remote access can be disabled by clearing the input box, saving the config and restarting the add-on.  The default is disabled.
+Remote SSH access can be disabled again, by clearing the input box, saving the configuration and restarting the add-on.
 
 ## Known issues and limitations
 

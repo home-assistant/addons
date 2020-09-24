@@ -31,7 +31,7 @@ You can access the web terminal by clicking the "Open Web UI" button on this add
 
 ### SSH Server Connection
 
-To connect using an SSH client, such as PuTTY, you need to supply additional configuration for this add-on. To enable SSH connectivity, you need to:
+Remote SSH access from the network is disabled by default (See Network below).  To connect using an SSH client, such as PuTTY or Linux terminal, you need to supply additional configuration for this add-on. To enable SSH connectivity, you need to:
 
 - Provide authentication credentials - a password or SSH key(s)
 - Specify which TCP port to bind to, on the Home Assistant host
@@ -76,7 +76,9 @@ Specifies whether TCP forwarding is permitted or not.
 
 ## Network
 
-This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY. To enable SSH access via the network, you need to specify which port to use on the Home Assistant host. The number you enter will be used to map that port from the host into the running "Terminal & SSH" add-on. The standard port used for the SSH protocol is `22`.
+This section is only relevant if you want to connect to Home Assistant using an SSH client, such as PuTTY or Linux terminal. To enable SSH remote access from the Network, specify the desired SSH TCP server port in the Network configuration input box. The number you enter will be used to map that port from the host into the running "Terminal & SSH" add-on. The standard port used for the SSH protocol is `22`.  
+
+SSH remote access can be disabled by clearing the input box, saving the config and restarting the add-on.  The default is disabled.
 
 ## Known issues and limitations
 

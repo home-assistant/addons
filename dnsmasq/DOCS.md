@@ -64,7 +64,7 @@ For example, one could set `myuser.duckdns.org` to resolve directly to a
 internal IP address, e.g., `192.168.1.10`. While outside of this network,
 it would resolve normally.
 
-This options allows you to create a so called: Split DNS.
+This option allows you to create a so called: Split DNS.
 
 #### Option: `hosts.host`
 

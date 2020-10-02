@@ -57,7 +57,7 @@ To do so, do the following:
     1. Choose "**External**" as the User Type.
     1. Fill in a project name and your e-mail.
     1. Hit "**Save**" at the bottom of the page.
-1. Go back to you device registration tab and click on "**REGISTER MODEL**". If you closed the tab, you can also open you project in the [Google Actions Console][google-actions-console], start the Quick setup, and in the left bar click "**Device registration**".
+1. Go back to your device registration tab and click on "**REGISTER MODEL**". If you closed the tab, you can also open you project in the [Google Actions Console][google-actions-console], start the Quick setup, and in the left bar click "**Device registration**".
     1. Give you project a name and think of a nice manufacturer. Select "**speaker**" for the device type. If you want to, edit your model id, and copy it for later use.
     1. Click "**REGISTER MODEL**", and download the credentials.
     1. Click "**Next**" and click "**SKIP**".

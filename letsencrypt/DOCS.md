@@ -15,7 +15,7 @@ To use this add-on, you have two options on how to get your certificate:
 ### 1. http challenge
 
 - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
-- Doesnt allow wildcard certificates (*.yourdomain.com).
+- Doesn’t allow wildcard certificates (*.yourdomain.com).
 
 ### 2. dns challenge
 
@@ -154,7 +154,7 @@ Please copy your credentials file "google.json" into the "share" shared folder o
 One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
 
 The credential file can be created and downloaded when creating the service user within the Google cloud.
-You can find additional information in regards to the required permissions in the "credentials" section here:
+You can find additional information regarding the required permissions in the "credentials" section here:
 
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
 
@@ -277,7 +277,7 @@ dns:
 ```
 
 ### OVH
-You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north america). 
+You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America). 
 
 When creating the API Key, you must ensure that the following rights are granted:
 * ``GET /domain/zone/*``
@@ -300,7 +300,7 @@ dns:
   ovh_application_secret: 0123456789abcdef0123456789abcdef01234
   ovh_consumer_key: 0123456789abcdef0123456789abcdef01234
 ```
-Use `ovh_endpoint: ovh-ca` for north america region.
+Use `ovh_endpoint: ovh-ca` for north America region.
 
 
 ## Certificate files

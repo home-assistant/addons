@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "4.10.0",
+  "version": "4.11.0",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt",
@@ -32,7 +32,7 @@
     "acme_server": "url?",
     "acme_root_ca_cert": "str?",
     "dns": {
-      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip)?",
+      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip)?",
       "propagation_seconds": "int(60,3600)?",
       "cloudflare_email": "email?",
       "cloudflare_api_key": "str?",
@@ -53,6 +53,7 @@
       "linode_version": "str?",
       "luadns_email": "email?",
       "luadns_token": "str?",
+      "njalla_token": "str?",
       "nsone_api_key": "str?",
       "ovh_endpoint": "str?",
       "ovh_application_key": "str?",

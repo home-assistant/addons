@@ -5,6 +5,7 @@ FROM $BUILD_FROM
 ARG CERTBOT_VERSION
 ARG CERTBOT_DNS_DIRECTADMIN_VERSION
 ARG CERTBOT_NETCUP_VERSION
+ARG CERTBOT_NJALLA_VERSION
 ARG CERTBOT_GANDI_VERSION
 ARG CERTBOT_DNS_TRANSIP_VERSION
 
@@ -30,6 +31,7 @@ RUN apk add --no-cache --update \
         certbot-dns-google==${CERTBOT_VERSION} \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
+        certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
         certbot-dns-nsone==${CERTBOT_VERSION} \
         certbot-dns-ovh==${CERTBOT_VERSION} \
         certbot-dns-rfc2136==${CERTBOT_VERSION} \

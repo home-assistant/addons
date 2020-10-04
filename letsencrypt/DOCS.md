@@ -65,6 +65,7 @@ linode_key: ''
 linode_version: ''
 luadns_email: ''
 luadns_token: ''
+njalla_token: ''
 nsone_api_key: ''
 ovh_endpoint: ''
 ovh_application_key: ''
@@ -252,6 +253,24 @@ dns:
   directadmin_password: da_password_or_key
 ```
 
+### Njalla
+
+You need to generate an API token inside Settings > API Access or directly at https://njal.la/settings/api/. If you have a static IP-address restrict the access to your IP. I you are not sure, you probably don't have a static IP-address.
+
+Example configuration:
+
+```yaml
+email: your.email@example.com
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-njalla
+  njalla_token: 0123456789abcdef0123456789abcdef01234567
+```
+
 ### TransIP
 
 You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
@@ -323,6 +342,7 @@ dns-gehirn
 dns-google
 dns-linode
 dns-luadns
+dns-njalla
 dns-nsone
 dns-ovh
 dns-rfc2136

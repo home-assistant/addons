@@ -24,6 +24,7 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "certbot_dns_netcup:dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \
       "certbot_dns_netcup:dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
       "certbot_dns_netcup:dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \
+      "certbot_dns_njalla:dns_njalla_token = $(bashio::config 'dns.njalla_token')\n" \
       "dns_nsone_api_key = $(bashio::config 'dns.nsone_api_key')\n" \
       "dns_ovh_endpoint = $(bashio::config 'dns.ovh_endpoint')\n" \
       "dns_ovh_application_key = $(bashio::config 'dns.ovh_application_key')\n" \

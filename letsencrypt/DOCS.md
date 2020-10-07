@@ -61,6 +61,8 @@ dnsmadeeasy_secret_key: ''
 google_creds: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
+hook_script_auth: ''
+hook_script_cleanup: ''
 linode_key: ''
 linode_version: ''
 luadns_email: ''
@@ -321,6 +323,43 @@ dns:
 ```
 Use `ovh_endpoint: ovh-ca` for north America region.
 
+### Hook Script
+
+If your DNS provider isn't directly supported by Certbot, but has an API, you may be able to use an
+[authentication hook script](https://certbot.eff.org/docs/using.html#hooks) to update DNS automatically.
+Some DNS providers, such as [deSEC](https://github.com/desec-utils/certbot-hook) and
+[acme-dns](https://github.com/joohoi/acme-dns-certbot-joohoi), have published official Certbot hook scripts.
+For other providers, you may be able to find a community hook script, or you can write one yourself.
+
+To use hook scripts, you will need to upload them to the `/share` or `/ssl` directory. You can use
+the Samba or SSH add-ons to do this. You may need to modify the hook scripts, or include other files along
+with the scripts, to properly set your API key or other credentials. Follow the instructions that came
+with your hook script if you're not sure.
+
+Once your hook scripts are configured and uploaded, configure the addon as follows:
+
+```yaml
+email: your.email@example.com
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-hook-script
+  hook_script_auth: /share/path/to/your/auth-hook.sh
+  hook_script_cleanup: /share/path/to/your/cleanup-hook.sh
+```
+
+Some hook scripts use the same script for both the auth and cleanup hooks. If this is the case for your
+hook script, put the same path in both `hook_script_auth` and `hook_script_cleanup`:
+
+```yaml
+dns:
+  provider: dns-hook-script
+  hook_script_auth: /share/path/to/your/hook.sh
+  hook_script_cleanup: /share/path/to/your/hook.sh
+```
 
 ## Certificate files
 

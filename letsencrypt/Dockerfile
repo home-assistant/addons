@@ -13,6 +13,7 @@ RUN apk add --no-cache --update \
         libffi \
         musl \
         openssl \
+        curl \
     && apk add --no-cache --virtual .build-dependencies \
         g++ \
         libffi-dev \
@@ -21,6 +22,7 @@ RUN apk add --no-cache --update \
     && pip3 install --no-cache-dir --find-links \
         "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \
         certbot==${CERTBOT_VERSION} \
+        requests \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudxns==${CERTBOT_VERSION} \
         certbot-dns-digitalocean==${CERTBOT_VERSION} \

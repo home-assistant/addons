@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.0
+
+- Add support for custom Certbot auth and cleanup hooks
+
 ## 4.11.0
 
 - Add support for Njalla DNS

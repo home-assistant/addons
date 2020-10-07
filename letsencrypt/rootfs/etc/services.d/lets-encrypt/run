@@ -96,6 +96,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-njalla:dns-njalla" "--certbot-dns-njalla:dns-njalla-credentials" /data/dnsapikey "--certbot-dns-njalla:dns-njalla-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Manual hook script
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hook-script" ]; then
+    bashio::config.require 'dns.hook_script_auth'
+    bashio::config.require 'dns.hook_script_cleanup'
+    PROVIDER_ARGUMENTS+=("--manual" "--manual-public-ip-logging-ok" "--manual-auth-hook" "$(bashio::config 'dns.hook_script_auth')" "--manual-cleanup-hook" "$(bashio::config 'dns.hook_script_cleanup')")
+
 #All others
 else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)

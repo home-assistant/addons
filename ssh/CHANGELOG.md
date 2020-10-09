@@ -1,5 +1,29 @@
 # Changelog
 
+## 8.9.1
+
+- Fix bluez package
+
+## 8.9.0
+
+- Update Home Assistant CLI to 4.4.1
+- Add Bluetooth support
+
+## 8.8.1
+
+- Support new media folder
+
+## 8.8.0
+
+- Update Home Assistant CLI to 4.4.1
+- Wrap system shutdown/reboot to supervisor
+
+## 8.7.0
+
+- Update Home Assistant CLI to 4.4.0
+- Upgrade Alpine Linux to 3.12
+
+
 ## 8.6.0
 
 - Add support for local TCP forwarding

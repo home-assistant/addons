@@ -1,6 +1,6 @@
 {
   "name": "File editor",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "slug": "configurator",
   "description": "Simple browser-based file editor for Home Assistant",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/configurator",
@@ -12,7 +12,7 @@
   "panel_icon": "mdi:wrench",
   "homeassistant_api": true,
   "boot": "auto",
-  "map": ["backup:rw", "config:rw", "share:rw", "ssl:rw"],
+  "map": ["backup:rw", "config:rw", "media:rw", "share:rw", "ssl:rw"],
   "options": {
     "dirsfirst": false,
     "enforce_basepath": true,

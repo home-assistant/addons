@@ -2,6 +2,24 @@
 
 ## 0.5.2
 
+- Rollback the docker image to 0.5.2.
+- This is a temporary fix to solve problems with 0.5.3 - 0.6.0.
+- Remove this changelog item when the next version is released.
+
+## 0.6.0
+
+- Fix vnc / ozwadmin
+
+## 0.5.4
+
+- Fix build issues with 32bit CPU
+
+## 0.5.3
+
+- Update Openzwave to 7eaae21
+
+## 0.5.2
+
 - Fix startup failure due to stray OZW Daemon status retained in MQTT
 - Propagate shutdown OZW Daemon status to upstream MQTT on shutdown
 - Update OpenZWave to 6cf3729

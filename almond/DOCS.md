@@ -13,7 +13,7 @@ Follow these steps to get the add-on installed on your system:
 The basic thing to get the add-on running would be:
 
 1. Start the add-on.
-2. Go the the Home Assistant frontend -> **Configuration** -> **Integrations**
+2. Go to Home Assistant frontend -> **Configuration** -> **Integrations**
    to configure Home Assistant to use this add-on. After starting,
    it will be automatically discovered by Home Assistant.
 

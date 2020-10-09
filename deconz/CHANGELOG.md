@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.3.1
+## 6.4.0
 
 - Bump deCONZ to 2.05.84
 

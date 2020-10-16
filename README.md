@@ -3,7 +3,7 @@
 [![Build Status](https://dev.azure.com/home-assistant/Hass.io/_apis/build/status/addons?branchName=master)](https://dev.azure.com/home-assistant/Hass.io/_build/latest?definitionId=7&branchName=master)
 
 Add-ons for Home Assistant, allow you to extend the functionality
-around your Home Assistant setup. These add-on can consist of an application
+around your Home Assistant setup. These add-ons can consist of an application
 that Home Assistant can integrate with (e.g., a MQTT broker or database server)
 or allow access to your Home Assistant configuration (e.g., via Samba or using
 the Configurator).

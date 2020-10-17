@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.6.0
+
+- Change to rsync for copy
+- Ignore HA db files
+
 ## 3.5.0
 
 - Update base image to version 8.4.0

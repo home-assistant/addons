@@ -29,7 +29,7 @@ bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}"
 
 # Making a temporary copy of your configuration
 bashio::log.info "Making a copy of your configuration for checking..."
-cp -fr /config /tmp/config
+rsync -avr --exclude='*home-assistant_v2*' /config/ /tmp/config --quiet
 
 # Start configuration check
 bashio::log.info "Checking your configuration against this version..."

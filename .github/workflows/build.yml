@@ -1,0 +1,66 @@
+name: Build
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Initialize builds
+    outputs:
+      files: ${{ steps.files.outputs.all }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+  build:
+    needs: init
+    runs-on: ubuntu-latest
+    name: Build ${{ matrix.addon }} add-on
+    strategy:
+      fail-fast: False
+      matrix:
+        addon:
+          - ada
+          - almond
+          - cec_scan
+          - check_config
+          - configurator
+          - deconz
+          - dhcp_server
+          - dnsmasq
+          - duckdns
+          - git_pull
+          - google_assistant
+          - homematic
+          - letsencrypt
+          - mariadb
+          - mosquitto
+          - nginx_proxy
+          - rpc_shutdown
+          - samba
+          - ssh
+          - tellstick
+          - zwave
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Check build for ${{ matrix.addon }}
+        run: |
+          if [[ "${{ needs.init.outputs.files }}" =~ "${{ matrix.addon }}" ]]; then
+
+            # Test build the add-on
+            docker run --rm --privileged \
+            -v /var/run/docker.sock:/var/run/docker.sock:ro \
+            -v ${PWD}/${{ matrix.addon }}:/data homeassistant/amd64-builder --all --target /data --test
+
+            # Show the finished images
+            docker images
+          else
+            echo "Files for ${{ matrix.addon }} did not change, skipping build check"
+          fi

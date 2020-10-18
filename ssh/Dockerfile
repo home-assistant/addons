@@ -20,6 +20,7 @@ RUN \
         alsa-plugins-pulse \
         bluez \
         git \
+        git-perl \
         libuv \
         mosquitto-clients \
         nano \

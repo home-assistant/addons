@@ -89,10 +89,12 @@ settings.
 
 ## Upgrading RaspBee and ConBee firmware
 
-This add-on allows you to upgrade your firmware straight from the Phoscon
-web interface with ease.
+Although the Phoscon web interface allows you to upgrade your firmware with ease
+it does not currently work from within the add-on. A [manual upgrade][manual-upgrade]
+method should be used instead.
 
-Go to "Settings -> Gateway" and click the upgrade button.
+To attempt a firmware upgrade via the Phoscon web interface go to
+"Settings -> Gateway" and click the upgrade button.
 
 However, some USB sticks (like the Aeotec Z-Wave sticks), can interfere with
 the upgrade process, causing the firmware upgrade to fail silently. If you end
@@ -237,3 +239,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [reddit]: https://reddit.com/r/homeassistant
 [vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/
 [vnc-service-url]: vnc://homeassistant.local:5900
+[firmware-update-issue]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually#update-in-docker

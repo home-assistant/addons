@@ -1,0 +1,72 @@
+name: Build
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Initialize builds
+    outputs:
+      changed_files: ${{ steps.changed_files.outputs.all }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Get changed files
+        id: changed_files
+        uses: jitterbit/get-changed-files@v1
+
+  build:
+    needs: init
+    runs-on: ubuntu-latest
+    name: Build ${{ matrix.addon }} add-on
+    outputs:
+      changed: ${{ steps.changed.outputs.changed }}
+    strategy:
+      fail-fast: False
+      matrix:
+        addon: 
+          - ada
+          - almond
+          - cec_scan
+          - check_config
+          - configurator
+          - deconz
+          - dhcp_server
+          - dnsmasq
+          - duckdns
+          - git_pull
+          - google_assistant
+          - homematic
+          - letsencrypt
+          - mariadb
+          - mosquitto
+          - nginx_proxy
+          - rpc_shutdown
+          - samba
+          - ssh
+          - tellstick
+          - zwave
+    steps:
+      - name: Check if ${{ matrix.addon }} was changed
+        id: changed
+        run: |
+          if [[ "${{ needs.init.outputs.changed_files }}" =~ "${{ matrix.addon }}" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+
+      - name: Check out repository
+        if: steps.changed.outputs.changed == 'true'
+        uses: actions/checkout@v2
+
+      - name: Test docker build for ${{ matrix.addon }}
+        if: steps.changed.outputs.changed == 'true'
+        uses: home-assistant/hassio-builder@master
+        with:
+          args: |
+            --test \
+            --all \
+            --target /data/${{ matrix.addon }}

@@ -10,21 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     name: Initialize builds
     outputs:
-      files: ${{ steps.files.outputs.all }}
+      changed_files: ${{ steps.changed_files.outputs.all }}
     steps:
-      - name: Check out repository
+      - name: Check out the repository
         uses: actions/checkout@v2
 
-      - id: files
+      - name: Get changed files
+        id: changed_files
         uses: jitterbit/get-changed-files@v1
+
   build:
     needs: init
     runs-on: ubuntu-latest
     name: Build ${{ matrix.addon }} add-on
+    outputs:
+      changed: ${{ steps.changed.outputs.changed }}
     strategy:
       fail-fast: False
       matrix:
-        addon:
+        addon: 
           - ada
           - almond
           - cec_scan
@@ -47,20 +51,22 @@ jobs:
           - tellstick
           - zwave
     steps:
+      - name: Check if ${{ matrix.addon }} was changed
+        id: changed
+        run: |
+          if [[ "${{ needs.init.outputs.changed_files }}" =~ "${{ matrix.addon }}" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+
       - name: Check out repository
+        if: steps.changed.outputs.changed == 'true'
         uses: actions/checkout@v2
 
-      - name: Check build for ${{ matrix.addon }}
-        run: |
-          if [[ "${{ needs.init.outputs.files }}" =~ "${{ matrix.addon }}" ]]; then
-
-            # Test build the add-on
-            docker run --rm --privileged \
-            -v /var/run/docker.sock:/var/run/docker.sock:ro \
-            -v ${PWD}/${{ matrix.addon }}:/data homeassistant/amd64-builder --all --target /data --test
-
-            # Show the finished images
-            docker images
-          else
-            echo "Files for ${{ matrix.addon }} did not change, skipping build check"
-          fi
+      - name: Test docker build for ${{ matrix.addon }}
+        if: steps.changed.outputs.changed == 'true'
+        uses: home-assistant/hassio-builder@master
+        with:
+          args: |
+            --test \
+            --all \
+            --target /data/${{ matrix.addon }}

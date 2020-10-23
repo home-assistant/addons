@@ -64,7 +64,7 @@ jobs:
 
       - name: Test docker build for ${{ matrix.addon }}
         if: steps.changed.outputs.changed == 'true'
-        uses: home-assistant/hassio-builder@master
+        uses: home-assistant/builder@master
         with:
           args: |
             --test \

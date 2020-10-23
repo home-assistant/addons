@@ -229,4 +229,3 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [reddit]: https://reddit.com/r/homeassistant
 [vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/
 [vnc-service-url]: vnc://homeassistant.local:5900
-[firmware-update-issue]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually#update-in-docker

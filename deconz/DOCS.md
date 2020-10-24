@@ -89,17 +89,9 @@ settings.
 
 ## Upgrading RaspBee and ConBee firmware
 
-This add-on allows you to upgrade your firmware straight from the Phoscon
-web interface with ease.
-
-Go to "Settings -> Gateway" and click the upgrade button.
-
-However, some USB sticks (like the Aeotec Z-Wave sticks), can interfere with
-the upgrade process, causing the firmware upgrade to fail silently. If you end
-up with the same firmware version as before you started the upgrade, consider
-unplugging the other sticks and try again.
-
-If that is still not working, try [upgrading the firmware manually][manual-upgrade].
+Although the Phoscon web interface allows you to upgrade your firmware with ease
+it does not currently work from within the add-on. A [manual upgrade][manual-upgrade]
+method should be used instead.
 
 ## Using the deCONZ/Phoscon API with another add-on
 

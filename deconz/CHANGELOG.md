@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.4.1
+
+- Enable autoscale for ingress noVNC
+
 ## 6.4.0
 
 - Bump deCONZ to 2.05.84

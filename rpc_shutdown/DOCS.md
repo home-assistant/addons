@@ -64,7 +64,7 @@ Use the following inside Home Assistant service call to use it:
 
 ```yaml
 service: hassio.addon_stdin
-data:
+service_data:
   addon: core_rpc_shutdown
   input: test-pc
 ```

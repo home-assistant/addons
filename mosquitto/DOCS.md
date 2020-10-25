@@ -54,7 +54,7 @@ logins:
 
 ### Option: `anonymous`
 
-Allow anonymous connections. If logins are set, the anonymous user can only read data. Since version 4.1 of the add-on, an explicit ACL definition is required for anonymous connections [see these instructions](#access-control-lists-acls).
+Allow anonymous connections. If logins are set, the anonymous user can only read data. An explicit ACL definition is required for anonymous connections [see Access Control Lists (ACLs)](#access-control-lists-acls).
 
 Default value: `false`
 

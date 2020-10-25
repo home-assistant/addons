@@ -66,7 +66,7 @@ function cleanup_hass_data() {
 
 function cleanup_docker() {
     echo "Cleaning up stopped containers..."
-    docker rm $(docker ps -a -q)
+    docker rm "$(docker ps -a -q)"
 }
 
 function cleanup_lastboot() {

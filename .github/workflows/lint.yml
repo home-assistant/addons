@@ -2,6 +2,7 @@ name: Lint
 
 env:
   HADOLINT_VERSION: v1.17.2
+  SHELLCHECK_VERSION: "0.5.0"
   SHELLCHECK_OPTS: -e SC1008 -s bash
 
 on:
@@ -49,4 +50,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run linter
-        uses: ludeeus/action-shellcheck@master
+        uses: ludeeus/action-shellcheck@${{ env.SHELLCHECK_VERSION }}

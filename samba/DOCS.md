@@ -16,6 +16,21 @@ Follow these steps to get the add-on installed on your system:
 3. Start the add-on.
 4. Check the add-on log output to see the result.
 
+## Connection
+
+If you are on Windows you use `\\<IP_ADDRESS>\`, if you are on MacOS you use `smb://<IP_ADDRESS>` to connect to the shares.
+
+This addon exposes the folowing directories over smb (samba):
+
+Directory | Description
+-- | --
+`addons` | This is for your local add-ons.
+`backup` | This is for your snapshots.
+`config` | This is for your Home Assistant configuration.
+`media` | This is for local media files.
+`share` | This is for your data that is shared between add-ons and Home Assistant.
+`ssl` | This is for your SSL certificates.
+
 ## Configuration
 
 Add-on configuration:

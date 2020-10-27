@@ -70,15 +70,15 @@ The folder to read the additional configuration files (`*.conf`) from.
 
 ### Option: `cafile` (optional)
 
-A file containing a root certificate.
+A file containing a root certificate. Place this file in the Home Assistant `ssl` folder.
 
 ### Option: `certfile`
 
-A file containing a certificate, including its chain.
+A file containing a certificate, including its chain. Place this file in the Home Assistant `ssl` folder.
 
 ### Option: `keyfile`
 
-A file containing the private key.
+A file containing the private key. Place this file in the Home Assistant `ssl` folder.
 
 ### Option: `require_certificate`
 

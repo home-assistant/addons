@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.2
+
+- Rely on bashio to handle empty IPv4 / IPv6
+
 ## 1.12.1
 
 - Clean up dehydrated lock file at start also if no live cert exists

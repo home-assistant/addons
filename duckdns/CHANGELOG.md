@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.3
+
+- Dont set IPv4 / IPv6 in duckdns request if config is unset
+
 ## 1.12.2
 
 - Rely on bashio to handle empty IPv4 / IPv6

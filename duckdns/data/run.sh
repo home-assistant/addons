@@ -13,6 +13,9 @@ TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
 
+if [[ ${IPV4} == "null" ]]; then IPV4=""; fi
+if [[ ${IPV6} == "null" ]]; then IPV6=""; fi
+
 # Function that performe a renew
 function le_renew() {
     local domain_args=()

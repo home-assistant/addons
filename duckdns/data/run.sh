@@ -7,14 +7,11 @@ WORK_DIR=/data/workdir
 LE_UPDATE="0"
 
 # DuckDNS
-IPV4=$(bashio::config 'ipv4')
-IPV6=$(bashio::config 'ipv6')
+if bashio::config.has_value "ipv4"; then IPV4=$(bashio::config 'ipv4'); else IPV4=""; fi
+if bashio::config.has_value "ipv6"; then IPV6=$(bashio::config 'ipv4'); else IPV6=""; fi
 TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
-
-if [[ ${IPV4} == "null" ]]; then IPV4=""; fi
-if [[ ${IPV6} == "null" ]]; then IPV6=""; fi
 
 # Function that performe a renew
 function le_renew() {

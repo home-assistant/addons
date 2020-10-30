@@ -1,6 +1,6 @@
 {
   "name": "Duck DNS",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "slug": "duckdns",
   "description": "Free Dynamic DNS (DynDNS or DDNS) service with Let's Encrypt support",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/duckdns",

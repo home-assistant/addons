@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.4
+
+- Fix bug where IPv6 got the value of IPv4
+
 ## 1.12.3
 
 - Dont set IPv4 / IPv6 in duckdns request if config is unset

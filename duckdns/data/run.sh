@@ -8,7 +8,7 @@ LE_UPDATE="0"
 
 # DuckDNS
 if bashio::config.has_value "ipv4"; then IPV4=$(bashio::config 'ipv4'); else IPV4=""; fi
-if bashio::config.has_value "ipv6"; then IPV6=$(bashio::config 'ipv4'); else IPV6=""; fi
+if bashio::config.has_value "ipv6"; then IPV6=$(bashio::config 'ipv6'); else IPV6=""; fi
 TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')

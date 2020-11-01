@@ -38,7 +38,9 @@ hosts:
 
 The defaults are upstream DNS servers, where DNS requests that can't
 be handled locally, are forwarded to. By default it is configured to have
-Google's public DNS servers: `"8.8.8.8", "8.8.4.4".
+Google's public DNS servers: `"8.8.8.8", "8.8.4.4"`.
+
+Port can be specified using # separator, eg. `"192.168.1.2#1053"`
 
 ### Option: `forwards` (optional)
 
@@ -73,6 +75,25 @@ The hostname or domainname to resolve locally.
 #### Option: `hosts.ip`
 
 The IP address Dnsmasq should respond with in its DNS answer.
+
+### Example configuration with AdGuard:
+
+In order to use Dnsmasq alongside the [AdGuard addon](https://github.com/hassio-addons/addon-adguard-home) you will need to:
+1. Configure AdGuard to use a non-standard DNS port (eg.1053)
+2. Configure Dnsmasq to use AdGuard as a default gateway specifying the port with # separator
+
+*Assuming your local home assistant is running on IP `192.168.1.2`*
+```yaml
+defaults:
+  - '192.168.1.2#1053'
+forwards: []
+hosts:
+  - host: ha.home
+    ip: 192.168.1.2
+```
+
+
+
 
 ## Support
 

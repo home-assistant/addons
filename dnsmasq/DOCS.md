@@ -38,7 +38,9 @@ hosts:
 
 The defaults are upstream DNS servers, where DNS requests that can't
 be handled locally, are forwarded to. By default it is configured to have
-Google's public DNS servers: `"8.8.8.8", "8.8.4.4".
+Google's public DNS servers: `"8.8.8.8", "8.8.4.4"`.
+
+Port can be specified using # separator, eg. `"192.168.1.2#1053"`
 
 ### Option: `forwards` (optional)
 

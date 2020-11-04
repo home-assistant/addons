@@ -33,7 +33,7 @@ aliases: []
 seconds: 300
 ```
 
-[HTTP][HTTP] integration configuration in configuration.yaml:
+Additionally, you'll need to configure the Home Assistant Core to pick up the SSL certificates. This is done by setting the following configuration for the [HTTP][HTTP] integration configuration in your `configuration.yaml`:
 
 ```
 http:
@@ -140,4 +140,3 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [duckdns]: https://duckdns.org
 [duckdns-faq]: https://www.duckdns.org/faqs.jsp
 [HTTP]: https://www.home-assistant.io/integrations/http/
-

@@ -4,8 +4,11 @@
 # ==============================================================================
 export HC_DIRSFIRST
 export HC_ENFORCE_BASEPATH
+export HC_GIT
 export HC_HASS_API_PASSWORD
 export HC_IGNORE_PATTERN
+
+bashio::log.info "Starting Configurator run script"
 
 # If any SSH key files are defined in the configuration options, add them for use by git
 if bashio::config.has_value "ssh_keys"; then
@@ -27,6 +30,7 @@ fi
 # Setup and run configurator
 HC_DIRSFIRST=$(bashio::config 'dirsfirst')
 HC_ENFORCE_BASEPATH=$(bashio::config 'enforce_basepath')
+HC_GIT=$(bashio::config 'git')
 HC_HASS_API_PASSWORD="${SUPERVISOR_TOKEN}"
 HC_IGNORE_PATTERN="$(bashio::config 'ignore_pattern | join(",")')"
 

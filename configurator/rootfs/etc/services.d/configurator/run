@@ -8,8 +8,6 @@ export HC_GIT
 export HC_HASS_API_PASSWORD
 export HC_IGNORE_PATTERN
 
-bashio::log.info "Starting Configurator run script"
-
 # If any SSH key files are defined in the configuration options, add them for use by git
 if bashio::config.has_value "ssh_keys"; then
   # Start the SSH agent

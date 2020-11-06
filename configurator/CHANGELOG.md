@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.0
+
+- Add git option which allows disabling the (default) git initialization
+
 ## 5.1.0
 
 - Update base image to Alpine 3.12

@@ -33,6 +33,14 @@ aliases: []
 seconds: 300
 ```
 
+Additionally, you'll need to configure the Home Assistant Core to pick up the SSL certificates. This is done by setting the following configuration for the [HTTP][HTTP] integration configuration in your `configuration.yaml`:
+
+```yaml
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+```
+
 ### Option group `lets_encrypt`
 
 The following options are for the option group: `lets_encrypt`. These settings
@@ -131,3 +139,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [reddit]: https://reddit.com/r/homeassistant
 [duckdns]: https://duckdns.org
 [duckdns-faq]: https://www.duckdns.org/faqs.jsp
+[HTTP]: https://www.home-assistant.io/integrations/http/

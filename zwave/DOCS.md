@@ -94,6 +94,24 @@ The instance ID defaults to `1`, which is generally fine to keep and use.
 Only change this in case you are using multiple instances on the same MQTT
 server.
 
+### Option `config_dir` (optional)
+
+Set the path to the Device Database.
+
+To tweak configs in Device Database, or to test new configs, set to a directory under `/config`. 
+The latest Device Database will be automatically fetched to this directory by ozwdaemon.
+
+Defaults to `/data/ozw/config`
+
+### Option `user_dir` (optional)
+
+Change the path where Network Specific Cache/Config Files are stored.
+
+Set to a path under `/config` to make the Cache/Config files persistant and editable.
+This is helpful to tweak ozwcache_*.xml and to save node name persistantly (if the device doesn't support node name).
+
+Defaults to `/data/ozw/config`
+
 ## Accessing the ozw-admin application
 
 The add-on allows you to access the underlying ozw-admin application running

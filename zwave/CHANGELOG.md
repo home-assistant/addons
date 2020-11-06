@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1
+
+- Fix novnc "missing vnc_lite.html" build issue.
+- Map /config folder.
+- Make config-dir and user-dir configurable.
+
 ## 0.5.2
 
 - Rollback the docker image to 0.5.2.

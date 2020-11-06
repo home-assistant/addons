@@ -10,6 +10,7 @@ export OZW_NETWORK_KEY
 
 MQTT_PASSWORD="$(bashio::jq /data/auth.json '.ozw_password')"
 OZW_CONFIG=/data/ozw/config
+OZW_USER=/data/ozw/config
 OZW_DEVICE=$(bashio::config 'device')
 OZW_INSTANCE=1
 OZW_NETWORK_KEY=$(bashio::config 'network_key')
@@ -17,6 +18,14 @@ OZW_NETWORK_KEY=$(bashio::config 'network_key')
 # Set custom instance ID if configured
 if bashio::config.has_value 'instance'; then
     OZW_INSTANCE=$(bashio::config 'instance')
+fi
+
+# Set custom config_dir and user_dir
+if bashio::config.has_value 'config_dir'; then
+    OZW_CONFIG=$(bashio::config 'config_dir')
+fi
+if bashio::config.has_value 'user_dir'; then
+    OZW_USER=$(bashio::config 'user_dir')
 fi
 
 # Wait until mosqitto is up and running
@@ -37,7 +46,7 @@ cd /data/ozw || bashio::exit.nok "Could not change to OZW working directory"
 exec ozwdaemon \
     -s "${OZW_DEVICE}" \
     --config-dir "${OZW_CONFIG}" \
-    --user-dir "${OZW_CONFIG}" \
+    --user-dir "${OZW_USER}" \
     --mqtt-server 127.0.0.1 \
     --mqtt-port 1883 \
     --mqtt-username ozw \

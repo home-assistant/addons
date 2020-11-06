@@ -17,7 +17,10 @@ The add-on has a couple of options available. To get the add-on running:
 3. Check the add-on log output to see the result.
 
 Create a new user for MQTT via the **Configuration** -> **Users (manage users)**.
-Note: This name cannot be `homeassistant` or `addon`, those are reserved usernames.
+Notes:
+
+1. This name cannot be `homeassistant` or `addon`, those are reserved usernames.
+2. If you do not see the option to create a new user, ensure that **Advanced Mode** is enabled in your profile.
 
 To use the Mosquitto as a broker, go to the integration page and install the configuration with one click:
 

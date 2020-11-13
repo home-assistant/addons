@@ -6,7 +6,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install deCONZ dependencies
 ARG BUILD_ARCH
-RUN apt-get update \
+RUN \
+    set -x \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
         iproute2 \
@@ -59,7 +61,9 @@ RUN apt-get update \
 
 # Install deCONZ
 ARG DECONZ_VERSION
-RUN if [ "${BUILD_ARCH}" = "armhf" ]; \
+RUN \
+    set -x \
+    && if [ "${BUILD_ARCH}" = "armhf" ]; \
         then \
             curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/raspbian/stable/deconz-${DECONZ_VERSION}-qt5.deb; \
         elif [ "${BUILD_ARCH}" = "aarch64" ]; \

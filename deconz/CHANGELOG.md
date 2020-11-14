@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.5.1
+
+- Downgrade deCONZ to 2.05.84 since 2.05.88 is reportedly causing issues for several users.
+
 ## 6.5.0
 
 - Bump deCONZ to 2.05.88

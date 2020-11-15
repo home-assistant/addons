@@ -57,7 +57,7 @@ logins:
 
 ### Option: `anonymous`
 
-Allow anonymous connections. If logins are set, the anonymous user can only read data.
+Allow anonymous connections. The anonymous user can only read data. To enable anonymous users with write access [see these instructions](#access-control-lists-acls)
 
 Default value: `false`
 

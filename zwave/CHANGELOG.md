@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+- Fix vnc / ozwadmin
+- Update Openzwave to 1c7b620
+- Update qt-openzwave to 7ebd43e2
+
 ## 0.5.2
 
 - Rollback the docker image to 0.5.2.

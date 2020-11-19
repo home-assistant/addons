@@ -88,9 +88,9 @@ RUN \
     && git clone --depth 1 -b \
         v${NOVNC_VERSION} https://github.com/novnc/noVNC \
     && cd noVNC \
-    && mkdir -p /usr/share/noVNC \
+    && mkdir -p /usr/share/novnc \
     && rm -rf .git utils \
-    && cp -rf ./* /usr/share/noVNC/ \
+    && cp -rf ./* /usr/share/novnc/ \
     \
     && git clone --depth 1 -b \
         v${WEBSOCKIFY_VERSION} https://github.com/novnc/websockify \

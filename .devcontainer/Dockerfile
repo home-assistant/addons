@@ -1,4 +1,4 @@
-FROM debian
+FROM mcr.microsoft.com/vscode/devcontainers/base:debian-10
 
 WORKDIR /workspaces
 

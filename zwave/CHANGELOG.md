@@ -6,12 +6,6 @@
 - Update Openzwave to 1c7b620
 - Update qt-openzwave to 7ebd43e2
 
-## 0.5.2
-
-- Rollback the docker image to 0.5.2.
-- This is a temporary fix to solve problems with 0.5.3 - 0.6.0.
-- Remove this changelog item when the next version is released.
-
 ## 0.6.0
 
 - Fix vnc / ozwadmin

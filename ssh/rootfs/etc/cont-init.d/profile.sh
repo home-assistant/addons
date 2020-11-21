@@ -9,6 +9,14 @@ touch /data/.bash_history
 chmod 600 /data/.bash_history
 ln -s -f /data/.bash_history /root/.bash_history
 
+# Persist tmux configuration by redirecting .tmux.conf to /data
+if ! bashio::fs.file_exists /data/.tmux.conf; then
+    cp /root/.tmux.conf /data/.tmux.conf \
+	|| bashio::exit.nok 'Failed to create .tmux.conf file'
+
+fi
+ln -s -f /data/.tmux.conf /root/.tmux.conf
+
 # Make Home Assistant TOKEN available on the CLI
 echo "export SUPERVISOR_TOKEN=${SUPERVISOR_TOKEN}" >> /etc/profile.d/homeassistant.sh
 

@@ -55,58 +55,64 @@ function stop_docker() {
 }
 
 
-function install() {
-    docker pull homeassistant/amd64-hassio-supervisor:dev
-}
-
-function cleanup_hass_data() {
-    rm -rf /workspaces/test_hassio/{apparmor,backup,config.json,dns,dns.json,homeassistant,homeassistant.json,ingress.json,share,ssl,tmp,updater.json}
-    rm -rf /workspaces/test_hassio/addons/{core,data,git}
-}
-
-function cleanup_docker() {
-    echo "Cleaning up stopped containers..."
-    docker rm "$(docker ps -a -q)"
-}
-
 function cleanup_lastboot() {
-    if [[ -f /workspaces/test_hassio/config.json ]]; then
+    if [[ -f /tmp/supervisor_data/config.json ]]; then
         echo "Cleaning up last boot"
-        cp /workspaces/test_hassio/config.json /tmp/config.json
-        jq -rM 'del(.last_boot)' /tmp/config.json > /workspaces/test_hassio/config.json
+        cp /tmp/supervisor_data/config.json /tmp/config.json
+        jq -rM 'del(.last_boot)' /tmp/config.json > /tmp/supervisor_data/config.json
         rm /tmp/config.json
     fi
 }
 
+
+function cleanup_docker() {
+    echo "Cleaning up stopped containers..."
+    docker rm "$(docker ps -a -q)" || true
+}
+
 function run_supervisor() {
+    mkdir -p /tmp/supervisor_data
     docker run --rm --privileged \
         --name hassio_supervisor \
         --security-opt seccomp=unconfined \
         --security-opt apparmor:unconfined \
         -v /run/docker.sock:/run/docker.sock \
         -v /run/dbus:/run/dbus \
-        -v "/workspaces/test_hassio":/data \
+        -v /tmp/supervisor_data:/data \
+        -v "/workspaces/addons":/data/addons/local \
         -v /etc/machine-id:/etc/machine-id:ro \
-        -e SUPERVISOR_SHARE="/workspaces/test_hassio" \
+        -e SUPERVISOR_SHARE="/tmp/supervisor_data" \
         -e SUPERVISOR_NAME=hassio_supervisor \
         -e SUPERVISOR_DEV=1 \
         -e SUPERVISOR_MACHINE="qemux86-64" \
         homeassistant/amd64-hassio-supervisor:dev
 }
 
-case "$1" in
-    "--cleanup")
-        echo "Cleaning up old environment"
-        cleanup_docker || true
-        cleanup_hass_data || true
-        exit 0;;
-    *)
-        echo "Creating development Supervisor environment"
-        start_docker
-        trap "stop_docker" ERR
-        cleanup_docker || true
-        cleanup_lastboot || true
-        install
-        run_supervisor
-        stop_docker;; 
-esac
+function init_dbus() {
+    if pgrep dbus-daemon; then
+        echo "Dbus is running"
+        return 0
+    fi
+
+    echo "Startup dbus"
+    mkdir -p /var/lib/dbus
+    cp -f /etc/machine-id /var/lib/dbus/machine-id
+
+    # cleanups
+    mkdir -p /run/dbus
+    rm -f /run/dbus/pid
+
+    # run
+    dbus-daemon --system --print-address
+}
+
+echo "Start Test-Env"
+
+start_docker
+trap "stop_docker" ERR
+
+cleanup_lastboot
+cleanup_docker
+init_dbus
+run_supervisor
+stop_docker

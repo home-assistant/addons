@@ -3,19 +3,14 @@
 	"name": "Home Assistant Add-Ons",
 	"context": "..",
 	"dockerFile": "Dockerfile",
-	"appPort": "7123:8123",
-	"runArgs": [
-		"-e",
-		"GIT_EDITOR=code --wait",
-		"--privileged"
-	],
+	"appPort": ["7123:8123", "7357:4357"],
+    "postStartCommand": "service docker start",
+	"runArgs": ["-e", "GIT_EDITOR=code --wait", "--privileged"],
 	"extensions": [
 		"timonwong.shellcheck",
 		"esbenp.prettier-vscode"
 	],
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash"
-	},
-	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/test_hassio/addons/local,type=bind,consistency=delegated",
-	"workspaceFolder": "/workspaces/test_hassio/addons/local"
+	}
 }

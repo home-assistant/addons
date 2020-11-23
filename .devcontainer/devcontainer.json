@@ -3,7 +3,7 @@
 	"name": "Home Assistant Add-Ons",
 	"context": "..",
 	"dockerFile": "Dockerfile",
-	"appPort": ["7123:8123", "7358:4358"],
+	"appPort": ["7123:8123", "7357:4357"],
     "postStartCommand": "service docker start",
 	"runArgs": ["-e", "GIT_EDITOR=code --wait", "--privileged"],
 	"extensions": [

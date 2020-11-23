@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+
+- Fix timezone issue on Alpine
+
 ## 0.7.0
 
 - Fix vnc / ozwadmin

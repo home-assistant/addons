@@ -207,8 +207,7 @@ For security reasons, don't use your main account's credentials. Instead, add a 
 Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
 
 Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
-
-However, due to some shortcomings in Cloudflare’s implementation of Tokens, Tokens created for Certbot currently require `Zone:Zone:Read` and `Zone:DNS:Edit` permissions for all zones in your account.
+The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
 
 Example credentials file using restricted API Token (recommended):
 ```yaml

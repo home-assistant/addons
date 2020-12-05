@@ -24,6 +24,7 @@
       "active": false,
       "folder": "mosquitto"
     },
+    "log_types": ["error", "warning", "notice", "information"],
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "require_certificate": false
@@ -35,6 +36,7 @@
       "active": "bool",
       "folder": "str"
     },
+    "log_types": ["str"],
     "cafile": "str?",
     "certfile": "str",
     "keyfile": "str",

@@ -10,7 +10,6 @@ KEYFILE=$(jq --raw-output ".keyfile" $CONFIG_PATH)
 CERTFILE=$(jq --raw-output ".certfile" $CONFIG_PATH)
 CAFILE=$(jq --raw-output --exit-status ".cafile | select (.!=null)" $CONFIG_PATH || echo "$CERTFILE")
 REQUIRE_CERTIFICATE=$(jq --raw-output ".require_certificate" $CONFIG_PATH)
-LOG_TYPES=$(jq --raw-output ".log_types | length" $CONFIG_PATH)
 CUSTOMIZE_ACTIVE=$(jq --raw-output ".customize.active" $CONFIG_PATH)
 LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 HOMEASSISTANT_PW=
@@ -93,6 +92,11 @@ if [ "${LOGGING}" == "debug" ]; then
     sed -i "s/%%AUTH_QUIET_LOGS%%/false/g" /etc/mosquitto.conf
 else
     sed -i "s/%%AUTH_QUIET_LOGS%%/true/g" /etc/mosquitto.conf
+    if [ "${LOGGING}" == "critical" ] || [ "${LOGGING}" == "fatal" ] || [ "${LOGGING}" == "error" ]; then
+        sed -i -e "s/^log_type warning//" -e "s/^log_type notice//" -e "s/^log_type information//" /etc/mosquitto.conf
+    elif [ "${LOGGING}" == "warning" ] || [ "${LOGGING}" == "warn" ]; then
+        sed -i -e "s/^log_type notice//" -e "s/^log_type information//" /etc/mosquitto.conf
+    fi
 fi
 
 # Enable SSL if exists configs
@@ -106,17 +110,6 @@ fi
 if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
     CUSTOMIZE_FOLDER=$(jq --raw-output ".customize.folder" $CONFIG_PATH)
     sed -i "s|#include_dir .*|include_dir /share/$CUSTOMIZE_FOLDER|g" /etc/mosquitto.conf
-fi
-
-# Custom log level
-if [ "$LOG_TYPES" -gt "0" ]; then
-    bashio::log.info "Found custom log types inside config"
-    for (( i=0; i < "$LOG_TYPES"; i++ )); do
-        log_type="$(jq --raw-output ".log_types[$i]" $CONFIG_PATH)"
-        echo "log_type ${log_type}" >> /etc/mosquitto.conf
-    done
-else
-    bashio::log.info "No custom log types available"
 fi
 
 

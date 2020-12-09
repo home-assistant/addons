@@ -40,7 +40,6 @@ anonymous: false
 customize:
   active: false
   folder: mosquitto
-log_types: ["error", "warning", "notice", "information"]
 certfile: fullchain.pem
 keyfile: privkey.pem
 require_certificate: false
@@ -71,15 +70,6 @@ Default value: `false`
 #### Option: `customize.folder`
 
 The folder to read the additional configuration files (`*.conf`) from.
-
-### Option: `log_types` (optional)
-
-A list of log_type settigs for mosquitto. When not set, mosquitto defaults to "error, warning, notice and information". If a custom logging level is specifically desired:
-
-```yaml
-log_types:
-  - log_type
-```
 
 ### Option: `cafile` (optional)
 

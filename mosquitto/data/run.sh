@@ -112,7 +112,6 @@ if [ "$CUSTOMIZE_ACTIVE" == "true" ]; then
     sed -i "s|#include_dir .*|include_dir /share/$CUSTOMIZE_FOLDER|g" /etc/mosquitto.conf
 fi
 
-
 # Handle local users
 if [ "$LOGINS" -gt "0" ]; then
     bashio::log.info "Found local users inside config"

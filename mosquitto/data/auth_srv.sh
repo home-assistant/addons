@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 # shellcheck disable=SC2244,SC1117
+set +u
 set -e
 
 CONFIG_PATH=/data/options.json
@@ -97,10 +98,10 @@ password="$(get_var password)"
 
 # If local user
 if [ "${LOCAL_DB["${username}"]}" == "${password}" ]; then
-    echo "[INFO] found ${username} on local database" >&2
+    bashio::log.info "[INFO] found ${username} on local database"
     http_ok
 elif [ ${LOCAL_DB["${username}"]+_} ]; then
-    echo "[WARN] Not found ${username} on local database" >&2
+    bashio::log.warning "[WARN] Not found ${username} on local database"
     http_error
 fi
 
@@ -109,9 +110,9 @@ auth_header="X-Hassio-Key: ${HASSIO_TOKEN}"
 content_type="Content-Type: application/x-www-form-urlencoded"
 
 if curl -s -f -X POST -d "${REQUEST_BODY}" -H "${content_type}" -H "${auth_header}" http://hassio/auth > /dev/null; then
-    echo "[INFO] found ${username} on Home Assistant" >&2
+    bashio::log.info "[INFO] found ${username} on Home Assistant"
     http_ok
 fi
 
-echo "[ERROR] Auth error with ${username}" >&2
+bashio::log.error "[ERROR] Auth error with ${username}"
 http_error

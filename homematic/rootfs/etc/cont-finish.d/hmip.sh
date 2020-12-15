@@ -1,8 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Generate InterfacesList.xml
+# Backup hmip_address
 # ==============================================================================
-tempio \
-    -conf /data/options.json \
-    -template /usr/share/tempio/InterfacesList.xml \
-    -out /etc/config/InterfacesList.xml
+if bashio::config.true 'hmip_enable'; then
+    cp -f /etc/config/hmip_address.conf /data/ || bashio::log.warning "Failed to backup hmip address"
+fi

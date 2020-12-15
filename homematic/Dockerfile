@@ -19,7 +19,9 @@ ARG BUILD_ARCH
 
 # Install OCCU
 WORKDIR /usr/src
-RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | tar xzf - \
+RUN \
+    set -x \
+    && curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | tar xzf - \
     && cd occu-${OCCU_VERSION} \
     && mkdir -p \
         /boot \
@@ -74,15 +76,7 @@ RUN curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | 
     \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 
-ENV HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
+ENV \
+    HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
-# Update config files
-COPY data/config/* /opt/hm/etc/config/
-COPY data/nginx.conf /etc/nginx/nginx.conf
-
-# Setup start script
-COPY data/run.sh /
-COPY data/hm-firmware.sh data/hm-interface.sh /usr/lib/
-
-WORKDIR /data
-CMD [ "/run.sh" ]
+COPY rootfs /

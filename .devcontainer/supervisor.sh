@@ -4,6 +4,8 @@ set -eE
 DOCKER_TIMEOUT=30
 DOCKER_PID=0
 
+SUPERVISOR_VERSON="$(curl -s https://version.home-assistant.io/dev.json | jq -e -r '.supervisor')"
+
 
 function start_docker() {
     local starttime
@@ -85,7 +87,7 @@ function run_supervisor() {
         -e SUPERVISOR_NAME=hassio_supervisor \
         -e SUPERVISOR_DEV=1 \
         -e SUPERVISOR_MACHINE="qemux86-64" \
-        homeassistant/amd64-hassio-supervisor:dev
+        "homeassistant/amd64-hassio-supervisor:${SUPERVISOR_VERSON}"
 }
 
 function init_dbus() {

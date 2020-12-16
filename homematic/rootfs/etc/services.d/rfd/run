@@ -1,0 +1,10 @@
+#!/usr/bin/env bashio
+# ==============================================================================
+# Start HomeMatic RFD service
+# ==============================================================================
+if bashio::config.false 'rf_enable'; then
+    exec sleep infinity
+fi
+
+bashio::log.info "Starting rfd..."
+exec "/opt/hm/bin/rfd" -c -l 0 -f /opt/hm/etc/config/rfd.conf

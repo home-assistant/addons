@@ -77,6 +77,7 @@ RUN \
     && rm -rf /usr/src/occu-${OCCU_VERSION}
 
 ENV \
-    HM_HOME=/opt/hm LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
+    HM_HOME=/opt/hm \
+    LD_LIBRARY_PATH=/opt/hm/lib:${LD_LIBRARY_PATH}
 
 COPY rootfs /

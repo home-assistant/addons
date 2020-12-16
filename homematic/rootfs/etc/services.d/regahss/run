@@ -15,4 +15,4 @@ fi
 
 # Start Regahss
 bashio::log.info "Starting ReGaHss..."
-exec "${HM_HOME}/bin/ReGaHss" -c -f /etc/config/rega.conf
+exec "/opt/hm/bin/ReGaHss" -c -f /etc/config/rega.conf

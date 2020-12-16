@@ -29,7 +29,7 @@ echo 0 > /sys/class/gpio/gpio18/value || echo "Can't set default value!"
 sleep 0.5
 
 # Update Firmware
-if "${HM_HOME}/bin/eq3configcmd" update-coprocessor -lgw -u -rfdconf /etc/config/rfd.conf -l 1; then
+if "/opt/hm/bin/eq3configcmd" update-coprocessor -lgw -u -rfdconf /etc/config/rfd.conf -l 1; then
     bashio::log.info "RFd update was successful"
 else
     bashio::log.error "RFd update fails!"

@@ -1,5 +1,10 @@
 # Changelog
 
+## 11.0.2
+
+- Fix issue with library
+- Take container down on ReGaHss error
+
 ## 11.0.1
 
 - Small cleanup with s6-overlay

@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.1
+
+- Small cleanup with s6-overlay
+
 ## 11.0.0
 
 - Migrate to s6-overlay & tempio

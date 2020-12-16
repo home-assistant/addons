@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.6.1
+
+- Small cleanup with s6-overlay
+
 ## 6.6.0
 
 - Bump deCONZ to 2.7.1

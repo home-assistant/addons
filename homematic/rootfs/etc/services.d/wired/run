@@ -1,0 +1,10 @@
+#!/usr/bin/env bashio
+# ==============================================================================
+# Start HomeMatic wired service
+# ==============================================================================
+if bashio::config.false 'wired_enable'; then
+    exec sleep infinity
+fi
+
+bashio::log.info "Starting wired..."
+exec "/opt/hm/bin/hs485d" -g -i 0 -f /opt/hm/etc/config/hs485d.conf

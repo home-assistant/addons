@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.3
+
+- Fix Ingress path
+
 ## 11.0.2
 
 - Fix issue with library

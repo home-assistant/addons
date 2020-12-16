@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.4
+
+- Fix template for hmip
+
 ## 11.0.3
 
 - Fix Ingress path

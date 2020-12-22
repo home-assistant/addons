@@ -33,6 +33,7 @@ domain: home.example.com
 certfile: fullchain.pem
 keyfile: privkey.pem
 hsts: "max-age=31536000; includeSubDomains"
+listen_parameters: http2
 customize:
   active: false
   default: "nginx_proxy_default*.conf"
@@ -55,6 +56,10 @@ Private key file to use in the `/ssl` directory.
 ### Option: `hsts` (required)
 
 Value for the [`Strict-Transport-Security`][hsts] HTTP header to send. If empty, the header is not sent.
+
+### Option `listen_parameters` (required)
+
+Additional `listen` parameters for secured connections (ssl, port 443). Default value is `http2`.
 
 ### Option `customize.active` (required)
 

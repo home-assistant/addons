@@ -84,7 +84,7 @@ function constrain_discovery() {
 }
 
 ## Main ##
-bashio::log.level ${LOGGING}
+bashio::log.level "${LOGGING}"
 
 bashio::log.info "Setup mosquitto configuration"
 sed -i "s/%%ANONYMOUS%%/$ANONYMOUS/g" /etc/mosquitto.conf

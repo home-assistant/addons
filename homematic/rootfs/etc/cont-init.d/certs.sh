@@ -1,10 +1,5 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Download available firmware update for IKEA
+# Configure NGINX for use with ReGaHss
 # ==============================================================================
-
-# Start OTA updates for deCONZ
-bashio::log.info "Running the deCONZ OTA updater..."
-deCONZ-otau-dl.sh &> /dev/null
-
-exec sleep 259200
+openssl req -new -x509 -nodes -keyout /etc/config/server.pem -out /etc/config/server.pem -days 3650 -subj "/C=DE/O=HomeMatic/OU=Hass.io/CN=$(hostname)"

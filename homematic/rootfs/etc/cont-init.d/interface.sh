@@ -1,10 +1,8 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Download available firmware update for IKEA
+# Generate InterfacesList.xml
 # ==============================================================================
-
-# Start OTA updates for deCONZ
-bashio::log.info "Running the deCONZ OTA updater..."
-deCONZ-otau-dl.sh &> /dev/null
-
-exec sleep 259200
+tempio \
+    -conf /data/options.json \
+    -template /usr/share/tempio/InterfacesList.xml \
+    -out /etc/config/InterfacesList.xml

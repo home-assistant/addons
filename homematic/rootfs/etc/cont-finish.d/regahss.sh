@@ -1,10 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Download available firmware update for IKEA
+# Store RegaHss data
 # ==============================================================================
 
-# Start OTA updates for deCONZ
-bashio::log.info "Running the deCONZ OTA updater..."
-deCONZ-otau-dl.sh &> /dev/null
-
-exec sleep 259200
+echo "load tclrega.so; rega system.Save()" | "/opt/hm/bin/tclsh" 2> /dev/null || true

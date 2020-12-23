@@ -1,10 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Download available firmware update for IKEA
+# Start light httpd service
 # ==============================================================================
-
-# Start OTA updates for deCONZ
-bashio::log.info "Running the deCONZ OTA updater..."
-deCONZ-otau-dl.sh &> /dev/null
-
-exec sleep 259200
+bashio::log.info "Initialize webinterface routing..."
+exec lighttpd-angel -D -f "/opt/hm/etc/lighttpd/lighttpd.conf"

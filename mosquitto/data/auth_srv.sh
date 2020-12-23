@@ -7,6 +7,7 @@ CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 REQUEST=()
 REQUEST_BODY=""
+LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
 
 declare -A LOCAL_DB
 
@@ -82,6 +83,7 @@ function get_var() {
 
 
 ## MAIN ##
+bashio::log.level ${LOGGING}
 
 read_request
 

@@ -83,7 +83,7 @@ function get_var() {
 
 
 ## MAIN ##
-bashio::log.level ${LOGGING}
+bashio::log.level "${LOGGING}"
 
 read_request
 

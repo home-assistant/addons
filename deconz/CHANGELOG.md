@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.6.2
+
+- Fixes issues where the `otau` directory was not excluded from snapshots
+
 ## 6.6.1
 
 - Small cleanup with s6-overlay

@@ -1,5 +1,10 @@
 # Changelog
 
+## 11.0.5
+
+- Skip HmIP firmware update for udev path
+- Persist certificate
+
 ## 11.0.4
 
 - Fix template for hmip

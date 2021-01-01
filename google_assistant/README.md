@@ -6,9 +6,9 @@ A virtual personal assistant developed by Google.
 
 ## About
 
-[Google Assistant][google-assistant] is an AI-powered voice assistant that runs on the Raspberry Pi and x86 platforms and interact via the [DialogFlow][dialogflow-integration] integration with Home-Assistant.  You can also use [Google Actions][google-actions] to extend its functionality.
+[Google Assistant][google-assistant] is an AI-powered voice assistant that runs on the Raspberry Pi and x86 platforms and interact via the [DialogFlow][dialogflow-integration] integration with Home-Assistant. You can also use [Google Actions][google-actions] to extend its functionality.
 
-This add-on allows you to access Google Assistant using the microphone and speaker attached to the computer or device running Home Assistant.  You can simply say "Ok Google" followed by your command, and Google Assistant will answer your request.
+This add-on allows you to access Google Assistant using the microphone and speaker attached to the computer or device running Home Assistant. You can say "Ok Google" followed by your command, and Google Assistant will answer your request.
 
 ## ℹ️ Integration your mobile or Google/Nest Home with Home Assistant
 

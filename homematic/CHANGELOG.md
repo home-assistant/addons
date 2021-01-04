@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.6
+
+- Persist groups
+
 ## 11.0.5
 
 - Skip HmIP firmware update for udev path

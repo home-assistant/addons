@@ -31,7 +31,7 @@ RUN \
         /opt/HMServer \
         /var/status \
     \
-    && echo "VERSION=${CCU_VERSION}" > /boot/VERSION \
+    && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
     && cp /boot/VERSION /VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
     \
@@ -71,7 +71,7 @@ RUN \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
     \
-    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${CCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
+    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${OCCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \
     \

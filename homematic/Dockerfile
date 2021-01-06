@@ -15,14 +15,13 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OCCU_VERSION
-ARG CCU_VERSION
 ARG BUILD_ARCH
 
 # Install OCCU
 WORKDIR /usr/src
 RUN \
     set -x \
-    && curl -SL https://github.com/jens-maus/occu/archive/${OCCU_VERSION}.tar.gz | tar xzf - \
+    && curl -SL https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz | tar xzf - \
     && cd occu-${OCCU_VERSION} \
     && mkdir -p \
         /boot \
@@ -32,7 +31,7 @@ RUN \
         /opt/HMServer \
         /var/status \
     \
-    && echo "VERSION=${CCU_VERSION}" > /boot/VERSION \
+    && echo "VERSION=${OCCU_VERSION}" > /boot/VERSION \
     && cp /boot/VERSION /VERSION \
     && ln -s /opt/hm/etc/config /etc/config \
     \
@@ -60,14 +59,19 @@ RUN \
     && sed -i "s|/etc/lighttpd/||" /opt/hm/etc/lighttpd/conf.d/proxy.conf \
     \
     && cd ../ \
+    \
     && cp -r firmware / \
+    && mv /firmware/HmIP-RFUSB/hmip_coprocessor_update.eq3 /firmware/HmIP-RFUSB/hmip_coprocessor_update-2.8.6.eq3 \
+    && sed -i "s/hmip_coprocessor_update.eq3/hmip_coprocessor_update-2.8.6.eq3/" /firmware/HmIP-RFUSB/fwmap \
+    && sed -i "s/2.8.4/2.8.6/" /firmware/HmIP-RFUSB/fwmap \
+    \
     && cp -R HMserver/opt/HmIP/* /opt/HmIP/ \
     && cp -a HMserver/opt/HMServer/*.jar /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/groups /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/measurement /opt/HMServer/ \
     && cp -R HMserver/opt/HMServer/pages /opt/HMServer/ \
     \
-    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${CCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
+    && sed -i "s/WEBUI_VERSION = \".*\"/WEBUI_VERSION = \"${OCCU_VERSION}\"/" WebUI/www/rega/pages/index.htm \
     && cp -R WebUI/* / \
     && ln -s /www /opt/hm/www \
     \

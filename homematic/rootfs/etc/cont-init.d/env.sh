@@ -19,4 +19,4 @@ touch /data/userprofiles/userAckInstallWizard_Admin
 
 # Persist
 ln -s /data/userprofiles /etc/config/userprofiles
-ln -s /data/groups.gson /opt/hm/etc/config/groups.gson
+ln -s /data/groups.gson /etc/config/groups.gson

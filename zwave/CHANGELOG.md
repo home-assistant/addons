@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0
+
+- Update OpenZWave to 66619ed
+- Update ozw-admin to f68b43e
+
+
 ## 0.7.1
 
 - Fix timezone issue on Alpine

@@ -8,6 +8,13 @@ Follow these steps to get the add-on installed on your system:
 2. Find the "Git pull" add-on and click it.
 3. Click on the "INSTALL" button.
 
+## WARNING
+
+Risk of complete loss is possible.  Prior to starting this add-on, ensure a copy 
+of your Home Assistant configuration files exists in the Github repository.  Otherwise, 
+your local machine configuration folder will be overwritten with an empty configuration 
+folder and you will need to restore from a backup.
+
 ## How to use
 
 In the configuration section, set the repository field to your repository's

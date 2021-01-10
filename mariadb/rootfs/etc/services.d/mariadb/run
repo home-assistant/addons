@@ -37,7 +37,7 @@ mysqlcheck --no-defaults --all-databases --skip-database=mysql --check --check-u
 bashio::log.info "Ensuring internal database upgrades are performed"
 mysql_upgrade --silent
 
-# Set default secure values after inital setup
+# Set default secure values after initial setup
 if bashio::var.true "${NEW_INSTALL}"; then
     # Secure the installation.
     mysql <<-EOSQL

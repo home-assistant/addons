@@ -51,7 +51,7 @@ RUN \
     \
     && cp -R packages-eQ-3/WebUI/bin /opt/hm/ \
     && cp -R packages-eQ-3/WebUI/lib /opt/hm/ \
-    && rm -rf packages-eQ-3/WebUI/etc/config* packages-eQ-3/WebUI/ect/rega.conf \
+    && rm -rf packages-eQ-3/WebUI/etc/config* packages-eQ-3/WebUI/etc/rega.conf \
     && mv /opt/hm/bin/ReGaHss.normal /opt/hm/bin/ReGaHss \
     && rm -f /opt/hm/bin/ReGaHss.* \
     && cp -R packages-eQ-3/WebUI/etc/* /opt/hm/etc/ \

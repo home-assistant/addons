@@ -422,6 +422,8 @@ dns:
 ```
 </details>
 
+One final note:  While using the FQDN has been tested and works, at least one user reports that using the FQDN for the server did not work for them.  It worked fine when they changed the configuration to use the server IP address.
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.

@@ -10,8 +10,8 @@ Follow these steps to get the add-on installed on your system:
 
 ## WARNING
 
-Risk of complete loss is possible.  Prior to starting this add-on, ensure a copy 
-of your Home Assistant configuration files exists in the Github repository.  Otherwise, 
+The risk of complete loss is possible. Prior to starting this add-on, ensure a copy
+of your Home Assistant configuration files exists in the Github repository. Otherwise, 
 your local machine configuration folder will be overwritten with an empty configuration 
 folder and you will need to restore from a backup.
 

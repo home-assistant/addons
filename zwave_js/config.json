@@ -1,6 +1,6 @@
 {
   "name": "ZWave JS",
-  "version": "0.7.1",
+  "version": "0.1.0",
   "slug": "zwave_js",
   "description": "Control a ZWave network with Home Assistant Nextgen",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],

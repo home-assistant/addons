@@ -1,0 +1,13 @@
+{
+    "logConfig": {
+        "enabled": true,
+        "level": 4,
+        "forceConsole": true
+    },
+    "storage": {
+        "driver": "FileSystem",
+        "cacheDir": "/data/cache",
+        "throttle": "slow"
+    },
+    "networkKey": "{{ .network_key }}"
+}

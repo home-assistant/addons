@@ -1,5 +1,9 @@
 # Changelog
 
+##
+
+- Cleanup permissions
+
 ## 0.7.1
 
 - Fix timezone issue on Alpine

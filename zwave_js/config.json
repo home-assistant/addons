@@ -1,26 +1,20 @@
 {
-  "name": "OpenZWave",
+  "name": "ZWave JS",
   "version": "0.7.1",
-  "slug": "zwave",
-  "description": "Control a ZWave network with Home Assistant",
+  "slug": "zwave_js",
+  "description": "Control a ZWave network with Home Assistant Nextgen",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave",
-  "ingress": true,
-  "ingress_entry": "vnc_lite.html",
-  "panel_icon": "mdi:z-wave",
-  "panel_title": "OpenZWave",
   "startup": "services",
   "boot": "auto",
   "init": false,
   "stage": "experimental",
-  "homeassistant": "0.110.0.dev",
+  "homeassistant": "2021.2.0.dev20210118",
   "ports": {
-    "1983/tcp": null,
-    "5900/tcp": null
+    "3000/tcp": null
   },
   "ports_description": {
-    "1983/tcp": "ozw-admin port",
-    "5900/tcp": "VNC port"
+    "3000/tcp": "Zwave JS communication"
   },
   "services": ["mqtt:want"],
   "discovery": ["ozw"],
@@ -32,7 +26,7 @@
   "schema": {
     "device": "str",
     "network_key": "password",
-    "instance": "int(1,)?"
+    "emulate_hardware": "bool?"
   },
-  "image": "homeassistant/{arch}-addon-zwave"
+  "image": "homeassistant/{arch}-addon-zwave_js"
 }

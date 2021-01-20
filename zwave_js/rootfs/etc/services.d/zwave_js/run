@@ -1,0 +1,17 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start OpenZWave service for zwave radio
+# ==============================================================================
+# shellcheck disable=SC1091
+SERIAL_DEVICE=$(bashio::config 'device')
+
+# Emulate serial Hardware for test & development
+if bashio::config.true 'emulate_hardware'; then
+    SERIAL_DEVICE="--mock"
+fi
+
+# Send out discovery information to Home Assistant
+./discovery &
+
+# Run daemon
+exec ts-node /usr/src/zwavejs/src/bin/server.ts ${SERIAL_DEVICE} --config /etc/zwave_config.json

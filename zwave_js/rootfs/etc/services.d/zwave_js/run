@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start OpenZWave service for zwave radio
+# Start Z-Wave JS service for Z-Wave radio
 # ==============================================================================
 SERIAL_DEVICE=$(bashio::config 'device')
 

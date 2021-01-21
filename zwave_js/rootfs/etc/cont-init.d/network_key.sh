@@ -16,7 +16,7 @@ if [[ "${DOCS_EXAMPLE_KEY}" == "$(bashio::config 'network_key')" ]]; then
     bashio::log.fatal 'create your own, secret, "network_key" and replace'
     bashio::log.fatal 'the one you have configured.'
     bashio::log.fatal
-    bashio::log.fatal 'Click on the "Documentation" tab in the OpenZWave'
+    bashio::log.fatal 'Click on the "Documentation" tab in the Z-Wave JS'
     bashio::log.fatal 'add-on panel for more information.'
     bashio::log.fatal
     bashio::exit.nok

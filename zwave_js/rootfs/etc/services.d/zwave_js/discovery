@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Send ozw discovery information to Home Assistant
+# Send zwave_js discovery information to Home Assistant
 # ==============================================================================
 declare ha_config
 

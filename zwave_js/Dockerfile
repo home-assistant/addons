@@ -17,8 +17,7 @@ RUN \
         python3 \
     \
     && npm config set unsafe-perm \
-    && npm install -g typescript@4.1.3 \
-    && npm install -g zwave-js/server@${ZWAVEJS_SERVER_VERSION} \
+    && npm install -g @zwave-js/server@${ZWAVEJS_SERVER_VERSION} \
     \
     && apk del --no-cache \
         .build-dependencies

@@ -1,4 +1,4 @@
-# Home Assistant Add-on: ZWave JS
+# Home Assistant Add-on: Z-Wave JS
 
 Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 

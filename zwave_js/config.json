@@ -1,10 +1,10 @@
 {
-  "name": "ZWave JS",
+  "name": "Z-Wave JS",
   "version": "0.1.0",
   "slug": "zwave_js",
   "description": "Control a ZWave network with Home Assistant Nextgen",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
-  "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave",
+  "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave_js",
   "startup": "services",
   "boot": "auto",
   "init": false,
@@ -14,7 +14,7 @@
     "3000/tcp": null
   },
   "ports_description": {
-    "3000/tcp": "Zwave JS communication"
+    "3000/tcp": "Z-Wave JS communication"
   },
   "services": ["mqtt:want"],
   "discovery": ["ozw"],

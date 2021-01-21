@@ -1,14 +1,12 @@
-# Home Assistant Add-on: Zwave JS
+# Home Assistant Add-on: Z-Wave JS
 
 ## Installation
 
 Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
-2. Find the "Zwave JS" add-on and click it.
+2. Find the "Z-Wave JS" add-on and click it.
 3. Click on the "INSTALL" button.
-4. This add-on currently requires to have the Mosquitto add-on installed.
-   Please make sure to install and set up that add-on before continuing.
 
 ## How to use
 
@@ -30,11 +28,9 @@ change if other devices are added to the system.
    are not added securely.
 3. Click on "SAVE" to save the add-on configuration.
 4. Start the add-on.
-5. Add the OpenZWave integration to Home Assistant, see documentation:
-   <https://www.home-assistant.io/integrations/ozw>
+5. Add the Z-Wave JS integration to Home Assistant, see documentation:
+   <https://www.home-assistant.io/integrations/zwave_js>
 
-After installing and starting this add-on, access the ozw-admin interface using
-the "OPEN WEBUI" button.
 
 ## Configuration
 
@@ -90,7 +86,7 @@ If you don't have a USB stick, you can use a fake stick.
 
 ## Known issues and limitations
 
-- Your hardware needs to be compatible with Zwave JS library
+- Your hardware needs to be compatible with Z-Wave JS library
 
 ## Support
 
@@ -108,5 +104,3 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[vnc-service-url]: vnc://homeassistant.local:5900
-[vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/

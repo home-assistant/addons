@@ -25,7 +25,7 @@ else
     bashio::log.debug "Found device! Location: ${DECONZ_DEVICE}"
 fi
 
-# VNC is not enabled as a seperate service, as it cannot handle multiple
+# VNC is not enabled as a separate service, as it cannot handle multiple
 # session when running in the foreground.
 VNC_PORT="$(bashio::addon.port 5900)"
 ARCH="$(bashio::info.arch)"

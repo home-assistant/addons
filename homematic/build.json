@@ -4,7 +4,6 @@
     "i386": "homeassistant/i386-base-debian:bullseye"
   },
   "args": {
-    "OCCU_VERSION": "3.55.5-1",
-    "CCU_VERSION": "3.55.5"
+    "OCCU_VERSION": "3.55.5"
   }
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+##
+
+- Migrate OCCU back to EQ3
+- Use Home helper again
+
 ## 11.0.6
 
 - Persist groups

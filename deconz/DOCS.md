@@ -179,7 +179,7 @@ fails to communicate new settings to Home Assistant.
 
 This can be solved by the following steps:
 
-1. Backup you deCONZ data, by going into the Web UI, from the menu choose:
+1. Backup your deCONZ data, by going into the Web UI, from the menu choose:
   **Settings** -> **Gateway** -> **Backup Option** button, next create
   a new backup and download it onto your computer.
 2. Uninstall the add-on.

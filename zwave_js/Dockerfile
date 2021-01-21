@@ -3,7 +3,7 @@ FROM ${BUILD_FROM}
 
 ARG ZWAVEJS_SERVER_VERSION
 
-# Install QT Open Z-Wave 
+# Install Z-Wave JS 
 WORKDIR /usr/src
 RUN \
     set -x \

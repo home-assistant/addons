@@ -6,7 +6,6 @@
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave_js",
   "startup": "services",
-  "boot": "auto",
   "init": false,
   "stage": "experimental",
   "homeassistant": "2021.2.0.dev20210118",

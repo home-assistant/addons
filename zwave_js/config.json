@@ -15,7 +15,6 @@
   "ports_description": {
     "3000/tcp": "Z-Wave JS communication"
   },
-  "services": ["mqtt:want"],
   "discovery": ["ozw"],
   "auto_uart": true,
   "options": {

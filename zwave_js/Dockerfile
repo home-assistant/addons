@@ -17,12 +17,7 @@ RUN \
         python3 \
     \
     && npm install -g typescript \
-    && npm install -g ts-node \
-    \
-    && git clone --depth 1 -b \
-        ${ZWAVEJS_SERVER_VERSION} https://github.com/zwave-js/zwave-js-server /usr/src/zwavejs-server \
-    && cd /usr/src/zwavejs-server \
-    && npm install \
+    && npm install -g --production @zwave-js/server@${ZWAVEJS_SERVER_VERSION} \
     \
     && apk del --no-cache \
         .build-dependencies

@@ -13,4 +13,4 @@ fi
 ./discovery &
 
 # Run daemon
-exec ts-node /usr/src/zwavejs/src/bin/server.ts ${SERIAL_DEVICE} --config /etc/zwave_config.json
+exec zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json

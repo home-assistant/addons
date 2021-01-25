@@ -7,7 +7,7 @@ CONFIG_PATH=/data/options.json
 SYSTEM_USER=/data/system_user.json
 REQUEST=()
 REQUEST_BODY=""
-LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
+LOGGING=$(bashio::info.logging)
 
 declare -A LOCAL_DB
 

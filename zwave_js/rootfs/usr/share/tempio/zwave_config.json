@@ -1,7 +1,7 @@
 {
     "logConfig": {
         "enabled": true,
-        "level": {{ if eq .logging "debug" }}5{{ else }}2{{ endif }},
+        "level": {{ if eq .logging "debug" }}5{{ else }}2{{ end }},
         "forceConsole": true
     },
     "storage": {

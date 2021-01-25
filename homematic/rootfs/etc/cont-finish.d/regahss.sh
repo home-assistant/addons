@@ -3,4 +3,4 @@
 # Store RegaHss data
 # ==============================================================================
 
-echo "load tclrega.so; rega system.Save()" | "/opt/hm/bin/tclsh" 2> /dev/null || true
+echo "load tclrega.so; rega system.Save()" | "${HM_HOME}/bin/tclsh" 2> /dev/null || true

@@ -10,10 +10,13 @@ mkdir -p /data/rfd
 mkdir -p /data/hs485d
 mkdir -p /data/userprofiles
 
-ln -s /data/userprofiles /etc/config/userprofiles
-
 # Init files
+touch /data/groups.json
 touch /data/hmip_user.conf
 touch /data/rega_user.conf
 touch /data/homematic.regadom
 touch /data/userprofiles/userAckInstallWizard_Admin
+
+# Persist
+ln -s /data/userprofiles /etc/config/userprofiles
+ln -s /data/groups.gson /etc/config/groups.gson

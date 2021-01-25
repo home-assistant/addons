@@ -1,5 +1,19 @@
 # Changelog
 
+##
+
+- Migrate OCCU back to EQ3
+- Use Home helper again
+
+## 11.0.6
+
+- Persist groups
+
+## 11.0.5
+
+- Skip HmIP firmware update for udev path
+- Persist certificate
+
 ## 11.0.4
 
 - Fix template for hmip

@@ -15,8 +15,8 @@ else
 fi
 
 # Redirect log output
-rm -f /data/databases/mariadb.err
-ln -s /proc/1/fd/1 /data/databases/mariadb.err
+rm -f "${MARIADB_DATA}/mariadb.err"
+ln -s /proc/1/fd/1 "${MARIADB_DATA}/mariadb.err"
 
 # Start mariadb
 bashio::log.info "Starting MariaDB"
@@ -37,7 +37,7 @@ mysqlcheck --no-defaults --all-databases --skip-database=mysql --check --check-u
 bashio::log.info "Ensuring internal database upgrades are performed"
 mysql_upgrade --silent
 
-# Set default secure values after inital setup
+# Set default secure values after initial setup
 if bashio::var.true "${NEW_INSTALL}"; then
     # Secure the installation.
     mysql <<-EOSQL

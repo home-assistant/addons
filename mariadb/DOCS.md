@@ -69,7 +69,7 @@ Example Home Assistant configuration:
 
 ```yaml
 recorder:
-  db_url: mysql://homeassistant:password@core-mariadb/homeassistant?charset=utf8
+  db_url: mysql://homeassistant:password@core-mariadb/homeassistant?charset=utf8mb4
 ```
 
 ## Support

@@ -34,6 +34,7 @@ fi
 # Generate config
 bashio::var.json \
     network_key "${network_key}" \
+    logging "$(bashio::info.logging)" \
     | tempio \
         -template /usr/share/tempio/zwave_config.json \
         -out /etc/zwave_config.json

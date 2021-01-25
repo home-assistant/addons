@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Generate Zwave JS config file
+# Generate Z-Wave JS config file
 # ==============================================================================
 declare network_key
 
@@ -35,6 +35,5 @@ fi
 bashio::var.json \
     network_key "${network_key}" \
     | tempio \
-        -conf /data/options.json \
-        -template /usr/share/tempio/zwave_config.conf \
-        -out /etc/zwave_config.conf
+        -template /usr/share/tempio/zwave_config.json \
+        -out /etc/zwave_config.json

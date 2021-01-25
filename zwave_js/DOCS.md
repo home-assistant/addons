@@ -63,7 +63,9 @@ Security Z-Wave devices require a network key before being added to the network.
 You must set the `network_key` configuration option to use a network key before
 adding these devices.
 
-To generate a network key, you can use the following script in, e.g., the SSH
+If you don't add an network key, it will autogenerate this for you.
+
+To generate a network key manual, you can use the following script in, e.g., the SSH
 add-on:
 
 ```bash

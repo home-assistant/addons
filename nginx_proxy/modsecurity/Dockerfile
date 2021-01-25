@@ -1,15 +1,15 @@
-ARG NGINX_VER=1.16.1
 ARG BUILD_FROM
 
-FROM nginx:${NGINX_VER}-alpine as build_modsecurity
+FROM ${BUILD_FROM}
 
+ARG NGINX_VERSION=1.16.1
 ARG MODSEC_BRANCH=v3.0.4
 ARG OWASP_BRANCH=v3.3/master
 
 WORKDIR /opt
 
 # Install dependencies; includes dependencies required for compile-time options:
-# curl, libxml, pcre, and Modsec
+# curl, libxml, pcre, and lmdb and Modsec
 RUN echo "Installing Dependencies" && \
     apk add --no-cache --virtual general-dependencies \
     autoconf \
@@ -50,16 +50,17 @@ RUN echo "Installing ModSec Library" && \
 RUN echo 'Cloning Modsec Nginx Connector and ModSec OWASP Rules' && \
     git clone -b master --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git && \
     git clone -b ${OWASP_BRANCH} --depth 1 https://github.com/coreruleset/coreruleset.git /usr/local/owasp-modsecurity-crs && \
-    wget -O - https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz | tar -xz
+    wget -O - https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -xz
 
 # Install ModSecurity Nginx modules
 RUN echo 'Installing Nginx Modules' && \
-    (cd "/opt/nginx-$NGINX_VERSION" && \
+    (cd "/opt/nginx-${NGINX_VERSION}" && \
         ./configure --with-compat \
             --add-dynamic-module=../ModSecurity-nginx && \
         make modules \
     ) && \
-    cp /opt/nginx-$NGINX_VERSION/objs/ngx_http_modsecurity_module.so \
+    mkdir -p /usr/lib/nginx/modules && \
+    cp /opt/nginx-${NGINX_VERSION}/objs/ngx_http_modsecurity_module.so \
         /usr/lib/nginx/modules/ && \
     rm -fr /opt/* && \
     apk del general-dependencies

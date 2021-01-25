@@ -1,10 +1,14 @@
 # Changelog
 
+## 0.9.0
+
+- Update OpenZWave to ee90c89
+- Cleanup permissions
+
 ## 0.8.0
 
 - Update OpenZWave to 66619ed
 - Update ozw-admin to f68b43e
-
 
 ## 0.7.1
 

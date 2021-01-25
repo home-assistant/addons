@@ -5,7 +5,6 @@
         "forceConsole": true
     },
     "storage": {
-        "driver": "FileSystem",
         "cacheDir": "/data/cache",
         "throttle": "slow"
     },

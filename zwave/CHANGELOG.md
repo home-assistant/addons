@@ -1,7 +1,8 @@
 # Changelog
 
-##
+## 0.9.0
 
+- Update OpenZWave to ee90c89
 - Cleanup permissions
 
 ## 0.8.0

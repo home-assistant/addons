@@ -38,7 +38,7 @@ Add-on configuration:
 
 ```yaml
 device: /dev/ttyUSB0
-network_key: 0x2e, 0xcc, 0xab, 0x1c, 0xa3, 0x7f, 0x0e, 0xb5, 0x70, 0x71, 0x2d, 0x98, 0x25, 0x43, 0xee, 0x0c
+network_key: 2232666D100F795E5BB17F0A1BB7A146
 ```
 
 ### Option `device`
@@ -67,11 +67,10 @@ To generate a network key, you can use the following script in, e.g., the SSH
 add-on:
 
 ```bash
-cat /dev/urandom | tr -dc '0-9A-F' | fold -w 32 | head -n 1 | sed -e 's/\(..\)/0x\1, /g' -e 's/, $//'
+hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random
 ```
 
-You can also use sites like this one to generate the required data,
-just remember to put `0x` before each pair of characters:
+You can also use sites like this one to generate the required data:
 
 <https://www.random.org/cgi-bin/randbyte?nbytes=16&format=h>
 

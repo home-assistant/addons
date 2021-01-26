@@ -23,7 +23,7 @@
   },
   "schema": {
     "device": "str",
-    "network_key": "password",
+    "network_key": "match(|[0-9a-fA-F]{32,32})",
     "emulate_hardware": "bool?"
   },
   "image": "homeassistant/{arch}-addon-zwave_js"

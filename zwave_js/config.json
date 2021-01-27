@@ -8,7 +8,7 @@
   "startup": "services",
   "init": false,
   "stage": "experimental",
-  "homeassistant": "2021.2.0.dev20210118",
+  "homeassistant": "2021.2.0b0",
   "ports": {
     "3000/tcp": null
   },

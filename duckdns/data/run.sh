@@ -32,7 +32,7 @@ function le_renew() {
 
     bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
 
-    for domain in $(echo ${domains} ${aliases} | tr ' ' '\n' | sort | uniq); do
+    for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
         domain_args+=("--domain" "${domain}")
     done
 

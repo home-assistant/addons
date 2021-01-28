@@ -12,6 +12,7 @@ DOMAIN=$(bashio::config 'domain')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 HSTS=$(bashio::config 'hsts')
+SECURITY_MODE=$(bashio::config 'security_mode')
 
 # Generate dhparams
 if ! bashio::fs.file_exists "${DHPARAMS_PATH}"; then
@@ -63,6 +64,9 @@ if bashio::config.true 'customize.active'; then
     CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')
     sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
 fi
+
+# Configure ModSecurity run mode
+sed -i "s/%%SECURITY_MODE%%/$SECURITY_MODE/g" /etc/nginx/modsec/modsecurity.conf
 
 # start server
 bashio::log.info "Running nginx..."

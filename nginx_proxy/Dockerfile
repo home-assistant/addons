@@ -7,12 +7,11 @@ FROM $BUILD_FROM
 
 # Setup base
 RUN apk add --no-cache \
-    curl-dev \
     geoip \
-    libmaxminddb-dev \
+    libmaxminddb \
     libstdc++ \
-    libxml2-dev \
-    lmdb-dev \
+    libxml2 \
+    lmdb \
     yajl \
     nginx \
     openssl \

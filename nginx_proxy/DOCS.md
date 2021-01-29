@@ -38,7 +38,7 @@ customize:
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
-modsecurity_mode: DetectionOnly
+security_mode: DetectionOnly
 ```
 
 ### Option: `domain` (required)
@@ -74,7 +74,7 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
 
-### Option `security_mode` (optional)
+### Option `security_mode` (required)
 
 Controls the behavior of ModSecurity web application firewall. Allowed values are:
 `DetectionOnly` - (default) process security rules and log detections but never executes any disruptive actions (block, deny, drop)

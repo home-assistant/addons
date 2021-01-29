@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.6.3
+
+- Use hostname for discovery instead of IP
+
 ## 6.6.2
 
 - Fixes issues where the `otau` directory was not excluded from snapshots

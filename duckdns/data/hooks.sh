@@ -13,6 +13,7 @@ SYS_KEYFILE=$(jq --raw-output '.lets_encrypt.keyfile' $CONFIG_PATH)
 deploy_challenge() {
     local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}" ALIAS
     ALIAS="$(jq --raw-output --exit-status "[.aliases[]|{(.domain):.alias}]|add.\"$DOMAIN\"" $CONFIG_PATH)" || ALIAS="$DOMAIN"
+    ALIAS="$(echo "$ALIAS" | awk -F. -e '/.duckdns.org$/ { print $(NF-2) }')"
 
     # This hook is called once for every domain that needs to be
     # validated, including any alternative names you may have listed.
@@ -37,6 +38,7 @@ deploy_challenge() {
 clean_challenge() {
     local DOMAIN="${1}" TOKEN_FILENAME="${2}" TOKEN_VALUE="${3}" ALIAS
     ALIAS="$(jq --raw-output --exit-status "[.aliases[]|{(.domain):.alias}]|add.\"$DOMAIN\"" $CONFIG_PATH)" || ALIAS="$DOMAIN"
+    ALIAS="$(echo "$ALIAS" | awk -F. -e '/.duckdns.org$/ { print $(NF-2) }')"
 
     # This hook is called after attempting to validate each domain,
     # whether or not validation was successful. Here you can delete

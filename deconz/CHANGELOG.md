@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.6.4
+
+- Fix errors with new Supervisor as transit update
+
 ## 6.6.3
 
 - Use hostname for discovery instead of IP

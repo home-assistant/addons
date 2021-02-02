@@ -13,7 +13,6 @@ if bashio::config.has_value 'authorized_keys'; then
     done <<< "$(bashio::config 'authorized_keys')"
 
     chmod 600 /data/.ssh/authorized_keys
-    sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config
 
     # Unlock account
     PASSWORD="$(pwgen -s 64 1)"
@@ -23,14 +22,13 @@ elif bashio::config.has_value 'password'; then
 
     PASSWORD=$(bashio::config 'password')
     echo "root:${PASSWORD}" | chpasswd 2&> /dev/null
-
-    sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ yes/ /etc/ssh/sshd_config
-    sed -i s/#PermitEmptyPasswords.*/PermitEmptyPasswords\ no/ /etc/ssh/sshd_config
 elif bashio::var.has_value "$(bashio::addon.port 22)"; then
     bashio::exit.nok "You need to setup a login!"
 fi
 
-# Allow TCP forwarding
-if bashio::config.true 'server.tcp_forwarding'; then
-    sed -i "s/AllowTcpForwarding.*/AllowTcpForwarding\\ yes/" /etc/ssh/sshd_config
-fi
+# Generate config
+mkdir -p /etc/ssh
+tempio \
+    -conf /data/options.json \
+    -template /usr/share/tempio/sshd_config \
+    -out /etc/ssh/sshd_config

@@ -8,7 +8,7 @@
   },
   "args": {
     "CLI_VERSION": "4.10.0",
-    "LIBWEBSOCKETS_VERSION": "v4.1.4",
+    "LIBWEBSOCKETS_VERSION": "4.1.4",
     "TTYD_VERSION": "1.6.3"
   }
 }

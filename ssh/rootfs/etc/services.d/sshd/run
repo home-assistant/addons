@@ -6,7 +6,7 @@
 # If SSH is disabled, use a fake sleep process
 if ! bashio::var.has_value "$(bashio::addon.port 22)"; then
     bashio::log.warning "SSH port is disabled. Prevent start of SSH server." 
-    exec sleep 864000
+    exec sleep infinity
 fi
 
 bashio::log.info "Starting the SSH daemon..."

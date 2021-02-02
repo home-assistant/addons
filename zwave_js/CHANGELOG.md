@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Bump Z-Wave JS Server to 1.0.0-beta.3
+
 ## 0.1.2
 
 - Bump Z-Wave JS Server to 1.0.0-beta.2

@@ -35,5 +35,5 @@
       "tcp_forwarding": "bool"
     }
   },
-  "_image": "homeassistant/{arch}-addon-ssh"
+  "image": "homeassistant/{arch}-addon-ssh"
 }

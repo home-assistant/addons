@@ -3,6 +3,10 @@
 # Start udevd service
 # ==============================================================================
 
+if bashio::fs.directory_exists /run/udev; then
+    exec sleep infinity
+fi
+
 # Triggers udev reload in the background
 ./trigger &
 

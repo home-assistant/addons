@@ -78,10 +78,11 @@ function run_supervisor() {
         --name hassio_supervisor \
         --security-opt seccomp=unconfined \
         --security-opt apparmor:unconfined \
-        -v /run/docker.sock:/run/docker.sock \
-        -v /run/dbus:/run/dbus \
-        -v /tmp/supervisor_data:/data \
-        -v "/workspaces/addons":/data/addons/local \
+        -v /run/docker.sock:/run/docker.sock:rw \
+        -v /run/dbus:/run/dbus:ro \
+        -v /run/udev:/run/udev:ro \
+        -v /tmp/supervisor_data:/data:rw \
+        -v "/workspaces/addons":/data/addons/local:rw \
         -v /etc/machine-id:/etc/machine-id:ro \
         -e SUPERVISOR_SHARE="/tmp/supervisor_data" \
         -e SUPERVISOR_NAME=hassio_supervisor \
@@ -108,6 +109,23 @@ function init_dbus() {
     dbus-daemon --system --print-address
 }
 
+function init_udev() {
+    if pgrep systemd-udevd; then
+        echo "udev is running"
+        return 0
+    fi
+
+    echo "Startup udev"
+
+    # cleanups
+    mkdir -p /run/udev
+
+    # run
+    /lib/systemd/systemd-udevd --daemon
+    sleep 3
+    udevadm trigger && udevadm settle
+}
+
 echo "Start Test-Env"
 
 start_docker
@@ -118,5 +136,6 @@ docker system prune -f
 cleanup_lastboot
 cleanup_docker
 init_dbus
+init_udev
 run_supervisor
 stop_docker

@@ -36,7 +36,7 @@
       "default": "str",
       "servers": "str"
     },
-    "security_mode": "str"
+    "security_mode": "list(DetectionOnly|On|Off)"
   },
   "image": "homeassistant/{arch}-addon-nginx_proxy"
 }

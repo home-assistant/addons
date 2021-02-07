@@ -16,6 +16,7 @@
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
     "hosts": []
+    "srv-hosts": []
   },
   "schema": {
     "defaults": ["str"],
@@ -29,6 +30,15 @@
       {
         "host": "str",
         "ip": "str"
+      }
+    ],
+    "srv-hosts": [
+      {
+        "srv": "str",
+        "host": "str",
+        "port": "str",
+        "priority": "int",
+        "weight": "int"
       }
     ]
   },

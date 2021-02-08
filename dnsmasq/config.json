@@ -40,6 +40,11 @@
         "priority": "int",
         "weight": "int"
       }
+    ],
+    "extra-options": [
+      {
+          "option": "str"
+      }
     ]
   },
   "image": "homeassistant/{arch}-addon-dnsmasq"

@@ -37,6 +37,13 @@ for srvhost in $(bashio::config 'srv-hosts|keys'); do
     echo "srv-host=${SRV},${HOST},${PORT},${PRIORITY},${WEIGHT}" >> "${CONFIG}"
 done
 
+# Create extra dnsmasq options
+for extra in $(bashio::config 'extra-options|keys'); do
+    DNSMASQ_EXTRA_OPTION=$(bashio::config "extra-options[${extra}].option")
+
+    echo "${DNSMASQ_EXTRA_OPTION}" >> "${CONFIG}"
+done
+
 # Run dnsmasq
 bashio::log.info "Starting dnsmasq..."
 exec dnsmasq -C "${CONFIG}" -z < /dev/null

@@ -7,7 +7,6 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
   "stdin": true,
-  "boot": "auto",
   "usb": true,
   "options": {
     "devices": [

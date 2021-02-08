@@ -10,7 +10,6 @@
   "panel_icon": "mdi:z-wave",
   "panel_title": "OpenZWave",
   "startup": "services",
-  "boot": "auto",
   "init": false,
   "stage": "experimental",
   "homeassistant": "0.110.0.dev",

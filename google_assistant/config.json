@@ -5,7 +5,6 @@
   "description": "A virtual personal assistant developed by Google",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/google_assistant",
   "startup": "application",
-  "boot": "auto",
   "arch": ["armhf", "armv7", "amd64"],
   "init": false,
   "advanced": true,

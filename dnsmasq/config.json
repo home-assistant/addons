@@ -7,7 +7,6 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "advanced": true,
   "startup": "system",
-  "boot": "auto",
   "ports": {
     "53/tcp": 53,
     "53/udp": 53

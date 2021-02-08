@@ -7,7 +7,6 @@
   "arch": ["armv7", "i386"],
   "map": ["share:rw"],
   "startup": "system",
-  "boot": "auto",
   "timeout": 15,
   "gpio": true,
   "apparmor": false,

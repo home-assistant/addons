@@ -6,7 +6,6 @@
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/ada",
   "arch": ["armhf", "armv7", "amd64"],
   "init": false,
-  "startup": "application",
   "audio": true,
   "homeassistant": "0.102.0",
   "homeassistant_api": true,

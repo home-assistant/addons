@@ -5,7 +5,6 @@
   "description": "An SSL/TLS proxy",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
-  "startup": "application",
   "ports": {
     "80/tcp": null,
     "443/tcp": 443

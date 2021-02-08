@@ -1,6 +1,6 @@
 {
   "name": "OpenZWave",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
@@ -10,7 +10,6 @@
   "panel_icon": "mdi:z-wave",
   "panel_title": "OpenZWave",
   "startup": "services",
-  "boot": "auto",
   "init": false,
   "stage": "experimental",
   "homeassistant": "0.110.0.dev",
@@ -24,13 +23,12 @@
   },
   "services": ["mqtt:want"],
   "discovery": ["ozw"],
-  "auto_uart": true,
   "options": {
     "device": null,
     "network_key": ""
   },
   "schema": {
-    "device": "str",
+    "device": "device(subsystem=tty)",
     "network_key": "password",
     "instance": "int(1,)?"
   },

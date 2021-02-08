@@ -7,7 +7,6 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "advanced": true,
   "startup": "system",
-  "boot": "auto",
   "host_network": true,
   "options": {
     "default_lease": 86400,

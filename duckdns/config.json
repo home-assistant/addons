@@ -6,7 +6,6 @@
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/duckdns",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
-  "boot": "auto",
   "map": ["ssl:rw"],
   "options": {
     "lets_encrypt": {

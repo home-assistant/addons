@@ -6,12 +6,10 @@
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/configurator",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "homeassistant": "0.91.1",
-  "startup": "application",
   "init": false,
   "ingress": true,
   "panel_icon": "mdi:wrench",
   "homeassistant_api": true,
-  "boot": "auto",
   "map": ["backup:rw", "config:rw", "media:rw", "share:rw", "ssl:rw"],
   "options": {
     "dirsfirst": false,

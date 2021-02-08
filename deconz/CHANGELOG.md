@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.6.5
+
+- Update hardware configuration for Supervisor 2021.02.5
+
 ## 6.6.4
 
 - Fix errors with new Supervisor as transit update

@@ -1,9 +1,10 @@
 # Changelog
 
-##
+## 11.1.0
 
 - Migrate OCCU back to EQ3
 - Use Home helper again
+- Update hardware configuration for Supervisor 2021.02.5
 
 ## 11.0.6
 

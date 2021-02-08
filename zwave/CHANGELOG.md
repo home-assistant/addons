@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+
+- Update hardware configuration for Supervisor 2021.02.5
+
 ## 0.9.0
 
 - Update OpenZWave to ee90c89

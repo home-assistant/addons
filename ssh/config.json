@@ -16,7 +16,7 @@
   "hassio_api": true,
   "hassio_role": "manager",
   "audio": true,
-  "auto_uart": true,
+  "uart": true,
   "ports": {
     "22/tcp": null
   },

@@ -1,16 +1,20 @@
 # Changelog
 
-## 2.0
+## 2.0.1
+
+- Update hardware configuration for Supervisor 2021.02.5
+
+## 2.0.0
 
 - Rewrites add-on onto Bashio
 - Added documentation to the add-on repository
 - Code formatting
 
-## 1.0
+## 1.0.0
 
 - Update base image
 
-## 0.5
+## 0.5.0
 
 - Added possibility for config options:
   protocols: comen, fineoffset, mandolyn, oregon

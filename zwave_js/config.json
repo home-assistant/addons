@@ -16,13 +16,12 @@
     "3000/tcp": "Z-Wave JS communication"
   },
   "discovery": ["zwave_js"],
-  "auto_uart": true,
   "options": {
     "device": null,
     "network_key": ""
   },
   "schema": {
-    "device": "str",
+    "device": "device(subsystem=tty)",
     "network_key": "match(|[0-9a-fA-F]{32,32})",
     "emulate_hardware": "bool?"
   },

@@ -38,6 +38,9 @@ srv-hosts:
     port: 389
     priority: 0
     weight: 100
+extra-options:
+  - option: "domain=mydomain.io"
+  - option: "mx-host=mx.mydomain.io"
 ```
 
 ### Option: `defaults` (required)
@@ -105,6 +108,14 @@ The priority for the service.
 #### Option: `srv-hosts.weight`
 
 The weight for the service.
+
+### Option: `extra-options` (optional)
+
+This option allows you to provide additional [DNSMASQ options](https://linux.die.net/man/8/dnsmasq).
+
+#### Option: `extra-options.option`
+
+The DNSMASQ option to add.
 
 ## Support
 

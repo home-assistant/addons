@@ -85,27 +85,27 @@ The hostname or domainname to resolve locally.
 
 The IP address Dnsmasq should respond with in its DNS answer.
 
-### Option: `srv-hosts` (optional)
+### Option: `services` (optional)
 
 This option allows you to provide srv-host records.
 
-#### Option: `srv-hosts.srv`
+#### Option: `services.srv`
 
 The service to resolve.
 
-#### Option: `srv-hosts.host`
+#### Option: `services.host`
 
 The host that contain the service.
 
-#### Option: `srv-hosts.port`
+#### Option: `services.port`
 
 The port number for the service.
 
-#### Option: `srv-hosts.priority`
+#### Option: `services.priority`
 
 The priority for the service.
 
-#### Option: `srv-hosts.weight`
+#### Option: `services.weight`
 
 The weight for the service.
 

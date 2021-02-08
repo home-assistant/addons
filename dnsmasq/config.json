@@ -32,7 +32,7 @@
         "ip": "str"
       }
     ],
-    "srv-hosts": [
+    "services": [
       {
         "srv": "str",
         "host": "str",

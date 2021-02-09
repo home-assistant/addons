@@ -27,7 +27,7 @@
     "ipv4": "str?",
     "ipv6": "str?",
     "token": "str",
-    "domains": ["match(.+\.duckdns\.org)"],
+    "domains": ["match(.+\\.duckdns\\.org)"],
     "aliases": [
       {"domain": "str", "alias": "str"}
     ],

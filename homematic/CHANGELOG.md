@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.2.0
+
+- Update OCCU to 3.55.10
+
 ## 11.1.0
 
 - Migrate OCCU back to EQ3

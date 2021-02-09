@@ -28,7 +28,10 @@
   "options": {
     "rf_enable": false,
     "wired_enable": false,
-    "hmip_enable": false
+    "hmip_enable": false,
+    "rf": [],
+    "wired": [],
+    "hmip": []
   },
   "schema": {
     "rf_enable": "bool",

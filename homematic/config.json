@@ -27,8 +27,11 @@
   },
   "options": {
     "rf_enable": false,
+    "rf": [],
     "wired_enable": false,
-    "hmip_enable": false
+    "wired": [],
+    "hmip_enable": false,
+    "hmip": []
   },
   "schema": {
     "rf_enable": "bool",

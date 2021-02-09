@@ -21,7 +21,7 @@
     "network_key": ""
   },
   "schema": {
-    "device": "device(subsystem=tty)",
+    "device": "str",
     "network_key": "match(|[0-9a-fA-F]{32,32})",
     "emulate_hardware": "bool?"
   },

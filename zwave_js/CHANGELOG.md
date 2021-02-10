@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+
+- Update zwave-js to version 6.2.0
+
 ## 0.1.5
 
 - Update hardware configuration for Supervisor 2021.02.5

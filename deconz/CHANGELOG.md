@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.7.0
+
+- Bump deCONZ to 2.9.3
+
 ## 6.6.5
 
 - Update hardware configuration for Supervisor 2021.02.5

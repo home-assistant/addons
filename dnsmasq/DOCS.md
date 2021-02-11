@@ -32,13 +32,13 @@ forwards:
 hosts:
   - host: home.mydomain.io
     ip: 192.168.1.10
-srv-hosts:
+services:
   - srv: _ldap._tcp.pdc._msdcs.mydomain.io
     host: dc.mydomain.io
     port: 389
     priority: 0
     weight: 100
-extra-options:
+extra_options:
   - option: "domain=mydomain.io"
   - option: "mx-host=mx.mydomain.io"
 ```

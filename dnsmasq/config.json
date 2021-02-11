@@ -16,7 +16,8 @@
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
     "hosts": [],
-    "srv-hosts": []
+    "services": [],
+    "extra_options": []
   },
   "schema": {
     "defaults": ["str"],
@@ -41,7 +42,7 @@
         "weight": "int"
       }
     ],
-    "extra-options": [
+    "extra_options": [
       {
           "option": "str"
       }

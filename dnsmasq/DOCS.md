@@ -109,11 +109,11 @@ The priority for the service.
 
 The weight for the service.
 
-### Option: `extra-options` (optional)
+### Option: `extra_options` (optional)
 
 This option allows you to provide additional [DNSMASQ options](https://linux.die.net/man/8/dnsmasq).
 
-#### Option: `extra-options.option`
+#### Option: `extra_options.option`
 
 The DNSMASQ option to add.
 

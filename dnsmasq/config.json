@@ -16,8 +16,7 @@
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
     "hosts": [],
-    "services": [],
-    "extra_options": []
+    "services": []
   },
   "schema": {
     "defaults": ["str"],
@@ -40,11 +39,6 @@
         "port": "str",
         "priority": "int",
         "weight": "int"
-      }
-    ],
-    "extra_options": [
-      {
-          "option": "str"
       }
     ]
   },

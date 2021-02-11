@@ -38,9 +38,6 @@ services:
     port: 389
     priority: 0
     weight: 100
-extra_options:
-  - option: "domain=mydomain.io"
-  - option: "mx-host=mx.mydomain.io"
 ```
 
 ### Option: `defaults` (required)
@@ -108,14 +105,6 @@ The priority for the service.
 #### Option: `services.weight`
 
 The weight for the service.
-
-### Option: `extra_options` (optional)
-
-This option allows you to provide additional [DNSMASQ options](https://linux.die.net/man/8/dnsmasq).
-
-#### Option: `extra_options.option`
-
-The DNSMASQ option to add.
 
 ## Support
 

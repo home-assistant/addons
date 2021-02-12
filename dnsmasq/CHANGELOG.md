@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4
+
+- Adds support for srv-host records
+
 ## 1.3
 
 - Rewrites add-on onto Bashio

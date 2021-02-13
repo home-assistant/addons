@@ -35,4 +35,5 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
 
   /run.sh rix,
   /data/** r,
+  /usr/share/tempio/dnsmasq.config r,
 }

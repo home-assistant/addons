@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+CONFIG="/etc/dnsmasq.conf"
+
+# Run dnsmasq
+bashio::log.info "Starting dnsmasq..."
+exec dnsmasq -C "${CONFIG}" -z < /dev/null
+

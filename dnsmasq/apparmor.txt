@@ -32,8 +32,4 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   /etc/cont-finish.d/** rwix,
 
   /run/** rwk,
-
-  /run.sh rix,
-  /data/** r,
-  /usr/share/tempio/dnsmasq.config r,
 }

@@ -32,12 +32,6 @@ forwards:
 hosts:
   - host: home.mydomain.io
     ip: 192.168.1.10
-services:
-  - srv: _ldap._tcp.pdc._msdcs.mydomain.io
-    host: dc.mydomain.io
-    port: 389
-    priority: 0
-    weight: 100
 ```
 
 ### Option: `defaults` (required)
@@ -81,30 +75,6 @@ The hostname or domainname to resolve locally.
 #### Option: `hosts.ip`
 
 The IP address Dnsmasq should respond with in its DNS answer.
-
-### Option: `services` (optional)
-
-This option allows you to provide srv-host records.
-
-#### Option: `services.srv`
-
-The service to resolve.
-
-#### Option: `services.host`
-
-The host that contain the service.
-
-#### Option: `services.port`
-
-The port number for the service.
-
-#### Option: `services.priority`
-
-The priority for the service.
-
-#### Option: `services.weight`
-
-The weight for the service.
 
 ## Support
 

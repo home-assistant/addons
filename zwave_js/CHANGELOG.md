@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+
+- Bump Z-Wave JS Server to 1.0.0-beta.6
+
 ## 0.1.6
 
 - Update zwave-js to version 6.2.0

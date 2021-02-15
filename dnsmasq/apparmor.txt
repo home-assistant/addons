@@ -21,7 +21,7 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   /usr/sbin/dnsmasq cx,
 }
 
-profile /usr/bin/socat flags=(attach_disconnected,mediate_deleted) {
+profile /usr/sbin/dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 

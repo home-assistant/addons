@@ -25,11 +25,15 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   /dev/tty rw,
   /tmp/* rw,
 
+  # S6-Overlay
+  /bin/** ix,
+  /usr/bin/** ix,
+  /usr/lib/bashio/** ix,
   /etc/s6/** ix,
   /run/s6/** ix,
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
-  /etc/cont-finish.d/** rwix,
+  /etc/cont-finish.d/** rwix
 
   /run/** rwk,
 }

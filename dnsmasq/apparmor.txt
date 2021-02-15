@@ -2,28 +2,8 @@
 
 profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
-
-  capability net_bind_service,
-  capability setgid,
-  capability setuid,
-  capability dac_override,
-  network inet raw,
-  network inet6 raw,
-
-  /bin/busybox ix,
-  /bin/bash ix,
-  /usr/bin/jq ix,
-  /usr/sbin/dnsmasq ix,
-
-  /etc/dnsmasq.conf rw,
-  /{,var/}run/*dnsmasq*.pid w,
-  /{,var/}run/dnsmasq/ r,
-  /{,var/}run/dnsmasq/* rw,
 
   /usr/lib/bashio/bashio ix,
-  /dev/tty rw,
-  /tmp/* rw,
 
   # S6-Overlay
   /bin/** ix,
@@ -35,5 +15,26 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   /etc/cont-init.d/** rwix,
   /etc/cont-finish.d/** rwix
 
-  /run/** rwk,
+  # Data access
+  /data/** rw,
+
+  /usr/sbin/dnsmasq cx,
+}
+
+profile /usr/bin/socat flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+  capability dac_override,
+  network inet raw,
+  network inet6 raw,
+
+  /etc/dnsmasq.conf rw,
+  /run/*dnsmasq*.pid w,
+  /run/dnsmasq/ r,
+  /run/dnsmasq/* rw,
+  /tmp/* rw,
 }

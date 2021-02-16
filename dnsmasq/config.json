@@ -1,6 +1,6 @@
 {
   "name": "Dnsmasq",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "slug": "dnsmasq",
   "description": "A simple DNS server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/dnsmasq",

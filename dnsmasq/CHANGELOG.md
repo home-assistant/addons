@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3
+
+- Fix signal handling
+
 ## 1.4.2
 
 - Second run for AppArmor profile

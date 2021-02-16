@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.4
+
+- Make it align to our base profile
+
 ## 1.4.3
 
 - Fix signal handling

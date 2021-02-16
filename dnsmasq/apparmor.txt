@@ -2,29 +2,38 @@
 
 profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
 
-  capability net_bind_service,
-  capability setgid,
-  capability setuid,
-  capability dac_override,
-  network inet raw,
-  network inet6 raw,
+  # S6-Overlay & Bashio
+  /bin/** ix,
+  /usr/bin/** ix,
+  /usr/lib/bashio/** ix,
+  /etc/s6/** ix,
+  /run/s6/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix
 
-  /bin/busybox ix,
-  /bin/bash ix,
-  /usr/bin/jq ix,
-  /usr/sbin/dnsmasq ix,
+  # Data access
+  /data/** rw,
 
-  /etc/dnsmasq.conf rw,
-  /{,var/}run/*dnsmasq*.pid w,
-  /{,var/}run/dnsmasq/ r,
-  /{,var/}run/dnsmasq/* rw,
+  # Execution program
+  /usr/sbin/dnsmasq cx,
 
-  /usr/lib/bashio/bashio ix,
-  /dev/tty rw,
-  /tmp/* rw,
+  profile /usr/sbin/dnsmasq flags=(attach_disconnected,mediate_deleted) {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
 
-  /run.sh rix,
-  /data/** r,
+    capability net_bind_service,
+    capability setgid,
+    capability setuid,
+    capability dac_override,
+    network inet raw,
+    network inet6 raw,
+
+    /etc/dnsmasq.conf rw,
+    /run/*dnsmasq*.pid w,
+    /run/dnsmasq/ r,
+    /run/dnsmasq/* rw,
+    /tmp/* rw,
+  }
 }

@@ -19,7 +19,7 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   # Execution program
   /usr/sbin/dnsmasq cx,
 
-  profile /usr/sbin/dnsmasq {
+  profile /usr/sbin/dnsmasq flags=(attach_disconnected,mediate_deleted) {
     #include <abstractions/base>
     #include <abstractions/nameservice>
 

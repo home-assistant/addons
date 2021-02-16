@@ -3,9 +3,7 @@
 profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
-  /usr/lib/bashio/bashio ix,
-
-  # S6-Overlay
+  # S6-Overlay & Bashio
   /bin/** ix,
   /usr/bin/** ix,
   /usr/lib/bashio/** ix,
@@ -18,23 +16,24 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   # Data access
   /data/** rw,
 
+  # Execution program
   /usr/sbin/dnsmasq cx,
-}
 
-profile /usr/sbin/dnsmasq flags=(attach_disconnected,mediate_deleted) {
-  #include <abstractions/base>
-  #include <abstractions/nameservice>
+  profile /usr/sbin/dnsmasq {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
 
-  capability net_bind_service,
-  capability setgid,
-  capability setuid,
-  capability dac_override,
-  network inet raw,
-  network inet6 raw,
+    capability net_bind_service,
+    capability setgid,
+    capability setuid,
+    capability dac_override,
+    network inet raw,
+    network inet6 raw,
 
-  /etc/dnsmasq.conf rw,
-  /run/*dnsmasq*.pid w,
-  /run/dnsmasq/ r,
-  /run/dnsmasq/* rw,
-  /tmp/* rw,
+    /etc/dnsmasq.conf rw,
+    /run/*dnsmasq*.pid w,
+    /run/dnsmasq/ r,
+    /run/dnsmasq/* rw,
+    /tmp/* rw,
+  }
 }

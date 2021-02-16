@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2
+
+- Second run for AppArmor profile
+
 ## 1.4.1
 
 - Fix AppArmor profile

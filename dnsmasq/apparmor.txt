@@ -3,19 +3,22 @@
 profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
+  file,
+
   # S6-Overlay & Bashio
   /init rix,
   /bin/** ix,
   /usr/bin/** ix,
   /usr/lib/bashio/** ix,
-  /etc/s6/** ix,
-  /run/s6/** ix,
+  /etc/s6/** rix,
+  /run/s6/** rwix,
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
-  /etc/cont-finish.d/** rwix
+  /etc/cont-finish.d/** rwix,
 
   # Data access
   /data/** rw,
+  /run/** rwk,
 
   # Execution program
   /usr/sbin/dnsmasq cx,
@@ -31,10 +34,12 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
     network inet raw,
     network inet6 raw,
 
+    /usr/sbin/dnsmasq rm,
+
     /etc/dnsmasq.conf rw,
     /run/*dnsmasq*.pid w,
-    /run/dnsmasq/ r,
-    /run/dnsmasq/* rw,
+    /run/dnsmasq/** rw,
     /tmp/* rw,
+    /proc/* r,
   }
 }

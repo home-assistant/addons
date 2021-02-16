@@ -4,7 +4,7 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # S6-Overlay & Bashio
-  /init ix,
+  /init rix,
   /bin/** ix,
   /usr/bin/** ix,
   /usr/lib/bashio/** ix,

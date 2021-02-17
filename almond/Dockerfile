@@ -20,14 +20,14 @@ RUN \
         unzip \
         blas \
         sqlite \
-        pkgconf \
+        coreutils \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         blas-dev \
         git \
         linux-headers \
         sqlite-dev \
-        pkgconf-dev \
+        pkgconf \
         python3 \
     \
     && npm config set unsafe-perm \

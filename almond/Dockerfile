@@ -56,10 +56,7 @@ RUN \
         /root/.config \
         /tmp/.[!.]* \
         /tmp/* \
-        /usr/lib/nginx \
         /usr/local/share/.cache \
-        /usr/local/share/.config \
-        /var/lib/apt/lists/* \
-        /var/www
+        /usr/local/share/.config
 
 COPY rootfs /

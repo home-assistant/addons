@@ -19,16 +19,19 @@ RUN \
         nginx \
         unzip \
         blas \
-        sqlite-libs \
+        sqlite \
+        pkgconf \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         blas-dev \
         git \
         linux-headers \
         sqlite-dev \
+        pkgconf-dev \
         python3 \
     \
     && npm config set unsafe-perm \
+    && ln -l /usr/bin/python /usr/bin/python3 \
     \
     && git clone -b "${ALMOND_VERSION}" --depth 1 \
         "https://github.com/stanford-oval/almond-server" . \

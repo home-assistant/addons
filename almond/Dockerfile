@@ -10,7 +10,8 @@ ENV \
 WORKDIR /opt/almond
 ARG ALMOND_VERSION
 RUN \
-    apt-get update \
+    set -x \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         git \

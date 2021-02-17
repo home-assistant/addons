@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Fix issue with some Almond packages
+
 ## 1.1.0
 
 - Restart nginx service on error

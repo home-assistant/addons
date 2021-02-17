@@ -9,30 +9,29 @@ ENV \
 
 WORKDIR /opt/almond
 ARG ALMOND_VERSION
+
 RUN \
-    apt-get update \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
-        git \
-        gnupg \
-        nginx \
-        python-dev \
-        software-properties-common \
-        unzip \
-    \
-    && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key \
-        | apt-key add - \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg \
-        | apt-key add - \
-    && echo "deb https://deb.nodesource.com/node_12.x buster main" \
-        > /etc/apt/sources.list.d/nodesource.list \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" \
-        > /etc/apt/sources.list.d/yarn.list \
-    \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+    set -x \
+    && apk add --no-cache \
         nodejs \
+        npm \
         yarn \
+        nginx \
+        unzip \
+        blas \
+        sqlite \
+        pkgconf \
+    && apk add --no-cache --virtual .build-dependencies \
+        build-base \
+        blas-dev \
+        git \
+        linux-headers \
+        sqlite-dev \
+        pkgconf-dev \
+        python3 \
+    \
+    && npm config set unsafe-perm \
+    && ln -s /usr/bin/python3 /usr/bin/python \
     \
     && git clone -b "${ALMOND_VERSION}" --depth 1 \
         "https://github.com/stanford-oval/almond-server" . \
@@ -48,23 +47,16 @@ RUN \
     && yarn global remove modclean \
     \
     && yarn cache clean \
-    && apt-get purge -y --auto-remove \
-        build-essential \
-        git \
-        gnupg \
-        python-dev \
-        software-properties-common \
-        yarn \
+    && apk del --no-cache \
+        .build-dependencies \
+    \
     && rm -rf \
         /opt/almond/.[!.]* \
         /root/.cache \
         /root/.config \
         /tmp/.[!.]* \
         /tmp/* \
-        /usr/lib/nginx \
         /usr/local/share/.cache \
-        /usr/local/share/.config \
-        /var/lib/apt/lists/* \
-        /var/www
+        /usr/local/share/.config
 
 COPY rootfs /

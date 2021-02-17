@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.2.2
+
+- Revert restart nginx service on error
+
 ## 11.2.1
 
 - Restart nginx service on error

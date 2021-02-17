@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.7.2
+
+- Revert restart nginx service on error
+
 ## 6.7.1
 
 - Restart nginx service on error

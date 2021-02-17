@@ -10,16 +10,19 @@ profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   /init rix,
   /bin/** ix,
   /usr/bin/** ix,
-  /usr/lib/bashio/** ix,
   /etc/s6/** rix,
   /run/s6/** rwix,
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
   /etc/cont-finish.d/** rwix,
-
-  # Data access
-  /data/** rw,
   /run/** rwk,
+
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rw,
+
+  # Access to Options.json and other files within your addon
+  /data/** rw,
 
   # Execution program
   /usr/sbin/dnsmasq cx,

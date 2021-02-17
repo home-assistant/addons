@@ -40,6 +40,9 @@ RUN \
     && yarn global remove modclean \
     \
     && yarn cache clean \
+    && apk del --no-cache \
+        .build-dependencies \
+    \
     && rm -rf \
         /opt/almond/.[!.]* \
         /root/.cache \
@@ -51,9 +54,5 @@ RUN \
         /usr/local/share/.config \
         /var/lib/apt/lists/* \
         /var/www
-
-    \
-    && apk del --no-cache \
-        .build-dependencies
 
 COPY rootfs /

@@ -31,7 +31,7 @@ RUN \
         python3 \
     \
     && npm config set unsafe-perm \
-    && ln -s /usr/bin/python /usr/bin/python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python \
     \
     && git clone -b "${ALMOND_VERSION}" --depth 1 \
         "https://github.com/stanford-oval/almond-server" . \

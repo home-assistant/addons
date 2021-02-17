@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.0.2
+## 1.1.0
 
 - Restart nginx service on error
+- Use Alpine 3.13
 
 ## 1.0.1
 

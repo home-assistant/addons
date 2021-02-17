@@ -18,10 +18,14 @@ RUN \
         yarn \
         nginx \
         unzip \
+        blas \
+        sqlite-libs \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
+        blas-dev \
         git \
         linux-headers \
+        sqlite-dev \
         python3 \
     \
     && npm config set unsafe-perm \

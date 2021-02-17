@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.7.1
+
+- Restart nginx service on error
+
 ## 6.7.0
 
 - Bump deCONZ to 2.9.3

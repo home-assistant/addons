@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Restart nginx service on error
+
 ## 1.0.1
 
 - Keep unzip dependency installed

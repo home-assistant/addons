@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.2.1
+
+- Restart nginx service on error
+
 ## 11.2.0
 
 - Update OCCU to 3.55.10

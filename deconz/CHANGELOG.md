@@ -1,5 +1,9 @@
 # Changelog
 
+##
+
+- Cleanup privileged for new kernel module options
+
 ## 6.7.2
 
 - Revert restart nginx service on error

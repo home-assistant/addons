@@ -27,7 +27,7 @@
   "udev": true,
   "gpio": true,
   "apparmor": false,
-  "privileged": ["SYS_MODULE", "SYS_RAWIO"],
+  "privileged": ["SYS_RAWIO"],
   "devices": ["/dev/mem"],
   "snapshot_exclude": ["*/otau"],
   "options": {

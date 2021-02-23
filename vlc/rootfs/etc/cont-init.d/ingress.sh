@@ -3,20 +3,16 @@
 # Create VLC secret
 # ==============================================================================
 
+# Generate password
 if bashio::fs.file_exists /data/secret; then
     bashio::exit.ok
 else
     pwgen 64 1 > /data/secret
 fi
 
-# Generate password
-
-
-
 # ==============================================================================
 # Prepair VLC for ingress access
 # ==============================================================================
-
 
 # Generate NGINX config
 bashio::var.json \

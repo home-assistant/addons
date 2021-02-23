@@ -2,10 +2,11 @@
 # ==============================================================================
 # Start C-VLC daemon and enable discovery
 # ==============================================================================
-readonly PASSWORD="$(cat /data/secret)"
+readonly TELNET_PASSWORD="$(cat /data/telnet-secret)"
+readonly INGRESS_PASSWORD="$(cat /data/ingress-secret)"
 
 # Send out discovery information to Home Assistant
 ./discovery &
 
 # Run daemon
-exec cvlc -I http --extraintf telnet --http-host 127.0.0.1 --http-password "${PASSWORD}" --telnet-password "${PASSWORD}" --aout=pulse
+exec cvlc -I http --extraintf telnet --http-host 127.0.0.1 --http-password "${INGRESS_PASSWORD}" --telnet-password "${TELNET_PASSWORD}" --aout=pulse

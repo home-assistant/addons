@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start Z-Wave JS service for Z-Wave radio
+# Start C-VLC daemon and enable discovery
 # ==============================================================================
 readonly PASSWORD="$(cat /data/secret)"
 

@@ -17,7 +17,7 @@ fi
 # Generate NGINX config
 bashio::var.json \
     supervisor_ip "$(getent hosts supervisor | awk '{ print $1 }' | head -1)" \
-    ingress_secret "$(echo :`cat /data/secret` | base64)" \
+    ingress_secret "$(echo :$(cat /data/secret) | base64)" \
     | tempio \
         -template /usr/share/tempio/nginx.conf \
         -out /etc/nginx/nginx.conf

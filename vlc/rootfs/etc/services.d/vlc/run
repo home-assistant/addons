@@ -8,4 +8,4 @@ readonly PASSWORD="$(cat /data/secret)"
 ./discovery &
 
 # Run daemon
-exec cvlc -I http --extraintf telnet --http-host 127.0.0.1 --http-password "INGRESS" --telnet-password "${PASSWORD}" --aout=pulse
+exec cvlc -I http --extraintf telnet --http-host 127.0.0.1 --http-password "${PASSWORD}" --telnet-password "${PASSWORD}" --aout=pulse

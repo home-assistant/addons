@@ -9,7 +9,7 @@ ha_config=$(\
     bashio::var.json \
         host "$(hostname)" \
         port "^3000" \
-        password "$(cat /data/secret)" \
+        password "$(cat /data/telnet-secret)" \
 )
 
 if bashio::discovery "vlc_telnet" "${ha_config}" > /dev/null; then

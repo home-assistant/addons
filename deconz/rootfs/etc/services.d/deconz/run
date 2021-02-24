@@ -6,24 +6,6 @@ TMP_FOLDER=$(mktemp -d)
 
 # Lookup udev link
 DECONZ_DEVICE=$(bashio::config 'device')
-if [[ -c "${DECONZ_DEVICE}" ]]; then
-    bashio::log.debug "Specified device points to a character special file, continuing"
-else
-    bashio::log.info "Waiting for device..."
-
-    # 180 second timeout to wait for udev to finish processing
-    timeout=180
-    while [[ ! -L "${DECONZ_DEVICE}" ]]; do
-        if [[ "${timeout}" -eq 0 ]]; then
-            bashio::exit.nok "No device ${DECONZ_DEVICE} found!"
-        fi
-        bashio::log.debug "Waiting for udev to link device..,"
-        sleep 1
-        ((timeout--))
-    done
-    DECONZ_DEVICE="$(readlink -f "${DECONZ_DEVICE}")"
-    bashio::log.debug "Found device! Location: ${DECONZ_DEVICE}"
-fi
 
 # VNC is not enabled as a separate service, as it cannot handle multiple
 # session when running in the foreground.

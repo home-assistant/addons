@@ -1,13 +1,13 @@
 {
   "name": "Dnsmasq",
-  "version": "1.3",
+  "version": "1.4.4",
   "slug": "dnsmasq",
   "description": "A simple DNS server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/dnsmasq",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "advanced": true,
   "startup": "system",
-  "boot": "auto",
+  "init": false,
   "ports": {
     "53/tcp": 53,
     "53/udp": 53
@@ -15,7 +15,8 @@
   "options": {
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
-    "hosts": []
+    "hosts": [],
+    "services": []
   },
   "schema": {
     "defaults": ["str"],
@@ -29,6 +30,15 @@
       {
         "host": "str",
         "ip": "str"
+      }
+    ],
+    "services": [
+      {
+        "srv": "str",
+        "host": "str",
+        "port": "str",
+        "priority": "int",
+        "weight": "int"
       }
     ]
   },

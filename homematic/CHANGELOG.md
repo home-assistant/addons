@@ -1,9 +1,22 @@
 # Changelog
 
-##
+## 11.2.2
+
+- Revert restart nginx service on error
+
+## 11.2.1
+
+- Restart nginx service on error
+
+## 11.2.0
+
+- Update OCCU to 3.55.10
+
+## 11.1.0
 
 - Migrate OCCU back to EQ3
 - Use Home helper again
+- Update hardware configuration for Supervisor 2021.02.5
 
 ## 11.0.6
 

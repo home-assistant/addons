@@ -1,12 +1,11 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Trigger a uDEV reload
+# Create VLC secret
 # ==============================================================================
 
-# Give udevd time to start
-sleep 3
-bashio::hardware.trigger
+if bashio::fs.file_exists /data/secret; then
+    bashio::exit.ok
+fi
 
-# Again, just to be sure
-sleep 10
-bashio::hardware.trigger
+# Generate password
+pwgen 64 1 > /data/secret

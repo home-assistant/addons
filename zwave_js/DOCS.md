@@ -22,10 +22,12 @@ change if other devices are added to the system.
    the device name in quotes: e.g., something like
    `"/dev/serial/by-id/usb-0658_0200-if00"`,
    `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
-2. Set your 16-byte network key in the form `0x01, 0x02...` used in order to
-   connect securely to compatible devices. It is recommended that a network key
-   is configured as security enabled devices may not function correctly if they
-   are not added securely.
+2. Set your 16-byte (32 character hex) network key in the form `2232666D1...`
+   used in order to connect securely to compatible devices. It is recommended
+   that a network key is configured as some security enabled devices (locks, etc)
+   may not function correctly if they are not added securely.
+     * As a note, it is not recommended to securely connect *all* devices unless
+       necessary as it triples the amount of messages sent on the mesh.
 3. Click on "SAVE" to save the add-on configuration.
 4. Start the add-on.
 5. Add the Z-Wave JS integration to Home Assistant, see documentation:
@@ -63,10 +65,10 @@ Security Z-Wave devices require a network key before being added to the network.
 You must set the `network_key` configuration option to use a network key before
 adding these devices.
 
-If you don't add an network key, it will autogenerate this for you.
+If you don't add a network key, it will autogenerate one for you.
 
-To generate a network key manual, you can use the following script in, e.g., the SSH
-add-on:
+To generate a network key manually, you can use the following script in, e.g.,
+the SSH add-on:
 
 ```bash
 hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random
@@ -77,17 +79,18 @@ You can also use sites like this one to generate the required data:
 <https://www.random.org/cgi-bin/randbyte?nbytes=16&format=h>
 
 Ensure you keep a backup of this key. If you have to rebuild your system and
-don't have a backup of this key, you won't be able to reconnect to any security
-devices. This may mean you have to do a factory reset on those devices, and your
-controller, before rebuilding your Z-Wave network.
+don't have a backup of this key, you won't be able to reconnect to any securely
+included devices. This may mean you have to do a factory reset on those devices
+and your controller, before rebuilding your Z-Wave network.
 
 ### Option `emulate_hardware` (optional)
 
-If you don't have a USB stick, you can use a fake stick.
+If you don't have a USB stick, you can use a fake stick for testing purposes.
+It will not be able to control any real devices.
 
 ## Known issues and limitations
 
-- Your hardware needs to be compatible with Z-Wave JS library
+- Your hardware needs to be compatible with the Z-Wave JS library
 
 ## Support
 

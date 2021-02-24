@@ -84,6 +84,7 @@ function constrain_discovery() {
 }
 
 ## Main ##
+bashio::log.level "${LOGGING}"
 
 bashio::log.info "Setup mosquitto configuration"
 sed -i "s/%%ANONYMOUS%%/$ANONYMOUS/g" /etc/mosquitto.conf
@@ -92,6 +93,11 @@ if [ "${LOGGING}" == "debug" ]; then
     sed -i "s/%%AUTH_QUIET_LOGS%%/false/g" /etc/mosquitto.conf
 else
     sed -i "s/%%AUTH_QUIET_LOGS%%/true/g" /etc/mosquitto.conf
+    if [ "${LOGGING}" == "critical" ] || [ "${LOGGING}" == "fatal" ] || [ "${LOGGING}" == "error" ]; then
+        sed -i -e "s/^log_type warning//" -e "s/^log_type notice//" -e "s/^log_type information//" /etc/mosquitto.conf
+    elif [ "${LOGGING}" == "warning" ] || [ "${LOGGING}" == "warn" ]; then
+        sed -i -e "s/^log_type notice//" -e "s/^log_type information//" /etc/mosquitto.conf
+    fi
 fi
 
 # Enable SSL if exists configs

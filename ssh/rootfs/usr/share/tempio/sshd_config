@@ -5,7 +5,7 @@
 LogLevel INFO
 
 # Default
-AllowTcpForwarding no
+AllowTcpForwarding {{ if .server.tcp_forwarding }}yes{{ else }}no{{ end }}
 GatewayPorts no
 X11Forwarding no
 
@@ -17,7 +17,10 @@ PermitRootLogin yes
 Banner none
 PrintMotd no
 
-#PasswordAuthentication no
-#PermitEmptyPasswords no
-
+{{ if .authorized_keys }}
+PasswordAuthentication no
+{{ else if .password }}
+PasswordAuthentication yes
+PermitEmptyPasswords no
+{{ end }}
 

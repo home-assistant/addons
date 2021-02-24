@@ -2,7 +2,7 @@
 # ==============================================================================
 # SSH Host keys
 # ==============================================================================
-KEYS_PATH=/data/host_keys
+readonly KEYS_PATH=/data/host_keys
 
 if ! bashio::fs.directory_exists "${KEYS_PATH}"; then
     bashio::log.info "Generating host keys..."

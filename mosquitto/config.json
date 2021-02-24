@@ -6,7 +6,6 @@
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mosquitto",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",
-  "boot": "auto",
   "map": ["ssl", "share"],
   "discovery": ["mqtt"],
   "services": ["mqtt:provide"],

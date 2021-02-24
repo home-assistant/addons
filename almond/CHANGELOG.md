@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.2
+
+- Revert restart nginx service on error
+
+## 1.1.1
+
+- Fix issue with some Almond packages
+
+## 1.1.0
+
+- Restart nginx service on error
+- Use Alpine 3.13
+
 ## 1.0.1
 
 - Keep unzip dependency installed

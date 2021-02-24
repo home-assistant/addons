@@ -1,5 +1,33 @@
 # Changelog
 
+##
+
+- Cleanup privileged for new kernel module options
+
+## 6.7.2
+
+- Revert restart nginx service on error
+
+## 6.7.1
+
+- Restart nginx service on error
+
+## 6.7.0
+
+- Bump deCONZ to 2.9.3
+
+## 6.6.5
+
+- Update hardware configuration for Supervisor 2021.02.5
+
+## 6.6.4
+
+- Fix errors with new Supervisor as transit update
+
+## 6.6.3
+
+- Use hostname for discovery instead of IP
+
 ## 6.6.2
 
 - Fixes issues where the `otau` directory was not excluded from snapshots

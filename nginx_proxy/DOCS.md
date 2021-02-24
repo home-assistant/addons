@@ -38,7 +38,9 @@ customize:
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
-security_mode: DetectionOnly
+security:
+  active: false
+  mode: DetectionOnly
 ```
 
 ### Option: `domain` (required)
@@ -74,12 +76,15 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
 
-### Option `security_mode` (required)
+### Option `security.active` (required)
+
+If true, ModSecurity web application firewall will be enabled.
+
+### Option `security.mode` (required)
 
 Controls the behavior of ModSecurity web application firewall. Allowed values are:
 - `DetectionOnly` - (default) process security rules and log detections but never executes any disruptive actions (block, deny, drop)
 - `On` - process security rules; blocks potentially malicious requests
-- `Off` - do not process security rules
 
 ## Known issues and limitations
 
@@ -87,7 +92,7 @@ Controls the behavior of ModSecurity web application firewall. Allowed values ar
 
 - Legitimate actions can trigger a false positive in ModSecurity, resulting in HTTP 403 error message and ModSecurity error messages in the add-on log. If ModSecurity inadvertently blocks a legitimate request, there are two main workarounds:
    1. Avoid requests being processed through ModSecurity by accessing Home Assistant using the internal connection URL (e.g. homeassistant.local:8123), then retry the blocked action.
-   2. Temporarily disable ModSecurity by changing `security_mode` to `DetectionOnly`, restart the NGINX Home Assistant SSL Proxy add-on, then retry the blocked action. Afterwards, re-enable ModSecurity by changing `security_mode` to `On` and restart the add-on again.
+   2. Temporarily disable ModSecurity by changing `security.mode` to `DetectionOnly`, restart the NGINX Home Assistant SSL Proxy add-on, then retry the blocked action. Afterwards, re-enable ModSecurity by changing `security.mode` to `On` and restart the add-on again.
 
 ## Support
 

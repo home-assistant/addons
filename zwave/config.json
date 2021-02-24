@@ -1,6 +1,6 @@
 {
   "name": "OpenZWave",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "slug": "zwave",
   "description": "Control a ZWave network with Home Assistant",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
@@ -25,10 +25,6 @@
   "services": ["mqtt:want"],
   "discovery": ["ozw"],
   "auto_uart": true,
-  "gpio": true,
-  "apparmor": false,
-  "privileged": ["SYS_RAWIO"],
-  "devices": ["/dev/bus/usb:/dev/bus/usb:rwm", "/dev/mem:/dev/mem:rw"],
   "options": {
     "device": null,
     "network_key": ""

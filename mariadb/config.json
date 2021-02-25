@@ -1,6 +1,6 @@
 {
   "name": "MariaDB",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "slug": "mariadb",
   "description": "An SQL database server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mariadb",
@@ -24,7 +24,7 @@
   },
   "schema": {
     "databases": ["str"],
-    "logins": [{ "username": "str", "password": "str" }],
+    "logins": [{ "username": "str", "password": "password" }],
     "rights": [{ "username": "str", "database": "str" }]
   },
   "image": "homeassistant/{arch}-addon-mariadb"

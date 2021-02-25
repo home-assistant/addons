@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.0.2
+
+- Update options schema for passwords
+
 ## 9.0.1
 
 - Upgrade Home Assistant CLI to 4.10.1

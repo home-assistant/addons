@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.3.1
+
+- Update options schema for passwords
+
 ## 9.3.0
 
 - Support new media folder

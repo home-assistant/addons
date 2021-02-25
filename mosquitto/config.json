@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "5.1",
+  "version": "5.1.1",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mosquitto",
@@ -28,7 +28,7 @@
     "require_certificate": false
   },
   "schema": {
-    "logins": [{ "username": "str", "password": "str" }],
+    "logins": [{ "username": "str", "password": "password" }],
     "anonymous": "bool",
     "customize": {
       "active": "bool",

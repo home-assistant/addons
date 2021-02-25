@@ -1,6 +1,6 @@
 {
   "name": "Git pull",
-  "version": "7.12",
+  "version": "7.12.1",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/git_pull",
@@ -33,7 +33,7 @@
     "deployment_key": ["str"],
     "deployment_key_protocol": "match(rsa|dsa|ecdsa|ed25519|rsa)",
     "deployment_user": "str",
-    "deployment_password": "str",
+    "deployment_password": "password",
     "git_branch": "str",
     "git_command": "list(pull|reset)",
     "git_remote": "str",

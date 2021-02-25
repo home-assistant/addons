@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.12.1
+
+- Update options schema for passwords
+
 ## 7.12
 
 - Fix error of deployment_key eventually failing by overwriting the deployment_key every cycle

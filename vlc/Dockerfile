@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-# Install Z-Wave JS
+# Install VLC
 WORKDIR /usr/src
 RUN \
     set -x \

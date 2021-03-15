@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.12.2
+
+- Update Home Assistant CLI to 4.11.0
+
 ## 7.12.1
 
 - Update options schema for passwords

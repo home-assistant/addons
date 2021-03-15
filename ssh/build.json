@@ -7,7 +7,7 @@
     "i386": "homeassistant/i386-base:3.13"
   },
   "args": {
-    "CLI_VERSION": "4.10.1",
+    "CLI_VERSION": "4.11.0",
     "LIBWEBSOCKETS_VERSION": "4.1.4",
     "TTYD_VERSION": "1.6.3"
   }

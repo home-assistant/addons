@@ -1,6 +1,6 @@
 {
   "name": "Terminal & SSH",
-  "version": "9.0.2",
+  "version": "9.1.0",
   "slug": "ssh",
   "description": "Allow logging in remotely to Home Assistant using SSH",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/ssh",
@@ -22,6 +22,7 @@
   "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw", "media:rw"],
   "options": {
     "authorized_keys": [],
+    "apks": [],
     "password": "",
     "server": {
       "tcp_forwarding": false
@@ -32,7 +33,8 @@
     "password": "password",
     "server": {
       "tcp_forwarding": "bool"
-    }
+    },
+    "apks": ["str"]
   },
   "image": "homeassistant/{arch}-addon-ssh"
 }

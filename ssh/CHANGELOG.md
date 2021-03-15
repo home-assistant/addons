@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.1.0
+
+- Upgrade Home Assistant CLI to 4.11.0
+- Support APKs installation on startup
+
 ## 9.0.2
 
 - Update options schema for passwords

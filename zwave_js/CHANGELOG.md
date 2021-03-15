@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.11
+
+- Bump Z-Wave JS Server to 1.1.1
+
 ## 0.1.10
 
 - Bump Z-Wave JS Server to 1.1.0. This is the same code as 2.0.0. Home Assistant 2021.2 rejects any ZJS Server version that is v2+

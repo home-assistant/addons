@@ -31,3 +31,5 @@ RUN \
 
 WORKDIR /
 COPY rootfs /
+
+ENV PATH=/usr/src/node_modules/.bin:$PATH

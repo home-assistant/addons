@@ -18,10 +18,13 @@ RUN \
         python3 \
     \
     && npm config set unsafe-perm \
-    && npm install -g \
-        @zwave-js/server@${ZWAVEJS_SERVER_VERSION} \
-        zwave-js@${ZWAVEJS_VERSION} \
-        @zwave-js/core@${ZWAVEJS_VERSION} \
+    && npm install \
+      zwave-js@${ZWAVEJS_VERSION} \
+      @zwave-js/core@${ZWAVEJS_CORE_VERSION} \
+      @zwave-js/serial@${ZWAVEJS_SERIAL_VERSION} \
+      @zwave-js/config@${ZWAVEJS_CONFIG_VERSION} \
+      @zwave-js/shared@${ZWAVEJS_SHARED_VERSION} \
+      @zwave-js/server@${ZWAVEJS_SERVER_VERSION} \
     \
     && apk del --no-cache \
         .build-dependencies

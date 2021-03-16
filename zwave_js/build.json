@@ -8,6 +8,10 @@
   },
   "args": {
     "ZWAVEJS_SERVER_VERSION": "1.1.1",
-    "ZWAVEJS_VERSION": "6.5.0"
+    "ZWAVEJS_VERSION": "6.5.1",
+    "ZWAVEJS_CORE_VERSION": "6.5.0",
+    "ZWAVEJS_SERIAL_VERSION": "6.5.0",
+    "ZWAVEJS_CONFIG_VERSION": "6.5.1",
+    "ZWAVEJS_SHARED_VERSION": "6.5.0"
   }
 }

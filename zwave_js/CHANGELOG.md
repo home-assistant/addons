@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.12
+
+- Bump Z-Wave JS to 6.5.1
+- Pin Z-Wave JS dependencies
+
 ## 0.1.11
 
 - Bump Z-Wave JS Server to 1.1.1

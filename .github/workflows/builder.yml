@@ -92,7 +92,7 @@ jobs:
            echo "::set-output name=version::${version}";
 
       - name: Set build arguments
-        if: steps.check.outputs.buld_arch == 'true'
+        if: steps.check.outputs.build_arch == 'true'
         run: |
           if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
               echo "BUILD_ARGS=--docker-hub-check" >> $GITHUB_ENV;

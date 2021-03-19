@@ -119,7 +119,7 @@ jobs:
         if: env.BUILD_ARGS == '--docker-hub-check' && steps.check.outputs.build_arch == 'true'
         uses: home-assistant/actions/helpers/codenotary@master
         with:
-          source: docker://homeassistant/${{ matrix.arch }}-addon-${{ matrix.arch }}-matrix.addon:${{ steps.check.outputs.version }}
+          source: docker://homeassistant/${{ matrix.arch }}-addon-${{ matrix.addon }}:${{ steps.check.outputs.version }}
           user: ${{ secrets.VCN_USER }}
           password: ${{ secrets.VCN_PASSWORD }}
           organisation: ${{ secrets.VCN_ORG }} 

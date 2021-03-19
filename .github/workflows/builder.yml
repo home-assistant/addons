@@ -84,10 +84,12 @@ jobs:
         id: check
         run:
            if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-              echo "::set-output name=buld_arch::true";
+              echo "::set-output name=build_arch::true";
             else
               echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
            fi
+           version="$(jq -r '.version' "./${{ matrix.addon }}/config.json")"
+           echo "::set-output name=version::${version}";
 
       - name: Set build arguments
         if: steps.check.outputs.buld_arch == 'true'
@@ -104,7 +106,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build ${{ matrix.addon }} add-on
-        if: steps.check.outputs.buld_arch == 'true'
+        if: steps.check.outputs.build_arch == 'true'
         uses: home-assistant/builder@master
         with:
           args: |
@@ -112,3 +114,12 @@ jobs:
             --${{ matrix.arch }} \
             --target /data/${{ matrix.addon }} \
             --docker-hub homeassistant
+
+      - name: Signing image
+        if: env.BUILD_ARGS == '--docker-hub-check' && steps.check.outputs.build_arch == 'true'
+        uses: home-assistant/actions/helpers/codenotary@master
+        with:
+          source: docker://homeassistant/${{ matrix.arch }}-addon-${{ matrix.arch }}-matrix.addon:${{ steps.check.outputs.version }}
+          user: ${{ secrets.VCN_USER }}
+          password: ${{ secrets.VCN_PASSWORD }}
+          organisation: ${{ secrets.VCN_ORG }} 

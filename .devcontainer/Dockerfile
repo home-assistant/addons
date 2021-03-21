@@ -32,3 +32,7 @@ RUN \
 
 # Generate a machine-id for this container
 RUN rm /etc/machine-id && dbus-uuidgen --ensure=/etc/machine-id
+
+# Swap iptables for Docker to work correctly on WSL2
+RUN update-alternatives --set iptables /usr/sbin/iptables-legacy
+RUN update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy

@@ -74,6 +74,16 @@ function cleanup_docker() {
 
 function run_supervisor() {
     mkdir -p /tmp/supervisor_data
+    WORKSPACE=/workspaces/addons
+    if [ ! -d ${WORKSPACE} ]; then
+        for WORKSPACE in /workspaces/*; do
+            [[ -d "$WORKSPACE" ]] && break
+        done
+    fi
+    if [ ! -d "${WORKSPACE}" ]; then 
+        echo "Could not find workspace directory to mount as volume"
+    fi
+
     docker run --rm --privileged \
         --name hassio_supervisor \
         --security-opt seccomp=unconfined \
@@ -82,7 +92,7 @@ function run_supervisor() {
         -v /run/dbus:/run/dbus:ro \
         -v /run/udev:/run/udev:ro \
         -v /tmp/supervisor_data:/data:rw \
-        -v "/workspaces/addons":/data/addons/local:rw \
+        -v "${WORKSPACE}":/data/addons/local:rw \
         -v /etc/machine-id:/etc/machine-id:ro \
         -e SUPERVISOR_SHARE="/tmp/supervisor_data" \
         -e SUPERVISOR_NAME=hassio_supervisor \

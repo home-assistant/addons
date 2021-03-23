@@ -33,7 +33,7 @@ wired:
 hmip_enable: false
 hmip:
   - type: HMIP_CCU2
-    device: "/dev/ttyUSB0"
+    device: "/dev/ttyAMA0"
 regahss_reset: false
 ```
 

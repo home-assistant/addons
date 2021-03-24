@@ -25,7 +25,7 @@
   "schema": {
     "databases": ["str"],
     "logins": [{ "username": "str", "password": "password" }],
-    "rights": [{ "username": "str", "database": "str" }]
+    "rights": [{ "username": "str", "database": "str", "privileges": "str?" }]
   },
   "image": "homeassistant/{arch}-addon-mariadb"
 }

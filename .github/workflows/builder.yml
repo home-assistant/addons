@@ -106,21 +106,22 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Login to GitHub Container Registry
+        if: env.BUILD_ARGS == '--docker-hub-check'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GIT_USER }}
+          password: ${{ secrets.GIT_TOKEN }}
+
       - name: Build ${{ matrix.addon }} add-on
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@master
+        uses: home-assistant/builder@2021.03.3
         with:
           args: |
             ${{ env.BUILD_ARGS }} \
             --${{ matrix.arch }} \
             --target /data/${{ matrix.addon }} \
-            --docker-hub homeassistant
-
-      - name: Signing image
-        if: env.BUILD_ARGS == '--docker-hub-check' && steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/actions/helpers/codenotary@master
-        with:
-          source: docker://homeassistant/${{ matrix.arch }}-addon-${{ matrix.addon }}:${{ steps.check.outputs.version }}
-          user: ${{ secrets.VCN_USER }}
-          password: ${{ secrets.VCN_PASSWORD }}
-          organisation: ${{ secrets.VCN_ORG }} 
+            --with-codenotary "${{ secrets.VCN_USER }}" "${{ secrets.VCN_PASSWORD }}" "${{ secrets.VCN_ORG }}" \
+            --validate-from "${{ secrets.VCN_ORG }}" \
+            --addon

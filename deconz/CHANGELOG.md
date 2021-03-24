@@ -1,7 +1,8 @@
 # Changelog
 
-##
+## 6.8.0
 
+- Bump deCONZ to 2.10.4
 - Cleanup privileged for new kernel module options
 
 ## 6.7.2

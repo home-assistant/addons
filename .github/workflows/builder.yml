@@ -82,13 +82,14 @@ jobs:
 
       - name: Check add-on
         id: check
-        run:
+        run: |
            if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
               echo "::set-output name=build_arch::true";
             else
               echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
            fi
-           version="$(jq -r '.version' "./${{ matrix.addon }}/config.json")"
+
+           version=$(jq -r '.version' "./${{ matrix.addon }}/config.json")
            echo "::set-output name=version::${version}";
 
       - name: Set build arguments

@@ -63,7 +63,10 @@ This should be the same database defined in `databases`.
 
 ### Option: `rights.privileges` (optional)
 
-A list of privileges to grant to this user from [grant][grant] like `SELECT, CREATE`. If omitted, grants `ALL PRIVILEGES` to user. Restricting privileges of the user that homeassistant uses is not recommended but if you want to allow other applications to view recorder data should create a user limited to read-only access on the database.
+A list of privileges to grant to this user from [grant][grant] like `SELECT, CREATE`.
+If omitted, grants `ALL PRIVILEGES` to the user. Restricting privileges of the user
+that Home Assistant uses is not recommended but if you want to allow other applications
+to view recorder data should create a user limited to read-only access on the database.
 
 ## Home Assistant Configuration
 

@@ -56,6 +56,14 @@ Private key file to use in the `/ssl` directory.
 
 Value for the [`Strict-Transport-Security`][hsts] HTTP header to send. If empty, the header is not sent.
 
+### Option: `fallback_certfile` (required)
+
+Location of the fallback certificate - this will be automatically generated if it doens't exsist but can't be null. Default is /data/ssl-cert-snakeoil.pem
+
+### Option: `fallback_keyfile` (required)
+
+Location of the fallback certificate's key - this will be automatically generated if the certificate doens't exsist but can't be null. Default is /data/ssl-cert-snakeoil.key
+
 ### Option `customize.active` (required)
 
 If true, additional NGINX configuration files for the default server and additional servers are read from files in the `/share` directory specified by the `default` and `servers` variables.

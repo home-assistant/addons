@@ -3,8 +3,8 @@ set -e
 
 DHPARAMS_PATH=/data/dhparams.pem
 
-SNAKEOIL_CERT=/data/ssl-cert-snakeoil.pem
-SNAKEOIL_KEY=/data/ssl-cert-snakeoil.key
+SNAKEOIL_CERT=$(bashio::config 'fallback_certfile')
+SNAKEOIL_KEY=$(bashio::config 'fallback_keyfile')
 
 CLOUDFLARE_CONF=/data/cloudflare.conf
 
@@ -52,6 +52,8 @@ fi
 sed -i "s#%%FULLCHAIN%%#$CERTFILE#g" /etc/nginx.conf
 sed -i "s#%%PRIVKEY%%#$KEYFILE#g" /etc/nginx.conf
 sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
+sed -i "s/%%FALLBACK_CERT%%/$SNAKEOIL_CERT/g" /etc/nginx.conf
+sed -i "s/%%FALLBACK_KEY%%/SNAKEOIL_KEY/g" /etc/nginx.conf
 
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf

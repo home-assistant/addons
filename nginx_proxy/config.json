@@ -15,6 +15,8 @@
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
+    "fallback_certfile": "/data/ssl-cert-snakeoil.pem",
+    "fallback_keyfile": "/data/ssl-cert-snakeoil.key",
     "cloudflare": false,
     "customize": {
       "active": false,

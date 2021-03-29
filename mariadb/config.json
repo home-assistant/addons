@@ -2,7 +2,7 @@
   "name": "MariaDB",
   "version": "2.2.2",
   "slug": "mariadb",
-  "description": "An SQL database server",
+  "description": "A SQL database server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mariadb",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "system",

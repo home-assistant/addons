@@ -83,6 +83,18 @@ don't have a backup of this key, you won't be able to reconnect to any securely
 included devices. This may mean you have to do a factory reset on those devices
 and your controller, before rebuilding your Z-Wave network.
 
+### Option `log_level` (optional)
+
+This option sets the log level of Z-Wave JS. If no `log_level` is specified, the
+log level will be set to default. Options are:
+- silly
+- debug
+- verbose
+- http
+- info
+- warn
+- error
+
 ### Option `emulate_hardware` (optional)
 
 If you don't have a USB stick, you can use a fake stick for testing purposes.

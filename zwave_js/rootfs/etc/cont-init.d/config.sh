@@ -30,8 +30,6 @@ else
     network_key=$(bashio::config 'network_key')
 fi
 
-# log_level=$(bashio::config 'log_level')
-
 # Generate config
 bashio::var.json \
     network_key "${network_key}" \

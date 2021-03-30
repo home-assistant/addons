@@ -30,11 +30,12 @@ else
     network_key=$(bashio::config 'network_key')
 fi
 
+# log_level=$(bashio::config 'log_level')
 
 # Generate config
 bashio::var.json \
     network_key "${network_key}" \
-    logging "$(bashio::info.logging)" \
+    log_level "$(bashio::config 'log_level')" \
     | tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

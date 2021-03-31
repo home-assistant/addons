@@ -31,8 +31,9 @@ else
 fi
 
 if  ! bashio::config.has_value 'log_level'; then
-    bashio::log.info "No log level specified, falling back to info..."
-    log_level="info"
+    log_level=$(bashio::info.logging)
+    bashio::log.info "No log level specified, falling back to Supervisor"
+    bashio::log.info "log level (${log_level})..."
 else
     log_level=$(bashio::config 'log_level')
 fi

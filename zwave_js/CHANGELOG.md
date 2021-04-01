@@ -3,7 +3,6 @@
 ## 0.1.16
 
 - Bump Z-Wave JS Server to 1.3.1
-- Add log level as a configuration option
 
 ## 0.1.15
 

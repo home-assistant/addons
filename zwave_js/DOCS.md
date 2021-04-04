@@ -85,8 +85,7 @@ and your controller, before rebuilding your Z-Wave network.
 
 ### Option `log_level` (optional)
 
-This option sets the log level of Z-Wave JS. If no `log_level` is specified, the
-log level will be set to the level set in the Supervisor. Valid options are:
+This option sets the log level of Z-Wave JS. Valid options are:
 - silly
 - debug
 - verbose
@@ -94,6 +93,9 @@ log level will be set to the level set in the Supervisor. Valid options are:
 - info
 - warn
 - error
+
+If no `log_level` is specified, the log level will be set to the level set in
+the Supervisor.
 
 ### Option `emulate_hardware` (optional)
 

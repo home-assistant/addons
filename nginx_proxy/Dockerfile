@@ -112,9 +112,6 @@ COPY --from=build_modsecurity /usr/local/owasp-modsecurity-crs /usr/local/owasp-
 COPY --from=build_modsecurity /usr/lib/nginx/modules/ /usr/lib/nginx/modules/
 
 # Copy data
-COPY data/run.sh /
-COPY data/nginx.conf /etc/
-COPY data/modsec/ /etc/nginx/modsec/
-COPY data/owasp/ /usr/local/owasp-modsecurity-crs/
+COPY rootfs /
 
 CMD [ "/run.sh" ]

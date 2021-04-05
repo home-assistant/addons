@@ -25,7 +25,15 @@
   "schema": {
     "databases": ["str"],
     "logins": [{ "username": "str", "password": "password" }],
-    "rights": [{ "username": "str", "database": "str" }]
+    "rights": [
+      {
+        "username": "str",
+        "database": "str",
+        "privileges": [
+          "list(ALTER|CREATE|CREATE ROUTINE|CREATE TEMPORARY TABLES|CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
+        ]
+      }
+    ]
   },
   "image": "homeassistant/{arch}-addon-mariadb"
 }

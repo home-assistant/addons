@@ -28,9 +28,15 @@ databases:
 logins:
   - username: homeassistant
     password: PASSWORD
+  - username: read_only_user
+    password: PASSWORD
 rights:
   - username: homeassistant
     database: homeassistant
+  - username: read_only_user
+    database: homeassistant
+    privileges:
+      - SELECT
 ```
 
 ### Option: `databases` (required)
@@ -60,6 +66,13 @@ This should be the same user name defined in `logins` -> `username`.
 ### Option: `rights.database` (required)
 
 This should be the same database defined in `databases`.
+
+### Option: `rights.privileges` (optional)
+
+A list of privileges to grant to this user from [grant][grant] like `SELECT` and `CREATE`.
+If omitted, grants `ALL PRIVILEGES` to the user. Restricting privileges of the user
+that Home Assistant uses is not recommended but if you want to allow other applications
+to view recorder data should create a user limited to read-only access on the database.
 
 ## Home Assistant Configuration
 

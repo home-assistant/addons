@@ -1,6 +1,6 @@
 {
   "name": "MariaDB",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "slug": "mariadb",
   "description": "A SQL database server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mariadb",

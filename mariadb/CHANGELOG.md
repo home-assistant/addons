@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0
+
+- Option to grant user specific privileges for a database [#1941](https://github.com/home-assistant/addons/pull/1941)
+
 ## 2.2.2
 
 - Update options schema for passwords

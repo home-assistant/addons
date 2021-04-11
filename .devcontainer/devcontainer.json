@@ -4,13 +4,15 @@
 	"context": "..",
 	"dockerFile": "Dockerfile",
 	"appPort": ["7123:8123", "7357:4357"],
-    "postStartCommand": "service docker start",
+	"postStartCommand": "service docker start",
 	"runArgs": ["-e", "GIT_EDITOR=code --wait", "--privileged"],
 	"extensions": [
 		"timonwong.shellcheck",
 		"esbenp.prettier-vscode"
 	],
-	"settings": { 
+	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash"
-	}
+	},
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/addons,type=bind,consistency=delegated",
+	"workspaceFolder": "/workspaces/addons"
 }

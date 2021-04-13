@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.18
+
+- Pin Z-Wave JS to 7.2.2
+
 ## 0.1.17
 
 - Bump Z-Wave JS Server to 1.4.0

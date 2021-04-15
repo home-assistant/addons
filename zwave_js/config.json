@@ -18,11 +18,13 @@
   "discovery": ["zwave_js"],
   "options": {
     "device": null,
-    "network_key": ""
+    "network_key": "",
+    "log_level": "info"
   },
   "schema": {
     "device": "device(subsystem=tty)",
     "network_key": "match(|[0-9a-fA-F]{32,32})",
+    "log_level": "list(silly|debug|verbose|http|info|warn|error)?",
     "emulate_hardware": "bool?"
   },
   "image": "homeassistant/{arch}-addon-zwave_js"

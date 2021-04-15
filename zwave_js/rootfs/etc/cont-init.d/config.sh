@@ -30,11 +30,19 @@ else
     network_key=$(bashio::config 'network_key')
 fi
 
+if  ! bashio::config.has_value 'log_level'; then
+    log_level=$(bashio::info.logging)
+    bashio::log.info "No log level specified, falling back to Supervisor"
+    bashio::log.info "log level (${log_level})..."
+else
+    log_level=$(bashio::config 'log_level')
+fi
+
 
 # Generate config
 bashio::var.json \
     network_key "${network_key}" \
-    logging "$(bashio::info.logging)" \
+    log_level "${log_level}" \
     | tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

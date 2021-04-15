@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.1.19
+
+- Pin Z-Wavee JS to 7.2.3
+- Make log level a configuration option
+
 ## 0.1.18
 
 - Pin Z-Wave JS to 7.2.2

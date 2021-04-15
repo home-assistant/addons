@@ -4,10 +4,6 @@
 # ==============================================================================
 VERSION=$(bashio::config 'version')
 
-# Create udev devices
-bashio::log.info "Setup udev devices"
-bashio::hardware.trigger
-
 # Generate install string
 CMD="homeassistant"
 if [ "${VERSION}" != "latest" ]; then
@@ -19,7 +15,7 @@ bashio::log.info "Installing Home Assistant: ${VERSION}..."
 bashio::log.info "Please be patient, this might take a few minutes..."
 
 # Install Home Assistant with the requested version
-if ! PIP_OUTPUT="$(pip3 install --disable-pip-version-check --find-links "${WHEELS_LINKS}" "${CMD}")"; then
+if ! PIP_OUTPUT="$(pip3 install --disable-pip-version-check --find-links "${WHEELS_LINKS}" "${CMD}" 2>&1)"; then
     bashio::log.error "An error occurred while installing Home Assistant:"
     bashio::log "${PIP_OUTPUT}"
     bashio::exit.nok

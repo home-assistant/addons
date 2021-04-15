@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.7.0
+
+- Update base image to 2021.04.1
+- Supress PIP install output, unless an error occurs
+- Remove udev usage, replaced by uart & usb flag
+
 ## 3.6.0
 
 - Change to rsync for copy

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.0
+
+- Ignore input-keyword used in blueprints in yaml-linting
+
 ## 5.2.0
 
 - Add git option which allows disabling the (default) git initialization

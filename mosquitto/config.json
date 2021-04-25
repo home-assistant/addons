@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "5.1.1",
+  "version": "5.1",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mosquitto",

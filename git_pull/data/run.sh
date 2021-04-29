@@ -107,6 +107,7 @@ password=${DEPLOYMENT_PASSWORD}
 "
 
     # Use git commands to write the credentials to ~/.git-credentials
+    # shellcheck disable=SC2259
     echo "[Info] Saving git credentials to /tmp/git-credentials"
     git credential fill | git credential approve <<< "$cred_data"
 fi

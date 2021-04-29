@@ -50,7 +50,7 @@ RUN \
     && make \
     && make install \
     \
-    && git clone --branch master --single-branch \
+    && git clone --branch main --single-branch \
         https://github.com/tsl0922/ttyd.git /tmp/ttyd \
     && git -C /tmp/ttyd checkout "${TTYD_VERSION}" \
     \

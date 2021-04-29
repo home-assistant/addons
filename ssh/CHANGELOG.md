@@ -4,6 +4,7 @@
 
 - Use GitHub Container Registry for the base image
 - Upgrade Home Assistant CLI to 4.12.1
+- Upstream ttyd project now uses the main branch
 
 ## 9.1.0
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.13.0
+
+- Update Home Assistant CLI to 4.12.1
+- Upgrade base image to Alpine 3.13
+- Supress a shellcheck warning happening in CI
+
 ## 7.12.2
 
 - Update Home Assistant CLI to 4.11.0

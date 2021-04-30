@@ -8,6 +8,6 @@
   },
   "args": {
     "ZWAVEJS_SERVER_VERSION": "1.5.0",
-    "ZWAVEJS_VERSION": "7.2.4"
+    "ZWAVEJS_VERSION": "7.3.0"
   }
 }

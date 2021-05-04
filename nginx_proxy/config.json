@@ -16,6 +16,7 @@
     "keyfile": "privkey.pem",
     "hsts": "max-age=31536000; includeSubDomains",
     "cloudflare": false,
+	"proxypass": "http://homeassistant.local.hass.io:8123",
     "customize": {
       "active": false,
       "default": "nginx_proxy_default*.conf",

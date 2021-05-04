@@ -12,6 +12,7 @@ DOMAIN=$(bashio::config 'domain')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 HSTS=$(bashio::config 'hsts')
+HSTS=$(bashio::config 'proxypass')
 
 # Generate dhparams
 if ! bashio::fs.file_exists "${DHPARAMS_PATH}"; then
@@ -52,6 +53,7 @@ fi
 sed -i "s#%%FULLCHAIN%%#$CERTFILE#g" /etc/nginx.conf
 sed -i "s#%%PRIVKEY%%#$KEYFILE#g" /etc/nginx.conf
 sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
+sed -i "s/%%PROXYPASS%%/$PROXYPASS/g" /etc/nginx.conf
 
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf

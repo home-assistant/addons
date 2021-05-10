@@ -9,6 +9,11 @@ function start_docker() {
     local starttime
     local endtime
 
+    if grep -q 'Alpine' /proc/version; then
+        update-alternatives --set iptables /usr/sbin/iptables-legacy || echo "Fails adjust iptables"
+        update-alternatives --set ip6tables /usr/sbin/iptables-legacy || echo "Fails adjust ip6tables"
+    fi
+
     echo "Starting docker."
     dockerd 2> /dev/null &
     DOCKER_PID=$!

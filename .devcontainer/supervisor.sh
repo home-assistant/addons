@@ -10,6 +10,7 @@ function start_docker() {
     local endtime
 
     if grep -q 'Alpine' /proc/version; then
+        # The docker daemon does not start when running Alpine backed WSL2 without adjusting iptables
         update-alternatives --set iptables /usr/sbin/iptables-legacy || echo "Fails adjust iptables"
         update-alternatives --set ip6tables /usr/sbin/iptables-legacy || echo "Fails adjust ip6tables"
     fi

@@ -20,7 +20,7 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Get changed files
         id: changed_files
@@ -72,7 +72,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Get information
         id: info

@@ -72,7 +72,6 @@ fi
 
 # Generate mosquitto configuration.
 bashio::var.json \
-  anonymous "^$(bashio::config 'anonymous')" \
   cafile "${cafile}" \
   certfile "${certfile}" \
   cutomize "^$(bashio::config 'customize.active')" \

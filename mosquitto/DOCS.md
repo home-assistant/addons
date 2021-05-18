@@ -36,7 +36,6 @@ Add-on configuration:
 
 ```yaml
 logins: []
-anonymous: false
 customize:
   active: false
   folder: mosquitto
@@ -54,12 +53,6 @@ logins:
   - username: user
     password: passwd
 ```
-
-### Option: `anonymous`
-
-Allow anonymous connections. If logins are set, the anonymous user can only read data. An explicit ACL definition is required for anonymous connections [see Access Control Lists (ACLs)](#access-control-lists-acls).
-
-Default value: `false`
 
 #### Option: `customize.active`
 
@@ -91,7 +84,7 @@ If set to `true` encryption will be enabled using the cert- and keyfile options.
 
 This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Home Assistant ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
 
-## Disable listening on insecure (1883) ports
+## Disable listening on insecure (1883/1884) ports
 
 Remove the ports from the add-on page network card (set them as blank) to disable them.
 
@@ -126,17 +119,8 @@ Add the following configuration to enable **unrestricted** access to all topics.
     user [YOUR_MQTT_USER]
     topic readwrite #
     ```
-    For anonymous mode ( `"anonymous": true` ), you have to remove the `user [YOUR_MQTT_USER]` line like so:
-
-    ```text
-    topic readwrite #
-    ```
 
 The `/share` folder can be accessed via SMB, or on the host filesystem under `/usr/share/hassio/share`.
-
-## Known issues and limitations
-
-- Since version 4.1 of the add-on, an explicit ACL definition is now required if you plan to use legacy logins and `"anonymous": true` [see these instructions](#access-control-lists-acls).
 
 ## Support
 

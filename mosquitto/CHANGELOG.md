@@ -7,6 +7,7 @@
 - Merged local account handling with authentication plugin
 - Add watchdog endpoint for health monitoring
 - Updated mosquitto to 1.6.12
+- Updated mosquitto auth plugin to 0.1.5
 - Migrate add-on layout to S6 Overlay
 - Migrate all script to use Bashio
 - Update base image to Alpine Linux 3.13

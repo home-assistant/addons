@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.0.0
+
+- Support for anonymous logins has been removed
+- Replaced Home Assistant authentication handling
+- Merged local account handling with authentication plugin
+- Add watchdog endpoint for health monitoring
+- Updated mosquitto to 1.6.12
+- Migrate add-on layout to S6 Overlay
+- Migrate all script to use Bashio
+- Update base image to Alpine Linux 3.13
+- Add port descriptions
+
 ## 5.1.1
 
 - Update options schema for passwords

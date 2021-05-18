@@ -20,7 +20,6 @@ RUN apk add --no-cache \
     \
     && cd mosquitto-auth-plug \
     && cp config.mk.in config.mk \
-    && sed -i "s|BACKEND_FILES.*|BACKEND_FILES ?= yes|g" config.mk \
     && make \
     && mkdir -p /usr/share/mosquitto \
     && cp -f auth-plug.so /usr/share/mosquitto \

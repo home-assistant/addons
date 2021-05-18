@@ -18,7 +18,6 @@
   },
   "options": {
     "logins": [],
-    "anonymous": false,
     "customize": {
       "active": false,
       "folder": "mosquitto"
@@ -28,8 +27,12 @@
     "require_certificate": false
   },
   "schema": {
-    "logins": [{ "username": "str", "password": "password" }],
-    "anonymous": "bool",
+    "logins": [
+      {
+        "username": "str",
+        "password": "password"
+      }
+    ],
     "customize": {
       "active": "bool",
       "folder": "str"

@@ -17,6 +17,12 @@
     "8883/tcp": 8883,
     "8884/tcp": 8884
   },
+  "ports_description": {
+    "1883/tcp": "Normal MQTT",
+    "1884/tcp": "MQTT over WebSocket",
+    "8883/tcp": "Normal MQTT with SSL",
+    "8884/tcp": "MQTT over WebSocket with SSL"
+  },
   "options": {
     "logins": [],
     "customize": {

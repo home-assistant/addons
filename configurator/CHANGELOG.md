@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.1
+
+- Update base image to Alpine 3.13
+
 ## 5.3.0
 
 - Ignore input-keyword used in blueprints in yaml-linting

@@ -13,7 +13,7 @@ RUN \
     && pip3 install \
         --no-cache-dir \
         --prefer-binary \
-        --find-links "https://wheels.home-assistant.io/alpine-3.12/${BUILD_ARCH}/" \
+        --find-links "https://wheels.home-assistant.io/alpine-3.13/${BUILD_ARCH}/" \
         hass-configurator=="${CONFIGURATOR_VERSION}" \
     \
     && find /usr/local \

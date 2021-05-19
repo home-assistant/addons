@@ -1,6 +1,6 @@
 {
   "name": "Mosquitto broker",
-  "version": "5.1.1",
+  "version": "6.0.0",
   "slug": "mosquitto",
   "description": "An Open Source MQTT broker",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/mosquitto",
@@ -9,6 +9,7 @@
   "map": ["ssl", "share"],
   "discovery": ["mqtt"],
   "services": ["mqtt:provide"],
+  "watchdog": "tcp://[HOST]:1883",
   "auth_api": true,
   "ports": {
     "1883/tcp": 1883,
@@ -16,9 +17,14 @@
     "8883/tcp": 8883,
     "8884/tcp": 8884
   },
+  "ports_description": {
+    "1883/tcp": "Normal MQTT",
+    "1884/tcp": "MQTT over WebSocket",
+    "8883/tcp": "Normal MQTT with SSL",
+    "8884/tcp": "MQTT over WebSocket with SSL"
+  },
   "options": {
     "logins": [],
-    "anonymous": false,
     "customize": {
       "active": false,
       "folder": "mosquitto"
@@ -28,8 +34,12 @@
     "require_certificate": false
   },
   "schema": {
-    "logins": [{ "username": "str", "password": "password" }],
-    "anonymous": "bool",
+    "logins": [
+      {
+        "username": "str",
+        "password": "password"
+      }
+    ],
     "customize": {
       "active": "bool",
       "folder": "str"

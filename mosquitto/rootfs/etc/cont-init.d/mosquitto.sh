@@ -74,8 +74,8 @@ fi
 bashio::var.json \
   cafile "${cafile}" \
   certfile "${certfile}" \
-  cutomize "^$(bashio::config 'customize.active')" \
-  cutomize_folder "$(bashio::config 'customize.folder')" \
+  customize "^$(bashio::config 'customize.active')" \
+  customize_folder "$(bashio::config 'customize.folder')" \
   keyfile "${keyfile}" \
   require_certificate "^$(bashio::config 'require_certificate')" \
   ssl "^${ssl}" \

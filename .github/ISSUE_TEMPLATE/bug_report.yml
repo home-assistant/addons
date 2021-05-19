@@ -1,0 +1,116 @@
+name: Bug Report Form
+description: Report an issue related to one of the official add-ons.
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue form is for reporting bugs with **supported** setups only!
+
+        If you have a feature or enhancement request, please use the [feature request][fr] section of our [Community Forum][fr].
+
+        [fr]: https://community.home-assistant.io/c/feature-requests
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Describe the issue you are experiencing
+      description: Provide a clear and concise description of what the bug is.
+  - type: markdown
+    attributes:
+      value: |
+        ## Environment
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: What type of installation are you running?
+      description: >
+        If you don't know, you can find it in: Configuration panel -> Info.
+      options:
+        - Home Assistant OS
+        - Home Assistant Supervised
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Which operating system are you running on?
+      options:
+        - Home Assistant Operating System
+        - Debian
+        - Other (e.g., Raspbian/Raspberry Pi OS/Fedora)
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Which add-on are you reporting an issue with?
+      options:
+        - Ada
+        - Almond
+        - CEC Scan
+        - Check config
+        - Configurator
+        - Deconz
+        - DHCP Server
+        - DNSmasq
+        - DuckDNS
+        - Git pull
+        - Google assistant
+        - Homematic
+        - Let's encrypt
+        - MariaDB
+        - Mosquitto
+        - NGINX Proxy
+        - RPC Shutdown
+        - Samba
+        - SSH
+        - Tellstick
+        - VLC
+        - Z-Wave
+        - Z-Wave JS
+  - type: input
+    validations:
+      required: true
+    attributes:
+      label: What is the version of the add-on?
+      description: Can be found in the Supervisor panel -> Overview tab -> the add-on
+  - type: markdown
+    attributes:
+      value: |
+        # Details
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Steps to reproduce the issue
+      description: |
+        Please tell us exactly how to reproduce your issue.
+        Provide clear and concise step by step instructions and add code snippets if needed.
+      value: |
+        1.
+        2.
+        3.
+        ...
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Anything in the Supervisor logs that might be useful for us?
+      description: >
+        The Supervisor logs can be found in the Supervisor panel -> System tab.
+      render: txt
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Anything in the add-on logs that might be useful for us?
+      description: >
+        The add-on logs can be found in the Supervisor panel on the add-on page -> Logs tab.
+      render: txt
+  - type: textarea
+    attributes:
+      label: Additional information
+      description: >
+        If you have any additional information for us, use the field below.
+        Please note, you can attach screenshots or screen recordings here, by
+        dragging and dropping files in the field below.

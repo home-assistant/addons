@@ -9,7 +9,7 @@
   "map": ["ssl", "share"],
   "discovery": ["mqtt"],
   "services": ["mqtt:provide"],
-  "watchdog": "tcp://[HOST]:1883",
+  "watchdog": "tcp://[HOST]:[PORT:1883]",
   "auth_api": true,
   "ports": {
     "1883/tcp": 1883,

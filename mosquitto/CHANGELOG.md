@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.2
+
+- Fix port issue for watchdog configuration
+
 ## 6.0.1
 
 - Fix loading custom mosquitto configuration

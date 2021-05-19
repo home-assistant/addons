@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.1
+
+- Fix loading custom mosquitto configuration
+
 ## 6.0.0
 
 - Support for anonymous logins has been removed

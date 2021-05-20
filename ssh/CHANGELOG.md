@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.1.2
+
+- Upgrade Home Assistant CLI to 4.12.2
+
 ## 9.1.1
 
 - Use GitHub Container Registry for the base image

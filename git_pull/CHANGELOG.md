@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.13.1
+
+- Update Home Assistant CLI to 4.12.2
+
 ## 7.13.0
 
 - Update Home Assistant CLI to 4.12.1

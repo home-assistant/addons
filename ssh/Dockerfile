@@ -5,15 +5,7 @@ FROM $BUILD_FROM
 ARG LIBWEBSOCKETS_VERSION
 ARG TTYD_VERSION
 RUN \
-    apk add --no-cache --virtual .build-dependencies \
-        bsd-compat-headers \
-        build-base \
-        cmake \
-        json-c-dev \
-        libuv-dev \
-        openssl-dev \
-        zlib-dev \
-    \
+    set -x \ 
     && apk add --no-cache \
         bash-completion \
         pulseaudio-utils \
@@ -28,9 +20,19 @@ RUN \
         tmux \
         vim \
     \
+    && apk add --no-cache --virtual .build-dependencies \
+        bsd-compat-headers \
+        build-base \
+        linux-headers \
+        cmake \
+        json-c-dev \
+        libuv-dev \
+        openssl-dev \
+        zlib-dev \
+    \
     && sed -i "s/ash/bash/" /etc/passwd \
     \
-    && git clone --branch "${LIBWEBSOCKETS_VERSION}" --depth=1 \
+    && git clone --branch "v${LIBWEBSOCKETS_VERSION}" --depth=1 \
         https://github.com/warmcat/libwebsockets.git /tmp/libwebsockets \
     \
     && mkdir -p /tmp/libwebsockets/build \
@@ -48,7 +50,7 @@ RUN \
     && make \
     && make install \
     \
-    && git clone --branch master --single-branch \
+    && git clone --branch main --single-branch \
         https://github.com/tsl0922/ttyd.git /tmp/ttyd \
     && git -C /tmp/ttyd checkout "${TTYD_VERSION}" \
     \

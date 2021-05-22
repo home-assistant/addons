@@ -56,7 +56,7 @@ done
 
 # Create config payload for Home Assistant
 config=$(bashio::var.json \
-    host "$(bashio::addon.ip_address)" \
+    host "$(hostname)" \
     port "^40850" \
     api_key "${api_key}" \
     serial "${serial}" \

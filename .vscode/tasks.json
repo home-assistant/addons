@@ -6,21 +6,11 @@
         {
             "label": "Start Home Assistant",
             "type": "shell",
-            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_supervisor.sh",
+            "command": "./.devcontainer/supervisor.sh",
             "group": {
                 "kind": "test",
                 "isDefault": true,
             },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "problemMatcher": []
-        },{
-            "label": "Cleanup stale Home Assistant environment",
-            "type": "shell",
-            "command": "/workspaces/test_hassio/addons/local/.devcontainer/start_supervisor.sh --cleanup",
-            "group": "test",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"

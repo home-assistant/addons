@@ -49,6 +49,8 @@ List of RF devices.
 
 Device type for RFD service. Check your device manual.
 
+- HM-MOD-RPI-PCB: `CCU2`
+
 #### Option: `rf.device` (required)
 
 Device on the host.
@@ -84,6 +86,8 @@ List of HMIP devices.
 #### Option: `hmip.type` (required)
 
 Device type for HMIP service. Check your device manual.
+
+- HmIP-RFUSB: `HMIP_CCU2`
 
 #### Option: `hmip.device` (required)
 

@@ -1,15 +1,21 @@
 {
   "name": "Samba share",
-  "version": "9.3.0",
+  "version": "9.4.0",
   "slug": "samba",
   "description": "Expose Home Assistant folders with SMB/CIFS",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/samba",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
-  "boot": "auto",
   "init": false,
   "host_network": true,
-  "map": ["config:rw", "ssl:rw", "addons:rw", "share:rw", "backup:rw", "media:rw"],
+  "map": [
+    "config:rw",
+    "ssl:rw",
+    "addons:rw",
+    "share:rw",
+    "backup:rw",
+    "media:rw"
+  ],
   "options": {
     "workgroup": "WORKGROUP",
     "username": "homeassistant",
@@ -27,7 +33,7 @@
   "schema": {
     "workgroup": "str",
     "username": "str",
-    "password": "str",
+    "password": "password",
     "interface": "str",
     "allow_hosts": ["str"],
     "veto_files": ["str"],

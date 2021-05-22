@@ -2,29 +2,50 @@
 
 profile dnsmasq flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
 
-  capability net_bind_service,
-  capability setgid,
-  capability setuid,
-  capability dac_override,
-  network inet raw,
-  network inet6 raw,
+  file,
+  signal,
 
-  /bin/busybox ix,
-  /bin/bash ix,
-  /usr/bin/jq ix,
-  /usr/sbin/dnsmasq ix,
+  # S6-Overlay & Bashio
+  /init rix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /etc/s6/** rix,
+  /run/s6/** rwix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /run/** rwk,
 
-  /etc/dnsmasq.conf rw,
-  /{,var/}run/*dnsmasq*.pid w,
-  /{,var/}run/dnsmasq/ r,
-  /{,var/}run/dnsmasq/* rw,
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rw,
 
-  /usr/lib/bashio/bashio ix,
-  /dev/tty rw,
-  /tmp/* rw,
+  # Access to Options.json and other files within your addon
+  /data/** rw,
 
-  /run.sh rix,
-  /data/** r,
+  # Execution program
+  /usr/sbin/dnsmasq cx,
+
+  profile /usr/sbin/dnsmasq flags=(attach_disconnected,mediate_deleted) {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    signal receive,
+
+    capability net_bind_service,
+    capability setgid,
+    capability setuid,
+    capability dac_override,
+    network inet raw,
+    network inet6 raw,
+
+    /usr/sbin/dnsmasq rm,
+
+    /etc/dnsmasq.conf rw,
+    /run/*dnsmasq*.pid w,
+    /run/dnsmasq/** rw,
+    /tmp/* rw,
+    /proc/* r,
+  }
 }

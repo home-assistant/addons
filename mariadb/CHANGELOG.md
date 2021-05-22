@@ -1,4 +1,13 @@
 # Changelog
+
+## 2.3.0
+
+- Option to grant user specific privileges for a database
+
+## 2.2.2
+
+- Update options schema for passwords
+
 ## 2.2.1
 - Don't delete the mariadb.sys user, it's needed in MariaDB >= 10.4.13
 

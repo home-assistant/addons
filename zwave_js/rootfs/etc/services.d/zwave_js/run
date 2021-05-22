@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start Z-Wave JS service for Z-Wave radio
+# ==============================================================================
+SERIAL_DEVICE=$(bashio::config 'device')
+
+# Emulate serial Hardware for test & development
+if bashio::config.true 'emulate_hardware'; then
+    SERIAL_DEVICE="--mock"
+fi
+
+# Send out discovery information to Home Assistant
+./discovery &
+
+# Run daemon
+exec zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json

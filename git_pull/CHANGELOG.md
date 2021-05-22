@@ -1,123 +1,81 @@
 # Changelog
 
-## 7.12
+## 7.13.1
+
+- Update Home Assistant CLI to 4.12.2
+
+## 7.13.0
+
+- Update Home Assistant CLI to 4.12.1
+- Upgrade base image to Alpine 3.13
+- Supress a shellcheck warning happening in CI
+
+## 7.12.2
+
+- Update Home Assistant CLI to 4.11.0
+
+## 7.12.1
+
+- Update options schema for passwords
+
+## 7.12.0
 
 - Fix error of deployment_key eventually failing by overwriting the deployment_key every cycle
 
-## 7.11
+## 7.11.0
 
 - Update Home Assistant CLI to 4.2.0
 
-## 7.10
+## 7.10.0
 
 - Update Home Assistant CLI to 4.1.0
 
-## 7.9
+## 7.9.0
 
 - Update Home Assistant CLI to 4.0.1
 
-## 7.8
+## 7.8.0
 
 - Added support for Azure DevOps repositories by removing the requirement for the `.git` suffix
 - Update to Alpine 3.11
 
-## 7.7
+## 7.7.0
 
 - Update Hass.io CLI to 3.1.1
 
-## 7.6
+## 7.6.0
 
 - Update Hass.io CLI to 3.1.0
 
-## 7.5
+## 7.5.0
 
 - Update Hass.io CLI to 3.0.0
 
-## 7.4
+## 7.4.0
 
 - Update Hass.io CLI to 2.3.0
 
-## 7.3
+## 7.3.0
 
 - Update Hass.io CLI to 2.2.0
 
-## 7.2
+## 7.2.0
 
 - Fix restart_ignore when specifying a sub-directory
 
-## 7.1
+## 7.1.0
 
 - Enhance restart_ignore to support whole directories
 - Fix repeat option: don't terminate if internet connection unavailable during a check
 
-## 7.0
+## 7.0.0
 
 - Update Hass.io CLI to 2.0.1
 
-## 6.1
+## 6.1.0
 
 - Bugfix in git diff command while comparing commits
 
-## 6.0
+## 6.0.0
 
 - Allow to disable Home Assistant restart for specific file changes
-
-## 5.0
-
-- Update Hass.io CLI to 1.4.0
-- Add new API role profile
-
-## 4.9
-
-- Fix git repo detection in config-dir - #372
-- Fix repeat option detection - #375
-- Allow to stay on the currently checked out branch - set "git_branch": ""
-- Correct typo
-
-## 4.8
-
-- Add option to use git reset instead of git pull
-- Validate git origin URL
-
-## 4.7
-
-- Update Hass.io CLI to 1.3.1
-
-## 4.6
-
-- Update Hass.io CLI to 1.3.0
-
-## 4.5
-
-- Update Hass.io CLI to 1.2.1
-
-## 4.4
-
-- Update Hass.io CLI to 1.1.2
-
-## 4.3
-
-- Downgrade Hass.io CLI to 1.0.1
-
-## 4.2
-
-- Update Hass.io CLI to 1.1.1
-
-## 4.1
-
-- Add support for key validation against ssh cloned GitHub repositories
-
-## 4.0
-
-- Allow to use user/password authentication for GIT
-- New options `deployment_user` and `deployment_password`
-
-## 3.0
-
-- New CLI
-- Update base image
-- Backup of files before clearing the /config folder
-- Copy back all non YAML files and the secrets.yaml after the git clone
-- More verbose error handling. Also logging the GIT exceptions.
-- Splitted code out into functions
-- Check SSH connection before setting the key

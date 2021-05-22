@@ -20,7 +20,7 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Get changed files
         id: changed_files
@@ -72,7 +72,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Get information
         id: info
@@ -82,15 +82,18 @@ jobs:
 
       - name: Check add-on
         id: check
-        run:
+        run: |
            if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-              echo "::set-output name=buld_arch::true";
+              echo "::set-output name=build_arch::true";
             else
               echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
            fi
 
+           version=$(jq -r '.version' "./${{ matrix.addon }}/config.json")
+           echo "::set-output name=version::${version}";
+
       - name: Set build arguments
-        if: steps.check.outputs.buld_arch == 'true'
+        if: steps.check.outputs.build_arch == 'true'
         run: |
           if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
               echo "BUILD_ARGS=--docker-hub-check" >> $GITHUB_ENV;
@@ -98,17 +101,27 @@ jobs:
 
       - name: Login to DockerHub
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v1
+        uses: docker/login-action@v1.9.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Login to GitHub Container Registry
+        if: env.BUILD_ARGS == '--docker-hub-check'
+        uses: docker/login-action@v1.9.0
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GIT_USER }}
+          password: ${{ secrets.GIT_TOKEN }}
+
       - name: Build ${{ matrix.addon }} add-on
-        if: steps.check.outputs.buld_arch == 'true'
-        uses: home-assistant/builder@master
+        if: steps.check.outputs.build_arch == 'true'
+        uses: home-assistant/builder@2021.05.0
         with:
           args: |
             ${{ env.BUILD_ARGS }} \
             --${{ matrix.arch }} \
             --target /data/${{ matrix.addon }} \
-            --docker-hub homeassistant
+            --with-codenotary "${{ secrets.VCN_USER }}" "${{ secrets.VCN_PASSWORD }}" "${{ secrets.VCN_ORG }}" \
+            --validate-from "${{ secrets.VCN_ORG }}" \
+            --addon

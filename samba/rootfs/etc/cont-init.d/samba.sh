@@ -26,7 +26,7 @@ bashio::log.info "Using hostname=${HOSTNAME} interface=${interface}"
 
 # Generate Samba configuration.
 jq ".interface = \"${interface}\"" /data/options.json \
-    tempio \
+    | tempio \
       -template /usr/share/tempio/smb.gtpl \
       -out /etc/samba/smb.conf
 

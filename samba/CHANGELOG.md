@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.5.0
+
+- Remove interface options in favor of network
+
 ## 9.4.0
 
 - Upgrade Alpine Linux to 3.13

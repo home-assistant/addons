@@ -13,7 +13,7 @@ fi
 ./discovery &
 
 # Create external config dir so configs can be persisted
-mkdir -p /data/d
+mkdir -p /data/db
 
 # Run daemon, passing external config directory in as environment variable
 exec env ZWAVEJS_EXTERNAL_CONFIG=/data/db zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json

@@ -3,7 +3,7 @@
 # 0.1.24
 
 - Bump Z-Wave JS to 7.7.0
-- Create persistent directory for device config files
+- Create persistent directory for device config files to allow for future config updating functionality through the Home Assistant UI.
 
 # 0.1.23
 

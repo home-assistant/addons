@@ -1,10 +1,15 @@
 # Home Assistant Add-on: Almond
 
-[Almond] For Home Servers.
+## The Open-source, Privacy-Preserving Voice Assistant.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
-The Open, Privacy-Preserving Virtual Assistant.
+[Almond] provides a complete solution to turn your Home Assistant
+into a smart speaker. It supports playing music, controlling your
+IoTs, checking the weather, and other simple questions.
+
+To use Almond, you should connect a microphone and speaker to the
+device where Home Assistant is installed.
 
 [Almond]: https://almond.stanford.edu/
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg

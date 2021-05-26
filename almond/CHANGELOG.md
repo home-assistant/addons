@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0-1
+
+- Almond was updated to 2.0.0: this is a major release that
+  brings significant changes to the supported skills. Additional
+  details are in the release notes: https://wiki.almond.stanford.edu/en/release-planning/two-point-oh
+- Voice support is now included in this addon, and the Ada add-on
+  is not required (in fact, it should not be enabled at the same time).
+
 ## 1.1.2
 
 - Revert restart nginx service on error

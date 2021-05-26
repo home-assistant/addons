@@ -1,17 +1,16 @@
 {
-  "name": "Almond",
-  "version": "1.1.2",
-  "slug": "almond",
-  "description": "The home server version of Almond",
+  "name": "Almond - Edge",
+  "version": "2.0.0-1",
+  "slug": "edge",
+  "description": "The open-source, privacy-preserving voice assistant",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",
-  "arch": ["armv7", "armhf", "aarch64", "amd64", "i386"],
+  "arch": ["armv7", "armhf", "aarch64", "amd64"],
   "init": false,
   "discovery": ["almond"],
   "ingress": true,
+  "audio": true,
   "panel_icon": "mdi:comment-eye-outline",
   "homeassistant": "0.102.0",
   "homeassistant_api": true,
-  "options": {},
-  "schema": {},
   "image": "homeassistant/{arch}-addon-almond"
 }

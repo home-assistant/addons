@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.1.24
+
+- Bump Z-Wave JS to 7.7.0
+- Create persistent directory for device config files
+
 # 0.1.23
 
 - Bump Z-Wave JS Server to 1.7.0

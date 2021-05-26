@@ -7,7 +7,7 @@
     "i386": "ghcr.io/home-assistant/i386-base:3.13"
   },
   "args": {
-    "CLI_VERSION": "4.12.2",
+    "CLI_VERSION": "4.12.3",
     "LIBWEBSOCKETS_VERSION": "4.1.4",
     "TTYD_VERSION": "1.6.3"
   }

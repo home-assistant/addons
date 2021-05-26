@@ -7,7 +7,7 @@ about: Report an issue with one of the add-ons in this repository
   - Make sure you are running the latest version of the add-on before reporting an issue
   - Provide as many details as possible. Paste logs, configuration samples and code into the backticks.
   DO NOT DELETE ANY TEXT from this template! Otherwise, your issue may be closed without comment.
-  - This is the issue tracker for add-ons, feature request for new or exsisting add-ons should be opened on the forum https://community.home-assistant.io/c/feature-requests
+  - This is the issue tracker for add-ons, feature request for new or existing add-ons should be opened on the forum https://community.home-assistant.io/c/feature-requests
 -->
 ## The problem
 <!-- 

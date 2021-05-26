@@ -3,3 +3,4 @@
 # Setup folder structure
 # ==============================================================================
 mkdir -p /data/cache
+mkdir -p /data/db

@@ -4,7 +4,7 @@
   "slug": "edge",
   "description": "The open-source, privacy-preserving voice assistant",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",
-  "arch": ["armv7", "armhf", "aarch64", "amd64"],
+  "arch": ["armv7", "aarch64", "amd64"],
   "init": false,
   "discovery": ["almond"],
   "ingress": true,

@@ -39,7 +39,6 @@ Add-on configuration:
 workgroup: WORKGROUP
 username: homeassistant
 password: YOUR_PASSWORD
-interface: ''
 allow_hosts:
   - 10.0.0.0/8
   - 172.16.0.0/12
@@ -63,12 +62,6 @@ The username you would like to use to authenticate with the Samba server.
 ### Option: `password` (required)
 
 The password that goes with the username configured for authentication.
-
-### Option: `interface` (required)
-
-The network interface Samba should listen on for incoming connections.
-This option should only be used in advanced cases. In general, setting this
-option is not needed.
 
 ### Option: `allow_hosts` (required)
 

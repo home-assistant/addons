@@ -55,7 +55,7 @@ RUN \
     \
     && npm config set unsafe-perm \
     \
-    && su almond -c "git clone -b \"${ALMOND_VERSION}\" --depth 1 https://github.com/stanford-oval/almond-server ."
+    && su almond -c "git clone -b \"${ALMOND_VERSION}\" --depth 1 https://github.com/stanford-oval/almond-server ." \
     && su almond -c "npm ci" \
     && su almond -c "npm install --no-package-lock --ignore-scripts snowboy" \
     && cd node_modules/snowboy/ \

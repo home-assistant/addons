@@ -1,7 +1,7 @@
 {
-  "name": "Almond - Edge",
+  "name": "Almond",
   "version": "2.0.0-1",
-  "slug": "edge",
+  "slug": "almond",
   "description": "The open-source, privacy-preserving voice assistant",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",
   "arch": ["armv7", "aarch64", "amd64"],

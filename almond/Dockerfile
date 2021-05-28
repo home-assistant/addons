@@ -53,7 +53,7 @@ RUN \
     \
     && git clone -b "${ALMOND_VERSION}" --depth 1 https://github.com/stanford-oval/almond-server . \
     && npm ci \
-    && npm install --no-package-lock --ignore-scripts snowboy \
+    && npm install --no-package-lock --ignore-scripts snowboy@1.3.1 \
     && cd node_modules/snowboy/ \
     && PYTHON=python2 npx node-pre-gyp clean configure \
     && make -C build/ \

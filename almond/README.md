@@ -6,7 +6,7 @@
 
 [Almond] provides a complete solution to turn your Home Assistant
 into a smart speaker. It supports playing music, controlling your
-IoTs, checking the weather, and other simple questions.
+IoT, checking the weather, and other simple questions.
 
 To use Almond, you should connect a microphone and speaker to the
 device where Home Assistant is installed.

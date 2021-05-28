@@ -39,7 +39,6 @@ RUN \
         pulseaudio-utils \
         gettext \
         zip \
-        sudo \
         wget \
         gstreamer1.0-plugins-base-apps \
         gstreamer1.0-plugins-good \
@@ -56,13 +55,12 @@ RUN \
     \
     && npm config set unsafe-perm \
     \
-    && sudo -u almond git clone -b "${ALMOND_VERSION}" --depth 1 \
-        "https://github.com/stanford-oval/almond-server" . && \
-    sudo -u almond npm ci && \
-    sudo -u almond npm install --no-package-lock --ignore-scripts snowboy && \
+    && su almond -c "git clone -b \"${ALMOND_VERSION}\" --depth 1 https://github.com/stanford-oval/almond-server ." && \
+    su almond -c "npm ci" && \
+    su almond -c "npm install --no-package-lock --ignore-scripts snowboy" && \
     cd node_modules/snowboy/ && \
-    sudo -u almond PYTHON=python2 npx node-pre-gyp clean configure && \
-    sudo -u almond make -C build/ && \
+    su almond -c "PYTHON=python2 npx node-pre-gyp clean configure" && \
+    su almond -c "make -C build/" && \
     rm -fr /home/almond/.cache && \
     rm -fr /home/almond/.npm && \
     mkdir /home/almond/.cache \

@@ -11,10 +11,6 @@ ENV \
 WORKDIR /opt/almond
 ARG ALMOND_VERSION
 
-RUN adduser --disabled-password almond && \
-   chown almond:almond /opt/almond
-WORKDIR /opt/almond
-
 RUN \
     set -x \
     && apt-get update \
@@ -55,15 +51,15 @@ RUN \
     \
     && npm config set unsafe-perm \
     \
-    && su almond -c "git clone -b \"${ALMOND_VERSION}\" --depth 1 https://github.com/stanford-oval/almond-server ." \
-    && su almond -c "npm ci" \
-    && su almond -c "npm install --no-package-lock --ignore-scripts snowboy" \
+    && git clone -b "${ALMOND_VERSION}" --depth 1 https://github.com/stanford-oval/almond-server . \
+    && npm ci \
+    && npm install --no-package-lock --ignore-scripts snowboy \
     && cd node_modules/snowboy/ \
-    && su almond -c "PYTHON=python2 npx node-pre-gyp clean configure" \
-    && su almond -c "make -C build/" \
-    && rm -fr /home/almond/.cache \
-    && rm -fr /home/almond/.npm \
-    && mkdir /home/almond/.cache \
+    && PYTHON=python2 npx node-pre-gyp clean configure \
+    && make -C build/ \
+    && rm -fr /root/.cache \
+    && rm -fr /root/.npm \
+    && mkdir /root/.cache \
     \
     && apt-get purge -y --auto-remove \
         build-essential \

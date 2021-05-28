@@ -27,11 +27,17 @@ Got questions?
 
 You have several options to get them answered:
 
-- The [Almond Discord Chat Server][discord].
-- The Almond [Community Forum][forum].
+- The [Home Assistant Discord Chat Server][discord].
+- The Home Assistant [Community Forum][forum].
+- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit].
+- The [Almond Discord Chat Server][discordalmond].
+- The Almond [Community Forum][forumalmond].
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[discord]: https://discord.gg/anthtR4
-[forum]: https://community.almond.stanford.edu
-[issue]: https://github.com/stanford-oval/almond-server/issues
+[discord]: https://discord.gg/c5DvZ4e
+[forum]: https://community.home-assistant.io
+[issue]: https://github.com/home-assistant/hassio-addons/issues
+[reddit]: https://reddit.com/r/homeassistant
+[discordalmond]: https://discord.gg/anthtR4
+[forumalmond]: https://community.almond.stanford.edu

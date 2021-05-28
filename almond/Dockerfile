@@ -57,7 +57,7 @@ RUN \
     \
     && su almond -c "git clone -b \"${ALMOND_VERSION}\" --depth 1 https://github.com/stanford-oval/almond-server ."
     && su almond -c "npm ci" \
-    && su almond -c "npm install --no-package-lock --ignore-scripts snowboy"
+    && su almond -c "npm install --no-package-lock --ignore-scripts snowboy" \
     && cd node_modules/snowboy/ \
     && su almond -c "PYTHON=python2 npx node-pre-gyp clean configure" \
     && su almond -c "make -C build/" \

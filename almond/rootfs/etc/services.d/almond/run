@@ -9,9 +9,7 @@ THINGENGINE_BASE_URL=$(bashio::addon.ingress_entry)
 
 mkdir -p /data/almond-server
 if [ ! -f /data/almond-server/prefs.db ]; then
-    # Skip authentication handling
-    echo '{"server-login":{"password":"x","salt":"x","sqliteKeySalt":"x"}}' \
-      > /data/almond-server/prefs.db
+    cp /etc/almond/default-prefs.db /data/almond-server/prefs.db
 fi
 
 # Send out discovery information to Home Assistant

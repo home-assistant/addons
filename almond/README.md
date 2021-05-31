@@ -8,7 +8,7 @@ The Open-source, Privacy-Preserving Voice Assistant.
 into a smart speaker. It supports playing music, controlling your
 IoT, checking the weather, and other simple questions.
 
-To use Almond, you should connect a microphone and speaker to the
+To use Almond as a voice assistant, you should connect a microphone and speaker to the
 device where Home Assistant is installed.
 
 **Note**: since version 2.0.0 of the add-on, the use of the separate

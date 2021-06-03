@@ -1,6 +1,6 @@
 {
   "name": "Git pull",
-  "version": "7.13.1",
+  "version": "7.14.0",
   "slug": "git_pull",
   "description": "Simple git pull to update the local configuration",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/git_pull",

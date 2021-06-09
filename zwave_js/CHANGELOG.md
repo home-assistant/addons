@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.25
+
+- Bump Z-Wave JS to 7.7.3
+
 # 0.1.24
 
 - Bump Z-Wave JS to 7.7.0

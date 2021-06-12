@@ -28,7 +28,6 @@ dns:
   - 8.8.4.4
 default_lease: 86400
 max_lease: 172800
-enable_failover: true
 networks:
   - subnet: 192.168.1.0
     netmask: 255.255.255.0
@@ -40,7 +39,9 @@ networks:
     failover_peer: failover_partner
 failover_peers:
   - name: failover_partner
-    role: primary
+    # specifying mclt and split will make
+    # this server take the primary role
+    # ommiting both will make it secondary
     mclt: 60
     split: 128
     peer_address: 192.168.1.2
@@ -73,17 +74,6 @@ Defaults to `86400`, which is one day.
 
 The max time in seconds that the IP is leased to your client.
 Defaults to `172800`, which is two days.
-
-### Option: `enable_failover` (optional - default is false)
-
-If this option is set to false, all failover-related configuration
-values are ignored and no failover will be configured.
-This allows to add the failover options without activating them
-at first or switching back to no-failover in a hurry if the DHCP
-server does not come up okay.
-
-See [ISC DHCP Failover Configuration][failover] for a nice write-up
-on the subject.
 
 ### Option: `networks` (one item required)
 
@@ -136,24 +126,25 @@ The failover peer definition to be used for this network. See below.
 This option defines settings for a list of peer definitions that can be
 referenced in the networks blocks described above.
 
+See [ISC DHCP Failover Configuration][failover] for a nice write-up
+on the subject.
+
 #### Option: `failover_peers.name`
 
 Defines the name by which this peer definition can be referenced in a
 networks block through the option `networks.failover_peer`.
 This name must also be used on the peer DHCP server defined here.
 
-#### Option: `failover_peers.role`
-
-This option's value must be one of primary or secondary.
-It defines this server's role in the failover protocol between
-the peers.
-
 #### Option: `failover_peers.mclt`
 
-'Maximumn Client Lead Time' or short mclt can only be defined if the
-server's role is 'primary'. It is specified in seconds and roughly
-defines how fast the servers react to outages. A low value can bring
-both servers back into failover faster but may produce significantly
+If 'Maximumn Client Lead Time' (or short: mclt) is defined,
+`failover_peers.split` (see below) must be defined as well and this
+DHCP server acts as the primary of the failover pair. If neither is
+given, the server asumes the role of secondary.
+
+The value is specified in seconds and roughly defines how the servers
+calculate the lease times in case of outages of the peer. A low value
+can bring both servers back into failover faster but may produce significantly
 more network traffic due to short lease times used during failover.
 
 See [DHCP Failover and MCLT configuration implications][failoverimplications]
@@ -161,11 +152,12 @@ for more information on the subject.
 
 #### Option: `failover_peers.split`
 
-Again, this should be defined only on the primary DHCP server and is
-ignored if `failover_peer.role` is set to 'secondary'.
+Again, this must be defined together with `failover_peers.mclt` (or both must
+be omitted). See `failover_peers.mclt` above for how this influences the server's
+role in the DHCP failover protocol.
 
-It defines a load balancing split between the two peers. Basically, it can be a
-value between 0 and 256. A value of 256 means no load balancing, so the primary
+The value must be between 0 and 256 and defines a load balancing split between
+the two peers. A value of 256 means no load balancing, so the primary
 server would handle all DHCP requests, and the secondary would only handle DHCP
 requests if the primary becomes unavailable. A setting of 128 means a 50/50
 load balance split between the primary/secondary DHCP servers, and the other

@@ -19,7 +19,6 @@
     "max_lease": 172800,
     "domain": null,
     "dns": ["8.8.8.8", "8.8.4.4"],
-    "enable_failover": false,
     "networks": [
       {
         "subnet": "192.168.1.0",
@@ -28,23 +27,10 @@
         "range_end": "192.168.1.200",
         "broadcast": "192.168.1.255",
         "gateway": "192.168.1.1",
-        "interface": "eth0",
-        "failover_peer": "failover_partner"
+        "interface": "eth0"
       }
     ],
-    "failover_peers": [
-      {
-        "name": "failover_partner",
-        "role": "primary",
-        "mclt": 60,
-        "split": 128,
-        "peer_address": "192.168.1.2",
-        "peer_port": 647,
-        "max_response_delay": 60,
-        "max_unacked_updates": 10,
-        "load_balance_max_seconds": 3
-      }
-    ],
+    "failover_peers": [],
     "hosts": []
   },
   "schema": {
@@ -52,7 +38,6 @@
     "max_lease": "int",
     "domain": "str",
     "dns": ["str"],
-    "enable_failover": "bool?",
     "networks": [
       {
         "subnet": "str",
@@ -68,7 +53,6 @@
     "failover_peers": [
       {
         "name": "str",
-        "role": "list(primary|secondary)",
         "mclt": "int?",
         "split": "int(0,256)?",
         "peer_address": "str",

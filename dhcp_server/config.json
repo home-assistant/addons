@@ -1,18 +1,25 @@
 {
   "name": "DHCP server",
-  "version": "1.2",
+  "version": "1.3",
   "slug": "dhcp_server",
-  "description": "A simple DHCP server",
+  "description": "A simple DHCP server with failover capability",
   "url": "https://home-assistant.io/addons/dhcp_server/",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "advanced": true,
   "startup": "system",
   "host_network": true,
+  "ports": {
+    "647/tcp": 647
+  },
+  "ports_description": {
+    "647/tcp": "DHCP failover handshake"
+  },
   "options": {
     "default_lease": 86400,
     "max_lease": 172800,
     "domain": null,
     "dns": ["8.8.8.8", "8.8.4.4"],
+    "enable_failover": false,
     "networks": [
       {
         "subnet": "192.168.1.0",
@@ -21,7 +28,21 @@
         "range_end": "192.168.1.200",
         "broadcast": "192.168.1.255",
         "gateway": "192.168.1.1",
-        "interface": "eth0"
+        "interface": "eth0",
+        "failover_peer": "failover_partner"
+      }
+    ],
+    "failover_peers": [
+      {
+        "name": "failover_partner",
+        "role": "primary",
+        "mclt": 60,
+        "split": 128,
+        "peer_address": "192.168.1.2",
+        "peer_port": 647,
+        "max_response_delay": 60,
+        "max_unacked_updates": 10,
+        "load_balance_max_seconds": 3
       }
     ],
     "hosts": []
@@ -31,6 +52,7 @@
     "max_lease": "int",
     "domain": "str",
     "dns": ["str"],
+    "enable_failover": "bool?",
     "networks": [
       {
         "subnet": "str",
@@ -39,7 +61,21 @@
         "range_end": "str",
         "broadcast": "str",
         "gateway": "str",
-        "interface": "str"
+        "interface": "str",
+        "failover_peer": "str?"
+      }
+    ],
+    "failover_peers": [
+      {
+        "name": "str",
+        "role": "list(primary|secondary)",
+        "mclt": "int?",
+        "split": "int(0,256)?",
+        "peer_address": "str",
+        "peer_port": "port",
+        "max_response_delay": "int",
+        "max_unacked_updates": "int",
+        "load_balance_max_seconds": "int"
       }
     ],
     "hosts": [

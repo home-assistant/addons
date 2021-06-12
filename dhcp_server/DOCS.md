@@ -28,6 +28,7 @@ dns:
   - 8.8.4.4
 default_lease: 86400
 max_lease: 172800
+enable_failover: true
 networks:
   - subnet: 192.168.1.0
     netmask: 255.255.255.0
@@ -36,6 +37,17 @@ networks:
     broadcast: 192.168.1.255
     gateway: 192.168.1.1
     interface: eth0
+    failover_peer: failover_partner
+failover_peers:
+  - name: failover_partner
+    role: primary
+    mclt: 60
+    split: 128
+    peer_address: 192.168.1.2
+    peer_port: 647
+    max_response_delay: 60
+    max_unacked_updates: 10
+    load_balance_max_seconds: 3
 hosts:
   - name: webcam_xy
     mac: aa:bb:ee:cc
@@ -61,6 +73,17 @@ Defaults to `86400`, which is one day.
 
 The max time in seconds that the IP is leased to your client.
 Defaults to `172800`, which is two days.
+
+### Option: `enable_failover` (optional - default is false)
+
+If this option is set to false, all failover-related configuration
+values are ignored and no failover will be configured.
+This allows to add the failover options without activating them
+at first or switching back to no-failover in a hurry if the DHCP
+server does not come up okay.
+
+See [ISC DHCP Failover Configuration][failover] for a nice write-up
+on the subject.
 
 ### Option: `networks` (one item required)
 
@@ -104,9 +127,99 @@ This is usually the IP address of your router.
 
 The network interface to listen to for this network, e.g., `eth0`.
 
+#### Option: `networks.failover_peer` (optional)
+
+The failover peer definition to be used for this network. See below.
+
+### Option: `failover_peers` (optional)
+
+This option defines settings for a list of peer definitions that can be
+referenced in the networks blocks described above.
+
+#### Option: `failover_peers.name`
+
+Defines the name by which this peer definition can be referenced in a
+networks block through the option `networks.failover_peer`.
+This name must also be used on the peer DHCP server defined here.
+
+#### Option: `failover_peers.role`
+
+This option's value must be one of primary or secondary.
+It defines this server's role in the failover protocol between
+the peers.
+
+#### Option: `failover_peers.mclt`
+
+'Maximumn Client Lead Time' or short mclt can only be defined if the
+server's role is 'primary'. It is specified in seconds and roughly
+defines how fast the servers react to outages. A low value can bring
+both servers back into failover faster but may produce significantly
+more network traffic due to short lease times used during failover.
+
+See [DHCP Failover and MCLT configuration implications][failoverimplications]
+for more information on the subject.
+
+#### Option: `failover_peers.split`
+
+Again, this should be defined only on the primary DHCP server and is
+ignored if `failover_peer.role` is set to 'secondary'.
+
+It defines a load balancing split between the two peers. Basically, it can be a
+value between 0 and 256. A value of 256 means no load balancing, so the primary
+server would handle all DHCP requests, and the secondary would only handle DHCP
+requests if the primary becomes unavailable. A setting of 128 means a 50/50
+load balance split between the primary/secondary DHCP servers, and the other
+will pick up the slack in the event one becomes unavailable.
+
+#### Option: `failover_peers.peer_address`
+
+This defines the IP or FQDN of the peer server running the other DHCP server.
+
+#### Option: `failover_peers.peer_port`
+
+This defines the port for the DHCP failover handshake used by the peer server.
+
+This addon has it's own container port for failover handshake defined as 647/tcp
+but that can be mapped to any host port through this addon's network configuration.
+Just make sure the configuration of the peer DHCP server references that mapped
+HOST PORT and not the container's port number 647!
+
+#### Option: `failover_peers.max_response_delay`
+
+This value tells the DHCP server how many seconds may pass without receiving a
+message from its failover peer before it assumes that connection has failed.
+
+This number should be small enough that a transient network failure that
+breaks the connection will not result in the servers being out of communication
+for a long time, but large enough that the server isn't constantly making and
+breaking connections.
+
+#### Option: `failover_peers.max_unacked_updates`
+
+This value tells the remote DHCP server how many BNDUPD messages it can send
+before it receives a BNDACK from the local system. There isn'T enough
+operational experience to say what a good value for this is, but 10 seems to work.
+
+#### Option: `failover_peers.load_balance_max_seconds`
+
+This value allows you to configure a cutoff after which load balancing is disabled.
+The cutoff is based on the number of seconds since the client sent its first
+DHCPDISCOVER or DHCPREQUEST message, and only works with clients that correctly
+implement the secs field - fortunately most clients do.
+
+It is recommended setting this to something like 3 or 5.
+
+The effect of this is that if one of the failover peers gets into a state where
+it is responding to failover messages but not responding to some client requests,
+the other failover peer will take over its client load automatically as the clients
+retry.
+
+It is possible to disable load balancing between peers by setting this value to 0 on both peers.
+Bear in mind that this means both peers will respond to all DHCPDISCOVERs or DHCPREQUESTs.
+
 ### Option: `hosts` (optional)
 
-This option defines settings for one or host definitions for the DHCP server.
+This option defines settings for a list of host definitions for the DHCP server.
 
 It allows you to fix a host to a specific IP address.
 
@@ -141,3 +254,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository
+[failover]: https://stevendiver.com/2020/02/21/isc-dhcp-failover-configuration/
+[failoverimplications]: https://kb.isc.org/docs/aa-00268

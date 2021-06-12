@@ -5,6 +5,6 @@
     "armv7": "homeassistant/armv7-base-debian:buster"
   },
   "args": {
-    "ALMOND_VERSION": "v2.0.0"
+    "ALMOND_VERSION": "v2.0.1"
   }
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.5.1
+
+- Add `hassio_api` to add-on configuration
+
 ## 9.5.0
 
 - Remove interface options in favor of network

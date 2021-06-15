@@ -1,34 +1,38 @@
 # Changelog
 
-# 0.1.25
+## 0.1.26
+
+- Bump Z-Wave JS to 7.7.4
+
+## 0.1.25
 
 - Bump Z-Wave JS to 7.7.3
 
-# 0.1.24
+## 0.1.24
 
 - Bump Z-Wave JS to 7.7.0
 - Create persistent directory for device config files to allow for future config updating functionality through the Home Assistant UI.
 
-# 0.1.23
+## 0.1.23
 
 - Bump Z-Wave JS Server to 1.7.0
 - Pin Z-Wave JS to 7.6.0
 
-# 0.1.22
+## 0.1.22
 
 - Bump Z-Wave JS Server to 1.6.0
 - Pin Z-Wave JS to 7.5.2
 
-# 0.1.21
+## 0.1.21
 
 - Pin Z-Wave JS to 7.3.0
 
-# 0.1.20
+## 0.1.20
 
 - Bump Z-Wave JS Server to 1.5.0
 - Pin Z-Wave JS to 7.2.4
 
-# 0.1.19
+## 0.1.19
 
 - Pin Z-Wave JS to 7.2.3
 - Make log level a configuration option

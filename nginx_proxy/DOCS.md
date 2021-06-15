@@ -17,12 +17,19 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
     - `ssl_certificate`
     - `ssl_key`
     - `server_port`
-3. Change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
-4. Leave all other options as-is.
-5. Save configuration.
-6. Start the add-on.
-7. Have some patience and wait a couple of minutes.
-8. Check the add-on log output to see the result.
+3. And you need to add the `trusted_proxies` section (requests from reverse proxies will be blocked if these options are not set).
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+```
+4. In the nginx addon configuration, change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
+5. Leave all other options as-is.
+6. Save configuration.
+7. Start the add-on.
+8. Have some patience and wait a couple of minutes.
+9. Check the add-on log output to see the result.
 
 ## Configuration
 

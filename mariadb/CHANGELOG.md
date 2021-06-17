@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.0
+
+- Add lock capabilities during snapshot
+
 ## 2.3.0
 
 - Option to grant user specific privileges for a database

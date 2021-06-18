@@ -1,9 +1,5 @@
 # Changelog
 
-## 6.9.1
-
-- Store deCONZ data persistent
-
 ## 6.9.0
 
 - Bump deCONZ to 2.11.5

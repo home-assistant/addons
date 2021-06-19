@@ -89,6 +89,30 @@ transip_username: ''
 transip_api_key: ''
 ```
 
+
+
+## Auto Renewal
+
+By default, this add-on will shut down once it runs and will **not** automatically renew your certificate. To automatically renew your certificate, it is reccommended to run a home assistant automation that restarts this add-on at a convinent time daily or weekly so that your certificate is automatically renwed when it is time.
+
+You can configure this using the Home Assitant UI. Here's an example automation to (re)start the add-on daily at 2:22am:
+
+```yaml
+alias: "Let's Encrypt Renewal"
+description: ''
+trigger:
+  - platform: time
+    at: '2:22'
+condition: []
+action:
+  - service: hassio.addon_restart
+    data:
+      addon: core_letsencrypt
+mode: single
+```
+
+
+
 ## Advanced
 
 ### Changing the ACME Server

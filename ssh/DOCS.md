@@ -50,9 +50,14 @@ Add-on configuration:
 authorized_keys:
   - "ssh-rsa AKDJD3839...== my-key"
 password: ''
+apks: []
 server:
   tcp_forwarding: false
 ```
+
+### Option: `apks`
+
+Additional software packages to install in the add-on container.
 
 ### Option: `authorized_keys`
 

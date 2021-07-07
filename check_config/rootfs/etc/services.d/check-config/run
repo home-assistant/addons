@@ -15,12 +15,12 @@ bashio::log.info "Installing Home Assistant: ${VERSION}..."
 bashio::log.info "Please be patient, this might take a few minutes..."
 
 # Install Home Assistant with the requested version
-if ! PIP_OUTPUT="$(pip3 install --disable-pip-version-check --find-links "${WHEELS_LINKS}" "${CMD}" 2>&1)"; then
+if ! PIP_OUTPUT="$(python3 -m pip install "${CMD}" 2>&1)"; then
     bashio::log.error "An error occurred while installing Home Assistant:"
     bashio::log "${PIP_OUTPUT}"
     bashio::exit.nok
 fi
-INSTALLED_VERSION="$(pip freeze | grep homeassistant)"
+INSTALLED_VERSION="$(python3 -m pip freeze | grep homeassistant)"
 bashio::log.info "Installed Home Assistant ${INSTALLED_VERSION##*=}"
 
 # Making a temporary copy of your configuration

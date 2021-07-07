@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.2
+
+- Add global configuration for pip
+
 ## 3.7.1
 
 - Update base image to 2021.04.3

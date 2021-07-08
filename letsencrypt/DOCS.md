@@ -224,6 +224,23 @@ dns:
   cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
 ```
 
+### Linode
+
+To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+
+```yaml
+email: you@mailprovider.com
+domains:
+  - ha.yourdomain.com
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-linode
+  linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
+  linode_version: '4'
+```
+
 ### DirectAdmin
 
 It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.

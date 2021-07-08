@@ -361,9 +361,7 @@ dns:
   rfc2136_server: dns-server.dom.ain
   rfc2136_port: '53'
   rfc2136_name: letsencrypt
-  rfc2136_secret: >-
-    Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da
-    hokrwyLe3MTboGkloKIsT6DUcTSdEA==
+  rfc2136_secret: "secret-key"
   rfc2136_algorithm: HMAC-SHA512
 ```
 

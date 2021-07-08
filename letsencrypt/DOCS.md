@@ -393,10 +393,10 @@ transip_api_key: ''
     secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
   };
   ```
-  And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain
+  And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
   ```
      update-policy {
-        grant letsencrypt name _acme-challenge.hassio.dom.ain. txt;
+        grant letsencrypt name _acme-challenge.home-assistant.io. txt;
      };
   ```
 

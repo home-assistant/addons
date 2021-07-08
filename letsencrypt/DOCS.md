@@ -376,49 +376,49 @@ transip_api_key: ''
 <details>
   <summary>RFC2136</summary>
 
-You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authenticate key by running
-```
-# dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
-Kletsencrypt.+165+20675
-```
-The key file (Kletsencrypt.+165+20675.key in this example) looks like the following:
-```
-# cat Kletsencrypt.+165+20675.key
-letsencrypt. IN KEY 512 3 165 Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==
-```
-You don't need to publish this; just copy the key data into your named.conf file:
-```
-key "letsencrypt" {
-  algorithm hmac-sha512;
-  secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
-};
-```
-And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain
-```
-   update-policy {
-      grant letsencrypt name _acme-challenge.hassio.dom.ain. txt;
-   };
-```
+  You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authenticate key by running
+  ```
+  # dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
+  Kletsencrypt.+165+20675
+  ```
+  The key file (Kletsencrypt.+165+20675.key in this example) looks like the following:
+  ```
+  # cat Kletsencrypt.+165+20675.key
+  letsencrypt. IN KEY 512 3 165 Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==
+  ```
+  You don't need to publish this; just copy the key data into your named.conf file:
+  ```
+  key "letsencrypt" {
+    algorithm hmac-sha512;
+    secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
+  };
+  ```
+  And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain
+  ```
+     update-policy {
+        grant letsencrypt name _acme-challenge.hassio.dom.ain. txt;
+     };
+  ```
 
-For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
+  For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
 
-An example configuration:
+  An example configuration:
 
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-rfc2136
-  rfc2136_server: dns-server.dom.ain
-  rfc2136_port: '53'
-  rfc2136_name: letsencrypt
-  rfc2136_secret: "secret-key"
-  rfc2136_algorithm: HMAC-SHA512
-```
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-rfc2136
+    rfc2136_server: dns-server.dom.ain
+    rfc2136_port: '53'
+    rfc2136_name: letsencrypt
+    rfc2136_secret: "secret-key"
+    rfc2136_algorithm: HMAC-SHA512
+  ```
 </details>
 
 

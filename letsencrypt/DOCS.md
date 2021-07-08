@@ -400,7 +400,7 @@ And ensure you have an update policy in place in the zone that uses this key to 
    };
 ```
 
-For this add-on you will need to supply all the rfc2136_* options.  Note that the rfc2136_port item is required (there is no default port in the add-on) and, most importantly, the the port number must be quoted because the add-on is expecting it to be a string and not a number.  Also be sure to copy in the key so certbot can authenticate to the DNS server.
+For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
 
 An example configuration
 ```yaml

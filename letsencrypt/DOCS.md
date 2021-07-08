@@ -12,12 +12,12 @@ Follow these steps to get the add-on installed on your system:
 
 To use this add-on, you have two options on how to get your certificate:
 
-### 1. http challenge
+### 1. HTTP challenge
 
 - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
 - Doesn’t allow wildcard certificates (*.yourdomain.com).
 
-### 2. dns challenge
+### 2. DNS challenge
 
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
 - Allows to request wildcard certificates (*.yourdomain.com)
@@ -33,7 +33,7 @@ domains:
 challenge: http OR dns
 ```
 
-IF you choose "dns" as "challenge", you will also need to fill:
+IF you choose `dns` as `challenge`, you will also need to fill:
 
 ```yaml
 # Add the dnsprovider of your choice from the list of "Supported DNS providers" below
@@ -41,7 +41,7 @@ dns:
   provider: ""
 ```
 
-In addition add the fields according to the credentials required by your dns provider:
+In addition add the fields according to the credentials required by your DNS provider:
 
 
 ```yaml
@@ -91,252 +91,287 @@ transip_api_key: ''
 
 ## Advanced
 
-### Changing the ACME Server
-By default, The addon uses Let’s Encrypt’s default server at https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+<details>
+  <summary>Changing the ACME Server</summary>
 
-```yaml
-acme_server: 'https://my.custom-acme-server.com'
-```
+  By default, The addon uses Let’s Encrypt’s default server at https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
 
-If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
-```yaml
-acme_server: 'https://my.custom-acme-server.com'
-acme_root_ca_cert: |
-  -----BEGIN CERTIFICATE-----
-  MccBfTCCASugAwIBAgIRAPPIPTKNBXkBozsoE46UPZcwCGYIKoZIzj0EAwIwHTEb...kg==
-  -----END CERTIFICATE-----
-```
+  ```yaml
+  acme_server: 'https://my.custom-acme-server.com'
+  ```
+
+  If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
+  ```yaml
+  acme_server: 'https://my.custom-acme-server.com'
+  acme_root_ca_cert: |
+    -----BEGIN CERTIFICATE-----
+    MccBfTCCASugAwIBAgIRAPPIPTKNBXkBozsoE46UPZcwCGYIKoZIzj0EAwIwHTEb...kg==
+    -----END CERTIFICATE-----
+  ```
+
+</details>
+
 
 ## Example Configurations
 
-### http challenge
+<details>
+  <summary>HTTP challenge</summary>
 
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: http
-dns: {}
-```
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: http
+  dns: {}
+  ```
 
-### dns challenge
+</details>
 
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-cloudflare
-  cloudflare_email: your.email@example.com
-  cloudflare_api_key: 31242lk3j4ljlfdwsjf0
-```
+<details>
+  <summary>DNS challenge</summary>
 
-### google dns challenge
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudflare
+    cloudflare_email: your.email@example.com
+    cloudflare_api_key: 31242lk3j4ljlfdwsjf0
+  ```
 
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-google
-  google_creds: google.json
-```
+</details>
 
-Please copy your credentials file "google.json" into the "share" shared folder on the Home Assistant host before starting the service.
+<details>
+  <summary>Google DNS challenge</summary>
 
-One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-google
+    google_creds: google.json
+  ```
 
-The credential file can be created and downloaded when creating the service user within the Google cloud.
-You can find additional information regarding the required permissions in the "credentials" section here:
+  Please copy your credentials file "google.json" into the "share" shared folder on the Home Assistant host before starting the service.
 
-<https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
+  One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
 
-### route53 dns challenge
+  The credential file can be created and downloaded when creating the service user within the Google cloud.
+  You can find additional information regarding the required permissions in the "credentials" section here:
 
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-route53
-  aws_access_key_id: 0123456789ABCDEF0123
-  aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
-```
+  <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
 
-For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
+</details>
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "ChangeSpecificDomainsRecordSet",
-            "Effect": "Allow",
-            "Action": "route53:ChangeResourceRecordSets",
-            "Resource": "arn:aws:route53:::hostedzone/01234567890ABC"
-        },
-        {
-            "Sid": "ListAllHostedZones",
-            "Effect": "Allow",
-            "Action": "route53:ListHostedZones",
-            "Resource": "*"
-        },
-        {
-            "Sid": "ReadChanges",
-            "Effect": "Allow",
-            "Action": "route53:GetChange",
-            "Resource": "arn:aws:route53:::change/*"
-        }
-    ]
-}
-```
+<details>
+  <summary>route53 DNS challenge</summary>
 
-### CloudFlare
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-route53
+    aws_access_key_id: 0123456789ABCDEF0123
+    aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
+  ```
 
-Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
+  For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
 
-Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
-The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
+  ```json
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Sid": "ChangeSpecificDomainsRecordSet",
+              "Effect": "Allow",
+              "Action": "route53:ChangeResourceRecordSets",
+              "Resource": "arn:aws:route53:::hostedzone/01234567890ABC"
+          },
+          {
+              "Sid": "ListAllHostedZones",
+              "Effect": "Allow",
+              "Action": "route53:ListHostedZones",
+              "Resource": "*"
+          },
+          {
+              "Sid": "ReadChanges",
+              "Effect": "Allow",
+              "Action": "route53:GetChange",
+              "Resource": "arn:aws:route53:::change/*"
+          }
+      ]
+  }
+  ```
 
-Example credentials file using restricted API Token (recommended):
-```yaml
-dns:
-  provider: dns-cloudflare
-  cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
-```
+</details>
 
-Example credentials file using Global API Key (not recommended):
-```yaml
-dns:
-  provider: dns-cloudflare
-  cloudflare_email: cloudflare@example.com
-  cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
-```
+<details>
+  <summary>CloudFlare</summary>
 
-### Linode
+  Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
 
-To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+  Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
+  The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
 
-```yaml
-email: you@mailprovider.com
-domains:
-  - ha.yourdomain.com
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-linode
-  linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
-  linode_version: '4'
-```
+  Example credentials file using restricted API Token (recommended):
+  ```yaml
+  dns:
+    provider: dns-cloudflare
+    cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
+  ```
 
-### DirectAdmin
+  Example credentials file using Global API Key (not recommended):
+  ```yaml
+  dns:
+    provider: dns-cloudflare
+    cloudflare_email: cloudflare@example.com
+    cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
+  ```
 
-It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
-Instructions on how to create such key can be found at https://help.directadmin.com/item.php?id=523.
+</details>
 
-Make sure to grant the following permissions:
-- `CMD_API_LOGIN_TEST`
-- `CMD_API_DNS_CONTROL`
-- `CMD_API_SHOW_DOMAINS`
+<details>
+  <summary>Linode</summary>
 
-Username and password can also be used in case your DirectAdmin instance has no support for login keys.
+  To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
 
-Example configuration:
-```yaml
-email: mail@domain.tld
-domains:
-  - your.domain.tld
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  propagation_seconds: 60
-  provider: dns-directadmin
-  directadmin_url: 'https://domain.tld:2222/'
-  directadmin_username: da_user
-  directadmin_password: da_password_or_key
-```
+  ```yaml
+  email: you@mailprovider.com
+  domains:
+    - ha.yourdomain.com
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-linode
+    linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
+    linode_version: '4'
+  ```
 
-### Njalla
+</details>
 
-You need to generate an API token inside Settings > API Access or directly at https://njal.la/settings/api/. If you have a static IP-address restrict the access to your IP. I you are not sure, you probably don't have a static IP-address.
+<details>
+  <summary>DirectAdmin</summary>
 
-Example configuration:
+  It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
+  Instructions on how to create such key can be found at https://help.directadmin.com/item.php?id=523.
 
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-njalla
-  njalla_token: 0123456789abcdef0123456789abcdef01234567
-```
+  Make sure to grant the following permissions:
+  - `CMD_API_LOGIN_TEST`
+  - `CMD_API_DNS_CONTROL`
+  - `CMD_API_SHOW_DOMAINS`
 
-### TransIP
+  Username and password can also be used in case your DirectAdmin instance has no support for login keys.
 
-You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
+  Example configuration:
+  ```yaml
+  email: mail@domain.tld
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    propagation_seconds: 60
+    provider: dns-directadmin
+    directadmin_url: 'https://domain.tld:2222/'
+    directadmin_username: da_user
+    directadmin_password: da_password_or_key
+  ```
 
-The propagation limit will be automatically raised to 240 seconds.
+</details>
 
-Example configuration:
-```yaml
-email: your.email@example.com
-domains:
-  - your.domain.tld
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-transip
-  transip_username: transip-user
-  transip_api_key: |
-    -----BEGIN PRIVATE KEY-----
-    MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    AAAAAABCDEFGHIJKLMNOPQRSTUVWXYZ
-    -----END PRIVATE KEY-----
-```
+<details>
+  <summary>Njalla</summary>
 
-### OVH
-You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America). 
+  You need to generate an API token inside Settings > API Access or directly at https://njal.la/settings/api/. If you have a static IP-address restrict the access to your IP. I you are not sure, you probably don't have a static IP-address.
 
-When creating the API Key, you must ensure that the following rights are granted:
-* ``GET /domain/zone/*``
-* ``PUT /domain/zone/*``
-* ``POST /domain/zone/*``
-* ``DELETE /domain/zone/*``
+  Example configuration:
 
-Example configuration
-```yaml
-email: your.email@example.com
-domains:
-  - home-assistant.io
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-ovh
-  ovh_endpoint: ovh-eu
-  ovh_application_key: 0123456789abcdef0123456789abcdef01234
-  ovh_application_secret: 0123456789abcdef0123456789abcdef01234
-  ovh_consumer_key: 0123456789abcdef0123456789abcdef01234
-```
-Use `ovh_endpoint: ovh-ca` for north America region.
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-njalla
+    njalla_token: 0123456789abcdef0123456789abcdef01234567
+  ```
 
+</details>
+
+<details>
+  <summary>TransIP</summary>
+
+  You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
+
+  The propagation limit will be automatically raised to 240 seconds.
+
+  Example configuration:
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-transip
+    transip_username: transip-user
+    transip_api_key: |
+      -----BEGIN PRIVATE KEY-----
+      MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      AAAAAABCDEFGHIJKLMNOPQRSTUVWXYZ
+      -----END PRIVATE KEY-----
+  ```
+
+</details>
+
+<details>
+  <summary>OVH</summary>
+
+  You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America). 
+
+  When creating the API Key, you must ensure that the following rights are granted:
+  * ``GET /domain/zone/*``
+  * ``PUT /domain/zone/*``
+  * ``POST /domain/zone/*``
+  * ``DELETE /domain/zone/*``
+
+  Example configuration
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-ovh
+    ovh_endpoint: ovh-eu
+    ovh_application_key: 0123456789abcdef0123456789abcdef01234
+    ovh_application_secret: 0123456789abcdef0123456789abcdef01234
+    ovh_consumer_key: 0123456789abcdef0123456789abcdef01234
+  ```
+  Use `ovh_endpoint: ovh-ca` for north America region.
+
+</details>
 
 ## Certificate files
 

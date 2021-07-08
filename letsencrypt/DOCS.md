@@ -365,7 +365,6 @@ dns:
   rfc2136_algorithm: HMAC-SHA512
 ```
 
-One final note:  While using the FQDN has been tested and works, at least one user reports that using the FQDN for the server did not work for them.  It worked fine when they changed the configuration to use the server IP address.
 
 ## Certificate files
 

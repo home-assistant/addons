@@ -402,11 +402,12 @@ And ensure you have an update policy in place in the zone that uses this key to 
 
 For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
 
-An example configuration
+An example configuration:
+
 ```yaml
-email: your-mail@dom.ain
+email: your.email@example.com
 domains:
-  - hassio.dom.ain
+  - home-assistant.io
 certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns

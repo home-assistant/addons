@@ -12,12 +12,12 @@ Follow these steps to get the add-on installed on your system:
 
 To use this add-on, you have two options on how to get your certificate:
 
-### 1. http challenge
+### 1. HTTP challenge
 
 - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
 - Doesn’t allow wildcard certificates (*.yourdomain.com).
 
-### 2. dns challenge
+### 2. DNS challenge
 
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
 - Allows to request wildcard certificates (*.yourdomain.com)
@@ -33,7 +33,7 @@ domains:
 challenge: http OR dns
 ```
 
-IF you choose "dns" as "challenge", you will also need to fill:
+IF you choose `dns` as `challenge`, you will also need to fill:
 
 ```yaml
 # Add the dnsprovider of your choice from the list of "Supported DNS providers" below
@@ -41,7 +41,7 @@ dns:
   provider: ""
 ```
 
-In addition add the fields according to the credentials required by your dns provider:
+In addition add the fields according to the credentials required by your DNS provider:
 
 
 ```yaml
@@ -174,7 +174,7 @@ transip_api_key: ''
 </details>
 
 <details>
-  <summary>route53 dns challenge</summary>
+  <summary>route53 DNS challenge</summary>
 
   ```yaml
   email: your.email@example.com

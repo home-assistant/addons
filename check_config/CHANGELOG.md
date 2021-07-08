@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.8.0
+
+- Update base image to 2021.07.0
+- Allow using `stable`, `beta` and `dev` as target versions
+- Add translation file for English
+
 ## 3.7.1
 
 - Update base image to 2021.04.3

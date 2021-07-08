@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.3.0
+
+- Update OCCU to 3.59.6
+
 ## 11.2.2
 
 - Revert restart nginx service on error

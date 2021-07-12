@@ -2,8 +2,8 @@
 
 ## 2.4.1
 
-- Rename configuratio option `snapshot_pre` to `backup_pre`
-- Rename configuratio option `snapshot_post` to `backup_post`
+- Rename configuration option `snapshot_pre` to `backup_pre`
+- Rename configuration option `snapshot_post` to `backup_post`
 
 ## 2.4.0
 

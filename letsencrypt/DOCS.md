@@ -377,24 +377,31 @@ transip_api_key: ''
   <summary>RFC2136</summary>
 
   You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
+  
   ```
-  # dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
+  $ dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
   Kletsencrypt.+165+20675
   ```
+  
   The key file (Kletsencrypt.+165+20675.key in this example) looks like the following:
+  
   ```
-  # cat Kletsencrypt.+165+20675.key
+  $ cat Kletsencrypt.+165+20675.key
   letsencrypt. IN KEY 512 3 165 Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==
+  
   ```
   You don't need to publish this; just copy the key data into your named.conf file:
   ```
+  
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
   };
+  
   ```
   And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
   ```
+  
      update-policy {
         grant letsencrypt name _acme-challenge.home-assistant.io. txt;
      };
@@ -419,6 +426,7 @@ transip_api_key: ''
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
   ```
+  
 </details>
 
 

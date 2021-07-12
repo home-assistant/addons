@@ -2,7 +2,7 @@
 
 ## 6.9.1
 
-- Rename configuratio option `snapshot_exclude` to `backup_exclude`
+- Rename configuration option `snapshot_exclude` to `backup_exclude`
 
 ## 6.9.0
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.13.0
+
+- Update base to 3.14
+- Use images from ghcr
+- Update dehydrated to 0.7.0
+
 ## 1.12.5
 
 - Fix bug causing DuckDNS to return KO, when aliases were configured

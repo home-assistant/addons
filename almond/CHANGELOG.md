@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- Fix url for API requests
+
 ## 2.0.0
 
 - Almond was updated to 2.0.0: this is a major release that

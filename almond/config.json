@@ -1,6 +1,6 @@
 {
   "name": "Almond",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "slug": "almond",
   "description": "The open-source, privacy-preserving voice assistant",
   "url": "https://github.com/home-assistant/hassio-addons/blob/master/almond",

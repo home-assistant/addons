@@ -8,18 +8,22 @@ RUN apk add --no-cache \
         mosquitto \
         nginx \
         pwgen \
+        sqlite \
+        sqlite-libs \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         curl-dev \
         git \
         mosquitto-dev \
         openssl-dev \
+        sqlite-dev \
     \
     && git clone --depth 1 -b "${MOSQUITTO_AUTH_VERSION}" \
         https://github.com/pvizeli/mosquitto-auth-plug \
     \
     && cd mosquitto-auth-plug \
     && cp config.mk.in config.mk \
+    && sed -i 's/BACKEND_SQLITE ?= no/BACKEND_SQLITE ?= yes/g' config.mk \
     && make \
     && mkdir -p /usr/share/mosquitto \
     && cp -f auth-plug.so /usr/share/mosquitto \

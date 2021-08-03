@@ -2,8 +2,7 @@
 # ==============================================================================
 # Configures mosquitto
 # ==============================================================================
-readonly ACL="/etc/mosquitto/acl"
-readonly PW="/etc/mosquitto/pw"
+readonly DB="/etc/mosquitto/mosquitto.sqlite"
 readonly SYSTEM_USER="/data/system_user.json"
 declare cafile
 declare certfile
@@ -30,15 +29,14 @@ else
   service_password=$(bashio::jq "${SYSTEM_USER}" ".addons.password")
 fi
 
+sqlite3 "${DB}" "drop table if exists users; create table users(username varchar(100), pw varchar(100));"
 # Set up discovery user
 password=$(np -p "${discovery_password}")
-echo "homeassistant:${password}" >> "${PW}"
-echo "user homeassistant" >> "${ACL}"
+sqlite3 "${DB}" "insert into users values('homeassistant','${password}');"
 
 # Set up service user
 password=$(np -p "${service_password}")
-echo "addons:${password}" >> "${PW}"
-echo "user addons" >> "${ACL}"
+sqlite3 "${DB}" "insert into users values('addons','${password}');"
 
 # Set username and password for the broker
 for login in $(bashio::config 'logins|keys'); do
@@ -50,8 +48,7 @@ for login in $(bashio::config 'logins|keys'); do
 
   bashio::log.info "Setting up user ${username}"
   password=$(np -p "${password}")
-  echo "${username}:${password}" >> "${PW}"
-  echo "user ${username}" >> "${ACL}"
+  sqlite3 "${DB}" "insert into users values('${username}','${password}');"
 done
 
 keyfile="/ssl/$(bashio::config 'keyfile')"

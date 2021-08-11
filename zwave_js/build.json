@@ -7,7 +7,7 @@
     "aarch64": "homeassistant/aarch64-base:3.13"
   },
   "args": {
-    "ZWAVEJS_SERVER_VERSION": "1.9.2",
-    "ZWAVEJS_VERSION": "8.0.6"
+    "ZWAVEJS_SERVER_VERSION": "1.9.3",
+    "ZWAVEJS_VERSION": "8.0.8"
   }
 }

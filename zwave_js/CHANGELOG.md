@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.37
+
+- Bump Z-Wave JS Server to 1.10.0
+
 ## 0.1.36
 
 - Bump Z-Wave JS to 8.1.1

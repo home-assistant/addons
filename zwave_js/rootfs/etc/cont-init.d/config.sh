@@ -13,7 +13,7 @@ if bashio::config.has_value 'network_key'; then
     bashio::addon.option network_key
 fi
 
-for key in "s0_legacy_key" "s2_accesscontrol_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
+for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
     network_key=$(bashio::jq "$(bashio::addon.options)" .${key})
     if [[ "${DOCS_EXAMPLE_KEY}" == "${network_key}" ]]; then
         bashio::log.fatal
@@ -38,7 +38,7 @@ for key in "s0_legacy_key" "s2_accesscontrol_key" "s2_authenticated_key" "s2_una
 done
 options="$(bashio::addon.options)"
 s0_legacy=$(bashio::jq "${options}" .s0_legacy_key)
-s2_accesscontrol=$(bashio::jq "${options}" .s2_accesscontrol_key)
+s2_access_control=$(bashio::jq "${options}" .s2_access_control_key)
 s2_authenticated=$(bashio::jq "${options}" .s2_authenticated_key)
 s2_unauthenticated=$(bashio::jq "${options}" .s2_unauthenticated_key)
 
@@ -54,7 +54,7 @@ fi
 # Generate config
 bashio::var.json \
     s0_legacy "${s0_legacy}" \
-    s2_accesscontrol "${s2_accesscontrol}" \
+    s2_access_control "${s2_access_control}" \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \

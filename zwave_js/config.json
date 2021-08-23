@@ -19,7 +19,7 @@
   "options": {
     "device": null,
     "s0_legacy_key": "",
-    "s2_accesscontrol_key": "",
+    "s2_access_control_key": "",
     "s2_authenticated_key": "",
     "s2_unauthenticated_key": "",
     "log_level": "info"
@@ -27,7 +27,7 @@
   "schema": {
     "device": "device(subsystem=tty)",
     "s0_legacy_key": "match(|[0-9a-fA-F]{32,32})?",
-    "s2_accesscontrol_key": "match(|[0-9a-fA-F]{32,32})?",
+    "s2_access_control_key": "match(|[0-9a-fA-F]{32,32})?",
     "s2_authenticated_key": "match(|[0-9a-fA-F]{32,32})?",
     "s2_unauthenticated_key": "match(|[0-9a-fA-F]{32,32})?",
     "log_level": "list(silly|debug|verbose|http|info|warn|error)?",

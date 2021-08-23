@@ -8,8 +8,8 @@ readonly DOCS_EXAMPLE_KEY="2232666D100F795E5BB17F0A1BB7A146"
 
 if bashio::config.has_value 'network_key'; then
     bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
-    network_key=$(bashio::config 'network_key')
-    bashio::addon.option s0_legacy_key "$(bashio::string.upper ${network_key})"
+    network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
+    bashio::addon.option s0_legacy_key "${network_key}"
     bashio::addon.option network_key
 fi
 

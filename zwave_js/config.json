@@ -7,7 +7,7 @@
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave_js",
   "startup": "services",
   "init": false,
-  "stage": "experimental",
+  "stage": "stable",
   "homeassistant": "2021.2.0b0",
   "ports": {
     "3000/tcp": null

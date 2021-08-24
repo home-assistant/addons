@@ -3,7 +3,6 @@
 # Generate Z-Wave JS config file
 # ==============================================================================
 declare network_key
-declare flush_to_disk
 
 flush_to_disk=false
 

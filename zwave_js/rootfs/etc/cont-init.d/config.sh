@@ -4,8 +4,6 @@
 # ==============================================================================
 declare network_key
 
-flush_to_disk=false
-
 readonly DOCS_EXAMPLE_KEY="2232666D100F795E5BB17F0A1BB7A146"
 
 if bashio::config.has_value 'network_key'; then
@@ -13,14 +11,8 @@ if bashio::config.has_value 'network_key'; then
     network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
     bashio::addon.option s0_legacy_key "${network_key}"
     bashio::addon.option network_key
-    flush_to_disk=true
-fi
-
-# We need to restart if we migrated the key so it gets flushed to disk
-if [[ ${flush_to_disk} ]]; then
-    bashio::log.info "Flushing config to disk due to migration"
+    bashio::log.info "Flushing config to disk due to key migration..."
     bashio::addon.options > "/data/options.json"
-    flush_to_disk=false
 fi
 
 for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
@@ -44,15 +36,14 @@ for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_un
     elif ! bashio::var.has_value "${network_key}"; then
         bashio::log.info "No ${key} is set, generating one..."
         bashio::addon.option ${key} "$(hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random)"
-        flush_to_disk=true
+        flush_to_disk=1
     fi
 done
 
 # We need to restart if we created new key(s) so they get flushed to disk
-if [[ ${flush_to_disk} ]]; then
-    bashio::log.info "Flushing config to disk due to creation of new keys"
+if [[ ${flush_to_disk:+x} ]]; then
+    bashio::log.info "Flushing config to disk due to creation of new key(s)..."
     bashio::addon.options > "/data/options.json"
-    flush_to_disk=false
 fi
 
 s0_legacy=$(bashio::config "s0_legacy_key")

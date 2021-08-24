@@ -6,6 +6,7 @@ declare network_key
 
 readonly DOCS_EXAMPLE_KEY="2232666D100F795E5BB17F0A1BB7A146"
 
+# Migrate old 'network_key' config option to 's0_legacy_key'
 if bashio::config.has_value 'network_key'; then
     bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
     network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
@@ -15,6 +16,8 @@ if bashio::config.has_value 'network_key'; then
     bashio::addon.options > "/data/options.json"
 fi
 
+# Validate that no keys are using the example from the docs and generate new random
+# keys for any missing keys.
 for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
     network_key=$(bashio::config "${key}")
     if [[ "${DOCS_EXAMPLE_KEY}" == "${network_key}" ]]; then
@@ -40,7 +43,8 @@ for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_un
     fi
 done
 
-# We need to restart if we created new key(s) so they get flushed to disk
+# If flush_to_disk is set, it means we have generated new key(s) and they need to get
+# flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
     bashio::addon.options > "/data/options.json"

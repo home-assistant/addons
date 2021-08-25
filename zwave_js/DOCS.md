@@ -65,6 +65,10 @@ You must configure four different keys via `s0_legacy_key`, `s2_access_control_k
 `s2_authenticated_key`, and `s2_unauthenticated_key` in order to use all of the secure
 inclusion methods (S0 and S2).
 
+If you are coming from a previous version of `zwave-js`, your key is likely stored in the
+`network_key` configuration option. When the addon is first started, the key will be migrated
+from `network_key` to `s0_legacy_key`.
+
 If any of these keys are missing on startup, the addon will autogenerate one for you.
 
 o generate a network key manually, you can use the following script in, e.g.,

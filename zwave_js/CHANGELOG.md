@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.38
+
+- Bump Z-Wave JS Server to 1.10.1
+- Bump Z-Wave JS to 8.2.0
+- Added configuration option for new S2 keys
+
 ## 0.1.37
 
 - Bump Z-Wave JS Server to 1.10.0

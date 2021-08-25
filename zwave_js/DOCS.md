@@ -59,11 +59,11 @@ In most cases this looks like one of the following:
 - `"/dev/ttyAMA0"`
 - `"/dev/ttyACM0"`
 
-### Keys
+### Security Keys
 
-You must configure four different keys via `s0_legacy_key`, `s2_access_control_key`,
-`s2_authenticated_key`, and `s2_unauthenticated_key` in order to use all of the secure
-inclusion methods (S0 and S2).
+You must configure four different security keys via `s0_legacy_key`,
+`s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key` in order
+to use all of the secure inclusion methods (S0 and S2).
 
 If you are coming from a previous version of `zwave-js`, your key is likely stored in the
 `network_key` configuration option. When the addon is first started, the key will be migrated
@@ -93,14 +93,14 @@ S0 Security Z-Wave devices require a network key before being added to the netwo
 You must set the `s0_legacy_key` configuration option to use a network key before
 adding these devices.
 
-### Option `s2_access_control_key`
+#### Option `s2_access_control_key`
 
 S2 Security Z-Wave devices require three network keys before being added to the
 network. In order to use S2 Security, you must set this configuration option along
 with `s2_authenticated_key` and `s2_unauthenticated_key` before adding these devices.
 This key has no impact on unsecured devices or devices that are using S0 Security.
 
-### Option `s2_authenticated_key`
+#### Option `s2_authenticated_key`
 
 S2 Security Z-Wave devices require three network keys before being added to the
 network. In order to use S2 Security, you must set this configuration option along

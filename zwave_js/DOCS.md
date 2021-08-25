@@ -96,20 +96,23 @@ adding these devices.
 ### Option `s2_access_control_key`
 
 S2 Security Z-Wave devices require three network keys before being added to the
-network. You must set this configuration option along with `s2_authenticated_key`
-and `s2_unauthenticated_key` before adding these devices.
+network. In order to use S2 Security, you must set this configuration option along
+with `s2_authenticated_key` and `s2_unauthenticated_key` before adding these devices.
+This key has no impact on unsecured devices or devices that are using S0 Security.
 
 ### Option `s2_authenticated_key`
 
 S2 Security Z-Wave devices require three network keys before being added to the
-network. You must set this configuration option along with `s2_access_control_key`
-and `s2_unauthenticated_key` before adding these devices.
+network. In order to use S2 Security, you must set this configuration option along
+with `s2_access_control_key` and `s2_unauthenticated_key` before adding these devices.
+This key has no impact on unsecured devices or devices that are using S0 Security.
 
 ### Option `s2_unauthenticated_key`
 
 S2 Security Z-Wave devices require three network keys before being added to the
-network. You must set this configuration option along with `s2_access_control_key`
-and `s2_authenticated_key` before adding these devices.
+network. In order to use S2 Security, you must set this configuration option along
+with `s2_access_control_key` and `s2_authenticated_key` before adding these devices.
+This key has no impact on unsecured devices or devices that are using S0 Security.
 
 ### Option `log_level` (optional)
 

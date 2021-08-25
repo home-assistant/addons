@@ -6,14 +6,30 @@ declare network_key
 
 readonly DOCS_EXAMPLE_KEY="2232666D100F795E5BB17F0A1BB7A146"
 
-# Migrate old 'network_key' config option to 's0_legacy_key'
 if bashio::config.has_value 'network_key'; then
-    bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
-    network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
-    bashio::addon.option s0_legacy_key "${network_key}"
-    bashio::addon.option network_key
-    bashio::log.info "Flushing config to disk due to key migration..."
-    bashio::addon.options > "/data/options.json"
+    # If both 'network_key' and 's0_legacy_key' are set and keys don't match,
+    # we don't know which one to pick so we have to exit. If they are both set
+    # and do match, we will drop 'network_key'
+    if bashio::config.has_value 's0_legacy_key'; then
+        if bashio::config.equals 's0_legacy_key' "$(bashio::config \"network_key\")"; then
+            bashio::log.info "Both 'network_key' and 's0_legacy_key' are set and match. Dropping 'network_key' value..."
+            bashio::addon.option network_key
+        else
+            bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values."
+            bashio::log.fatal "Both keys are used for the same purpose so one needs to be removed "
+            bashio::log.fatal "in order to start the addon."
+            bashio::exit.nok
+        fi
+    # If we get here, 'network_key' is set and 's0_legacy_key' is not set so we need
+    # to migrate the key from 'network_key' to 's0_legacy_key'
+    else
+        bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
+        network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
+        bashio::addon.option s0_legacy_key "${network_key}"
+        bashio::addon.option network_key
+        bashio::log.info "Flushing config to disk due to key migration..."
+        bashio::addon.options > "/data/options.json"
+    fi
 fi
 
 # Validate that no keys are using the example from the docs and generate new random

@@ -59,15 +59,15 @@ In most cases this looks like one of the following:
 - `"/dev/ttyAMA0"`
 - `"/dev/ttyACM0"`
 
-### Option `network_key`
+### Keys
 
-Security Z-Wave devices require a network key before being added to the network.
-You must set the `network_key` configuration option to use a network key before
-adding these devices.
+You must configure four different keys via `s0_legacy_key`, `s2_access_control_key`,
+`s2_authenticated_key`, and `s2_unauthenticated_key` in order to use all of the secure
+inclusion methods (S0 and S2).
 
-If you don't add a network key, it will autogenerate one for you.
+If any of these keys are missing on startup, the addon will autogenerate one for you.
 
-To generate a network key manually, you can use the following script in, e.g.,
+o generate a network key manually, you can use the following script in, e.g.,
 the SSH add-on:
 
 ```bash
@@ -78,10 +78,34 @@ You can also use sites like this one to generate the required data:
 
 <https://www.random.org/cgi-bin/randbyte?nbytes=16&format=h>
 
-Ensure you keep a backup of this key. If you have to rebuild your system and
-don't have a backup of this key, you won't be able to reconnect to any securely
+Ensure you keep a backup of these key. If you have to rebuild your system and
+don't have a backup of these keys, you won't be able to reconnect to any securely
 included devices. This may mean you have to do a factory reset on those devices
 and your controller, before rebuilding your Z-Wave network.
+
+#### Option `s0_legacy_key`
+
+S0 Security Z-Wave devices require a network key before being added to the network.
+You must set the `s0_legacy_key` configuration option to use a network key before
+adding these devices.
+
+### Option `s2_access_control_key`
+
+S2 Security Z-Wave devices require three network keys before being added to the
+network. You must set this configuration option along with `s2_authenticated_key`
+and `s2_unauthenticated_key` before adding these devices.
+
+### Option `s2_authenticated_key`
+
+S2 Security Z-Wave devices require three network keys before being added to the
+network. You must set this configuration option along with `s2_access_control_key`
+and `s2_unauthenticated_key` before adding these devices.
+
+### Option `s2_unauthenticated_key`
+
+S2 Security Z-Wave devices require three network keys before being added to the
+network. You must set this configuration option along with `s2_access_control_key`
+and `s2_authenticated_key` before adding these devices.
 
 ### Option `log_level` (optional)
 
@@ -101,6 +125,13 @@ the Supervisor.
 
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
+
+### Option `network_key` (deprecated)
+
+In previous versions of the addon, this was the only key that needed to be configured.
+With the introduction of S2 security inclusion in zwave-js, this option has been
+deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
+migrated to `s0_legacy_key` on first startup.
 
 ## Known issues and limitations
 

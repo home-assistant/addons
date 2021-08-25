@@ -15,9 +15,9 @@ if bashio::config.has_value 'network_key'; then
             bashio::log.info "Both 'network_key' and 's0_legacy_key' are set and match. Dropping 'network_key' value..."
             bashio::addon.option network_key
         else
-            bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values."
-            bashio::log.fatal "Both keys are used for the same purpose so one needs to be removed "
-            bashio::log.fatal "in order to start the addon."
+            bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values "
+            bashio::log.fatal "so we are unsure which one to use. One needs to be removed from the "
+            bashio::log.fatal "configuration in order to start the addon."
             bashio::exit.nok
         fi
     # If we get here, 'network_key' is set and 's0_legacy_key' is not set so we need

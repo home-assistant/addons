@@ -63,7 +63,10 @@ In most cases this looks like one of the following:
 
 You must configure four different security keys via `s0_legacy_key`,
 `s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key` in order
-to use all of the secure inclusion methods (S0 and S2).
+to use all of the secure inclusion methods (S0 and S2). If you plan to only use S0
+security (not recommended if you have devices that support S2), only the
+`s0_legacy_key` is necessary. If your network doesn't require security at all, these
+configuration options are not needed at all.
 
 If you are coming from a previous version of `zwave-js`, your key is likely stored in the
 `network_key` configuration option. When the addon is first started, the key will be migrated

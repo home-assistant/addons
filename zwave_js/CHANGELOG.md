@@ -3,7 +3,7 @@
 ## 0.1.38
 
 - Bump Z-Wave JS Server to 1.10.2
-- Bump Z-Wave JS to 8.2.0
+- Bump Z-Wave JS to 8.2.1
 - Deprecate `network_key` configuration option (Check documenation for more details)
 - Added configuration options for new S2 keys (Check documentatation for more details)
 

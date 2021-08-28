@@ -29,7 +29,9 @@ You have several options to get them answered:
 
 - The [Home Assistant Discord Chat Server][discord].
 - The Home Assistant [Community Forum][forum].
-- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
+- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit].
+- The [Almond Discord Chat Server][discordalmond].
+- The Almond [Community Forum][forumalmond].
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
@@ -37,4 +39,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/hassio-addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[repository]: https://github.com/hassio-addons/repository
+[discordalmond]: https://discord.gg/anthtR4
+[forumalmond]: https://community.almond.stanford.edu

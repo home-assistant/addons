@@ -120,13 +120,14 @@ homematic:
       path: /groups
 ```
 
-## Raspberry Pi3
+## Raspberry Pi3/4
 
-If you use the HM-MOD-RPI-PCB on a Raspberry Pi 3, you need to add
+If you use the HM-MOD-RPI-PCB on a Raspberry Pi 3 or 4, you need to add
 the following to the `config.txt` file on the boot partition:
 
 ```text
-dtoverlay=pi3-miniuart-bt
+enable_uart=1
+dtoverlay=miniuart-bt
 ```
 
 ## HmIP-RFUSB

@@ -167,7 +167,7 @@ function git-synchronize {
         fi
 
     else
-        echo "[Warn] Git repostory doesn't exist"
+        echo "[Warn] Git repository doesn't exist"
         git-clone
     fi
 }

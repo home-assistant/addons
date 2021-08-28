@@ -1,6 +1,44 @@
 # Changelog
 
-# 0.1.28
+## 0.1.37
+
+- Bump Z-Wave JS Server to 1.10.0
+
+## 0.1.36
+
+- Bump Z-Wave JS to 8.1.1
+
+## 0.1.35
+
+- Bump Z-Wave JS Server to 1.9.3
+- Bump Z-Wave JS to 8.0.8
+
+## 0.1.34
+
+- Bump Z-Wave JS Server to 1.9.2
+
+## 0.1.33
+
+- Bump Z-Wave JS to 8.0.6
+
+## 0.1.32
+
+- Bump Z-Wave JS to 8.0.5
+
+## 0.1.31
+
+- Bump Z-Wave JS Server to 1.9.1
+
+## 0.1.30
+
+- Bump Z-Wave JS to 8.0.3
+- Bump Z-Wave JS Server to 1.9.0
+
+## 0.1.29
+
+- Bump Z-Wave JS to 7.12.0
+
+## 0.1.28
 
 - Bump Z-Wave JS to 7.10.0
 - Bump Z-Wave JS Server to 1.8.0

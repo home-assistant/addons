@@ -13,4 +13,4 @@ Automatically update your Duck DNS IP address with integrated HTTPS support via 
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-[duckdns]: https://duckdns.org
+[duckdns]: https://www.duckdns.org

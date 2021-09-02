@@ -19,7 +19,7 @@ access_token_expires="$((
 almond_config=$(\
     bashio::var.json \
         kind "io.home-assistant" \
-        hassUrl "http://supervisor/homeassistant" \
+        hassUrl "http://supervisor/core" \
         accessToken "${SUPERVISOR_TOKEN}" \
         refreshToken "" \
         accessTokenExpires "^${access_token_expires}" \

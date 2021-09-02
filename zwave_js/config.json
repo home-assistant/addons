@@ -1,13 +1,13 @@
 {
   "name": "Z-Wave JS",
-  "version": "0.1.26",
+  "version": "0.1.37",
   "slug": "zwave_js",
   "description": "Control a ZWave network with Home Assistant Z-Wave JS",
   "arch": ["amd64", "i386", "armhf", "armv7", "aarch64"],
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/zwave_js",
   "startup": "services",
   "init": false,
-  "stage": "experimental",
+  "stage": "stable",
   "homeassistant": "2021.2.0b0",
   "ports": {
     "3000/tcp": null

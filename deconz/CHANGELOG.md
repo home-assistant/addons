@@ -1,8 +1,12 @@
 # Changelog
 
-## 6.9.1
+## 6.10.1
 
 - Rename configuration option `snapshot_exclude` to `backup_exclude`
+
+## 6.10.0
+
+- Bump deCONZ to 2.12.6
 
 ## 6.9.0
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.12.0
+
+- Add support for GoDaddy DNS
+- Update image to Alpine 3.14
+- Update certbot to 1.19
+- Update DirectAdmin DNS to 0.0.23
+- Update Netcup DNS to 1.1.1
+- Update Njalla DNS to 1.0.0
+- Update Gandi DNS to 1.3.2
+- Update Transip DNS to 0.3.3
+
 ## 4.11.0
 
 - Add support for Njalla DNS

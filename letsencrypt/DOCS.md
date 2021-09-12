@@ -87,6 +87,8 @@ gandi_api_key: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+godaddy_secret: ''
+godaddy_key: ''
 ```
 
 ## Advanced
@@ -429,6 +431,27 @@ transip_api_key: ''
   
 </details>
 
+<details>
+  <summary>GoDaddy</summary>
+
+  You will need to generate a secret and key from the GoDaddy developer page https://developer.godaddy.com/.
+
+  Example configuration:
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-godaddy
+    propagation_seconds: 60
+    godaddy_secret: secret_here
+    godaddy_key: key_here
+  ```
+
+</details>
 
 ## Certificate files
 
@@ -459,6 +482,7 @@ dns-sakuracloud
 dns-netcup
 dns-gandi
 dns-transip
+dns-godaddy
 ```
 
 ## Support

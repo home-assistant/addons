@@ -61,21 +61,18 @@ In most cases this looks like one of the following:
 
 ### Security Keys
 
-You must configure four different security keys via `s0_legacy_key`,
-`s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key` in order
-to use all of the secure inclusion methods (S0 and S2). If you plan to only use S0
-security (not recommended if you have devices that support S2), only the
-`s0_legacy_key` is necessary. If your network doesn't require security at all, these
-configuration options are not needed at all.
+There are four different security keys required to take full advantage of the
+different inclusion methods that Z-Wave JS supports: `s0_legacy_key`,
+`s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key`.
 
-If you are coming from a previous version of `zwave-js`, your key is likely stored in the
-`network_key` configuration option. When the addon is first started, the key will be migrated
-from `network_key` to `s0_legacy_key`.
+If you are coming from a previous version of `zwave-js`, you likely have a key
+stored in the `network_key` configuration option. When the addon is first
+started, the key will be migrated from `network_key` to `s0_legacy_key` which
+will ensure that your S0 secured devices will continue to function.
 
-If any of these keys are missing on startup, the addon will autogenerate one for you.
-
-o generate a network key manually, you can use the following script in, e.g.,
-the SSH add-on:
+If any of these keys are missing on startup, the addon will autogenerate one for
+you. To generate a network key manually, you can use the following script in,
+e.g., the SSH add-on:
 
 ```bash
 hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random
@@ -85,37 +82,43 @@ You can also use sites like this one to generate the required data:
 
 <https://www.random.org/cgi-bin/randbyte?nbytes=16&format=h>
 
-Ensure you keep a backup of these key. If you have to rebuild your system and
-don't have a backup of these keys, you won't be able to reconnect to any securely
-included devices. This may mean you have to do a factory reset on those devices
-and your controller, before rebuilding your Z-Wave network.
+Ensure you keep a backup of these keys. If you have to rebuild your system and
+don't have a backup of these keys, you won't be able to communicate to any
+securely included devices. This may mean you have to do a factory reset on
+those devices and your controller, before rebuilding your Z-Wave network.
+
+> NOTE: Sharing keys between multiple security classes is a security risk, so
+> if you choose to configure these keys on your own, be sure to make them
+> unique!
 
 #### Option `s0_legacy_key`
 
 S0 Security Z-Wave devices require a network key before being added to the network.
-You must set the `s0_legacy_key` configuration option to use a network key before
-adding these devices.
+This configuration option is required, but if it is unset the addon will generate
+a new one automatically on startup.
 
 #### Option `s2_access_control_key`
 
-S2 Security Z-Wave devices require three network keys before being added to the
-network. In order to use S2 Security, you must set this configuration option along
-with `s2_authenticated_key` and `s2_unauthenticated_key` before adding these devices.
-This key has no impact on unsecured devices or devices that are using S0 Security.
+The `s2_access_control_key` must be provided in order to include devices with the
+S2 Access Control security class. This security class is needed by devices such
+as door locks and garage door openers. This configuration option is required,
+but if it is unset the addon will generate a new one automatically on startup.
 
 #### Option `s2_authenticated_key`
 
-S2 Security Z-Wave devices require three network keys before being added to the
-network. In order to use S2 Security, you must set this configuration option along
-with `s2_access_control_key` and `s2_unauthenticated_key` before adding these devices.
-This key has no impact on unsecured devices or devices that are using S0 Security.
+The `s2_authenticated_key` must be provided in order to include devices with
+the S2 Authenticated security class. Devices such as security systems, sensors,
+lighting, etc. can request this security class. This configuration option is
+required, but if it is unset the addon will generate a new one automatically
+on startup.
 
 ### Option `s2_unauthenticated_key`
 
-S2 Security Z-Wave devices require three network keys before being added to the
-network. In order to use S2 Security, you must set this configuration option along
-with `s2_access_control_key` and `s2_authenticated_key` before adding these devices.
-This key has no impact on unsecured devices or devices that are using S0 Security.
+The `s2_unauthenticated_key` must be provided in order to include devices with
+the S2 Unauthenticated security class. This is similar to S2 Authenticated, but
+without verification that the correct device was included. This configuration
+option is required, but if it is unset the addon will generate a new one
+automatically on startup.
 
 ### Option `log_level` (optional)
 
@@ -138,8 +141,8 @@ It will not be able to control any real devices.
 
 ### Option `network_key` (deprecated)
 
-In previous versions of the addon, this was the only key that needed to be configured.
-With the introduction of S2 security inclusion in zwave-js, this option has been
+In previous versions of the addon, this was the only key that was needed. With
+the introduction of S2 security inclusion in zwave-js, this option has been
 deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
 migrated to `s0_legacy_key` on first startup.
 

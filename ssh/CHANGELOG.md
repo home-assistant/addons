@@ -2,6 +2,7 @@
 
 ## 9.2.0
 
+- Upgrade to Alpine 3.14
 - Make Bash promt more colorful
 - Upgrade Home Assistant CLI to 4.13.0
 

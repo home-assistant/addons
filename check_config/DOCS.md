@@ -27,14 +27,14 @@ Home Assistant version.
 Add-on configuration:
 
 ```yaml
-version: latest
+version: stable
 ```
 
 ### Option: `version` (required)
 
 The version of Home Assistant that want to check your configuration against.
 
-- Setting this option to `latest` or `stable` will result in checking your configuration
+- Setting this option to `stable` will result in checking your configuration
 against the latest stable release of Home Assistant.
 - Setting this option to `beta` will result in checking your configuration
 against the latest beta release of Home Assistant.

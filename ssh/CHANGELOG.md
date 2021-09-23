@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.2.1
+
+- Make tmux configuration persistent
+
 ## 9.2.0
 
 - Upgrade to Alpine 3.14

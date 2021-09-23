@@ -12,7 +12,7 @@ if bashio::config.has_value "ipv6"; then IPV6=$(bashio::config 'ipv6'); else IPV
 TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
-if bashio::config.has_value "algo"; then ALGO=$(bashio::config 'algo'); else ALGO="secp384r1"; fi
+if bashio::config.has_value "lets_encrypt.algo"; then ALGO=$(bashio::config 'lets_encrypt.algo'); else ALGO="secp384r1"; fi
 
 # Function that performe a renew
 function le_renew() {

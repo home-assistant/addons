@@ -24,7 +24,7 @@
       "accept_terms": "bool",
       "certfile": "str",
       "keyfile": "str",
-      "algo": "str?"
+      "algo": "list(rsa|prime256v1|secp384r1)?"
     },
     "ipv4": "str?",
     "ipv6": "str?",

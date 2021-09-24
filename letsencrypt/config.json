@@ -1,6 +1,6 @@
 {
   "name": "Let's Encrypt",
-  "version": "4.11.0",
+  "version": "4.12.0",
   "slug": "letsencrypt",
   "description": "Manage certificate from Let's Encrypt",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt",
@@ -32,7 +32,7 @@
     "acme_server": "url?",
     "acme_root_ca_cert": "str?",
     "dns": {
-      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip)?",
+      "provider": "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|dns-google|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|dns-transip|dns-godaddy)?",
       "propagation_seconds": "int(60,3600)?",
       "cloudflare_email": "email?",
       "cloudflare_api_key": "str?",
@@ -74,7 +74,9 @@
       "gandi_api_key": "str?",
       "gandi_sharing_id": "str?",
       "transip_username": "str?",
-      "transip_api_key": "str?"
+      "transip_api_key": "str?",
+      "godaddy_secret": "str?",
+      "godaddy_key": "str?"
     }
   },
   "image": "homeassistant/{arch}-addon-letsencrypt"

@@ -6,12 +6,14 @@ mkdir -p /data/workdir
 mkdir -p /data/letsencrypt
 
 # Setup Let's encrypt config
-echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
+echo -e "dns_godaddy_key = $(bashio::config 'dns.godaddy_key')\n" \
+      "dns_godaddy_secret = $(bashio::config 'dns.godaddy_secret')\n" \
+      "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "dns_cloudxns_secret_key = $(bashio::config 'dns.cloudxns_secret_key')\n" \
       "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
-      "certbot_dns_directadmin:directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
-      "certbot_dns_directadmin:directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
-      "certbot_dns_directadmin:directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
+      "directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
+      "directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
+      "directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
       "dns_dnsimple_token = $(bashio::config 'dns.dnsimple_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \
@@ -21,9 +23,9 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "dns_linode_version = $(bashio::config 'dns.linode_version')\n" \
       "dns_luadns_email = $(bashio::config 'dns.luadns_email')\n" \
       "dns_luadns_token = $(bashio::config 'dns.luadns_token')\n" \
-      "certbot_dns_netcup:dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \
-      "certbot_dns_netcup:dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
-      "certbot_dns_netcup:dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \
+      "dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \
+      "dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
+      "dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \
       "certbot_dns_njalla:dns_njalla_token = $(bashio::config 'dns.njalla_token')\n" \
       "dns_nsone_api_key = $(bashio::config 'dns.nsone_api_key')\n" \
       "dns_ovh_endpoint = $(bashio::config 'dns.ovh_endpoint')\n" \
@@ -39,9 +41,9 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "aws_secret_access_key = $(bashio::config 'dns.aws_secret_access_key')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
       "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
-      "certbot_plugin_gandi:dns_api_key = $(bashio::config 'dns.gandi_api_key')\n" \
-      "certbot_dns_transip:dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
-      "certbot_dns_transip:dns_transip_key_file = /data/transip-rsa.key" > /data/dnsapikey
+      "dns_gandi_api_key = $(bashio::config 'dns.gandi_api_key')\n" \
+      "dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
+      "dns_transip_key_file = /data/transip-rsa.key" > /data/dnsapikey
 
 chmod 600 /data/dnsapikey
 

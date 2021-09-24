@@ -51,7 +51,7 @@ elif bashio::config.exists 'dns.google_creds'; then
 
 #Netcup
 elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dns.netcup_api_key' && bashio::config.exists 'dns.netcup_api_password'; then
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "dns-netcup" "--dns-netcup-credentials" /data/dnsapikey "--dns-netcup-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #TransIP
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
@@ -61,7 +61,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
         bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
         PROPAGATION_SECONDS=240
     fi
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-${DNS_PROVIDER}:${DNS_PROVIDER}" "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-credentials" /data/dnsapikey "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # CloudFlare
 elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
@@ -81,20 +81,26 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; 
     bashio::config.require 'dns.directadmin_url'
     bashio::config.require 'dns.directadmin_username'
     bashio::config.require 'dns.directadmin_password'
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-directadmin:directadmin" "--certbot-dns-directadmin:directadmin-credentials" /data/dnsapikey "--certbot-dns-directadmin:directadmin-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "directadmin" "--directadmin-credentials" /data/dnsapikey "--directadmin-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Gandi
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     if bashio::config.exists 'dns.gandi_sharing_id'; then
         bashio::log.info "Use Gandi sharing ID"
-        echo "certbot_plugin_gandi:dns_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> /data/dnsapikey
+        echo "dns_gandi_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> /data/dnsapikey
     fi
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-plugin-gandi:dns" "--certbot-plugin-gandi:dns-credentials" /data/dnsapikey)
+    PROVIDER_ARGUMENTS+=("--authenticator" "dns-gandi" "--dns-gandi-credentials" /data/dnsapikey)
 
 # Njalla
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-njalla:dns-njalla" "--certbot-dns-njalla:dns-njalla-credentials" /data/dnsapikey "--certbot-dns-njalla:dns-njalla-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+#GoDaddy
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-godaddy" ]; then
+    bashio::config.require 'dns.godaddy_key'
+    bashio::config.require 'dns.godaddy_secret'
+    PROVIDER_ARGUMENTS+=("--authenticator" "dns-godaddy" "--dns-godaddy-credentials" /data/dnsapikey "--dns-godaddy-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #All others
 else

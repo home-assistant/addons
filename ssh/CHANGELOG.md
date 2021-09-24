@@ -2,7 +2,7 @@
 
 ## 9.3.0
 
-- Make tmux configuration persistent
+- Persist tmux configuration 
 
 ## 9.2.0
 

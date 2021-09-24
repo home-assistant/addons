@@ -7,5 +7,6 @@ RUN apk add --no-cache nginx openssl
 # Copy data
 COPY data/run.sh /
 COPY data/nginx.conf /etc/
+COPY data/mime.types /etc/
 
 CMD [ "/run.sh" ]

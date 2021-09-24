@@ -58,8 +58,10 @@ sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 # Allow customize configs from share
 if bashio::config.true 'customize.active'; then
+    CUSTOMIZE_HTTP=$(bashio::config 'customize.http')
+    sed -i "s|#include /share/nginx_proxy_http|include /share/$CUSTOMIZE_HTTP;|" /etc/nginx.conf
     CUSTOMIZE_DEFAULT=$(bashio::config 'customize.default')
-    sed -i "s|#include /share/nginx_proxy_default.*|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
+    sed -i "s|#include /share/nginx_proxy_default|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
     CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')
     sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
 fi

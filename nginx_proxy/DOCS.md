@@ -44,6 +44,8 @@ keyfile: privkey.pem
 hsts: "max-age=31536000; includeSubDomains"
 customize:
   active: false
+  root: "nginx_proxy_root*.conf"  
+  http: "nginx_proxy_http*.conf"
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
@@ -67,7 +69,15 @@ Value for the [`Strict-Transport-Security`][hsts] HTTP header to send. If empty,
 
 ### Option `customize.active` (required)
 
-If true, additional NGINX configuration files for the default server and additional servers are read from files in the `/share` directory specified by the `default` and `servers` variables.
+If true, additional NGINX configuration files for the root, http, default server and additional servers are read from files in the `/share` directory specified by the `root`, `http`, `default` and `servers` variables.
+
+### Option `customize.root` (required)
+
+The filename of the NGINX configuration for the root block, found in the `/share` directory.
+
+### Option `customize.http` (required)
+
+The filename of the NGINX configuration for the http block, found in the `/share` directory.
 
 ### Option `customize.default` (required)
 

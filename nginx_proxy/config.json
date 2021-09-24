@@ -18,6 +18,7 @@
     "cloudflare": false,
     "customize": {
       "active": false,      
+      "root": "nginx_proxy_root*.conf",
       "http": "nginx_proxy_http*.conf",      
       "default": "nginx_proxy_default*.conf",
       "servers": "nginx_proxy/*.conf"
@@ -31,6 +32,7 @@
     "cloudflare": "bool",
     "customize": {
       "active": "bool",
+      "root": "str",
       "http": "str",      
       "default": "str",
       "servers": "str"

@@ -1,6 +1,6 @@
 # Changelog
 
-## 9.2.1
+## 9.3.0
 
 - Make tmux configuration persistent
 

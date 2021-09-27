@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.2.1
+
+- Upgrade Home Assistant CLI to 4.14.0
+
 ## 9.2.0
 
 - Upgrade to Alpine 3.14

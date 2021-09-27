@@ -12,6 +12,7 @@ if bashio::config.has_value "ipv6"; then IPV6=$(bashio::config 'ipv6'); else IPV
 TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
+ALGO=$(bashio::config 'lets_encrypt.algo')
 
 # Function that performe a renew
 function le_renew() {
@@ -36,7 +37,7 @@ function le_renew() {
         domain_args+=("--domain" "${domain}")
     done
 
-    dehydrated --cron --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
+    dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     LE_UPDATE="$(date +%s)"
 }
 
@@ -72,11 +73,11 @@ while true; do
     else
         bashio::log.warning "${answer}"
     fi
-    
+
     now="$(date +%s)"
     if bashio::config.true 'lets_encrypt.accept_terms' && [ $((now - LE_UPDATE)) -ge 43200 ]; then
         le_renew
     fi
-    
+
     sleep "${WAIT_TIME}"
 done

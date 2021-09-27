@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.0
+
+- Add option to specify algorithm used for SSL certificates
+
 ## 1.13.0
 
 - Update base to 3.14

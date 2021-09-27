@@ -1,6 +1,6 @@
 {
   "name": "Duck DNS",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "slug": "duckdns",
   "description": "Free Dynamic DNS (DynDNS or DDNS) service with Let's Encrypt support",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/duckdns",
@@ -11,7 +11,8 @@
     "lets_encrypt": {
       "accept_terms": false,
       "certfile": "fullchain.pem",
-      "keyfile": "privkey.pem"
+      "keyfile": "privkey.pem",
+      "algo": "secp384r1"
     },
     "token": null,
     "domains": [null],
@@ -22,7 +23,8 @@
     "lets_encrypt": {
       "accept_terms": "bool",
       "certfile": "str",
-      "keyfile": "str"
+      "keyfile": "str",
+      "algo": "list(rsa|prime256v1|secp384r1)"
     },
     "ipv4": "str?",
     "ipv6": "str?",

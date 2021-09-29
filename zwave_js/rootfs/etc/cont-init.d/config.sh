@@ -4,31 +4,75 @@
 # ==============================================================================
 declare network_key
 
-readonly DOCS_EXAMPLE_KEY="2232666D100F795E5BB17F0A1BB7A146"
+readonly DOCS_EXAMPLE_KEY_1="2232666D100F795E5BB17F0A1BB7A146"
+readonly DOCS_EXAMPLE_KEY_2="A97D2A51A6D4022998BEFC7B5DAE8EA1"
+readonly DOCS_EXAMPLE_KEY_3="309D4AAEF63EFD85967D76ECA014D1DF"
+readonly DOCS_EXAMPLE_KEY_4="CF338FE0CB99549F7C0EA96308E5A403"
 
-if [[ "${DOCS_EXAMPLE_KEY}" == "$(bashio::config 'network_key')" ]]; then
-    bashio::log.fatal
-    bashio::log.fatal 'The add-on detected that the Z-Wave network key used'
-    bashio::log.fatal 'is from the documented example.'
-    bashio::log.fatal
-    bashio::log.fatal 'Using this key is insecure, because it is publicly'
-    bashio::log.fatal 'listed in the documentation.'
-    bashio::log.fatal
-    bashio::log.fatal 'Please check the add-on documentation on how to'
-    bashio::log.fatal 'create your own, secret, "network_key" and replace'
-    bashio::log.fatal 'the one you have configured.'
-    bashio::log.fatal
-    bashio::log.fatal 'Click on the "Documentation" tab in the Z-Wave JS'
-    bashio::log.fatal 'add-on panel for more information.'
-    bashio::log.fatal
-    bashio::exit.nok
-elif ! bashio::config.has_value 'network_key'; then
-    bashio::log.info "No Network Key is set, generate one..."
-    network_key=$(hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random)
-    bashio::addon.option network_key "${network_key}"
-else
-    network_key=$(bashio::config 'network_key')
+if bashio::config.has_value 'network_key'; then
+    # If both 'network_key' and 's0_legacy_key' are set and keys don't match,
+    # we don't know which one to pick so we have to exit. If they are both set
+    # and do match, we will drop 'network_key'
+    if bashio::config.has_value 's0_legacy_key'; then
+        if bashio::config.equals 's0_legacy_key' "$(bashio::config \"network_key\")"; then
+            bashio::log.info "Both 'network_key' and 's0_legacy_key' are set and match. Dropping 'network_key' value..."
+            bashio::addon.option network_key
+        else
+            bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values "
+            bashio::log.fatal "so we are unsure which one to use. One needs to be removed from the "
+            bashio::log.fatal "configuration in order to start the addon."
+            bashio::exit.nok
+        fi
+    # If we get here, 'network_key' is set and 's0_legacy_key' is not set so we need
+    # to migrate the key from 'network_key' to 's0_legacy_key'
+    else
+        bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
+        network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
+        bashio::addon.option s0_legacy_key "${network_key}"
+        bashio::addon.option network_key
+        bashio::log.info "Flushing config to disk due to key migration..."
+        bashio::addon.options > "/data/options.json"
+    fi
 fi
+
+# Validate that no keys are using the example from the docs and generate new random
+# keys for any missing keys.
+for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
+    network_key=$(bashio::config "${key}")
+    if [ "${network_key}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
+        bashio::log.fatal
+        bashio::log.fatal "The add-on detected that the Z-Wave network key used"
+        bashio::log.fatal "is from the documented example."
+        bashio::log.fatal
+        bashio::log.fatal "Using this key is insecure, because it is publicly"
+        bashio::log.fatal "listed in the documentation."
+        bashio::log.fatal
+        bashio::log.fatal "Please check the add-on documentation on how to"
+        bashio::log.fatal "create your own, secret, \"${key}\" and replace"
+        bashio::log.fatal "the one you have configured."
+        bashio::log.fatal
+        bashio::log.fatal "Click on the \"Documentation\" tab in the Z-Wave JS"
+        bashio::log.fatal "add-on panel for more information."
+        bashio::log.fatal
+        bashio::exit.nok
+    elif ! bashio::var.has_value "${network_key}"; then
+        bashio::log.info "No ${key} is set, generating one..."
+        bashio::addon.option ${key} "$(hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random)"
+        flush_to_disk=1
+    fi
+done
+
+# If flush_to_disk is set, it means we have generated new key(s) and they need to get
+# flushed to disk
+if [[ ${flush_to_disk:+x} ]]; then
+    bashio::log.info "Flushing config to disk due to creation of new key(s)..."
+    bashio::addon.options > "/data/options.json"
+fi
+
+s0_legacy=$(bashio::config "s0_legacy_key")
+s2_access_control=$(bashio::config "s2_access_control_key")
+s2_authenticated=$(bashio::config "s2_authenticated_key")
+s2_unauthenticated=$(bashio::config "s2_unauthenticated_key")
 
 if  ! bashio::config.has_value 'log_level'; then
     log_level=$(bashio::info.logging)
@@ -41,7 +85,10 @@ fi
 
 # Generate config
 bashio::var.json \
-    network_key "${network_key}" \
+    s0_legacy "${s0_legacy}" \
+    s2_access_control "${s2_access_control}" \
+    s2_authenticated "${s2_authenticated}" \
+    s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
     | tempio \
         -template /usr/share/tempio/zwave_config.conf \

@@ -40,7 +40,10 @@ Add-on configuration:
 
 ```yaml
 device: /dev/ttyUSB0
-network_key: 2232666D100F795E5BB17F0A1BB7A146
+s0_legacy_key: 2232666D100F795E5BB17F0A1BB7A146
+s2_access_control_key: A97D2A51A6D4022998BEFC7B5DAE8EA1
+s2_authenticated_key: 309D4AAEF63EFD85967D76ECA014D1DF
+s2_unauthenticated_key: CF338FE0CB99549F7C0EA96308E5A403
 ```
 
 ### Option `device`

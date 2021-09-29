@@ -22,12 +22,12 @@ change if other devices are added to the system.
    the device name in quotes: e.g., something like
    `"/dev/serial/by-id/usb-0658_0200-if00"`,
    `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
-2. Set your 16-byte (32 character hex) network key in the form `2232666D1...`
-   used in order to connect securely to compatible devices. It is recommended
-   that a network key is configured as some security enabled devices (locks, etc)
+2. Set your 16-byte (32 character hex) security keys in the form `2232666D1...`
+   in order to connect securely to compatible devices. It is recommended
+   that all four network keys are configured as some security enabled devices (locks, etc)
    may not function correctly if they are not added securely.
-     * As a note, it is not recommended to securely connect *all* devices unless
-       necessary as it triples the amount of messages sent on the mesh.
+     * As a note, it is not recommended to securely connect *all* devices unless they support S2 security
+       as the S0 security triples the amount of messages sent on the mesh.
 3. Click on "SAVE" to save the add-on configuration.
 4. Start the add-on.
 5. Add the Z-Wave JS integration to Home Assistant, see documentation:

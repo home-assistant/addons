@@ -3,7 +3,7 @@
 ## 0.1.41
 
 - Bump Z-Wave JS Server to 1.10.5
-- Bump Z-Wave JS to 8.3.1
+- Bump Z-Wave JS to 8.4.1
 - Add support for S2 keys in the addon configuration (check the Security Keys section of the configuration docs for more details)
 
 ## 0.1.40

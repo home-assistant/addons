@@ -6,6 +6,7 @@ declare network_key
 declare s0_legacy_key
 declare s0_legacy
 declare s2_access_control
+declare s2_authenticated
 declare s2_unauthenticated
 declare log_level
 declare flush_to_disk

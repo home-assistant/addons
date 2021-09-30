@@ -3,6 +3,7 @@
 # Generate Z-Wave JS config file
 # ==============================================================================
 declare network_key
+declare network_key_upper
 declare s0_legacy_key
 declare s0_legacy
 declare s2_access_control
@@ -44,8 +45,9 @@ fi
 # Validate that no keys are using the example from the docs and generate new random
 # keys for any missing keys.
 for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
-    network_key=$(bashio::string.upper "$(bashio::config \"${key}\")")
-    if [ "${network_key}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
+    network_key="$(bashio::config "${key}")"
+    network_key_upper=$(bashio::string.upper "${network_key}")
+    if [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
         bashio::log.fatal
         bashio::log.fatal "The add-on detected that the Z-Wave network key used"
         bashio::log.fatal "is from the documented example."
@@ -63,7 +65,15 @@ for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_un
         bashio::exit.nok
     elif ! bashio::var.has_value "${network_key}"; then
         bashio::log.info "No ${key} is set, generating one..."
-        bashio::addon.option ${key} "$(hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random)"
+        network_key="$(hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random)"
+        bashio::addon.option ${key} "${network_key}"
+        flush_to_disk=1
+    fi
+
+    # If `network_key` is unset, we set it to match `s0_legacy_key` for backwards compatibility
+    if bashio::var.equals "${key}" "s0_legacy_key" && ! bashio::config.has_value "network_key"; then
+        bashio::log.info "No 'network_key' detected, setting it to 's0_legacy_key' for backwards compatibility"
+        bashio::addon.option network_key "${network_key}"
         flush_to_disk=1
     fi
 done
@@ -72,12 +82,6 @@ done
 # flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
-    bashio::addon.options > "/data/options.json"
-fi
-
-# We have to reflush the config to disk if we have set the network_key
-if ! bashio::config.has_value 'network_key'; then
-    bashio::addon.option 'network_key' "$(bashio::config 's0_legacy_key')"
     bashio::addon.options > "/data/options.json"
 fi
 

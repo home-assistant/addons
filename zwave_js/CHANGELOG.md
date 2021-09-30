@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.44
+
+- Fix casing issues with security keys
+- Fix `emulate_hardware` configuration option
+
 ## 0.1.43
 
 - Bump Z-Wave JS Server to 1.10.6

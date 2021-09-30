@@ -6,7 +6,7 @@ SERIAL_DEVICE=$(bashio::config 'device')
 
 # Emulate serial Hardware for test & development
 if bashio::config.true 'emulate_hardware'; then
-    SERIAL_DEVICE="--mock"
+    SERIAL_DEVICE="--mock-driver"
 fi
 
 # Send out discovery information to Home Assistant

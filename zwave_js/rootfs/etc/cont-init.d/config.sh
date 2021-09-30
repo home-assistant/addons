@@ -45,7 +45,7 @@ fi
 # Validate that no keys are using the example from the docs and generate new random
 # keys for any missing keys.
 for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
-    network_key="$(bashio::config "${key}")"
+    network_key=$(bashio::config "${key}")
     network_key_upper=$(bashio::string.upper "${network_key}")
     if [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
         bashio::log.fatal

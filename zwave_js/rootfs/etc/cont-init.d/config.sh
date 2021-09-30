@@ -12,11 +12,10 @@ readonly DOCS_EXAMPLE_KEY_4="CF338FE0CB99549F7C0EA96308E5A403"
 if bashio::config.has_value 'network_key'; then
     # If both 'network_key' and 's0_legacy_key' are set and keys don't match,
     # we don't know which one to pick so we have to exit. If they are both set
-    # and do match, we will drop 'network_key'
+    # and do match, we don't need to do anything
     if bashio::config.has_value 's0_legacy_key'; then
         if bashio::config.equals 's0_legacy_key' "$(bashio::config \"network_key\")"; then
-            bashio::log.info "Both 'network_key' and 's0_legacy_key' are set and match. Dropping 'network_key' value..."
-            bashio::addon.option network_key
+            bashio::log.info "Both 'network_key' and 's0_legacy_key' are set and match. All ok."
         else
             bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values "
             bashio::log.fatal "so we are unsure which one to use. One needs to be removed from the "
@@ -29,7 +28,6 @@ if bashio::config.has_value 'network_key'; then
         bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
         network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
         bashio::addon.option s0_legacy_key "${network_key}"
-        bashio::addon.option network_key
         bashio::log.info "Flushing config to disk due to key migration..."
         bashio::addon.options > "/data/options.json"
     fi

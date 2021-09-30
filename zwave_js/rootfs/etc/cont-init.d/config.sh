@@ -3,6 +3,12 @@
 # Generate Z-Wave JS config file
 # ==============================================================================
 declare network_key
+declare s0_legacy_key
+declare s0_legacy
+declare s2_access_control
+declare s2_unauthenticated
+declare log_level
+declare flush_to_disk
 
 readonly DOCS_EXAMPLE_KEY_1="2232666D100F795E5BB17F0A1BB7A146"
 readonly DOCS_EXAMPLE_KEY_2="A97D2A51A6D4022998BEFC7B5DAE8EA1"

@@ -75,6 +75,12 @@ if [[ ${flush_to_disk:+x} ]]; then
     bashio::addon.options > "/data/options.json"
 fi
 
+# We have to reflush the config to disk if we have set the network_key
+if ! bashio::config.has_value 'network_key'; then
+    bashio::addon.option 'network_key' "$(bashio::config 's0_legacy_key')"
+    bashio::addon.options > "/data/options.json"
+fi
+
 s0_legacy=$(bashio::config "s0_legacy_key")
 s2_access_control=$(bashio::config "s2_access_control_key")
 s2_authenticated=$(bashio::config "s2_authenticated_key")

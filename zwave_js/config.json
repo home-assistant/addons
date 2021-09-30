@@ -22,8 +22,7 @@
     "s2_access_control_key": "",
     "s2_authenticated_key": "",
     "s2_unauthenticated_key": "",
-    "log_level": "info",
-    "network_key": ""
+    "log_level": "info"
   },
   "schema": {
     "device": "device(subsystem=tty)",

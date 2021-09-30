@@ -14,7 +14,9 @@ if bashio::config.has_value 'network_key'; then
     # we don't know which one to pick so we have to exit. If they are both set
     # and do match, we don't need to do anything
     if bashio::config.has_value 's0_legacy_key'; then
-        if bashio::config.equals 's0_legacy_key' "$(bashio::config \"network_key\")"; then
+        network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
+        s0_legacy_key=$(bashio::string.upper "$(bashio::config 's0_legacy_key')")
+        if [ "${network_key}" == "${s0_legacy_key}" ]; then
             bashio::log.info "Both 'network_key' and 's0_legacy_key' are set and match. All ok."
         else
             bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values "
@@ -26,8 +28,7 @@ if bashio::config.has_value 'network_key'; then
     # to migrate the key from 'network_key' to 's0_legacy_key'
     else
         bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
-        network_key=$(bashio::string.upper "$(bashio::config 'network_key')")
-        bashio::addon.option s0_legacy_key "${network_key}"
+        bashio::addon.option s0_legacy_key "$(bashio::config 'network_key')"
         bashio::log.info "Flushing config to disk due to key migration..."
         bashio::addon.options > "/data/options.json"
     fi
@@ -36,7 +37,7 @@ fi
 # Validate that no keys are using the example from the docs and generate new random
 # keys for any missing keys.
 for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
-    network_key=$(bashio::config "${key}")
+    network_key=$(bashio::string.upper "$(bashio::config \"${key}\")")
     if [ "${network_key}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
         bashio::log.fatal
         bashio::log.fatal "The add-on detected that the Z-Wave network key used"

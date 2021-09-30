@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.42
+
+- Retain legacy network_key config option to stay backwards compatible.
+
 ## 0.1.41
 
 - Bump Z-Wave JS Server to 1.10.5

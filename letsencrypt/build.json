@@ -7,7 +7,7 @@
     "i386": "homeassistant/i386-base-python:3.7-alpine3.11"
   },
   "args": {
-    "CERTBOT_VERSION": "1.2.0",
+    "CERTBOT_VERSION": "1.19.0",
     "CERTBOT_DNS_DIRECTADMIN_VERSION": "0.0.13",
     "CERTBOT_NETCUP_VERSION": "0.31.0.1",
     "CERTBOT_NJALLA_VERSION": "0.0.4",

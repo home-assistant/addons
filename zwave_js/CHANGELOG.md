@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.45
+
+- Bump Z-Wave JS Server to 1.10.7
+
 ## 0.1.44
 
 - Fix casing issues with security keys

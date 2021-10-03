@@ -1,6 +1,6 @@
 # Changelog
 
-# 0.1.45
+## 0.1.45
 
 - Bump Z-Wave JS Server to 1.10.7
 

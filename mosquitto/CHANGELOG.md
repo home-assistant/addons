@@ -1,10 +1,10 @@
 # Changelog
 
-## 6.0.1
+## [6.0.1] - 2021-05-19
 
 - Fix loading custom mosquitto configuration
 
-## 6.0.0
+## [6.0.0] - 2021-05-19
 
 - Support for anonymous logins has been removed
 - Replaced Home Assistant authentication handling
@@ -17,33 +17,33 @@
 - Update base image to Alpine Linux 3.13
 - Add port descriptions
 
-## 5.1.1
+## [5.1.1] - 2021-02-25
 
 - Update options schema for passwords
 
-## 5.1.0
+## 5.1.0 - 2019-09-26
 
 - Add cafile option in configuration
 - Add require_certificate option in configuration
 
-## 5.0.0
+## [5.0.0] - 2019-07-01
 
 - Update mosquitto 1.6.3 / Alpine 3.10
 - Migrate to `mosquitto-auth-plug` from pvizeli
 - Use auth cache for faster reauthentication
 
-## 4.3.0
+## [4.3.0] - 2019-06-03
 
 - Fix password generator with new images
 
-## 4.2.0
+## [4.2.0] - 2019-04-23
 
 - Enable quiet logging for http auth plugin
 
-## 4.1.0
+## [4.1.0] - 2019-03-10
 
 - Update mosquitto 1.5.6
 
-## 4.0.0
+## [4.0.0] - 2019-01-09
 
 - Use Alpine 3.7 because libwebsocket 3.0.0 is broken on Alpine 3.8

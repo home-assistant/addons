@@ -13,6 +13,8 @@ TOKEN=$(bashio::config 'token')
 DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
 ALGO=$(bashio::config 'lets_encrypt.algo')
+PKCS12_NEEDED=$(bashio::config 'pkcs12_needed')
+PKCS12_PASSWORD=$(bashio::config 'pkcs12_password')
 
 # Function that performe a renew
 function le_renew() {
@@ -59,6 +61,7 @@ if bashio::config.true 'lets_encrypt.accept_terms'; then
         touch "${WORK_DIR}/config"
 
         dehydrated --register --accept-terms --config "${WORK_DIR}/config"
+        if [ "$PKCS12_NEEDED" = true ]; then openssl pkcs12 -export -out ${CERT_DIR}/certificate.pfx -inkey ${CERT_DIR}/privkey.pem -in ${CERT_DIR}/fullchain.pem -passout "pass:${PKCS12_PASSWORD}";fi
     fi
 fi
 

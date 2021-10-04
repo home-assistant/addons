@@ -61,7 +61,6 @@ if bashio::config.true 'lets_encrypt.accept_terms'; then
         touch "${WORK_DIR}/config"
 
         dehydrated --register --accept-terms --config "${WORK_DIR}/config"
-        if [ "$PKCS12_NEEDED" = true ]; then openssl pkcs12 -export -out ${CERT_DIR}/certificate.pfx -inkey ${CERT_DIR}/privkey.pem -in ${CERT_DIR}/fullchain.pem -passout "pass:${PKCS12_PASSWORD}";fi
     fi
 fi
 
@@ -80,6 +79,8 @@ while true; do
     now="$(date +%s)"
     if bashio::config.true 'lets_encrypt.accept_terms' && [ $((now - LE_UPDATE)) -ge 43200 ]; then
         le_renew
+        if [ "$PKCS12_NEEDED" = true ]; then openssl pkcs12 -export -out /ssl/certificate.pfx -inkey /ssl/privkey.pem -in /ssl/fullchain.pem -passout "pass:${PKCS12_PASSWORD}";fi
+
     fi
 
     sleep "${WAIT_TIME}"

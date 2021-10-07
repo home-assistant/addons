@@ -39,7 +39,8 @@
         "port": "str",
         "priority": "int",
         "weight": "int"
-      },
+      }
+    ],
     "cnames": [
       {
         "name": "str",

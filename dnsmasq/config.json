@@ -1,6 +1,6 @@
 {
   "name": "Dnsmasq",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "slug": "dnsmasq",
   "description": "A simple DNS server",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/dnsmasq",
@@ -39,6 +39,11 @@
         "port": "str",
         "priority": "int",
         "weight": "int"
+      },
+    "cnames": [
+      {
+        "name": "str",
+        "target": "str"
       }
     ]
   },

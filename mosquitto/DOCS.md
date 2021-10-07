@@ -116,6 +116,10 @@ Add the following configuration to enable **unrestricted** access to all topics.
 3. Create `/share/mosquitto/accesscontrollist` with the contents:
 
     ```text
+    user homeassistant
+    topic readwrite #
+
+    
     user [YOUR_MQTT_USER]
     topic readwrite #
     ```

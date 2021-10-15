@@ -8,7 +8,7 @@ declare ha_config
 ha_config=$(\
     bashio::var.json \
         host "$(hostname)" \
-        port "^3000" \
+        port "^4212" \
         password "$(cat /data/secret)" \
 )
 

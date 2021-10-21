@@ -21,8 +21,6 @@ RUN \
         linux-headers \
     && git clone --depth 1 -b libcec-${LIBCEC_VERSION} \
         "https://github.com/Pulse-Eight/libcec" /usr/src/libcec \
-    && cd /usr/src/libcec \
-    && git apply /usr/src/libcec.patch \
     && mkdir -p /usr/src/libcec/build \
     && cd /usr/src/libcec/build \
     && cmake \

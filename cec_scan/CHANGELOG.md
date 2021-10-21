@@ -3,7 +3,7 @@
 ## 3.0
 
 - Using the Upstream Linux support only
-- Using s6-Overlay style
+- Using s6-overlay style
 - Update to Alpine 3.14
 
 ## 2.4

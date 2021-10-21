@@ -1,11 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Meta
-ARG BUILD_ARCH
-ARG LIBCEC_VERSION
-
 # Build libcec for HDMI-CEC
+ARG LIBCEC_VERSION
 WORKDIR /usr/src
 RUN \
     apk add --no-cache \

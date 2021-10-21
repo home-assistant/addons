@@ -17,9 +17,9 @@ RUN \
         swig \
         linux-headers \
     && git clone --depth 1 -b libcec-${LIBCEC_VERSION} \
-        "https://github.com/Pulse-Eight/libcec" /usr/src/libcec \
-    && mkdir -p /usr/src/libcec/build \
-    && cd /usr/src/libcec/build \
+        "https://github.com/Pulse-Eight/libcec" libcec \
+    && mkdir -p libcec/build \
+    && cd libcec/build \
     && cmake \
         -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
         -DHAVE_LINUX_API=1 \
@@ -30,6 +30,5 @@ RUN \
     && rm -rf /usr/src/*
 
 # Copy data
-COPY data/run.sh /
-
 WORKDIR /
+COPY rootfs /

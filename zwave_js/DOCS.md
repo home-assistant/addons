@@ -22,12 +22,12 @@ change if other devices are added to the system.
    the device name in quotes: e.g., something like
    `"/dev/serial/by-id/usb-0658_0200-if00"`,
    `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
-2. Set your 16-byte (32 character hex) network key in the form `2232666D1...`
-   used in order to connect securely to compatible devices. It is recommended
-   that a network key is configured as some security enabled devices (locks, etc)
+2. Set your 16-byte (32 character hex) security keys in the form `2232666D1...`
+   in order to connect securely to compatible devices. It is recommended
+   that all four network keys are configured as some security enabled devices (locks, etc)
    may not function correctly if they are not added securely.
-     * As a note, it is not recommended to securely connect *all* devices unless
-       necessary as it triples the amount of messages sent on the mesh.
+     * As a note, it is not recommended to securely connect *all* devices unless they support S2 security
+       as the S0 security triples the amount of messages sent on the mesh.
 3. Click on "SAVE" to save the add-on configuration.
 4. Start the add-on.
 5. Add the Z-Wave JS integration to Home Assistant, see documentation:
@@ -40,7 +40,10 @@ Add-on configuration:
 
 ```yaml
 device: /dev/ttyUSB0
-network_key: 2232666D100F795E5BB17F0A1BB7A146
+s0_legacy_key: 2232666D100F795E5BB17F0A1BB7A146
+s2_access_control_key: A97D2A51A6D4022998BEFC7B5DAE8EA1
+s2_authenticated_key: 309D4AAEF63EFD85967D76ECA014D1DF
+s2_unauthenticated_key: CF338FE0CB99549F7C0EA96308E5A403
 ```
 
 ### Option `device`
@@ -59,16 +62,20 @@ In most cases this looks like one of the following:
 - `"/dev/ttyAMA0"`
 - `"/dev/ttyACM0"`
 
-### Option `network_key`
+### Security Keys
 
-Security Z-Wave devices require a network key before being added to the network.
-You must set the `network_key` configuration option to use a network key before
-adding these devices.
+There are four different security keys required to take full advantage of the
+different inclusion methods that Z-Wave JS supports: `s0_legacy_key`,
+`s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key`.
 
-If you don't add a network key, it will autogenerate one for you.
+If you are coming from a previous version of `zwave-js`, you likely have a key
+stored in the `network_key` configuration option. When the addon is first
+started, the key will be migrated from `network_key` to `s0_legacy_key` which
+will ensure that your S0 secured devices will continue to function.
 
-To generate a network key manually, you can use the following script in, e.g.,
-the SSH add-on:
+If any of these keys are missing on startup, the addon will autogenerate one for
+you. To generate a network key manually, you can use the following script in,
+e.g., the SSH add-on:
 
 ```bash
 hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random
@@ -78,10 +85,43 @@ You can also use sites like this one to generate the required data:
 
 <https://www.random.org/cgi-bin/randbyte?nbytes=16&format=h>
 
-Ensure you keep a backup of this key. If you have to rebuild your system and
-don't have a backup of this key, you won't be able to reconnect to any securely
-included devices. This may mean you have to do a factory reset on those devices
-and your controller, before rebuilding your Z-Wave network.
+Ensure you keep a backup of these keys. If you have to rebuild your system and
+don't have a backup of these keys, you won't be able to communicate to any
+securely included devices. This may mean you have to do a factory reset on
+those devices and your controller, before rebuilding your Z-Wave network.
+
+> NOTE: Sharing keys between multiple security classes is a security risk, so
+> if you choose to configure these keys on your own, be sure to make them
+> unique!
+
+#### Option `s0_legacy_key`
+
+S0 Security Z-Wave devices require a network key before being added to the network.
+This configuration option is required, but if it is unset the addon will generate
+a new one automatically on startup.
+
+#### Option `s2_access_control_key`
+
+The `s2_access_control_key` must be provided in order to include devices with the
+S2 Access Control security class. This security class is needed by devices such
+as door locks and garage door openers. This configuration option is required,
+but if it is unset the addon will generate a new one automatically on startup.
+
+#### Option `s2_authenticated_key`
+
+The `s2_authenticated_key` must be provided in order to include devices with
+the S2 Authenticated security class. Devices such as security systems, sensors,
+lighting, etc. can request this security class. This configuration option is
+required, but if it is unset the addon will generate a new one automatically
+on startup.
+
+### Option `s2_unauthenticated_key`
+
+The `s2_unauthenticated_key` must be provided in order to include devices with
+the S2 Unauthenticated security class. This is similar to S2 Authenticated, but
+without verification that the correct device was included. This configuration
+option is required, but if it is unset the addon will generate a new one
+automatically on startup.
 
 ### Option `log_level` (optional)
 
@@ -101,6 +141,13 @@ the Supervisor.
 
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
+
+### Option `network_key` (deprecated)
+
+In previous versions of the addon, this was the only key that was needed. With
+the introduction of S2 security inclusion in zwave-js, this option has been
+deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
+migrated to `s0_legacy_key` on first startup.
 
 ## Known issues and limitations
 

@@ -6,11 +6,14 @@ SERIAL_DEVICE=$(bashio::config 'device')
 
 # Emulate serial Hardware for test & development
 if bashio::config.true 'emulate_hardware'; then
-    SERIAL_DEVICE="--mock"
+    SERIAL_DEVICE="--mock-driver"
 fi
 
 # Send out discovery information to Home Assistant
 ./discovery &
 
-# Run daemon
+# Set external config directory
+export ZWAVEJS_EXTERNAL_CONFIG=/data/db
+
+# Run daemon, passing external config directory in as environment variable
 exec zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json

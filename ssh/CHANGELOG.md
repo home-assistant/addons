@@ -1,5 +1,19 @@
 # Changelog
 
+## 9.2.1
+
+- Upgrade Home Assistant CLI to 4.14.0
+
+## 9.2.0
+
+- Upgrade to Alpine 3.14
+- Make Bash promt more colorful
+- Upgrade Home Assistant CLI to 4.13.0
+
+## 9.1.3
+
+- Upgrade Home Assistant CLI to 4.12.3
+
 ## 9.1.2
 
 - Upgrade Home Assistant CLI to 4.12.2

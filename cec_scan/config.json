@@ -1,6 +1,6 @@
 {
   "name": "CEC Scanner",
-  "version": "2.4",
+  "version": "3.0",
   "slug": "cec_scan",
   "description": "Scan for HDMI CEC devices",
   "url": "https://github.com/home-assistant/hassio-addons/tree/master/cec_scan",

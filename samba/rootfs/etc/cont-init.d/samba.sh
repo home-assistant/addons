@@ -4,6 +4,7 @@
 # ==============================================================================
 declare password
 declare username
+declare interface
 export HOSTNAME
 
 # Check Login data
@@ -17,13 +18,17 @@ if bashio::var.is_empty "${HOSTNAME}"; then
     bashio::log.warning "Can't read hostname, using default."
     HOSTNAME="hassio"
 fi
-bashio::log.info "Hostname: ${HOSTNAME}"
+
+# Get default interface
+interface=$(bashio::network.name)
+
+bashio::log.info "Using hostname=${HOSTNAME} interface=${interface}"
 
 # Generate Samba configuration.
-tempio \
-  -conf /data/options.json \
-  -template /usr/share/tempio/smb.gtpl \
-  -out /etc/samba/smb.conf
+jq ".interface = \"${interface}\"" /data/options.json \
+    | tempio \
+      -template /usr/share/tempio/smb.gtpl \
+      -out /etc/samba/smb.conf
 
 # Init user
 username=$(bashio::config 'username')

@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.3.3
+
+- Fix Home Assistant API endpoint
+
+## 5.3.2
+
+- Update base image to Alpine 3.14
+
 ## 5.3.1
 
 - Update base image to Alpine 3.13

@@ -126,6 +126,8 @@ fi
 function stop_mariadb() {
     bashio::services.delete "mysql"
     mysqladmin shutdown
+    # Successful exit, avoid wait exit status to propagate
+    exit 0
 }
 trap "stop_mariadb" SIGTERM SIGHUP
 

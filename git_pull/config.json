@@ -28,6 +28,7 @@
       "active": false,
       "interval": 300
     },
+    "github_action_check": false,
     "github_username": null,
     "github_repository": null,
     "github_token": null
@@ -47,7 +48,11 @@
     "repeat": {
       "active": "bool",
       "interval": "int"
-    }
+    },
+    "github_action_check": "bool",
+    "github_username": "str",
+    "github_repository": "str",
+    "github_token": "str"
   },
   "image": "homeassistant/{arch}-addon-git_pull"
 }

@@ -17,9 +17,10 @@ AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
+GH_ACTIONS_ENABLE=$(jq --raw-output '.github_action_check' $CONFIG_PATH)
 GH_USERNAME=$(jq --raw-output '.github_username' $CONFIG_PATH)
 GH_REPO=$(jq --raw-output '.github_repository' $CONFIG_PATH)
-GH_TOKEN=$(jq --raw-output '.github_token' $CONFIG_PATH)
+GH_TOKEN=$(jq --raw-output '.github_repository' $CONFIG_PATH)
 ################
 
 #### functions ####
@@ -224,6 +225,45 @@ function validate-config {
     fi
 }
 
+function gh-actions {
+    echo "[Info] Checking if GitHub actions check enabled..."
+    if [ "$GH_ACTIONS_ENABLE" == "true" ]; then
+        echo "[Info] GitHub actions check enabled. Checking if GitHub action passed..."
+
+        GITHUB_API_RESPONSE=$(curl -u $GH_USERNAME:$GH_TOKEN -s \
+        -H "Accept: application/vnd.github.v3+json" \
+        https://api.github.com/repos/$GH_USERNAME/$GH_REPO/actions/runs)
+        GITHUB_LAST_ACTION=$(jq -c '[ .workflow_runs[] | select( .head_branch | contains("'"$BRANCH"'")) ][0]' \
+        <<< "$GITHUB_API_RESPONSE") || { echo "[Error] GitHub API actions fetch failed"; return 1; }
+
+        REMOTE_SHA=$(git rev-parse origin/${BRANCH})
+
+        HEAD_SHA=$(jq '.head_sha' <<< "$GITHUB_LAST_ACTION")
+        STATUS=$(jq '.status' <<< "$GITHUB_LAST_ACTION")
+        CONCLUSION=$(jq '.conclusion' <<< "$GITHUB_LAST_ACTION")
+
+        if [ "$REMOTE_SHA" == "$HEAD_SHA" ]; then
+            if [ "$STATUS" == "completed" ]; then
+                if [ "$CONCLUSION" == "success" ]; then
+                    echo "[Info] GitHub action check successfull. Ready to pull."
+                else
+                    echo "[Error] GitHub action check not successfull. Do not pull."
+                    return 1
+                fi
+            else
+                echo "[Error] GitHub action check not completed. Do not pull."
+                return 1
+            fi
+        else
+            echo "[Error] GitHub actions last check commit SHA does not match last commit SHA on branch."
+            return 1
+        fi
+
+    else
+        echo "[Info] GitHub actions check disabled."
+    fi
+}
+
 ###################
 
 #### Main program ####
@@ -232,7 +272,7 @@ cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
     setup-user-password
-    if git-synchronize ; then
+    if gh-actions && git-synchronize ; then
         validate-config
     fi
      # do we repeat?

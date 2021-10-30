@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.5
+## 1.5.0
 
 - Adds support for CNAME records
 

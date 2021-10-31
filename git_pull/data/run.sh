@@ -245,9 +245,9 @@ function gh-actions {
 
         echo "Checking if GitHub action..."
 
-        GITHUB_API_RESPONSE=$(curl -u $GH_USERNAME:$GH_TOKEN -s \
+        GITHUB_API_RESPONSE=$(curl -u "$GH_USERNAME":"$GH_TOKEN" -s \
         -H "Accept: application/vnd.github.v3+json" \
-        https://api.github.com/repos/$GH_USERNAME/$GH_REPO/actions/runs?branch="$GIT_BRANCH")
+        https://api.github.com/repos/"$GH_USERNAME"/"$GH_REPO"/actions/runs?branch="$GIT_BRANCH")
 
         if [[ $(jq -r '.message' <<< "$GITHUB_API_RESPONSE" ) == "Not Found" ]]; then
             echo "[Error] Not found GitHub repository. If you are using private repository add token to configuration."
@@ -259,7 +259,7 @@ function gh-actions {
             return 1;
         fi
 
-        REMOTE_SHA=$(git rev-parse origin/${GIT_BRANCH})
+        REMOTE_SHA="$(git rev-parse origin/${GIT_BRANCH})"
 
         GITHUB_LAST_ACTION=$(jq -c '[ .workflow_runs[] | select( (.head_sha == "'"$REMOTE_SHA"'")) ]' <<< "$GITHUB_API_RESPONSE")
 
@@ -269,7 +269,7 @@ function gh-actions {
             return 1
         fi
 
-        if [ ! -z "$GH_ACTION_NAME" ]
+        if [ -n "$GH_ACTION_NAME" ]
         then
             GITHUB_LAST_ACTION=$(jq -c '[ .[] | select( .name == "'"$GH_ACTION_NAME"'" ) ][0]' <<< "$GITHUB_LAST_ACTION")
 

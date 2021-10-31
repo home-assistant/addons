@@ -31,7 +31,8 @@
     "github_action_check": false,
     "github_username": null,
     "github_repository": null,
-    "github_token": null
+    "github_token": null,
+    "github_action_name": null
   },
   "schema": {
     "deployment_key": ["str"],

@@ -21,6 +21,7 @@ GH_ACTIONS_ENABLE=$(jq --raw-output '.github_action_check' $CONFIG_PATH)
 GH_USERNAME=$(jq --raw-output '.github_username' $CONFIG_PATH)
 GH_REPO=$(jq --raw-output '.github_repository' $CONFIG_PATH)
 GH_TOKEN=$(jq --raw-output '.github_repository' $CONFIG_PATH)
+GH_ACTION_NAME=$(jq --raw-output '.github_action_name' $CONFIG_PATH)
 ################
 
 #### functions ####
@@ -232,33 +233,55 @@ function gh-actions {
 
         GITHUB_API_RESPONSE=$(curl -u $GH_USERNAME:$GH_TOKEN -s \
         -H "Accept: application/vnd.github.v3+json" \
-        https://api.github.com/repos/$GH_USERNAME/$GH_REPO/actions/runs)
-        GITHUB_LAST_ACTION=$(jq -c '[ .workflow_runs[] | select( .head_branch | contains("'"$BRANCH"'")) ][0]' \
-        <<< "$GITHUB_API_RESPONSE") || { echo "[Error] GitHub API actions fetch failed"; return 1; }
+        https://api.github.com/repos/$GH_USERNAME/$GH_REPO/actions/runs?branch="$GIT_BRANCH")
 
-        REMOTE_SHA=$(git rev-parse origin/${BRANCH})
-
-        HEAD_SHA=$(jq '.head_sha' <<< "$GITHUB_LAST_ACTION")
-        STATUS=$(jq '.status' <<< "$GITHUB_LAST_ACTION")
-        CONCLUSION=$(jq '.conclusion' <<< "$GITHUB_LAST_ACTION")
-
-        if [ "$REMOTE_SHA" == "$HEAD_SHA" ]; then
-            if [ "$STATUS" == "completed" ]; then
-                if [ "$CONCLUSION" == "success" ]; then
-                    echo "[Info] GitHub action check successfull. Ready to pull."
-                else
-                    echo "[Error] GitHub action check not successfull. Do not pull."
-                    return 1
-                fi
-            else
-                echo "[Error] GitHub action check not completed. Do not pull."
-                return 1
-            fi
-        else
-            echo "[Error] GitHub actions last check commit SHA does not match last commit SHA on branch."
+        if [[ $(jq -r '.message' <<< "$GITHUB_API_RESPONSE" ) == "Not Found" ]]; then
+            echo "[Error] Not found GitHub repository. If you are using private repository add token to configuration."
             return 1
         fi
 
+        if (( $(jq -r '.total_count'  <<< "$GITHUB_API_RESPONSE") == 0 )); then
+            echo "[Error] not found any GitHub actions for branch $GIT_BRANCH"
+            return 1;
+        fi
+
+        REMOTE_SHA=$(git rev-parse origin/${GIT_BRANCH})
+
+        GITHUB_LAST_ACTION=$(jq -c '[ .workflow_runs[] | select( (.head_sha == "'"$REMOTE_SHA"'")) ]' <<< "$GITHUB_API_RESPONSE")
+
+        if [[ "$GITHUB_LAST_ACTION" == "[]" ]]
+        then
+            echo "[Error] Not found GitHub action run on the last git commit on branch $GIT_BRANCH"
+            return 1
+        fi
+
+        if [ ! -z "$GH_ACTION_NAME" ]
+        then
+            GITHUB_LAST_ACTION=$(jq -c '[ .[] | select( .name == "'"$GH_ACTION_NAME"'" ) ][0]' <<< "$GITHUB_LAST_ACTION")
+
+            if [ "$GITHUB_LAST_ACTION" == "null" ]; then
+                echo "[Error] Not found GitHub action named $GH_ACTION_NAME run on the last git commit on branch $GIT_BRANCH"
+                return 1
+            fi
+        else
+            GITHUB_LAST_ACTION=$(jq -c '[ .[] ][0]' <<< "$GITHUB_LAST_ACTION")
+        fi
+
+        HEAD_SHA=$(jq -r '.head_sha' <<< "$GITHUB_LAST_ACTION")
+        STATUS=$(jq -r '.status' <<< "$GITHUB_LAST_ACTION")
+        CONCLUSION=$(jq -r '.conclusion' <<< "$GITHUB_LAST_ACTION")
+
+        if [ "$STATUS" == "completed" ]; then
+            if [ "$CONCLUSION" == "success" ]; then
+                echo "[Info] GitHub action check successfull. Ready to pull."
+            else
+                echo "[Error] GitHub action check not successfull. Do not pull."
+                return 1
+            fi
+        else
+            echo "[Error] GitHub action check not completed. Do not pull."
+            return 1
+        fi
     else
         echo "[Info] GitHub actions check disabled."
     fi

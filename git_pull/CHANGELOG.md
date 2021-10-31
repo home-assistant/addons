@@ -2,7 +2,7 @@
 
 ## 7.14.0
 
-- Add Github Action check before update
+- Add GitHub Action check before update
 
 ## 7.13.1
 

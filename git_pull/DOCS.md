@@ -152,19 +152,19 @@ The following options are for the option group: `github_action` and configure th
 
 #### Option: `github_action.username` (required)
 
-Github username of the owner of the repository that have GitHub action to be checked. You can check this in the url of the Github repository: `https://github.com/username/repository`.
+GitHub username of the owner of the repository that have GitHub action to be checked. You can check this in the url of the GitHub repository: `https://github.com/username/repository`.
 
 #### Option: `github_action.repository` (required)
 
-Github repository name that have Github action to be checked. You can check this in the url of the Github repository: `https://github.com/username/repository`.
+GitHub repository name that have GitHub action to be checked. You can check this in the url of the GitHub repository: `https://github.com/username/repository`.
 
 #### Option: `github_action.token` (optional)
 
-Github token with scope `repo:read`. Provide this if the repository specified in the two above options is private.
+GitHub token with scope `repo:read`. Provide this if the repository specified in the two above options is private.
 
 #### Option: `github_action.action_name` (optional)
 
-Github action name. Provide this if the repository that you provided (`github_action.username/github_action.repository`) has more than one Github Action.
+GitHub action name. Provide this if the repository that you provided (`github_action.username/github_action.repository`) has more than one GitHub Action.
 
 ## Support
 

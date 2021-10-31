@@ -234,12 +234,12 @@ function gh-actions {
         echo "[Info] GitHub actions check enabled."
 
         if [ -z "$GH_USERNAME" || "$GH_USERNAME" == "null" ]; then
-            echo "[Error] Github username is not set correctly."
+            echo "[Error] GitHub username is not set correctly."
             return 1
         fi
 
         if [ -z "$GH_REPO" || "$GH_USERNAME" == "null" ]; then
-            echo "[Error] Github repository is not set correctly."
+            echo "[Error] GitHub repository is not set correctly."
             return 1
         fi
 

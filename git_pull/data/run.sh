@@ -233,12 +233,12 @@ function gh-actions {
     if [ "$GH_ACTIONS_ENABLE" == "true" ]; then
         echo "[Info] GitHub actions check enabled."
 
-        if [ -z "$GH_USERNAME" || "$GH_USERNAME" == "null" ]; then
+        if [ -z "$GH_USERNAME" ] || [ "$GH_USERNAME" == "null" ]; then
             echo "[Error] GitHub username is not set correctly."
             return 1
         fi
 
-        if [ -z "$GH_REPO" || "$GH_USERNAME" == "null" ]; then
+        if [ -z "$GH_REPO" ] || [ "$GH_USERNAME" == "null" ]; then
             echo "[Error] GitHub repository is not set correctly."
             return 1
         fi
@@ -281,7 +281,6 @@ function gh-actions {
             GITHUB_LAST_ACTION=$(jq -c '[ .[] ][0]' <<< "$GITHUB_LAST_ACTION")
         fi
 
-        HEAD_SHA=$(jq -r '.head_sha' <<< "$GITHUB_LAST_ACTION")
         STATUS=$(jq -r '.status' <<< "$GITHUB_LAST_ACTION")
         CONCLUSION=$(jq -r '.conclusion' <<< "$GITHUB_LAST_ACTION")
 

@@ -11,8 +11,8 @@ Follow these steps to get the add-on installed on your system:
 ## WARNING
 
 The risk of complete loss is possible. Prior to starting this add-on, ensure a copy
-of your Home Assistant configuration files exists in the Github repository. Otherwise, 
-your local machine configuration folder will be overwritten with an empty configuration 
+of your Home Assistant configuration files exists in the Github repository. Otherwise,
+your local machine configuration folder will be overwritten with an empty configuration
 folder and you will need to restore from a backup.
 
 ## How to use
@@ -63,6 +63,12 @@ deployment_key:
   - HgXRyIqIXHYk2+5w+N2eunURIBqCI9uWYK/r81TMR6V84R+XhtvM
   - "-----END RSA PRIVATE KEY-----"
 deployment_key_protocol: rsa
+github_action:
+  active: true,
+  username: michalchecinski,
+  repository: homeassistant
+  token: ''
+  action_name: 'Home Assistant CI'
 ```
 
 ### Option: `git_remote` (required)
@@ -82,11 +88,11 @@ Branch name of the Git repo. If left empty, the currently checked out branch wil
 `pull`/`reset`: Command to run. Leave this as `pull` if you are unsure.
 
 - `pull`
-  
+
   - Incorporates changes from a remote repository into the current branch. Will preserve any local changes to tracked files.
 
 - `reset`
-  
+
   - Will execute `git reset --hard` and overwrite any local changes to tracked files and update from the remote repository. **Warning**: Using `reset` WILL overwrite changes to tracked files. You can list all tracked files with this command: `git ls-tree -r master --name-only`.
 
 ### Option: `repository` (required)
@@ -135,6 +141,30 @@ The key protocol. Default is `rsa`. Valid protocols are:
 - rsa
 
 The protocol is typically known by the suffix of the private key --e.g., a key file named `id_rsa` will be a private key using `rsa` protocol.
+
+### Option group: `github_action`
+
+The following options are for the option group: `github_action` and configure the Git pull add-on to check the GitHub action status before acting to check if it run against code that will be updated with success.
+
+#### Option: `github_action.active` (required)
+
+`true`/`false`: Enable/disable checking for the GitHub Action status before the update.
+
+#### Option: `github_action.username` (required)
+
+Github username of the owner of the repository that have GitHub action to be checked. You can check this in the url of the Github repository: `https://github.com/username/repository`.
+
+#### Option: `github_action.repository` (required)
+
+Github repository name that have Github action to be checked. You can check this in the url of the Github repository: `https://github.com/username/repository`.
+
+#### Option: `github_action.token` (optional)
+
+Github token with scope `repo:read`. Provide this if the repository specified in the two above options is private.
+
+#### Option: `github_action.action_name` (optional)
+
+Github action name. Provide this if the repository that you provided (`github_action.username/github_action.repository`) has more than one Github Action.
 
 ## Support
 

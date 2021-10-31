@@ -259,7 +259,7 @@ function gh-actions {
             return 1;
         fi
 
-        REMOTE_SHA="$(git rev-parse origin/${GIT_BRANCH})"
+        REMOTE_SHA=$(git rev-parse origin/"$GIT_BRANCH")
 
         GITHUB_LAST_ACTION=$(jq -c '[ .workflow_runs[] | select( (.head_sha == "'"$REMOTE_SHA"'")) ]' <<< "$GITHUB_API_RESPONSE")
 

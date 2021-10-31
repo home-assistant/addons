@@ -152,6 +152,8 @@ function git-synchronize {
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             fi
 
+            gh-actions || { echo "[Error] GitHub actions check failed"; return 1; }
+
             # Pull or reset depending on user preference
             case "$GIT_COMMAND" in
                 pull)
@@ -295,7 +297,7 @@ cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
 while true; do
     check-ssh-key
     setup-user-password
-    if gh-actions && git-synchronize ; then
+    if git-synchronize ; then
         validate-config
     fi
      # do we repeat?

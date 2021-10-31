@@ -28,11 +28,13 @@
       "active": false,
       "interval": 300
     },
-    "github_action_check": false,
-    "github_username": null,
-    "github_repository": null,
-    "github_token": null,
-    "github_action_name": null
+    "github_action": {
+      "active": false,
+      "username": null,
+      "repository": null,
+      "token": "",
+      "action_name": ""
+    }
   },
   "schema": {
     "deployment_key": ["str"],
@@ -50,10 +52,13 @@
       "active": "bool",
       "interval": "int"
     },
-    "github_action_check": "bool",
-    "github_username": "str",
-    "github_repository": "str",
-    "github_token": "str"
+    "github_action": {
+      "active": "bool",
+      "username": "str",
+      "repository": "str",
+      "token": "str",
+      "action_name": "str"
+    }
   },
   "image": "homeassistant/{arch}-addon-git_pull"
 }

@@ -17,11 +17,11 @@ AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
 RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
 REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
 REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
-GH_ACTIONS_ENABLE=$(jq --raw-output '.github_action_check' $CONFIG_PATH)
-GH_USERNAME=$(jq --raw-output '.github_username' $CONFIG_PATH)
-GH_REPO=$(jq --raw-output '.github_repository' $CONFIG_PATH)
-GH_TOKEN=$(jq --raw-output '.github_repository' $CONFIG_PATH)
-GH_ACTION_NAME=$(jq --raw-output '.github_action_name' $CONFIG_PATH)
+GH_ACTIONS_ENABLE=$(jq --raw-output '.github_action.active' $CONFIG_PATH)
+GH_USERNAME=$(jq --raw-output '.github_action.username' $CONFIG_PATH)
+GH_REPO=$(jq --raw-output '.github_action.repository' $CONFIG_PATH)
+GH_TOKEN=$(jq --raw-output '.github_action.token' $CONFIG_PATH)
+GH_ACTION_NAME=$(jq --raw-output '.github_action.action_name' $CONFIG_PATH)
 ################
 
 #### functions ####

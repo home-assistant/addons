@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.14.0
+
+- Add Github Action check before update
+
 ## 7.13.1
 
 - Update Home Assistant CLI to 4.12.2

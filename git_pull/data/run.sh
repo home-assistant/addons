@@ -231,7 +231,19 @@ function validate-config {
 function gh-actions {
     echo "[Info] Checking if GitHub actions check enabled..."
     if [ "$GH_ACTIONS_ENABLE" == "true" ]; then
-        echo "[Info] GitHub actions check enabled. Checking if GitHub action passed..."
+        echo "[Info] GitHub actions check enabled."
+
+        if [ -z "$GH_USERNAME" || "$GH_USERNAME" == "null" ]; then
+            echo "[Error] Github username is not set correctly."
+            return 1
+        fi
+
+        if [ -z "$GH_REPO" || "$GH_USERNAME" == "null" ]; then
+            echo "[Error] Github repository is not set correctly."
+            return 1
+        fi
+
+        echo "Checking if GitHub action..."
 
         GITHUB_API_RESPONSE=$(curl -u $GH_USERNAME:$GH_TOKEN -s \
         -H "Accept: application/vnd.github.v3+json" \
@@ -243,7 +255,7 @@ function gh-actions {
         fi
 
         if (( $(jq -r '.total_count'  <<< "$GITHUB_API_RESPONSE") == 0 )); then
-            echo "[Error] not found any GitHub actions for branch $GIT_BRANCH"
+            echo "[Error] Not found any GitHub actions for branch $GIT_BRANCH"
             return 1;
         fi
 
@@ -275,13 +287,13 @@ function gh-actions {
 
         if [ "$STATUS" == "completed" ]; then
             if [ "$CONCLUSION" == "success" ]; then
-                echo "[Info] GitHub action check successfull. Ready to pull."
+                echo "[Info] GitHub action check status successfull. Ready to pull."
             else
-                echo "[Error] GitHub action check not successfull. Do not pull."
+                echo "[Info] GitHub action check status not successfull. Do not pull."
                 return 1
             fi
         else
-            echo "[Error] GitHub action check not completed. Do not pull."
+            echo "[Info] GitHub action check not completed. Do not pull."
             return 1
         fi
     else

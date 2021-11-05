@@ -2,7 +2,7 @@
 
 ## 0.1.46
 
-- Bump Z-Wave JS to 8.7.4
+- Bump Z-Wave JS to 8.7.5
 
 ## 0.1.45
 

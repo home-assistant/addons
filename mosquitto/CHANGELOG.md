@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.2
+
+- Fix authorization of MQTT devices using colon in username (issue: #2014)
+
 ## 6.0.1
 
 - Fix loading custom mosquitto configuration

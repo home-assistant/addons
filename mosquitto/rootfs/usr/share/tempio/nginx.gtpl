@@ -35,6 +35,7 @@ http {
 
     location /authentication {
       proxy_set_header        X-Supervisor-Token "{{ env "SUPERVISOR_TOKEN" }}";
+      proxy_set_header        Authorization "";
       proxy_pass              http://supervisor/auth;
     }
 

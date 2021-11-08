@@ -8,6 +8,7 @@
   "startup": "services",
   "init": false,
   "stage": "stable",
+  "hassio_api": true,
   "homeassistant": "2021.2.0b0",
   "ports": {
     "3000/tcp": null

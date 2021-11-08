@@ -9,6 +9,11 @@ if bashio::config.true 'emulate_hardware'; then
     SERIAL_DEVICE="--mock-driver"
 fi
 
+# Set ZWAVEJS_DISABLE_SOFT_RESET environment variable based on user config
+if bashio::config.true 'disable_soft_reset'; then
+    export ZWAVEJS_DISABLE_SOFT_RESET=true
+fi
+
 # Send out discovery information to Home Assistant
 ./discovery &
 

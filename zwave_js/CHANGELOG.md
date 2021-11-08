@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.47
+
+- Add disable_soft_reset option
+
 ## 0.1.46
 
 - Bump Z-Wave JS to 8.7.5

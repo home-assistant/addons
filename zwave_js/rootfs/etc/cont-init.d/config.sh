@@ -11,6 +11,8 @@ declare s2_authenticated
 declare s2_unauthenticated
 declare log_level
 declare flush_to_disk
+declare host_chassis
+declare soft_reset
 
 readonly DOCS_EXAMPLE_KEY_1="2232666D100F795E5BB17F0A1BB7A146"
 readonly DOCS_EXAMPLE_KEY_2="A97D2A51A6D4022998BEFC7B5DAE8EA1"
@@ -98,6 +100,16 @@ else
     log_level=$(bashio::config 'log_level')
 fi
 
+host_chassis=$(bashio::host.chassis)
+
+if [ "${host_chassis}" == "vm" ]; then
+    soft_reset=false
+    bashio::log.info "Virtual Machine detected, disabling soft-reset"
+else
+    soft_reset=true
+    bashio::log.info "Virtual Machine not detected, enabling soft-reset"
+fi
+
 
 # Generate config
 bashio::var.json \
@@ -106,6 +118,7 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
+    soft_reset "^${soft_reset}" \
     | tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

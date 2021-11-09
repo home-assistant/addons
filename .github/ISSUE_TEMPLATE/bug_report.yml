@@ -1,0 +1,122 @@
+name: Bug Report Form
+description: Report an issue related to one of the official add-ons.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue form is for reporting bugs with **supported** setups only!
+
+        If you have a feature or enhancement request, please use the [feature request][fr] section of our [Community Forum][fr].
+
+        [fr]: https://community.home-assistant.io/c/feature-requests
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Describe the issue you are experiencing
+      description: Provide a clear and concise description of what the bug is.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Environment
+
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: What type of installation are you running?
+      description: >
+        If you don't know, you can find it in: [Configuration panel -> Info](https://my.home-assistant.io/redirect/info/).
+      options:
+        - Home Assistant OS
+        - Home Assistant Supervised
+
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Which operating system are you running on?
+      options:
+        - Home Assistant Operating System
+        - Debian
+        - Other (e.g., Raspbian/Raspberry Pi OS/Fedora)
+
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Which add-on are you reporting an issue with?
+      options:
+        - Hey Ada!
+        - Almond
+        - CEC Scanner
+        - Check Home Assistant configuration
+        - File editor
+        - deCONZ
+        - DHCP Server
+        - Dnsmasq
+        - Duck DNS
+        - Git pull
+        - Google Assistant SDK
+        - HomeMatic CCU
+        - Let's Encrypt
+        - MariaDB
+        - Mosquitto broker
+        - NGINX Home Assistant SSL proxy
+        - RPC Shutdown
+        - Samba share
+        - Terminal & SSH
+        - TellStick
+        - VLC
+        - OpenZWave
+        - Z-Wave JS
+
+  - type: input
+    validations:
+      required: true
+    attributes:
+      label: What is the version of the add-on?
+      description: Can be found in the Supervisor panel -> Overview tab -> the add-on
+
+  - type: markdown
+    attributes:
+      value: |
+        # Details
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Steps to reproduce the issue
+      description: |
+        Please tell us exactly how to reproduce your issue.
+        Provide clear and concise step by step instructions and add code snippets if needed.
+      value: |
+        1.
+        2.
+        3.
+        ...
+
+  - type: textarea
+    attributes:
+      label: Anything in the Supervisor logs that might be useful for us?
+      description: >
+        The Supervisor logs can be found in the [Supervisor panel -> System tab](https://my.home-assistant.io/redirect/supervisor_info/).
+      render: txt
+
+  - type: textarea
+    attributes:
+      label: Anything in the add-on logs that might be useful for us?
+      description: >
+        The add-on logs can be found in the Supervisor panel on the add-on page -> Logs tab.
+      render: txt
+
+  - type: textarea
+    attributes:
+      label: Additional information
+      description: >
+        If you have any additional information for us, use the field below.
+        Please note, you can attach screenshots or screen recordings here, by
+        dragging and dropping files in the field below.

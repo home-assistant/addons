@@ -16,7 +16,8 @@
     "defaults": ["8.8.8.8", "8.8.4.4"],
     "forwards": [],
     "hosts": [],
-    "services": []
+    "services": [],
+    "advanced": ""
   },
   "schema": {
     "defaults": ["str"],
@@ -40,7 +41,8 @@
         "priority": "int",
         "weight": "int"
       }
-    ]
+    ],
+    "advanced": "str"
   },
   "image": "homeassistant/{arch}-addon-dnsmasq"
 }

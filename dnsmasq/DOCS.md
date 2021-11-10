@@ -38,6 +38,12 @@ services:
     port: 389
     priority: 0
     weight: 100
+advanced: |
+  ptr-record=10.1.168.192.in-addr.arpa,home.mydomain.io
+  host-record=server.example.org,172.16.1.1
+  txt-record=example.org,"Some text"
+  cname=mymail.example.org,server.example.org
+  mx-host=example.org,mymail.example.org,50
 ```
 
 ### Option: `defaults` (required)
@@ -105,6 +111,14 @@ The priority for the service.
 #### Option: `services.weight`
 
 The weight for the service.
+
+### Option: `advanced` (optional)
+
+This option allows you to provide advanced configuration, see https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html.
+
+#### Option: `services.srv`
+
+The service to resolve.
 
 ## Support
 

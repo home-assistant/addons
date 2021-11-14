@@ -6,6 +6,9 @@
    security = user
    ntlm auth = yes
 
+   local master = yes
+   preferred master = yes
+
    load printers = no
    disable spoolss = yes
 
@@ -19,6 +22,14 @@
    client min protocol = NT1
    server min protocol = NT1
    {{ end }}
+
+   vfs objects = fruit streams_xattr  
+   fruit:metadata = stream
+   fruit:model = MacSamba
+   fruit:posix_rename = yes 
+   fruit:veto_appledouble = no
+   fruit:wipe_intentionally_left_blank_rfork = yes 
+   fruit:delete_empty_adfiles = yes 
 
 [config]
    browseable = yes

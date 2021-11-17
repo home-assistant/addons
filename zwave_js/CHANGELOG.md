@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.48
+
+- Bump Z-Wave JS to 8.7.6
+- Bump Z-Wave JS Server to 1.11.0
+
 ## 0.1.47
 
 - Disable soft-reset if VM is detected

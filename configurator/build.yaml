@@ -1,5 +1,3 @@
-args:
-  CONFIGURATOR_VERSION: 0.4.1
 build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base:3.14
   amd64: ghcr.io/home-assistant/amd64-base:3.14
@@ -9,3 +7,5 @@ build_from:
 codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
+args:
+  CONFIGURATOR_VERSION: 0.4.1

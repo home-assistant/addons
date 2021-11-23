@@ -1,15 +1,18 @@
-arch:
-- armhf
-- armv7
-- aarch64
-- amd64
-- i386
+version: 3.0.2
+slug: nginx_proxy
+name: NGINX Home Assistant SSL proxy
 description: An SSL/TLS proxy
+url: https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
 image: homeassistant/{arch}-addon-nginx_proxy
 map:
-- ssl
-- share
-name: NGINX Home Assistant SSL proxy
+  - ssl
+  - share
 options:
   certfile: fullchain.pem
   cloudflare: false
@@ -33,7 +36,3 @@ schema:
   domain: str
   hsts: str
   keyfile: str
-slug: nginx_proxy
-url: https://github.com/home-assistant/hassio-addons/tree/master/nginx_proxy
-version: 3.0.2
-

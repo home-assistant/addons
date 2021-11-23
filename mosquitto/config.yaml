@@ -1,18 +1,21 @@
-arch:
-- armhf
-- armv7
-- aarch64
-- amd64
-- i386
-auth_api: true
+version: 6.0.1
+slug: mosquitto
+name: Mosquitto broker
 description: An Open Source MQTT broker
+url: https://github.com/home-assistant/hassio-addons/tree/master/mosquitto
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+auth_api: true
 discovery:
-- mqtt
+  - mqtt
 image: homeassistant/{arch}-addon-mosquitto
 map:
-- ssl
-- share
-name: Mosquitto broker
+  - ssl
+  - share
 options:
   certfile: fullchain.pem
   customize:
@@ -39,14 +42,10 @@ schema:
     folder: str
   keyfile: str
   logins:
-  - password: password
-    username: str
+    - password: password
+      username: str
   require_certificate: bool
 services:
-- mqtt:provide
-slug: mosquitto
+  - mqtt:provide
 startup: system
-url: https://github.com/home-assistant/hassio-addons/tree/master/mosquitto
-version: 6.0.1
 watchdog: tcp://[HOST]:1883
-

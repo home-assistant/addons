@@ -1,14 +1,17 @@
+version: 11.3.0
+slug: homematic
+name: HomeMatic CCU
+description: HomeMatic central based on OCCU
+url: https://github.com/home-assistant/hassio-addons/tree/master/homematic
 apparmor: false
 arch:
-- armv7
-- i386
-description: HomeMatic central based on OCCU
+  - armv7
+  - i386
 gpio: true
 image: homeassistant/{arch}-addon-homematic
 ingress: true
 map:
-- share:rw
-name: HomeMatic CCU
+  - share:rw
 options:
   hmip: []
   hmip_enable: false
@@ -30,23 +33,19 @@ ports_description:
   80/tcp: ReGaHss Webinterface (Not required for Ingress)
 schema:
   hmip:
-  - device: device(subsystem=tty)
-    type: match(HMIP_CCU2)
+    - device: device(subsystem=tty)
+      type: match(HMIP_CCU2)
   hmip_enable: bool
   regahss_reset: bool?
   rf:
-  - device: device(subsystem=tty)
-    reset: bool?
-    type: match(CCU2)
+    - device: device(subsystem=tty)
+      reset: bool?
+      type: match(CCU2)
   rf_enable: bool
   wired:
-  - ip: str
-    key: str
-    serial: str
+    - ip: str
+      key: str
+      serial: str
   wired_enable: bool
-slug: homematic
 startup: system
 timeout: 15
-url: https://github.com/home-assistant/hassio-addons/tree/master/homematic
-version: 11.3.0
-

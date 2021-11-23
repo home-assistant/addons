@@ -30,7 +30,7 @@ jobs:
         id: addons
         run: |
           declare -a addons
-          for addon in $(find ./ -name config.json | cut -d "/" -f2 | sort -u); do
+          for addon in $(find ./ -name config.yaml | cut -d "/" -f2 | sort -u); do
             addons+=("$addon");
           done
           echo "::set-output name=addons::${addons[@]}"
@@ -88,9 +88,6 @@ jobs:
            else
              echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
           fi
-
-          version=$(jq -r '.version' "./${{ matrix.addon }}/config.json")
-          echo "::set-output name=version::${version}";
 
       - name: Set build arguments
         if: steps.check.outputs.build_arch == 'true'

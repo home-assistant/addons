@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.11.1
+
+- Upgrade pip to 21.3.1
+- Add missing ARG for BUILD_ARCH
+
 ## 4.11.0
 
 - Add support for Njalla DNS

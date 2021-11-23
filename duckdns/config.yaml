@@ -1,18 +1,21 @@
-arch:
-- armhf
-- armv7
-- aarch64
-- amd64
-- i386
+version: 1.14.0
+slug: duckdns
+name: Duck DNS
 description: Free Dynamic DNS (DynDNS or DDNS) service with Let's Encrypt support
+url: https://github.com/home-assistant/hassio-addons/tree/master/duckdns
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
 image: homeassistant/{arch}-addon-duckdns
 map:
-- ssl:rw
-name: Duck DNS
+  - ssl:rw
 options:
   aliases: []
   domains:
-  - null
+    - null
   lets_encrypt:
     accept_terms: false
     algo: secp384r1
@@ -22,10 +25,10 @@ options:
   token: null
 schema:
   aliases:
-  - alias: str
-    domain: str
+    - alias: str
+      domain: str
   domains:
-  - match(.+\.duckdns\.org)
+    - match(.+\.duckdns\.org)
   ipv4: str?
   ipv6: str?
   lets_encrypt:
@@ -35,8 +38,4 @@ schema:
     keyfile: str
   seconds: int
   token: str
-slug: duckdns
 startup: services
-url: https://github.com/home-assistant/hassio-addons/tree/master/duckdns
-version: 1.14.0
-

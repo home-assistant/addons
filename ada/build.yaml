@@ -1,0 +1,9 @@
+args:
+  ADA_VERSION: 0.8.1
+build_from:
+  amd64: homeassistant/amd64-base-debian:buster
+  armhf: homeassistant/armhf-base-debian:buster
+  armv7: homeassistant/armv7-base-debian:buster
+codenotary:
+  signer: notary@home-assistant.io
+  base_image: notary@home-assistant.io

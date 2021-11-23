@@ -1,0 +1,34 @@
+advanced: true
+arch:
+- armhf
+- armv7
+- amd64
+audio: true
+description: A virtual personal assistant developed by Google
+image: homeassistant/{arch}-addon-google_assistant
+init: false
+map:
+- share
+name: Google Assistant SDK
+options:
+  client_secrets: google_assistant.json
+  feedback:
+    enable: false
+    volume: 80
+  model_id: null
+  project_id: null
+ports:
+  9324/tcp: 9324
+schema:
+  client_secrets: str
+  feedback:
+    enable: bool
+    volume: int(0,100)
+  model_id: str
+  project_id: str
+slug: google_assistant
+stage: experimental
+url: https://github.com/home-assistant/hassio-addons/tree/master/google_assistant
+version: 2.5.0
+webui: http://[HOST]:[PORT:9324]
+

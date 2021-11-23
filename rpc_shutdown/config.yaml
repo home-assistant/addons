@@ -1,0 +1,31 @@
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+description: Shutdown Windows machines remotely
+host_network: true
+image: homeassistant/{arch}-addon-rpc_shutdown
+name: RPC Shutdown
+options:
+  computers:
+  - address: 192.168.0.1
+    alias: test-pc
+    credentials: user%password
+    delay: 0
+    message: Home Assistant is shutting down this PC. This cannot be canceled. Please
+      save your work!
+schema:
+  computers:
+  - address: str
+    alias: match(^[\w-]*$)
+    credentials: match(^[^%]*(?:%[^%]*)?$)
+    delay: int(0,600)?
+    message: str?
+slug: rpc_shutdown
+startup: services
+stdin: true
+url: https://github.com/home-assistant/hassio-addons/tree/master/rpc_shutdown
+version: '2.2'
+

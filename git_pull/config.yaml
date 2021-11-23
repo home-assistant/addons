@@ -1,0 +1,55 @@
+advanced: true
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+boot: manual
+description: Simple git pull to update the local configuration
+hassio_api: true
+hassio_role: homeassistant
+image: homeassistant/{arch}-addon-git_pull
+init: false
+map:
+- config:rw
+name: Git pull
+options:
+  auto_restart: false
+  deployment_key: []
+  deployment_key_protocol: rsa
+  deployment_password: ''
+  deployment_user: ''
+  git_branch: master
+  git_command: pull
+  git_prune: false
+  git_remote: origin
+  repeat:
+    active: false
+    interval: 300
+  repository: null
+  restart_ignore:
+  - ui-lovelace.yaml
+  - .gitignore
+schema:
+  auto_restart: bool
+  deployment_key:
+  - str
+  deployment_key_protocol: match(rsa|dsa|ecdsa|ed25519|rsa)
+  deployment_password: password
+  deployment_user: str
+  git_branch: str
+  git_command: list(pull|reset)
+  git_prune: bool
+  git_remote: str
+  repeat:
+    active: bool
+    interval: int
+  repository: str
+  restart_ignore:
+  - str
+slug: git_pull
+startup: services
+url: https://github.com/home-assistant/hassio-addons/tree/master/git_pull
+version: 7.13.1
+

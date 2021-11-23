@@ -1,0 +1,18 @@
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+boot: manual
+description: Scan for HDMI CEC devices
+image: homeassistant/{arch}-addon-cec_scan
+name: CEC Scanner
+options: {}
+schema: {}
+slug: cec_scan
+startup: once
+url: https://github.com/home-assistant/hassio-addons/tree/master/cec_scan
+version: '3.0'
+video: true
+

@@ -1,0 +1,52 @@
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+auth_api: true
+description: An Open Source MQTT broker
+discovery:
+- mqtt
+image: homeassistant/{arch}-addon-mosquitto
+map:
+- ssl
+- share
+name: Mosquitto broker
+options:
+  certfile: fullchain.pem
+  customize:
+    active: false
+    folder: mosquitto
+  keyfile: privkey.pem
+  logins: []
+  require_certificate: false
+ports:
+  1883/tcp: 1883
+  1884/tcp: 1884
+  8883/tcp: 8883
+  8884/tcp: 8884
+ports_description:
+  1883/tcp: Normal MQTT
+  1884/tcp: MQTT over WebSocket
+  8883/tcp: Normal MQTT with SSL
+  8884/tcp: MQTT over WebSocket with SSL
+schema:
+  cafile: str?
+  certfile: str
+  customize:
+    active: bool
+    folder: str
+  keyfile: str
+  logins:
+  - password: password
+    username: str
+  require_certificate: bool
+services:
+- mqtt:provide
+slug: mosquitto
+startup: system
+url: https://github.com/home-assistant/hassio-addons/tree/master/mosquitto
+version: 6.0.1
+watchdog: tcp://[HOST]:1883
+

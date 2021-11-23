@@ -1,0 +1,21 @@
+arch:
+- armhf
+- armv7
+- amd64
+audio: true
+description: Voice assistant powered by Home Assistant
+homeassistant: 0.102.0
+homeassistant_api: true
+image: homeassistant/{arch}-addon-ada
+init: false
+name: Hey Ada!
+options:
+  stt: cloud
+  tts: cloud
+schema:
+  stt: str
+  tts: str
+slug: ada
+url: https://github.com/home-assistant/hassio-addons/blob/master/ada
+version: 1.1.1
+

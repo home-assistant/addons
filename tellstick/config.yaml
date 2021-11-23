@@ -1,0 +1,40 @@
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+description: TellStick and TellStick Duo service
+image: homeassistant/{arch}-addon-tellstick
+name: TellStick
+options:
+  devices:
+  - house: A
+    id: 1
+    model: selflearning-switch
+    name: Example device
+    protocol: everflourish
+    unit: '1'
+  - house: A
+    id: 2
+    model: selflearning-switch
+    name: Example device two
+    protocol: everflourish
+    unit: '2'
+schema:
+  devices:
+  - code: str?
+    fade: str?
+    house: str?
+    id: int(1,)
+    model: match(codeswitch|bell|selflearning-switch|selflearning-dimmer|selflearning|ecosavers|kp100|temperaturehumidity|temperature)?
+    name: str
+    protocol: match(arctech|brateck|comen|everflourish|fineoffset|fuhaote|hasta|ikea|kangtai|mandolyn|oregon|risingsun|sartano|silvanchip|upm|waveman|x10|yidong)
+    unit: str?
+slug: tellstick
+startup: system
+stdin: true
+url: https://github.com/home-assistant/hassio-addons/tree/master/tellstick
+usb: true
+version: 2.1.0
+

@@ -1,0 +1,47 @@
+advanced: true
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+audio: true
+description: Allow logging in remotely to Home Assistant using SSH
+hassio_api: true
+hassio_role: manager
+host_dbus: true
+image: homeassistant/{arch}-addon-ssh
+ingress: true
+init: false
+map:
+- config:rw
+- ssl:rw
+- addons:rw
+- share:rw
+- backup:rw
+- media:rw
+name: Terminal & SSH
+options:
+  apks: []
+  authorized_keys: []
+  password: ''
+  server:
+    tcp_forwarding: false
+panel_icon: mdi:console
+panel_title: Terminal
+ports:
+  22/tcp: null
+schema:
+  apks:
+  - str
+  authorized_keys:
+  - str
+  password: password
+  server:
+    tcp_forwarding: bool
+slug: ssh
+startup: services
+uart: true
+url: https://github.com/home-assistant/hassio-addons/tree/master/ssh
+version: 9.2.1
+

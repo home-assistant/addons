@@ -1,0 +1,27 @@
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+boot: manual
+description: Check your Home Assistant configuration against other versions
+image: homeassistant/{arch}-addon-check_config
+init: false
+map:
+- config
+- ssl
+- media
+- share:rw
+name: Check Home Assistant configuration
+options:
+  version: stable
+schema:
+  version: str
+slug: check_config
+startup: once
+uart: true
+url: https://github.com/home-assistant/hassio-addons/tree/master/check_config
+usb: true
+version: 3.9.0
+

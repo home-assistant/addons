@@ -1,8 +1,0 @@
-{
-  "build_from": {
-    "amd64": "homeassistant/amd64-base:3.13",
-    "i386": "homeassistant/i386-base:3.13",
-    "armv7": "homeassistant/armv7-base:3.13",
-    "aarch64": "homeassistant/aarch64-base:3.13"
-  }
-}

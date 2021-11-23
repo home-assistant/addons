@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.12.0
+
+- Update to Python 3.9
+- Update to Alpine 3.14
+
 ## 4.11.0
 
 - Add support for Njalla DNS

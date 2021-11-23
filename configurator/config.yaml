@@ -1,31 +1,34 @@
-arch:
-- armhf
-- armv7
-- aarch64
-- amd64
-- i386
+version: 5.3.3
+slug: configurator
+name: File editor
 description: Simple browser-based file editor for Home Assistant
+url: https://github.com/home-assistant/hassio-addons/tree/master/configurator
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
 homeassistant: 0.91.1
 homeassistant_api: true
 image: homeassistant/{arch}-addon-configurator
 ingress: true
 init: false
 map:
-- backup:rw
-- config:rw
-- media:rw
-- share:rw
-- ssl:rw
-name: File editor
+  - backup:rw
+  - config:rw
+  - media:rw
+  - share:rw
+  - ssl:rw
 options:
   dirsfirst: false
   enforce_basepath: true
   git: true
   ignore_pattern:
-  - __pycache__
-  - .cloud
-  - .storage
-  - deps
+    - __pycache__
+    - .cloud
+    - .storage
+    - deps
   ssh_keys: []
 panel_icon: mdi:wrench
 schema:
@@ -33,10 +36,6 @@ schema:
   enforce_basepath: bool
   git: bool
   ignore_pattern:
-  - str
+    - str
   ssh_keys:
-  - str
-slug: configurator
-url: https://github.com/home-assistant/hassio-addons/tree/master/configurator
-version: 5.3.3
-
+    - str

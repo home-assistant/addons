@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.48
+
+- Roll back add-on to 0.1.48 as a temporary fix for build issues with 0.1.49.
+
 ## 0.1.49
 
 - Bump Z-Wave JS to 8.7.7

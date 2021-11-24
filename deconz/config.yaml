@@ -1,0 +1,46 @@
+version: 6.10.0
+slug: deconz
+name: deCONZ
+description: Control a Zigbee network with ConBee or RaspBee by Dresden Elektronik
+url: https://github.com/home-assistant/hassio-addons/tree/master/deconz
+apparmor: false
+arch:
+  - amd64
+  - armhf
+  - aarch64
+backup_exclude:
+  - "*/otau"
+devices:
+  - /dev/mem
+discovery:
+  - deconz
+gpio: true
+homeassistant: 0.91.2
+image: homeassistant/{arch}-addon-deconz
+ingress: true
+ingress_entry: ingress.html
+init: false
+kernel_modules: true
+options:
+  device: null
+panel_icon: mdi:zigbee
+ports:
+  40850/tcp: null
+  5900/tcp: null
+  8081/tcp: null
+ports_description:
+  40850/tcp: deCONZ API backend (Not required for Ingress)
+  5900/tcp: deCONZ via VNC (Not required for Ingress. Not secure!)
+  8081/tcp: deCONZ WebSocket (Not required for Ingress)
+privileged:
+  - SYS_RAWIO
+schema:
+  dbg_aps: int?
+  dbg_info: int?
+  dbg_otau: int?
+  dbg_zcl: int?
+  dbg_zdp: int?
+  device: device(subsystem=tty)
+startup: services
+udev: true
+usb: true

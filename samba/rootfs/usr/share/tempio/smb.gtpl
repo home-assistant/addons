@@ -6,9 +6,6 @@
    security = user
    ntlm auth = yes
 
-   local master = yes
-   preferred master = yes
-
    load printers = no
    disable spoolss = yes
 

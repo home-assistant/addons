@@ -1,0 +1,40 @@
+version: 1.4.4
+slug: dnsmasq
+name: Dnsmasq
+description: A simple DNS server
+url: https://github.com/home-assistant/hassio-addons/tree/master/dnsmasq
+advanced: true
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+image: homeassistant/{arch}-addon-dnsmasq
+init: false
+options:
+  defaults:
+    - 8.8.8.8
+    - 8.8.4.4
+  forwards: []
+  hosts: []
+  services: []
+ports:
+  53/tcp: 53
+  53/udp: 53
+schema:
+  defaults:
+    - str
+  forwards:
+    - domain: str
+      server: str
+  hosts:
+    - host: str
+      ip: str
+  services:
+    - host: str
+      port: str
+      priority: int
+      srv: str
+      weight: int
+startup: system

@@ -1,0 +1,18 @@
+version: 2.0.1
+slug: almond
+name: Almond
+description: The open-source, privacy-preserving voice assistant
+url: https://github.com/home-assistant/hassio-addons/blob/master/almond
+arch:
+  - armv7
+  - aarch64
+  - amd64
+audio: true
+discovery:
+  - almond
+homeassistant: 0.102.0
+homeassistant_api: true
+image: homeassistant/{arch}-addon-almond
+ingress: true
+init: false
+panel_icon: mdi:comment-eye-outline

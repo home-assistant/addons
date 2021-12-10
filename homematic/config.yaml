@@ -1,0 +1,51 @@
+version: 11.3.0
+slug: homematic
+name: HomeMatic CCU
+description: HomeMatic central based on OCCU
+url: https://github.com/home-assistant/hassio-addons/tree/master/homematic
+apparmor: false
+arch:
+  - armv7
+  - i386
+gpio: true
+image: homeassistant/{arch}-addon-homematic
+ingress: true
+map:
+  - share:rw
+options:
+  hmip: []
+  hmip_enable: false
+  rf: []
+  rf_enable: false
+  wired: []
+  wired_enable: false
+panel_icon: mdi:router-wireless
+panel_title: HomeMatic
+ports:
+  2000/tcp: null
+  2001/tcp: null
+  2010/tcp: null
+  80/tcp: null
+ports_description:
+  2000/tcp: HomematicWire xmlrpc (Extern)
+  2001/tcp: Homematic xmlrpc (Extern)
+  2010/tcp: HomematicIP xmlrpc (Extern)
+  80/tcp: ReGaHss Webinterface (Not required for Ingress)
+schema:
+  hmip:
+    - device: device(subsystem=tty)
+      type: match(HMIP_CCU2)
+  hmip_enable: bool
+  regahss_reset: bool?
+  rf:
+    - device: device(subsystem=tty)
+      reset: bool?
+      type: match(CCU2)
+  rf_enable: bool
+  wired:
+    - ip: str
+      key: str
+      serial: str
+  wired_enable: bool
+startup: system
+timeout: 15

@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.1.50
+
+- Bump Z-Wave JS to 8.8.3
+
+## 0.1.49
+
+- Bump Z-Wave JS to 8.7.7
+- Bump Z-Wave JS Server to 1.12.0
+
+## 0.1.48
+
+- Bump Z-Wave JS to 8.7.6
+- Bump Z-Wave JS Server to 1.11.0
+
+## 0.1.47
+
+- Disable soft-reset if VM is detected
+
+## 0.1.46
+
+- Bump Z-Wave JS to 8.7.5
+- Bump Z-Wave JS Server to 1.10.8
+
+## 0.1.45
+
+- Bump Z-Wave JS Server to 1.10.7
+
 ## 0.1.44
 
 - Fix casing issues with security keys

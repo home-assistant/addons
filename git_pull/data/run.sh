@@ -44,15 +44,15 @@ function git-clone {
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
     echo "[$(date +"%T")] [Info] Backup configuration to $BACKUP_LOCATION"
 
-    mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
-    cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
+    mkdir "${BACKUP_LOCATION}" || { echo "[$(date +"%T")] [Error] Creation of backup directory failed"; exit 1; }
+    cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[$(date +"%T")] [Error] Copy files to backup directory failed"; exit 1; }
 
     # remove config folder content
-    rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
+    rm -rf /config/{,.[!.],..?}* || { echo "[$(date +"%T")] [Error] Clearing /config failed"; exit 1; }
 
     # git clone
     echo "[$(date +"%T")] [Info] Start git clone"
-    git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
+    git clone "$REPOSITORY" /config || { echo "[$(date +"%T")] [Error] Git clone failed"; exit 1; }
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
@@ -128,13 +128,13 @@ function git-synchronize {
 
             # Always do a fetch to update repos
             echo "[$(date +"%T")] [Info] Start git fetch..."
-            git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; return 1; }
+            git fetch "$GIT_REMOTE" || { echo "[$(date +"%T")] [Error] Git fetch failed"; return 1; }
 
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
               echo "[$(date +"%T")] [Info] Start git prune..."
-              git prune || { echo "[Error] Git prune failed"; return 1; }
+              git prune || { echo "[$(date +"%T")] [Error] Git prune failed"; return 1; }
             fi
 
             # Do we switch branches?
@@ -143,7 +143,7 @@ function git-synchronize {
               echo "[$(date +"%T")] [Info] Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
             else
               echo "[$(date +"%T")] [Info] Switching branches - start git checkout of branch $GIT_BRANCH..."
-              git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
+              git checkout "$GIT_BRANCH" || { echo "[$(date +"%T")] [Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             fi
 
@@ -151,11 +151,11 @@ function git-synchronize {
             case "$GIT_COMMAND" in
                 pull)
                     echo "[$(date +"%T")] [Info] Start git pull..."
-                    git pull || { echo "[Error] Git pull failed"; return 1; }
+                    git pull || { echo "[$(date +"%T")] [Error] Git pull failed"; return 1; }
                     ;;
                 reset)
                     echo "[$(date +"%T")] [Info] Start git reset..."
-                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; return 1; }
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[$(date +"%T")] [Error] Git reset failed"; return 1; }
                     ;;
                 *)
                     echo "[$(date +"%T")] [Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
@@ -189,9 +189,9 @@ function validate-config {
                         for restart_ignored_file in $RESTART_IGNORED_FILES; do
                             if [ -d "$restart_ignored_file" ]; then
                                 # file to be ignored is a whole dir
-                                restart_required_file=$(echo "${changed_file}" | grep "^${restart_ignored_file}")
+                                restart_required_file=$(echo "[$(date +"%T")] ${changed_file}" | grep "^${restart_ignored_file}")
                             else
-                                restart_required_file=$(echo "${changed_file}" | grep "^${restart_ignored_file}$")
+                                restart_required_file=$(echo "[$(date +"%T")] ${changed_file}" | grep "^${restart_ignored_file}$")
                             fi
                             # break on first match
                             if [ -n "$restart_required_file" ]; then break; fi

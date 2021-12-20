@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.2.2
+
+- Fix escape codes in color bash prompt
+
 ## 9.2.1
 
 - Upgrade Home Assistant CLI to 4.14.0

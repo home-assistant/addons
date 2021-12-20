@@ -22,6 +22,7 @@ RUN \
         libqt5sql5 \
         libqt5websockets5 \
         libqt5widgets5 \
+        libqt5qml5 \
         lsof \
         netcat \
         nginx \
@@ -68,11 +69,11 @@ RUN \
             curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/raspbian/stable/deconz-${DECONZ_VERSION}-qt5.deb; \
         elif [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
-            curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/debian/stable/deconz_${DECONZ_VERSION}-debian-stretch-stable_arm64.deb; \
+            curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/debian/stable/deconz_${DECONZ_VERSION}-debian-buster-stable_arm64.deb; \
         else \
             curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/ubuntu/stable/deconz-${DECONZ_VERSION}-qt5.deb; \
         fi \
-    && dpkg --force-all -i /deconz.deb \
+    && dpkg -i /deconz.deb \
     && rm -f /deconz.deb \
     && chown root:root /usr/bin/deCONZ* \
     && sed -i 's/\/root/\/data/' /etc/passwd

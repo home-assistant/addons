@@ -32,7 +32,7 @@ If you have old MQTT settings available, remove this old integration and restart
 
 ## Configuration
 
-Add-on configuration:
+Configuration is specified via the add-on's **Configuration** tab after installation. Basic configuration structure:
 
 ```yaml
 logins: []
@@ -66,19 +66,19 @@ The folder to read the additional configuration files (`*.conf`) from.
 
 ### Option: `cafile` (optional)
 
-A file containing a root certificate. Place this file in the Home Assistant `ssl` folder.
+A file containing a root certificate. Place this file in the Home Assistant `/ssl` folder and provide the filename without a path.
 
 ### Option: `certfile`
 
-A file containing a certificate, including its chain. Place this file in the Home Assistant `ssl` folder.
+A file containing a certificate, including its chain. Place this file in the Home Assistant `/ssl` folder and provide the filename without a path.
 
 ### Option: `keyfile`
 
-A file containing the private key. Place this file in the Home Assistant `ssl` folder.
+A file containing the private key. Place this file in the Home Assistant `/ssl` folder and provide the filename without a path.
 
 ### Option: `require_certificate`
 
-If set to `true` encryption will be enabled using the cert- and keyfile options.
+If set to `true`, the Mosquitto broker requires clients to provide valid certificates for mutual authentication. This is generally not needed when using Home Assistant user credentials, but provides an additional layer of authentication if desired.
 
 ## Home Assistant user management
 

@@ -1,11 +1,11 @@
-# Home Assistant Add-on: Almond
+# Home Assistant Add-on: Genie
 
 ## Installation
 
 Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
-2. Find the "Almond" add-on and click it.
+2. Find the "Genie" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
@@ -30,8 +30,8 @@ You have several options to get them answered:
 - The [Home Assistant Discord Chat Server][discord].
 - The Home Assistant [Community Forum][forum].
 - Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit].
-- The [Almond Discord Chat Server][discordalmond].
-- The Almond [Community Forum][forumalmond].
+- The [Genie Discord Chat Server][discordalmond].
+- The Genie [Community Forum][forumalmond].
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 

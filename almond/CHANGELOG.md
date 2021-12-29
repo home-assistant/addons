@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.0.0
+
+- Almond was rebranded to Genie and updated to version 3.0.0. This
+  is a major release that significantly improves the supported skills
+  and brings in more robust natural language understanding.
+- The wake-word is now "Hey Genie".
+- Voice support was overhauled and is now handled by a separate
+  genie-client package. The client is included in the container for use
+  with audio directly attached to Home Assistant, and can also be run
+  separately on a different device.
+- As with the previous release, all users are encouraged to upgrade
+  as soon as possible to maintain compatibility with cloud services.
+
 ## 2.0.1
 
 - Fix url for API requests

@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.11.2
+
+- Fix Phoscon App gateway discovery to with FQDN over Ingress
+- Improve Phoscon App subnet probing block when using Ingress
+
 ## 6.11.1
 
 - Add missing libqt5qml5 dependency

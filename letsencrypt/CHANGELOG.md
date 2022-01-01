@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.13.0
+
+- Add support for IONOS DNS
+
 ## 4.12.0
 
 - Update Certbot 1.21.0 & Plugins

@@ -75,7 +75,7 @@ schema:
       dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|\
       dns-google|dns-hetzner|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|\
       dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|\
-      dns-transip)?"
+      dns-transip|dns-ionos)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?
@@ -85,4 +85,7 @@ schema:
     sakuracloud_api_token: str?
     transip_api_key: str?
     transip_username: str?
+    ionos_prefix: str?
+    ionos_secret: str?
+    ionos_endpoint: str?
 startup: once

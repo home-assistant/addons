@@ -89,6 +89,9 @@ gandi_api_key: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+ionos_endpoint: ''
+ionos_prefix: ''
+ionos_secret: ''
 ```
 
 ## Advanced
@@ -463,6 +466,27 @@ on the DNS zone to be used for authentication.
   
 </details>
 
+<details>
+  <summary>IONOS</summary>
+
+  You will need to generate an IONOS API Key first. See https://developer.hosting.ionos.de/docs/getstarted for more details
+
+  Example configuration
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-ionos
+    ionos_endpoint: https://api.hosting.ionos.com
+    ionos_prefix: 0123456789abcdef0123456789abcdef01234
+    ionos_secret: 0123456789abcdef0123456789abcdef01234
+  ```
+
+</details>
 
 ## Certificate files
 

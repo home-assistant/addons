@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.8
+
+- Add support for IONOS DNS
+
 ## 4.12.7
 
 - Add Hetzner DNS challenge support

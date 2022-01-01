@@ -12,7 +12,8 @@ ARG \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
-    CERTBOT_DNS_TRANSIP_VERSION
+    CERTBOT_DNS_TRANSIP_VERSION \
+    CERTBOT_DNS_IONOS_VERSION
 
 RUN \
     set -x \
@@ -51,6 +52,7 @@ RUN \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
+        certbot-dns-ionos==${CERTBOT_DNS_IONOS_VERSION} \
     && apk del .build-dependencies
 
 # Copy data

@@ -3,5 +3,5 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:buster
   armv7: ghcr.io/home-assistant/armv7-base-debian:buster
 args:
-  GENIE_SERVER_VERSION: v3.0.1-rc.1
-  GENIE_CLIENT_VERSION: v0.1.0-rc.1
+  GENIE_SERVER_VERSION: v3.0.1
+  GENIE_CLIENT_VERSION: v0.1.0

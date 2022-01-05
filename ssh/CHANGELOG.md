@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.3.0
+
+- Update libwebsockets to 4.2.1
+- Update ttyd to `3e37e33b1cd927ae8f25cfbcf0da268723b6d230`
+
 ## 9.2.2
 
 - Fix escape codes in color bash prompt

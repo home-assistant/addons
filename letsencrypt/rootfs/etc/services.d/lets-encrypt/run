@@ -21,7 +21,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
 
     PROPAGATION_SECONDS=60
     if bashio::config.exists 'dns.propagation_seconds'; then
-        PROPAGATION_SECONDS="$(bashio::config 'dns.propagation_seconds')" 
+        PROPAGATION_SECONDS="$(bashio::config 'dns.propagation_seconds')"
     fi
     bashio::log.info "Use propagation seconds: ${PROPAGATION_SECONDS}"
 else
@@ -99,6 +99,20 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
 # rfc2136
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-rfc2136" ]; then
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+# Azure
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
+    bashio::config.require 'dns.azure_config'
+    AZURE_CREDS="$(bashio::config 'dns.azure_config')"
+
+    export AZURE_CREDS
+    if [ -f "/share/${AZURE_CREDS}" ]; then
+      cp -f "/share/${AZURE_CREDS}" "/data/${AZURE_CREDS}"
+      chmod 600 "/data/${AZURE_CREDS}"
+    else
+      bashio::log.info "Azure credentials file doesn't exist in folder share."
+    fi
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-config" "/data/${AZURE_CREDS}")
 
 #All others
 else

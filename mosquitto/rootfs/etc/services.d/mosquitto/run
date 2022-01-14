@@ -17,4 +17,4 @@ fi
 ./discovery &
 
 bashio::log.info "Starting mosquitto MQTT broker..."
-exec mosquitto "${options[@]}"
+exec mosquitto "${options[@]}" | sed 's/{"result": "ok", "data": {}}//g'

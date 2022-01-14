@@ -1,10 +1,6 @@
 protocol mqtt
 user root
 log_dest stdout
-log_type error
-log_type warning
-log_type notice
-log_type information
 persistence true
 persistence_location /data/
 
@@ -28,6 +24,8 @@ auth_opt_http_port 80
 auth_opt_http_getuser_uri /authentication
 auth_opt_http_superuser_uri /superuser
 auth_opt_http_aclcheck_uri /acl
+
+allow_anonymous false
 
 {{ if .customize }}
 include_dir /share/{{ .customize_folder }}

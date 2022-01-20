@@ -1510,7 +1510,7 @@ proc action_create_backup {} {
   rega system.Save()
 
   # special HomeAssistant handling for creating sbk
-  catch { exec /opt/hm/bin/createBackup.sh /tmp/backup.sbk }
+  exec /opt/hm/bin/createBackup.sh /tmp/backup.sbk
   set fd [open "|cat /tmp/backup.sbk"]
   catch {fconfigure $fd -translation binary}
   catch {fconfigure $fd -encoding binary}

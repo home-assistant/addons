@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.6.0
+
+- Extend required interface option to optional interfaces list
+- Restore interface options
+
 ## 9.5.1
 
 - Add `hassio_api` to add-on configuration

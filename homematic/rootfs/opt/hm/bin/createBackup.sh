@@ -54,8 +54,6 @@ TMPDIR=$(mktemp -d -p "${BACKUPDIR}")
 if [[ -d "${TMPDIR}" ]]; then
   # make sure TMPDIR is removed under all circumstances
   # shellcheck disable=SC2064
-  #trap "rm -rf ${TMPDIR}" EXIT
-  echo $TMPDIR
 
   # make sure ReGaHSS saves its current settings
   echo 'load tclrega.so; rega system.Save()' | /opt/hm/bin/tclsh >/dev/null 2>&1
@@ -75,6 +73,9 @@ if [[ -d "${TMPDIR}" ]]; then
   fi
   set -e # re-enable abort on error
 
+  # remove the temp usr dir again
+  rm -rf "${TMPDIR}/usr"
+
   # sign the configuration with the current key
   /opt/hm/bin/crypttool -s -t 1 <"${TMPDIR}/usr_local.tar.gz" >"${TMPDIR}/signature"
 
@@ -85,7 +86,7 @@ if [[ -d "${TMPDIR}" ]]; then
   echo "VERSION=${VERSION}" >"${TMPDIR}/firmware_version"
 
   # create sha256 checksum of all files
-  #(cd "${TMPDIR}" && /usr/bin/sha256sum ./* >signature.sha256)
+  (cd "${TMPDIR}" && /usr/bin/sha256sum ./* >signature.sha256)
 
   # create sbk file
   /bin/tar -C "${TMPDIR}" --owner=root --group=root -cf "${BACKUPDIR}/${BACKUPFILE}" usr_local.tar.gz signature signature.sha256 key_index firmware_version 2>/dev/null

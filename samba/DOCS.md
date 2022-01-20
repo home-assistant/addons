@@ -39,11 +39,6 @@ Add-on configuration:
 workgroup: WORKGROUP
 username: homeassistant
 password: YOUR_PASSWORD
-interfaces:
-  - eth0
-  - wlan0
-  - docker0
-  - lo
 allow_hosts:
   - 10.0.0.0/8
   - 172.16.0.0/12
@@ -67,16 +62,6 @@ The username you would like to use to authenticate with the Samba server.
 ### Option: `password` (required)
 
 The password that goes with the username configured for authentication.
-
-### Option: `interfaces` (optional)
-
-The network interfaces Samba should listen on for incoming connections.
-
-- This option should only be used in advanced cases. In general, setting this option is not needed.
-
-- If omitted, Samba will listen on the default primary interface of Home Assistant (see `> ha network info`).
-
-- For other possible interfaces see `> ip link show`.
 
 ### Option: `allow_hosts` (required)
 

@@ -40,8 +40,6 @@ schema:
   allow_hosts:
     - str
   compatibility_mode: bool
-  interfaces:
-    - str?
   password: password
   username: str
   veto_files:

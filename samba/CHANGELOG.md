@@ -2,8 +2,7 @@
 
 ## 9.6.0
 
-- Extend required interface option to optional interfaces list
-- Restore interface options
+- Run on all supported interfaces
 
 ## 9.5.1
 

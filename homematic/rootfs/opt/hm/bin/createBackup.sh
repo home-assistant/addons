@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck shell=dash disable=SC2169 source=/dev/null
+# shellcheck source=/dev/null
 #
 # simple backup script to create a CCU compatible .sbk type
 # backup out of the core-homematic HomeAssistant add-on
@@ -41,12 +41,12 @@ fi
 # check if specified path is a directory or file
 if [[ -d "${BACKUPPATH}" ]]; then
   # a directory path was specified, lets construct the complete filepath
-  BACKUPDIR="$(realpath ${BACKUPPATH})"
+  BACKUPDIR="$(realpath "${BACKUPPATH}")"
   BACKUPFILE="$(hostname)-${VERSION}-$(date +%Y-%m-%d-%H%M).sbk"
 else
   # a file was specified with a directory path
   BACKUPDIR="$(realpath "$(dirname "${BACKUPPATH}")")"
-  BACKUPFILE="$(basename ${BACKUPPATH})"
+  BACKUPFILE="$(basename "${BACKUPPATH}")"
 fi
 
 # use the backupdir as base directory for creating
@@ -84,7 +84,7 @@ if [[ -d "${TMPDIR}" ]]; then
   set -e # re-enable abort on error
 
   # remove the temp usr dir again
-  rm -rf "${TMPDIR}/usr"
+  rm -rf "${TMPDIR:?}/usr"
 
   # sign the configuration with the current key
   /opt/hm/bin/crypttool -s -t 1 <"${TMPDIR}/usr_local.tar.gz" >"${TMPDIR}/signature"

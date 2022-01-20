@@ -1,5 +1,19 @@
 # Changelog
 
+## 11.4.0
+
+- added a notification to the main add-on README that this add-on
+  is now considered obsolete/retired in favor of using the
+  "RaspberryMatic CCU" HomeAssistant add-on instead.
+- implemented a config backup routine which will allow to export
+  the current HomeMatic configuration in a somewhat compatible
+  file format (.sbk) to be able to directly import it into a
+  real CCU or the successor "RaspberryMatic" add-on.
+- modified config.yaml to allow to specify arbitrary devices and
+  not just tty devices. This should allow to specify the new
+  raw-uart device which will be required with upcoming HAos updates
+  supporting dualcopro mode for HmIP-RFUSB.
+
 ## 11.3.0
 
 - Update OCCU to 3.59.6

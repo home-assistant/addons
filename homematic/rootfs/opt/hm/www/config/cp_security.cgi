@@ -1515,7 +1515,7 @@ proc action_create_backup {} {
   catch {fconfigure $fd -translation binary}
   catch {fconfigure $fd -encoding binary}
   puts "Content-Type:application/x-download"
-  puts "Content-Disposition:attachment;filename=[set HOSTNAME]-$year-$month-$day.sbk\n"
+  puts "Content-Disposition:attachment;filename=ccu-backup.sbk\n"
   catch {fconfigure stdout -translation binary}
   catch {fconfigure stdout -encoding binary}
   while { ! [eof $fd]} {

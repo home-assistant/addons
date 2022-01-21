@@ -38,6 +38,10 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
 Add-on configuration:
 
 ```yaml
+allowlist:
+  active: false
+  cloudflare: false
+  entries: []
 domain: home.example.com
 certfile: fullchain.pem
 keyfile: privkey.pem
@@ -79,8 +83,20 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 ### Option `cloudflare` (optional)
 
-If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
+If enabled, configure NGINX with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
+### Option `allowlist.active` (required)
+
+If true, configure NGINX to allow only connections from the remote IP addresses listed in `allowlist.entries` or from the Cloudflare IP addresses if `allowlist.cloudflare` is set to true.
+
+### Option `allowlist.cloudflare` (required)
+
+Include Cloudflare IP addresses in the allowlist.
+
+### Option `allowlist.entries` (required)
+
+List of IP addresses or CIDRs to be included in the allowlist.
 
 ## Known issues and limitations
 

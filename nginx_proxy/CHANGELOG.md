@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0
+
+- Added remote IP/CIDR allowlisting for Cloudflare and static entries
+
 ## 3.1.1
 
 - Hide server version banner

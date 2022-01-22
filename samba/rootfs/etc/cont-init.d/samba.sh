@@ -22,6 +22,7 @@ bashio::log.info "Hostname: ${HOSTNAME}"
 
 # Get supported interfaces
 interfaces+=$(bashio::network.interfaces)
+interfaces+=("lo")
 bashio::log.info "Interfaces: $(printf '%s ' ${interfaces[@]})"
 
 # Generate Samba configuration.

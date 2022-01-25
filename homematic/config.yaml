@@ -1,4 +1,4 @@
-version: 11.3.0
+version: 99.0.0
 slug: homematic
 name: HomeMatic CCU
 description: HomeMatic central based on OCCU
@@ -33,12 +33,12 @@ ports_description:
   80/tcp: ReGaHss Webinterface (Not required for Ingress)
 schema:
   hmip:
-    - device: device(subsystem=tty)
+    - device: device
       type: match(HMIP_CCU2)
   hmip_enable: bool
   regahss_reset: bool?
   rf:
-    - device: device(subsystem=tty)
+    - device: device
       reset: bool?
       type: match(CCU2)
   rf_enable: bool

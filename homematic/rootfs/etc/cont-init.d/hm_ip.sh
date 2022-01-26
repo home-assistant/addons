@@ -3,10 +3,10 @@
 # Update HomeMatic firmware
 # ==============================================================================
 # shellcheck disable=SC2012
-declare hmip_index
-declare hmip_device
-declare version_to
-declare version_from
+#declare hmip_index
+#declare hmip_device
+#declare version_to
+#declare version_from
 
 # HMIP support
 if bashio::config.false 'hmip_enable'; then

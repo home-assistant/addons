@@ -11,7 +11,7 @@ RUN apt-get update \
         lighttpd \
         lighttpd-mod-openssl \
         nginx \
-        openjdk-11-jre-headless \
+        openjdk-8-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OCCU_VERSION

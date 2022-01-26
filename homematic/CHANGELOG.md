@@ -6,8 +6,6 @@
 
 - disabled hmip rf-firmware update to prevent accidently performed
   firmware downgrade (not required anymore for obsolete addon anyway)
-- use openjdk-8-jre-headless because hmipserver is compatibly to
-  max. java-8 only.
 - added missing gnu.io.rxtx.SerialPorts java option to get hmipserver
   running with raw-uart device.
 

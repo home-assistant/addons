@@ -2,6 +2,15 @@
 
 #### WARNING: This add-on is considered to be obsolete/retired in favor of the much more advanced third-party [RaspberryMatic CCU](https://github.com/jens-maus/RaspberryMatic/tree/master/home-assistant-addon) add-on for running a HomeMatic/homematicIP smart home central within HomeAssistant. If you want to migrate to the new add-on, please make sure to update to the latest version of this old "HomeMatic CCU" add-on first and then use the WebUI-based backup routines to export a `*.sbk` config backup file which you can then restore in the new "RaspberryMatic CCU" add-on afterwards (cf. [RaspberryMatic Documentation](https://github.com/jens-maus/RaspberryMatic/wiki/Installation-HomeAssistant))
 
+## 99.0.2
+
+- disabled hmip rf-firmware update to prevent accidently performed
+  firmware downgrade (not required anymore for obsolete addon anyway)
+- use openjdk-8-jre-headless because hmipserver is compatibly to
+  max. java-8 only.
+- added missing gnu.io.rxtx.SerialPorts java option to get hmipserver
+  running with raw-uart device.
+
 ## 99.0.1
 
 - minor bugfix to get webui backup routines running.

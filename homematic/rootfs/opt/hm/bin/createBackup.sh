@@ -67,6 +67,10 @@ if [[ -d "${TMPDIR}" ]]; then
   rm -f "${TMPDIR}/usr/local/etc/config/groups.gson" "${TMPDIR}/usr/local/etc/config/userprofiles"
   cp -a /data/* "${TMPDIR}/usr/local/etc/config/"
 
+  # move crRFD files to data sub-dir to be compatible
+  mkdir -p "${TMPDIR}/usr/local/etc/config/crRFD/data"
+  mv "${TMPDIR}/usr/local/etc/config/crRFD/*" "${TMPDIR}/usr/local/etc/config/crRFD/data/" 2>/dev/null
+
   # cleanup
   rm -f "${TMPDIR}/usr/local/etc/config/options.json"
   rm -f "${TMPDIR}/usr/local/etc/config/groups.json"

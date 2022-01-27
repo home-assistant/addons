@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:truthy
 name: Lint
 
 env:

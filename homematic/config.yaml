@@ -47,5 +47,6 @@ schema:
       key: str
       serial: str
   wired_enable: bool
+stage: deprecated
 startup: system
 timeout: 15

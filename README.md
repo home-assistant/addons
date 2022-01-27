@@ -55,10 +55,6 @@ systems that have installed Home Assistant.
 
     Voice assistant powered by Home Assistant.
 
-- **[HomeMatic](/homematic/README.md)**
-
-    HomeMatic central based on OCCU.
-
 - **[Let's Encrypt](/letsencrypt/README.md)**
 
     Manage an create certificates from Let's Encrypt.
@@ -91,9 +87,23 @@ systems that have installed Home Assistant.
 
     TellStick and TellStick Duo service.
 
+- **[Z-Wave JS](/zwave_js/README.md)**
+
+    Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
+
+### Deprecated Add-ons
+
+- **[HomeMatic](/homematic/README.md)**
+
+    HomeMatic central based on OCCU.
+
+    Deprecated in favor of the much more advanced third-party [RaspberryMatic CCU](https://github.com/jens-maus/RaspberryMatic/tree/master/home-assistant-addon).
+
 - **[OpenZWave](/zwave/README.md)**
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
+
+    Deprecated in favor of [Z-Wave JS](/zwave_js/README.md)
 
 ## Support
 

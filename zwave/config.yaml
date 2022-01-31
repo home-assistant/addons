@@ -34,5 +34,5 @@ schema:
   network_key: password
 services:
   - mqtt:want
-stage: experimental
+stage: deprecated
 startup: services

@@ -68,8 +68,9 @@ if [[ -d "${TMPDIR}" ]]; then
   cp -a /data/* "${TMPDIR}/usr/local/etc/config/"
 
   # move crRFD files to data sub-dir to be compatible
-  mkdir -p "${TMPDIR}/usr/local/etc/config/crRFD/data"
-  mv "${TMPDIR}/usr/local/etc/config/crRFD/*" "${TMPDIR}/usr/local/etc/config/crRFD/data/" 2>/dev/null || true
+  rm -rf "${TMPDIR}/usr/local/etc/config/crRFD"
+  mkdir -p "${TMPDIR}/usr/local/etc/config/crRFD"
+  cp -a /data/crRFD "${TMPDIR}/usr/local/etc/config/crRFD/data"
 
   # cleanup
   rm -f "${TMPDIR}/usr/local/etc/config/options.json"

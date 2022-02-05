@@ -3,7 +3,7 @@
 ## 1.3
 
 - Add NTP server configuration option.
-- 
+
 ## 1.2
 
 - Fixes crash when using FQDN as domain

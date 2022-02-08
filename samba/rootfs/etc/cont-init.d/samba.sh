@@ -21,12 +21,14 @@ fi
 bashio::log.info "Hostname: ${HOSTNAME}"
 
 # Get supported interfaces
-interfaces+=$(bashio::network.interfaces)
+for interface in $(bashio::network.interfaces); do
+    interfaces+=("${interface}")
+done
 interfaces+=("lo")
-bashio::log.info "Interfaces: $(printf '%s ' ${interfaces[@]})"
+bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 
 # Generate Samba configuration.
-jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- ${interfaces[@]})" /data/options.json \
+jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- "${interfaces[@]}")" /data/options.json \
     | tempio \
       -template /usr/share/tempio/smb.gtpl \
       -out /etc/samba/smb.conf

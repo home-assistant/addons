@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.12
+## 6.12.0
 
 - Bump deCONZ to 2.14.1
 

@@ -9,5 +9,5 @@ codenotary:
   base_image: notary@home-assistant.io
 args:
   CLI_VERSION: 4.14.0
-  LIBWEBSOCKETS_VERSION: 4.1.4
-  TTYD_VERSION: 1.6.3
+  LIBWEBSOCKETS_VERSION: 4.2.1
+  TTYD_VERSION: 3e37e33b1cd927ae8f25cfbcf0da268723b6d230

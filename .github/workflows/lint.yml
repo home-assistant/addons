@@ -16,7 +16,7 @@ jobs:
     name: hadolint
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Run linter
         id: changed_files
@@ -34,7 +34,7 @@ jobs:
     name: JQ
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Run linter
         run: |
@@ -46,7 +46,7 @@ jobs:
     name: ShellCheck
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Run linter
         uses: ludeeus/action-shellcheck@1.1.0

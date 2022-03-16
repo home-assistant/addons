@@ -115,6 +115,8 @@ aliases:
     alias: my-domain.duckdns.org
 ```
 
+> Note that the `domain` key should receive **your custom domain name** and the `alias` key should rececive the DuckDNS domain name
+
 Don't add your custom domain name to the `domains` array. For certificate creation, all unique domains and aliases are used.
 
 Also, don't forget to make sure the dns-01 challenge can reach Duckdns. It might be required to add a specific CNAME for that:

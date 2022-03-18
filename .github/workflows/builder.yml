@@ -2,7 +2,7 @@ name: Build add-on
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "apparmor.txt build.json config.json Dockerfile data rootfs"
+  MONITORED_FILES: "apparmor.txt build.yaml config.yaml Dockerfile data rootfs"
 
 on:
   pull_request:
@@ -20,7 +20,7 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
 
       - name: Get changed files
         id: changed_files
@@ -30,7 +30,7 @@ jobs:
         id: addons
         run: |
           declare -a addons
-          for addon in $(find ./ -name config.json | cut -d "/" -f2 | sort -u); do
+          for addon in $(find ./ -name config.yaml | cut -d "/" -f2 | sort -u); do
             addons+=("$addon");
           done
           echo "::set-output name=addons::${addons[@]}"
@@ -66,13 +66,13 @@ jobs:
     if: needs.init.outputs.changed == 'true'
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:
-      matrix: 
+      matrix:
         addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
         arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
 
       - name: Get information
         id: info
@@ -83,14 +83,11 @@ jobs:
       - name: Check add-on
         id: check
         run: |
-           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-              echo "::set-output name=build_arch::true";
-            else
-              echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
-           fi
-
-           version=$(jq -r '.version' "./${{ matrix.addon }}/config.json")
-           echo "::set-output name=version::${version}";
+          if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
+             echo "::set-output name=build_arch::true";
+           else
+             echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
+          fi
 
       - name: Set build arguments
         if: steps.check.outputs.build_arch == 'true'
@@ -101,14 +98,14 @@ jobs:
 
       - name: Login to DockerHub
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v1.10.0
+        uses: docker/login-action@v1.14.1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Login to GitHub Container Registry
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v1.10.0
+        uses: docker/login-action@v1.14.1
         with:
           registry: ghcr.io
           username: ${{ secrets.GIT_USER }}
@@ -116,12 +113,12 @@ jobs:
 
       - name: Build ${{ matrix.addon }} add-on
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2021.09.0
+        uses: home-assistant/builder@2022.01.0
         with:
           args: |
             ${{ env.BUILD_ARGS }} \
             --${{ matrix.arch }} \
             --target /data/${{ matrix.addon }} \
-            --with-codenotary "${{ secrets.VCN_USER }}" "${{ secrets.VCN_PASSWORD }}" "${{ secrets.VCN_ORG }}" \
-            --validate-from "${{ secrets.VCN_ORG }}" \
             --addon
+        env:
+          CAS_API_KEY: ${{ secrets.CAS_TOKEN }}

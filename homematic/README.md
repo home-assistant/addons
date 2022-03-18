@@ -1,5 +1,7 @@
 # Home Assistant Add-on: HomeMatic
 
+#### WARNING: This add-on is considered to be obsolete/retired in favor of the much more advanced third-party [RaspberryMatic CCU](https://github.com/jens-maus/RaspberryMatic/tree/master/home-assistant-addon) add-on for running a HomeMatic/homematicIP smart home central within HomeAssistant. If you want to migrate to the new add-on, please make sure to update to the latest version of this old "HomeMatic CCU" add-on first and then use the WebUI-based backup routines to export a `*.sbk` config backup file which you can then restore in the new "RaspberryMatic CCU" add-on afterwards (cf. [RaspberryMatic Documentation](https://github.com/jens-maus/RaspberryMatic/wiki/Installation-HomeAssistant))
+
 HomeMatic central based on OCCU.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]

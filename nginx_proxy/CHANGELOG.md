@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.1.1
+
+- Hide server version banner
+
+## 3.1.0
+
+- Allow use of ports other than 8123 in Home Assistant Core
+
 ## 3.0.2
 
 - Update Alpine to 3.14

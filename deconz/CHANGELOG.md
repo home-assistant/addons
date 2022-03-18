@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.12.0
+
+- Bump deCONZ to 2.14.1
+
+## 6.11.1
+
+- Add missing libqt5qml5 dependency
+- Do not force install of deCONZ packages
+
+## 6.11.0
+
+- Bump deCONZ to 2.13.4
+
 ## 6.10.0
 
 - Bump deCONZ to 2.12.6

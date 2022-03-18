@@ -1,0 +1,39 @@
+version: 0.1.54
+slug: zwave_js
+name: Z-Wave JS
+description: Control a ZWave network with Home Assistant Z-Wave JS
+url: https://github.com/home-assistant/hassio-addons/tree/master/zwave_js
+arch:
+  - amd64
+  - i386
+  - armhf
+  - armv7
+  - aarch64
+discovery:
+  - zwave_js
+hassio_api: true
+homeassistant: 2021.2.0b0
+image: homeassistant/{arch}-addon-zwave_js
+init: false
+options:
+  device: null
+  log_level: info
+  s0_legacy_key: ""
+  s2_access_control_key: ""
+  s2_authenticated_key: ""
+  s2_unauthenticated_key: ""
+ports:
+  3000/tcp: null
+ports_description:
+  3000/tcp: Z-Wave JS communication
+schema:
+  device: device(subsystem=tty)
+  emulate_hardware: bool?
+  log_level: list(silly|debug|verbose|http|info|warn|error)?
+  network_key: match(|[0-9a-fA-F]{32,32})?
+  s0_legacy_key: match(|[0-9a-fA-F]{32,32})?
+  s2_access_control_key: match(|[0-9a-fA-F]{32,32})?
+  s2_authenticated_key: match(|[0-9a-fA-F]{32,32})?
+  s2_unauthenticated_key: match(|[0-9a-fA-F]{32,32})?
+stage: stable
+startup: services

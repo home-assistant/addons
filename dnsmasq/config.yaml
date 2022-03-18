@@ -37,4 +37,7 @@ schema:
       priority: int
       srv: str
       weight: int
+  cnames:
+    - name: str
+      target: str
 startup: system

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.55
+
+- Bump Z-Wave JS to 8.11.9
+
 ## 0.1.54
 
 - Bump Z-Wave JS to 8.11.6

@@ -23,7 +23,7 @@ RUN apt-get update \
     && rm -rf .git \
     && pip3 install --no-cache-dir -U setuptools wheel \
     && pip3 install --no-cache-dir -r requirements.txt \
-    && pip3 install --no-cache-dir -e . \
+    && pip3 install --no-cache-dir . \
     && python3 -m compileall ada \
     \
     && apt-get purge -y --auto-remove \

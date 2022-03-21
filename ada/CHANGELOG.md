@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.0
+- Update to Debian bullseye
+
 ## 1.1.1
 
 - Fix aarch64 support

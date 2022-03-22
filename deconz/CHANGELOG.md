@@ -2,7 +2,7 @@
 
 ## 6.12.1
 
-- Fix Phoscon App gateway discovery to with FQDN over Ingress
+- Fix Phoscon App gateway discovery with FQDN over Ingress
 - Improve Phoscon App subnet probing block when using Ingress
 
 ## 6.12.0

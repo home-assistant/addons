@@ -2,7 +2,7 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 # Install Ada
-WORKDIR /usr/src/ada
+WORKDIR /usr/src
 ARG ADA_VERSION
 
 RUN apt-get update \
@@ -19,12 +19,11 @@ RUN apt-get update \
         build-essential \
     \
     && git clone --depth 1 -b ${ADA_VERSION} \
-        "https://github.com/home-assistant/ada" . \
-    && rm -rf .git \
+        "https://github.com/home-assistant/ada" \
     && pip3 install --no-cache-dir -U setuptools wheel \
-    && pip3 install --no-cache-dir -r requirements.txt \
-    && pip3 install --no-cache-dir -e . \
-    && python3 -m compileall ada \
+    && pip3 install --no-cache-dir -r ada/requirements.txt \
+    && pip3 install --no-cache-dir ada/ \
+    && rm -rf ada \
     \
     && apt-get purge -y --auto-remove \
         git \

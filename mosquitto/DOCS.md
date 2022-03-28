@@ -97,7 +97,7 @@ See the following links for more information:
 - [Mosquitto topic restrictions](http://www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/)
 - [Mosquitto.conf man page](https://mosquitto.org/man/mosquitto-conf-5.html)
 
-Add the following configuration to enable **unrestricted** access to all topics.
+Add the following configuration to enable **unrestricted** access to all topics for `[YOUR_MQTT_USER]`. Once you enable MQTT ACLs, home assistant will no longer have permission to publish or subscribe to the topics that it needs to. It is suggested that you add the `homeassistant` and `addons` user to the ACLs as demonstrated below.
 
 1. Enable the customize flag
 
@@ -116,6 +116,12 @@ Add the following configuration to enable **unrestricted** access to all topics.
 3. Create `/share/mosquitto/accesscontrollist` with the contents:
 
     ```text
+    user addons
+    topic readwrite #
+    
+    user homeassistant
+    topic readwrite #
+    
     user [YOUR_MQTT_USER]
     topic readwrite #
     ```

@@ -35,7 +35,7 @@ schema:
               selflearning|ecosavers|kp100|temperaturehumidity|temperature)?"
       name: str
       protocol: "match(arctech|brateck|comen|everflourish|fineoffset|fuhaote|\
-                 hasta|ikea|kangtai|mandolyn|oregon|risingsun|sartano|
+                 hasta|ikea|kangtai|mandolyn|oregon|risingsun|sartano|\
                  silvanchip|upm|waveman|x10|yidong)"
       unit: str?
 startup: system

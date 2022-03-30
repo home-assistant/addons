@@ -2,6 +2,6 @@
 configuration:
   version:
     name: Version
-    description: >
+    description: >-
       The version of Home Assistant to check against, you can use `stable`,
       `beta`, `dev` or a specific version

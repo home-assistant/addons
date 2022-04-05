@@ -4,7 +4,6 @@
 
 - Bump Z-Wave JS to 9.0.1
 - Bump Z-Wave JS Server to 1.16.0
-- Disable Z-Wave JS Server DNS-SD
 
 ## 0.1.55
 

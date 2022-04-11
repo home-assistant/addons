@@ -29,14 +29,14 @@ schema:
   databases:
     - str
   logins:
-    - password: password
-      username: str
+    - username: str
+      password: password
   rights:
     - database: str
       privileges:
         - "list(ALTER|CREATE|CREATE ROUTINE|CREATE TEMPORARY TABLES|\
-           CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|\
-           INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
+          CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|\
+          INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
       username: str
 services:
   - mysql:provide

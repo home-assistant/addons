@@ -26,18 +26,18 @@ options:
   seconds: 300
   token: null
 schema:
+  domains:
+    - match(.+\.duckdns\.org)
+  token: str
   aliases:
     - alias: str
       domain: str
-  domains:
-    - match(.+\.duckdns\.org)
-  ipv4: str?
-  ipv6: str?
   lets_encrypt:
     accept_terms: bool
     algo: list(rsa|prime256v1|secp384r1)
     certfile: str
     keyfile: str
   seconds: int
-  token: str
+  ipv4: str?
+  ipv6: str?
 startup: services

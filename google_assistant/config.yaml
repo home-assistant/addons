@@ -25,11 +25,11 @@ options:
 ports:
   9324/tcp: 9324
 schema:
+  project_id: str
   client_secrets: str
+  model_id: str
   feedback:
     enable: bool
     volume: int(0,100)
-  model_id: str
-  project_id: str
 stage: experimental
 webui: http://[HOST]:[PORT:9324]

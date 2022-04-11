@@ -26,13 +26,15 @@ options:
   keyfile: privkey.pem
 ports:
   80/tcp: 80
-ports_description:
-  80/tcp: Only needed for http challenge
 schema:
-  acme_root_ca_cert: str?
-  acme_server: url?
+  domains:
+    - str
+  email: email
+  keyfile: str
   certfile: str
   challenge: list(dns|http)
+  acme_root_ca_cert: str?
+  acme_server: url?
   dns:
     aws_access_key_id: str?
     aws_secret_access_key: str?
@@ -68,10 +70,10 @@ schema:
     ovh_endpoint: str?
     propagation_seconds: int(60,3600)?
     provider: "list(dns-cloudflare|dns-cloudxns|dns-digitalocean|\
-               dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|\
-               dns-google|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|\
-               dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|\
-               dns-transip)?"
+      dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|\
+      dns-google|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|\
+      dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|\
+      dns-transip)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?
@@ -81,8 +83,4 @@ schema:
     sakuracloud_api_token: str?
     transip_api_key: str?
     transip_username: str?
-  domains:
-    - str
-  email: email
-  keyfile: str
 startup: once

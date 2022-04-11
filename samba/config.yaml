@@ -38,12 +38,12 @@ options:
     - .Trashes
   workgroup: WORKGROUP
 schema:
-  allow_hosts:
-    - str
-  compatibility_mode: bool
-  password: password
   username: str
+  password: password
+  workgroup: str
+  compatibility_mode: bool
   veto_files:
     - str
-  workgroup: str
+  allow_hosts:
+    - str
 startup: services

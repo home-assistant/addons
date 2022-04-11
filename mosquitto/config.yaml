@@ -30,22 +30,17 @@ ports:
   1884/tcp: 1884
   8883/tcp: 8883
   8884/tcp: 8884
-ports_description:
-  1883/tcp: Normal MQTT
-  1884/tcp: MQTT over WebSocket
-  8883/tcp: Normal MQTT with SSL
-  8884/tcp: MQTT over WebSocket with SSL
 schema:
-  cafile: str?
+  logins:
+    - username: str
+      password: password
+  require_certificate: bool
   certfile: str
+  cafile: str?
+  keyfile: str
   customize:
     active: bool
     folder: str
-  keyfile: str
-  logins:
-    - password: password
-      username: str
-  require_certificate: bool
 services:
   - mqtt:provide
 startup: system

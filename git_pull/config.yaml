@@ -36,20 +36,20 @@ options:
     - ui-lovelace.yaml
     - .gitignore
 schema:
-  auto_restart: bool
-  deployment_key:
-    - str
-  deployment_key_protocol: match(rsa|dsa|ecdsa|ed25519|rsa)
-  deployment_password: password
-  deployment_user: str
+  repository: str
   git_branch: str
+  git_remote: str
+  auto_restart: bool
+  restart_ignore:
+    - str
   git_command: list(pull|reset)
   git_prune: bool
-  git_remote: str
+  deployment_key:
+    - str
+  deployment_user: str
+  deployment_password: password
+  deployment_key_protocol: match(rsa|dsa|ecdsa|ed25519|rsa)
   repeat:
     active: bool
     interval: int
-  repository: str
-  restart_ignore:
-    - str
 startup: services

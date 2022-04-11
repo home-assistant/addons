@@ -1,3 +1,4 @@
+---
 build_from:
   armv7: ghcr.io/home-assistant/armv7-base-debian:bullseye
   i386: ghcr.io/home-assistant/i386-base-debian:bullseye

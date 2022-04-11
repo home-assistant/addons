@@ -1,3 +1,4 @@
+---
 build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:buster
   armhf: ghcr.io/home-assistant/armhf-base-debian:buster

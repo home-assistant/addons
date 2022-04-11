@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:truthy
 name: Stale
 
 on:
@@ -20,6 +22,6 @@ jobs:
           stale-issue-label: "stale"
           exempt-issue-labels: "pinned,security,Help wanted"
           stale-issue-message: >
-            This issue has been automatically marked as stale because it has not had
-            recent activity. It will be closed if no further activity occurs. Thank you
-            for your contributions.
+            This issue has been automatically marked as stale because it has
+            not had recent activity. It will be closed if no further activity
+            occurs. Thank you for your contributions.

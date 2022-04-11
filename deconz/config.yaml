@@ -1,7 +1,9 @@
+---
 version: 6.12.0
 slug: deconz
 name: deCONZ
-description: Control a Zigbee network with ConBee or RaspBee by Dresden Elektronik
+description: >-
+  Control a Zigbee network with ConBee or RaspBee by Dresden Elektronik.
 url: https://github.com/home-assistant/hassio-addons/tree/master/deconz
 apparmor: false
 arch:

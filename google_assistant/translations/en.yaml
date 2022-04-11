@@ -2,7 +2,8 @@
 configuration:
   project_id:
     name: Project ID
-    description: Project ID of the project you've created at Google for this add-on.
+    description: >-
+      Project ID of the project you've created at Google for this add-on.
   client_secrets:
     name: Client Secrets
     description: >-
@@ -10,7 +11,8 @@ configuration:
       placed in your `/share` folder.
   model_id:
     name: Model ID
-    description: The ID of the model you've registered at Google for this add-on.
+    description: >-
+      The ID of the model you've registered at Google for this add-on.
   feedback:
     name: Feedback
     description: Control feedback options

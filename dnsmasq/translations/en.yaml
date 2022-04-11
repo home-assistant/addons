@@ -10,7 +10,8 @@ configuration:
       (not the default) upstream DNS server.
   hosts:
     name: Hosts
-    description: This option allows you to provide local static answer for your DNS server.
+    description: >-
+      This option allows you to provide local static answer for your DNS server.
   services:
     name: Services
     description: This option allows you to provide srv-host records.

@@ -8,7 +8,8 @@ configuration:
     description: Your public keys that you wish to accept for login.
   apks:
     name: Packages
-    description: Additional software packages to install in the add-on container.
+    description: >-
+      Additional software packages to install in the add-on container.
   server:
     name: Server
     description: SSH Server configuration

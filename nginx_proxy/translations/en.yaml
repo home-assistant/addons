@@ -8,7 +8,8 @@ configuration:
     description: he certificate file to use in the `/ssl` directory.
   hsts:
     name: HSTS
-    description: "Value for the HSTS HTTP header to send. If empty, the header is not sent."
+    description: >-
+      Value for the HSTS HTTP header to send. If empty, the header is not sent.
   keyfile:
     name: Private Key File
     description: Private Private Key File to use in the `/ssl` directory.

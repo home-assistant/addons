@@ -8,7 +8,8 @@ configuration:
       without any configuration.
   require_certificate:
     name: Require Certificate
-    description: If enabled encryption will be enabled using the cert- and keyfile options.
+    description: >-
+      If enabled encryption will be enabled using the cert- and keyfile options.
   certfile:
     name: Certificate File
     description: >-

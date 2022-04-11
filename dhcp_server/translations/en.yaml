@@ -2,13 +2,15 @@
 configuration:
   default_lease:
     name: Default Least Time
-    description: The default time in seconds that the IP is leased to your client.
+    description: >-
+      The default time in seconds that the IP is leased to your client.
   dns:
     name: DNS Servers
     description: The DNS servers your DHCP server gives to your clients.
   domain:
     name: Domain
-    description: "Your network domain name, e.g., `mynetwork.local` or `home.local`"
+    description: >-
+      Your network domain name, e.g., `mynetwork.local` or `home.local`
   hosts:
     name: Hosts
     description: >-

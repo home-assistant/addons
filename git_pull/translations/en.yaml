@@ -2,7 +2,8 @@
 configuration:
   auto_restart:
     name: Auto restart
-    description: Restart Home Assistant when the configuration has changed (and is valid).
+    description: >-
+      Restart Home Assistant when the configuration has changed (and is valid).
   deployment_key:
     name: Deployment Key
     description: >-
@@ -37,7 +38,8 @@ configuration:
       Leave this as `false` if you are unsure.
   git_remote:
     name: Git Remote
-    description: Name of the tracked repository. Leave this as `origin` if you are unsure.
+    description: >-
+      Name of the tracked repository. Leave this as `origin` if you are unsure.
   repeat:
     name: Polling
     description: >-

@@ -1,3 +1,4 @@
+---
 version: 2.1.0
 slug: tellstick
 name: TellStick
@@ -30,9 +31,12 @@ schema:
       fade: str?
       house: str?
       id: int(1,)
-      model: match(codeswitch|bell|selflearning-switch|selflearning-dimmer|selflearning|ecosavers|kp100|temperaturehumidity|temperature)?
+      model: "match(codeswitch|bell|selflearning-switch|selflearning-dimmer|\
+              selflearning|ecosavers|kp100|temperaturehumidity|temperature)?"
       name: str
-      protocol: match(arctech|brateck|comen|everflourish|fineoffset|fuhaote|hasta|ikea|kangtai|mandolyn|oregon|risingsun|sartano|silvanchip|upm|waveman|x10|yidong)
+      protocol: "match(arctech|brateck|comen|everflourish|fineoffset|fuhaote|\
+                 hasta|ikea|kangtai|mandolyn|oregon|risingsun|sartano|\
+                 silvanchip|upm|waveman|x10|yidong)"
       unit: str?
 startup: system
 stdin: true

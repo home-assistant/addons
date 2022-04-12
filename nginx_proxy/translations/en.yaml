@@ -21,7 +21,7 @@ configuration:
       config.
   customize:
     name: Customize
-    description: Customize options.
+    description: See the Documentation tab for more information about these options.
 network:
   443/tcp: HTTPS (SSL) Port
   80/tcp: HTTP (non-SSL) Port

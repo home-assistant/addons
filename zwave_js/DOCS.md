@@ -26,13 +26,12 @@ change if other devices are added to the system.
    in order to connect securely to compatible devices. It is recommended
    that all four network keys are configured as some security enabled devices (locks, etc)
    may not function correctly if they are not added securely.
-     * As a note, it is not recommended to securely connect *all* devices unless they support S2 security
-       as the S0 security triples the amount of messages sent on the mesh.
+   - As a note, it is not recommended to securely connect _all_ devices unless they support S2 security
+     as the S0 security triples the amount of messages sent on the mesh.
 3. Click on "SAVE" to save the add-on configuration.
 4. Start the add-on.
 5. Add the Z-Wave JS integration to Home Assistant, see documentation:
    <https://www.home-assistant.io/integrations/zwave_js>
-
 
 ## Configuration
 
@@ -48,7 +47,7 @@ s2_unauthenticated_key: CF338FE0CB99549F7C0EA96308E5A403
 
 ### Option `device`
 
-The device address of your Z-Wave controller.
+The Z-Wave controller device.
 
 If you're using Home Assistant you may find the correct value for this on the
 `Supervisor -> System -> Host system -> Hardware` page. It is recommended
@@ -126,6 +125,7 @@ automatically on startup.
 ### Option `log_level` (optional)
 
 This option sets the log level of Z-Wave JS. Valid options are:
+
 - silly
 - debug
 - verbose

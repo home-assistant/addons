@@ -26,9 +26,9 @@ map:
   - backup:rw
   - media:rw
 options:
-  apks: []
   authorized_keys: []
   password: ""
+  apks: []
   server:
     tcp_forwarding: false
 panel_icon: mdi:console

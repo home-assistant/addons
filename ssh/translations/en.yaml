@@ -1,11 +1,11 @@
 ---
 configuration:
-  password:
-    name: Password
-    description: Set a password for login. We do NOT recommend this variant.
   authorized_keys:
     name: Authorized Keys
     description: Your public keys that you wish to accept for login.
+  password:
+    name: Password
+    description: Set a password for login. We do NOT recommend this variant.
   apks:
     name: Packages
     description: >-

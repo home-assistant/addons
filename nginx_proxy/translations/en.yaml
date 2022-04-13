@@ -9,7 +9,8 @@ configuration:
       Value for the HSTS HTTP header to send. If empty, the header is not sent.
   certfile:
     name: Certificate File
-    description: he certificate file to use in the `/ssl` directory.
+    description: >-
+      The certificate file to use in the `/ssl` directory.
   keyfile:
     name: Private Key File
     description: Private Private Key File to use in the `/ssl` directory.
@@ -21,7 +22,8 @@ configuration:
       config.
   customize:
     name: Customize
-    description: See the Documentation tab for more information about these options.
+    description: >-
+      See the Documentation tab for more information about these options.
 network:
   443/tcp: HTTPS (SSL) Port
   80/tcp: HTTP (non-SSL) Port

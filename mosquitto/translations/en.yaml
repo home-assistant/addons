@@ -27,7 +27,8 @@ configuration:
       `ssl` folder.
   customize:
     name: Customize
-    description: See the Documentation tab for more information about these options.
+    description: >-
+      See the Documentation tab for more information about these options.
 network:
   1883/tcp: Normal MQTT
   1884/tcp: MQTT over WebSocket

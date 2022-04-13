@@ -18,13 +18,13 @@ map:
   - ssl
   - share
 options:
+  logins: []
+  require_certificate: false
   certfile: fullchain.pem
+  keyfile: privkey.pem
   customize:
     active: false
     folder: mosquitto
-  keyfile: privkey.pem
-  logins: []
-  require_certificate: false
 ports:
   1883/tcp: 1883
   1884/tcp: 1884

@@ -19,22 +19,22 @@ init: false
 map:
   - config:rw
 options:
-  auto_restart: false
-  deployment_key: []
-  deployment_key_protocol: rsa
-  deployment_password: ""
-  deployment_user: ""
-  git_branch: master
-  git_command: pull
-  git_prune: false
-  git_remote: origin
-  repeat:
-    active: false
-    interval: 300
   repository: null
+  git_branch: master
+  git_remote: origin
+  auto_restart: false
   restart_ignore:
     - ui-lovelace.yaml
     - .gitignore
+  git_command: pull
+  git_prune: false
+  deployment_key: []
+  deployment_user: ""
+  deployment_password: ""
+  deployment_key_protocol: rsa
+  repeat:
+    active: false
+    interval: 300
 schema:
   repository: str
   git_branch: str

@@ -15,16 +15,16 @@ image: homeassistant/{arch}-addon-duckdns
 map:
   - ssl:rw
 options:
-  aliases: []
   domains:
     - null
+  token: null
+  aliases: []
   lets_encrypt:
     accept_terms: false
     algo: secp384r1
     certfile: fullchain.pem
     keyfile: privkey.pem
   seconds: 300
-  token: null
 schema:
   domains:
     - match(.+\.duckdns\.org)

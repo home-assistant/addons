@@ -16,12 +16,12 @@ init: false
 map:
   - share
 options:
+  project_id: null
   client_secrets: google_assistant.json
+  model_id: null
   feedback:
     enable: false
     volume: 80
-  model_id: null
-  project_id: null
 ports:
   9324/tcp: 9324
 schema:

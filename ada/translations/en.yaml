@@ -4,7 +4,7 @@ configuration:
     name: Text-to-Speech Integration
     description: >-
       The Home Assistant TTS (Text-to-Speech) integration to use when converting
-      the response from Almond back to audio.
+      the response from Almond to audio.
   stt:
     name: Speech-to-Text Integration
     description: >-

@@ -2,7 +2,7 @@
 configuration:
   device:
     name: Device
-    description: The device address of your Z-Wave controller.
+    description: The Z-Wave controller device.
   instance:
     name: Instance
     description: >-

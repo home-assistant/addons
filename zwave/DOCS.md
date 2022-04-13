@@ -48,7 +48,7 @@ instance: 1
 
 ### Option `device`
 
-The device address of your Z-Wave controller.
+The Z-Wave controller device.
 
 If you're using Home Assistant you may find the correct value for this on the
 `Supervisor -> System -> Host system -> Hardware` page. It is recommended

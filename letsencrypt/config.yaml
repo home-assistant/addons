@@ -17,13 +17,13 @@ map:
   - ssl:rw
   - share
 options:
-  certfile: fullchain.pem
-  challenge: http
-  dns: {}
   domains:
     - null
   email: null
   keyfile: privkey.pem
+  certfile: fullchain.pem
+  challenge: http
+  dns: {}
 ports:
   80/tcp: 80
 schema:

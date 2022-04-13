@@ -14,12 +14,12 @@ ingress: true
 map:
   - share:rw
 options:
-  hmip: []
   hmip_enable: false
-  rf: []
+  hmip: []
   rf_enable: false
-  wired: []
+  rf: []
   wired_enable: false
+  wired: []
 panel_icon: mdi:router-wireless
 panel_title: HomeMatic
 ports:

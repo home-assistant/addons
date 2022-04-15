@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:line-length rule:truthy
 name: Build add-on
 
 env:
@@ -20,7 +22,7 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Get changed files
         id: changed_files
@@ -72,7 +74,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Get information
         id: info
@@ -98,22 +100,14 @@ jobs:
 
       - name: Login to DockerHub
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v1.12.0
+        uses: docker/login-action@v1.14.1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Login to GitHub Container Registry
-        if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v1.12.0
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.GIT_USER }}
-          password: ${{ secrets.GIT_TOKEN }}
-
       - name: Build ${{ matrix.addon }} add-on
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2021.12.0
+        uses: home-assistant/builder@2022.03.1
         with:
           args: |
             ${{ env.BUILD_ARGS }} \

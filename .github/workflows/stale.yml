@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:truthy
 name: Stale
 
 on:
@@ -10,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 30 days stale issues
-        uses: actions/stale@v4
+        uses: actions/stale@v5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           days-before-issue-stale: 30
@@ -20,6 +22,6 @@ jobs:
           stale-issue-label: "stale"
           exempt-issue-labels: "pinned,security,Help wanted"
           stale-issue-message: >
-            This issue has been automatically marked as stale because it has not had
-            recent activity. It will be closed if no further activity occurs. Thank you
-            for your contributions.
+            This issue has been automatically marked as stale because it has
+            not had recent activity. It will be closed if no further activity
+            occurs. Thank you for your contributions.

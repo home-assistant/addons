@@ -2,7 +2,7 @@
 
 ## 6.13.0
 
-- Bump deCONZ to 2.15.2 
+- Bump deCONZ to 2.15.2
 
 ## 6.12.0
 

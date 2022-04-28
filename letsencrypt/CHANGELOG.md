@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.1
+
+- Set preferred chain to "ISRG Root X1"
+
 ## 4.12.0
 
 - Update Certbot 1.21.0 & Plugins

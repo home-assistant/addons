@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.12.1
+
+- Fix Phoscon App gateway discovery with FQDN over Ingress
+- Improve Phoscon App subnet probing block when using Ingress
+
 ## 6.12.0
 
 - Bump deCONZ to 2.14.1

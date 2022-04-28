@@ -1,0 +1,7 @@
+---
+configuration:
+  devices:
+    name: Devices
+    description: >-
+      Add one or more devices entries to the add-on configuration for each
+      device you'd like to add.

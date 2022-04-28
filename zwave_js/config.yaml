@@ -25,8 +25,6 @@ options:
   s2_unauthenticated_key: ""
 ports:
   3000/tcp: null
-ports_description:
-  3000/tcp: Z-Wave JS communication
 schema:
   device: device(subsystem=tty)
   emulate_hardware: bool?

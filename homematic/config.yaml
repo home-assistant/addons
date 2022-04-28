@@ -14,12 +14,12 @@ ingress: true
 map:
   - share:rw
 options:
-  hmip: []
   hmip_enable: false
-  rf: []
+  hmip: []
   rf_enable: false
-  wired: []
+  rf: []
   wired_enable: false
+  wired: []
 panel_icon: mdi:router-wireless
 panel_title: HomeMatic
 ports:
@@ -27,27 +27,22 @@ ports:
   2001/tcp: null
   2010/tcp: null
   80/tcp: null
-ports_description:
-  2000/tcp: HomematicWire xmlrpc (Extern)
-  2001/tcp: Homematic xmlrpc (Extern)
-  2010/tcp: HomematicIP xmlrpc (Extern)
-  80/tcp: ReGaHss Webinterface (Not required for Ingress)
 schema:
+  hmip_enable: bool
   hmip:
     - device: device
       type: match(HMIP_CCU2)
-  hmip_enable: bool
   regahss_reset: bool?
+  rf_enable: bool
   rf:
     - device: device
       reset: bool?
       type: match(CCU2)
-  rf_enable: bool
+  wired_enable: bool
   wired:
     - ip: str
       key: str
       serial: str
-  wired_enable: bool
 stage: deprecated
 startup: system
 timeout: 15

@@ -26,9 +26,9 @@ map:
   - backup:rw
   - media:rw
 options:
-  apks: []
   authorized_keys: []
   password: ""
+  apks: []
   server:
     tcp_forwarding: false
 panel_icon: mdi:console
@@ -36,11 +36,11 @@ panel_title: Terminal
 ports:
   22/tcp: null
 schema:
-  apks:
-    - str
   authorized_keys:
     - str
   password: password
+  apks:
+    - str
   server:
     tcp_forwarding: bool
 startup: services

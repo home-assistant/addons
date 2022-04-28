@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.0
+
+- Update base image to Alpine Linux 3.14
+- Update mosquitto to 2.0.11
+- Update nginx to 1.20.2
+
 ## 6.0.2
 
 - Mention homeassistant and addon users in ACL doc

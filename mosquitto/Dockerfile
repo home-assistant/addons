@@ -14,16 +14,16 @@ RUN apk add --no-cache \
         git \
         mosquitto-dev \
         openssl-dev \
+        go \
     \
     && git clone --depth 1 -b "${MOSQUITTO_AUTH_VERSION}" \
-        https://github.com/pvizeli/mosquitto-auth-plug \
+       https://github.com/iegomez/mosquitto-go-auth \
     \
-    && cd mosquitto-auth-plug \
-    && cp config.mk.in config.mk \
+    && cd mosquitto-go-auth \
     && make \
     && mkdir -p /usr/share/mosquitto \
-    && cp -f auth-plug.so /usr/share/mosquitto \
-    && cp -f np /usr/local/bin \
+    && cp -f go-auth.so /usr/share/mosquitto \
+    && cp -f pw /usr/local/bin \
     \
     && apk del --no-cache .build-dependencies \
     && rm -fr \

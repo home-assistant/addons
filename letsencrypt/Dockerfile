@@ -22,7 +22,8 @@ RUN \
         musl-dev \
         openssl-dev \
         cargo \
-    && pip3 install --no-cache-dir \
+    && pip3 install --no-cache-dir --only-binary=:all: --find-links \
+        "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \ 
         certbot==${CERTBOT_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudxns==${CERTBOT_VERSION} \

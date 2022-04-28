@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.2
+
+- Mention homeassistant and addon users in ACL doc
+
 ## 6.0.1
 
 - Fix loading custom mosquitto configuration

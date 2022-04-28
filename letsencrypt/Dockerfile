@@ -4,6 +4,7 @@ FROM $BUILD_FROM
 # setup base
 ARG \
     BUILD_ARCH \
+    CRYPTOGRAPHY_VERSION \
     CERTBOT_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_NETCUP_VERSION \
@@ -25,7 +26,7 @@ RUN \
         cargo \
     && pip3 install --no-cache-dir --find-links \
         "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \ 
-        cryptography==36.0.2 \
+        cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudxns==${CERTBOT_VERSION} \

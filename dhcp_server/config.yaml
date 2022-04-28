@@ -1,3 +1,4 @@
+---
 version: "1.2"
 slug: dhcp_server
 name: DHCP server

@@ -98,6 +98,7 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
+[discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [hsts]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
 [issue]: https://github.com/home-assistant/hassio-addons/issues

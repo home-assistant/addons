@@ -2,10 +2,9 @@
 
 ## 6.1.0
 
-- Update base image to Alpine Linux 3.14
 - Update mosquitto to 2.0.11
-- Update nginx to 1.20.2
-- Remove mosquitto-auth-plug and replace with mosquitto-go-auth 1.8.2
+- Remove `mosquitto-auth-plug` and replace with `mosquitto-go-auth` 1.8.2
+- Change base image from Alpine to Debian (required for `mosquitto-go-auth`)
 
 ## 6.0.2
 

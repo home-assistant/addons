@@ -20,6 +20,7 @@ RUN apk add --no-cache \
        https://github.com/iegomez/mosquitto-go-auth \
     \
     && cd mosquitto-go-auth \
+    && sed '/LDFLAGS :=/ s/$/ -Wl,-unresolved-symbols=ignore-all/' Makefile \
     && make \
     && mkdir -p /usr/share/mosquitto \
     && cp -f go-auth.so /usr/share/mosquitto \

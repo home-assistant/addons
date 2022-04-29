@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.6.1
+
+- Remove lo from interface list
+
 ## 9.6.0
 
 - Run on all supported interfaces

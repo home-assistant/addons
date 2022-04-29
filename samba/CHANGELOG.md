@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.6.1
+
+- Run on all supported interfaces plus the default interface if it is not part of the supported interfaces list
+
 ## 9.6.0
 
 - Run on all supported interfaces

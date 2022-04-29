@@ -25,13 +25,7 @@ for interface in $(bashio::network.interfaces); do
     interfaces+=("${interface}")
 done
 if [ ${#interfaces[@]} -eq 0 ]; then
-    bashio::log.fatal
-    bashio::log.fatal 'There are no supported interfaces to run Samba on.'
-    bashio::log.fatal
-    bashio::log.fatal 'Running Samba add-on on an unsupported installation'
-    bashio::log.fatal 'is not allowed.'
-    bashio::log.fatal
-    bashio::exit.nok
+    bashio::exit.nok 'No supported interfaces found to bind on.'
 fi
 bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 

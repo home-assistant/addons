@@ -36,6 +36,7 @@ RUN apt-get update \
         openssl \
         libssl-dev \
         golang-go \
+    && apt-get clean \
     && rm -fr \
         /etc/logrotate.d \
         /etc/mosquitto/* \
@@ -43,7 +44,8 @@ RUN apt-get update \
         /usr/share/nginx \
         /usr/src/mosquitto-go-auth \
         /var/lib/nginx/html \
-        /var/www
+        /var/www \
+        /var/lib/apt/lists/*
 
 # Copy rootfs
 COPY rootfs /

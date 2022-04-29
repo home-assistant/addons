@@ -11,6 +11,7 @@ persistence_location /data/
 # Authentication plugin
 auth_plugin /usr/share/mosquitto/go-auth.so
 auth_opt_backends files,http
+auth_opt_hasher pbkdf2
 auth_opt_cache true
 auth_opt_auth_cache_seconds 300
 auth_opt_auth_jitter_seconds 30

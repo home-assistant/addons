@@ -4,35 +4,44 @@ FROM $BUILD_FROM
 # Install mosquitto + auth plugin
 WORKDIR /usr/src
 ARG MOSQUITTO_AUTH_VERSION
-RUN apk add --no-cache \
+RUN apt-get update \
+    && apt-get install -qy --no-install-recommends \
         mosquitto \
         nginx \
         pwgen \
-    && apk add --no-cache --virtual .build-dependencies \
-        build-base \
-        curl-dev \
+        build-essential \
         git \
         mosquitto-dev \
-        openssl-dev \
-        go \
+        libmosquitto-dev \
+        openssl \
+        libssl-dev \
+        golang-go \
     \
     && git clone --depth 1 -b "${MOSQUITTO_AUTH_VERSION}" \
        https://github.com/iegomez/mosquitto-go-auth \
     \
     && cd mosquitto-go-auth \
+    && sed -i 's/-I\/usr\/local\/include/-I\/usr\/include/' Makefile \
     && sed -i 's/LDFLAGS := .*$/& -Wl,-unresolved-symbols=ignore-all/' Makefile \
     && make \
     && mkdir -p /usr/share/mosquitto \
     && cp -f go-auth.so /usr/share/mosquitto \
     && cp -f pw /usr/local/bin \
     \
-    && apk del --no-cache .build-dependencies \
+    && apt-get purge -y --auto-remove \
+        build-essential \
+        git \
+        mosquitto-dev \
+        libmosquitto-dev \
+        openssl \
+        libssl-dev \
+        golang-go \
     && rm -fr \
         /etc/logrotate.d \
         /etc/mosquitto/* \
         /etc/nginx/* \
         /usr/share/nginx \
-        /usr/src/mosquitto-auth-plug \
+        /usr/src/mosquitto-go-auth \
         /var/lib/nginx/html \
         /var/www
 

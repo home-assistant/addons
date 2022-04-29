@@ -3,6 +3,7 @@
 ## 9.6.1
 
 - Remove lo from interface list
+- Exit with error if there are no supported interfaces to run Samba on
 
 ## 9.6.0
 

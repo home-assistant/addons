@@ -4,7 +4,7 @@
 # ==============================================================================
 declare password
 declare username
-declare -a interfaces
+declare -a interfaces=()
 export HOSTNAME
 
 # Check Login data
@@ -24,6 +24,15 @@ bashio::log.info "Hostname: ${HOSTNAME}"
 for interface in $(bashio::network.interfaces); do
     interfaces+=("${interface}")
 done
+if [ ${#interfaces[@]} -eq 0 ]; then
+    bashio::log.fatal
+    bashio::log.fatal 'There are no supported interfaces to run Samba on.'
+    bashio::log.fatal
+    bashio::log.fatal 'Running Samba add-on on an unsupported installation'
+    bashio::log.fatal 'is not allowed.'
+    bashio::log.fatal
+    bashio::exit.nok
+fi
 bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 
 # Generate Samba configuration.

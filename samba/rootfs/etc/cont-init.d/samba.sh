@@ -4,7 +4,7 @@
 # ==============================================================================
 declare password
 declare username
-declare -a interfaces
+declare -a interfaces=()
 export HOSTNAME
 
 # Check Login data
@@ -24,7 +24,9 @@ bashio::log.info "Hostname: ${HOSTNAME}"
 for interface in $(bashio::network.interfaces); do
     interfaces+=("${interface}")
 done
-interfaces+=("lo")
+if [ ${#interfaces[@]} -eq 0 ]; then
+    bashio::exit.nok 'No supported interfaces found to bind on.'
+fi
 bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 
 # Generate Samba configuration.

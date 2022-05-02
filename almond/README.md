@@ -14,12 +14,7 @@ a Genie client in a separate smart-speaker device that connects to the
 add-on. See the [installation-guide](https://wiki.genie.stanford.edu/getting-started/installation-guide)
 for further details.
 
-**Note**: since version 2.0.0 of the add-on, the use of the separate
-Ada add-on is not required. Genie includes built-in voice capabilities,
-using the wake-word "hey genie". It is recommended to avoid using Ada
-with this add-on.
-
-[Almond]: https://almond.stanford.edu/
+[almond]: https://almond.stanford.edu/
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg

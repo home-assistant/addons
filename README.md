@@ -128,5 +128,5 @@ about developing an add-on, please see our
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/home-assistant/hassio-addons/issues
-[reddit]: https://reddit.com/r/homeassistant
-[dev-docs]: https://developers.home-assistant.io/docs/add-ons
+[reddit]: https://reddit.com/r/homeassistant/
+[dev-docs]: https://developers.home-assistant.io/docs/add-ons/

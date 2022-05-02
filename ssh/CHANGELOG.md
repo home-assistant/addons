@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.4.0
+
+- Upgrade Home Assistant CLI to 4.17.0
+- Enabled image signature
+
 ## 9.3.0
 
 - Update libwebsockets to 4.2.1
@@ -79,7 +84,6 @@
 - Update Home Assistant CLI to 4.4.0
 - Upgrade Alpine Linux to 3.12
 
-
 ## 8.6.0
 
 - Add support for local TCP forwarding
@@ -137,4 +141,3 @@
 - Improve Hass.io API token handling
 - Persist .ssh folder across restarts
 - Add helper symlink folders to user home folder
-

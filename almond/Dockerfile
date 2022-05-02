@@ -15,6 +15,7 @@ ARG \
     GENIE_CLIENT_VERSION \
     GENIE_SERVER_VERSION
 
+WORKDIR /usr/src
 RUN \
     set -x \
     && apt-get update \
@@ -53,7 +54,6 @@ RUN \
         nodejs \
     \
     # Install genie-client
-    && mkdir /src \
     && apt-get install -y --no-install-recommends \
         build-essential \
         pkg-config \
@@ -73,15 +73,14 @@ RUN \
         libspeexdsp-dev \
         libwebrtc-audio-processing-dev \
     && git clone \
-        "https://github.com/stanford-oval/genie-client" /src \
-    && cd /src \
+        "https://github.com/stanford-oval/genie-client" \
+    && cd genie-client \
     && git checkout ${GENIE_CLIENT_VERSION} \
     && git submodule init && git submodule update --recursive \
     && ./scripts/get-assets.sh ${BUILD_ARCH} \
     && meson build \
     && ninja -C build \
     && ninja -C build install \
-    && rm -rf /src \
     \
     # Install genie-server
     && mkdir /opt/genie-server \
@@ -117,6 +116,8 @@ RUN \
         /usr/local/share/.config \
         /var/lib/apt/lists/* \
         /usr/lib/nginx \
-        /var/www
+        /var/www \
+        /usr/src/*
 
+WORKDIR /
 COPY rootfs /

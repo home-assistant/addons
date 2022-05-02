@@ -1,8 +1,6 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-ARG BUILD_ARCH
-
 # Base env settings
 ENV \
     LANG="en_US.utf8" \
@@ -12,10 +10,13 @@ ENV \
     THINGENGINE_HOST_BASED_AUTHENTICATION=insecure \
     THINGENGINE_IN_HOME_ASSISTANT_ADDON=true
 
-ARG GENIE_CLIENT_VERSION
-ARG GENIE_SERVER_VERSION
+ARG \
+    BUILD_ARCH \
+    GENIE_CLIENT_VERSION \
+    GENIE_SERVER_VERSION
 
-RUN set -x \
+RUN \
+    set -x \
     && apt-get update \
     # Install runtime dependencies
     && apt-get install -y --no-install-recommends \
@@ -50,6 +51,7 @@ RUN set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         nodejs \
+    \
     # Install genie-client
     && mkdir /src \
     && apt-get install -y --no-install-recommends \
@@ -80,6 +82,7 @@ RUN set -x \
     && ninja -C build \
     && ninja -C build install \
     && rm -rf /src \
+    \
     # Install genie-server
     && mkdir /opt/genie-server \
     && cd /opt/genie-server \

@@ -14,7 +14,7 @@ a Genie client in a separate smart-speaker device that connects to the
 add-on. See the [installation-guide](https://wiki.genie.stanford.edu/getting-started/installation-guide)
 for further details.
 
-[almond]: https://almond.stanford.edu/
+[Genie]: https://genie.stanford.edu
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg

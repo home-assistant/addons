@@ -33,7 +33,6 @@ RUN apt-get update \
         git \
         mosquitto-dev \
         libmosquitto-dev \
-        openssl \
         libssl-dev \
         golang-go \
     && apt-get clean \

@@ -6,6 +6,10 @@
 - Remove `mosquitto-auth-plug` and replace with `mosquitto-go-auth` 1.8.2
 - Change base image from Alpine to Debian (required for `mosquitto-go-auth`)
 
+Note: Mosquitto 2.0.0 did contain some breaking changes. We don't anticipate
+most users to be affected by them but if you have a heavily customized mosquitto
+config we would advise reviewing [their changelog](https://mosquitto.org/ChangeLog.txt). 
+
 ## 6.0.2
 
 - Mention homeassistant and addon users in ACL doc

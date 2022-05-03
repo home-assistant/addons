@@ -45,7 +45,9 @@ RUN apt-get update \
         /usr/src/mosquitto-go-auth \
         /var/lib/nginx/html \
         /var/www \
-        /var/lib/apt/lists/*
+        /var/lib/apt/lists/* \
+	/root/.cache \
+	/root/go
 
 # Copy rootfs
 COPY rootfs /

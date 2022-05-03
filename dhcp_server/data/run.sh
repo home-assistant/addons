@@ -20,6 +20,15 @@ MAX_LEASE=$(bashio::config 'max_lease')
     echo "authoritative;"
 } > "${CONFIG}"
 
+# Create NTP Server List
+if [ "$(bashio::config 'ntp')" ]
+then
+	NTP=$(bashio::config 'ntp|join(", ")')
+    {
+        echo "option ntp-servers ${NTP};";
+    } >> "${CONFIG}"
+fi
+
 # Create networks
 for network in $(bashio::config 'networks|keys'); do
     BROADCAST=$(bashio::config "networks[${network}].broadcast")

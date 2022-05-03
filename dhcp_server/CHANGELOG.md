@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Add NTP server configuration option.
+
 ## 1.2
 
 - Fixes crash when using FQDN as domain

@@ -7,6 +7,7 @@ Follow these steps to get the add-on installed on your system:
 1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
 2. Find the "DHCP server" add-on and click it.
 3. Click on the "INSTALL" button.
+4. Modify configuration as needed
 
 ## How to use
 
@@ -26,6 +27,8 @@ domain: mynetwork.local
 dns:
   - 8.8.8.8
   - 8.8.4.4
+ntp:
+  - 192.168.1.0
 default_lease: 86400
 max_lease: 172800
 networks:
@@ -51,6 +54,11 @@ Your network domain name, e.g., `mynetwork.local` or `home.local`
 The DNS servers your DHCP server gives to your clients. This option can
 contain a list of servers. By default, it is configured to have Google's
 public DNS servers: `"8.8.8.8", "8.8.4.4".
+
+### Option `ntp` (required)
+
+The NTP servers your DHCP server gives to your clients.  This option can
+contain a list of server.  By default, none are configured ([])
 
 ### Option: `default_lease` (required)
 

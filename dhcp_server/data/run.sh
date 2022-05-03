@@ -21,7 +21,7 @@ MAX_LEASE=$(bashio::config 'max_lease')
 } > "${CONFIG}"
 
 # Create NTP Server List
-if [ $(bashio::config 'ntp') ]
+if [ "$(bashio::config 'ntp')" ]
 then
 	NTP=$(bashio::config 'ntp|join(", ")')
     {

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.1
+
+- Don't purge openssl in cleanup
+
 ## 6.1.0
 
 - Update mosquitto to 2.0.11

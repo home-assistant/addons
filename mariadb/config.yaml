@@ -1,3 +1,4 @@
+---
 version: 2.4.0
 slug: mariadb
 name: MariaDB
@@ -28,13 +29,14 @@ schema:
   databases:
     - str
   logins:
-    - password: password
-      username: str
+    - username: str
+      password: password
   rights:
     - database: str
       privileges:
-        - list(ALTER|CREATE|CREATE ROUTINE|CREATE TEMPORARY TABLES|CREATE VIEW|DELETE|DELETE
-          HISTORY|DROP|EVENT|GRANT OPTION|INDEX|INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?
+        - "list(ALTER|CREATE|CREATE ROUTINE|CREATE TEMPORARY TABLES|\
+          CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|\
+          INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
       username: str
 services:
   - mysql:provide

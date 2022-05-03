@@ -4,43 +4,46 @@ FROM ${BUILD_FROM}
 # Base env settings
 ENV \
     LANG="en_US.utf8" \
+    PULSE_SERVER=unix:/run/audio/pulse.sock \
     THINGENGINE_HOME="/data/almond-server" \
     THINGENGINE_HAS_REVERSE_PROXY=true \
     THINGENGINE_HOST_BASED_AUTHENTICATION=insecure \
     THINGENGINE_IN_HOME_ASSISTANT_ADDON=true
 
-WORKDIR /opt/almond
-ARG ALMOND_VERSION
+ARG \
+    BUILD_ARCH \
+    GENIE_CLIENT_VERSION \
+    GENIE_SERVER_VERSION
 
+WORKDIR /usr/src
 RUN \
     set -x \
     && apt-get update \
+    # Install runtime dependencies
     && apt-get install -y --no-install-recommends \
-        build-essential \
-        libcanberra-dev \
-        libcanberra0 \
-        libpulse-dev \
-        libatlas-base-dev \
-        libatlas3-base \
-        pkg-config \
-        ca-certificates \
-        git \
+        wget \
+        curl \
         gnupg \
-        nginx \
-        python-dev \
-        software-properties-common \
-        unzip \
-        sqlite \
-        coreutils \
         pulseaudio \
         pulseaudio-utils \
-        gettext \
+        libpulse0 \
+        libpulse-mainloop-glib0 \
+        libasound2 \
+        libjson-glib-1.0-0 \
+        libevdev2 \
+        libsoup2.4-1 \
+        libspeexdsp1 \
+        libwebrtc-audio-processing1 \
+        sound-theme-freedesktop \
+        unzip \
+        coreutils \
+        ca-certificates \
         zip \
-        wget \
+        nginx \
         gstreamer1.0-plugins-base-apps \
+        gstreamer1.0-plugins-base \
         gstreamer1.0-plugins-good \
         gstreamer1.0-pulseaudio \
-    \
     && curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key \
         | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_12.x buster main" \
@@ -50,39 +53,71 @@ RUN \
     && apt-get install -y --no-install-recommends \
         nodejs \
     \
+    # Install genie-client
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        pkg-config \
+        ninja-build \
+        git \
+        meson \
+        python-dev \
+        gettext \
+        libgstreamer1.0-dev \
+        libasound2-dev \
+        libglib2.0-dev \
+        libjson-glib-dev \
+        libsoup2.4-dev \
+        libevdev-dev \
+        libpulse-dev \
+        libspeex-dev \
+        libspeexdsp-dev \
+        libwebrtc-audio-processing-dev \
+    && git clone \
+        "https://github.com/stanford-oval/genie-client" \
+    && cd genie-client \
+    && git checkout ${GENIE_CLIENT_VERSION} \
+    && git submodule init && git submodule update --recursive \
+    && ./scripts/get-assets.sh ${BUILD_ARCH} \
+    && meson build \
+    && ninja -C build \
+    && ninja -C build install \
+    \
+    # Install genie-server
+    && mkdir /opt/genie-server \
+    && cd /opt/genie-server \
+    && apt-get install -y --no-install-recommends \
+    && git clone -b ${GENIE_SERVER_VERSION} --depth 1 https://github.com/stanford-oval/genie-server /opt/genie-server \
     && npm config set unsafe-perm \
-    \
-    && git clone -b "${ALMOND_VERSION}" --depth 1 https://github.com/stanford-oval/almond-server . \
     && npm ci \
-    && npm install --no-package-lock --ignore-scripts snowboy@1.3.1 \
-    && cd node_modules/snowboy/ \
-    && PYTHON=python2 npx node-pre-gyp clean configure \
-    && make -C build/ \
-    && rm -fr /root/.cache \
-    && rm -fr /root/.npm \
-    && mkdir /root/.cache \
-    \
     && apt-get purge -y --auto-remove \
         build-essential \
-        libcanberra-dev \
-        libpulse-dev \
-        libatlas-base-dev \
         pkg-config \
         git \
-        gnupg \
+        ninja-build \
+        meson \
         python-dev \
-        software-properties-common \
-    \
+        libpulse-dev \
+        libgstreamer1.0-dev \
+        libasound2-dev \
+        libglib2.0-dev \
+        libjson-glib-dev \
+        libsoup2.4-dev \
+        libevdev-dev \
+        libspeex-dev \
+        libspeexdsp-dev \
+        libwebrtc-audio-processing-dev \
     && rm -rf \
-        /opt/almond/.[!.]* \
+        /opt/genie-server/.[!.]* \
         /root/.cache \
         /root/.config \
         /tmp/.[!.]* \
         /tmp/* \
         /usr/local/share/.cache \
         /usr/local/share/.config \
-        /usr/lib/nginx \
         /var/lib/apt/lists/* \
-        /var/www
+        /usr/lib/nginx \
+        /var/www \
+        /usr/src/*
 
+WORKDIR /
 COPY rootfs /

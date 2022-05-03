@@ -1,3 +1,4 @@
+---
 build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:buster
   amd64: ghcr.io/home-assistant/amd64-base-debian:buster
@@ -6,4 +7,5 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  ALMOND_VERSION: v2.0.1
+  GENIE_SERVER_VERSION: v3.0.1
+  GENIE_CLIENT_VERSION: v0.1.0

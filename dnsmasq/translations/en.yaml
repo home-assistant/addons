@@ -1,0 +1,20 @@
+---
+configuration:
+  defaults:
+    name: Upstream Servers
+    description: The defaults are upstream DNS servers.
+  forwards:
+    name: Forwards
+    description: >-
+      This option allows you to list domain that are forwarded to a different
+      (not the default) upstream DNS server.
+  hosts:
+    name: Hosts
+    description: >-
+      This option allows you to provide local static answer for your DNS server.
+  services:
+    name: Services
+    description: This option allows you to provide srv-host records.
+network:
+  53/tcp: TCP port for DNS requests.
+  53/udp: UDP port for DNS requests.

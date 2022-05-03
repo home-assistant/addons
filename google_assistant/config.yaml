@@ -1,8 +1,10 @@
+---
 version: 2.5.0
 slug: google_assistant
 name: Google Assistant SDK
 description: A virtual personal assistant developed by Google
-url: https://github.com/home-assistant/hassio-addons/tree/master/google_assistant
+url: >-
+  https://github.com/home-assistant/hassio-addons/tree/master/google_assistant
 advanced: true
 arch:
   - armhf
@@ -14,20 +16,20 @@ init: false
 map:
   - share
 options:
+  project_id: null
   client_secrets: google_assistant.json
+  model_id: null
   feedback:
     enable: false
     volume: 80
-  model_id: null
-  project_id: null
 ports:
   9324/tcp: 9324
 schema:
+  project_id: str
   client_secrets: str
+  model_id: str
   feedback:
     enable: bool
     volume: int(0,100)
-  model_id: str
-  project_id: str
 stage: experimental
 webui: http://[HOST]:[PORT:9324]

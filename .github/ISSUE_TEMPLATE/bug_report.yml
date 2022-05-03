@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:line-length
 name: Bug Report Form
 description: Report an issue related to one of the official add-ons.
 body:

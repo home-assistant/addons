@@ -1,4 +1,5 @@
-version: 9.5.1
+---
+version: 9.6.1
 slug: samba
 name: Samba share
 description: Expose Home Assistant folders with SMB/CIFS
@@ -21,28 +22,28 @@ map:
   - backup:rw
   - media:rw
 options:
-  allow_hosts:
-    - 10.0.0.0/8
-    - 172.16.0.0/12
-    - 192.168.0.0/16
-    - fe80::/10
-  compatibility_mode: false
-  password: null
   username: homeassistant
+  password: null
+  workgroup: WORKGROUP
+  compatibility_mode: false
   veto_files:
     - ._*
     - .DS_Store
     - Thumbs.db
     - icon?
     - .Trashes
-  workgroup: WORKGROUP
-schema:
   allow_hosts:
-    - str
-  compatibility_mode: bool
-  password: password
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - fe80::/10
+schema:
   username: str
+  password: password
+  workgroup: str
+  compatibility_mode: bool
   veto_files:
     - str
-  workgroup: str
+  allow_hosts:
+    - str
 startup: services

@@ -1,0 +1,6 @@
+---
+configuration:
+  computers:
+    name: Computers
+    description: >-
+      A list of computer objects to be able to shutdown from Home-Assistant.

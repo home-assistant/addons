@@ -35,7 +35,7 @@ Home Assistant before using it with this add-on!
 ### Option: `tts` (required)
 
 The Home Assistant TTS (Text-to-Speech) integration to use when converting
-the response from Almond back to audio.
+the response from Almond to audio.
 
 Please note, this TTS integration has to be configured and active in
 Home Assistant before using it with this add-on!

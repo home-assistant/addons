@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.2
+
+- Add debug option to help with issues
+
 ## 6.1.1
 
 - Don't purge openssl in cleanup

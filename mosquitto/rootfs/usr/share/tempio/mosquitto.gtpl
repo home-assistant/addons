@@ -2,7 +2,7 @@ protocol mqtt
 user root
 log_dest stdout
 {{ if .debug }}
-log type all
+log_type all
 {{ else }}
 log_type error
 log_type warning

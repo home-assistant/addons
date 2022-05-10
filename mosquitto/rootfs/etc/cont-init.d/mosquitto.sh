@@ -79,6 +79,7 @@ bashio::var.json \
   keyfile "${keyfile}" \
   require_certificate "^$(bashio::config 'require_certificate')" \
   ssl "^${ssl}" \
+  debug "^$(bashio::config 'debug')" \
   | tempio \
     -template /usr/share/tempio/mosquitto.gtpl \
     -out /etc/mosquitto/mosquitto.conf

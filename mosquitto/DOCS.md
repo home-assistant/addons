@@ -80,6 +80,10 @@ A file containing the private key. Place this file in the Home Assistant `ssl` f
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
 
+### Option: `debug`
+
+If set to `true` turns on debug logging for mosquitto and its auth plugin. This an help when tracking down an issue however running with this long term is not recommended as sensitive information will be logged.
+
 ## Home Assistant user management
 
 This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Home Assistant ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.

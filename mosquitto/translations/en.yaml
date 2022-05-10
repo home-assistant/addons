@@ -29,6 +29,10 @@ configuration:
     name: Customize
     description: >-
       See the Documentation tab for more information about these options.
+  debug:
+    name: Debug
+    description: >-
+      If enabled will turn on debug logging for mosquitto and the auth plugin.
 network:
   1883/tcp: Normal MQTT
   1884/tcp: MQTT over WebSocket

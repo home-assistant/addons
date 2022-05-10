@@ -1,10 +1,14 @@
 protocol mqtt
 user root
 log_dest stdout
+{{ if .debug }}
+log_type all
+{{ else }}
 log_type error
 log_type warning
 log_type notice
 log_type information
+{{ end }}
 persistence true
 persistence_location /data/
 
@@ -17,7 +21,7 @@ auth_opt_auth_cache_seconds 300
 auth_opt_auth_jitter_seconds 30
 auth_opt_acl_cache_seconds 300
 auth_opt_acl_jitter_seconds 30
-auth_opt_log_level error
+auth_opt_log_level {{ if .debug }}debug{{ else }}error{{ end }}
 
 # HTTP backend for the authentication plugin
 auth_opt_files_password_path /etc/mosquitto/pw

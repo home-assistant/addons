@@ -461,6 +461,22 @@ dns-gandi
 dns-transip
 ```
 
+## Auto update with an automation
+
+By default you will need to manually run the Add-on when it is time to renew your certificate.
+
+You can avoid this by setting up an automation using time as the trigger and and Call service as the action. An example to achieve this once a day at a specific time is below:
+```
+alias: Update SSL when required to prevent a lock out
+trigger:
+  - platform: time
+    at: '23:59:15'
+action:
+  - service: hassio.addon_start
+    data:
+      addon: core_letsencrypt
+```
+  
 ## Support
 
 Got questions?

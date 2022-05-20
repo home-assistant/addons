@@ -11,6 +11,7 @@ arch:
   - aarch64
   - amd64
   - i386
+hassio_api: true
 image: homeassistant/{arch}-addon-duckdns
 map:
   - ssl:rw

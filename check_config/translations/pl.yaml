@@ -1,0 +1,7 @@
+---
+configuration:
+  version:
+    name: Wersja
+    description: >-
+      Wersja Home Assistanta do sprawdzenia. Możesz użyć `stable`,
+      `beta`, `dev` lub konkretną wersję

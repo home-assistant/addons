@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.60
+
+- Fix permissions issue with startup scripts
+
 ## 0.1.59
 
 - Bump Z-Wave JS to 9.3.0

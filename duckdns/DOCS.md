@@ -10,12 +10,16 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-1. Visit [DuckDNS.org](https://www.duckdns.org/) and create an account by logging in through any of the available account services (Google, Github, Twitter, Persona, Reddit).
+1. Visit [DuckDNS.org](https://www.duckdns.org/) and create an account by logging in through any of the available account services (Google, Github, Twitter, Persona).
 2. In the `Domains` section, type the name of the subdomain you wish to register and click `add domain`.
 3. If registration was a success, the subdomain is listed in the `Domains` section along with `current ip` being the public IP address of the device you are currently using to access `duckdns.org`. The IP address will be updated by the DuckDNS add-on.
 4. In the DuckDNS add-on configuration, perform the following:
-    - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from `duckdns.org` and paste into the `token` option.
+    - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from `duckdns.org` and paste into the `token` option.  Make sure there are no leading spaces when pasting this value (this **will** happen if you triple click to select the token on the duckdns page).
     - Update the `domains` option with the full domain name you registered. E.g., `my-domain.duckdns.org`.
+5. Copy the http configuration (listed below) into your configuration.yaml file.
+    - Double check you entered everything correctly with Developer Tools > YAML > Check Configuration
+       - If configuration is valid, click restart.
+    - You will need to change the browser link to https as the existing page will try to reload in http and fail to connect.
 
 ## Configuration
 

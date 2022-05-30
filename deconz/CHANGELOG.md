@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.14.1
+
+- Version bump to fix S6 service permissions
+
 ## 6.14.0
 
 - Bump deCONZ to 2.16.1

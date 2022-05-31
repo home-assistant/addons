@@ -25,12 +25,12 @@ configuration:
   ipv4:
     name: IPv4
     description: >-
-      By default, Duck DNS will auto detect your IPv4 address and use that. This
-      option allows you to override the auto-detection and specify an IPv4
-      address manually.
+      By default, DuckDNS will auto detect your IPv4 address and use that.
+      This option allows you to override the auto-detection and specify an
+      IPv4 address manually. The value 'none' disables IPv4 updates.
   ipv6:
     name: IPv6
     description: >-
-      By default, Duck DNS will auto detect your IPv6 address and use that. This
-      option allows you to override the auto-detection and specify an IPv6
-      address manually.
+      DuckDNS currently cannot auto-detect your IPv6 address. This option
+      allows to specify either 'default' or an interface name to use an IPv6
+      address of the host, alternatively you can input an address manually.

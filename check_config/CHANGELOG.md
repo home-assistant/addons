@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.10.1
+
+- Update base image to 2022.05.0
+
 ## 3.10.0
 
 - Update base image to 2022.02.0

@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.7.0
+
+- Upgrade Alpine Linux to 3.15
+
 ## 9.6.1
 
 - Remove lo from interface list

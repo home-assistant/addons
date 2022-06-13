@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.0
+
+- Upgrade Alpine Linux to 3.15
+- Sign add-on with Codenotary Community Attestation Service (CAS)
+
 ## 2.4.0
 
 - Add lock capabilities during snapshot

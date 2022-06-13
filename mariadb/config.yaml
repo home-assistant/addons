@@ -1,17 +1,18 @@
 ---
-version: 2.4.0
+version: 2.5.1
 slug: mariadb
 name: MariaDB
 description: A SQL database server
 url: https://github.com/home-assistant/hassio-addons/tree/master/mariadb
+codenotary: notary@home-assistant.io
 arch:
   - armhf
   - armv7
   - aarch64
   - amd64
   - i386
-backup_post: /bin/s6-svc -wd -d /run/s6/services/mariadb-lock/
-backup_pre: /bin/s6-svc -wU -u /run/s6/services/mariadb-lock/
+backup_post: /bin/s6-svc -wd -d /run/service/mariadb-lock/
+backup_pre: /bin/s6-svc -wU -u /run/service/mariadb-lock/
 image: homeassistant/{arch}-addon-mariadb
 init: false
 options:

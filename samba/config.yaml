@@ -1,9 +1,10 @@
 ---
-version: 9.6.1
+version: 9.7.0
 slug: samba
 name: Samba share
 description: Expose Home Assistant folders with SMB/CIFS
 url: https://github.com/home-assistant/hassio-addons/tree/master/samba
+codenotary: notary@home-assistant.io
 arch:
   - armhf
   - armv7

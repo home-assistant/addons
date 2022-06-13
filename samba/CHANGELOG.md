@@ -3,6 +3,7 @@
 ## 9.7.0
 
 - Upgrade Alpine Linux to 3.15
+- Sign add-on with Codenotary Community Attestation Service (CAS)
 
 ## 9.6.1
 

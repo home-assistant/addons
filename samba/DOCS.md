@@ -18,7 +18,7 @@ Follow these steps to get the add-on installed on your system:
 
 ## Connection
 
-If you are on Windows you use `\\<IP_ADDRESS>\`, if you are on MacOS you use `smb://<IP_ADDRESS>` to connect to the shares.
+If you are on Windows you use `\\<IP_ADDRESS>\` (Or make sure your host file has an entry `<homeassistant ip address>    HOMEASSISTANT`), if you are on MacOS you use `smb://<IP_ADDRESS>` to connect to the shares.
 
 This addon exposes the following directories over smb (samba):
 

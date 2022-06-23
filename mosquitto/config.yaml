@@ -47,3 +47,4 @@ services:
   - mqtt:provide
 startup: system
 watchdog: tcp://[HOST]:1883
+init: false

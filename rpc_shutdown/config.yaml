@@ -30,3 +30,4 @@ schema:
       message: str?
 startup: services
 stdin: true
+init: false

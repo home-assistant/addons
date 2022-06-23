@@ -46,3 +46,4 @@ schema:
 stage: deprecated
 startup: system
 timeout: 15
+init: false

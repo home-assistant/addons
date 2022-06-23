@@ -1,5 +1,5 @@
 ---
-version: 3.10.2
+version: 3.11.0
 slug: check_config
 name: Check Home Assistant configuration
 description: Check your Home Assistant configuration against other versions

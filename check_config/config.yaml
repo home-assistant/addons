@@ -23,5 +23,6 @@ options:
 schema:
   version: str
 startup: once
+stage: deprecated
 uart: true
 usb: true

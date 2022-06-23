@@ -20,11 +20,9 @@
    server min protocol = NT1
    {{ end }}
 
-   {{ if not .mangled_names }}
    mangled names = no
    dos charset = CP850
    unix charset = UTF-8
-   {{ end }}
 
 [config]
    browseable = yes

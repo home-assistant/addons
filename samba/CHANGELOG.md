@@ -4,9 +4,9 @@
 
 BREAKING CHANGE: Don't mangle filenames
 
-By default Samba mangles filenames with special characters to ensure
+By default, Samba mangles filenames with special characters to ensure
 compatibility with really old versions of Windows which have a very limited
-charset for filenames. The addon no longer does this as modern operating
+charset for filenames. The add-on no longer does this as modern operating
 systems do not have these restrictions.
 
 - Don't mangle filenames (fixes #2541)

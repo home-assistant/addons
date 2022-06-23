@@ -43,7 +43,6 @@ schema:
   password: password
   workgroup: str
   compatibility_mode: bool
-  mangled_names: bool?
   veto_files:
     - str
   allow_hosts:

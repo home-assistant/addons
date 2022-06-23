@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.2
+
+- Fix TLSv1.3 support
+
 ## 3.1.1
 
 - Hide server version banner

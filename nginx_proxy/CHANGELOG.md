@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.3
+
+- Reject SSL on unknown domains instead of responding with an invalid certificate
+
 ## 3.1.2
 
 - Fix TLSv1.3 support

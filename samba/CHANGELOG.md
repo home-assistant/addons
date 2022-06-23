@@ -1,5 +1,16 @@
 # Changelog
 
+## 10.0.0
+
+BREAKING CHANGE: Don't mangle names by default
+
+By default Samba mangles filenames with special characters to ensure
+compatibility with all possible clients (including really old versions
+of Windows). The default is changed to not do this anymore. If you
+need this behavior add `mangled_names: true` to the config.
+
+- Don't mangle names by default (fixes #2541)
+
 ## 9.7.0
 
 - Upgrade Alpine Linux to 3.15

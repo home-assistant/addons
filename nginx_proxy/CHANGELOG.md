@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.5
+
+- Fixed container environment
+
 ## 3.1.4
 
 - Fixed init config

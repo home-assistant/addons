@@ -20,6 +20,10 @@
    server min protocol = NT1
    {{ end }}
 
+   mangled names = no
+   dos charset = CP850
+   unix charset = UTF-8
+
 [config]
    browseable = yes
    writeable = yes

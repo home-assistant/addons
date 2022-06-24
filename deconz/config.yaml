@@ -12,6 +12,7 @@ arch:
   - aarch64
 backup_exclude:
   - "*/otau"
+codenotary: notary@home-assistant.io
 devices:
   - /dev/mem
 discovery:

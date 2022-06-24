@@ -10,6 +10,7 @@ arch:
   - armhf
   - armv7
   - aarch64
+codenotary: true
 discovery:
   - zwave_js
 hassio_api: true

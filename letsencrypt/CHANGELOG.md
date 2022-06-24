@@ -2,7 +2,7 @@
 
 ## 4.12.4
 
-- Fix syntax error in runs script for rfc2136
+- Fix syntax error in run script for rfc2136
 
 ## 4.12.3
 

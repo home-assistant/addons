@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.12.3
+- Fix the DNS propagation delay setting for the rfc2136 provider
+
 ## 4.12.2
 
 - Use HA wheels when possible during build

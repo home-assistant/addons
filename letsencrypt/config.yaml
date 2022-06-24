@@ -1,5 +1,5 @@
 ---
-version: 4.12.4
+version: 4.12.5
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt

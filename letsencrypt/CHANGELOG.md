@@ -1,6 +1,12 @@
 # Changelog
 
+## 4.12.4
+
+- Fix syntax error in runs script for rfc2136
+- Fix finish script for S6 V3
+
 ## 4.12.3
+
 - Fix the DNS propagation delay setting for the rfc2136 provider
 
 ## 4.12.2

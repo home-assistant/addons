@@ -1,5 +1,5 @@
 ---
-version: 0.1.63
+version: 0.1.64
 slug: zwave_js
 name: Z-Wave JS
 description: Control a ZWave network with Home Assistant Z-Wave JS
@@ -10,6 +10,7 @@ arch:
   - armhf
   - armv7
   - aarch64
+codenotary: notary@home-assistant.io
 discovery:
   - zwave_js
 hassio_api: true

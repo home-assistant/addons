@@ -1,5 +1,5 @@
 ---
-version: 6.14.1
+version: 6.14.2
 slug: deconz
 name: deCONZ
 description: >-
@@ -12,6 +12,7 @@ arch:
   - aarch64
 backup_exclude:
   - "*/otau"
+codenotary: notary@home-assistant.io
 devices:
   - /dev/mem
 discovery:

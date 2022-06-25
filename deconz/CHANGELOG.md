@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.14.2
+
+- Fix finish script for S6 V3
+
 ## 6.14.1
 
 - Version bump to fix S6 service permissions

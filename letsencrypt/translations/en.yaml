@@ -18,7 +18,7 @@ configuration:
     name: Challenge
     description: The type of challenge used to validate the domain.
   acme_root_ca_cert:
-    name: ACME Rott CA Certificate
+    name: ACME Root CA Certificate
     description: >-
       If your custom ACME server uses a certificate signed by an untrusted
       certificate authority (CA), you can add the root certificate to the trust

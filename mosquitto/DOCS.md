@@ -80,6 +80,10 @@ A file containing the private key. Place this file in the Home Assistant `ssl` f
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
 
+### Option: `debug`
+
+If set to `true` turns on debug logging for mosquitto and its auth plugin. This an help when tracking down an issue however running with this long term is not recommended as sensitive information will be logged.
+
 ## Home Assistant user management
 
 This add-on is attached to the Home Assistant user system, so MQTT clients can make use of these credentials. Local users may also still be set independently within the configuration options for the add-on. For the internal Home Assistant ecosystem, we register `homeassistant` and `addons`, so these may not be used as user names.
@@ -97,7 +101,9 @@ See the following links for more information:
 - [Mosquitto topic restrictions](http://www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/)
 - [Mosquitto.conf man page](https://mosquitto.org/man/mosquitto-conf-5.html)
 
-Add the following configuration to enable **unrestricted** access to all topics.
+Add the following configuration to enable **unrestricted** access to all topics for `[YOUR_MQTT_USER]`.
+
+**Note:** Home Assistant expects the users `homeassistant` and `addons` to have unrestricted readwrite access to all topics. If you choose to enable ACLs, you should grant this access to these users as demonstrated below. Otherwise you will run into issues.
 
 1. Enable the customize flag
 
@@ -116,6 +122,12 @@ Add the following configuration to enable **unrestricted** access to all topics.
 3. Create `/share/mosquitto/accesscontrollist` with the contents:
 
     ```text
+    user addons
+    topic readwrite #
+    
+    user homeassistant
+    topic readwrite #
+    
     user [YOUR_MQTT_USER]
     topic readwrite #
     ```

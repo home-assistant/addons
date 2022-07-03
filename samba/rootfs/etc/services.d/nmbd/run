@@ -4,5 +4,5 @@
 # ==============================================================================
 exec nmbd \
   --foreground \
-  --log-stdout \
+  --debug-stdout \
   --no-process-group

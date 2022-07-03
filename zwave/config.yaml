@@ -1,3 +1,4 @@
+---
 version: 0.9.1
 slug: zwave
 name: OpenZWave
@@ -24,9 +25,6 @@ panel_title: OpenZWave
 ports:
   1983/tcp: null
   5900/tcp: null
-ports_description:
-  1983/tcp: ozw-admin port
-  5900/tcp: VNC port
 schema:
   device: device(subsystem=tty)
   instance: int(1,)?

@@ -1,3 +1,4 @@
+---
 version: "2.2"
 slug: rpc_shutdown
 name: RPC Shutdown
@@ -29,3 +30,4 @@ schema:
       message: str?
 startup: services
 stdin: true
+init: false

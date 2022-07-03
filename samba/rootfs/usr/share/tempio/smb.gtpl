@@ -12,13 +12,17 @@
    log level = 2
 
    bind interfaces only = yes
-   interfaces = {{ .interface }}
+   interfaces = {{ .interfaces | join " " }}
    hosts allow = {{ .allow_hosts | join " " }}
 
    {{ if .compatibility_mode }}
    client min protocol = NT1
    server min protocol = NT1
    {{ end }}
+
+   mangled names = no
+   dos charset = CP850
+   unix charset = UTF-8
 
 [config]
    browseable = yes

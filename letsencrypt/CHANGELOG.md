@@ -1,5 +1,26 @@
 # Changelog
 
+## 4.12.5
+
+- Fix another syntax error in runs script for rfc2136
+
+## 4.12.4
+
+- Fix syntax error in runs script for rfc2136
+- Fix finish script for S6 V3
+
+## 4.12.3
+
+- Fix the DNS propagation delay setting for the rfc2136 provider
+
+## 4.12.2
+
+- Use HA wheels when possible during build
+
+## 4.12.1
+
+- Set preferred chain to "ISRG Root X1"
+
 ## 4.12.0
 
 - Update Certbot 1.21.0 & Plugins

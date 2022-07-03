@@ -1,5 +1,26 @@
 # Changelog
 
+## 6.14.2
+
+- Fix finish script for S6 V3
+
+## 6.14.1
+
+- Version bump to fix S6 service permissions
+
+## 6.14.0
+
+- Bump deCONZ to 2.16.1
+
+## 6.13.0
+
+- Bump deCONZ to 2.15.3
+
+## 6.12.1
+
+- Fix Phoscon App gateway discovery with FQDN over Ingress
+- Improve Phoscon App subnet probing block when using Ingress
+
 ## 6.12.0
 
 - Bump deCONZ to 2.14.1

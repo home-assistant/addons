@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.1.5
+
+- Fixed container environment
+
+## 3.1.4
+
+- Fixed init config
+
+## 3.1.3
+
+- Reject SSL on unknown domains instead of responding with an invalid certificate
+
+## 3.1.2
+
+- Fix TLSv1.3 support
+
 ## 3.1.1
 
 - Hide server version banner

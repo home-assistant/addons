@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:truthy
 name: Lint
 
 env:
@@ -29,17 +31,15 @@ jobs:
               hadolint/hadolint:${{ env.HADOLINT_VERSION }} < "$dockerfile"
           done
 
-  jq:
+  yamllint:
     runs-on: ubuntu-latest
-    name: JQ
+    name: YAMLLint
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Run linter
-        run: |
-          shopt -s globstar
-          cat **/*.json | jq '.'
+      - name: Run YAMLLint
+        uses: frenck/action-yamllint@v1.1
 
   shellcheck:
     runs-on: ubuntu-latest

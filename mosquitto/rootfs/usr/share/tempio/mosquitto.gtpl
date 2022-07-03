@@ -1,29 +1,34 @@
 protocol mqtt
 user root
 log_dest stdout
+{{ if .debug }}
+log_type all
+{{ else }}
 log_type error
 log_type warning
 log_type notice
 log_type information
+{{ end }}
 persistence true
 persistence_location /data/
 
 # Authentication plugin
-auth_plugin /usr/share/mosquitto/auth-plug.so
+auth_plugin /usr/share/mosquitto/go-auth.so
 auth_opt_backends files,http
+auth_opt_hasher pbkdf2
 auth_opt_cache true
-auth_opt_auth_cacheseconds 300
-auth_opt_auth_cachejitter 30
-auth_opt_acl_cacheseconds 300
-auth_opt_acl_cachejitter 30
-auth_opt_log_quiet true
+auth_opt_auth_cache_seconds 300
+auth_opt_auth_jitter_seconds 30
+auth_opt_acl_cache_seconds 300
+auth_opt_acl_jitter_seconds 30
+auth_opt_log_level {{ if .debug }}debug{{ else }}error{{ end }}
 
 # HTTP backend for the authentication plugin
-auth_opt_password_file /etc/mosquitto/pw
-auth_opt_acl_file /etc/mosquitto/acl
+auth_opt_files_password_path /etc/mosquitto/pw
+auth_opt_files_acl_path /etc/mosquitto/acl
 
 # HTTP backend for the authentication plugin
-auth_opt_http_ip 127.0.0.1
+auth_opt_http_host 127.0.0.1
 auth_opt_http_port 80
 auth_opt_http_getuser_uri /authentication
 auth_opt_http_superuser_uri /superuser

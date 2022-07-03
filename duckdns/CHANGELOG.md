@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.0
+
+- Use Supervisor API to detect IPv6 host addresses, selectable by interface
+- Split IPv4 and IPv6 updates as duckdns skips v4 detection with v6 present
+- Fix misleading help text regarding IPv6 address autodetection
+- Disable Docker default system init for S6 update
+
 ## 1.14.0
 
 - Add option to specify algorithm used for SSL certificates

@@ -96,6 +96,10 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-njalla:dns-njalla" "--certbot-dns-njalla:dns-njalla-credentials" /data/dnsapikey "--certbot-dns-njalla:dns-njalla-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# rfc2136
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-rfc2136" ]; then
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 #All others
 else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)
@@ -123,12 +127,14 @@ if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}"
+        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
+        --preferred-chain "ISRG Root X1"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone
+        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
+        --preferred-chain "ISRG Root X1"
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store

@@ -1,3 +1,4 @@
+---
 build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:buster
   amd64: ghcr.io/home-assistant/amd64-base-debian:buster
@@ -6,4 +7,4 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  DECONZ_VERSION: 2.14.01
+  DECONZ_VERSION: 2.16.01

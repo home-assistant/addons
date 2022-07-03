@@ -1,0 +1,23 @@
+---
+configuration:
+  username:
+    name: Username
+    description: >-
+      The username you would like to use to authenticate with the Samba server.
+  password:
+    name: Password
+    description: >-
+      The password that goes with the username configured for authentication.
+  workgroup:
+    name: Workgroup
+    description: Change WORKGROUP to reflect your network needs.
+  compatibility_mode:
+    name: Enable Compatibility Mode
+    description: >-
+      Enable this to use old legacy Samba protocols on the Samba add-on.
+  veto_files:
+    name: Veto Files
+    description: List of files that are neither visible nor accessible.
+  allow_hosts:
+    name: Allowed Hosts
+    description: List of hosts/networks allowed to access the shared folders.

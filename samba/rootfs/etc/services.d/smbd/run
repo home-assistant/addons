@@ -4,5 +4,5 @@
 # ==============================================================================
 exec smbd \
   --foreground \
-  --log-stdout \
+  --debug-stdout \
   --no-process-group

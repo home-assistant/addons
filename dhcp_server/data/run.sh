@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/with-contenv bashio
 set -e
 
 CONFIG="/etc/dhcpd.conf"
@@ -19,6 +19,15 @@ MAX_LEASE=$(bashio::config 'max_lease')
     echo "max-lease-time ${MAX_LEASE};"
     echo "authoritative;"
 } > "${CONFIG}"
+
+# Create NTP Server List
+if [ "$(bashio::config 'ntp')" ]
+then
+	NTP=$(bashio::config 'ntp|join(", ")')
+    {
+        echo "option ntp-servers ${NTP};";
+    } >> "${CONFIG}"
+fi
 
 # Create networks
 for network in $(bashio::config 'networks|keys'); do

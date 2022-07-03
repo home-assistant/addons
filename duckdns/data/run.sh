@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/with-contenv bashio
 
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
@@ -68,10 +68,33 @@ while true; do
     [[ ${IPV4} != *:/* ]] && ipv4=${IPV4} || ipv4=$(curl -s -m 10 "${IPV4}")
     [[ ${IPV6} != *:/* ]] && ipv6=${IPV6} || ipv6=$(curl -s -m 10 "${IPV6}")
 
-    if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-        bashio::log.info "${answer}"
-    else
-        bashio::log.warning "${answer}"
+    # Get IPv6-address from host interface
+    if [[ -n "$IPV6" && ${ipv6} != *:* ]]; then
+        ipv6=
+        bashio::cache.flush_all
+        for addr in $(bashio::network.ipv6_address "$IPV6"); do
+	    # Skip non-global addresses
+	    if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
+              ipv6=${addr%/*}
+              break
+            fi
+        done
+    fi
+
+    if [[ ${ipv6} == *:* ]]; then
+        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+            bashio::log.info "${answer}"
+        else
+            bashio::log.warning "${answer}"
+        fi
+    fi
+
+    if [[ -z ${ipv4} || ${ipv4} == *.* ]]; then
+        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+            bashio::log.info "${answer}"
+        else
+            bashio::log.warning "${answer}"
+        fi
     fi
 
     now="$(date +%s)"

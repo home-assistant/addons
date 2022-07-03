@@ -1,5 +1,31 @@
 # Changelog
 
+## 10.0.0
+
+BREAKING CHANGE: Don't mangle filenames
+
+By default, Samba mangles filenames with special characters to ensure
+compatibility with really old versions of Windows which have a very limited
+charset for filenames. The add-on no longer does this as modern operating
+systems do not have these restrictions.
+
+- Don't mangle filenames (fixes #2541)
+- Upgrade Alpine Linux to 3.16
+
+## 9.7.0
+
+- Upgrade Alpine Linux to 3.15
+- Sign add-on with Codenotary Community Attestation Service (CAS)
+
+## 9.6.1
+
+- Remove lo from interface list
+- Exit with error if there are no supported interfaces to run Samba on
+
+## 9.6.0
+
+- Run on all supported interfaces
+
 ## 9.5.1
 
 - Add `hassio_api` to add-on configuration

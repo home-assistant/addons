@@ -15,7 +15,7 @@ image: homeassistant/{arch}-addon-nginx_proxy
 init: false
 map:
   - ssl
-  - share
+  - share:rw
 options:
   domain: null
   hsts: max-age=31536000; includeSubDomains

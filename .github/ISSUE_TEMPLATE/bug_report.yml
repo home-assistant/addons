@@ -30,7 +30,7 @@ body:
     attributes:
       label: What type of installation are you running?
       description: >
-        If you don't know, you can find it in: [Configuration panel -> Info](https://my.home-assistant.io/redirect/info/).
+        If you don't know, you can find it in: [Settings panel -> System -> System health](https://my.home-assistant.io/redirect/system_health/).
       options:
         - Home Assistant OS
         - Home Assistant Supervised

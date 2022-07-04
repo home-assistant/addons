@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.15.0
+
+- Bump deCONZ to 2.17.1
+
 ## 6.14.2
 
 - Fix finish script for S6 V3

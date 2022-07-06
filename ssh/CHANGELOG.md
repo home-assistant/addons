@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.5.0
+
+- Upgrade Home Assistant CLI to 4.18.0
+- Upgrade to Alpine 3.16
+- Refactor out usage of fix-attrs for s6 v3
+
 ## 9.4.0
 
 - Upgrade Home Assistant CLI to 4.17.0

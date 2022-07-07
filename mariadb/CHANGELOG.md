@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0
+
+- Update alpine to 3.16 and s6 to v3
+
 ## 2.4.0
 
 - Add lock capabilities during snapshot

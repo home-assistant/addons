@@ -1,4 +1,0 @@
-/usr/bin/hassio false root 0755 0755
-/usr/bin/ha false root 0755 0755
-/usr/local/bin/reboot false root 0755 0755
-/usr/local/bin/shutdown false root 0755 0755

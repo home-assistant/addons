@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.1
+
+- Remove deprecated `innodb-buffer-pool-instances`
+
 ## 2.5.0
 
 - Update alpine to 3.16 and s6 to v3

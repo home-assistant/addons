@@ -107,12 +107,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
 
     export AZURE_CREDS
     if [ -f "/share/${AZURE_CREDS}" ]; then
-      cp -f "/share/${AZURE_CREDS}" "/data/${AZURE_CREDS}"
-      chmod 600 "/data/${AZURE_CREDS}"
+      cp -f "/share/${AZURE_CREDS}" "/data/azure_creds"
+      chmod 600 "/data/azure_creds"
     else
       bashio::log.info "Azure credentials file doesn't exist in folder share."
     fi
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-config" "/data/${AZURE_CREDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-config" "/data/azure_creds")
 
 #All others
 else

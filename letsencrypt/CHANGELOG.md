@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.6
+
+- Add Azure DNS challenge support
+
 ## 4.12.5
 
 - Fix another syntax error in runs script for rfc2136

@@ -46,6 +46,7 @@ In addition add the fields according to the credentials required by your DNS pro
 
 ```yaml
 propagation_seconds: 60
+azure_config: ''
 cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
@@ -144,6 +145,38 @@ transip_api_key: ''
     cloudflare_email: your.email@example.com
     cloudflare_api_key: 31242lk3j4ljlfdwsjf0
   ```
+
+</details>
+
+
+<details>
+  <summary>Azure DNS challenge</summary>
+
+```yaml
+email: your.email@example.com
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-azure
+  azure_creds: azure.txt
+```
+
+Please copy your credentials file "azure.txt" into the "share" shared folder
+on the Home Assistant host before starting the service. One way is to use the
+"Samba" add on to make the folder available via network or SSH Add-on. You
+can find information on the required file format in the [documentation][certbot-dns-azure-conf]
+for the Certbot Azure plugin.
+
+To use this plugin, [create an Azure Active Directory app registration][aad-appreg]
+and service principal; add a client secret; and create a credentials file
+using the above directions. Grant the app registration DNS Zone Contributor
+on the DNS zone to be used for authentication.
+
+[aad-appreg]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal
+[certbot-dns-azure-conf]: https://certbot-dns-azure.readthedocs.io/en/latest/#configuration
 
 </details>
 
@@ -440,6 +473,7 @@ You can in addition find the files via the "samba" addon within the "ssl" share.
 ## Supported DNS providers
 
 ```txt
+dns-azure
 dns-cloudflare
 dns-cloudxns
 dns-digitalocean

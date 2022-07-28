@@ -6,6 +6,7 @@ ARG \
     BUILD_ARCH \
     CRYPTOGRAPHY_VERSION \
     CERTBOT_VERSION \
+    CERTBOT_DNS_AZURE_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
@@ -28,6 +29,7 @@ RUN \
         "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \ 
         cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
+        certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudxns==${CERTBOT_VERSION} \
         certbot-dns-digitalocean==${CERTBOT_VERSION} \

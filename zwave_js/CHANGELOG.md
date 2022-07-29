@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.65
+
+- Bump Z-Wave JS Server to 1.21.0
+- Bump Z-Wave JS to 9.6.2
+
 ## 0.1.64
 
 - Fix finish script for S6 V3

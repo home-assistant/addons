@@ -161,10 +161,10 @@ keyfile: privkey.pem
 challenge: dns
 dns:
   provider: dns-azure
-  azure_creds: azure.txt
+  azure_config: azure.txt
 ```
 
-Please copy your credentials file "azure.txt" into the "share" shared folder
+Please copy your credentials file ("azure.txt" in this example) into the "share" shared folder
 on the Home Assistant host before starting the service. One way is to use the
 "Samba" add on to make the folder available via network or SSH Add-on. You
 can find information on the required file format in the [documentation][certbot-dns-azure-conf]

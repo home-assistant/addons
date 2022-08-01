@@ -116,7 +116,7 @@ The name to resolve.
 
 #### Option: `cnames.target`
 
-The target name.
+The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
 
 ## Support
 

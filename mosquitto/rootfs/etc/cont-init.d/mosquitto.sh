@@ -78,6 +78,7 @@ bashio::var.json \
   customize_folder "$(bashio::config 'customize.folder')" \
   keyfile "${keyfile}" \
   require_certificate "^$(bashio::config 'require_certificate')" \
+  use_identity_as_username "^$(bashio::config 'use_identity_as_username')" \
   ssl "^${ssl}" \
   debug "^$(bashio::config 'debug')" \
   | tempio \

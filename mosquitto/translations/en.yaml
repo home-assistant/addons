@@ -33,6 +33,12 @@ configuration:
     name: Debug
     description: >-
       If enabled will turn on debug logging for mosquitto and the auth plugin.
+  use_identity_as_username:
+    name: Use identity as username
+    description: >-
+      If this and `require_certificate` are enabled then the CN from the client
+      certificate will be used as the username instead of requiring a username
+      and password.
 network:
   1883/tcp: Normal MQTT
   1884/tcp: MQTT over WebSocket

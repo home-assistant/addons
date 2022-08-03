@@ -82,7 +82,7 @@ If set to `true` encryption will be enabled using the cert- and keyfile options.
 
 ### Option: `use_identity_as_username`
 
-If set to `true` and `require_certificate` is `true` then the identity from the client certificate will be used as the username instead of requiring a username and password to authenticate.
+If set to `true` and `require_certificate` is `true` then the CN from the client certificate will be used as the username instead of requiring a username and password.
 
 ### Option: `debug`
 

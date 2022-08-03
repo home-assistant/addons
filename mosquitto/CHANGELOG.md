@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.0
+
+- Add `use_identity_as_username` option
+
 ## 6.1.3
 
 - Change timestamp format in logs

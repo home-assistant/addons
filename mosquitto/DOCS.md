@@ -80,6 +80,10 @@ A file containing the private key. Place this file in the Home Assistant `ssl` f
 
 If set to `true` encryption will be enabled using the cert- and keyfile options.
 
+### Option: `use_identity_as_username`
+
+If set to `true` and `require_certificate` is `true` then the identity from the client certificate will be used as the username instead of requiring a username and password to authenticate.
+
 ### Option: `debug`
 
 If set to `true` turns on debug logging for mosquitto and its auth plugin. This an help when tracking down an issue however running with this long term is not recommended as sensitive information will be logged.

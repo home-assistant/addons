@@ -1,5 +1,5 @@
 ---
-version: 6.1.3
+version: 6.2.0
 slug: mosquitto
 name: Mosquitto broker
 description: An Open Source MQTT broker
@@ -39,6 +39,7 @@ schema:
   certfile: str
   cafile: str?
   keyfile: str
+  use_identity_as_username: bool?
   customize:
     active: bool
     folder: str

@@ -162,18 +162,21 @@ challenge: dns
 dns:
   provider: dns-azure
   azure_creds: azure.txt
+  azure_config: azure.txt
 ```
 
-Please copy your credentials file "azure.txt" into the "share" shared folder
+Please copy your configuratino file "azure.txt" into the "share" shared folder
 on the Home Assistant host before starting the service. One way is to use the
 "Samba" add on to make the folder available via network or SSH Add-on. You
 can find information on the required file format in the [documentation][certbot-dns-azure-conf]
 for the Certbot Azure plugin.
 
-To use this plugin, [create an Azure Active Directory app registration][aad-appreg]
-and service principal; add a client secret; and create a credentials file
-using the above directions. Grant the app registration DNS Zone Contributor
-on the DNS zone to be used for authentication.
+To use this plugin:
+1. Use the following microsoft article to do the following
+  1. Create an Azure Active Directory app registration
+  1. Create a Service Principal/Secret in the App Registration
+  1. Grant the app registration the role "DNS Zone Contributor" on the subscription the DNS zone exists in to be used for authentication.
+1. Create a configuration file using the [Certbot Azure Configuration Page][certbot-dns-azure-conf]. 
 
 [aad-appreg]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal
 [certbot-dns-azure-conf]: https://certbot-dns-azure.readthedocs.io/en/latest/#configuration

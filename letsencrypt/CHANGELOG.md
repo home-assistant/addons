@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.13.0
+
+- Add support for IONOS DNS
+
 ## 4.12.6
 
 - Add Azure DNS challenge support

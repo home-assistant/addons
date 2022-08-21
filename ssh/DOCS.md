@@ -47,6 +47,7 @@ Enabling login via password will disable key-based login. You can not run both v
 Add-on configuration:
 
 ```yaml
+# /data/options.json
 authorized_keys:
   - "ssh-rsa AKDJD3839...== my-key"
 password: ''

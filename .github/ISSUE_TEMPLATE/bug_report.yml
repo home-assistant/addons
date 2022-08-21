@@ -105,7 +105,7 @@ body:
     attributes:
       label: Anything in the Supervisor logs that might be useful for us?
       description: >
-        The Supervisor logs can be found in the [Supervisor panel -> System tab](https://my.home-assistant.io/redirect/supervisor_info/).
+        The Supervisor logs can be found in the [Settings panel -> System -> Logs -> Supervisor](https://my.home-assistant.io/redirect/logs/).
       render: txt
 
   - type: textarea

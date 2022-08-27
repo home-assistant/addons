@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.66
+
+- Bump Z-Wave JS Server to 1.22.0
+- Bump Z-Wave JS to 10.0.0
+
 ## 0.1.65
 
 - Bump Z-Wave JS Server to 1.21.0

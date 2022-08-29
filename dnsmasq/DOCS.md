@@ -106,6 +106,18 @@ The priority for the service.
 
 The weight for the service.
 
+### Option: `cnames` (optional)
+
+This option allows you to provide cname records.
+
+#### Option: `cnames.name`
+
+The name to resolve.
+
+#### Option: `cnames.target`
+
+The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
+
 ## Support
 
 Got questions?

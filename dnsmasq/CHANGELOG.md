@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0
+
+- Adds support for CNAME records
+
 ## 1.4.4
 
 - Make it align to our base profile

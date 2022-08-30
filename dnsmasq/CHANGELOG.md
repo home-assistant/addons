@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.1
+
+- Default cnames to empty array
+
 ## 1.5.0
 
 - Adds support for CNAME records

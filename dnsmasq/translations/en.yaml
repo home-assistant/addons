@@ -15,6 +15,9 @@ configuration:
   services:
     name: Services
     description: This option allows you to provide srv-host records.
+  cnames:
+    name: Cnames
+    description: Provide cname records for DNSMasq to resolve.
 network:
   53/tcp: TCP port for DNS requests.
   53/udp: UDP port for DNS requests.

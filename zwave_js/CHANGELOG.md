@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.67
+
+- [Bump Z-Wave JS to 10.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.0.2)
+
 ## 0.1.66
 
 - Bump Z-Wave JS Server to 1.22.1

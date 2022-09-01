@@ -60,6 +60,7 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 google_creds: ''
+hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
 linode_key: ''
@@ -505,6 +506,7 @@ dns-dnsmadeeasy
 dns-gehirn
 dns-google
 dns-ionos
+dns-hetzner
 dns-linode
 dns-luadns
 dns-njalla

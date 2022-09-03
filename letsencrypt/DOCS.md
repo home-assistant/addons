@@ -162,7 +162,7 @@ keyfile: privkey.pem
 challenge: dns
 dns:
   provider: dns-azure
-  azure_creds: azure.txt
+  azure_config: azure.txt
 ```
 
 Please copy your credentials file "azure.txt" into the "share" shared folder

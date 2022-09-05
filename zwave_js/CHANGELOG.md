@@ -2,7 +2,8 @@
 
 ## 0.1.69
 
-- Use edge version of NodeJS
+- Use edge version of NodeJS (16.17.0)
+- Bump Alpine to 3.16
 
 ## 0.1.68
 

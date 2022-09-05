@@ -11,7 +11,7 @@ RUN \
     && echo "@edge https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && apk add --no-cache \
         nodejs@edge \
-        npm@edge \
+        npm \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         git \

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.69
+
+- Use edge version of NodeJS (16.17.0)
+- Bump Alpine to 3.16
+
 ## 0.1.68
 
 - [Bump Z-Wave JS to 10.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.0.3)

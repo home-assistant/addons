@@ -8,10 +8,10 @@ ARG ZWAVEJS_VERSION
 WORKDIR /usr/src
 RUN \
     set -x \
-    && echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
+    && echo "@edge https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && apk add --no-cache \
         nodejs@edge \
-        npm \
+        npm@edge \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
         git \

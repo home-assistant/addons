@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.70
+
+- [Bump Z-Wave JS to 10.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.0.4)
+
 ## 0.1.69
 
 - Use edge version of NodeJS (16.17.0)

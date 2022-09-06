@@ -10,4 +10,4 @@ codenotary:
   base_image: notary@home-assistant.io
 args:
   ZWAVEJS_SERVER_VERSION: 1.22.1
-  ZWAVEJS_VERSION: 10.0.3
+  ZWAVEJS_VERSION: 10.0.4

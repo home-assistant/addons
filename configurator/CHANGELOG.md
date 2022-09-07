@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.4.0
+
+- Add Generate UUID menu item
+- Harmonize Home Assistant term
+- Rename Components to integrations
+- Remove images for libraries
+- Update jQuery to 3.6.0
+- Update js-yaml to 4.1.0
+- Update Ace Editor to 1.9.6
+
 ## 5.3.3
 
 - Fix Home Assistant API endpoint

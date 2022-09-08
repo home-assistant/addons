@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.4.1
+
+- Bugfix: Disable Ace-internal yaml-linting
+- Disable internal check for new releases
+
 ## 5.4.0
 
 - Add Generate UUID menu item

@@ -9,4 +9,4 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  CONFIGURATOR_VERSION: 0.5.0
+  CONFIGURATOR_VERSION: 0.5.1

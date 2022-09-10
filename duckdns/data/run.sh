@@ -34,12 +34,37 @@ function le_renew() {
 
     bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${uniq_sorted_aliases}")"
 
-
-    for domain in $(echo "${domains}" "${uniq_sorted_aliases}" | tr ' ' '\n' | uniq | tr '\n' ' '); do
-        domain_args+=("--domain" "${domain}")
+    # If we have a duckdns.org certificate already, check the domain names are still the same and the cert is still valid.
+    for domain in ${domains}; do
+        cert="${CERT_DIR}/${domain}/cert.pem"
+        if [ -f "${cert}" ]; then
+            bashio::log.info "Checking existing cert..."
+            certnames="$(openssl x509 -in "${cert}" -text -noout | grep DNS: | sed 's/DNS://g' | tr -d ' ' | tr ',' '\n' | sort | tr '\n' ' ' | sed 's/ $//')"
+            givennames="$(echo "${domain}" "${uniq_sorted_aliases}"| tr ' ' '\n' | sort | tr '\n' ' ' | sed 's/ $//' | sed 's/^ //')"
+            if [ "${certnames}" != "${givennames}" ]; then
+                bashio::log.info "Certificate names do not match, requesting new certificate."
+                issue_cert=1
+            fi
+            if ! (openssl x509 -checkend $((30 * 86400)) -noout -in "${cert}" > /dev/null 2>&1); then
+                bashio::log.info "Certificate is due for renewal, auto-renewing."
+                issue_cert=1
+            fi
+        else
+            bashio::log.info "No certificate found for ${domain}, requesting new certificate."
+            issue_cert=1
+        fi
     done
 
-    dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
+    if [ -n "${issue_cert:-}" ]; then
+        # Order is important as we want the duckdns.org domain to be first
+        for domain in $(echo "${domains}" "${uniq_sorted_aliases}" | tr ' ' '\n' | uniq | tr '\n' ' '); do
+            domain_args+=("--domain" "${domain}")
+            dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
+        done
+    else
+        bashio::log.info "Skipping renew!"
+    fi
+
     LE_UPDATE="$(date +%s)"
 }
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.16.0
+
+- Fix certificate renewals with aliases that would fail with "Incorrect TXT record" - <https://github.com/home-assistant/addons/issues/2505>
+- Improve the output from the hooks that set and remove the challenge tokens
+- Fix the behaviour where an invalid domain was always set when initially configuring the addon
+
 ## 1.15.0
 
 - Use Supervisor API to detect IPv6 host addresses, selectable by interface

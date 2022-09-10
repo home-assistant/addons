@@ -17,8 +17,7 @@ image: homeassistant/{arch}-addon-duckdns
 map:
   - ssl:rw
 options:
-  domains:
-    - null
+  domains: []
   token: null
   aliases: []
   lets_encrypt:

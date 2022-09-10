@@ -18,22 +18,24 @@ ALGO=$(bashio::config 'lets_encrypt.algo')
 function le_renew() {
     local domain_args=()
     local domains=''
-    local aliases=''
+    local aliases=()
+    local uniq_sorted_aliases=''
 
     domains=$(bashio::config 'domains')
 
     # Prepare domain for Let's Encrypt
     for domain in ${domains}; do
         for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
-            aliases="${aliases} ${alias}"
+            aliases+=("${alias}")
         done
     done
 
-    aliases="$(echo "${aliases}" | tr ' ' '\n' | sort | uniq)"
+    uniq_sorted_aliases="$(echo "${aliases[@]}" | tr ' ' '\n' | sort | uniq | tr '\n' ' ')"
 
-    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
+    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${uniq_sorted_aliases}")"
 
-    for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
+
+    for domain in $(echo "${domains}" "${uniq_sorted_aliases}" | tr ' ' '\n' | uniq | tr '\n' ' '); do
         domain_args+=("--domain" "${domain}")
     done
 

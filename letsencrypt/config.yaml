@@ -1,5 +1,5 @@
 ---
-version: 4.12.7
+version: 4.12.8
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -75,7 +75,7 @@ schema:
       dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|\
       dns-google|dns-hetzner|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|\
       dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|\
-      dns-transip)?"
+      dns-transip|dns-inwx)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?
@@ -85,4 +85,8 @@ schema:
     sakuracloud_api_token: str?
     transip_api_key: str?
     transip_username: str?
+    inwx_url: str?
+    inwx_username: str?
+    inwx_password: str?
+    inwx_shared_secret: str?
 startup: once

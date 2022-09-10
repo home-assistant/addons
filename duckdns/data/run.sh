@@ -62,7 +62,7 @@ function le_renew() {
             dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
         done
     else
-        bashio::log.info "Skipping renew!"
+        bashio::log.info "Certificate still valid. Skipping renew!"
     fi
 
     LE_UPDATE="$(date +%s)"

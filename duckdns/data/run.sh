@@ -14,7 +14,7 @@ DOMAINS=$(bashio::config 'domains | join(",")')
 WAIT_TIME=$(bashio::config 'seconds')
 ALGO=$(bashio::config 'lets_encrypt.algo')
 
-# Function that performe a renew
+# Function that performs a renew
 function le_renew() {
     local domain_args=()
     local domains=''

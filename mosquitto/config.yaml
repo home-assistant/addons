@@ -21,6 +21,7 @@ map:
 options:
   logins: []
   require_certificate: false
+  use_identity_as_username: false
   certfile: fullchain.pem
   keyfile: privkey.pem
   customize:

@@ -89,7 +89,6 @@ gandi_api_key: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
-inwx_url: ''
 inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
@@ -484,7 +483,6 @@ on the DNS zone to be used for authentication.
   challenge: dns
   dns:
     provider: dns-inwx
-    inwx_url: https://api.domrobot.com/xmlrpc/
     inwx_username: user
     inwx_password: password
     inwx_shared_secret: ABCDEFGHIJKLMNOPQRSTUVWXYZ012345

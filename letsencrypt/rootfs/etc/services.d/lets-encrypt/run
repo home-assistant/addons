@@ -121,12 +121,10 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
 
 # INWX
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-inwx" ]; then
-    bashio::config.require 'dns.inwx_url'
     bashio::config.require 'dns.inwx_username'
     bashio::config.require 'dns.inwx_password'
     bashio::config.require 'dns.inwx_shared_secret'
-    echo -e "dns_inwx_url           = $(bashio::config 'dns.inwx_url')\ndns_inwx_username      = $(bashio::config 'dns.inwx_username')\ndns_inwx_password      = $(bashio::config 'dns.inwx_password')\ndns_inwx_shared_secret = $(bashio::config 'dns.inwx_shared_secret')\n" > /data/dnsapikey
-    PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--dns-inwx-credentials" "/data/dnsapikey")
+    PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--dns-inwx-credentials" "/data/dnsapikey" "--dns-inwx-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #All others
 else

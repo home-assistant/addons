@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.71
+
+- [Bump Z-Wave JS to 10.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.1.0)
+
 ## 0.1.70
 
 - [Bump Z-Wave JS to 10.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.0.4)

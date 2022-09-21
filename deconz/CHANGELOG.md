@@ -3,6 +3,7 @@
 ## 6.16.0
 
 - Bump deCONZ to 2.18.2
+
 ## 6.15.0
 
 - Bump deCONZ to 2.17.1

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.72
+
+- Use same base image as community add-on zwave-js-ui
+
 ## 0.1.71
 
 - [Bump Z-Wave JS to 10.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.1.0)

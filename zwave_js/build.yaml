@@ -10,4 +10,4 @@ codenotary:
   base_image: codenotary@frenck.dev
 args:
   ZWAVEJS_SERVER_VERSION: 1.22.1
-  ZWAVEJS_VERSION: 10.1.0
+  ZWAVEJS_VERSION: 10.2.1-0-pr-5108-7ec35dd

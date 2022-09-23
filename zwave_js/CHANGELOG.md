@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.73
+
+- [Bump Z-Wave JS Server to 1.23.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.23.0)
+
 ## 0.1.72
 
 - Use same base image as community add-on zwave-js-ui

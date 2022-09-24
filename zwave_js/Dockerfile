@@ -19,7 +19,7 @@ RUN \
         python3 \
     \
     && npm config set unsafe-perm \
-    && npm install \
+    && npm install --force \
         "zwave-js@${ZWAVEJS_VERSION}" \
         "@zwave-js/server@${ZWAVEJS_SERVER_VERSION}" \
     \

@@ -91,6 +91,11 @@ elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-plugin-gandi:dns" "--certbot-plugin-gandi:dns-credentials" /data/dnsapikey)
 
+# Hetzner
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hetzner" ]; then
+    bashio::config.require 'dns.hetzner_api_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "dns-hetzner" "--dns-hetzner-credentials" /data/dnsapikey "--dns-hetzner-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Njalla
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.3
+
+- Change timestamp format in logs
+
 ## 6.1.2
 
 - Add debug option to help with issues

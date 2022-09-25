@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.6.1
+
+- Upgrade Home Assistant CLI to 4.21.0
+
 ## 9.6.0
 
 **Breaking change**: RSA keys generated using the SHA-1 hash algorithm

@@ -9,6 +9,7 @@ log_type warning
 log_type notice
 log_type information
 {{ end }}
+log_timestamp_format %Y-%m-%d %H:%M:%S
 persistence true
 persistence_location /data/
 

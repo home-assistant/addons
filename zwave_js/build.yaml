@@ -1,13 +1,13 @@
 ---
 build_from:
-  aarch64: ghcr.io/hassio-addons/base:12.2.4
-  amd64: ghcr.io/hassio-addons/base:12.2.4
-  armhf: ghcr.io/hassio-addons/base:12.2.4
-  armv7: ghcr.io/hassio-addons/base:12.2.4
-  i386: ghcr.io/hassio-addons/base:12.2.4
+  aarch64: ghcr.io/home-assistant/aarch64-base:3.16
+  amd64: ghcr.io/home-assistant/amd64-base:3.16
+  armhf: ghcr.io/home-assistant/armhf-base:3.16
+  armv7: ghcr.io/home-assistant/armv7-base:3.16
+  i386: ghcr.io/home-assistant/i386-base:3.16
 codenotary:
   signer: notary@home-assistant.io
-  base_image: codenotary@frenck.dev
+  base_image: notary@home-assistant.io
 args:
-  ZWAVEJS_SERVER_VERSION: 1.22.1
-  ZWAVEJS_VERSION: 10.1.0
+  ZWAVEJS_SERVER_VERSION: 1.23.1
+  ZWAVEJS_VERSION: 10.2.1-0-pr-5108-7ec35dd

@@ -1,0 +1,6 @@
+configuration:
+  chip_debug:
+    name: Matter Server Debug Level
+    description: Enable Matter Server debug log level.
+network:
+  5580/tcp: Matter Server WebSocket server port.

@@ -1,0 +1,25 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start matter-server service
+# ==============================================================================
+bashio::log.info "Starting Matter Server..."
+
+declare chip_ws_server_port
+
+if bashio::config.true 'chip_debug'; then
+    export CHIP_WS_DEBUG=1
+fi
+
+export CHIP_WS_STORAGE="/data/python-kv.json"
+
+# Bind to internal hassio network only unless user requests to expose
+chip_ws_server_port="$(bashio::addon.port 5580)"
+if ! bashio::var.has_value "${chip_ws_server_port}"; then
+    export CHIP_WS_SERVER_HOST="$(bashio::addon.ip_address)"
+fi
+
+export CHIP_WS_SERVER_PORT="${chip_ws_server_port:-5580}"
+
+cd /root
+
+exec matter-server

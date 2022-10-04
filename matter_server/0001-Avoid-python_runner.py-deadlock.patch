@@ -1,0 +1,29 @@
+From 0c097458ba5e91db25448bd7f25843e3b97ad701 Mon Sep 17 00:00:00 2001
+Message-Id: <0c097458ba5e91db25448bd7f25843e3b97ad701.1651740284.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Thu, 5 May 2022 10:43:24 +0200
+Subject: [PATCH] Avoid python_runner.py deadlock
+
+It seems that python_runner.py can deadlock, leading to timeout errors
+like this:
+Failed to acquire lock pip.lock in 1800
+---
+ pw_env_setup/py/pw_env_setup/virtualenv_setup/install.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pw_env_setup/py/pw_env_setup/virtualenv_setup/install.py b/pw_env_setup/py/pw_env_setup/virtualenv_setup/install.py
+index b8841b99..0804e203 100644
+--- a/pw_env_setup/py/pw_env_setup/virtualenv_setup/install.py
++++ b/pw_env_setup/py/pw_env_setup/virtualenv_setup/install.py
+@@ -281,7 +281,7 @@ def install(  # pylint: disable=too-many-arguments
+         ninja_log_path = os.path.join(venv_path, ninja_log)
+         try:
+             with open(ninja_log_path, 'w') as outs:
+-                ninja_cmd = ['ninja', '-C', build_dir, '-v']
++                ninja_cmd = ['ninja', '-j', '1', '-C', build_dir, '-v']
+                 ninja_cmd.append(gn_target.target)
+                 print(ninja_cmd, file=outs)
+                 subprocess.check_call(ninja_cmd, stdout=outs, stderr=outs)
+-- 
+2.36.0
+

@@ -1,3 +1,4 @@
+---
 configuration:
   chip_debug:
     name: Matter Server Debug Level

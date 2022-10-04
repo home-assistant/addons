@@ -1,8 +1,10 @@
+---
 version: 0.3.0
 slug: matter_server
 name: Matter Server
-description: Matter WebSocket Server (Connected Home over IP) for Home Assistant Matter support.
-url: https://github.com/home-assistant/addons-development/tree/master/matter_server
+description: Matter WebSocket Server for Home Assistant Matter support.
+url: >-
+  https://github.com/home-assistant/addons-development/tree/master/matter_server
 arch:
   - aarch64
   - amd64

@@ -9,9 +9,6 @@ Use the following steps to install this add-on.
 
    [![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
 
-1. If it's the first time you install an Add-on from this repository, Home
-   Assitant will ask you to add the 'addons-development' repository. Click
-   "Add" to add the repository.
 1. Click the "Install" button to install the add-on.
 
 ## How to use

@@ -127,7 +127,10 @@ body:
     attributes:
       label: Anything in the add-on logs that might be useful for us?
       description: >
-        The add-on logs can be found in the Supervisor panel on the add-on page -> Logs tab.
+        Addon Logs can be found in [Settings -> System -> Logs](https://my.home-assistant.io/redirect/logs/)
+        then choose the add-on in the top right.
+        
+        [![Open your Home Assistant instance and show your Home Assistant logs.](https://my.home-assistant.io/badges/logs.svg)](https://my.home-assistant.io/redirect/logs/)
       render: txt
 
   - type: textarea

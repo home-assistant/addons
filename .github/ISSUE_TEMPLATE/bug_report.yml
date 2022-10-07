@@ -103,6 +103,17 @@ body:
         ...
 
   - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: System Health information
+      description: >
+        System Health information can be found in the top right menu in [Settings -> System -> Repairs](https://my.home-assistant.io/redirect/repairs/).
+        Click the copy button at the bottom of the pop-up and paste it here.
+        
+        [![Open your Home Assistant instance and show health information about your system.](https://my.home-assistant.io/badges/system_health.svg)](https://my.home-assistant.io/redirect/system_health/)
+
+  - type: textarea
     attributes:
       label: Anything in the Supervisor logs that might be useful for us?
       description: >
@@ -118,17 +129,6 @@ body:
       description: >
         The add-on logs can be found in the Supervisor panel on the add-on page -> Logs tab.
       render: txt
-      
-  - type: textarea
-    validations:
-      required: true
-    attributes:
-      label: System Health information
-      description: >
-        System Health information can be found in the top right menu in [Settings -> System -> Repairs](https://my.home-assistant.io/redirect/repairs/).
-        Click the copy button at the bottom of the pop-up and paste it here.
-        
-        [![Open your Home Assistant instance and show health information about your system.](https://my.home-assistant.io/badges/system_health.svg)](https://my.home-assistant.io/redirect/system_health/)
 
   - type: textarea
     attributes:

@@ -30,7 +30,8 @@ body:
     attributes:
       label: What type of installation are you running?
       description: >
-        If you don't know, you can find it in: [Settings panel -> System -> System health](https://my.home-assistant.io/redirect/system_health/).
+        If you don't know, can be found in [Settings -> System -> Repairs -> System Information](https://my.home-assistant.io/redirect/system_health/).
+        It is listed as the `Installation Type` value.
       options:
         - Home Assistant OS
         - Home Assistant Supervised
@@ -80,7 +81,7 @@ body:
       required: true
     attributes:
       label: What is the version of the add-on?
-      description: Can be found in the Supervisor panel -> Overview tab -> the add-on
+      description: Can be found in [Settings -> Add-ons](https://my.home-assistant.io/redirect/supervisor/) -> the add-on
 
   - type: markdown
     attributes:
@@ -102,17 +103,34 @@ body:
         ...
 
   - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: System Health information
+      description: >
+        System Health information can be found in the top right menu in [Settings -> System -> Repairs](https://my.home-assistant.io/redirect/repairs/).
+        Click the copy button at the bottom of the pop-up and paste it here.
+
+        [![Open your Home Assistant instance and show health information about your system.](https://my.home-assistant.io/badges/system_health.svg)](https://my.home-assistant.io/redirect/system_health/)
+
+  - type: textarea
     attributes:
       label: Anything in the Supervisor logs that might be useful for us?
       description: >
-        The Supervisor logs can be found in the [Settings panel -> System -> Logs -> Supervisor](https://my.home-assistant.io/redirect/logs/).
+        Supervisor Logs can be found in [Settings -> System -> Logs](https://my.home-assistant.io/redirect/logs/)
+        then choose `Supervisor` in the top right.
+
+        [![Open your Home Assistant instance and show your Supervisor system logs.](https://my.home-assistant.io/badges/supervisor_logs.svg)](https://my.home-assistant.io/redirect/supervisor_logs/)
       render: txt
 
   - type: textarea
     attributes:
       label: Anything in the add-on logs that might be useful for us?
       description: >
-        The add-on logs can be found in the Supervisor panel on the add-on page -> Logs tab.
+        Addon Logs can be found in [Settings -> System -> Logs](https://my.home-assistant.io/redirect/logs/)
+        then choose the add-on in the top right.
+
+        [![Open your Home Assistant instance and show your Home Assistant logs.](https://my.home-assistant.io/badges/logs.svg)](https://my.home-assistant.io/redirect/logs/)
       render: txt
 
   - type: textarea

@@ -126,6 +126,11 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-inwx" ]; then
     bashio::config.require 'dns.inwx_shared_secret'
     PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--dns-inwx-credentials" "/data/dnsapikey" "--dns-inwx-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# DuckDNS
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-duckdns" ]; then
+    bashio::config.require 'dns.duckdns_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "dns-duckdns" "--dns-duckdns-credentials" /data/dnsapikey "--dns-duckdns-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 #All others
 else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)

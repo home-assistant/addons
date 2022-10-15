@@ -1,5 +1,5 @@
 ---
-version: 4.12.8
+version: 4.12.9
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -51,6 +51,7 @@ schema:
     dnsimple_token: str?
     dnsmadeeasy_api_key: str?
     dnsmadeeasy_secret_key: str?
+    duckdns_token: str?
     gandi_api_key: str?
     gandi_sharing_id: str?
     gehirn_api_secret: str?
@@ -75,7 +76,7 @@ schema:
       dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|\
       dns-google|dns-hetzner|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|\
       dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|\
-      dns-transip|dns-inwx)?"
+      dns-transip|dns-inwx|dns-duckdns)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?

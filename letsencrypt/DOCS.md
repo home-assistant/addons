@@ -113,6 +113,24 @@ transip_api_key: ''
 
 </details>
 
+<details>
+  <summary>Rotating certificates with automations</summary>
+
+  By default, the addon does *not* automatically rotate the Let's Encrypt certificate. The addon does not run constantly as a service in the background, rather it checks to see if the certificate needs rotation on start and then exits when that check is complete. You can automate certificate rotation using a Home Assistant automation:
+  
+  ```yaml
+  - id: renew_ssl_certificate
+    alias: "Let's Encrypt Renewal"
+    trigger:
+      platform: time
+      at: '02:00:00'
+    action:
+      - service: hassio.addon_restart
+        data:
+          addon: core_letsencrypt
+  ```
+</details>
+
 
 ## Example Configurations
 

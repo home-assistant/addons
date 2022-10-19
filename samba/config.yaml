@@ -48,3 +48,5 @@ schema:
   allow_hosts:
     - str
 startup: services
+privileged:
+  - NET_ADMIN

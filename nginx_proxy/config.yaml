@@ -31,7 +31,7 @@ ports:
   80/tcp: null
 schema:
   domain: str
-  hsts: str
+  hsts: str?
   certfile: str
   keyfile: str
   cloudflare: bool

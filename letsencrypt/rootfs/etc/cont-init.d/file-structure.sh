@@ -20,6 +20,7 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "dns_hetzner_api_token = $(bashio::config 'dns.hetzner_api_token')\n" \
       "dns_ionos_prefix = $(bashio::config 'dns.ionos_prefix')\n" \
       "dns_ionos_secret = $(bashio::config 'dns.ionos_secret')\n" \
+      "dns_ionos_endpoint = $(bashio::config 'dns.ionos_endpoint')\n" \
       "dns_linode_key = $(bashio::config 'dns.linode_key')\n" \
       "dns_linode_version = $(bashio::config 'dns.linode_version')\n" \
       "dns_luadns_email = $(bashio::config 'dns.luadns_email')\n" \

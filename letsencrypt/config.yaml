@@ -11,7 +11,7 @@ arch:
   - amd64
   - i386
 boot: manual
-image: homeassistant/{arch}-addon-letsencrypt
+#image: homeassistant/{arch}-addon-letsencrypt
 init: false
 map:
   - ssl:rw
@@ -59,7 +59,7 @@ schema:
     hetzner_api_token: str?
     ionos_prefix: str?
     ionos_secret: str?
-    hetzner_ionos_token: str?
+    ionos_endpoint: str?
     linode_key: str?
     linode_version: str?
     luadns_email: email?

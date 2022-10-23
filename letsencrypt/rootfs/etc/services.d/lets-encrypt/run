@@ -100,6 +100,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hetzner" ]; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-ionos" ]; then
     bashio::config.require 'dns.ionos_prefix'
     bashio::config.require 'dns.ionos_secret'
+    bashio::config.require 'dns.ionos_endpoint'
     PROVIDER_ARGUMENTS+=("--authenticator" "dns-ionos" "--dns-ionos-credentials" /data/dnsapikey "--dns-ionos-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Njalla

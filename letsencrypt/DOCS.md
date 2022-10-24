@@ -61,6 +61,9 @@ dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 google_creds: ''
 hetzner_api_token: ''
+ionos_prefix: ''
+ionos_secret: ''
+ionos_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
 linode_key: ''
@@ -204,6 +207,27 @@ on the DNS zone to be used for authentication.
   You can find additional information regarding the required permissions in the "credentials" section here:
 
   <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
+
+</details>
+
+<details>
+  <summary>IONOS DNS challenge</summary>
+
+```yaml
+email: your.email@example.com
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-ionos
+  ionos_endpoint: https://api.hosting.ionos.com
+  ionos_prefix: your-ionos-apikey-prefix
+  ionos_secret: your-ionos-apikey-secret
+```
+
+IONOS api keys are managed at: <https://developer.hosting.ionos.de/keys>
 
 </details>
 
@@ -484,6 +508,7 @@ dns-dnsmadeeasy
 dns-gehirn
 dns-google
 dns-hetzner
+dns-ionos
 dns-linode
 dns-luadns
 dns-njalla

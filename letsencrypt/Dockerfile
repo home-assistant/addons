@@ -9,6 +9,7 @@ ARG \
     CERTBOT_DNS_AZURE_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
+    CERTBOT_DNS_IONOS_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
@@ -27,7 +28,7 @@ RUN \
         openssl-dev \
         cargo \
     && pip3 install --no-cache-dir --find-links \
-        "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \ 
+        "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \
         cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
@@ -40,6 +41,7 @@ RUN \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
+        certbot-dns-ionos==${CERTBOT_DNS_IONOS_VERSION} \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \

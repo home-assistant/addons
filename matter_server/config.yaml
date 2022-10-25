@@ -1,0 +1,25 @@
+---
+version: 0.3.0
+slug: matter_server
+name: Matter Server
+description: Matter WebSocket Server for Home Assistant Matter support.
+url: >-
+  https://github.com/home-assistant/addons/tree/master/matter_server
+arch:
+  - aarch64
+  - amd64
+hassio_api: true
+# IPC is only used within the Add-on
+host_ipc: false
+host_network: true
+host_dbus: true
+image: homeassistant/{arch}-addon-matter-server
+init: false
+options:
+  chip_debug: false
+schema:
+  chip_debug: bool
+ports:
+  5580/tcp: null
+stage: experimental
+startup: services

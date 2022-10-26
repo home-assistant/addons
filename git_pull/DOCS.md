@@ -42,7 +42,7 @@ Add-on configuration:
 git_branch: master
 git_command: pull
 git_remote: origin
-git_prune: 'false'
+git_prune: false
 repository: https://example.com/my_configs.git
 auto_restart: false
 restart_ignore:

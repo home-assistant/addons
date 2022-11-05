@@ -1,0 +1,28 @@
+---
+configuration:
+  domains:
+    name: Alan Adları
+    description: >-
+      Hesabınızda kayıtlı DuckDNS alt alan adlarının listesi. Uygun yazım düzeni `my-domain.duckdns.org` şeklindedir.
+  token:
+    name: Doğrulama Anahtarı (Token)
+    description: >-
+      DuckDNS hesabı açılış sayfasının üst kısmında bulunan DuckDNS kimlik doğrulama belirteci (Token). Belirteç, hesabınıza kayıtlı alt alanlarda herhangi bir değişiklik yapmak için gereklidir.
+  aliases:
+    name: Takma Ad
+    description: "Etki alanları" seçeneğinde yapılandırılan alanların takma adlarının listesi.
+  lets_encrypt:
+    name: Let's Encrypt
+    description: Let's Encrypt seçeneklerini yapılandırın.
+  seconds:
+    name: Yenileme Sıklığı (Saniye)
+    description: >-
+      DuckDNS alt alan adları ve Let's Encrypt sertifikalarını yenileme sıklığı (saniye cinsinden).
+  ipv4:
+    name: IPv4
+    description: >-
+      Varsayılan olarak DuckDNS, IPv4 adresinizi otomatik olarak algılar ve bunu kullanır. Bu seçenek, otomatik algılamayı geçersiz kılmanıza ve manuel olarak bir IPv4 adresi belirlemenize olanak tanır. 'none' değeri IPv4 güncellemelerini devre dışı bırakır.
+  ipv6:
+    name: IPv6
+    description: >-
+      DuckDNS şu anda IPv6 adresinizi otomatik olarak algılayamıyor. Bu seçenek, ana bilgisayarın IPv6 adresini kullanmak için 'varsayılan' veya bir arabirim adı belirtmenize olanak tanır, alternatif olarak bir adresi manuel olarak da girebilirsiniz.

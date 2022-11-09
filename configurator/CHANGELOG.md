@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.2
+
+- Bugfix: Fix page load with special characters in states
+
 ## 5.4.1
 
 - Bugfix: Disable Ace-internal yaml-linting

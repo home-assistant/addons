@@ -5,19 +5,19 @@ configuration:
     description: The serial port where the Silicon Labs radio is connected to.
   baudrate:
     name: Baudrate
-    description: >
+    description: >-
       The serial port baudrate used to communicate with the Silicon Labs radio.
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.
   network_device:
     name: Network Device
-    description: >
+    description: >-
       Host and Port when connecting to a device via sockets (takes precedence
       over above configuration).
   autoflash_firmware:
     name: Automatically flash firmware
-    description: >
+    description: >-
       Automatically flash Multi-PAN firmware on Home Assistant SkyConnect
       (WARNING: flashing the original EmberZNet is a manual process currently)
   cpcd_trace:

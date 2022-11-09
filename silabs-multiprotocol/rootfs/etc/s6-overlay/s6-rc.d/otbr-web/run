@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start OpenThread BorderRouter web interface
+# ==============================================================================
+bashio::log.info "Starting otbr-web..."
+exec /usr/sbin/otbr-web -I wpan0 -d6 -p 8080

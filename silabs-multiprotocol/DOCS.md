@@ -1,5 +1,7 @@
 # Home Assistant Add-on: Silicon Labs Multiprotocol
 
+**NOTE**: This add-on has the option to automatically install the right firmware for Home Assistant Yellow and Home Assistant SkyConnect. Follow [this guide](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually) to change back to a firmware that is compatible with other Zigbee software.
+
 ## Installation
 
 Follow these steps to get the add-on installed on your system:
@@ -12,10 +14,6 @@ Follow these steps to get the add-on installed on your system:
 
 The add-on needs a Silicon Labs based wireless module accessible through a
 serial port (like the module on Yellow or most USB based wireless adapters).
-
-**NOTE:** The Silicon Labs Multiprotocol add-on needs the RCP Multi-PAN firmware
-loaded on the Silicon Labs wireless controller. For Yellow, you can find this
-firmware at [github.com/NabuCasa/silabs-firmware](https://github.com/NabuCasa/silabs-firmware).
 
 Once the firmware is loaded follow the following steps:
 

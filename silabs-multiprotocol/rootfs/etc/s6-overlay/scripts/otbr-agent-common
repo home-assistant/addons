@@ -1,0 +1,7 @@
+#!/bin/sh
+
+declare thread_if
+declare otbr_forward_ingress_chain
+thread_if="wpan0"
+otbr_forward_ingress_chain="OTBR_FORWARD_INGRESS"
+

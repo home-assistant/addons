@@ -1,0 +1,47 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# OpenThread BorderRouter start script
+# ==============================================================================
+
+. /etc/s6-overlay/scripts/otbr-agent-common
+
+declare otbr_agent_options
+declare backbone_if
+declare device
+declare baudrate
+declare flow_control
+backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | select (.primary == true) | .interface')"
+otbr_agent_options="-d6 -v"
+
+if bashio::config.true 'otbr_debug'; then
+    otbr_agent_options="-d7 -v"
+fi
+
+if [ -z ${backbone_if} ]; then
+    bashio::log.warning "No primary network interface found! Using static eth0."
+    backbone_if="eth0"
+fi
+
+mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
+
+if bashio::config.true 'firewall'; then
+    bashio::log.info "Setup OTBR firewall..."
+    ipset create -exist otbr-ingress-deny-src hash:net family inet6
+    ipset create -exist otbr-ingress-deny-src-swap hash:net family inet6
+    ipset create -exist otbr-ingress-allow-dst hash:net family inet6
+    ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
+
+    ip6tables -N $otbr_forward_ingress_chain
+    ip6tables -I FORWARD 1 -o $thread_if -j $otbr_forward_ingress_chain
+
+    ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -i ${thread_if} -j DROP
+    ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-deny-src src -j DROP
+    ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-allow-dst dst -j ACCEPT
+    ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -j DROP
+    ip6tables -A $otbr_forward_ingress_chain -j ACCEPT
+fi
+
+bashio::log.info "Starting otbr-agent..."
+exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
+    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" ${otbr_agent_options} \
+        "spinel+cpc://cpcd_0?iid=2"

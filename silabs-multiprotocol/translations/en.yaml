@@ -1,0 +1,33 @@
+---
+configuration:
+  device:
+    name: Device
+    description: The serial port where the Silicon Labs radio is connected to.
+  baudrate:
+    name: Baudrate
+    description: >-
+      The serial port baudrate used to communicate with the Silicon Labs radio.
+  flow_control:
+    name: Hardware flow control
+    description: Enable hardware flow control for serial port.
+  network_device:
+    name: Network Device
+    description: >-
+      Host and Port when connecting to a device via sockets (takes precedence
+      over above configuration).
+  autoflash_firmware:
+    name: Automatically flash firmware
+    description: >-
+      Automatically flash Multi-PAN firmware on Home Assistant SkyConnect
+      (WARNING: flashing the original EmberZNet is a manual process currently)
+  cpcd_trace:
+    name: Co-Processor Communication tracing
+    description: Enable tracing for the Co-Processor Communication daemon.
+  otbr_enable:
+    name: Enable OpenThread Border Router
+    description: Enable OpenThread BorderRouter and its web interface.
+  otbr_debug:
+    name: OpenThread agent debugging
+    description: Enable OpenThread agent debug output (otbr-agent).
+network:
+  9999/tcp: EmberZNet EZSP/ASH port

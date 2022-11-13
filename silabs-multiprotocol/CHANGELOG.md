@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+- Default to 115200 baudrate
+- Use latest version 0.0.5 of universal-silabs-flasher
+
 ## 0.7.0
 - Support firmware flashing for Home Assistant SkyConnect/Yellow
 - Allow quick reconnects by ZHA (required during config flow)

@@ -143,6 +143,8 @@ ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_MULTIPAN_RCP=ON -DOT_POSIX_CONFIG_RCP_BUS
 ENV WEB_GUI=1
 ENV DOCKER 1
 
+ARG UNIVERSAL_SILABS_FLASHER=0.0.5
+
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY replace-the-source-of-mDNSResponder.patch /usr/src
 
@@ -179,7 +181,7 @@ RUN \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && ./script/setup \
-    && pip install universal-silabs-flasher==0.0.4 \
+    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        build-essential \
        patch \

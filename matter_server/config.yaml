@@ -8,6 +8,8 @@ url: >-
 arch:
   - aarch64
   - amd64
+discovery:
+  - matter
 hassio_api: true
 # IPC is only used within the Add-on
 host_ipc: false

@@ -200,7 +200,7 @@ RUN ldconfig && touch /accept_silabs_msla
 
 COPY rootfs /
 
-HEALTHCHECK s6-svstat /run/service/zigbeed
+HEALTHCHECK --interval=10s --start-period=120s CMD [ "$(s6-svstat -u /run/service/zigbeed)" = "true" ]
 
 # use s6-overlay as init system
 WORKDIR /

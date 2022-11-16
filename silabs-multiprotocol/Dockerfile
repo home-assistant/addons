@@ -200,6 +200,8 @@ RUN ldconfig && touch /accept_silabs_msla
 
 COPY rootfs /
 
+HEALTHCHECK s6-svstat /run/service/zigbeed
+
 # use s6-overlay as init system
 WORKDIR /
 ENTRYPOINT ["/init"]

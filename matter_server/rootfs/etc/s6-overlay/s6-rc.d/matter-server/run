@@ -21,7 +21,7 @@ fi
 export CHIP_WS_SERVER_PORT="${chip_ws_server_port:-5580}"
 
 # Send out discovery information to Home Assistant
-./discovery &
+/etc/s6-overlay/scripts/discovery &
 
 cd /root
 

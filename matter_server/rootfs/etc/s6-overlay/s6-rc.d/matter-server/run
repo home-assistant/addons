@@ -20,6 +20,9 @@ fi
 
 export CHIP_WS_SERVER_PORT="${chip_ws_server_port:-5580}"
 
+# Send out discovery information to Home Assistant
+/etc/s6-overlay/scripts/matter-server-discovery &
+
 cd /root
 
 exec matter-server

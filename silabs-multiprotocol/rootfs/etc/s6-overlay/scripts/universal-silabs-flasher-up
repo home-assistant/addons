@@ -10,10 +10,10 @@ declare firmware
 declare usb_device_path
 declare usb_manufacturer
 declare usb_product
+declare gpio_reset_flag
 
 device=$(bashio::config 'device')
 baudrate=$(bashio::config 'baudrate')
-gpio_reset_flag=""
 
 if bashio::config.false 'autoflash_firmware'; then
     bashio::log.info "Flashing firmware is disabled"
@@ -42,6 +42,7 @@ else
         bashio::log.info "No valid firmware for this device"
         s6-svc -d /run/service/universal-silabs-flasher
     fi
+    gpio_reset_flag=""
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device} (baudrate ${baudrate})"

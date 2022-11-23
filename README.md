@@ -19,10 +19,6 @@ systems that have installed Home Assistant.
 
     Scan & discover HDMI CEC devices and their addresses.
 
-- **[Check Home Assistant configuration](/check_config/README.md)**
-
-    Check your current configuration against any Home Assistant version.
-
 - **[deCONZ](/deconz/README.md)**
 
     Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.

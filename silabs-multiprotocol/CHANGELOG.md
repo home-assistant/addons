@@ -1,24 +1,35 @@
 # Changelog
 
+## 0.7.1
+
+- Bump universal SiLabs flasher to 0.0.7
+- Use baudrate 115200 by default
+
 ## 0.7.0
+
 - Support firmware flashing for Home Assistant SkyConnect/Yellow
 - Allow quick reconnects by ZHA (required during config flow)
 
 ## 0.6.2
+
 - Use Silicon Labs Gecko SDK 4.1.3
 
 ## 0.6.1
+
 - Use Silicon Labs Gecko SDK 4.1.2
 
 ## 0.6.0
+
 - Implement native TCP/IP support for zigbeed (requires bellows 0.34.0 or newer)
 - Bind only to add-ons local address
 
 ## 0.5.1
+
 - Use Silicon Labs Gecko SDK 4.1.1
 - Readd aarch64 support
 
 ## 0.5.0
+
 - Use Silicon Labs Gecko SDK 4.1.0
 - Build zigbeed from source (as binaries are no longer provided)
 - Bump OTBR to Silicon Labs forked version of Gecko SDK v4.1.0
@@ -27,9 +38,11 @@
 - Drop aarch64 support (all CPC communication blocks on aarch64 since 4.1.0)
 
 ## 0.4.1
+
 - Support network device (CPC daemon via TCP/IP socket)
 
 ## 0.4.0
+
 - Use Silicon Labs Gecko SDK 4.0.2
 - Enable native aarch64 support
 - Support baudrate and hardware flow control

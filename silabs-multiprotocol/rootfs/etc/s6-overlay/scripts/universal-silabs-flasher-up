@@ -10,6 +10,7 @@ declare firmware
 declare usb_device_path
 declare usb_manufacturer
 declare usb_product
+declare gpio_reset_flag
 
 device=$(bashio::config 'device')
 baudrate=$(bashio::config 'baudrate')
@@ -23,6 +24,7 @@ fi
 if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
     bashio::log.info "Detected Home Assistant Yellow"
     firmware="NabuCasa_RCP_v4.1.3_rcp-uart-hw-802154_115200.gbl"
+    gpio_reset_flag="--yellow-gpio-reset"
 else
     # Check device manufacturer/product information
     usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}))/../../../../)
@@ -40,9 +42,10 @@ else
         bashio::log.info "No valid firmware for this device"
         s6-svc -d /run/service/universal-silabs-flasher
     fi
+    gpio_reset_flag=""
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device} (baudrate ${baudrate})"
 exec universal-silabs-flasher --device ${device} --baudrate ${baudrate} \
      --bootloader-baudrate 115200 \
-     flash --allow-cross-flashing --firmware "/root/${firmware}"
+     flash ${gpio_reset_flag} --allow-cross-flashing --firmware "/root/${firmware}"

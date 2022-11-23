@@ -4,6 +4,7 @@
 
 - Bump universal SiLabs flasher to 0.0.7
 - Use baudrate 115200 by default
+- Add Docker health check to monitor zigbeed
 
 ## 0.7.0
 

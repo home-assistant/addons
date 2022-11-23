@@ -13,6 +13,10 @@ declare flow_control
 backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | select (.primary == true) | .interface')"
 otbr_agent_options="-d6 -v"
 
+if bashio::config.false 'otbr_enable'; then
+    s6-svc -d /run/service/otbr-agent
+fi
+
 if bashio::config.true 'otbr_debug'; then
     otbr_agent_options="-d7 -v"
 fi

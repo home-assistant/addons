@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.2
+
+- Fix OTBR enable flag (allow to disable the OTBR)
+
 ## 0.7.1
 
 - Bump universal SiLabs flasher to 0.0.7

@@ -121,7 +121,7 @@ RUN \
         CC="${DEBIAN_CROSS_PREFIX}-gcc" \
         LD="${DEBIAN_CROSS_PREFIX}-gcc" \
         CXX="${DEBIAN_CROSS_PREFIX}-g++" \
-        C_FLAGS="-std=gnu99" \
+        C_FLAGS="-std=gnu99 -DEMBER_MULTICAST_TABLE_SIZE=16" \
         debug
 
 FROM $BUILD_FROM

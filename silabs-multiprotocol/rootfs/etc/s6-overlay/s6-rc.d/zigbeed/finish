@@ -1,1 +1,5 @@
-/etc/s6-overlay/scripts/zigbeed-finish
+#!/usr/bin/with-contenv bashio
+#==============================================================================
+# EmberZNet Zigbee Daemon finish script
+#==============================================================================
+bashio::log.info "zigbeed ended with exit code ${1} (signal ${2})..."

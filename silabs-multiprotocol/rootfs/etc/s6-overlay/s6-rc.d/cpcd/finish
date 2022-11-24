@@ -1,1 +1,9 @@
-/etc/s6-overlay/scripts/cpcd-finish
+#!/usr/bin/execlineb -S1
+# ==============================================================================
+# Take down the container if cpcd exits
+# ==============================================================================
+foreground { rm -r /dev/shm/cpcd }
+if { s6-test ${1} -ne 0 }
+if { s6-test ${1} -ne 256 }
+
+/run/s6/basedir/bin/halt

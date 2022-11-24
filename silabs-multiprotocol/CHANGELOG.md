@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.2
+
+- Fix OTBR enable flag (allow to disable the OTBR)
+- Fix zigbeed and cpcd finish scripts
+- Start banner after initialization scripts
+
 ## 0.7.1
 
 - Bump universal SiLabs flasher to 0.0.7

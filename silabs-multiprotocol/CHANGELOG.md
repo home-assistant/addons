@@ -3,6 +3,7 @@
 ## 0.7.2
 
 - Fix OTBR enable flag (allow to disable the OTBR)
+- Fix zigbeed and cpcd finish scripts
 
 ## 0.7.1
 

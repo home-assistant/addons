@@ -35,7 +35,7 @@ jobs:
           for addon in $(find ./ -name config.yaml | cut -d "/" -f2 | sort -u); do
             addons+=("$addon");
           done
-          echo "::set-output name=addons::${addons[@]}"
+          echo "addons=${addons[@]}" >> "$GITHUB_OUTPUT"
 
       - name: Get changed add-ons
         id: changed_addons
@@ -56,8 +56,8 @@ jobs:
           changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
           if [[ -n ${changed} ]]; then
             echo "Changed add-ons: $changed";
-            echo "::set-output name=changed::true";
-            echo "::set-output name=addons::[$changed]";
+            echo "changed=true" >> "$GITHUB_OUTPUT";
+            echo "addons=[$changed]" >> "$GITHUB_OUTPUT";
           else
             echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
           fi
@@ -86,7 +86,7 @@ jobs:
         id: check
         run: |
           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-             echo "::set-output name=build_arch::true";
+             echo "build_arch=true" >> "$GITHUB_OUTPUT";
            else
              echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
           fi

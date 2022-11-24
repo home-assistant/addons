@@ -204,7 +204,7 @@ RUN \
     && dpkg --add-architecture arm64 \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       qemu-user-static \
+       qemu-user \
        libmbedtls12:arm64 \
        libstdc++6:arm64 \
     && rm -rf /var/lib/apt/lists/* \

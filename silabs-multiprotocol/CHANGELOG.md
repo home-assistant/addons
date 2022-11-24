@@ -3,6 +3,7 @@
 ## 0.8.0
 
 - Initial AMD64/x86-64 support (zigbeed via QEMU)
+- Increase multicast table size to 16 (as expected by ZHA by default)
 
 ## 0.7.2
 

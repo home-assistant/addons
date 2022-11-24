@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Starting zigbeed with aarch64 emulation...
+exec /usr/bin/qemu-aarch64 /usr/local/bin/zigbeed.aarch64 "$@"

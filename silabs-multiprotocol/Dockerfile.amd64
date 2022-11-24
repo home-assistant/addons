@@ -21,21 +21,6 @@ RUN \
        build-essential \
        git
 
-FROM --platform=linux/amd64 cross-builder-base AS cross-builder-armv7
-
-COPY debian-armv7.cmake /usr/src/debian.cmake
-
-ENV DEBIAN_ARCH=armhf
-ENV DEBIAN_CROSS_PREFIX=arm-linux-gnueabihf
-ENV SLC_ARCH=linux_arch_32
-
-RUN \
-    set -x \
-    && dpkg --add-architecture armhf \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       crossbuild-essential-armhf
-
 FROM --platform=linux/amd64 cross-builder-base AS cross-builder-aarch64
 
 COPY debian-arm64.cmake /usr/src/debian.cmake
@@ -51,8 +36,26 @@ RUN \
     && apt-get install -y --no-install-recommends \
        crossbuild-essential-arm64
 
+FROM --platform=linux/amd64 cross-builder-base AS cpcd-builder
 
-FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
+ARG CPCD_VERSION=v4.1.2
+
+RUN \
+    set -x \
+    && apt-get install -y --no-install-recommends \
+       cmake \
+       "libmbedtls-dev" \
+       "libmbedtls12" \
+    && git clone --depth 1 -b "${CPCD_VERSION}" \
+       https://github.com/SiliconLabs/cpc-daemon.git \
+    && mkdir cpc-daemon/build && cd cpc-daemon/build \
+    && cmake ../ \
+       -DENABLE_ENCRYPTION=FALSE \
+    && make \
+    && make install
+
+
+FROM --platform=linux/amd64 cross-builder-aarch64 AS cpcd-cross-builder
 
 ARG CPCD_VERSION=v4.1.2
 
@@ -71,7 +74,7 @@ RUN \
     && make \
     && make install
 
-FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
+FROM --platform=linux/amd64 cross-builder-aarch64 AS zigbeed-cross-builder
 
 ARG GECKO_SDK_VERSION=v4.1.3
 
@@ -96,8 +99,9 @@ RUN \
        https://github.com/SiliconLabs/gecko_sdk.git
 
 # zigbeed links against libcpc.so
-COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
+COPY --from=cpcd-cross-builder /usr/local/ /usr/aarch64-linux-gnu/
 COPY 0001-Use-TCP-socket-instead-of-serial-port.patch /usr/src
+COPY execvp-aarch64.patch /usr/src
 
 RUN \
     set -x \
@@ -111,6 +115,7 @@ RUN \
        --copy-sdk-sources --copy-proj-sources \
     && cd app/zigbeed/output \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port.patch \
+    && patch -p1 < /usr/src/execvp-aarch64.patch \
     && make -f zigbeed.Makefile \
         AR="${DEBIAN_CROSS_PREFIX}-ar" \
         CC="${DEBIAN_CROSS_PREFIX}-gcc" \
@@ -131,9 +136,9 @@ RUN \
     && rm -rf /usr/src/*
 
 
-COPY --from=zigbeed-builder \
+COPY --from=zigbeed-cross-builder \
      /usr/src/gecko_sdk/util/third_party/ot-br-posix /usr/src/ot-br-posix
-COPY --from=zigbeed-builder \
+COPY --from=zigbeed-cross-builder \
      /usr/src/gecko_sdk/util/third_party/openthread /usr/src/openthread
 COPY --from=cpcd-builder /usr/local/ /usr/local/
 
@@ -192,13 +197,27 @@ RUN \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
-COPY --from=zigbeed-builder \
+COPY --from=cpcd-cross-builder /usr/local/lib/* /usr/lib/aarch64-linux-gnu/
+
+RUN \
+    set -x \
+    && dpkg --add-architecture arm64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       qemu-user \
+       libmbedtls12:arm64 \
+       libstdc++6:arm64 \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/src/*
+
+COPY --from=zigbeed-cross-builder \
      /usr/src/gecko_sdk/protocol/zigbee/app/zigbeed/output/build/debug/zigbeed \
-     /usr/local/bin
+     /usr/local/bin/zigbeed.aarch64
 
 RUN ldconfig && touch /accept_silabs_msla
 
 COPY rootfs /
+COPY rootfs.amd64 /
 
 ENV \
     S6_STAGE2_HOOK=/etc/s6-overlay/scripts/otbr-enable-check.sh

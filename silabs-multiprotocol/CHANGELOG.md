@@ -4,6 +4,7 @@
 
 - Fix OTBR enable flag (allow to disable the OTBR)
 - Fix zigbeed and cpcd finish scripts
+= Start banner after initialization scripts
 
 ## 0.7.1
 

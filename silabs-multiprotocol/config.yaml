@@ -8,6 +8,7 @@ url: >
 arch:
   - armv7
   - aarch64
+  - amd64
 hassio_api: true
 # IPC is only used within the Add-on
 host_ipc: false

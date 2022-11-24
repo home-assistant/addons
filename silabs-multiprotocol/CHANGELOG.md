@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+- Initial AMD64/x86-64 support (zigbeed via QEMU)
+
 ## 0.7.2
 
 - Fix OTBR enable flag (allow to disable the OTBR)

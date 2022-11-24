@@ -1,5 +1,5 @@
 ---
-version: 0.7.2
+version: 0.8.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on

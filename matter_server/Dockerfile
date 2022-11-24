@@ -38,9 +38,8 @@ WORKDIR /root
 ARG MATTER_SERVER_VERSION
 
 # hadolint ignore=DL3013
-#    pip3 install pyyaml dacite ipdb construct coloredlogs unittest2 future mobly==1.7.5 pyserial rich \
 RUN \
-    pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ \
+    pip3 install \
        home-assistant-chip-clusters==${HOME_ASSISTANT_CHIP_VERSION} \
        home-assistant-chip-core==${HOME_ASSISTANT_CHIP_VERSION} \
     && pip3 install --no-cache-dir python-matter-server=="${MATTER_SERVER_VERSION}"

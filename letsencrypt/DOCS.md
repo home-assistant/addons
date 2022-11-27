@@ -472,6 +472,7 @@ on the DNS zone to be used for authentication.
   Use the user for the dyndns service, not the normal user.
   The shared secret is the 2FA code, it must be the same length as the example.
   To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
+  Without 2FA leave the example key.
 
   Example configuration:
   ```yaml

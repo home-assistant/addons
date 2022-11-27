@@ -53,6 +53,7 @@ RUN \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
+        acme==${ACME_VERSION} \
     && apk del .build-dependencies
 
 # Copy data

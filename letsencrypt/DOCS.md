@@ -413,23 +413,19 @@ on the DNS zone to be used for authentication.
   You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
   
   ```
-  $ dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
-  Kletsencrypt.+165+20675
+  $ tsig-keygen -a hmac-sha512 letsencrypt
+  key "letsencrypt" {
+	  algorithm hmac-sha512;
+  	secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
+  };
   ```
   
-  The key file (Kletsencrypt.+165+20675.key in this example) looks like the following:
-  
-  ```
-  $ cat Kletsencrypt.+165+20675.key
-  letsencrypt. IN KEY 512 3 165 Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==
-  
-  ```
   You don't need to publish this; just copy the key data into your named.conf file:
   ```
   
   key "letsencrypt" {
     algorithm hmac-sha512;
-    secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
+    secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
   
   ```

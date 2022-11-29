@@ -108,6 +108,18 @@ mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'service'@'172.30.33.%' WITH GRANT OPTI
 # Flush privileges
 mysql -e "FLUSH PRIVILEGES;" 2> /dev/null || true
 
+# Set variables
+bashio::log.info "Setting custom variables"
+for var in $(bashio::config "variables|keys"); do
+    NAME=$(bashio::config "variables[${var}].name")
+    VALUE=$(bashio::config "variables[${var}].value")
+
+    bashio::log.info "Setting variable ${NAME} to ${VALUE}"
+    if ! mysql -e "SET GLOBAL ${NAME} = ${VALUE}" 2> /dev/null; then
+        bashio::log.warning "Could not set custom variable ${NAME}"
+    fi
+done
+
 # Send service information to the Supervisor
 PAYLOAD=$(\
     bashio::var.json \

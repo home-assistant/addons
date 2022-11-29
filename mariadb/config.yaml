@@ -23,6 +23,7 @@ options:
   rights:
     - database: homeassistant
       username: homeassistant
+  variables: []
 ports:
   3306/tcp: null
 schema:
@@ -38,6 +39,9 @@ schema:
           CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|\
           INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
       username: str
+  variables:
+    - name: str?
+      value: str?
 services:
   - mysql:provide
 startup: system

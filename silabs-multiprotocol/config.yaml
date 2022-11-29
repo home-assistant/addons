@@ -1,5 +1,5 @@
 ---
-version: 0.8.0
+version: 0.8.1
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -9,6 +9,7 @@ arch:
   - armv7
   - aarch64
   - amd64
+gpio: true
 hassio_api: true
 # IPC is only used within the Add-on
 host_ipc: false

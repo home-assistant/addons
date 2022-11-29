@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+- Bugfix: give GPIO permissions to container to allow flashing Yellow
+
 ## 0.8.0
 
 - Initial AMD64/x86-64 support (zigbeed via QEMU)

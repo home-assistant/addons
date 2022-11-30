@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.0.0
+## 1.0.1
 
-- Bump Matter Server to 1.0.0
+- Bump Matter Server to 1.0.1
 - Use pre-built Matter SDK (CHIP) wheels
 
 ## 0.4.0

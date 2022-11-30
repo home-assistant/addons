@@ -3,5 +3,5 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
 args:
-  MATTER_SERVER_VERSION: 1.0.0
+  MATTER_SERVER_VERSION: 1.0.1
   HOME_ASSISTANT_CHIP_VERSION: 2022.11.1

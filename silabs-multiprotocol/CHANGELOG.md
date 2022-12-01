@@ -3,8 +3,9 @@
 ## 0.8.2
 
 - Accept IPv6 forwarding explicitly (required for HAOS 9.x)
+- Add OTBR firewall option (enabled by default)
 - Add egress firewall rules for forwarding if firewall is enabled
-- Fix finish scripts
+- Fix service stop (finish) scripts
 
 ## 0.8.1
 

@@ -27,6 +27,7 @@ options:
   cpcd_trace: false
   otbr_enable: true
   otbr_debug: false
+  otbr_firewall: true
 ports:
   9999/tcp: null
 ports_description:
@@ -40,6 +41,7 @@ schema:
   cpcd_trace: bool
   otbr_enable: bool
   otbr_debug: bool
+  otbr_firewall: bool
 stage: experimental
 startup: services
 ingress: true

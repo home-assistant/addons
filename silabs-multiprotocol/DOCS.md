@@ -75,6 +75,7 @@ Add-on configuration:
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
 | otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
+| otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |
 
 ## Architecture
 

@@ -24,7 +24,7 @@ fi
 
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
 
-if bashio::config.true 'firewall'; then
+if bashio::config.true 'otbr_firewall'; then
     bashio::log.info "Setup OTBR firewall..."
     ipset create -exist otbr-ingress-deny-src hash:net family inet6
     ipset create -exist otbr-ingress-deny-src-swap hash:net family inet6

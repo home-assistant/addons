@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+
+- Bump Matter Server to 1.0.6
+
 ## 1.0.5
 
 - Bump Matter Server to 1.0.5

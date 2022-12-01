@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.2
+
+- Accept IPv6 forwarding explicitly (required for HAOS 9.x)
+- Add egress firewall rules for forwarding if firewall is enabled
+- Fix finish scripts
+
 ## 0.8.1
 
 - Bugfix: give GPIO permissions to container to allow flashing Yellow

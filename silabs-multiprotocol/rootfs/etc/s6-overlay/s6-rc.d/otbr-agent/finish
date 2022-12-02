@@ -17,12 +17,12 @@ ipset_destroy_if_exist()
 }
 
 while ip6tables -C FORWARD -o $thread_if -j $otbr_forward_ingress_chain 2> /dev/null; do
-	ip6tables -D FORWARD -o $thread_if -j $otbr_forward_ingress_chain
+    ip6tables -D FORWARD -o $thread_if -j $otbr_forward_ingress_chain
 done
 
 if ip6tables -L $otbr_forward_ingress_chain 2> /dev/null; then
-	ip6tables -w -F $otbr_forward_ingress_chain
-	ip6tables -w -X $otbr_forward_ingress_chain
+    ip6tables -w -F $otbr_forward_ingress_chain
+    ip6tables -w -X $otbr_forward_ingress_chain
 fi
 
 ipset_destroy_if_exist otbr-ingress-deny-src
@@ -31,12 +31,12 @@ ipset_destroy_if_exist otbr-ingress-allow-dst
 ipset_destroy_if_exist otbr-ingress-allow-dst-swap
 
 while ip6tables -C FORWARD -i $thread_if -j $otbr_forward_egress_chain 2> /dev/null; do
-	ip6tables -D FORWARD -i $thread_if -j $otbr_forward_egress_chain
+    ip6tables -D FORWARD -i $thread_if -j $otbr_forward_egress_chain
 done
 
 if ip6tables -L $otbr_forward_egress_chain 2> /dev/null; then
-	ip6tables -w -F $otbr_forward_egress_chain
-	ip6tables -w -X $otbr_forward_egress_chain
+    ip6tables -w -F $otbr_forward_egress_chain
+    ip6tables -w -X $otbr_forward_egress_chain
 fi
 bashio::log.info "OTBR firewall teardown completed."
 

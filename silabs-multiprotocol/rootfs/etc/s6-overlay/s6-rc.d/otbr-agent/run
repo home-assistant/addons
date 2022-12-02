@@ -5,17 +5,44 @@
 
 . /etc/s6-overlay/scripts/otbr-agent-common
 
-declare otbr_agent_options
 declare backbone_if
 declare device
 declare baudrate
 declare flow_control
+declare otbr_log_level
+declare otbr_log_level_int
 backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | select (.primary == true) | .interface')"
-otbr_agent_options="-d6 -v"
 
-if bashio::config.true 'otbr_debug'; then
-    otbr_agent_options="-d7 -v"
-fi
+otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
+case "${otbr_log_level}" in
+    debug)
+        otbr_log_level_int="7"
+        ;;
+    info)
+        otbr_log_level_int="6"
+        ;;
+    notice)
+        otbr_log_level_int="5"
+        ;;
+    warning)
+        otbr_log_level_int="4"
+        ;;
+    error)
+        otbr_log_level_int="3"
+        ;;
+    critical)
+        otbr_log_level_int="2"
+        ;;
+    alert)
+        otbr_log_level_int="1"
+        ;;
+    emergency)
+        otbr_log_level_int="0"
+        ;;
+    *)
+        bashio::exit.nok "Unknown otbr_log_level: ${otbr_log_level}"
+        ;;
+esac
 
 if [ -z ${backbone_if} ]; then
     bashio::log.warning "No primary network interface found! Using static eth0."
@@ -52,5 +79,5 @@ fi
 
 bashio::log.info "Starting otbr-agent..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
-    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" ${otbr_agent_options} \
+    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" -d${otbr_log_level_int} -v \
         "spinel+cpc://cpcd_0?iid=2"

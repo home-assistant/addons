@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0
+
+- Allow IPv6 forwarding explicitly (required for HAOS 9.x without firewall)
+- Add OTBR firewall option (enabled by default, requires HAOS 9.4 or newer)
+- Add egress firewall rules for forwarding
+- Add fine grained OTBR log level control
+- Fix service stop (finish) scripts
+
 ## 0.8.1
 
 - Bugfix: give GPIO permissions to container to allow flashing Yellow

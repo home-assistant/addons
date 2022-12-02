@@ -26,8 +26,13 @@ configuration:
   otbr_enable:
     name: Enable OpenThread Border Router
     description: Enable OpenThread BorderRouter and its web interface.
-  otbr_debug:
-    name: OpenThread agent debugging
-    description: Enable OpenThread agent debug output (otbr-agent).
+  otbr_log_level:
+    name: OpenThread Border Router agent log level
+    description: >-
+      Set logging level of the OpenThread Border Router agent (otbr-agent).
+  otbr_firewall:
+    name: OTBR firewall
+    description: >-
+      Use OpenThread Border Router firewall to block unnecessary traffic.
 network:
   9999/tcp: EmberZNet EZSP/ASH port

@@ -74,7 +74,8 @@ Add-on configuration:
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
-| otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
+| otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
+| otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |
 
 ## Architecture
 

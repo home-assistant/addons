@@ -1,5 +1,5 @@
 ---
-version: 0.8.1
+version: 0.9.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -26,20 +26,22 @@ options:
   autoflash_firmware: false
   cpcd_trace: false
   otbr_enable: true
-  otbr_debug: false
+  otbr_log_level: notice
+  otbr_firewall: true
 ports:
   9999/tcp: null
 ports_description:
   9999/tcp: EmberZNet EZSP/ASH port
 schema:
   device: device(subsystem=tty)?
-  baudrate: list(57600|115200|230400|460800|921600)?
+  baudrate: list(57600|115200|230400|460800|921600)
   flow_control: bool?
   network_device: str?
   autoflash_firmware: bool
   cpcd_trace: bool
   otbr_enable: bool
-  otbr_debug: bool
+  otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
+  otbr_firewall: bool
 stage: experimental
 startup: services
 ingress: true

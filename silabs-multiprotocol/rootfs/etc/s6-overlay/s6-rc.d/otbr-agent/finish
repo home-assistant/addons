@@ -4,13 +4,16 @@
 #==============================================================================
 bashio::log.info "otbr-agent ended with exit code ${1} (signal ${2})..."
 
+
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 ipset_destroy_if_exist()
 {
-    if ipset list "$1" 2> /dev/null; then
-        ipset destroy "$1"
-    fi
+    # The ipset seems to be in use by the kernel for a brief period,
+    # retry destroying it
+    while ipset list -n "$1" 2> /dev/null; do
+        ipset destroy "$1" || true
+    done
 }
 
 while ip6tables -C FORWARD -o $thread_if -j $otbr_forward_ingress_chain 2> /dev/null; do
@@ -35,6 +38,7 @@ if ip6tables -L $otbr_forward_egress_chain 2> /dev/null; then
 	ip6tables -w -F $otbr_forward_egress_chain
 	ip6tables -w -X $otbr_forward_egress_chain
 fi
+bashio::log.info "OTBR firewall teardown completed."
 
 if test "$1" -eq 256 ; then
   e=$((128 + $2))

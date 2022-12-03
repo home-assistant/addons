@@ -15,6 +15,13 @@ MAX_LEASE=$(bashio::config 'max_lease')
 {
     echo "option domain-name \"${DOMAIN}\";"
     echo "option domain-name-servers ${DNS};";
+
+if [ "$(bashio::config 'static_routes')" ]
+then
+    # Enable sending of static routes
+    echo "option rfc3442-classless-static-routes code 121 = array of integer 8;";
+fi
+
     echo "default-lease-time ${DEFAULT_LEASE};"
     echo "max-lease-time ${MAX_LEASE};"
     echo "authoritative;"
@@ -45,6 +52,33 @@ for network in $(bashio::config 'networks|keys'); do
         echo "  range ${RANGE_START} ${RANGE_END};"
         echo "  option routers ${GATEWAY};"
         echo "  option broadcast-address ${BROADCAST};"
+
+        ROUTE_DEF=""
+        for route in $(bashio::config 'static_routes|keys'); do
+            {
+                ROUTE_SUBNET=$(bashio::config "static_routes[${route}].subnet")
+                if [ "$SUBNET" != "$ROUTE_SUBNET" ]
+                then
+                    continue
+                fi
+
+                NETWORK=$(bashio::config "static_routes[${route}].network" | sed 's/\./,/g')
+                MASK=$(bashio::config "static_routes[${route}].mask")
+                GATEWAY=$(bashio::config "static_routes[${route}].gateway" | sed 's/\./,/g')
+
+                if [ -n "$ROUTE_DEF" ]
+                then    
+                    ROUTE_DEF="${ROUTE_DEF},"
+                fi
+                ROUTE_DEF="${ROUTE_DEF} ${MASK},${NETWORK},${GATEWAY}"
+            }
+        done
+        
+        if [ -n "$ROUTE_DEF" ]
+        then
+            echo "  option rfc3442-classless-static-routes ${ROUTE_DEF};"
+        fi
+
         echo "}"
     } >> "${CONFIG}"
 done

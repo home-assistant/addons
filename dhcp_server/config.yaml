@@ -31,6 +31,7 @@ options:
       range_end: 192.168.1.200
       range_start: 192.168.1.100
       subnet: 192.168.1.0
+  static_routes: []
 schema:
   default_lease: int
   dns:
@@ -51,5 +52,10 @@ schema:
       range_end: str
       range_start: str
       subnet: str
+  static_routes:
+    - subnet: str
+      network: str
+      mask: int
+      gateway: str
 startup: system
 init: false

@@ -43,6 +43,11 @@ hosts:
   - name: webcam_xy
     mac: aa:bb:ee:cc
     ip: 192.168.1.40
+static_routes:
+  - subnet: 192.168.1.0
+    network: 192.168.2
+    mask: 24
+    gateway: 192.168.1.2
 ```
 
 ### Option: `domain` (required)
@@ -131,6 +136,31 @@ The MAC address of the client device.
 #### Option: `hosts.ip`
 
 The IP address you want the DHCP server to assign.
+
+### Option: `static_routes` (optional)
+
+This option defines settings for DHCP option 121 (Classless Static Route).
+It allows you to inject static network route with DHCP configuration.
+
+By default, non are configured.
+
+#### Option: `static_routes.subnet`
+
+The network schema/subnet (`networks.subnet`) for which the rule will apply.
+
+#### Option: `static_routes.network`
+
+Subnet address for which traffic is to be redirected.
+
+If the octet belongs entirely to the network part then it should not be given, e.g. `192.168.2.0/24` -> `192.168.2`, `172.16.0.0/16` -> `172.16`.
+
+#### Option: `static_routes.mask`
+
+The network mask in CIDR format e.g. `24`.
+
+#### Option: `static_routes.gateway`
+
+The network address to which traffic will be redirected.
 
 ## Support
 

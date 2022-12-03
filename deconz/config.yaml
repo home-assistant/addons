@@ -43,4 +43,3 @@ schema:
 startup: services
 udev: true
 usb: true
-

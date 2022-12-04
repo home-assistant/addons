@@ -1,0 +1,23 @@
+---
+configuration:
+  username:
+    name: Nazwa użytkownika
+    description: >-
+      Nazwa użytkownika, której chcesz użyć do uwierzytelnienia na serwerze Samby.
+  password:
+    name: Hasło
+    description: >-
+      Hasło towarzyszące nazwie użytkownika skonfigurowanej do uwierzytelniania.
+  workgroup:
+    name: Grupa robocza
+    description: Zmień WORKGROUP, aby dopasować do potrzeb sieci.
+  compatibility_mode:
+    name: Włącz Tryb zgodności
+    description: >-
+      Włącz tę opcję, aby używać starszych protokołów Samby w dodatku Samba.
+  veto_files:
+    name: Pliki Veto
+    description: Lista plików, które nie są ani widoczne, ani dostępne.
+  allow_hosts:
+    name: Dozwolone hosty
+    description: Lista hostów/sieci, które mają dostęp do udostępnionych folderów.

@@ -14,8 +14,8 @@ Use the following steps to install this add-on.
 ## How to use
 
 Start the Matter Server add-on to make the WebSocket available to Home
-Assistant Core. Install the custom_component from the [python-matter-server
-repository][matter_server_repo].
+Assistant Core. Install the [Matter integration][matter_integration]
+in Home Assistant Core.
 
 ## Configuration
 
@@ -44,3 +44,4 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [reddit]: https://reddit.com/r/homeassistant
 [issue]: https://github.com/home-assistant/addons/issues
 [matter_server_repo]: https://github.com/home-assistant-libs/python-matter-server
+[matter_integration]: https://www.home-assistant.io/integrations/matter/

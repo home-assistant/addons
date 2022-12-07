@@ -42,7 +42,9 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
       "certbot_plugin_gandi:dns_api_key = $(bashio::config 'dns.gandi_api_key')\n" \
       "certbot_dns_transip:dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
-      "certbot_dns_transip:dns_transip_key_file = /data/transip-rsa.key" > /data/dnsapikey
+      "certbot_dns_transip:dns_transip_key_file = /data/transip-rsa.key\n" \
+      "dns_loopia_user = $(bashio::config 'dns.loopia_user')\n" \
+      "dns_loopia_password = $(bashio::config 'dns.loopia_password')" > /data/dnsapikey
 
 chmod 600 /data/dnsapikey
 

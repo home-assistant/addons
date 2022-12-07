@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.13.0
+
+- Add support for Loopia DNS
+
 ## 4.12.7
 
 - Add Hetzner DNS challenge support

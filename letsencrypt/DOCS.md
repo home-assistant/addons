@@ -89,6 +89,8 @@ gandi_api_key: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+loopia_user: ''
+loopia_password: ''
 ```
 
 ## Advanced
@@ -380,7 +382,7 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>OVH</summary>
 
-  You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America). 
+  You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America).
 
   When creating the API Key, you must ensure that the following rights are granted:
   * ``GET /domain/zone/*``
@@ -411,31 +413,31 @@ on the DNS zone to be used for authentication.
   <summary>RFC2136</summary>
 
   You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
-  
+
   ```
   $ dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
   Kletsencrypt.+165+20675
   ```
-  
+
   The key file (Kletsencrypt.+165+20675.key in this example) looks like the following:
-  
+
   ```
   $ cat Kletsencrypt.+165+20675.key
   letsencrypt. IN KEY 512 3 165 Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==
-  
+
   ```
   You don't need to publish this; just copy the key data into your named.conf file:
   ```
-  
+
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
   };
-  
+
   ```
   And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
   ```
-  
+
      update-policy {
         grant letsencrypt name _acme-challenge.home-assistant.io. txt;
      };
@@ -460,9 +462,30 @@ on the DNS zone to be used for authentication.
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
   ```
-  
+
 </details>
 
+
+<details>
+  <summary>Loopia</summary>
+
+  You will need to generate an Loopia API user and password first.
+  See https://www.loopia.se/api/ for more details
+
+  Example configuration
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-loopia
+    loopia_user: your-user@loopiaapi
+    loopia_password: 0123456789abcdef0123456789abcdef01234
+  ```
+</details>
 
 ## Certificate files
 
@@ -495,6 +518,7 @@ dns-sakuracloud
 dns-netcup
 dns-gandi
 dns-transip
+dns-loopia
 ```
 
 ## Support

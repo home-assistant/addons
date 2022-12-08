@@ -35,6 +35,7 @@ schema:
   challenge: list(dns|http)
   acme_root_ca_cert: str?
   acme_server: url?
+  chain: str?
   dns:
     aws_access_key_id: str?
     aws_secret_access_key: str?

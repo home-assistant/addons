@@ -29,6 +29,12 @@ configuration:
       By default, The addon uses Let's Encrypt's default server at
       https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a
       different ACME server.
+  chain:
+    name: Preferred Certificate Chain
+    description: >-
+      If the CA offers multiple certificate chains, prefer the chain whose
+      topmost certificate was issued from this Subject Common Name. If no match,
+      the default offered chain will be used.
   dns:
     name: DNS
     description: DNS Provider configuration

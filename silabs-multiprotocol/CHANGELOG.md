@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1
+
+- Avoid start error in case multiple primary interfaces are returned
+- Fix zigbeed argument parsing for 32-bit add-on
+- Remove unnecessary error message "Cannot open file /usr/local/etc/zigbeed.conf"
+
 ## 0.9.0
 
 - Allow IPv6 forwarding explicitly (required for HAOS 9.x without firewall)

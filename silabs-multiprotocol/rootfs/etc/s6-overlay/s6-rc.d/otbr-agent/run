@@ -11,7 +11,7 @@ declare baudrate
 declare flow_control
 declare otbr_log_level
 declare otbr_log_level_int
-backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | select (.primary == true) | .interface')"
+backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
 case "${otbr_log_level}" in

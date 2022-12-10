@@ -1,5 +1,5 @@
-From 9182cbd5af7976e489e1f5c84d2c2d5767b9335b Mon Sep 17 00:00:00 2001
-Message-Id: <9182cbd5af7976e489e1f5c84d2c2d5767b9335b.1667435840.git.stefan@agner.ch>
+From df605152628cc8495f445f2e653fb3f03232b9fe Mon Sep 17 00:00:00 2001
+Message-Id: <df605152628cc8495f445f2e653fb3f03232b9fe.1670675640.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Sat, 20 Aug 2022 10:10:08 +0200
 Subject: [PATCH] Use TCP socket instead of serial port
@@ -9,13 +9,13 @@ the listening socket to the new instance in case a controller reset is
 being requested. This makes sure the TCP connection stays up even when
 zigbeed restarts.
 ---
- app.c                                         |  61 ++++++-
+ app.c                                         |  62 ++++++-
  .../zigbee/app/zigbeed/serial_adapter.c       | 169 ++++++++++--------
  main.c                                        |   3 +
- 3 files changed, 155 insertions(+), 78 deletions(-)
+ 3 files changed, 155 insertions(+), 79 deletions(-)
 
 diff --git a/app.c b/app.c
-index ed681c0..213cf1a 100644
+index ed681c0..7c25f45 100644
 --- a/app.c
 +++ b/app.c
 @@ -27,6 +27,7 @@
@@ -68,7 +68,15 @@ index ed681c0..213cf1a 100644
            "    -h  --help                    Display this usage information.\n"
            "    -v  --verbose                 Also log Spinel to stderr.\n",
            aProgramName);
-@@ -201,6 +208,39 @@ static ssize_t ParseEtcConf(char *confFilePath, int aArgVectorSize, char *aArgVe
+@@ -124,7 +131,6 @@ static ssize_t ParseEtcConf(char *confFilePath, int aArgVectorSize, char *aArgVe
+   ssize_t argCount = 0;
+   FILE *fp = fopen(confFilePath, "r");
+   if (fp == NULL) {
+-    fprintf(stderr, "Cannot open file %s\n", confFilePath);
+     return 0; // no config file
+   }
+ 
+@@ -201,6 +207,39 @@ static ssize_t ParseEtcConf(char *confFilePath, int aArgVectorSize, char *aArgVe
    return argCount;
  }
  
@@ -85,7 +93,7 @@ index ed681c0..213cf1a 100644
 +static bool parseListenAddress(const char *arg)
 +{
 +  char *tmp;
-+  const char *ipv4_prefix = "::FFFF:";
++  const char ipv4_prefix[] = "::FFFF:";
 +  const int ipv4_prefix_len = sizeof(ipv4_prefix) - 1;
 +  const int arg_len = strlen(arg);
 +
@@ -93,9 +101,9 @@ index ed681c0..213cf1a 100644
 +    return true;
 +  }
 +
-+  tmp = malloc(arg_len + ipv4_prefix_len);
++  tmp = malloc(arg_len + ipv4_prefix_len + 1);
 +  strcpy(tmp, ipv4_prefix);
-+  strncpy(tmp + ipv4_prefix_len, arg, arg_len);
++  strncpy(tmp + ipv4_prefix_len, arg, arg_len + 1);
 +  if (inet_pton(AF_INET6, tmp, &ezspListenAddress) == 1) {
 +    free(tmp);
 +    return true;
@@ -108,7 +116,7 @@ index ed681c0..213cf1a 100644
  static void ParseArg(int aArgCount, char *aArgVector[], PosixConfig *aConfig)
  {
    optind = 1;
-@@ -222,13 +262,18 @@ static void ParseArg(int aArgCount, char *aArgVector[], PosixConfig *aConfig)
+@@ -222,13 +261,18 @@ static void ParseArg(int aArgCount, char *aArgVector[], PosixConfig *aConfig)
        case OT_POSIX_OPT_HELP:
          PrintUsage(aArgVector[0], stdout, OT_EXIT_SUCCESS);
          break;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0
+
+- Update Alpine to 3.16 (nginx 1.22.x)
+
 ## 3.1.5
 
 - Fixed container environment

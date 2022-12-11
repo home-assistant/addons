@@ -14,17 +14,17 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
 
 1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on or another method. Make sure that the certificate files exist in the `/ssl` directory.
 2. In the `configuration.yaml` file, some options in the `http:` section are no longer necessary for this scenario, and should be commented out or removed:
-  - `ssl_certificate`
-  - `ssl_key`
-  - `server_port`
+   - `ssl_certificate`
+   - `ssl_key`
+   - `server_port`
 3. And you need to add the `trusted_proxies` section (requests from reverse proxies will be blocked if these options are not set).
 
-  ```yaml
-  http:
-    use_x_forwarded_for: true
-    trusted_proxies:
-      - 172.30.33.0/24
-  ```
+   ```yaml
+   http:
+     use_x_forwarded_for: true
+     trusted_proxies:
+       - 172.30.33.0/24
+   ```
 
 4. In the nginx addon configuration, change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
 5. Leave all other options as-is.

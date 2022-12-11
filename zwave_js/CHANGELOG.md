@@ -335,4 +335,4 @@
 
 ## 0.1.0
 
-- Inital release
+- Initial release

@@ -1397,7 +1397,7 @@ proc action_put_page {} {
         restartSSHDaemon();
         MessageBox.show(translateKey("dialogSettingsSecuritySSHMsgBoxNoErrorTitle"), translateKey("dialogSettingsSecuritySSHMsgBoxNoErrorContent"));
         } else {
-        // An error occured
+        // An error occurred
         MessageBox.show(translateKey("dialogSettingsSecuritySSHMsgBoxErrorTitle"), result.msg);
         }
       };
@@ -1461,7 +1461,7 @@ proc action_put_page {} {
         }
       };
 
-      // Set the checkbox for the user authentification according to its state
+      // Set the checkbox for the user authentication according to its state
       var hasAuthStatusChanged = false;
       var initialAuthStatus = homematic("CCU.getAuthEnabled", {});
       jQuery("#userAuthActive").prop("checked", initialAuthStatus);

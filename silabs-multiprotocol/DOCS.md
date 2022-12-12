@@ -27,7 +27,7 @@ Once the firmware is loaded follow the following steps:
 To use Zigbee with ZHA configure the Integration as follows:
 
 1. Remember/copy the hostname of the add-on (e.g. `c8f00288-silabs-multiprotocol`).
-2. Add the Zigbee Home Automation (ZHA) integration to Home Assitant Core
+2. Add the Zigbee Home Automation (ZHA) integration to Home Assistant Core
 3. When asked for the Serial Device Path, choose `Enter Manually`.
 4. Choose `EZSP` as Radio type.
 5. As serial path, enter `socket://<hostname-from-above>:9999`.
@@ -67,12 +67,12 @@ Add-on configuration:
 
 | Configuration      | Description                                            |
 |--------------------|--------------------------------------------------------|
-| device (mandatory) | Serial sevice where the Silicon Labs radio is attached |
+| device (mandatory) | Serial service where the Silicon Labs radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
 | autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
-| cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
+| cpcd_trace         | Co-Processor Communication tracing (trace in log)      |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |

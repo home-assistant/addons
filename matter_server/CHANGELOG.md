@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.8
+## 1.1.0
 
 - Allow to set Matter Server logging level
 - Set storage path correctly

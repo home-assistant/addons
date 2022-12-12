@@ -1,5 +1,5 @@
 ---
-version: 1.0.7
+version: 1.0.8
 slug: matter_server
 name: Matter Server
 description: Matter WebSocket Server for Home Assistant Matter support.
@@ -18,9 +18,9 @@ host_dbus: true
 image: homeassistant/{arch}-addon-matter-server
 init: false
 options:
-  chip_debug: false
+  log_level: info
 schema:
-  chip_debug: bool
+  log_level: list(debug|info|warning|error|critical)
 ports:
   5580/tcp: null
 stage: experimental

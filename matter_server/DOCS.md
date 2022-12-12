@@ -37,7 +37,7 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=77f1785d_matter_server&repository_url=https%3A%2F%2Fgithub.com%2Fhome-assistant%2Faddons
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_matter_server
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io

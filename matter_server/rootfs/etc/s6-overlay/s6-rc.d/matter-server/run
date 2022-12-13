@@ -11,6 +11,9 @@ log_level=$(bashio::string.lower "$(bashio::config log_level)")
 
 # Bind to internal hassio network only unless user requests to expose
 server_port="$(bashio::addon.port 5580)"
+if ! bashio::var.has_value "${server_port}"; then
+    server_port=5580
+fi
 
 # Reenable once Matter Server can bind to a specific IP
 #if ! bashio::var.has_value "${server_port}"; then

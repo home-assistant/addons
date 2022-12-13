@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Fix startup when Matter Server WebSocket port is not exposed
+
 ## 1.1.0
 
 - Allow to set Matter Server logging level

@@ -23,7 +23,7 @@ Add-on configuration:
 
 | Configuration      | Description                                                 |
 |--------------------|-------------------------------------------------------------|
-| chip_debug         | Start the Matter Controller with debug log level enabled.   |
+| log_level          | Logging level of the Matter Server component.               |
 
 ## Support
 

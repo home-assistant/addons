@@ -4,25 +4,23 @@
 # ==============================================================================
 bashio::log.info "Starting Matter Server..."
 
-declare chip_ws_server_port
+declare server_port
+declare log_level
 
-if bashio::config.true 'chip_debug'; then
-    export CHIP_WS_DEBUG=1
-fi
-
-export CHIP_WS_STORAGE="/data/python-kv.json"
+log_level=$(bashio::string.lower "$(bashio::config log_level)")
 
 # Bind to internal hassio network only unless user requests to expose
-chip_ws_server_port="$(bashio::addon.port 5580)"
-if ! bashio::var.has_value "${chip_ws_server_port}"; then
-    export CHIP_WS_SERVER_HOST="$(bashio::addon.ip_address)"
-fi
+server_port="$(bashio::addon.port 5580)"
 
-export CHIP_WS_SERVER_PORT="${chip_ws_server_port:-5580}"
+# Reenable once Matter Server can bind to a specific IP
+#if ! bashio::var.has_value "${server_port}"; then
+#    export CHIP_WS_SERVER_HOST="$(bashio::addon.ip_address)"
+#fi
 
 # Send out discovery information to Home Assistant
 /etc/s6-overlay/scripts/matter-server-discovery &
 
 cd /root
 
-exec matter-server
+exec matter-server --storage-path "/data" --port "${server_port}" \
+                   --log-level "${log_level}"

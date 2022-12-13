@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+- Allow to set Matter Server logging level
+- Set storage path correctly
+- Fix support for custom port
+
 ## 1.0.7
 
 - Bump Matter Server to 1.0.7

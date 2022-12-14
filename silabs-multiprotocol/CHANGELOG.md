@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+- Add REST API to get and set the active dataset to the OpenThrad Border Router
+
 ## 0.9.1
 
 - Avoid start error in case multiple primary interfaces are returned

@@ -1,7 +1,7 @@
-From b7d004f64b5f5c623b0d26fbd8e53c6ebbaf0b20 Mon Sep 17 00:00:00 2001
-Message-Id: <b7d004f64b5f5c623b0d26fbd8e53c6ebbaf0b20.1671097452.git.stefan@agner.ch>
-In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
-References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+From 94c55abf6dab13d2b34615b0bbde88b9099822d6 Mon Sep 17 00:00:00 2001
+Message-Id: <94c55abf6dab13d2b34615b0bbde88b9099822d6.1671119442.git.stefan@agner.ch>
+In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 11:41:04 +0100
 Subject: [PATCH 3/6] [rest] add support to set active dataset

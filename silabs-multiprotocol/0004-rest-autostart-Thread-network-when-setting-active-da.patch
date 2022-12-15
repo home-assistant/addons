@@ -1,7 +1,7 @@
-From ace86cc42d5286929f8748a956346ae015701dd7 Mon Sep 17 00:00:00 2001
-Message-Id: <ace86cc42d5286929f8748a956346ae015701dd7.1671097452.git.stefan@agner.ch>
-In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
-References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+From 07c740448b8c56fbfbc1b4da9e05c1ebb88db4e0 Mon Sep 17 00:00:00 2001
+Message-Id: <07c740448b8c56fbfbc1b4da9e05c1ebb88db4e0.1671119442.git.stefan@agner.ch>
+In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 16:36:09 +0100
 Subject: [PATCH 4/6] [rest] autostart Thread network when setting active

@@ -145,6 +145,12 @@ ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY replace-the-source-of-mDNSResponder.patch /usr/src
+COPY 0001-rest-use-correct-Content-Type-header-for-RESTful-API.patch /usr/src
+COPY 0002-rest-add-active-dataset-support.patch /usr/src
+COPY 0003-rest-add-support-to-set-active-dataset.patch /usr/src
+COPY 0004-rest-autostart-Thread-network-when-setting-active-da.patch /usr/src
+COPY 0005-web-rest-listen-on-IPv6-addresses-as-well.patch /usr/src
+COPY 0006-rest-allow-to-specify-REST-listen-address.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -172,7 +178,13 @@ RUN \
        lsb-release \
        sudo \
     && cd ot-br-posix \
-    && patch -p1  < /usr/src/replace-the-source-of-mDNSResponder.patch \
+    && patch -p1 < /usr/src/replace-the-source-of-mDNSResponder.patch \
+    && patch -p1 < /usr/src/0001-rest-use-correct-Content-Type-header-for-RESTful-API.patch \
+    && patch -p1 < /usr/src/0002-rest-add-active-dataset-support.patch \
+    && patch -p1 < /usr/src/0003-rest-add-support-to-set-active-dataset.patch \
+    && patch -p1 < /usr/src/0004-rest-autostart-Thread-network-when-setting-active-da.patch \
+    && patch -p1 < /usr/src/0005-web-rest-listen-on-IPv6-addresses-as-well.patch \
+    && patch -p1 < /usr/src/0006-rest-allow-to-specify-REST-listen-address.patch \
     && chmod +x ./script/bootstrap \
     && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \

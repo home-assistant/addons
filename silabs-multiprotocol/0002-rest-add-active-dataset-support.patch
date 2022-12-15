@@ -1,10 +1,10 @@
 From 9e40b40eeda67f24d6fd2fd4ef1853dc60b05526 Mon Sep 17 00:00:00 2001
-Message-Id: <9e40b40eeda67f24d6fd2fd4ef1853dc60b05526.1671014560.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671014560.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671014560.git.stefan@agner.ch>
+Message-Id: <9e40b40eeda67f24d6fd2fd4ef1853dc60b05526.1671091428.git.stefan@agner.ch>
+In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 10:46:09 +0100
-Subject: [PATCH 2/3] [rest] add active dataset support
+Subject: [PATCH 2/6] [rest] add active dataset support
 
 ---
  src/rest/resource.cpp | 38 ++++++++++++++++++++++++++++++++++++++

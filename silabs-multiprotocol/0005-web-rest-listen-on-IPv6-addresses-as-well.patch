@@ -1,0 +1,71 @@
+From 780c56572772117bdd643b3c8b69a5897065be8a Mon Sep 17 00:00:00 2001
+Message-Id: <780c56572772117bdd643b3c8b69a5897065be8a.1671091428.git.stefan@agner.ch>
+In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 14 Dec 2022 17:03:14 +0100
+Subject: [PATCH 5/6] [web/rest] listen on IPv6 addresses as well
+
+Make the Web and REST API listen on IPv4 and IPv6 by default.
+---
+ src/rest/rest_web_server.cpp | 10 +++++-----
+ src/rest/rest_web_server.hpp |  2 +-
+ src/web/main.cpp             |  2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/src/rest/rest_web_server.cpp b/src/rest/rest_web_server.cpp
+index 90a1d23286..ccc497c9bc 100644
+--- a/src/rest/rest_web_server.cpp
++++ b/src/rest/rest_web_server.cpp
+@@ -121,17 +121,17 @@ void RestWebServer::InitializeListenFd(void)
+     int32_t     err    = errno;
+     int32_t     optval = 1;
+ 
+-    mAddress.sin_family      = AF_INET;
+-    mAddress.sin_addr.s_addr = INADDR_ANY;
+-    mAddress.sin_port        = htons(kPortNumber);
++    mAddress.sin6_family    = AF_INET6;
++    mAddress.sin6_addr      = in6addr_any;
++    mAddress.sin6_port      = htons(kPortNumber);
+ 
+-    mListenFd = SocketWithCloseExec(AF_INET, SOCK_STREAM, 0, kSocketNonBlock);
++    mListenFd = SocketWithCloseExec(AF_INET6, SOCK_STREAM, 0, kSocketNonBlock);
+     VerifyOrExit(mListenFd != -1, err = errno, error = OTBR_ERROR_REST, errorMessage = "socket");
+ 
+     ret = setsockopt(mListenFd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<char *>(&optval), sizeof(optval));
+     VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "sock opt");
+ 
+-    ret = bind(mListenFd, reinterpret_cast<struct sockaddr *>(&mAddress), sizeof(sockaddr));
++    ret = bind(mListenFd, reinterpret_cast<struct sockaddr *>(&mAddress), sizeof(mAddress));
+     VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "bind");
+ 
+     ret = listen(mListenFd, 5);
+diff --git a/src/rest/rest_web_server.hpp b/src/rest/rest_web_server.hpp
+index d3e1fb973f..9a5a49ca4a 100644
+--- a/src/rest/rest_web_server.hpp
++++ b/src/rest/rest_web_server.hpp
+@@ -87,7 +87,7 @@ private:
+     // Resource handler
+     Resource mResource;
+     // Struct for server configuration
+-    sockaddr_in mAddress;
++    sockaddr_in6 mAddress;
+     // File descriptor for listening
+     int32_t mListenFd;
+     // Connection List
+diff --git a/src/web/main.cpp b/src/web/main.cpp
+index 1badf1094a..be6d34c0ce 100644
+--- a/src/web/main.cpp
++++ b/src/web/main.cpp
+@@ -48,7 +48,7 @@
+ 
+ static const char kSyslogIdent[]          = "otbr-web";
+ static const char kDefaultInterfaceName[] = "wpan0";
+-static const char kDefaultListenAddr[]    = "0.0.0.0";
++static const char kDefaultListenAddr[]    = "::";
+ 
+ std::unique_ptr<otbr::Web::WebServer> sServer(nullptr);
+ 
+-- 
+2.39.0
+

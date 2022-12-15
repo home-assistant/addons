@@ -1,10 +1,10 @@
 From 8bdf2db409b7208ae3f04b865adf1d751c156199 Mon Sep 17 00:00:00 2001
-Message-Id: <8bdf2db409b7208ae3f04b865adf1d751c156199.1671014560.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671014560.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671014560.git.stefan@agner.ch>
+Message-Id: <8bdf2db409b7208ae3f04b865adf1d751c156199.1671091428.git.stefan@agner.ch>
+In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 11:41:04 +0100
-Subject: [PATCH 3/3] [rest] add support to set active dataset
+Subject: [PATCH 3/6] [rest] add support to set active dataset
 
 Support setting active dataset using HTTP PUT method. The body
 needs to be formatted as a hex string representing the operational

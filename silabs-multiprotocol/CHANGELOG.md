@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+- Use Silicon Labs Gecko SDK 4.2.0
+
 ## 0.10.0
 
 - Add REST API to get and set the active dataset to the OpenThrad Border Router

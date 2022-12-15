@@ -1,7 +1,7 @@
-From 8bdf2db409b7208ae3f04b865adf1d751c156199 Mon Sep 17 00:00:00 2001
-Message-Id: <8bdf2db409b7208ae3f04b865adf1d751c156199.1671091428.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From b7d004f64b5f5c623b0d26fbd8e53c6ebbaf0b20 Mon Sep 17 00:00:00 2001
+Message-Id: <b7d004f64b5f5c623b0d26fbd8e53c6ebbaf0b20.1671097452.git.stefan@agner.ch>
+In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 11:41:04 +0100
 Subject: [PATCH 3/6] [rest] add support to set active dataset
@@ -18,7 +18,7 @@ dataset TLV encoded.
  5 files changed, 61 insertions(+)
 
 diff --git a/src/rest/json.cpp b/src/rest/json.cpp
-index 4aa304a19f..dea2b1dcb0 100644
+index f2c7c837ef..0f567c092f 100644
 --- a/src/rest/json.cpp
 +++ b/src/rest/json.cpp
 @@ -372,6 +372,11 @@ std::string Bytes2HexJsonString(const uint8_t *aBytes, uint8_t aLength)
@@ -32,7 +32,7 @@ index 4aa304a19f..dea2b1dcb0 100644
 +
  std::string Number2JsonString(const uint32_t &aNumber)
  {
-     cJSON      *number = cJSON_CreateNumber(aNumber);
+     cJSON *     number = cJSON_CreateNumber(aNumber);
 diff --git a/src/rest/json.hpp b/src/rest/json.hpp
 index 2674510e7c..33f0371c9c 100644
 --- a/src/rest/json.hpp
@@ -57,7 +57,7 @@ index 2674510e7c..33f0371c9c 100644
   * This method formats a C string to a Json string and serialize it to a string.
   *
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index 4dd6a12b19..1f0b6ea540 100644
+index f39be3e316..c0b4078344 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -52,6 +52,8 @@
@@ -130,7 +130,7 @@ index 4dd6a12b19..1f0b6ea540 100644
      {
          ErrorHandler(aResponse, HttpStatusCode::kStatusMethodNotAllowed);
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index df50113fee..057cafc3de 100644
+index 344ec0deea..7c0d4c2e7d 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
 @@ -127,6 +127,7 @@ private:

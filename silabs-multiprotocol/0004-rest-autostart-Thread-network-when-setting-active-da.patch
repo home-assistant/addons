@@ -1,7 +1,7 @@
-From 10e1af7439fbd8808a820275e28c4d49ce126d1b Mon Sep 17 00:00:00 2001
-Message-Id: <10e1af7439fbd8808a820275e28c4d49ce126d1b.1671091428.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From ace86cc42d5286929f8748a956346ae015701dd7 Mon Sep 17 00:00:00 2001
+Message-Id: <ace86cc42d5286929f8748a956346ae015701dd7.1671097452.git.stefan@agner.ch>
+In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 16:36:09 +0100
 Subject: [PATCH 4/6] [rest] autostart Thread network when setting active
@@ -11,11 +11,11 @@ Start the Thread network automatically when setting the dataset
 initially.
 ---
  src/rest/resource.cpp | 6 +++++-
- src/rest/resource.hpp | 1 +
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ src/rest/resource.hpp | 3 ++-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index 1f0b6ea540..37ceff71c2 100644
+index c0b4078344..77679ae755 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -136,7 +136,8 @@ Resource::Resource(ControllerOpenThread *aNcp)
@@ -39,13 +39,15 @@ index 1f0b6ea540..37ceff71c2 100644
      if (error != OT_ERROR_NONE)
      {
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index 057cafc3de..460a8926c4 100644
+index 7c0d4c2e7d..f6537741bd 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
-@@ -139,6 +139,7 @@ private:
+@@ -138,7 +138,8 @@ private:
+                                           void *               aContext);
      void        DiagnosticResponseHandler(otError aError, const otMessage *aMessage, const otMessageInfo *aMessageInfo);
  
-     otInstance           *mInstance;
+-    otInstance *          mInstance;
++    otInstance           *mInstance;
 +    otbr::agent::ThreadHelper   *mThreadHelper;
      ControllerOpenThread *mNcp;
  

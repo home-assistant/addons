@@ -1,7 +1,7 @@
-From 780c56572772117bdd643b3c8b69a5897065be8a Mon Sep 17 00:00:00 2001
-Message-Id: <780c56572772117bdd643b3c8b69a5897065be8a.1671091428.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From 3f4442695c21eee045f7a7869be2504bdcb2c518 Mon Sep 17 00:00:00 2001
+Message-Id: <3f4442695c21eee045f7a7869be2504bdcb2c518.1671097452.git.stefan@agner.ch>
+In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 17:03:14 +0100
 Subject: [PATCH 5/6] [web/rest] listen on IPv6 addresses as well
@@ -54,7 +54,7 @@ index d3e1fb973f..9a5a49ca4a 100644
      int32_t mListenFd;
      // Connection List
 diff --git a/src/web/main.cpp b/src/web/main.cpp
-index 1badf1094a..be6d34c0ce 100644
+index e5f47f52c2..c49047dc89 100644
 --- a/src/web/main.cpp
 +++ b/src/web/main.cpp
 @@ -48,7 +48,7 @@

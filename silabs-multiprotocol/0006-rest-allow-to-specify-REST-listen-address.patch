@@ -1,7 +1,7 @@
-From e49918feb933ca6f25f435f88e0038ea9ffe60f2 Mon Sep 17 00:00:00 2001
-Message-Id: <e49918feb933ca6f25f435f88e0038ea9ffe60f2.1671091428.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From 4080069943ee63a6498b2bd56295a2fe11e6a57f Mon Sep 17 00:00:00 2001
+Message-Id: <4080069943ee63a6498b2bd56295a2fe11e6a57f.1671097452.git.stefan@agner.ch>
+In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 21:48:35 +0100
 Subject: [PATCH 6/6] [rest] allow to specify REST listen address
@@ -17,20 +17,20 @@ allows to limit access to the REST interface e.g. from localhost only.
  5 files changed, 40 insertions(+), 6 deletions(-)
 
 diff --git a/src/agent/application.cpp b/src/agent/application.cpp
-index fb9a5bfc7c..dd72c41e87 100644
+index 1ddd47413b..fdfc106afb 100644
 --- a/src/agent/application.cpp
 +++ b/src/agent/application.cpp
-@@ -50,7 +50,8 @@ const struct timeval Application::kPollTimeout = {10, 0};
- Application::Application(const std::string               &aInterfaceName,
-                          const std::vector<const char *> &aBackboneInterfaceNames,
+@@ -49,7 +49,8 @@ const struct timeval Application::kPollTimeout = {10, 0};
+ Application::Application(const std::string &              aInterfaceName,
+                          const std::string &              aBackboneInterfaceName,
                           const std::vector<const char *> &aRadioUrls,
 -                         bool                             aEnableAutoAttach)
 +                         bool                             aEnableAutoAttach,
 +                         const std::string               &aRestListenAddress)
      : mInterfaceName(aInterfaceName)
- #if __linux__
-     , mInfraLinkSelector(aBackboneInterfaceNames)
-@@ -69,7 +70,7 @@ Application::Application(const std::string               &aInterfaceName,
+     , mBackboneInterfaceName(aBackboneInterfaceName)
+     , mNcp(mInterfaceName.c_str(), aRadioUrls, mBackboneInterfaceName.c_str(), /* aDryRun */ false, aEnableAutoAttach)
+@@ -63,7 +64,7 @@ Application::Application(const std::string &              aInterfaceName,
      , mUbusAgent(mNcp)
  #endif
  #if OTBR_ENABLE_REST_SERVER
@@ -40,12 +40,12 @@ index fb9a5bfc7c..dd72c41e87 100644
  #if OTBR_ENABLE_DBUS_SERVER && OTBR_ENABLE_BORDER_AGENT
      , mDBusAgent(mNcp, mBorderAgent.GetPublisher())
 diff --git a/src/agent/application.hpp b/src/agent/application.hpp
-index 9f6758fd4e..5c9e216355 100644
+index 185b6a8833..65c492a403 100644
 --- a/src/agent/application.hpp
 +++ b/src/agent/application.hpp
-@@ -90,7 +90,8 @@ public:
-     explicit Application(const std::string               &aInterfaceName,
-                          const std::vector<const char *> &aBackboneInterfaceNames,
+@@ -89,7 +89,8 @@ public:
+     explicit Application(const std::string &              aInterfaceName,
+                          const std::string &              aBackboneInterfaceName,
                           const std::vector<const char *> &aRadioUrls,
 -                         bool                             aEnableAutoAttach);
 +                         bool                             aEnableAutoAttach,
@@ -54,7 +54,7 @@ index 9f6758fd4e..5c9e216355 100644
      /**
       * This method initializes the Application instance.
 diff --git a/src/agent/main.cpp b/src/agent/main.cpp
-index bb61a7a79f..d3c71c19f1 100644
+index 39a8a8d64b..a5a6e53656 100644
 --- a/src/agent/main.cpp
 +++ b/src/agent/main.cpp
 @@ -72,6 +72,7 @@ enum
@@ -73,15 +73,15 @@ index bb61a7a79f..d3c71c19f1 100644
      {0, 0, 0, 0}};
  
  static bool ParseInteger(const char *aStr, long &aOutResult)
-@@ -189,6 +191,7 @@ static int realmain(int argc, char *argv[])
-     bool                      verbose           = false;
-     bool                      printRadioVersion = false;
-     bool                      enableAutoAttach  = true;
-+    const char               *restListenAddress = nullptr;
+@@ -190,6 +192,7 @@ static int realmain(int argc, char *argv[])
+     bool                      verbose               = false;
+     bool                      printRadioVersion     = false;
+     bool                      enableAutoAttach      = true;
++    const char               *restListenAddress     = "";
      std::vector<const char *> radioUrls;
-     std::vector<const char *> backboneInterfaceNames;
      long                      parseResult;
-@@ -243,6 +246,9 @@ static int realmain(int argc, char *argv[])
+ 
+@@ -242,6 +245,9 @@ static int realmain(int argc, char *argv[])
                  enableAutoAttach = parseResult;
              }
              break;
@@ -91,12 +91,12 @@ index bb61a7a79f..d3c71c19f1 100644
  
          default:
              PrintHelp(argv[0]);
-@@ -274,7 +280,7 @@ static int realmain(int argc, char *argv[])
+@@ -269,7 +275,7 @@ static int realmain(int argc, char *argv[])
      }
  
      {
--        otbr::Application app(interfaceName, backboneInterfaceNames, radioUrls, enableAutoAttach);
-+        otbr::Application app(interfaceName, backboneInterfaceNames, radioUrls, enableAutoAttach, restListenAddress);
+-        otbr::Application app(interfaceName, backboneInterfaceName, radioUrls, enableAutoAttach);
++        otbr::Application app(interfaceName, backboneInterfaceName, radioUrls, enableAutoAttach, restListenAddress);
  
          gApp = &app;
          app.Init();

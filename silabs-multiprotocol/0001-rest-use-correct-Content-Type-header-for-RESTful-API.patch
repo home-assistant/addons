@@ -1,5 +1,5 @@
-From be37daf8efa7567bebbc38b5f292826324da2611 Mon Sep 17 00:00:00 2001
-Message-Id: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From 165d09fb20d88143f0dfe8c34d2e6f6e1048ab21 Mon Sep 17 00:00:00 2001
+Message-Id: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 10:38:38 +0100
 Subject: [PATCH 1/6] [rest] use correct Content-Type header for RESTful API
@@ -13,7 +13,7 @@ where needed.
  3 files changed, 35 insertions(+), 5 deletions(-)
 
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index f0104ad721..a143e7f6c1 100644
+index 5c4cf7afcf..4a90d6a6dd 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -187,6 +187,7 @@ void Resource::ErrorHandler(Response &aResponse, HttpStatusCode aErrorCode) cons

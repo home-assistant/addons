@@ -1,7 +1,7 @@
-From 9e40b40eeda67f24d6fd2fd4ef1853dc60b05526 Mon Sep 17 00:00:00 2001
-Message-Id: <9e40b40eeda67f24d6fd2fd4ef1853dc60b05526.1671091428.git.stefan@agner.ch>
-In-Reply-To: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
-References: <be37daf8efa7567bebbc38b5f292826324da2611.1671091428.git.stefan@agner.ch>
+From 613aced22f0a2db0e2c142159c35d7b2b41a0130 Mon Sep 17 00:00:00 2001
+Message-Id: <613aced22f0a2db0e2c142159c35d7b2b41a0130.1671097452.git.stefan@agner.ch>
+In-Reply-To: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
+References: <165d09fb20d88143f0dfe8c34d2e6f6e1048ab21.1671097452.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 14 Dec 2022 10:46:09 +0100
 Subject: [PATCH 2/6] [rest] add active dataset support
@@ -12,7 +12,7 @@ Subject: [PATCH 2/6] [rest] add active dataset support
  2 files changed, 40 insertions(+)
 
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index a143e7f6c1..4dd6a12b19 100644
+index 4a90d6a6dd..f39be3e316 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -45,6 +45,7 @@
@@ -75,7 +75,7 @@ index a143e7f6c1..4dd6a12b19 100644
  {
      auto eraseIt = mDiagSet.begin();
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index ac33bd3742..df50113fee 100644
+index a1871c014f..344ec0deea 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
 @@ -113,6 +113,7 @@ private:

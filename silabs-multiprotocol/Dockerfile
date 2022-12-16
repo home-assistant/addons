@@ -54,7 +54,7 @@ RUN \
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
 
-ARG CPCD_VERSION=v4.1.2
+ARG CPCD_VERSION
 
 RUN \
     set -x \
@@ -73,7 +73,7 @@ RUN \
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
-ARG GECKO_SDK_VERSION=v4.1.3
+ARG GECKO_SDK_VERSION
 
 RUN \
     set -x \
@@ -97,20 +97,22 @@ RUN \
 
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
-COPY 0001-Use-TCP-socket-instead-of-serial-port.patch /usr/src
+COPY 0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
+COPY 0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
 
 RUN \
     set -x \
     && cd gecko_sdk \
+    && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
     && slc signature trust --sdk=. \
     && cd protocol/zigbee \
     && slc generate \
        --sdk=../.. \
        --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
        --export-destination=app/zigbeed/output \
-       --copy-sdk-sources --copy-proj-sources \
+       --copy-proj-sources \
     && cd app/zigbeed/output \
-    && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port.patch \
+    && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch \
     && make -f zigbeed.Makefile \
         AR="${DEBIAN_CROSS_PREFIX}-ar" \
         CC="${DEBIAN_CROSS_PREFIX}-gcc" \
@@ -144,7 +146,6 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
-COPY replace-the-source-of-mDNSResponder.patch /usr/src
 COPY 0001-rest-use-correct-Content-Type-header-for-RESTful-API.patch /usr/src
 COPY 0002-rest-add-active-dataset-support.patch /usr/src
 COPY 0003-rest-add-support-to-set-active-dataset.patch /usr/src
@@ -178,7 +179,6 @@ RUN \
        lsb-release \
        sudo \
     && cd ot-br-posix \
-    && patch -p1 < /usr/src/replace-the-source-of-mDNSResponder.patch \
     && patch -p1 < /usr/src/0001-rest-use-correct-Content-Type-header-for-RESTful-API.patch \
     && patch -p1 < /usr/src/0002-rest-add-active-dataset-support.patch \
     && patch -p1 < /usr/src/0003-rest-add-support-to-set-active-dataset.patch \

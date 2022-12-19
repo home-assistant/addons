@@ -24,7 +24,7 @@ RUN \
        libcairo2 \
        gdb \
        git \
-    && git clone --depth 1 -b v1.0-branch \
+    && git clone --depth 1 -b master \
        https://github.com/project-chip/connectedhomeip \
     && cp -r connectedhomeip/credentials /root/credentials \
     && rm -rf connectedhomeip \

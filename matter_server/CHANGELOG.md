@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+- Get most recent certificates from master branch
+
 ## 1.1.1
 
 - Fix startup when Matter Server WebSocket port is not exposed

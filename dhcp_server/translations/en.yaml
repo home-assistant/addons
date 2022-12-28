@@ -1,7 +1,7 @@
 ---
 configuration:
   default_lease:
-    name: Default Least Time
+    name: Default Lease Time
     description: >-
       The default time in seconds that the IP is leased to your client.
   dns:

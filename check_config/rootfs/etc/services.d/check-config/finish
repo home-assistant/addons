@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Take down the S6 supervision tree when config check is done
-# ==============================================================================
-/run/s6/basedir/bin/halt

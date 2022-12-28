@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Prepair VLC for ingress access
+# Prepare VLC for ingress access
 # ==============================================================================
 
 # Generate NGINX config

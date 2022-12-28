@@ -1,0 +1,99 @@
+From ea41274fcad0486b4d249b4b40e278f0a7c530f2 Mon Sep 17 00:00:00 2001
+Message-Id: <ea41274fcad0486b4d249b4b40e278f0a7c530f2.1671119442.git.stefan@agner.ch>
+In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 14 Dec 2022 10:46:09 +0100
+Subject: [PATCH 2/6] [rest] add active dataset support
+
+---
+ src/rest/resource.cpp | 38 ++++++++++++++++++++++++++++++++++++++
+ src/rest/resource.hpp |  2 ++
+ 2 files changed, 40 insertions(+)
+
+diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
+index 4a90d6a6dd..f39be3e316 100644
+--- a/src/rest/resource.cpp
++++ b/src/rest/resource.cpp
+@@ -45,6 +45,7 @@
+ #define OT_REST_RESOURCE_PATH_NODE_LEADERDATA "/node/leader-data"
+ #define OT_REST_RESOURCE_PATH_NODE_NUMOFROUTER "/node/num-of-router"
+ #define OT_REST_RESOURCE_PATH_NODE_EXTPANID "/node/ext-panid"
++#define OT_REST_RESOURCE_PATH_NODE_ACTIVE_DATASET_TLVS "/node/active-dataset-tlvs"
+ #define OT_REST_RESOURCE_PATH_NETWORK "/networks"
+ #define OT_REST_RESOURCE_PATH_NETWORK_CURRENT "/networks/current"
+ #define OT_REST_RESOURCE_PATH_NETWORK_CURRENT_COMMISSION "/networks/commission"
+@@ -118,6 +119,7 @@ Resource::Resource(ControllerOpenThread *aNcp)
+     mResourceMap.emplace(OT_REST_RESOURCE_PATH_NODE_LEADERDATA, &Resource::LeaderData);
+     mResourceMap.emplace(OT_REST_RESOURCE_PATH_NODE_NUMOFROUTER, &Resource::NumOfRoute);
+     mResourceMap.emplace(OT_REST_RESOURCE_PATH_NODE_EXTPANID, &Resource::ExtendedPanId);
++    mResourceMap.emplace(OT_REST_RESOURCE_PATH_NODE_ACTIVE_DATASET_TLVS, &Resource::ActiveDatasetTlvs);
+     mResourceMap.emplace(OT_REST_RESOURCE_PATH_NODE_RLOC, &Resource::Rloc);
+ 
+     // Resource callback handler
+@@ -491,6 +493,42 @@ void Resource::Rloc(const Request &aRequest, Response &aResponse) const
+     }
+ }
+ 
++void Resource::GetActiveDatasetTlvs(Response &aResponse) const
++{
++    otOperationalDatasetTlvs datasetTlvs;
++    otError                  error        = OT_ERROR_NONE;
++    std::string    body;
++    std::string    errorCode;
++
++    SuccessOrExit(otDatasetGetActiveTlvs(mInstance, &datasetTlvs));
++
++    body     = Json::Bytes2HexJsonString(datasetTlvs.mTlvs, datasetTlvs.mLength);
++
++    aResponse.SetBody(body);
++    errorCode = GetHttpStatus(HttpStatusCode::kStatusOk);
++    aResponse.SetResponsCode(errorCode);
++
++exit:
++    if (error != OT_ERROR_NONE)
++    {
++        otbrLogWarning("Failed to get active dataset: %s", otThreadErrorToString(error));
++    }
++}
++
++void Resource::ActiveDatasetTlvs(const Request &aRequest, Response &aResponse) const
++{
++    std::string errorCode;
++
++    if (aRequest.GetMethod() == HttpMethod::kGet)
++    {
++        GetActiveDatasetTlvs(aResponse);
++    }
++    else
++    {
++        ErrorHandler(aResponse, HttpStatusCode::kStatusMethodNotAllowed);
++    }
++}
++
+ void Resource::DeleteOutDatedDiagnostic(void)
+ {
+     auto eraseIt = mDiagSet.begin();
+diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
+index a1871c014f..344ec0deea 100644
+--- a/src/rest/resource.hpp
++++ b/src/rest/resource.hpp
+@@ -113,6 +113,7 @@ private:
+     void Rloc16(const Request &aRequest, Response &aResponse) const;
+     void ExtendedPanId(const Request &aRequest, Response &aResponse) const;
+     void Rloc(const Request &aRequest, Response &aResponse) const;
++    void ActiveDatasetTlvs(const Request &aRequest, Response &aResponse) const;
+     void Diagnostic(const Request &aRequest, Response &aResponse) const;
+     void HandleDiagnosticCallback(const Request &aRequest, Response &aResponse);
+ 
+@@ -125,6 +126,7 @@ private:
+     void GetDataRloc16(Response &aResponse) const;
+     void GetDataExtendedPanId(Response &aResponse) const;
+     void GetDataRloc(Response &aResponse) const;
++    void GetActiveDatasetTlvs(Response &aResponse) const;
+ 
+     void DeleteOutDatedDiagnostic(void);
+     void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
+-- 
+2.39.0
+

@@ -1,0 +1,57 @@
+From 07c740448b8c56fbfbc1b4da9e05c1ebb88db4e0 Mon Sep 17 00:00:00 2001
+Message-Id: <07c740448b8c56fbfbc1b4da9e05c1ebb88db4e0.1671119442.git.stefan@agner.ch>
+In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 14 Dec 2022 16:36:09 +0100
+Subject: [PATCH 4/6] [rest] autostart Thread network when setting active
+ dataset
+
+Start the Thread network automatically when setting the dataset
+initially.
+---
+ src/rest/resource.cpp | 6 +++++-
+ src/rest/resource.hpp | 3 ++-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
+index c0b4078344..77679ae755 100644
+--- a/src/rest/resource.cpp
++++ b/src/rest/resource.cpp
+@@ -136,7 +136,8 @@ Resource::Resource(ControllerOpenThread *aNcp)
+ 
+ void Resource::Init(void)
+ {
+-    mInstance = mNcp->GetThreadHelper()->GetInstance();
++    mThreadHelper = mNcp->GetThreadHelper();
++    mInstance = mNcp->GetInstance();
+ }
+ 
+ void Resource::Handle(Request &aRequest, Response &aResponse) const
+@@ -544,6 +545,9 @@ void Resource::SetActiveDatasetTlvs(const Request &aRequest, Response &aResponse
+ 
+     errorCode = GetHttpStatus(HttpStatusCode::kStatusAccepted);
+     aResponse.SetResponsCode(errorCode);
++
++    SuccessOrExit(mThreadHelper->TryResumeNetwork());
++
+ exit:
+     if (error != OT_ERROR_NONE)
+     {
+diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
+index 7c0d4c2e7d..f6537741bd 100644
+--- a/src/rest/resource.hpp
++++ b/src/rest/resource.hpp
+@@ -138,7 +138,8 @@ private:
+                                           void *               aContext);
+     void        DiagnosticResponseHandler(otError aError, const otMessage *aMessage, const otMessageInfo *aMessageInfo);
+ 
+-    otInstance *          mInstance;
++    otInstance           *mInstance;
++    otbr::agent::ThreadHelper   *mThreadHelper;
+     ControllerOpenThread *mNcp;
+ 
+     std::unordered_map<std::string, ResourceHandler>         mResourceMap;
+-- 
+2.39.0
+

@@ -1,0 +1,159 @@
+From 94c55abf6dab13d2b34615b0bbde88b9099822d6 Mon Sep 17 00:00:00 2001
+Message-Id: <94c55abf6dab13d2b34615b0bbde88b9099822d6.1671119442.git.stefan@agner.ch>
+In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 14 Dec 2022 11:41:04 +0100
+Subject: [PATCH 3/6] [rest] add support to set active dataset
+
+Support setting active dataset using HTTP PUT method. The body
+needs to be formatted as a hex string representing the operational
+dataset TLV encoded.
+---
+ src/rest/json.cpp     |  5 +++++
+ src/rest/json.hpp     | 12 ++++++++++++
+ src/rest/resource.cpp | 41 +++++++++++++++++++++++++++++++++++++++++
+ src/rest/resource.hpp |  1 +
+ src/rest/types.hpp    |  2 ++
+ 5 files changed, 61 insertions(+)
+
+diff --git a/src/rest/json.cpp b/src/rest/json.cpp
+index f2c7c837ef..0f567c092f 100644
+--- a/src/rest/json.cpp
++++ b/src/rest/json.cpp
+@@ -372,6 +372,11 @@ std::string Bytes2HexJsonString(const uint8_t *aBytes, uint8_t aLength)
+     return ret;
+ }
+ 
++int Hex2BytesJsonString(const std::string &hexString, uint8_t *aBytes, uint8_t aMaxLength)
++{
++    return otbr::Utils::Hex2Bytes(hexString.c_str(), aBytes, aMaxLength);
++}
++
+ std::string Number2JsonString(const uint32_t &aNumber)
+ {
+     cJSON *     number = cJSON_CreateNumber(aNumber);
+diff --git a/src/rest/json.hpp b/src/rest/json.hpp
+index 2674510e7c..33f0371c9c 100644
+--- a/src/rest/json.hpp
++++ b/src/rest/json.hpp
+@@ -70,6 +70,18 @@ std::string Number2JsonString(const uint32_t &aNumber);
+  */
+ std::string Bytes2HexJsonString(const uint8_t *aBytes, uint8_t aLength);
+ 
++/**
++ * This method parses a hex string as byte array.
++ *
++ * @param[in] hexString  String of bytes in hex
++ * @param[in] aBytes     Byte array to write to. Must be at least aMaxLength.
++ * @param[in] aMaxLength Maximum length to parse (in bytes).
++ *
++ * @returns Number of bytes effectively parsed.
++ *
++ */
++int Hex2BytesJsonString(const std::string &hexString, uint8_t *aBytes, uint8_t aMaxLength);
++
+ /**
+  * This method formats a C string to a Json string and serialize it to a string.
+  *
+diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
+index f39be3e316..c0b4078344 100644
+--- a/src/rest/resource.cpp
++++ b/src/rest/resource.cpp
+@@ -52,6 +52,8 @@
+ #define OT_REST_RESOURCE_PATH_NETWORK_CURRENT_PREFIX "/networks/current/prefix"
+ 
+ #define OT_REST_HTTP_STATUS_200 "200 OK"
++#define OT_REST_HTTP_STATUS_202 "202 Accepted"
++#define OT_REST_HTTP_STATUS_400 "400 Bad Request"
+ #define OT_REST_HTTP_STATUS_404 "404 Not Found"
+ #define OT_REST_HTTP_STATUS_405 "405 Method Not Allowed"
+ #define OT_REST_HTTP_STATUS_408 "408 Request Timeout"
+@@ -88,6 +90,12 @@ static std::string GetHttpStatus(HttpStatusCode aErrorCode)
+     case HttpStatusCode::kStatusOk:
+         httpStatus = OT_REST_HTTP_STATUS_200;
+         break;
++    case HttpStatusCode::kStatusAccepted:
++        httpStatus = OT_REST_HTTP_STATUS_202;
++        break;
++    case HttpStatusCode::kStatusBadRequest:
++        httpStatus = OT_REST_HTTP_STATUS_400;
++        break;
+     case HttpStatusCode::kStatusResourceNotFound:
+         httpStatus = OT_REST_HTTP_STATUS_404;
+         break;
+@@ -512,6 +520,35 @@ exit:
+     if (error != OT_ERROR_NONE)
+     {
+         otbrLogWarning("Failed to get active dataset: %s", otThreadErrorToString(error));
++        ErrorHandler(aResponse, HttpStatusCode::kStatusInternalServerError);
++    }
++}
++
++void Resource::SetActiveDatasetTlvs(const Request &aRequest, Response &aResponse) const
++{
++    int ret;
++    otOperationalDatasetTlvs datasetTlvs;
++    otError                  error = OT_ERROR_NONE;
++    std::string    errorCode;
++
++    ret = Json::Hex2BytesJsonString(aRequest.GetBody(), datasetTlvs.mTlvs, OT_OPERATIONAL_DATASET_MAX_LENGTH);
++    if (ret < 0)
++    {
++        errorCode = GetHttpStatus(HttpStatusCode::kStatusBadRequest);
++        aResponse.SetResponsCode(errorCode);
++        return;
++    }
++    datasetTlvs.mLength = ret;
++
++    SuccessOrExit(otDatasetSetActiveTlvs(mInstance, &datasetTlvs));
++
++    errorCode = GetHttpStatus(HttpStatusCode::kStatusAccepted);
++    aResponse.SetResponsCode(errorCode);
++exit:
++    if (error != OT_ERROR_NONE)
++    {
++        otbrLogWarning("Failed to set active dataset: %s", otThreadErrorToString(error));
++        ErrorHandler(aResponse, HttpStatusCode::kStatusInternalServerError);
+     }
+ }
+ 
+@@ -523,6 +560,10 @@ void Resource::ActiveDatasetTlvs(const Request &aRequest, Response &aResponse) c
+     {
+         GetActiveDatasetTlvs(aResponse);
+     }
++    else if (aRequest.GetMethod() == HttpMethod::kPut)
++    {
++        SetActiveDatasetTlvs(aRequest, aResponse);
++    }
+     else
+     {
+         ErrorHandler(aResponse, HttpStatusCode::kStatusMethodNotAllowed);
+diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
+index 344ec0deea..7c0d4c2e7d 100644
+--- a/src/rest/resource.hpp
++++ b/src/rest/resource.hpp
+@@ -127,6 +127,7 @@ private:
+     void GetDataExtendedPanId(Response &aResponse) const;
+     void GetDataRloc(Response &aResponse) const;
+     void GetActiveDatasetTlvs(Response &aResponse) const;
++    void SetActiveDatasetTlvs(const Request &aRequest, Response &aResponse) const;
+ 
+     void DeleteOutDatedDiagnostic(void);
+     void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
+diff --git a/src/rest/types.hpp b/src/rest/types.hpp
+index c20d9c1699..addc7d2cbb 100644
+--- a/src/rest/types.hpp
++++ b/src/rest/types.hpp
+@@ -59,6 +59,8 @@ enum class HttpMethod : std::uint8_t
+ enum class HttpStatusCode : std::uint16_t
+ {
+     kStatusOk                  = 200,
++    kStatusAccepted            = 202,
++    kStatusBadRequest          = 400,
+     kStatusResourceNotFound    = 404,
+     kStatusMethodNotAllowed    = 405,
+     kStatusRequestTimeout      = 408,
+-- 
+2.39.0
+

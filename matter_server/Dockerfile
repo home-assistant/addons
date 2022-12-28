@@ -39,6 +39,6 @@ ARG MATTER_SERVER_VERSION
 
 # hadolint ignore=DL3013
 RUN \
-   pip3 install --no-cache-dir "python-matter-server[server]"=="${MATTER_SERVER_VERSION}"
+   pip3 install --no-cache-dir "python-matter-server[server]==${MATTER_SERVER_VERSION}"
 
 COPY rootfs /

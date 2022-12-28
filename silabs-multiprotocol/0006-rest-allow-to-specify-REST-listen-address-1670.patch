@@ -1,23 +1,25 @@
-From 152907375663609e2a3fd78c40ed67b3cd985552 Mon Sep 17 00:00:00 2001
-Message-Id: <152907375663609e2a3fd78c40ed67b3cd985552.1671119442.git.stefan@agner.ch>
-In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
-References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+From 8959300846adcd0d8dc43c553d54cbc753a7c942 Mon Sep 17 00:00:00 2001
+Message-Id: <8959300846adcd0d8dc43c553d54cbc753a7c942.1672229010.git.stefan@agner.ch>
+In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1672229010.git.stefan@agner.ch>
+References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1672229010.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
-Date: Wed, 14 Dec 2022 21:48:35 +0100
-Subject: [PATCH 6/6] [rest] allow to specify REST listen address
+Date: Fri, 23 Dec 2022 04:00:41 +0100
+Subject: [PATCH 6/8] [rest] allow to specify REST listen address (#1670)
 
 Allow to bind to a specific address to listen to for REST requests. This
 allows to limit access to the REST interface e.g. from localhost only.
+
+(cherry picked from commit 079bbce34ad7868e2879a8e70550c6ae638d6bac)
 ---
- src/agent/application.cpp    |  5 +++--
+ src/agent/application.cpp    |  6 ++++--
  src/agent/application.hpp    |  3 ++-
  src/agent/main.cpp           |  8 +++++++-
- src/rest/rest_web_server.cpp | 25 ++++++++++++++++++++++++-
- src/rest/rest_web_server.hpp |  5 ++++-
- 5 files changed, 40 insertions(+), 6 deletions(-)
+ src/rest/rest_web_server.cpp | 35 ++++++++++++++++++++++++++++++-----
+ src/rest/rest_web_server.hpp |  3 ++-
+ 5 files changed, 45 insertions(+), 10 deletions(-)
 
 diff --git a/src/agent/application.cpp b/src/agent/application.cpp
-index eed641e352..b536c7b104 100644
+index eed641e352..42cc307c09 100644
 --- a/src/agent/application.cpp
 +++ b/src/agent/application.cpp
 @@ -50,7 +50,8 @@ const struct timeval Application::kPollTimeout = {10, 0};
@@ -39,6 +41,14 @@ index eed641e352..b536c7b104 100644
  #endif
  #if OTBR_ENABLE_DBUS_SERVER && OTBR_ENABLE_BORDER_AGENT
      , mDBusAgent(mNcp, mBorderAgent.GetPublisher())
+@@ -78,6 +79,7 @@ Application::Application(const std::string &              aInterfaceName,
+     , mVendorServer(mNcp)
+ #endif
+ {
++    OTBR_UNUSED_VARIABLE(aRestListenAddress);
+ }
+ 
+ void Application::Init(void)
 diff --git a/src/agent/application.hpp b/src/agent/application.hpp
 index d12ed15417..829916772c 100644
 --- a/src/agent/application.hpp
@@ -101,7 +111,7 @@ index 14c33cbaa3..883c685671 100644
          gApp = &app;
          app.Init();
 diff --git a/src/rest/rest_web_server.cpp b/src/rest/rest_web_server.cpp
-index ccc497c9bc..cfdf6b4753 100644
+index 1829e15ee6..cfb3dd4435 100644
 --- a/src/rest/rest_web_server.cpp
 +++ b/src/rest/rest_web_server.cpp
 @@ -30,6 +30,7 @@
@@ -112,31 +122,44 @@ index ccc497c9bc..cfdf6b4753 100644
  #include <cerrno>
  
  #include <fcntl.h>
-@@ -48,8 +49,9 @@ static const uint32_t kMaxServeNum = 500;
+@@ -48,10 +49,20 @@ static const uint32_t kMaxServeNum = 500;
  // Port number used by Rest server.
  static const uint32_t kPortNumber = 8081;
  
 -RestWebServer::RestWebServer(ControllerOpenThread &aNcp)
 +RestWebServer::RestWebServer(ControllerOpenThread &aNcp, const std::string &aRestListenAddress)
      : mResource(Resource(&aNcp))
-+    , mRestListenAddress(aRestListenAddress)
      , mListenFd(-1)
  {
++    mAddress.sin6_family = AF_INET6;
++    mAddress.sin6_addr   = in6addr_any;
++    mAddress.sin6_port   = htons(kPortNumber);
++
++    if (!aRestListenAddress.empty())
++    {
++        if (!ParseListenAddress(aRestListenAddress, &mAddress.sin6_addr))
++            otbrLogWarning("Failed to parse REST listen address %s, listening on any address.",
++                           aRestListenAddress.c_str());
++    }
  }
-@@ -113,6 +115,22 @@ void RestWebServer::UpdateConnections(const fd_set &aReadFdSet)
+ 
+ RestWebServer::~RestWebServer(void)
+@@ -113,6 +124,24 @@ void RestWebServer::UpdateConnections(const fd_set &aReadFdSet)
      }
  }
  
 +bool RestWebServer::ParseListenAddress(const std::string listenAddress, struct in6_addr *sin6_addr)
 +{
-+    const std::string ipv4_prefix = "::FFFF:";
++    const std::string ipv4_prefix       = "::FFFF:";
 +    const std::string ipv4ListenAddress = ipv4_prefix + listenAddress;
 +
-+    if (inet_pton(AF_INET6, listenAddress.c_str(), sin6_addr) == 1) {
++    if (inet_pton(AF_INET6, listenAddress.c_str(), sin6_addr) == 1)
++    {
 +        return true;
 +    }
 +
-+    if (inet_pton(AF_INET6, ipv4ListenAddress.c_str(), sin6_addr) == 1) {
++    if (inet_pton(AF_INET6, ipv4ListenAddress.c_str(), sin6_addr) == 1)
++    {
 +        return true;
 +    }
 +
@@ -146,20 +169,19 @@ index ccc497c9bc..cfdf6b4753 100644
  void RestWebServer::InitializeListenFd(void)
  {
      otbrError   error = OTBR_ERROR_NONE;
-@@ -125,6 +143,11 @@ void RestWebServer::InitializeListenFd(void)
-     mAddress.sin6_addr      = in6addr_any;
-     mAddress.sin6_port      = htons(kPortNumber);
+@@ -122,10 +151,6 @@ void RestWebServer::InitializeListenFd(void)
+     int32_t     yes = 1;
+     int32_t     no  = 0;
  
-+    if (!mRestListenAddress.empty()) {
-+        if(!ParseListenAddress(mRestListenAddress, &mAddress.sin6_addr))
-+            otbrLogWarning("Parsing REST listen address failed, listening on any address.");
-+    }
-+
+-    mAddress.sin6_family = AF_INET6;
+-    mAddress.sin6_addr   = in6addr_any;
+-    mAddress.sin6_port   = htons(kPortNumber);
+-
      mListenFd = SocketWithCloseExec(AF_INET6, SOCK_STREAM, 0, kSocketNonBlock);
      VerifyOrExit(mListenFd != -1, err = errno, error = OTBR_ERROR_REST, errorMessage = "socket");
  
 diff --git a/src/rest/rest_web_server.hpp b/src/rest/rest_web_server.hpp
-index 9a5a49ca4a..af766c8e57 100644
+index 9a5a49ca4a..97e36b37e0 100644
 --- a/src/rest/rest_web_server.hpp
 +++ b/src/rest/rest_web_server.hpp
 @@ -60,7 +60,7 @@ public:
@@ -179,15 +201,6 @@ index 9a5a49ca4a..af766c8e57 100644
      void      InitializeListenFd(void);
      bool      SetFdNonblocking(int32_t fd);
  
-@@ -88,6 +89,8 @@ private:
-     Resource mResource;
-     // Struct for server configuration
-     sockaddr_in6 mAddress;
-+    // Listen address
-+    const std::string mRestListenAddress;
-     // File descriptor for listening
-     int32_t mListenFd;
-     // Connection List
 -- 
 2.39.0
 

@@ -1,41 +1,52 @@
-From 8364e2a6bae5a191ad3f3e1f0cf341b5920e2589 Mon Sep 17 00:00:00 2001
-Message-Id: <8364e2a6bae5a191ad3f3e1f0cf341b5920e2589.1671119442.git.stefan@agner.ch>
-In-Reply-To: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
-References: <3f8d002f0ccb40961e459154740cd6e41ef2abfc.1671119442.git.stefan@agner.ch>
+From c2dc2a9940d1f9809403d4dfb28e1f942ef90bab Mon Sep 17 00:00:00 2001
+Message-Id: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1672229010.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
-Date: Wed, 14 Dec 2022 17:03:14 +0100
-Subject: [PATCH 5/6] [web/rest] listen on IPv6 addresses as well
+Date: Fri, 16 Dec 2022 06:20:03 +0100
+Subject: [PATCH 1/8] [web/rest] listen on IPv6 addresses as well (#1659)
 
 Make the Web and REST API listen on IPv4 and IPv6 by default.
+
+(cherry picked from commit b0720dbc96b163cfce3b3105022506463c0f5df9)
 ---
- src/rest/rest_web_server.cpp | 10 +++++-----
+ src/rest/rest_web_server.cpp | 22 +++++++++++++---------
  src/rest/rest_web_server.hpp |  2 +-
  src/web/main.cpp             |  2 +-
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ 3 files changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/src/rest/rest_web_server.cpp b/src/rest/rest_web_server.cpp
-index 90a1d23286..ccc497c9bc 100644
+index 90a1d23286..1829e15ee6 100644
 --- a/src/rest/rest_web_server.cpp
 +++ b/src/rest/rest_web_server.cpp
-@@ -121,17 +121,17 @@ void RestWebServer::InitializeListenFd(void)
-     int32_t     err    = errno;
-     int32_t     optval = 1;
+@@ -118,20 +118,24 @@ void RestWebServer::InitializeListenFd(void)
+     otbrError   error = OTBR_ERROR_NONE;
+     std::string errorMessage;
+     int32_t     ret;
+-    int32_t     err    = errno;
+-    int32_t     optval = 1;
++    int32_t     err = errno;
++    int32_t     yes = 1;
++    int32_t     no  = 0;
  
 -    mAddress.sin_family      = AF_INET;
 -    mAddress.sin_addr.s_addr = INADDR_ANY;
 -    mAddress.sin_port        = htons(kPortNumber);
-+    mAddress.sin6_family    = AF_INET6;
-+    mAddress.sin6_addr      = in6addr_any;
-+    mAddress.sin6_port      = htons(kPortNumber);
++    mAddress.sin6_family = AF_INET6;
++    mAddress.sin6_addr   = in6addr_any;
++    mAddress.sin6_port   = htons(kPortNumber);
  
 -    mListenFd = SocketWithCloseExec(AF_INET, SOCK_STREAM, 0, kSocketNonBlock);
 +    mListenFd = SocketWithCloseExec(AF_INET6, SOCK_STREAM, 0, kSocketNonBlock);
      VerifyOrExit(mListenFd != -1, err = errno, error = OTBR_ERROR_REST, errorMessage = "socket");
  
-     ret = setsockopt(mListenFd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<char *>(&optval), sizeof(optval));
-     VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "sock opt");
+-    ret = setsockopt(mListenFd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<char *>(&optval), sizeof(optval));
+-    VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "sock opt");
++    ret = setsockopt(mListenFd, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<char *>(&no), sizeof(no));
++    VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "sock opt v6only");
  
 -    ret = bind(mListenFd, reinterpret_cast<struct sockaddr *>(&mAddress), sizeof(sockaddr));
++    ret = setsockopt(mListenFd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<char *>(&yes), sizeof(yes));
++    VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "sock opt reuseaddr");
++
 +    ret = bind(mListenFd, reinterpret_cast<struct sockaddr *>(&mAddress), sizeof(mAddress));
      VerifyOrExit(ret == 0, err = errno, error = OTBR_ERROR_REST, errorMessage = "bind");
  

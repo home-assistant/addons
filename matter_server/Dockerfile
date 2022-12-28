@@ -1,8 +1,6 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG HOME_ASSISTANT_CHIP_VERSION
-
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -41,9 +39,6 @@ ARG MATTER_SERVER_VERSION
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install \
-       home-assistant-chip-clusters==${HOME_ASSISTANT_CHIP_VERSION} \
-       home-assistant-chip-core==${HOME_ASSISTANT_CHIP_VERSION} \
-    && pip3 install --no-cache-dir python-matter-server=="${MATTER_SERVER_VERSION}"
+    pip3 install --no-cache-dir python-matter-server[server]=="${MATTER_SERVER_VERSION}"
 
 COPY rootfs /

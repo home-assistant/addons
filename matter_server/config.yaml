@@ -11,6 +11,7 @@ arch:
 discovery:
   - matter
 hassio_api: true
+homeassistant: 2023.1.0b1
 # IPC is only used within the Add-on
 host_ipc: false
 host_network: true

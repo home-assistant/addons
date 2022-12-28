@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.1
+
+- Update REST API with full active and pending dataset as well as state support
+
 ## 0.11.0
 
 - Use Silicon Labs Gecko SDK 4.2.0

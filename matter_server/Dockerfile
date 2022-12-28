@@ -27,6 +27,8 @@ RUN \
     && git clone --depth 1 -b master \
        https://github.com/project-chip/connectedhomeip \
     && cp -r connectedhomeip/credentials /root/credentials \
+    && mv /root/credentials/production/paa-root-certs/* \
+          /root/credentials/development/paa-root-certs/ \
     && rm -rf connectedhomeip \
     && apt-get purge -y --auto-remove \
        git \

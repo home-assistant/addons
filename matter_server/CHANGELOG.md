@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+- Bump Matter Server to 1.0.8
+- Bump pre-built Matter SDK wheels to 2022.12.0
+- Make sure production PAA certificates work too
+
 ## 1.1.2
 
 - Get most recent certificates from master branch

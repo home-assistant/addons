@@ -1,6 +1,7 @@
 ---
 version: 1.2.0
 slug: ada
+stage: deprecated
 name: Hey Ada!
 description: Voice assistant powered by Home Assistant
 url: https://github.com/home-assistant/hassio-addons/blob/master/ada

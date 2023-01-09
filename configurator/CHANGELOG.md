@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.3
+
+- Update base image to Alpine 3.16
+
 ## 5.4.2
 
 - Bugfix: Fix page load with special characters in states

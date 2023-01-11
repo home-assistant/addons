@@ -78,7 +78,8 @@ A file containing the private key. Place this file in the Home Assistant `ssl` f
 
 ### Option: `require_certificate`
 
-If set to `true` encryption will be enabled using the cert- and keyfile options.
+If set to `true`, the client must provide a valid certificate in order to connect successfully.  
+If set to `false`, the SSL/TLS component of the client will verify the server but there is no requirement for the client to provide anything for the server, authentication is limited to the MQTT username/password.
 
 ### Option: `debug`
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.2
+
+- Add OTBR discovery support
+
 ## 0.11.1
 
 - Update REST API with full active and pending dataset as well as state support

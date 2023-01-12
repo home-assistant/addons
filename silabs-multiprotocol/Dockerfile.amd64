@@ -183,6 +183,7 @@ RUN \
        python3-cryptography \
        python3-yarl \
        lsb-release \
+       netcat \
        sudo \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-web-rest-listen-on-IPv6-addresses-as-well-1659.patch \

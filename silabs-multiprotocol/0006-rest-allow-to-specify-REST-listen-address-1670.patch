@@ -1,10 +1,10 @@
 From 8959300846adcd0d8dc43c553d54cbc753a7c942 Mon Sep 17 00:00:00 2001
-Message-Id: <8959300846adcd0d8dc43c553d54cbc753a7c942.1672229010.git.stefan@agner.ch>
-In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1672229010.git.stefan@agner.ch>
-References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1672229010.git.stefan@agner.ch>
+Message-Id: <8959300846adcd0d8dc43c553d54cbc753a7c942.1673521948.git.stefan@agner.ch>
+In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673521948.git.stefan@agner.ch>
+References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673521948.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Fri, 23 Dec 2022 04:00:41 +0100
-Subject: [PATCH 6/8] [rest] allow to specify REST listen address (#1670)
+Subject: [PATCH 6/9] [rest] allow to specify REST listen address (#1670)
 
 Allow to bind to a specific address to listen to for REST requests. This
 allows to limit access to the REST interface e.g. from localhost only.

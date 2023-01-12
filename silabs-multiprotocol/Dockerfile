@@ -153,6 +153,7 @@ COPY 0005-web-bump-to-latest-Simple-Web-Server-version-1667.patch /usr/src
 COPY 0006-rest-allow-to-specify-REST-listen-address-1670.patch /usr/src
 COPY 0007-rest-implement-REST-API-to-get-dataset.patch /usr/src
 COPY 0008-rest-support-state-change.patch /usr/src
+COPY 0009-rest-remove-superfluous-space-in-HTTP-status-line.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -188,6 +189,7 @@ RUN \
     && patch -p1 < /usr/src/0006-rest-allow-to-specify-REST-listen-address-1670.patch \
     && patch -p1 < /usr/src/0007-rest-implement-REST-API-to-get-dataset.patch \
     && patch -p1 < /usr/src/0008-rest-support-state-change.patch \
+    && patch -p1 < /usr/src/0009-rest-remove-superfluous-space-in-HTTP-status-line.patch \
     && chmod +x ./script/bootstrap \
     && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \

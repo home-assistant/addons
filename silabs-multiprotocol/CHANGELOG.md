@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.3
+
+- Fix REST API to return an HTTP compliant status line
+
 ## 0.11.2
 
 - Add OTBR discovery support

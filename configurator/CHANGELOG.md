@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.4.3
+## 5.5.0
 
 - Update base image to Alpine 3.16
   - Bumps `git` to 2.36.3

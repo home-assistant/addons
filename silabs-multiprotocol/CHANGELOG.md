@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.4
+
+- Fix REST API to correctly set the Connection HTTP header
+
 ## 0.11.3
 
 - Fix REST API to return an HTTP compliant status line

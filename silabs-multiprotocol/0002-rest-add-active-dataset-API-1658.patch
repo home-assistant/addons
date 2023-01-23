@@ -1,10 +1,10 @@
-From 9a624b0ce0f5565a94663693f7690367c95c9d9b Mon Sep 17 00:00:00 2001
-Message-Id: <9a624b0ce0f5565a94663693f7690367c95c9d9b.1673530580.git.stefan@agner.ch>
-In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
-References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+From b37c2fcc392941aa2062ea864189d40299c24b75 Mon Sep 17 00:00:00 2001
+Message-Id: <b37c2fcc392941aa2062ea864189d40299c24b75.1674503755.git.stefan@agner.ch>
+In-Reply-To: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
+References: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Fri, 16 Dec 2022 07:34:07 +0100
-Subject: [PATCH 02/10] [rest] add active dataset API (#1658)
+Subject: [PATCH] [rest] add active dataset API (#1658)
 
 Support setting active dataset using HTTP PUT method. The body
 needs to be formatted as a hex string representing the operational
@@ -210,5 +210,5 @@ index c20d9c1699..addc7d2cbb 100644
      kStatusMethodNotAllowed    = 405,
      kStatusRequestTimeout      = 408,
 -- 
-2.39.0
+2.39.1
 

@@ -1,10 +1,10 @@
-From 40440fd30df9dcfc8090c11b2e0a6c7cbd49d1c8 Mon Sep 17 00:00:00 2001
-Message-Id: <40440fd30df9dcfc8090c11b2e0a6c7cbd49d1c8.1673530580.git.stefan@agner.ch>
-In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
-References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+From 1c8b28cbece3c58695e6ed6b49f0d30486e135ad Mon Sep 17 00:00:00 2001
+Message-Id: <1c8b28cbece3c58695e6ed6b49f0d30486e135ad.1674503755.git.stefan@agner.ch>
+In-Reply-To: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
+References: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Thu, 12 Jan 2023 12:10:47 +0100
-Subject: [PATCH 09/10] [rest] remove superfluous space in HTTP status line
+Subject: [PATCH] [rest] remove superfluous space in HTTP status line
 
 ---
  src/rest/response.cpp | 2 +-
@@ -24,5 +24,5 @@ index 17ae97e384..540a0840e0 100644
      // Pre-defined headers
      mHeaders[OT_REST_CONTENT_TYPE_HEADER]    = OT_REST_CONTENT_TYPE_JSON;
 -- 
-2.39.0
+2.39.1
 

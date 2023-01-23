@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.0
+
+- Use Silicon Labs Gecko SDK 4.1.4
+
 ## 0.11.4
 
 - Fix REST API to correctly set the Connection HTTP header

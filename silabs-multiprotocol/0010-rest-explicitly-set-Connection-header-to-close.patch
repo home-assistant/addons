@@ -1,10 +1,10 @@
-From 65a87b8e2beabccf22fe5fc27cacb98dd9ba05dc Mon Sep 17 00:00:00 2001
-Message-Id: <65a87b8e2beabccf22fe5fc27cacb98dd9ba05dc.1673530580.git.stefan@agner.ch>
-In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
-References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+From 1154db7c35fb252c7f80407c9e70fdf5b21e12fd Mon Sep 17 00:00:00 2001
+Message-Id: <1154db7c35fb252c7f80407c9e70fdf5b21e12fd.1674503755.git.stefan@agner.ch>
+In-Reply-To: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
+References: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Thu, 12 Jan 2023 14:35:04 +0100
-Subject: [PATCH 10/10] [rest] explicitly set Connection header to close
+Subject: [PATCH] [rest] explicitly set Connection header to close
 
 By default, HTTP 1.1 connections should stay open after a transaction.
 However, that is not how the current REST server implementation behaves:
@@ -38,5 +38,5 @@ index 540a0840e0..5c08fd77b4 100644
  
  void Response::SetComplete()
 -- 
-2.39.0
+2.39.1
 

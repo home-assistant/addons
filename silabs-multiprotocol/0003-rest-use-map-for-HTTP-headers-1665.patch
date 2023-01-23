@@ -1,10 +1,10 @@
-From 1fd0572e7ceeb0f7dff59f7a9bdbe8519fb332ec Mon Sep 17 00:00:00 2001
-Message-Id: <1fd0572e7ceeb0f7dff59f7a9bdbe8519fb332ec.1673530580.git.stefan@agner.ch>
-In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
-References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+From 6e152062afca6b3b910656595666e707c1a70b7e Mon Sep 17 00:00:00 2001
+Message-Id: <6e152062afca6b3b910656595666e707c1a70b7e.1674503755.git.stefan@agner.ch>
+In-Reply-To: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
+References: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Tue, 20 Dec 2022 07:22:01 +0100
-Subject: [PATCH 03/10] [rest] use map for HTTP headers (#1665)
+Subject: [PATCH] [rest] use map for HTTP headers (#1665)
 
 (cherry picked from commit 2ff52570fdb1a2daa7c93e0aae7e6cb551322252)
 ---
@@ -91,5 +91,5 @@ index ecfe98f4de..8ae24ffe30 100644
  
  } // namespace rest
 -- 
-2.39.0
+2.39.1
 

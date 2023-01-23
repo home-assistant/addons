@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- Bump Matter Server to 1.1.0
+
 ## 2.0.0
 
 - Require Home Assistant Core 2023.1.0b1 to install the add-on. The chip SDK was bumped in [Matter Server 1.0.8](https://github.com/home-assistant-libs/python-matter-server/releases/tag/1.0.8).

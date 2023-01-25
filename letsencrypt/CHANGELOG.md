@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.12.9
+
+- Fix INWX for passwords with '#' and ','
+- INWX documentation corrected (user)
+
 ## 4.12.8
 
 - Add INWX DNS challenge support

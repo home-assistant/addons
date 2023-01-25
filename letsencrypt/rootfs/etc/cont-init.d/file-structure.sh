@@ -45,7 +45,7 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "certbot_dns_transip:dns_transip_key_file = /data/transip-rsa.key\n" \
       "dns_inwx_url = https://api.domrobot.com/xmlrpc/\n" \
       "dns_inwx_username = $(bashio::config 'dns.inwx_username')\n" \
-      "dns_inwx_password = $(bashio::config 'dns.inwx_password')\n" \
+      "dns_inwx_password = \"\"\"$(bashio::config 'dns.inwx_password')\"\"\"\n" \
       "dns_inwx_shared_secret = $(bashio::config 'dns.inwx_shared_secret')" > /data/dnsapikey
 
 chmod 600 /data/dnsapikey

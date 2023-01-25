@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0
+
+- Bump Matter Server to 2.0.1
+- Use Nabu Casa Vendor ID by default
+
+### Breaking
+
+- All commissioned devices need to be recommissioned.
+
 ## 2.1.0
 
 - Bump Matter Server to 1.1.0

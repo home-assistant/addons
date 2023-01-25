@@ -89,6 +89,9 @@ gandi_api_key: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+inwx_username: ''
+inwx_password: ''
+inwx_shared_secret: ''
 ```
 
 ## Advanced
@@ -459,6 +462,30 @@ on the DNS zone to be used for authentication.
   
 </details>
 
+<details>
+  <summary>INWX</summary>
+
+  Use the user for the dyndns service, not the normal user.
+  The shared secret is the 2FA code, it must be the same length as the example.
+  To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
+  Without 2FA leave the example key.
+
+  Example configuration:
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-inwx
+    inwx_username: user
+    inwx_password: password
+    inwx_shared_secret: ABCDEFGHIJKLMNOPQRSTUVWXYZ012345
+  ```
+
+</details>
 
 ## Certificate files
 
@@ -491,6 +518,7 @@ dns-sakuracloud
 dns-netcup
 dns-gandi
 dns-transip
+dns-inwx
 ```
 
 ## Support

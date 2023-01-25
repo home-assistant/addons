@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.8
+
+- Add INWX DNS challenge support
+
 ## 4.12.7
 
 - Add Hetzner DNS challenge support

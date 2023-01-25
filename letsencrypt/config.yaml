@@ -89,3 +89,4 @@ schema:
     inwx_password: str?
     inwx_shared_secret: str?
 startup: once
+

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Bump Matter Server fabric ID after changing vendor ID
+
 ## 3.0.0
 
 - Bump Matter Server to 2.0.1

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.2
+
+- Bump Matter Server to [2.0.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.0.2)
+
 ## 3.0.1
 
 - Bump Matter Server fabric ID after changing vendor ID

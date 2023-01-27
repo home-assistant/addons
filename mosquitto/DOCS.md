@@ -78,8 +78,19 @@ A file containing the private key. Place this file in the Home Assistant `ssl` f
 
 ### Option: `require_certificate`
 
-If set to `true`, the client must provide a valid certificate in order to connect successfully.  
-If set to `false`, the SSL/TLS component of the client will verify the server but there is no requirement for the client to provide anything for the server, authentication is limited to the MQTT username/password.
+Whether this option is `true` or `false`:
+- Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+- **If `certfile` and `keyfile` are provided:** encrypted connections are possible on the encrypted ports (default: `8883`, `8884` for websockets) 
+   - In that case, the client must trust the server's certificate
+
+If set to `false`:
+- Client is **not required** to provide a certificate to connect, username/password is enough
+- `cafile` option is ignored
+
+If set to `true`:
+- Client is **required** to provide its own certificate to connect, username/password is _not_ enough
+- A certificate authority (CA) must be provided: `cafile` option
+- The client certificate must be signed by the CA provided (`cafile`)
 
 ### Option: `debug`
 

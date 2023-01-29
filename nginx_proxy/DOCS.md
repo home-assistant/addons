@@ -17,7 +17,7 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
    - `ssl_certificate`
    - `ssl_key`
    - `server_port`
-3. And you need to add the `trusted_proxies` section (requests from reverse proxies will be blocked if these options are not set).
+3. And you need to add the `trusted_proxies` section (requests from reverse proxies will be blocked if these options are not set). Restart the Home Assistant Core service after this change from `Developer Tools -> Restart`.
 
    ```yaml
    http:

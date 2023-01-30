@@ -30,7 +30,8 @@ options:
 schema:
   domains:
     - match(.+\.duckdns\.org)
-  token: str
+  token:
+    - match([a-z0-9-]+)
   aliases:
     - alias: str
       domain: str

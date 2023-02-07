@@ -38,17 +38,21 @@ To use Zigbee with ZHA configure the Integration as follows:
 ### OpenThread
 
 At this point OpenThread support is experimental. This add-on makes your Home
-Assistant installation an OpenThread BorderRouter (OTBR). There is no integration
-in Home Assistant Core at this point.
+Assistant installation an OpenThread Border Router (OTBR). A basic integration
+for Home Assistant Core named `otbr` is currently in the making.
 
-To use the OTBR enable it in the Configuration tab and restart the add-on. With
-that you will be able to access the OTBR web frontend. When joining or forming a
-network make sure to use the same IEEE 802.15.4 channel for both OpenThread and
-Zigbee, and *different* PAN IDs. This limitations stem from the fact that a single
-radio is used.
+To use the OTBR enable it in the Configuration tab and restart the add-on. Home
+Assistant should discover the OpenThread border router automatically and
+configure it as necessary.
 
-Follow the guides at [openthread.io](https://openthread.io), e.g. the [OpenThread
-Commissioner](https://openthread.io/guides/commissioner) guide.
+There is also a web interface provided by the OTBR.  Previous versions of this
+add-on shipped with that web interface enabled by default. However, the web
+interface has caveats (e.g. forming a network does not generate an off-mesh
+routable IPv6 prefix which causes changing IPv6 addressing on first add-on
+restart). It is still possible to enable the web interface for debugging
+purpose. Make sure to expose the OpenThread REST API port on port 8081 (by
+clicking "Show disabled ports" and entering 8081 in the OpenThread REST API port
+field).
 
 ### Automatic firmware upgrade
 
@@ -74,6 +78,7 @@ Add-on configuration:
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processor Communication tracing (trace in log)      |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
+| otbr_web_enable    | Enable OpenThread BorderRouter Web interface (see caveats in docuemntation above)              |
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |
 

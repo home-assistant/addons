@@ -28,6 +28,7 @@ options:
   autoflash_firmware: true
   cpcd_trace: false
   otbr_enable: true
+  otbr_web_enable: false
   otbr_log_level: notice
   otbr_firewall: true
 ports:
@@ -44,6 +45,7 @@ schema:
   autoflash_firmware: bool
   cpcd_trace: bool
   otbr_enable: bool
+  otbr_web_enable: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   otbr_firewall: bool
 stage: experimental

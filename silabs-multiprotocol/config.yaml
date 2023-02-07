@@ -32,8 +32,10 @@ options:
   otbr_firewall: true
 ports:
   9999/tcp: null
+  8081/tcp: null
 ports_description:
   9999/tcp: EmberZNet EZSP/ASH port
+  8081/tcp: OpenThread REST API port
 schema:
   device: device(subsystem=tty)?
   baudrate: list(57600|115200|230400|460800|921600)

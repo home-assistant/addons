@@ -89,7 +89,12 @@ if ! bashio::var.has_value "${otbr_rest_listen_port}"; then
     otbr_rest_listen_port="8081"
 elif [ "${otbr_rest_listen_port}" != "8081" ]; then
     bashio::log.warning "Custom OpenThread REST API port is not supported. Using 8081."
+    otbr_rest_listen_port="8081"
 fi
+
+# Store REST API listen information for check script
+echo "${otbr_rest_listen}" > /tmp/otbr-agent-rest-api
+echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 bashio::log.info "Starting otbr-agent..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \

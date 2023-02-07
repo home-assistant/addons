@@ -1,10 +1,10 @@
-From cd03fe8655e9dfc54ae4079e69aa6306d91fba97 Mon Sep 17 00:00:00 2001
-Message-Id: <cd03fe8655e9dfc54ae4079e69aa6306d91fba97.1674503755.git.stefan@agner.ch>
-In-Reply-To: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
-References: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
+From 2e2f6018e1ae48432f5b9eec97f7ca737a3cd871 Mon Sep 17 00:00:00 2001
+Message-Id: <2e2f6018e1ae48432f5b9eec97f7ca737a3cd871.1673530580.git.stefan@agner.ch>
+In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Thu, 22 Dec 2022 16:34:59 +0100
-Subject: [PATCH] [web] bump to latest Simple-Web-Server version (#1667)
+Subject: [PATCH 05/10] [web] bump to latest Simple-Web-Server version (#1667)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -10280,5 +10280,5 @@ index 0000000000..cac7dfa442
 +
 +#endif // SIMPLE_WEB_UTILITY_HPP
 -- 
-2.39.1
+2.39.0
 

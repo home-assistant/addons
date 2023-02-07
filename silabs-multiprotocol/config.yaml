@@ -25,7 +25,7 @@ options:
   device: null
   baudrate: 115200
   flow_control: true
-  autoflash_firmware: false
+  autoflash_firmware: true
   cpcd_trace: false
   otbr_enable: true
   otbr_log_level: notice

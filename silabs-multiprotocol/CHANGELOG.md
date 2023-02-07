@@ -4,6 +4,7 @@
 
 - Use Silicon Labs Gecko SDK 4.2.1
 - Let the OTBR REST API listen on local interface only by default
+- Automatically flash firmware by default
 
 ## 0.12.0
 

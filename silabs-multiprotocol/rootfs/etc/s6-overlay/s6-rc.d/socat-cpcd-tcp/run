@@ -7,10 +7,6 @@ declare network_device
 
 network_device=$(bashio::config 'network_device')
 
-if ! bashio::config.has_value 'network_device'; then
-    s6-svc -d /run/service/socat-cpcd-tcp
-fi
-
 bashio::log.info "Starting socat TCP client for CPC daemon..."
 exec s6-notifyoncheck -d -s 300 -w 300 \
     "/usr/bin/socat" -d pty,raw,echo=0,link=/tmp/ttyCPC,ignoreeof \

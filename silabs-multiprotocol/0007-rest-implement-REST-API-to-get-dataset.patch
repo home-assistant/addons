@@ -1,10 +1,10 @@
-From 3cf97af3bcc56760deff479c800765aa3073610d Mon Sep 17 00:00:00 2001
-Message-Id: <3cf97af3bcc56760deff479c800765aa3073610d.1674503755.git.stefan@agner.ch>
-In-Reply-To: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
-References: <9a5c88cad8cc32adf069c06ec24effd01a6014fe.1674503755.git.stefan@agner.ch>
+From daad0f74723bd5dfb63302ad07bd9e0aefcf9c1f Mon Sep 17 00:00:00 2001
+Message-Id: <daad0f74723bd5dfb63302ad07bd9e0aefcf9c1f.1673530580.git.stefan@agner.ch>
+In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Fri, 23 Dec 2022 10:39:34 +0100
-Subject: [PATCH] [rest] implement REST API to get dataset
+Subject: [PATCH 07/10] [rest] implement REST API to get dataset
 
 ---
  src/rest/json.cpp     | 355 +++++++++++++++++++++++++++++++
@@ -1622,5 +1622,5 @@ index 0aa4b23946..49ba37d561 100644
  
  } // namespace Utils
 -- 
-2.39.1
+2.39.0
 

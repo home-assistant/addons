@@ -220,7 +220,7 @@ RUN ldconfig && touch /accept_silabs_msla
 COPY rootfs /
 
 ENV \
-    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/otbr-enable-check.sh
+    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/enable-check.sh
 
 HEALTHCHECK --interval=10s --start-period=120s CMD [ "$(s6-svstat -u /run/service/zigbeed)" = "true" ]
 

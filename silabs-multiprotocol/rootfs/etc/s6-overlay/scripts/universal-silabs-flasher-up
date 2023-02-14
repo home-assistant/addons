@@ -12,6 +12,11 @@ declare usb_manufacturer
 declare usb_product
 declare gpio_reset_flag
 
+function exit_no_firmware {
+    bashio::log.warning "No firmware found for the selected device, assuming firmware is installed."
+    exit 0
+}
+
 device=$(bashio::config 'device')
 baudrate=$(bashio::config 'baudrate')
 
@@ -29,18 +34,23 @@ else
     # Check device manufacturer/product information
     usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}))/../../../../)
     if [ ! -f "${usb_device_path}/idProduct" ]; then
-        bashio::log.warning "The serial port seems not to be a USB device"
-        s6-svc -d /run/service/universal-silabs-flasher
+        bashio::log.info "The selected serial port is not a USB device."
+        exit_no_firmware
     fi
+
+    if [ ! -f "${usb_device_path}/manufacturer" ] || [ ! -f "${usb_device_path}/product" ]; then
+        bashio::log.info "USB device is missing manufacturer or product name."
+        exit_no_firmware
+    fi
+
     usb_manufacturer=$(cat "${usb_device_path}/manufacturer")
     usb_product=$(cat "${usb_device_path}/product")
 
-    bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}"
+    bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}."
     if [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "SkyConnect"* ]]; then
         firmware="NabuCasa_SkyConnect_RCP_v4.2.1_rcp-uart-hw-802154_115200.gbl"
     else
-        bashio::log.info "No valid firmware for this device"
-        s6-svc -d /run/service/universal-silabs-flasher
+        exit_no_firmware
     fi
     gpio_reset_flag=""
 fi

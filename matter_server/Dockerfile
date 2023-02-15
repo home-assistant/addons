@@ -14,6 +14,9 @@ RUN \
        libjson-c5 \
        python3-venv \
        python3-pip \
+       python3-gi \
+       python3-gi-cairo \
+       python3-dbus \
        python3-psutil \
        unzip \
        libcairo2 \

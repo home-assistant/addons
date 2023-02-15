@@ -6,6 +6,7 @@
 if bashio::config.false 'otbr_enable'; then
     rm /etc/s6-overlay/s6-rc.d/user/contents.d/otbr-agent
     rm /etc/s6-overlay/s6-rc.d/user/contents.d/otbr-web
+    rm /etc/s6-overlay/s6-rc.d/user/contents.d/otbr-agent-rest-discovery
     bashio::log.info "The otbr-agent is disabled."
 fi
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.4
+
+- Bump Matter Server to [2.1.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.1.1)
+- Drop unnecessary Python dependencies from image
+
 ## 3.0.3
 
 - Bump Matter Server to [2.1.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.1.0)

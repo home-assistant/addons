@@ -3,11 +3,6 @@
 # Start Co-Processor Communication Daemon (CPCd)
 # ==============================================================================
 
-# If socket is used, wait until socat instance is ready
-if bashio::config.has_value 'network_device'; then
-    s6-svwait -U /run/service/socat-cpcd-tcp
-fi
-
 bashio::log.info "Starting cpcd..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
     "/usr/bin/stdbuf" -o0 /usr/local/bin/cpcd

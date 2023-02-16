@@ -11,6 +11,9 @@ declare baudrate
 declare flow_control
 declare otbr_log_level
 declare otbr_log_level_int
+declare otbr_rest_listen
+declare otbr_rest_listen_port
+
 backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
@@ -77,7 +80,25 @@ else
     ip6tables-legacy -P FORWARD ACCEPT
 fi
 
+otbr_rest_listen="::"
+otbr_rest_listen_port="$(bashio::addon.port 8081)"
+
+# If user port is not set, listen on local interface only
+if ! bashio::var.has_value "${otbr_rest_listen_port}"; then
+    otbr_rest_listen="$(bashio::addon.ip_address)"
+    otbr_rest_listen_port="8081"
+elif [ "${otbr_rest_listen_port}" != "8081" ]; then
+    bashio::log.warning "Custom OpenThread REST API port is not supported. Using 8081."
+    otbr_rest_listen_port="8081"
+fi
+
+# Store REST API listen information for check script
+echo "${otbr_rest_listen}" > /tmp/otbr-agent-rest-api
+echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
+
 bashio::log.info "Starting otbr-agent..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
-    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" -d${otbr_log_level_int} -v \
+    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
+        --rest-listen-address "${otbr_rest_listen}" \
+        -d${otbr_log_level_int} -v \
         "spinel+cpc://cpcd_0?iid=2"

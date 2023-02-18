@@ -14,6 +14,7 @@ ARG \
     CERTBOT_GANDI_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_DNS_INWX_VERSION \
+    CERTBOT_DNS_MULTI_VERSION \
     ACME_VERSION
 
 RUN \
@@ -54,6 +55,7 @@ RUN \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
+        certbot-dns-multi==${CERTBOT_DNS_MULTI_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 

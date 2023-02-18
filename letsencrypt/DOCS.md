@@ -92,6 +92,7 @@ transip_api_key: ''
 inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
+multi_provider: ''
 ```
 
 ## Advanced
@@ -487,6 +488,30 @@ on the DNS zone to be used for authentication.
 
 </details>
 
+<details>
+  <summary>Multi</summary>
+
+  This provider uses the Lego ACME client and supports a huge number of different
+  DNS providers, many of which don't have a dedicated certbot plugin.
+
+  You'll need to refer https://go-acme.github.io/lego/dns/ for which variables
+  need to be set for your provider of choice.
+
+  Example configuration:
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-multi
+    multi_provider: vercel
+  ```
+
+</details>
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -519,6 +544,7 @@ dns-netcup
 dns-gandi
 dns-transip
 dns-inwx
+dns-multi
 ```
 
 ## Support

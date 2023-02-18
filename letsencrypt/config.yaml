@@ -75,7 +75,7 @@ schema:
       dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-gehirn|\
       dns-google|dns-hetzner|dns-linode|dns-luadns|dns-njalla|dns-nsone|dns-ovh|\
       dns-rfc2136|dns-route53|dns-sakuracloud|dns-netcup|dns-gandi|\
-      dns-transip|dns-inwx)?"
+      dns-transip|dns-inwx|dns-multi)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?
@@ -88,4 +88,5 @@ schema:
     inwx_username: str?
     inwx_password: str?
     inwx_shared_secret: str?
+    multi_provider: str?
 startup: once

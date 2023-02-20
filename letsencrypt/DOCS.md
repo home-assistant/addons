@@ -4,13 +4,19 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on Store**.
 2. Find the "letsencrypt" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-To use this add-on, you have two options on how to get your certificate:
+The Letsencrypt add-on can be configured via the add-on interface. The configuration via YAML is also possible, see the examples below.
+
+Navigate in your Home Assistant frontend to the add-ons overview page at **Settings** -> **Add-ons**, and pick the **Let's Encrypt** add-on. On the top, pick the **Configuration** page.
+
+Provide the domain names to issue certificates for. Additionally, provide the e-mail address used for the registration, and path values for **Priv Key File** and **Certificate File**. 
+
+There are two options to obtain certificates.
 
 ### 1. HTTP challenge
 
@@ -23,27 +29,40 @@ To use this add-on, you have two options on how to get your certificate:
 - Allows to request wildcard certificates (*.yourdomain.com)
 - Doesn’t need you to open a port to your Home Assistant host on your router.
 
-### You always need to provide the following entries within the configuration
+### DNS providers
 
-```yaml
-email: your@email.com
-domains:
-  # use "*.yourdomain.com" for wildcard certificates.
-  - yourdomain.com
-challenge: http OR dns
+Supported DNS providers:
+
+<details>
+```txt
+dns-azure
+dns-cloudflare
+dns-cloudxns
+dns-digitalocean
+dns-directadmin
+dns-dnsimple
+dns-dnsmadeeasy
+dns-gehirn
+dns-google
+dns-hetzner
+dns-linode
+dns-luadns
+dns-njalla
+dns-nsone
+dns-ovh
+dns-rfc2136
+dns-route53
+dns-sakuracloud
+dns-netcup
+dns-gandi
+dns-transip
+dns-inwx
 ```
-
-IF you choose `dns` as `challenge`, you will also need to fill:
-
-```yaml
-# Add the dnsprovider of your choice from the list of "Supported DNS providers" below
-dns:
-  provider: ""
-```
+</details>
 
 In addition add the fields according to the credentials required by your DNS provider:
 
-
+<details>
 ```yaml
 propagation_seconds: 60
 azure_config: ''
@@ -93,6 +112,41 @@ inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
 ```
+</details>
+
+### Configure certificate files
+
+The certificate files will be available within the "ssl" share after successful request of the certificates.
+
+By default other addons are referring to the correct path of the certificates.
+You can in addition find the files via the "samba" addon within the "ssl" share.
+
+For example, to use the certificates provided by this add-on to enable TLS on Home Assistant in the default paths, add the following lines to Home Assistant's main configuration file, `configuration.yaml`:
+
+```yaml
+# TLS with letsencrypt add-on
+http:
+  server_port: 443
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+```
+
+### Create & renew certificates
+
+The letsencrypt add-on crates the certificates once it is started: navigate to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the **START** button on the bottom. The add-on stops once the certificates are created.
+
+Certificates are not renewed automatically by the plugin. The add-on has to be started again to renew certificates: If the add-on is started again, it checks if the certificates are due for renewal. This us usually the case 30 days before the certificates due date. If the certificates are not due for renewal, the add-on terminates without changes. If the certificates are due for renewal, new certificates will be created.
+
+There are multiple ways how the add-on can be started to check/renew the certificates. One way to automate the certificate renewal it to use an automation, starting the add-on for example every night:
+
+1. Navigate in your Home Assistant frontend to **Settings** -> **Automations & Scenes**
+2. Click the button **CREATE AUTOMATION**
+3. Pick **Start with empty automation**
+4. Click **ADD TRIGGER**, pick **Time** and enter any time at the day
+5. Click **ADD ACTION**, pick **Call Service**, pick **Home Assistant Supervisor: Restart add-on.**, pick the add-on **Let's Encrypt**
+6. Click **SAVE**
+
+The automation will run every day at the chosen time, checking if a renewal is due, and will request it if needed.
 
 ## Advanced
 
@@ -115,7 +169,6 @@ inwx_shared_secret: ''
   ```
 
 </details>
-
 
 ## Example Configurations
 
@@ -151,7 +204,6 @@ inwx_shared_secret: ''
   ```
 
 </details>
-
 
 <details>
   <summary>Azure DNS challenge</summary>
@@ -486,40 +538,6 @@ on the DNS zone to be used for authentication.
   ```
 
 </details>
-
-## Certificate files
-
-The certificate files will be available within the "ssl" share after successful request of the certificates.
-
-By default other addons are referring to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share.
-
-## Supported DNS providers
-
-```txt
-dns-azure
-dns-cloudflare
-dns-cloudxns
-dns-digitalocean
-dns-directadmin
-dns-dnsimple
-dns-dnsmadeeasy
-dns-gehirn
-dns-google
-dns-hetzner
-dns-linode
-dns-luadns
-dns-njalla
-dns-nsone
-dns-ovh
-dns-rfc2136
-dns-route53
-dns-sakuracloud
-dns-netcup
-dns-gandi
-dns-transip
-dns-inwx
-```
 
 ## Support
 

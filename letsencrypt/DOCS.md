@@ -31,9 +31,9 @@ There are two options to obtain certificates.
 
 ### DNS providers
 
-Supported DNS providers:
-
 <details>
+  <summary>Supported DNS providerss</summary>
+
 ```txt
 dns-azure
 dns-cloudflare
@@ -60,9 +60,9 @@ dns-inwx
 ```
 </details>
 
-In addition add the fields according to the credentials required by your DNS provider:
-
 <details>
+  <summary>In addition add the fields according to the credentials required by your DNS provider:</summary>
+
 ```yaml
 propagation_seconds: 60
 azure_config: ''

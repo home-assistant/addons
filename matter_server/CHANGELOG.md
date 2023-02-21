@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+
+- Use Python 3.10
+
 ## 3.0.4
 
 - Bump Matter Server to [2.1.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.1.1)

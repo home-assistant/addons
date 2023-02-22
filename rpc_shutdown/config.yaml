@@ -1,5 +1,5 @@
 ---
-version: "2.2"
+version: "2.3"
 slug: rpc_shutdown
 name: RPC Shutdown
 description: Shutdown Windows machines remotely

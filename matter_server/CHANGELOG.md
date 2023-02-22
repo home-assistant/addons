@@ -1,5 +1,43 @@
 # Changelog
 
+## 4.0.0
+
+- Bump Matter Server to [3.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.0.0)
+
+## 3.1.0
+
+- Use Python 3.10
+
+## 3.0.4
+
+- Bump Matter Server to [2.1.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.1.1)
+- Drop unnecessary Python dependencies from image
+
+## 3.0.3
+
+- Bump Matter Server to [2.1.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.1.0)
+
+## 3.0.2
+
+- Bump Matter Server to [2.0.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.0.2)
+
+## 3.0.1
+
+- Bump Matter Server fabric ID after changing vendor ID
+
+## 3.0.0
+
+- Bump Matter Server to 2.0.1
+- Use Nabu Casa Vendor ID by default
+
+### Breaking
+
+- All commissioned devices need to be recommissioned.
+
+## 2.1.0
+
+- Bump Matter Server to 1.1.0
+
 ## 2.0.0
 
 - Require Home Assistant Core 2023.1.0b1 to install the add-on. The chip SDK was bumped in [Matter Server 1.0.8](https://github.com/home-assistant-libs/python-matter-server/releases/tag/1.0.8).

@@ -26,4 +26,5 @@ fi
 cd /root
 
 exec matter-server --storage-path "/data" --port "${server_port}" \
-                   --log-level "${log_level}"
+                   --log-level "${log_level}" \
+                   --fabricid 2 --vendorid 4939

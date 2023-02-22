@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.13.1
+
+- Set default baudrate 115200 correctly
+- Prevent OTBR discovery service from start when OTBR is disabled
+- Fix REST API to correctly set the Connection HTTP header on amd64
+- Fix network device support (properly start socat if necessary) on amd64
+
+## 0.13.0
+
+- Use Silicon Labs Gecko SDK 4.2.1
+- Let the OTBR REST API listen on local interface only by default
+- Automatically flash firmware by default
+- Disable OTBR web interface by default (see documentation)
+- Fix network device support (properly start socat if necessary)
+
+## 0.12.0
+
+- Use Silicon Labs Gecko SDK 4.1.4
+
 ## 0.11.4
 
 - Fix REST API to correctly set the Connection HTTP header

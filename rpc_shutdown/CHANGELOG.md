@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3
+
+- Modified the regex for password verification to allow '%' in the password
+
 ## 2.2
 
 - Set delay to zero when it is empty (to not break existing configurations) (bugfix)

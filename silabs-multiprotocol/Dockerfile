@@ -141,7 +141,6 @@ COPY --from=cpcd-builder /usr/local/ /usr/local/
 
 ENV BORDER_ROUTING=1
 ENV BACKBONE_ROUTER=1
-ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_MULTIPAN_RCP=ON -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
 ENV WEB_GUI=1
 ENV DOCKER 1
 
@@ -197,7 +196,32 @@ RUN \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && ./script/setup \
+    # Mimic rt_tables_install \
+    && echo "88 openthread" >> /etc/iproute2/rt_tables \
+    # Mimic otbr_install \
+    && (./script/cmake-build \
+        -DBUILD_TESTING=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DOTBR_FEATURE_FLAGS=ON \
+        -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
+        -DOTBR_SRP_ADVERTISING_PROXY=ON \
+        -DOTBR_INFRA_IF_NAME=eth0 \
+        -DOTBR_MDNS=mDNSResponder \
+        -DOTBR_VERSION= \
+        -DOT_PACKAGE_VERSION= \
+        -DOTBR_DBUS=OFF \
+        -DOT_MULTIPAN_RCP=ON \
+        -DOT_POSIX_CONFIG_RCP_BUS=CPC \
+        -DOT_LINK_RAW=1 \
+        -DOTBR_VENDOR_NAME=HomeAssistant \
+        -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter \
+        -DOTBR_WEB=ON \
+        -DOTBR_BORDER_ROUTING=ON \
+        -DOTBR_REST=ON \
+        -DOTBR_BACKBONE_ROUTER=ON \
+        && cd build/otbr/ \
+        && ninja \
+        && ninja install) \
     && pip install universal-silabs-flasher==0.0.7 \
     && apt-get purge -y --auto-remove \
        build-essential \

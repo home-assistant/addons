@@ -33,9 +33,11 @@ options:
   otbr_firewall: true
 ports:
   9999/tcp: null
+  8080/tcp: null
   8081/tcp: null
 ports_description:
   9999/tcp: EmberZNet EZSP/ASH port
+  8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port
 schema:
   device: device(subsystem=tty)?
@@ -45,13 +47,10 @@ schema:
   autoflash_firmware: bool
   cpcd_trace: bool
   otbr_enable: bool
-  otbr_web_enable: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   otbr_firewall: bool
 stage: experimental
 startup: services
-ingress: true
-ingress_port: 8080
 panel_title: OpenThread
 panel_icon: mdi:view-grid-plus-outline
 panel_admin: true

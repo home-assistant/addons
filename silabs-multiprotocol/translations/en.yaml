@@ -39,5 +39,4 @@ configuration:
       Use OpenThread Border Router firewall to block unnecessary traffic.
 network:
   9999/tcp: EmberZNet EZSP/ASH port
-  8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

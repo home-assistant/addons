@@ -36,7 +36,6 @@ ports:
   8081/tcp: null
 ports_description:
   9999/tcp: EmberZNet EZSP/ASH port
-  8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port
 schema:
   device: device(subsystem=tty)?

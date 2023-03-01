@@ -28,7 +28,6 @@ options:
   autoflash_firmware: true
   cpcd_trace: false
   otbr_enable: true
-  otbr_web_enable: false
   otbr_log_level: notice
   otbr_firewall: true
 ports:

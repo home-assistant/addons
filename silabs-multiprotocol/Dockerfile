@@ -213,8 +213,8 @@ RUN \
         -DOT_MULTIPAN_RCP=ON \
         -DOT_POSIX_CONFIG_RCP_BUS=CPC \
         -DOT_LINK_RAW=1 \
-        -DOTBR_VENDOR_NAME=HomeAssistant \
-        -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter \
+        -DOTBR_VENDOR_NAME="Home Assistant" \
+        -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \
         -DOTBR_WEB=ON \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \

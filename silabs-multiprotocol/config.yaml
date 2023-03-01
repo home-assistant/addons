@@ -1,5 +1,5 @@
 ---
-version: 0.13.1
+version: 1.0.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -28,7 +28,6 @@ options:
   autoflash_firmware: true
   cpcd_trace: false
   otbr_enable: true
-  otbr_web_enable: false
   otbr_log_level: notice
   otbr_firewall: true
 ports:

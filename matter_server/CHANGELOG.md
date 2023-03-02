@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0
+
+- Bump Matter Server to [3.1.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.1.0)
+
 ## 4.0.0
 
 - Bump Matter Server to [3.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.0.0)

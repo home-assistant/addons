@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Use host namespace for hostname (make sure that the BR is announced with the
+  systems real hostname)
+
 ## 1.0.0
 
 - Remove Web UI via ingress (expose ports to use the Web UI, see documentation)

@@ -146,7 +146,6 @@ COPY --from=cpcd-builder /usr/local/ /usr/local/
 
 ENV BORDER_ROUTING=1
 ENV BACKBONE_ROUTER=1
-ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_MULTIPAN_RCP=ON -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
 ENV WEB_GUI=1
 ENV DOCKER 1
 
@@ -159,6 +158,7 @@ COPY 0006-rest-allow-to-specify-REST-listen-address-1670.patch /usr/src
 COPY 0007-rest-implement-REST-API-to-get-dataset.patch /usr/src
 COPY 0008-rest-support-state-change.patch /usr/src
 COPY 0009-rest-remove-superfluous-space-in-HTTP-status-line.patch /usr/src
+COPY 0010-rest-explicitly-set-Connection-header-to-close.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -195,12 +195,38 @@ RUN \
     && patch -p1 < /usr/src/0007-rest-implement-REST-API-to-get-dataset.patch \
     && patch -p1 < /usr/src/0008-rest-support-state-change.patch \
     && patch -p1 < /usr/src/0009-rest-remove-superfluous-space-in-HTTP-status-line.patch \
+    && patch -p1 < /usr/src/0010-rest-explicitly-set-Connection-header-to-close.patch \
     && chmod +x ./script/bootstrap \
     && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && ./script/setup \
+    # Mimic rt_tables_install \
+    && echo "88 openthread" >> /etc/iproute2/rt_tables \
+    # Mimic otbr_install \
+    && (./script/cmake-build \
+        -DBUILD_TESTING=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DOTBR_FEATURE_FLAGS=ON \
+        -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
+        -DOTBR_SRP_ADVERTISING_PROXY=ON \
+        -DOTBR_INFRA_IF_NAME=eth0 \
+        -DOTBR_MDNS=mDNSResponder \
+        -DOTBR_VERSION= \
+        -DOT_PACKAGE_VERSION= \
+        -DOTBR_DBUS=OFF \
+        -DOT_MULTIPAN_RCP=ON \
+        -DOT_POSIX_CONFIG_RCP_BUS=CPC \
+        -DOT_LINK_RAW=1 \
+        -DOTBR_VENDOR_NAME="Home Assistant" \
+        -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \
+        -DOTBR_WEB=ON \
+        -DOTBR_BORDER_ROUTING=ON \
+        -DOTBR_REST=ON \
+        -DOTBR_BACKBONE_ROUTER=ON \
+        && cd build/otbr/ \
+        && ninja \
+        && ninja install) \
     && pip install universal-silabs-flasher==0.0.7 \
     && apt-get purge -y --auto-remove \
        build-essential \
@@ -237,7 +263,7 @@ COPY rootfs /
 COPY rootfs.amd64 /
 
 ENV \
-    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/otbr-enable-check.sh
+    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/enable-check.sh
 
 HEALTHCHECK --interval=10s --start-period=120s CMD [ "$(s6-svstat -u /run/service/zigbeed)" = "true" ]
 

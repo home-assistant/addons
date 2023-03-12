@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0
+
+- Remove Web UI via ingress (expose ports to use the Web UI, see documentation)
+- Change vendor name to "Home Assistant" and product name to Silicon Labs
+  Multiprotocol" (used in OTBR mDNS/DNS-SD announcments)
+
+## 0.13.1
+
+- Set default baudrate 115200 correctly
+- Prevent OTBR discovery service from start when OTBR is disabled
+- Fix REST API to correctly set the Connection HTTP header on amd64
+- Fix network device support (properly start socat if necessary) on amd64
+
 ## 0.13.0
 
 - Use Silicon Labs Gecko SDK 4.2.1

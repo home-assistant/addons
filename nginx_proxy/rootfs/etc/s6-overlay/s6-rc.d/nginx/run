@@ -1,4 +1,8 @@
-#!/usr/bin/with-contenv bashio
+#!/command/with-contenv bashio
+# ==============================================================================
+# Start nginx service
+# ==============================================================================
+
 set -e
 
 DHPARAMS_PATH=/data/dhparams.pem

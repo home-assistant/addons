@@ -1,6 +1,6 @@
 # Changelog
 
-## vNext
+## 3.3.0
 
 - Check certificate renewal daily and reload nginx if necessary
 - Migrate add-on layout to S6 Overlay

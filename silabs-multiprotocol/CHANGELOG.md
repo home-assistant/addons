@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Use Silicon Labs Gecko SDK 4.2.2
+
 ## 1.0.1
 
 - Use host namespace for hostname (make sure that the BR is announced with the

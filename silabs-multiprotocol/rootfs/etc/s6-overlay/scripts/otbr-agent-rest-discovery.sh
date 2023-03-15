@@ -5,7 +5,7 @@
 declare config
 
 config=$(bashio::var.json \
-    host "$(hostname)" \
+    host "$(bashio::addon.hostname)" \
     port "^8081" \
 )
 

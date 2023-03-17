@@ -5,7 +5,7 @@
 Follow these steps to get the add-on installed on your system:
 
 1. This add-on is only visible to "Advanced Mode" users. To enable advanced mode, go to **Profile** -> and turn on **Advanced Mode**.
-2. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+2. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 3. Find the "Terminal & SSH" add-on and click it.
 4. Click on the "INSTALL" button.
 
@@ -19,7 +19,7 @@ This add-on adds two main features to your Home Assistant installation:
 Regardless of how you connect (using the web terminal or using an SSH client), you end up in this add-on's container. The Home Assistant configuration
 directory is located on the path `/config`.
 
-This add-on comes bundled with [The Home Assistant CLI](https://www.home-assistant.io/hassio/commandline/). Try it out using:
+This add-on comes bundled with [The Home Assistant CLI](https://www.home-assistant.io/common-tasks/os#home-assistant-via-the-command-line). Try it out using:
 
 ```bash
 ha help
@@ -104,7 +104,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [keygen-windows]: https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps
 [keygen]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 [reddit]: https://reddit.com/r/homeassistant

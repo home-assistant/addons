@@ -4,15 +4,15 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "NGINX Home Assistant SSL proxy" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
+The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
 
-1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on or another method. Make sure that the certificate files exist in the `/ssl` directory.
+1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on or another method. Make sure that the certificate files exist in the `/ssl` directory.
 2. In the `configuration.yaml` file, some options in the `http:` section are no longer necessary for this scenario, and should be commented out or removed:
    - `ssl_certificate`
    - `ssl_key`
@@ -55,7 +55,7 @@ The domain name to use for the proxy.
 
 ### Option: `certfile` (required)
 
-The certificate file to use in the `/ssl` directory. Keep filename as-is if you used default settings to create the certificate with the [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on.
+The certificate file to use in the `/ssl` directory. Keep filename as-is if you used default settings to create the certificate with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on.
 
 ### Option: `keyfile` (required)
 
@@ -101,6 +101,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [hsts]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository

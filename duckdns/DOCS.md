@@ -48,7 +48,7 @@ only apply to Let's Encrypt SSL certificates.
 
 #### Option `lets_encrypt.accept_terms`
 
-Once you have read and accepted the Let's Encrypt[Subscriber Agreement](https://letsencrypt.org/repository/), change value to `true` in order to use Let's Encrypt services.
+Once you have read and accepted the Let's Encrypt [Subscriber Agreement](https://letsencrypt.org/repository/), change value to `true` in order to use Let's Encrypt services.
 
 #### Option `lets_encrypt.certfile`
 

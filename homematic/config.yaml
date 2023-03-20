@@ -3,7 +3,7 @@ version: 99.0.5
 slug: homematic
 name: HomeMatic CCU
 description: HomeMatic central based on OCCU
-url: https://github.com/home-assistant/hassio-addons/tree/master/homematic
+url: https://github.com/home-assistant/addons/tree/master/homematic
 apparmor: false
 arch:
   - armv7

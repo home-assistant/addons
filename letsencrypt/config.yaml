@@ -3,7 +3,7 @@ version: 4.12.8
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
-url: https://github.com/home-assistant/hassio-addons/tree/master/letsencrypt
+url: https://github.com/home-assistant/addons/tree/master/letsencrypt
 arch:
   - armhf
   - armv7

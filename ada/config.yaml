@@ -4,7 +4,7 @@ slug: ada
 stage: deprecated
 name: Hey Ada!
 description: Voice assistant powered by Home Assistant
-url: https://github.com/home-assistant/hassio-addons/blob/master/ada
+url: https://github.com/home-assistant/addons/blob/master/ada
 arch:
   - armhf
   - armv7

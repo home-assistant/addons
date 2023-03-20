@@ -3,7 +3,7 @@ version: 3.0.0
 slug: almond
 name: Genie
 description: The open-source, privacy-preserving voice assistant
-url: https://github.com/home-assistant/hassio-addons/blob/master/almond
+url: https://github.com/home-assistant/addons/blob/master/almond
 arch:
   - armv7
   - aarch64

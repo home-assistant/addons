@@ -47,10 +47,6 @@ systems that have installed Home Assistant.
 
     A virtual personal assistant developed by Google.
 
-- **[Hey Ada!](/ada/README.md)**
-
-    Voice assistant powered by Home Assistant.
-
 - **[Let's Encrypt](/letsencrypt/README.md)**
 
     Manage an create certificates from Let's Encrypt.
@@ -88,6 +84,10 @@ systems that have installed Home Assistant.
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 
 ### Deprecated Add-ons
+
+- **[Hey Ada!](/ada/README.md)**
+
+    Voice assistant powered by Home Assistant.
 
 - **[HomeMatic](/homematic/README.md)**
 

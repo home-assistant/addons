@@ -84,6 +84,7 @@ systems that have installed Home Assistant.
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 
 ### Deprecated Add-ons
+
 - **[Hey Ada!](/ada/README.md)**
 
     Voice assistant powered by Home Assistant.

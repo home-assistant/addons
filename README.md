@@ -11,10 +11,6 @@ systems that have installed Home Assistant.
 
 ## Add-ons provided by this repository
 
-- **[Almond](/almond/README.md)**
-
-    Almond For Home Servers.
-
 - **[CEC Scanner](/cec_scan/README.md)**
 
     Scan & discover HDMI CEC devices and their addresses.
@@ -38,6 +34,11 @@ systems that have installed Home Assistant.
 - **[File editor](/configurator/README.md)**
 
     Simple browser-based file editor for Home Assistant.
+    
+- **[Genie](/almond/README.md)**
+
+    The Open-source, Privacy-Preserving Voice Assistant.
+
 
 - **[Git pull](/git_pull/README.md)**
 
@@ -123,6 +124,6 @@ about developing an add-on, please see our
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[dev-docs]: https://developers.home-assistant.io/docs/add-ons
+[dev-docs]: https://developers.home-assistant.io/docs/add-ons/

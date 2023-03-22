@@ -341,7 +341,7 @@
 
 ## 0.1.1
 
-- [Bump Z-Wave JS Server to 1.0.0-beta.1]https://github.com/zwave-js/zwave-js-server/releases/tag/1.0.0-beta.1()
+- [Bump Z-Wave JS Server to 1.0.0-beta.1](https://github.com/zwave-js/zwave-js-server/releases/tag/1.0.0-beta.1)
 
 ## 0.1.0
 

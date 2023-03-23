@@ -48,7 +48,7 @@ with "WEB UI" button.
 By default, Home Assistant has the `discovery` integration enabled, which
 automatically discovers this add-on.
 
-Navigate to **Configuration** -> **Integrations** page after starting this
+Navigate to **Settings** -> **Devices & Services** -> **Integrations** page after starting this
 add-on to configure the deCONZ integration.
 
 In case you don't have `discovery` enabled on your Home Assistant instance,

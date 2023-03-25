@@ -68,6 +68,8 @@ RUN apt-get update \
         /etc/mosquitto/* \
         /etc/nginx/* \
         /usr/share/nginx \
+        /usr/src/libwebsockets \
+        /usr/src/mosquitto \
         /usr/src/mosquitto-go-auth \
         /var/lib/nginx/html \
         /var/www \

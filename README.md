@@ -58,7 +58,7 @@ systems that have installed Home Assistant.
 
 - **[Mosquitto broker](/mosquitto/README.md)**
 
-    MQTT broker for Home Assistant.
+    An Open Source MQTT broker.
 
 - **[NGINX Home Assistant SSL proxy](/nginx_proxy/README.md)**
 

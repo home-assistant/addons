@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.2.0
+
+- Update mosquitto to 2.0.15
+- Update libwebsockets to 4.3.2 (fixes Unable to create websockets listener)
+
 ## 6.1.3
 
 - Change timestamp format in logs

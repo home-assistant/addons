@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "DuckDNS" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -48,7 +48,7 @@ only apply to Let's Encrypt SSL certificates.
 
 #### Option `lets_encrypt.accept_terms`
 
-Once you have read and accepted the Let's Encrypt[Subscriber Agreement](https://letsencrypt.org/repository/), change value to `true` in order to use Let's Encrypt services.
+Once you have read and accepted the Let's Encrypt [Subscriber Agreement](https://letsencrypt.org/repository/), change value to `true` in order to use Let's Encrypt services.
 
 #### Option `lets_encrypt.certfile`
 
@@ -150,7 +150,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [duckdns]: https://www.duckdns.org
 [duckdns-faq]: https://www.duckdns.org/faqs.jsp

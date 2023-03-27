@@ -1,9 +1,9 @@
 ---
-version: 0.1.76
+version: 0.1.77
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
-url: https://github.com/home-assistant/hassio-addons/tree/master/zwave_js
+url: https://github.com/home-assistant/addons/tree/master/zwave_js
 arch:
   - amd64
   - i386

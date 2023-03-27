@@ -88,7 +88,7 @@ Add-on configuration:
 The add-on runs several service internally. This architecture diagram shows what
 the add-on currently implements.
 
-![Silicon Labs Multiprotocol Add-on Architecture](images/architecture.png)
+![Silicon Labs Multiprotocol Add-on Architecture](https://raw.githubusercontent.com/home-assistant/addons/master/silabs-multiprotocol/images/architecture.png)
 
 ## Support
 

@@ -3,7 +3,7 @@ version: 2.5.2
 slug: mariadb
 name: MariaDB
 description: A SQL database server
-url: https://github.com/home-assistant/hassio-addons/tree/master/mariadb
+url: https://github.com/home-assistant/addons/tree/master/mariadb
 arch:
   - armhf
   - armv7

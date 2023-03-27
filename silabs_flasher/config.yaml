@@ -6,9 +6,11 @@ description: Silicon Labs firmware flasher add-on
 url: >
   https://github.com/home-assistant/addons/tree/master/silabs_flasher
 arch:
-  - armv7
   - aarch64
   - amd64
+  - armhf
+  - armv7
+  - i386
 gpio: true
 hassio_api: true
 image: homeassistant/{arch}-addon-silabs-flasher

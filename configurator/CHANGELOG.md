@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.5.1
+
+- Fix Home Assistant wheels path
+
 ## 5.5.0
 
 - Update base image to Alpine 3.16

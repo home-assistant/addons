@@ -1,10 +1,10 @@
 # Home Assistant Add-ons: The official repository
 
-Add-ons for Home Assistant, allow you to extend the functionality
+Add-ons for Home Assistant allow you to extend the functionality
 around your Home Assistant setup. These add-ons can consist of an application
-that Home Assistant can integrate with (e.g., a MQTT broker or database server)
-or allow access to your Home Assistant configuration (e.g., via Samba or using
-the Configurator).
+that Home Assistant can integrate with (e.g., a [MQTT broker](/mosquitto/README.md) or [database server](/mariadb/README.md))
+or allow access to your Home Assistant configuration (e.g., via [Samba](/samba/README.md) or using
+the [File Editor](/configurator/README.md)).
 
 Add-ons can be installed and configured via the Home Assistant frontend on
 systems that have installed Home Assistant.
@@ -70,11 +70,11 @@ systems that have installed Home Assistant.
 
 - **[Samba share](/samba/README.md)**
 
-    Expose Home Assistant folders with SMB/CIFS.
+    Share your configuration over the network using Windows file sharing.
 
 - **[SSH server](/ssh/README.md)**
 
-    Allow logging in remotely to Home Assistant using SSH.
+    Allow logging in remotely to Home Assistant using SSH or just the web terminal with Ingress.
 
 - **[TellStick](/tellstick/README.md)**
 

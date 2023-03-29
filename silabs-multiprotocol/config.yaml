@@ -1,5 +1,5 @@
 ---
-version: 1.0.0
+version: 1.0.2
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -16,6 +16,7 @@ discovery:
 # IPC is only used within the Add-on
 host_ipc: false
 host_network: true
+host_uts: true
 privileged:
   - IPC_LOCK
   - NET_ADMIN

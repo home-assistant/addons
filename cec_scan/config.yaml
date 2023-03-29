@@ -2,7 +2,7 @@
 version: "3.0"
 slug: cec_scan
 name: CEC Scanner
-url: https://github.com/home-assistant/hassio-addons/tree/master/cec_scan
+url: https://github.com/home-assistant/addons/tree/master/cec_scan
 arch:
   - armhf
   - armv7

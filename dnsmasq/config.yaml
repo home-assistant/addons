@@ -3,7 +3,7 @@ version: 1.5.1
 slug: dnsmasq
 name: Dnsmasq
 description: A simple DNS server
-url: https://github.com/home-assistant/hassio-addons/tree/master/dnsmasq
+url: https://github.com/home-assistant/addons/tree/master/dnsmasq
 advanced: true
 arch:
   - armhf

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Check if openthread socket exists
+mapfile -t < /tmp/otbr-agent-rest-api
+test -S /run/openthread-wpan0.sock && nc -z "${MAPFILE[@]}"
+exit

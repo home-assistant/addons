@@ -2,8 +2,8 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
-
-ARG OTBR_VERSION=d83fee189a5d55e10a8d1494f1600c23f4f2df80
+ARG OTBR_VERSION
+ARG UNIVERSAL_SILABS_FLASHER
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -20,7 +20,6 @@ ENV DOCKER 1
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0001-rest-implement-REST-API-to-get-dataset.patch /usr/src
 COPY 0002-rest-support-state-change.patch /usr/src
-COPY 0003-rest-explicitly-set-Connection-header-to-close.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -56,7 +55,6 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-rest-implement-REST-API-to-get-dataset.patch \
     && patch -p1 < /usr/src/0002-rest-support-state-change.patch \
-    && patch -p1 < /usr/src/0003-rest-explicitly-set-Connection-header-to-close.patch \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \
@@ -83,7 +81,7 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
-    && pip install universal-silabs-flasher==0.0.10 \
+    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
        ${OTBR_BUILD_DEPS} \

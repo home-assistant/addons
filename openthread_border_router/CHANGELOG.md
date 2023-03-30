@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+- Fix firmware flashing on Home Assistant Yellow
+- Bump universal SiLabs flasher to 0.0.11
+- Bump to OTBR POSIX version cbeaf817c5 (2023-03-29 11:06:31 -0700)
+
 ## 1.1.0
 
 - Automatically flash firmware for Home Assistant SkyConnect and Yellow

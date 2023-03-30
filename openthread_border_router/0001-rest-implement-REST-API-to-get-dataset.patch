@@ -1,5 +1,5 @@
-From 35714823562dc6d7df8b8e81747aa19e27b9d5f7 Mon Sep 17 00:00:00 2001
-Message-Id: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
+From add40df11e2dc05be2db6c94c358da4ac797ec8e Mon Sep 17 00:00:00 2001
+Message-Id: <add40df11e2dc05be2db6c94c358da4ac797ec8e.1680187691.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Fri, 23 Dec 2022 10:39:34 +0100
 Subject: [PATCH] [rest] implement REST API to get dataset
@@ -1405,7 +1405,7 @@ index 057cafc3de..2afab72933 100644
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
 diff --git a/src/rest/response.cpp b/src/rest/response.cpp
-index bcf63a6c31..540a0840e0 100644
+index 2fd536c546..5c08fd77b4 100644
 --- a/src/rest/response.cpp
 +++ b/src/rest/response.cpp
 @@ -30,12 +30,11 @@
@@ -1419,10 +1419,10 @@ index bcf63a6c31..540a0840e0 100644
      "Access-Control-Request-Headers"
 -#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "GET"
 +#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "GET, OPTIONS, POST, PUT"
+ #define OT_REST_RESPONSE_CONNECTION "close"
  
  namespace otbr {
- namespace rest {
-@@ -48,7 +47,7 @@ Response::Response(void)
+@@ -49,7 +48,7 @@ Response::Response(void)
      mProtocol = "HTTP/1.1";
  
      // Pre-defined headers
@@ -1431,7 +1431,7 @@ index bcf63a6c31..540a0840e0 100644
      mHeaders["Access-Control-Allow-Origin"]  = OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_ORIGIN;
      mHeaders["Access-Control-Allow-Methods"] = OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD;
      mHeaders["Access-Control-Allow-Headers"] = OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_HEADERS;
-@@ -79,6 +78,11 @@ void Response::SetResponsCode(std::string &aCode)
+@@ -81,6 +80,11 @@ void Response::SetResponsCode(std::string &aCode)
      mCode = aCode;
  }
  
@@ -1620,5 +1620,5 @@ index 0aa4b23946..49ba37d561 100644
  
  } // namespace Utils
 -- 
-2.39.1
+2.40.0
 

@@ -3,7 +3,7 @@
 ## 1.1.0
 
 - Use default baudrate of 460800 (WARNING: You MUST update your configuration!)
-- Bump universal SiLabs flasher to 0.0.11
+- Bump universal SiLabs flasher to 0.0.12
 
 ## 1.0.2
 

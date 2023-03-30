@@ -1,0 +1,129 @@
+From 34bc7bbc16d46642b07e3964bf8e706f82433f29 Mon Sep 17 00:00:00 2001
+Message-Id: <34bc7bbc16d46642b07e3964bf8e706f82433f29.1677692382.git.stefan@agner.ch>
+In-Reply-To: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
+References: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 28 Dec 2022 11:46:25 +0100
+Subject: [PATCH] [rest] support state change
+
+---
+ src/rest/openapi.yaml | 16 +++++++++++++
+ src/rest/resource.cpp | 54 ++++++++++++++++++++++++++++++++++++++++---
+ src/rest/resource.hpp |  1 +
+ 3 files changed, 68 insertions(+), 3 deletions(-)
+
+diff --git a/src/rest/openapi.yaml b/src/rest/openapi.yaml
+index e4b23ca297..36c30245fd 100644
+--- a/src/rest/openapi.yaml
++++ b/src/rest/openapi.yaml
+@@ -107,6 +107,22 @@ paths:
+                 type: number
+                 description: Current state
+                 example: 4
++    post:
++      tags:
++        - node
++      summary: Set current Thread state.
++      description: Allow to enable the network interface and Thread
++      responses:
++        "200":
++          description: Successful operation.
++      requestBody:
++        description: New Thread state
++        content:
++          application/json:
++            schema:
++              type: string
++              description: Can be "enable" or "disable".
++              example: "enable"
+   /node/network-name:
+     get:
+       tags:
+diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
+index 24c4771acf..2edf4398b2 100644
+--- a/src/rest/resource.cpp
++++ b/src/rest/resource.cpp
+@@ -312,17 +312,65 @@ void Resource::GetDataState(Response &aResponse) const
+     aResponse.SetResponsCode(errorCode);
+ }
+ 
+-void Resource::State(const Request &aRequest, Response &aResponse) const
++void Resource::SetDataState(const Request &aRequest, Response &aResponse) const
+ {
++    otbrError error = OTBR_ERROR_NONE;
+     std::string errorCode;
++    std::string body = aRequest.GetBody();
+ 
+-    if (aRequest.GetMethod() == HttpMethod::kGet)
++    if (body == "\"enable\"")
+     {
+-        GetDataState(aResponse);
++        if (!otIp6IsEnabled(mInstance))
++            SuccessOrExit(otIp6SetEnabled(mInstance, true));
++        VerifyOrExit(otThreadSetEnabled(mInstance, true) == OT_ERROR_NONE, error = OTBR_ERROR_INVALID_STATE);
++    }
++    else if (body == "\"disable\"")
++    {
++        VerifyOrExit(otThreadSetEnabled(mInstance, false) == OT_ERROR_NONE, error = OTBR_ERROR_INVALID_STATE);
+     }
+     else
+     {
++        ExitNow(error = OTBR_ERROR_INVALID_ARGS);
++    }
++
++    errorCode = GetHttpStatus(HttpStatusCode::kStatusOk);
++    aResponse.SetResponsCode(errorCode);
++
++exit:
++    if (error == OTBR_ERROR_INVALID_STATE)
++    {
++        ErrorHandler(aResponse, HttpStatusCode::kStatusConflict);
++    }
++    if (error == OTBR_ERROR_INVALID_ARGS)
++    {
++        ErrorHandler(aResponse, HttpStatusCode::kStatusBadRequest);
++    }
++    else if (error != OTBR_ERROR_NONE)
++    {
++        ErrorHandler(aResponse, HttpStatusCode::kStatusInternalServerError);
++    }
++}
++
++void Resource::State(const Request &aRequest, Response &aResponse) const
++{
++    std::string errorCode;
++
++    switch (aRequest.GetMethod())
++    {
++    case HttpMethod::kGet:
++        GetDataState(aResponse);
++        break;
++    case HttpMethod::kPost:
++        SetDataState(aRequest, aResponse);
++        break;
++    case HttpMethod::kOptions:
++        errorCode = GetHttpStatus(HttpStatusCode::kStatusOk);
++        aResponse.SetResponsCode(errorCode);
++        aResponse.SetComplete();
++        break;
++    default:
+         ErrorHandler(aResponse, HttpStatusCode::kStatusMethodNotAllowed);
++        break;
+     }
+ }
+ 
+diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
+index 2afab72933..3a0c9a3c85 100644
+--- a/src/rest/resource.hpp
++++ b/src/rest/resource.hpp
+@@ -134,6 +134,7 @@ private:
+     void GetNodeInfo(Response &aResponse) const;
+     void GetDataExtendedAddr(Response &aResponse) const;
+     void GetDataState(Response &aResponse) const;
++    void SetDataState(const Request &aRequest, Response &aResponse) const;
+     void GetDataNetworkName(Response &aResponse) const;
+     void GetDataLeaderData(Response &aResponse) const;
+     void GetDataNumOfRoute(Response &aResponse) const;
+-- 
+2.39.1
+

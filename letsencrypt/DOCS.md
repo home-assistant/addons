@@ -1,11 +1,11 @@
-# Home Assistant Add-on: Letsencrypt
+# Home Assistant Add-on: Let's Encrypt
 
 ## Installation
 
 Follow these steps to get the add-on installed on your system:
 
 1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "letsencrypt" add-on and click it.
+2. Find the "Let's Encrypt" add-on and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
@@ -170,7 +170,7 @@ dns:
 
 Please copy your credentials file "azure.txt" into the "share" shared folder
 on the Home Assistant host before starting the service. One way is to use the
-"Samba" add on to make the folder available via network or SSH Add-on. You
+"[Samba](https://github.com/home-assistant/addons/tree/master/samba)" add on to make the folder available via network or [SSH Add-on](https://github.com/home-assistant/addons/tree/master/ssh). You
 can find information on the required file format in the [documentation][certbot-dns-azure-conf]
 for the Certbot Azure plugin.
 
@@ -179,7 +179,7 @@ and service principal; add a client secret; and create a credentials file
 using the above directions. Grant the app registration DNS Zone Contributor
 on the DNS zone to be used for authentication.
 
-[aad-appreg]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal
+[aad-appreg]: https://learn.microsoft.com/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal
 [certbot-dns-azure-conf]: https://certbot-dns-azure.readthedocs.io/en/latest/#configuration
 
 </details>
@@ -284,7 +284,7 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>Linode</summary>
 
-  To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+  To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/products/tools/api/get-started/#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
 
   ```yaml
   email: you@mailprovider.com
@@ -305,7 +305,7 @@ on the DNS zone to be used for authentication.
   <summary>DirectAdmin</summary>
 
   It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
-  Instructions on how to create such key can be found at https://help.directadmin.com/item.php?id=523.
+  Instructions on how to create such key can be found at https://docs.directadmin.com/directadmin/customizing-workflow/api-all-about.html#creating-a-login-key.
 
   Make sure to grant the following permissions:
   - `CMD_API_LOGIN_TEST`

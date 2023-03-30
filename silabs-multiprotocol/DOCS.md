@@ -18,6 +18,7 @@ serial port (like the module on Yellow or most USB based wireless adapters).
 Once the firmware is loaded follow the following steps:
 
 1. Select the correct `device` in the add-on configuration tab and press `Save`.
+   On Home Assistant Yellow use `/dev/ttyAMA1`.
 2. Start the add-on.
 
 **NOTE:** the Web frontend is only accessible when OpenThread is enabled (see below).

@@ -90,3 +90,6 @@ RUN \
     && rm -rf /usr/src/*
 
 COPY rootfs /
+
+ENV \
+    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/otbr-web-enable-check.sh

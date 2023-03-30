@@ -1,5 +1,5 @@
 ---
-version: 1.0.2
+version: 1.1.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -24,7 +24,7 @@ image: homeassistant/{arch}-addon-silabs-multiprotocol
 init: false
 options:
   device: null
-  baudrate: "115200"
+  baudrate: "460800"
   flow_control: true
   autoflash_firmware: true
   cpcd_trace: false

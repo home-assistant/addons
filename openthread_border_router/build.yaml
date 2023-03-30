@@ -3,5 +3,5 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
 args:
-  OTBR_VERSION: d83fee189a5d55e10a8d1494f1600c23f4f2df80
+  OTBR_VERSION: cbeaf817c54ad06d0238d0fa2ec2a5b4b32ba805
   UNIVERSAL_SILABS_FLASHER: 0.0.11

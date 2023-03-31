@@ -15,3 +15,7 @@ configuration:
     name: Firmware URL
     description: >-
       Flash Custom firmware downloaded from URL.
+  verbose:
+    name: Verbose mode
+    description: >-
+      Start universal-silabs-flasher in verbose mode.

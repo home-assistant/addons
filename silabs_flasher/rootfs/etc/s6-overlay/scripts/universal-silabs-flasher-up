@@ -9,6 +9,7 @@ declare autoflash_firmware
 declare device
 declare bootloader_baudrate
 declare firmware
+declare verbose
 declare usb_device_path
 declare usb_manufacturer
 declare usb_product
@@ -77,8 +78,13 @@ else
     fi
 fi
 
+verbose=""
+if bashio::config.true 'verbose'; then
+    verbose="-v"
+fi
+
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
-universal-silabs-flasher --device ${device} \
+universal-silabs-flasher ${verbose} --device ${device} \
      --bootloader-baudrate "${bootloader_baudrate}" \
      flash ${gpio_reset_flag} --force --firmware "/root/${firmware}"
 

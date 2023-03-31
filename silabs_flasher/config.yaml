@@ -19,11 +19,13 @@ options:
   device: null
   bootloader_baudrate: "115200"
   flow_control: true
+  verbose: false
 schema:
   device: device(subsystem=tty)?
   bootloader_baudrate: list(57600|115200|230400|460800|921600)
   flow_control: bool?
   firmware_url: str?
+  verbose: bool?
 stage: experimental
 startup: once
 boot: manual

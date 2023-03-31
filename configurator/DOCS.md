@@ -71,6 +71,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[repository]: https://github.com/addons/repository

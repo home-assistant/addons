@@ -68,4 +68,4 @@ fi
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
 exec universal-silabs-flasher --device ${device} \
      --bootloader-baudrate "${bootloader_baudrate}" \
-     flash ${gpio_reset_flag} --ensure-exact-version --allow-cross-flashing --firmware "/root/${firmware}"
+     flash ${gpio_reset_flag} --force --firmware "/root/${firmware}"

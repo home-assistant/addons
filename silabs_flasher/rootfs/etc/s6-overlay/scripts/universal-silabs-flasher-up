@@ -3,6 +3,8 @@
 # Start universal-silabs-flasher
 # ==============================================================================
 
+set -e
+
 declare autoflash_firmware
 declare device
 declare bootloader_baudrate
@@ -11,6 +13,16 @@ declare usb_device_path
 declare usb_manufacturer
 declare usb_product
 declare gpio_reset_flag
+declare exit_status
+
+function cleanup() {
+    exit_status=$?
+    bashio::log.info "universal-silabs-flasher-up script exited with code ${exit_status}"
+    echo "${exit_status}" > /run/s6-linux-init-container-results/exitcode
+
+    /run/s6/basedir/bin/halt
+}
+trap cleanup EXIT
 
 function exit_no_firmware {
     bashio::log.warning "No firmware found for the selected device, assuming firmware is installed."
@@ -28,7 +40,7 @@ else
 fi
 
 if bashio::config.has_value 'firmware_url'; then
-    curl -L -o "/root/firmware.gbl" "$(bashio::config 'firmware_url')"
+    curl --silent -L -o "/root/firmware.gbl" "$(bashio::config 'firmware_url')"
     if [ ! -f "/root/firmware.gbl" ]; then
         bashio::log.warning "Downloading firmware failed"
         exit 0
@@ -66,6 +78,8 @@ else
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
-exec universal-silabs-flasher --device ${device} \
+universal-silabs-flasher --device ${device} \
      --bootloader-baudrate "${bootloader_baudrate}" \
      flash ${gpio_reset_flag} --force --firmware "/root/${firmware}"
+
+

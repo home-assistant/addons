@@ -38,6 +38,7 @@ services:
     port: 389
     priority: 0
     weight: 100
+log_queries: false
 ```
 
 ### Option: `defaults` (required)
@@ -117,6 +118,10 @@ The name to resolve.
 #### Option: `cnames.target`
 
 The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
+
+### Option: `log_queries` (required) 
+
+Log all DNS requests. Defaults to `false`.
 
 ## Support
 

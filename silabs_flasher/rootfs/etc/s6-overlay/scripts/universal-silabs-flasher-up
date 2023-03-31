@@ -28,8 +28,8 @@ else
 fi
 
 if bashio::config.has_value 'firmware_url'; then
-    curl -L -o "firmware.gbl" "$(bashio::config 'firmware_url')"
-    if [ ! -f "firmware.gbl" ]; then
+    curl -L -o "/root/firmware.gbl" "$(bashio::config 'firmware_url')"
+    if [ ! -f "/root/firmware.gbl" ]; then
         bashio::log.warning "Downloading firmware failed"
         exit 0
     fi

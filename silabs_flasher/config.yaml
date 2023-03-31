@@ -26,3 +26,4 @@ schema:
   firmware_url: str?
 stage: experimental
 startup: once
+boot: manual

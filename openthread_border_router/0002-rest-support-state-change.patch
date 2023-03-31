@@ -1,7 +1,7 @@
-From 34bc7bbc16d46642b07e3964bf8e706f82433f29 Mon Sep 17 00:00:00 2001
-Message-Id: <34bc7bbc16d46642b07e3964bf8e706f82433f29.1677692382.git.stefan@agner.ch>
-In-Reply-To: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
-References: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
+From 71627f31dd732704823ce2219ee18a11e5ea3309 Mon Sep 17 00:00:00 2001
+Message-Id: <71627f31dd732704823ce2219ee18a11e5ea3309.1680187691.git.stefan@agner.ch>
+In-Reply-To: <add40df11e2dc05be2db6c94c358da4ac797ec8e.1680187691.git.stefan@agner.ch>
+References: <add40df11e2dc05be2db6c94c358da4ac797ec8e.1680187691.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 28 Dec 2022 11:46:25 +0100
 Subject: [PATCH] [rest] support state change
@@ -125,5 +125,5 @@ index 2afab72933..3a0c9a3c85 100644
      void GetDataLeaderData(Response &aResponse) const;
      void GetDataNumOfRoute(Response &aResponse) const;
 -- 
-2.39.1
+2.40.0
 

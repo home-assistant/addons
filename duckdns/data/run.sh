@@ -18,22 +18,12 @@ ALGO=$(bashio::config 'lets_encrypt.algo')
 function le_renew() {
     local domain_args=()
     local domains=''
-    local aliases=''
 
     domains=$(bashio::config 'domains')
 
-    # Prepare domain for Let's Encrypt
-    for domain in ${domains}; do
-        for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
-            aliases="${aliases} ${alias}"
-        done
-    done
+    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}")"
 
-    aliases="$(echo "${aliases}" | tr ' ' '\n' | sort | uniq)"
-
-    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
-
-    for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
+    for domain in $(echo "${domains}" | tr ' ' '\n' | sort | uniq); do
         domain_args+=("--domain" "${domain}")
     done
 
@@ -73,10 +63,10 @@ while true; do
         ipv6=
         bashio::cache.flush_all
         for addr in $(bashio::network.ipv6_address "$IPV6"); do
-	    # Skip non-global addresses
-	    if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
-              ipv6=${addr%/*}
-              break
+            # Skip non-global addresses
+            if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
+                ipv6=${addr%/*}
+                break
             fi
         done
     fi

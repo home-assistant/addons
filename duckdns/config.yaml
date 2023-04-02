@@ -1,5 +1,5 @@
 ---
-version: 1.15.0
+version: 2.0.0
 slug: duckdns
 name: Duck DNS
 description: >-
@@ -20,7 +20,6 @@ options:
   domains:
     - null
   token: null
-  aliases: []
   lets_encrypt:
     accept_terms: false
     algo: secp384r1
@@ -31,9 +30,6 @@ schema:
   domains:
     - match(.+\.duckdns\.org)
   token: str
-  aliases:
-    - alias: str
-      domain: str
   lets_encrypt:
     accept_terms: bool
     algo: list(rsa|prime256v1|secp384r1)

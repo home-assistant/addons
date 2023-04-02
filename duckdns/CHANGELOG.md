@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.0
+
+- Remove support for obtaining Lets Encrypt certificates for DNS aliases.
+  With this update, your configured aliases will be ignored and certificates
+  will not be obtained for DNS aliases. You can remove the aliases section
+  from your configuration.
+
+  If you want to obtain certificates for your own domains, create a CNAME record
+  to point at the DuckDNS subdomain and then install and use
+  the [Let's Encrypt addon](https://github.com/home-assistant/addons/tree/master/letsencrypt).
+
 ## 1.15.0
 
 - Use Supervisor API to detect IPv6 host addresses, selectable by interface

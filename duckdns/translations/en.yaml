@@ -11,9 +11,6 @@ configuration:
       The DuckDNS authentication token found at the top of the DuckDNS account
       landing page. The token is required to make any changes to the subdomains
       registered to your account.
-  aliases:
-    name: Alias
-    description: A list aliases of domains configured on the `domains` option.
   lets_encrypt:
     name: Let's Encrypt
     description: Configure Let's Encrypt options

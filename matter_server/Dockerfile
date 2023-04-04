@@ -71,8 +71,10 @@ RUN \
     && rm -rf /usr/src/*
 
 # S6-Overlay
-WORKDIR /
+WORKDIR /root
 ENTRYPOINT ["/init"]
+
+ARG MATTER_SERVER_VERSION
 
 RUN \
     set -x \
@@ -82,30 +84,16 @@ RUN \
        openssl \
        zlib1g \
        libjson-c5 \
-       python3-venv \
-       python3-pip \
-       python3-psutil \
        unzip \
-       libcairo2 \
        gdb \
-       git \
-    && git clone --depth 1 -b master \
-       https://github.com/project-chip/connectedhomeip \
-    && cp -r connectedhomeip/credentials /root/credentials \
-    && mv /root/credentials/production/paa-root-certs/* \
-          /root/credentials/development/paa-root-certs/ \
-    && rm -rf connectedhomeip \
+       gcc \
+       linux-libc-dev \
+       libc6-dev \
+    && pip3 install --no-cache-dir "python-matter-server[server]==${MATTER_SERVER_VERSION}" \
     && apt-get purge -y --auto-remove \
-       git \
+       gcc \
+       linux-libc-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
-
-WORKDIR /root
-
-ARG MATTER_SERVER_VERSION
-
-# hadolint ignore=DL3013
-RUN \
-    pip3 install --no-cache-dir "python-matter-server[server]==${MATTER_SERVER_VERSION}"
 
 COPY rootfs /

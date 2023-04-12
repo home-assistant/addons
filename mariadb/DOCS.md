@@ -13,7 +13,7 @@ Follow these steps to get the add-on installed on your system:
 1. Set the `logins` -> `password` field to something strong and unique.
 2. Start the add-on.
 3. Check the add-on log output to see the result.
-4. Add `recorder` component to your Home Assistant configuration.
+4. Add the `recorder` integration to your Home Assistant configuration.
 
 ## Add-on Configuration
 
@@ -97,10 +97,10 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[createuser]: https://mariadb.com/kb/en/library/create-user
-[username]: https://mariadb.com/kb/en/library/create-user/#user-name-component
-[hostname]: https://mariadb.com/kb/en/library/create-user/#host-name-component
-[grant]: https://mariadb.com/kb/en/library/grant
+[createuser]: https://mariadb.com/kb/en/create-user/
+[username]: https://mariadb.com/kb/en/create-user/#user-name-component
+[hostname]: https://mariadb.com/kb/en/create-user/#host-name-component
+[grant]: https://mariadb.com/kb/en/grant/
 [mariadb-ha-recorder]: https://www.home-assistant.io/integrations/recorder/
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.1
+
+- Bugfix: bump universal SiLabs flasher to 0.0.12 for amd64
+
+## 1.1.0
+
+- Use default baudrate of 460800 (WARNING: You MUST update your configuration!)
+- Bump universal SiLabs flasher to 0.0.12
+
 ## 1.0.2
 
 - Use Silicon Labs Gecko SDK 4.2.2

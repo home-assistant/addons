@@ -6,3 +6,4 @@ build_from:
 args:
   CPCD_VERSION: v4.2.2
   GECKO_SDK_VERSION: v4.2.2
+  UNIVERSAL_SILABS_FLASHER: 0.0.12

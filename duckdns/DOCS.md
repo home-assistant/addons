@@ -108,7 +108,29 @@ a service like https://api6.ipify.org/ or https://ipv6.text.wtfismyip.com
   [does not actually work][duckdns-faq], but you can use the URL option
   for `ipv6` to get around this, read on.
 - This addon no longer offers the option of obtaining Let's Encrypt certificates for DNS aliases as it proved problematic due to limitations with DuckDNS.
-  You can obtain certificates for custom domains by creating a CNAME record to point at the DuckDNS subdomain and then install and use the [Let's Encrypt addon](https://github.com/home-assistant/addons/tree/master/letsencrypt).
+  You can obtain certificates for custom domains using the [Let's Encrypt addon][lets-encrypt-addon] as detailed below.
+
+## Using DuckDNS and Let's Encrypt addons to get certificates for your own domains
+
+Support for obtaining Let's Encrypt certificates for DNS aliases was removed in version 2.0.0 of this addon.
+You can get this functionality by using the [Let's Encrypt addon][lets-encrypt-addon] as follows:
+
+1. Install the DuckDNS addon and configure it as detailed above.
+2. Create a CNAME record with your DNS provider to point each of your custom domains at the DuckDNS subdomains. For example:
+
+```
+CNAME                 <own-domain>                    <domain>.duckdns.org
+CNAME                 <another-own-domain>            <another-domain>.duckdns.org
+```
+
+Refer to your DNS provider documentation for details on how to do this.
+3. Install the Let's Encrypt addon and configure it to suit your needs using the domains you created CNAME records for.
+  - If your DNS provider is supported by the Let's Encrypt addon, select the `dns` challenge and enter the appropriate DNS provider configuration.
+  - If your DNS provider is not supported by the Let's Encrypt addon, select the `http` challenge and ensure port 80 on your Home Assistant machine is accessible from the internet.
+
+4. Save the Let's Encrypt settings and start the plugin. This will generate a certificate for your own domains and then stop the extension.
+
+The Let's Encrypt addon does not automatically renew certificates when they expire so you will need to remember to do this manually or use an automation, for example this [blueprint][renew-blueprint].
 
 ## Support
 
@@ -128,3 +150,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [reddit]: https://reddit.com/r/homeassistant
 [duckdns-faq]: https://www.duckdns.org/faqs.jsp
 [HTTP]: https://www.home-assistant.io/integrations/http/
+[lets-encrypt-addon]: https://github.com/home-assistant/addons/tree/master/letsencrypt
+[renew-blueprint]: https://community.home-assistant.io/t/blueprint-for-automatic-renewal-of-a-lets-encrypt-certificate/300533

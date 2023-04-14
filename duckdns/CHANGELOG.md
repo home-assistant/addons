@@ -7,9 +7,9 @@
   will not be obtained for DNS aliases. You can remove the aliases section
   from your configuration.
 
-  If you want to obtain certificates for your own domains, create a CNAME record
-  to point at the DuckDNS subdomain and then install and use
-  the [Let's Encrypt addon](https://github.com/home-assistant/addons/tree/master/letsencrypt).
+  You can find details on how to use the Let's Encrypt addon to obtain certificates
+  for your own domains in the "Using DuckDNS and Let's Encrypt addons to get
+  certificates for your own domains" section of the this addon's docs.
 
 ## 1.15.0
 

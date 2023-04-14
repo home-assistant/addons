@@ -1,0 +1,20 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Lock tables for backups
+# ==============================================================================
+
+# Due to it is started by the supervisor calling the backup_pre: `/command/s6-rc -u change mariadb-lock` command,
+# it's stdout won't be redirected automatically to the add-on's log
+exec &> /proc/1/fd/1
+
+declare MARIADB_LOCK_CORE_PID
+MARIADB_LOCK_CORE_PID=$(s6-svstat -o pid "/run/service/mariadb-lock-core")
+if bashio::var.equals ${MARIADB_LOCK_CORE_PID} -1; then
+    bashio::log.error "Invalid mariadb-lock-core process id ${MARIADB_LOCK_CORE_PID}"
+    bashio::exit.nok
+fi
+
+# File descriptor &4 is used as stdin for mysql, because &0 is closed after the mariadb-lock-core service is started
+echo "FLUSH TABLES WITH READ LOCK;" > /proc/${MARIADB_LOCK_CORE_PID}/fd/4
+
+bashio::log.info "MariaDB tables locked"

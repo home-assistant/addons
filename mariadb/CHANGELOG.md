@@ -1,5 +1,10 @@
 # Changelog
 
+## vNext
+
+- Migrate add-on layout to S6 Overlay
+- Update to MariaDB version 10.6.12
+
 ## 2.5.2
 
 - Update to MariaDB version 10.6.10

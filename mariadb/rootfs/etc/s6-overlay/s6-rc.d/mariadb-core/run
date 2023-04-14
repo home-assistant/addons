@@ -1,0 +1,10 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Start MariaDB service
+# ==============================================================================
+MARIADB_DATA=/data/databases
+
+# Start mariadb
+bashio::log.info "Starting MariaDB"
+mkdir -p /run/mysqld
+exec mysqld --datadir="${MARIADB_DATA}" --user=root < /dev/null

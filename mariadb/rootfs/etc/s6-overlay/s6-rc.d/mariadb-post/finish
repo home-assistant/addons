@@ -1,0 +1,7 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Post-start finalization of MariaDB service
+# ==============================================================================
+
+bashio::log.info "Deleting service information from Home Assistant"
+bashio::services.delete "mysql" || true

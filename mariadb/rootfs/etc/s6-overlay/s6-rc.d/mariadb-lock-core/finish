@@ -1,0 +1,6 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# MariaDB client (to lock tables for backups) stopped
+# ==============================================================================
+
+bashio::log.info "MariaDB client (to lock tables for backups) stopped"

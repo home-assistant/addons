@@ -33,23 +33,23 @@ RUN \
         cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
-        certbot-dns-cloudflare==${CERTBOT_VERSION} \
-        certbot-dns-cloudxns==${CERTBOT_VERSION} \
-        certbot-dns-digitalocean==${CERTBOT_VERSION} \
+        certbot-dns-cloudflare==${ACME_VERSION} \
+        certbot-dns-cloudxns==${CERTBOT_DNS_CLOUDXNS_VERSION} \
+        certbot-dns-digitalocean==${ACME_VERSION} \
         certbot-dns-directadmin==${CERTBOT_DNS_DIRECTADMIN_VERSION} \
-        certbot-dns-dnsimple==${CERTBOT_VERSION} \
-        certbot-dns-dnsmadeeasy==${CERTBOT_VERSION} \
-        certbot-dns-gehirn==${CERTBOT_VERSION} \
-        certbot-dns-google==${CERTBOT_VERSION} \
+        certbot-dns-dnsimple==${ACME_VERSION} \
+        certbot-dns-dnsmadeeasy==${ACME_VERSION} \
+        certbot-dns-gehirn==${ACME_VERSION} \
+        certbot-dns-google==${ACME_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
-        certbot-dns-linode==${CERTBOT_VERSION} \
-        certbot-dns-luadns==${CERTBOT_VERSION} \
+        certbot-dns-linode==${ACME_VERSION} \
+        certbot-dns-luadns==${ACME_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
-        certbot-dns-nsone==${CERTBOT_VERSION} \
-        certbot-dns-ovh==${CERTBOT_VERSION} \
-        certbot-dns-rfc2136==${CERTBOT_VERSION} \
-        certbot-dns-route53==${CERTBOT_VERSION} \
-        certbot-dns-sakuracloud==${CERTBOT_VERSION} \
+        certbot-dns-nsone==${ACME_VERSION} \
+        certbot-dns-ovh==${ACME_VERSION} \
+        certbot-dns-rfc2136==${ACME_VERSION} \
+        certbot-dns-route53==${ACME_VERSION} \
+        certbot-dns-sakuracloud==${ACME_VERSION} \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \

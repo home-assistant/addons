@@ -1,0 +1,35 @@
+---
+configuration:
+  domains:
+    name: Domains
+    description: >-
+      Die Domains für die Zertifikate erstellt werden sollen. Für ein
+      Wildcard Zertifikat "*.deinedomain.de" benutzen.
+  email:
+    name: Email
+    description: Die E-Mail Adresse, die für Zertifikate hinterlegt werden soll.
+  keyfile:
+    name: Private Key File
+    description: Pfad in dem die Private Key Datei abgelegt werden soll.
+  certfile:
+    name: Certificate File
+    description: Pfad in dem die Zertifikatsdatei abgelegt werden soll.
+  challenge:
+    name: Challenge
+    description: Welche Challenge soll zum Validieren benutzt werden.
+  acme_root_ca_cert:
+    name: ACME Root CA Certificate
+    description: >-
+      Wenn Ihr benutzerdefinierter ACME-Server ein Zertifikat verwendet, das von
+      einer nicht vertrauenswürdigen Zertifizierungsstelle (CA) signiert ist, können
+      Sie hier das Stammzertifikat zum Speicher hinzufügen.
+  acme_server:
+    name: ACME Server
+    description: >-
+      Sie können einen benutzerdefinierten Server hinterlegen, standardmäßig
+      benutzt dieses Addon die Let's Encrypt Server https://acme-v02.api.letsencrypt.org/
+  dns:
+    name: DNS
+    description: DNS Provider Konfiguration
+network:
+  80/tcp: Nur für die HTTP Challenge benötigt

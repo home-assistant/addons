@@ -18,11 +18,16 @@ if bashio::config.has_value 'network_device'; then
     device="/tmp/ttyCPC"
 fi
 
-if ! bashio::config.has_value 'baudrate'; then
+baudrate=$(bashio::config 'baudrate')
+if [ -f /tmp/known-baudrate ]; then
+    baudrate=$(cat /tmp/known-baudrate)
+    bashio::log.info "Using known baudrate of ${baudrate} for cpcd!"
+elif bashio::config.has_value 'baudrate'; then
+    baudrate=$(bashio::config 'baudrate')
+else
     bashio::log.fatal "No serial port baudrate set!"
     bashio::exit.nok
 fi
-baudrate=$(bashio::config 'baudrate')
 
 if  ! bashio::config.has_value 'flow_control'; then
     flow_control="false"

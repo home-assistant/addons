@@ -1,5 +1,5 @@
 ---
-version: 2.5.2
+version: 2.6.0
 slug: mariadb
 name: MariaDB
 description: A SQL database server

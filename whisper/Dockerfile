@@ -5,8 +5,6 @@ FROM ${BUILD_FROM}
 WORKDIR /usr/src
 ARG WHISPER_VERSION
 
-COPY dist/ ./dist/
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         python3 \

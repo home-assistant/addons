@@ -18,6 +18,9 @@ configuration:
   cnames:
     name: Cnames
     description: Provide cname records for DNSMasq to resolve.
+  log_queries:
+    name: Log Queries
+    description: Log all DNS requests.
 network:
   53/tcp: TCP port for DNS requests.
   53/udp: UDP port for DNS requests.

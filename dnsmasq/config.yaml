@@ -1,5 +1,5 @@
 ---
-version: 1.5.1
+version: 1.5.2
 slug: dnsmasq
 name: Dnsmasq
 description: A simple DNS server
@@ -21,6 +21,7 @@ options:
   hosts: []
   services: []
   cnames: []
+  log_queries: false
 ports:
   53/tcp: 53
   53/udp: 53
@@ -42,4 +43,5 @@ schema:
   cnames:
     - name: str
       target: str
+  log_queries: bool
 startup: system

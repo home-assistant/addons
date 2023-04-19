@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+
+- Disable DNS request logging by default
+
 ## 1.5.1
 
 - Default cnames to empty array

@@ -16,6 +16,7 @@ RUN apt-get update \
         openssl \
         libssl-dev \
         libc-ares-dev \
+        libcjson1 \
         libcjson-dev \
         xsltproc \
         docbook-xsl \

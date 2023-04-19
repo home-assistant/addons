@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.6.2
+
+- Make SUPERVISOR_TOKEN available as an SSH environment variable,
+  making it possible to invoke the Home Assistant CLI
+  without an interactive bash session.
+
 ## 9.6.1
 
 - Upgrade Home Assistant CLI to 4.21.0

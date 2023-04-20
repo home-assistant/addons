@@ -12,6 +12,7 @@ ARG PIPER_RELEASE
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
+        netcat \
         python3 \
         python3-pip \
     \
@@ -31,3 +32,9 @@ RUN \
 
 WORKDIR /
 COPY rootfs /
+
+HEALTHCHECK --start-period=10m \
+    CMD echo '{ "type": "describe" }' \
+        | nc -w 1 localhost 10200 \
+        | grep -q "piper" \
+        || exit 1

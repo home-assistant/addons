@@ -16,7 +16,7 @@ Install the [wyoming](https://www.home-assistant.io/integrations/wyoming/) integ
 
 ### Option: `language`
 
-Language that you will speak to the addon. If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
+Language that you will speak to the add-on. If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
 
 [Performance of supported languages](https://github.com/openai/whisper#available-models-and-languages)
 
@@ -31,14 +31,14 @@ Compressed models (`int8`) are slightly less accurate than their counterparts, b
 
 Available models are sorted from least to most accurate.
 
-* `tiny-int8` (43 MB)
-* `tiny` (152 MB)
-* `base-int8` (80 MB)
-* `base` (291 MB)
-* `small-int8` (255 MB)
-* `small` (968 MB)
-* `medium-int8` (786 MB)
-* `medium` (3.1 GB)
+- `tiny-int8` (43 MB)
+- `tiny` (152 MB)
+- `base-int8` (80 MB)
+- `base` (291 MB)
+- `small-int8` (255 MB)
+- `small` (968 MB)
+- `medium-int8` (786 MB)
+- `medium` (3.1 GB)
 
 ### Option: `beam_size`
 

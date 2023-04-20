@@ -2,4 +2,4 @@
 
 ## 0.1.0
 
-- Initial support
+- Initial release

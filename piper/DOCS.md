@@ -26,7 +26,62 @@ for more information.
 
 [Listen to voice samples](https://rhasspy.github.io/piper-samples/)
 
-Name of the Piper voice to use, such as `en-us-lessac-low`.
+Name of the Piper voice to use, such as `en-us-lessac-low` (the default).
+The following voices are available:
+
+- Catalan
+    - `ca-upc_ona-x-low`
+    - `ca-upc_pau-x-low`
+- Danish
+    - `da-nst_talesyntese-medium`
+- German
+    - `de-eva_k-x-low`
+    - `de-thorsten-low`
+- English
+    - `en-gb-alan-low`
+    - `en-gb-southern_english_female-low`
+    - `en-us-amy-low`
+    - `en-us-kathleen-low`
+    - `en-us-lessac-low`
+    - `en-us-lessac-medium`
+    - `en-us-libritts-high`
+    - `en-us-ryan-high`
+    - `en-us-ryan-low`
+    - `en-us-ryan-medium`
+- Spanish
+    - `es-carlfm-x-low`
+- Finnish
+    - `fi-harri-low`
+- French
+    - `fr-siwis-low`
+    - `fr-siwis-medium`
+- Italian
+    - `it-riccardo_fasol-x-low`
+- Kazakh
+    - `kk-iseke-x-low`
+    - `kk-issai-high`
+    - `kk-raya-x-low`
+- Nepali
+    - `ne-google-medium`
+    - `ne-google-x-low`
+- Dutch
+    - `nl-mls_7432-low`
+    - `nl-nathalie-x-low`
+    - `nl-rdh-medium`
+    - `nl-rdh-x-low`
+- Norwegian
+    - `no-talesyntese-medium`
+- Polish
+    - `pl-mls_6892-low`
+- Brazilian Portuguese
+    - `pt-br-edresson-low`
+- Ukrainian
+    - `uk-lada-x-low`
+- Vietnamese
+    - `vi-25hours-single-low`
+    - `vi-vivos-x-low`
+- Chinese
+    - `zh-cn-huayan-x-low`
 
 Voices are named according to the following scheme: `<language>-<name>-<quality>`
 The `<name>` portion comes from the dataset used to train the voice or the speaker's name if it was provided.

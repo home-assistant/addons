@@ -19,3 +19,4 @@ schema:
   beam_size: int
 ports:
   "10300/tcp": 10300
+homeassistant: 2023.5.0.dev20230418

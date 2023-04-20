@@ -9,6 +9,7 @@ RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
+        netcat \
         python3 \
         python3-dev \
         python3-pip \
@@ -26,3 +27,9 @@ RUN \
 
 WORKDIR /
 COPY rootfs /
+
+HEALTHCHECK --start-period=10m \
+    CMD echo '{ "type": "describe" }' \
+        | nc -w 1 localhost 10300 \
+        | grep -q "faster-whisper" \
+        || exit 1

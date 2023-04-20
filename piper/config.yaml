@@ -7,8 +7,9 @@ url: https://github.com/home-assistant/addons/blob/master/piper
 arch:
   - amd64
   - aarch64
-image: homeassistant/{arch}-addon-piper
 init: false
+discovery:
+  - wyoming
 options:
   voice: en-us-lessac-low
   speaker: 0
@@ -25,3 +26,4 @@ schema:
 ports:
   "10200/tcp": null
 homeassistant: 2023.5.0.dev20230418
+image: homeassistant/{arch}-addon-piper

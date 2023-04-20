@@ -1,5 +1,18 @@
 # Changelog
 
+## 9.7.0
+
+- Upgrade Home Assistant CLI to 4.23.0
+- Upgrade to Alpine 3.17
+- Update ttyd to 1.7.3
+- Update libwebsockets to 4.3.2
+
+## 9.6.2
+
+- Make SUPERVISOR_TOKEN available as an SSH environment variable,
+  making it possible to invoke the Home Assistant CLI
+  without an interactive bash session.
+
 ## 9.6.1
 
 - Upgrade Home Assistant CLI to 4.21.0

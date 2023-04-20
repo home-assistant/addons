@@ -25,10 +25,10 @@ The `<name>` portion comes from the dataset used to train the voice or the speak
 
 A voice's quality comes in 4 different levels:
 
-* `x-low` - 16Khz, smallest/fastest
-* `low` - 16Khz, fast
-* `medium` - 22.05Khz, slower but better sounding
-* `high` - 22.05Khz, slowest but best sounding
+- `x-low` - 16Khz, smallest/fastest
+- `low` - 16Khz, fast
+- `medium` - 22.05Khz, slower but better sounding
+- `high` - 22.05Khz, slowest but best sounding
 
 On a Raspberry Pi 4, up to the `medium` models will run with usable speed. If audio quality is not a priority, prefer the `low` or `x-low` voices as they will be noticeably faster than `medium`.
 

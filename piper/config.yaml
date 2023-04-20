@@ -2,7 +2,7 @@
 version: 0.1.0
 slug: piper
 name: Piper
-description: Text to speech with Piper
+description: Text-to-speech with Piper
 url: https://github.com/home-assistant/addons/blob/master/piper
 arch:
   - amd64

@@ -28,4 +28,4 @@ configuration:
       highly depends on the voice itself, but in general a value of 0 removes
       variability and values above 1 produce extreme stutters and pauses.
 network:
-  10200/tcp: Whisper Wyoming Protocol
+  10200/tcp: Piper Wyoming Protocol

@@ -10,7 +10,15 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-Install the [wyoming](https://www.home-assistant.io/integrations/wyoming/) integration in Home Assistant and point it to port 10200 of your Home Assistant server.
+After this add-on is installed and running, it will be automatically discovered
+by the Wyoming integration in Home Assistant. To finish the setup,
+click the following my button:
+
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=wyoming)
+
+Alternatively, you can install the Wyoming integration manually, see the
+[Wyoming integration documentation](https://www.home-assistant.io/integrations/wyoming/)
+for more information.
 
 ## Configuration
 

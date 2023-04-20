@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4
+
+- Update to Alpine 3.17
+
 ## 2.3
 
 - Allow '%' sign in the password

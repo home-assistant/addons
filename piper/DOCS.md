@@ -18,7 +18,7 @@ Install the [wyoming](https://www.home-assistant.io/integrations/wyoming/) integ
 
 [Listen to voice samples](https://rhasspy.github.io/piper-samples/)
 
-Name of the Piper voice to use, such as `en-us-ryan-low`.
+Name of the Piper voice to use, such as `en-us-lessac-low`.
 
 Voices are named according to the following scheme: `<language>-<name>-<quality>`
 The `<name>` portion comes from the dataset used to train the voice or the speaker's name if it was provided.

@@ -10,7 +10,7 @@ arch:
 image: homeassistant/{arch}-addon-piper
 init: false
 options:
-  voice: en-us-ryan-low
+  voice: en-us-lessac-low
   speaker: 0
   length_scale: 1.0
   noise_scale: 0.667

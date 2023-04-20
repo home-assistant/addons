@@ -2,7 +2,7 @@
 
 ## 2.3
 
-- Modified the regex for password verification to allow '%' in the password
+- Allow '%' sign in the password
 
 ## 2.2
 

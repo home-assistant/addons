@@ -22,4 +22,4 @@ schema:
 ports:
   "10300/tcp": null
 homeassistant: 2023.5.0.dev20230418
-# image: homeassistant/{arch}-addon-whisper
+image: homeassistant/{arch}-addon-whisper

@@ -5,6 +5,7 @@
 declare password
 declare username
 declare -a interfaces=()
+declare log_level
 export HOSTNAME
 
 # Check Login data
@@ -29,8 +30,20 @@ if [ ${#interfaces[@]} -eq 0 ]; then
 fi
 bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 
+# Set Samba log level
+case "${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}],,}" in
+  trace)
+    log_level=3;;
+  debug)
+    log_level=2;;
+  info)
+    log_level=1;;
+  *)
+    log_level=0;;
+esac
+
 # Generate Samba configuration.
-jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- "${interfaces[@]}")" /data/options.json \
+jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- "${interfaces[@]}") | .log_level = ${log_level}" /data/options.json \
     | tempio \
       -template /usr/share/tempio/smb.gtpl \
       -out /etc/samba/smb.conf

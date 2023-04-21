@@ -3,8 +3,6 @@
 # ==============================================================================
 # Post-start initialization of MariaDB service
 # ==============================================================================
-MARIADB_DATA=/data/databases
-NEW_INSTALL=$(</run/NEW_INSTALL)
 
 function execute_without_error_messages() {
     local current_log_level="${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}]}"

@@ -3,7 +3,6 @@
 # ==============================================================================
 # Start MariaDB service
 # ==============================================================================
-MARIADB_DATA=/data/databases
 
 # Start mariadb
 bashio::log.info "Starting MariaDB"

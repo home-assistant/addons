@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.1.0
+
+- Migrate add-on layout to S6 Overlay
+
 ## 11.0.0
 
 - The `config` share has been renamed to `homeassistant` to match upstream changes.

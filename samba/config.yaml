@@ -50,4 +50,5 @@ schema:
     - str
   allow_hosts:
     - str
+  log_level: list(trace|debug|info|notice|warning|error|fatal)?
 startup: services

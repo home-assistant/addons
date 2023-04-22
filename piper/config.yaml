@@ -8,8 +8,8 @@ arch:
   - amd64
   - aarch64
 init: false
-discovery:
-  - wyoming
+#discovery:
+#  - wyoming
 options:
   voice: en-us-lessac-low
   speaker: 0

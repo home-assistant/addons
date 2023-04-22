@@ -21,3 +21,7 @@ configuration:
   allow_hosts:
     name: Allowed Hosts
     description: List of hosts/networks allowed to access the shared folders.
+  log_level:
+    name: Log level
+    description: >-
+      Controls the level of log details the add-on provides.

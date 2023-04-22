@@ -8,8 +8,8 @@ arch:
   - amd64
   - aarch64
 init: false
-discovery:
-  - wyoming
+#discovery:
+#  - wyoming
 options:
   model: tiny-int8
   language: en

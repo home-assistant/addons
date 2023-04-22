@@ -23,7 +23,7 @@ If you are using Home Assistant Yellow, choose `/dev/ttyAMA1` as device.
 The website [openthread.io maintains a list of supported platforms][openthread-platforms]
 lists other Thread capable radios. A well documented Radio for development is the
 Nordic Semiconductor [nRF52840 Dongle][nordic-nrf52840-dongle]. The Dongle needs
-a recent version of the OpenThread OCP firmare.
+a recent version of the OpenThread RCP firmware.
 [This article][nordic-nrf52840-dongle-install] outlines the steps to install the
 RCP firmware for the nRF52840 Dongle.
 

@@ -15,6 +15,7 @@ RUN apt-get update \
         git \
         openssl \
         libssl-dev \
+        libc-ares2 \
         libc-ares-dev \
         libcjson1 \
         libcjson-dev \

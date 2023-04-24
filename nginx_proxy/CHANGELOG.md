@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.4.0
+
+- Add X-Forwarded-Host to fix origin issues affecting VSCode and other addons
+
+## 3.3.0
+
+- Check certificate renewal daily and reload nginx if necessary
+- Migrate add-on layout to S6 Overlay
+
 ## 3.2.0
 
 - Update Alpine to 3.16 (nginx 1.22.x)

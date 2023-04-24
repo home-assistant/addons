@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.1
+
+- Update to Alpine 3.17
+
 ## 10.0.0
 
 BREAKING CHANGE: Don't mangle filenames
@@ -81,4 +85,3 @@ systems do not have these restrictions.
 ## 8.0.0
 
 - Fix access to /backup
-

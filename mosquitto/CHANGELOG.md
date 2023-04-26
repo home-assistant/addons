@@ -2,8 +2,7 @@
 
 ## 6.2.1
 
-- Add dependencies for dynamic security plugin and asynchronous name resolver 
-- Prevent uninstallation of libcjson1 and libc-ares2 during cleanup
+- Add explicit dependencies for dynamic security plugin and asynchronous name resolver 
 
 ## 6.2.0
 

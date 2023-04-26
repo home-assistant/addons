@@ -1,5 +1,5 @@
 ---
-version: 0.1.3
+version: 0.2.0
 slug: vlc
 name: VLC
 description: Turn your device into a Media Player with VLC
@@ -22,5 +22,5 @@ map:
 options: {}
 panel_icon: mdi:vlc
 schema: false
-stage: experimental
+stage: stable
 startup: services

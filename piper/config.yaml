@@ -1,5 +1,5 @@
 ---
-version: 0.1.1
+version: 0.1.2
 slug: piper
 name: Piper
 description: Text-to-speech with Piper

@@ -1,5 +1,5 @@
 ---
-version: 0.1.0
+version: 0.1.1
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper
@@ -8,8 +8,8 @@ arch:
   - amd64
   - aarch64
 init: false
-#discovery:
-#  - wyoming
+discovery:
+  - wyoming
 options:
   model: tiny-int8
   language: en

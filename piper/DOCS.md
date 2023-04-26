@@ -37,6 +37,10 @@ The following voices are available:
 - German
     - `de-eva_k-x-low`
     - `de-thorsten-low`
+    - `de-karlsson-low`
+    - `de-kerstin-low`
+    - `de-pavoque-low`
+    - `de-ramona-low`
 - English
     - `en-gb-alan-low`
     - `en-gb-southern_english_female-low`
@@ -50,11 +54,15 @@ The following voices are available:
     - `en-us-ryan-medium`
 - Spanish
     - `es-carlfm-x-low`
+    - `es-mls_10246-low`
+    - `es-mls_9972-low`
 - Finnish
     - `fi-harri-low`
 - French
     - `fr-siwis-low`
     - `fr-siwis-medium`
+    - `fr-gilles-low`
+    - `fr-mls_1840-low`
 - Italian
     - `it-riccardo_fasol-x-low`
 - Kazakh
@@ -69,6 +77,7 @@ The following voices are available:
     - `nl-nathalie-x-low`
     - `nl-rdh-medium`
     - `nl-rdh-x-low`
+    - `nl-mls_5809-low`
 - Norwegian
     - `no-talesyntese-medium`
 - Polish

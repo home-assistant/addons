@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.2.1
+
+- Add dependencies for dynamic security plugin and asynchronous name resolver 
+- Prevent uninstallation of libcjson1 and libc-ares2 during cleanup
+
 ## 6.2.0
 
 - Update mosquitto to 2.0.15

@@ -62,7 +62,7 @@ if bashio::config.true 'customize.active'; then
     sed -i "s|#include /share/nginx_proxy_default.*|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
     CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')
     sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
-	if [[ `grep -E "listen[ \t]+80[ \t]+default_server;" -c /share/$CUSTOMIZE_SERVERS 2> /dev/null | cut -d":" -f2 | sort -n -r  | head -n1` -gt 0 ]]; then
+    if [[ `grep -E "listen[ \t]+80[ \t]+default_server;" -c /share/$CUSTOMIZE_SERVERS 2> /dev/null | cut -d":" -f2 | sort -n -r  | head -n1` -gt 0 ]]; then
         sed -i "s|include /etc/default.conf;||" /etc/nginx.conf
     fi
 fi

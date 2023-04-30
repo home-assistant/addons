@@ -465,7 +465,7 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>INWX</summary>
 
-  Use the user for the dyndns service, not the normal user.
+  Use the normal user, not the user for the dyndns service.
   The shared secret is the 2FA code, it must be the same length as the example.
   To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
   Without 2FA leave the example key.

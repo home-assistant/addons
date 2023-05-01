@@ -15,6 +15,7 @@ echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
       "dns_dnsimple_token = $(bashio::config 'dns.dnsimple_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \
+      "dns_google_domains_access_token = $(bashio::config 'dns.google_domains_token')\n" \
       "dns_gehirn_api_token = $(bashio::config 'dns.gehirn_api_token')\n" \
       "dns_gehirn_api_secret = $(bashio::config 'dns.gehirn_api_secret')\n" \
       "dns_hetzner_api_token = $(bashio::config 'dns.hetzner_api_token')\n" \

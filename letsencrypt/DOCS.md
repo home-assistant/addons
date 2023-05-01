@@ -60,6 +60,7 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 google_creds: ''
+google_domains_token: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
@@ -207,6 +208,27 @@ on the DNS zone to be used for authentication.
   You can find additional information regarding the required permissions in the "credentials" section here:
 
   <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
+
+</details>
+
+<details>
+  <summary>Google Domains DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-google-domains
+    google_domains_token: 0123456789abcdef0123456789abcdef01234
+  ```
+
+To use this addon, first [create an ACMI DNS API token](https://support.google.com/domains/answer/7630973#acme_dns).
+
+For security reasons, please create a separate ACME DNS API token specifically for use within Home Assistant.
 
 </details>
 
@@ -383,7 +405,7 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>OVH</summary>
 
-  You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America). 
+  You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America).
 
   When creating the API Key, you must ensure that the following rights are granted:
   * ``GET /domain/zone/*``
@@ -414,7 +436,7 @@ on the DNS zone to be used for authentication.
   <summary>RFC2136</summary>
 
   You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
-  
+
   ```
   $ tsig-keygen -a hmac-sha512 letsencrypt
   key "letsencrypt" {
@@ -422,19 +444,19 @@ on the DNS zone to be used for authentication.
   	secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
   ```
-  
+
   You don't need to publish this; just copy the key data into your named.conf file:
   ```
-  
+
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
-  
+
   ```
   And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
   ```
-  
+
      update-policy {
         grant letsencrypt name _acme-challenge.home-assistant.io. txt;
      };
@@ -459,7 +481,7 @@ on the DNS zone to be used for authentication.
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
   ```
-  
+
 </details>
 
 <details>
@@ -506,6 +528,7 @@ dns-dnsimple
 dns-dnsmadeeasy
 dns-gehirn
 dns-google
+dns-google-domains
 dns-hetzner
 dns-linode
 dns-luadns

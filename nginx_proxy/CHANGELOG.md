@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.1
+
+- Avoid logging to system console
+
 ## 3.4.0
 
 - Add X-Forwarded-Host to fix origin issues affecting VSCode and other addons

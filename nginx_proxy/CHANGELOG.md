@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.2
+
+- Decrease crond log level
+
 ## 3.4.1
 
 - Avoid logging to system console

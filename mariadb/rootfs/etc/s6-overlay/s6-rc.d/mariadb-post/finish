@@ -1,7 +1,8 @@
 #!/command/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Start crond service
+# Post-start finalization of MariaDB service
 # ==============================================================================
 
-exec crond -f -d 9
+bashio::log.info "Deleting service information from Home Assistant"
+bashio::services.delete "mysql" || true

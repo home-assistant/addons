@@ -1,5 +1,5 @@
 ---
-version: 2.5.2
+version: 2.6.0
 slug: mariadb
 name: MariaDB
 description: A SQL database server
@@ -10,8 +10,8 @@ arch:
   - aarch64
   - amd64
   - i386
-backup_post: s6-svc -wd -d /run/s6/legacy-services/mariadb-lock/
-backup_pre: s6-svc -wU -u /run/s6/legacy-services/mariadb-lock/
+backup_post: /command/s6-rc -d change mariadb-lock
+backup_pre: /command/s6-rc -u change mariadb-lock
 image: homeassistant/{arch}-addon-mariadb
 init: false
 options:

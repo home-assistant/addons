@@ -1,32 +1,26 @@
-#!/usr/bin/with-contenv bashio
+#!/command/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
-# Start MariaDB service if enabled
+# Post-start initialization of MariaDB service
 # ==============================================================================
-MARIADB_DATA=/data/databases
-NEW_INSTALL=false
 
-# Init mariadb
-if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
-    bashio::log.info "Create a new mariadb initial system"
-    mysql_install_db --user=root --datadir="${MARIADB_DATA}" --skip-name-resolve --skip-test-db > /dev/null
-    NEW_INSTALL=true
-else
-    bashio::log.info "Using existing mariadb initial system"
-fi
-
-# Redirect log output
-rm -f "${MARIADB_DATA}/mariadb.err"
-ln -s /proc/1/fd/1 "${MARIADB_DATA}/mariadb.err"
-
-# Start mariadb
-bashio::log.info "Starting MariaDB"
-mysqld_safe --datadir="${MARIADB_DATA}" --user=root < /dev/null &
-MARIADB_PID=$!
+function execute_without_error_messages() {
+    local current_log_level="${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}]}"
+    bashio::log.level fatal
+    local exit_code=0
+    $@ || exit_code=$?
+    bashio::log.level ${current_log_level}
+    return ${exit_code}
+}
 
 # Wait until DB is running
 while ! mysql -e "" 2> /dev/null; do
     sleep 1
 done
+bashio::log.info "MariaDB started"
+
+# Delete service information, just in case the previous instance somehow did not cleanup
+execute_without_error_messages bashio::services.delete "mysql" || true
 
 bashio::log.info "Check data integrity and fix corruptions"
 mysqlcheck --no-defaults --databases mysql --fix-db-names --fix-table-names || true
@@ -116,19 +110,5 @@ PAYLOAD=$(\
         username "service" \
         password "${SECRET}"
 )
-if bashio::services.publish "mysql" "${PAYLOAD}"; then
-    bashio::log.info "Successfully send service information to Home Assistant."
-else
-    bashio::log.warning "Service message to Home Assistant failed!"
-fi
-
-# Register stop
-function stop_mariadb() {
-    bashio::services.delete "mysql"
-    mysqladmin shutdown
-    # Successful exit, avoid wait exit status to propagate
-    exit 0
-}
-trap "stop_mariadb" SIGTERM SIGHUP
-
-wait "${MARIADB_PID}"
+bashio::log.info "Sending service information to Home Assistant"
+bashio::services.publish "mysql" "${PAYLOAD}"

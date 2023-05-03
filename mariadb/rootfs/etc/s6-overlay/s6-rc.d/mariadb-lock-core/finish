@@ -1,0 +1,7 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# MariaDB client (to lock tables for backups) stopped
+# ==============================================================================
+
+bashio::log.info "MariaDB client (to lock tables for backups) stopped"

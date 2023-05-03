@@ -19,7 +19,7 @@ while ! mysql -e "" 2> /dev/null; do
 done
 bashio::log.info "MariaDB started"
 
-# Deleting service information from Home Assistant (failsafe mechanism in case the finish script not executed for any reason)
+# Delete service information, just in case the previous instance somehow did not cleanup
 execute_without_error_messages bashio::services.delete "mysql" || true
 
 bashio::log.info "Check data integrity and fix corruptions"

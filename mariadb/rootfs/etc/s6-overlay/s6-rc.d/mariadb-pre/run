@@ -21,8 +21,8 @@ ln -s /proc/1/fd/1 "${MARIADB_DATA}/mariadb.err"
 
 # Init mariadb
 if bashio::var.true "${NEW_INSTALL}"; then
-    bashio::log.info "Create a new mariadb initial system"
+    bashio::log.info "Create a new mariadb"
     mysql_install_db --user=root --datadir="${MARIADB_DATA}" --skip-name-resolve --skip-test-db > /dev/null
 else
-    bashio::log.info "Using existing mariadb initial system"
+    bashio::log.info "Using existing mariadb"
 fi

@@ -4,10 +4,6 @@
 # Unlock tables locked for backups
 # ==============================================================================
 
-# Due to it is started by the supervisor calling the backup_post: `/command/s6-rc -d change mariadb-lock` command,
-# it's stdout won't be redirected automatically to the add-on's log
-exec &> /proc/1/fd/1
-
 declare MARIADB_LOCK_CORE_PID
 MARIADB_LOCK_CORE_PID=$(s6-svstat -o pid "/run/service/mariadb-lock-core")
 if bashio::var.equals ${MARIADB_LOCK_CORE_PID} -1; then

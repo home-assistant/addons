@@ -1,5 +1,5 @@
 ---
-version: 2.6.0
+version: 2.6.1
 slug: mariadb
 name: MariaDB
 description: A SQL database server
@@ -10,8 +10,8 @@ arch:
   - aarch64
   - amd64
   - i386
-backup_post: /command/s6-rc -d change mariadb-lock
-backup_pre: /command/s6-rc -u change mariadb-lock
+backup_post: redirfd -wn 1 /proc/1/fd/1 fdmove -c 2 1 s6-rc -v 2 -d change mariadb-lock
+backup_pre: redirfd -wn 1 /proc/1/fd/1 fdmove -c 2 1 s6-rc -v 2 -u change mariadb-lock
 image: homeassistant/{arch}-addon-mariadb
 init: false
 options:

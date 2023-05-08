@@ -4,5 +4,6 @@
 # Lock tables for backup
 # ==============================================================================
 
+# Redirect stdout to the add-on's log
 exec &> /proc/1/fd/1
 exec s6-rc -v 2 -u change mariadb-lock

@@ -5,5 +5,5 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
 args:
   CPCD_VERSION: v4.2.2
-  GECKO_SDK_VERSION: v4.2.2
+  GECKO_SDK_VERSION: v4.2.3
   UNIVERSAL_SILABS_FLASHER: 0.0.12

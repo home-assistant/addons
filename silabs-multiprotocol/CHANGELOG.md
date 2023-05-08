@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.2
+
+- Use Silicon Labs Gecko SDK 4.2.3
+- Avoid starting mdnsd when OpenThread Border Router is not enabled
+
 ## 1.1.1
 
 - Bugfix: bump universal SiLabs flasher to 0.0.12 for amd64

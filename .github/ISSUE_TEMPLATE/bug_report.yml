@@ -67,12 +67,16 @@ body:
         - Matter Server
         - Mosquitto broker
         - NGINX Home Assistant SSL proxy
+        - OpenThread Border Router
+        - Piper
         - RPC Shutdown
         - Samba share
+        - Silicon Labs Flasher
         - Silicon Labs Multiprotocol
         - Terminal & SSH
         - TellStick
         - VLC
+        - Whisper
         - OpenZWave
         - Z-Wave JS
 

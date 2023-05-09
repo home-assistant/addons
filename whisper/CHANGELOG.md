@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Remove "auto" language option
+
 ## 0.1.1
 
 - Enable Wyoming protocol discovery

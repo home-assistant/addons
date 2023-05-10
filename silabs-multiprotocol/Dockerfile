@@ -46,10 +46,10 @@ ENV SLC_ARCH=linux_arch_64
 
 RUN \
     set -x \
-    && dpkg --add-architecture amd64 \
+    && dpkg --add-architecture arm64 \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       crossbuild-essential-amd64
+       crossbuild-essential-arm64
 
 FROM --platform=linux/amd64 cross-builder-base AS cross-builder-amd64
 
@@ -61,10 +61,10 @@ ENV SLC_ARCH=zigbee_x86_64
 
 RUN \
     set -x \
-    && dpkg --add-architecture arm64 \
+    && dpkg --add-architecture amd64 \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       crossbuild-essential-arm64
+       crossbuild-essential-amd64
 
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder

@@ -1,0 +1,23 @@
+---
+configuration:
+  beam_size:
+    name: Rozmiar beam
+    description: >-
+      Liczba kandydatów do jednoczesnego przetwarzania transkrypcji.
+      Zwiększenie rozmiaru beam zwiększy dokładność kosztem wydajności.
+  language:
+    name: Język
+    description: >-
+      Język, w którym będziesz rozmawiać z dodatkiem. Jeśli wybierzesz opcję „automatycznie”,
+      model będzie działał znacznie wolniej, ale automatycznie wykryje język mówiony.
+  model:
+    name: Model
+    description: |
+      Model Whisper, który będzie używany do transkrypcji.
+
+      Domyślnym modelem jest `tiny-int8`, skompresowana wersja najmniejszej wersji
+      Modelu Whisper, który może działać na Raspberry Pi 4. Modele skompresowane
+      (`int8`) są nieco mniej dokładne niż ich odpowiedniki, ale są mniejsze
+      i szybsze.
+network:
+  10300/tcp: Whisper Wyoming Protocol

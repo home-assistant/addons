@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.3
+
+- Use native zigbeed on x86-64/amd64 architecture
+- Avoid deleting otbr-web user content twice
+
 ## 1.1.2
 
 - Use Silicon Labs Gecko SDK 4.2.3

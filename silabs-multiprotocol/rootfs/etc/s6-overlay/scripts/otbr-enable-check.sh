@@ -9,6 +9,7 @@ if bashio::config.false 'otbr_enable'; then
     rm /etc/s6-overlay/s6-rc.d/user/contents.d/otbr-agent-rest-discovery
     rm /etc/s6-overlay/s6-rc.d/user/contents.d/mdns
     bashio::log.info "The otbr-agent is disabled."
+    exit 0
 fi
 
 if bashio::var.has_value "$(bashio::addon.port 8080)" \

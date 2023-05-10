@@ -1,0 +1,31 @@
+---
+configuration:
+  voice:
+    name: Głos
+    description: >-
+      Głos Piper do użycia. Głosy są nazywane zgodnie z poniższym opisem
+      scheme: `<language>-<name>-<quality>`.
+  speaker:
+    name: Dzwięk
+    description: >-
+      Numer dzwięku, którego należy użyć, jeśli głos obsługuje wiele wariantów dzięków.
+      Domyślnie używany będzie pierwszy dzwięk (dzwięk 0).
+  length_scale:
+    name: Skala długości
+    description: >-
+      Przyspiesza lub spowalnia głos. Wartość 1,0 oznacza użycie domyślnej 
+      szybkości mówienia głosu, gdzie <1,0 oznacza szybciej, a >1,0 — wolniej.
+  noise_scale:
+    name: Skala hałasu
+    description: >-
+      Kontroluje zmienność dźwięku, dodając szum podczas generowania dźwięku. 
+      Efekt w dużej mierze zależy od samego głosu, ale generalnie 
+      wartość 0 usuwa zmienność, a wartości powyżej 1 zacznie pogarsza jakość dźwięku.
+  noise_w:
+    name: Kadencja mówienia
+    description: >-      
+      Kontroluje zmienność rytmu mówienia (szerokości fonemów). Efekt
+      bardzo zależy od samego głosu, ale generalnie wartość 0 usuwa
+      zmienność i wartości powyżej 1 powodują ekstremalne zacinanie się i pauzy.
+network:
+  10200/tcp: Piper Wyoming Protocol

@@ -1,0 +1,22 @@
+---
+configuration:
+  beam_size:
+    name: Mida d'agrupació
+    description: >-
+      Nombre de candidats a considerar simultàniament durant la transcripció.
+      Augmentar la mida del feix augmentarà la precisió a costa de rendiment.
+  language:
+    name: Llengua
+    description: >-
+      Idioma amb el qual parlareu al complement. Si seleccioneu "auto", el model
+      funcionarà molt més lentament però detectarà automàticament l'idioma parlat.
+  model:
+    name: Model
+    description: |
+      Model de Whisper que s'utilitzarà per a la transcripció.
+
+      El model predeterminat és `tiny-int8`, una versió comprimida del model Whisper
+      més petit que pot funcionar amb un Raspberry Pi 4. Models comprimits (`int8`)
+      són una mica menys precisos que els seus homòlegs, però més petits i més ràpid.
+network:
+  10300/tcp: Protocol de Wyoming Whisper

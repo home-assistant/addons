@@ -55,9 +55,9 @@ FROM --platform=linux/amd64 cross-builder-base AS cross-builder-amd64
 
 COPY debian-amd64.cmake /usr/src/debian.cmake
 
-ENV DEBIAN_ARCH=amd64
-ENV DEBIAN_CROSS_PREFIX=x86_64-linux-gnu
-ENV SLC_ARCH=zigbee_x86_64
+ENV DEBIAN_ARCH=amd64 \
+        DEBIAN_CROSS_PREFIX=x86_64-linux-gnu \
+        SLC_ARCH=zigbee_x86_64
 
 RUN \
     set -x \

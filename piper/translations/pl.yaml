@@ -6,10 +6,10 @@ configuration:
       Głos Piper do użycia. Głosy są nazywane zgodnie z poniższym opisem
       scheme: `<language>-<name>-<quality>`.
   speaker:
-    name: Dzwięk
+    name: Dźwięk
     description: >-
-      Numer dzwięku, którego należy użyć, jeśli głos obsługuje wiele wariantów dzięków.
-      Domyślnie używany będzie pierwszy dzwięk (dzwięk 0).
+      Numer dźwięku, którego należy użyć, jeśli głos obsługuje wiele wariantów dźwięków.
+      Domyślnie używany będzie pierwszy dźwięk (dźwięk 0).
   length_scale:
     name: Skala długości
     description: >-

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.0
+
+- Update Alpine to 3.18 (nginx 1.24.x)
+
 ## 3.4.2
 
 - Decrease crond log level

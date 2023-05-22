@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.4.0
+
+- Bump Python Matter Server to [3.4.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.0)
+  - This updates Matter to 1.1
+- Update S6 Overlay to v3.1.5.0
+
 ## 4.3.1
 
 - Bump Python Matter Server to [3.3.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.3.1)

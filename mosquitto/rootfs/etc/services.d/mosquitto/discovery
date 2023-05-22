@@ -8,7 +8,7 @@ declare config
 declare discovery_password
 declare service_password
 
-# Wait for mosquitti to start before continuing
+# Wait for mosquitto to start before continuing
 bashio::net.wait_for 1883
 
 # Read the existing values

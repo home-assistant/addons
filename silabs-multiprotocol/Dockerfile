@@ -51,6 +51,21 @@ RUN \
     && apt-get install -y --no-install-recommends \
        crossbuild-essential-arm64
 
+FROM --platform=linux/amd64 cross-builder-base AS cross-builder-amd64
+
+COPY debian-amd64.cmake /usr/src/debian.cmake
+
+ENV DEBIAN_ARCH=amd64 \
+        DEBIAN_CROSS_PREFIX=x86_64-linux-gnu \
+        SLC_ARCH=zigbee_x86_64
+
+RUN \
+    set -x \
+    && dpkg --add-architecture amd64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       crossbuild-essential-amd64
+
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
 

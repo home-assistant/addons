@@ -24,7 +24,7 @@ for more information.
 
 ### Option: `language`
 
-Language that you will speak to the add-on. If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
+Language that you will speak to the add-on (default is "en"). If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
 
 [Performance of supported languages](https://github.com/openai/whisper#available-models-and-languages)
 

@@ -86,13 +86,7 @@ RUN \
        libjson-c5 \
        unzip \
        gdb \
-       gcc \
-       linux-libc-dev \
-       libc6-dev \
     && pip3 install --no-cache-dir "python-matter-server[server]==${MATTER_SERVER_VERSION}" \
-    && apt-get purge -y --auto-remove \
-       gcc \
-       linux-libc-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 

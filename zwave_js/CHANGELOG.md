@@ -11,7 +11,7 @@
 - Optimized the config parameter queries during the interview to take much less time in many cases
 - Some minor changes to better comply with the Z-Wave specification
 
-#### Config file changes
+### Config file changes
 
 - Add configuration for Zooz ZEN53, 54, 55
 - Extend version range for Vesternet VES-ZW-HLD-016

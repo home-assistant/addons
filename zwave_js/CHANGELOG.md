@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.1.81
+
+### Bug fixes
+
+- Fixed several crashes
+- Expose some device functionality that would previously be hidden as redundant
+- Auto-discovered config parameters (for new devices) can now be edited
+- Properly support config parameters above number 255
+- Optimized the config parameter queries during the interview to take much less time in many cases
+- Some minor changes to better comply with the Z-Wave specification
+
+### Config file changes
+
+- Add configuration for Zooz ZEN53, 54, 55
+- Extend version range for Vesternet VES-ZW-HLD-016
+- Add 700 series variant of SimonTech Roller Blind
+- Updated instructions for Leviton VRS15 and ZW15R
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.21.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.21.0)
+- [Bump Z-Wave JS to 10.20.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.20.0)
+- [Bump Z-Wave JS to 10.19.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.19.0)
+- [Bump Z-Wave JS to 10.18.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.18.0)
+- [Bump Z-Wave JS to 10.17.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.17.1)
+
 ## 0.1.80
 
 - [Bump Z-Wave JS to 10.17.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.17.0)

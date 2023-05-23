@@ -2,9 +2,7 @@
 
 ## 0.1.81
 
-### Notable changes
-
-#### Bug fixes
+### Bug fixes
 
 - Fixed several crashes
 - Expose some device functionality that would previously be hidden as redundant

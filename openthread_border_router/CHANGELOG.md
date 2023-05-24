@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+
+- Bump to OTBR POSIX version f46f68956b (2023-05-23 09:28:30 -0700)
+  This update includes the new REST API part of upstream OTBR
+
 ## 1.2.0
 
 - Fix firmware flashing on Home Assistant Yellow

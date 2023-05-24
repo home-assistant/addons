@@ -6,5 +6,5 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  PIPER_LIB_VERSION: 0.0.2
+  PIPER_LIB_VERSION: 0.0.3
   PIPER_RELEASE: v0.0.2

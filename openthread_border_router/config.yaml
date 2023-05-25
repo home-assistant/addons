@@ -43,6 +43,3 @@ schema:
   firewall: bool
 stage: experimental
 startup: services
-panel_title: OpenThread
-panel_icon: mdi:view-grid-plus-outline
-panel_admin: true

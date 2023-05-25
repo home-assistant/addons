@@ -8,6 +8,7 @@ url: >-
 arch:
   - aarch64
   - amd64
+homeassistant: 2023.6.0.dev20230525
 gpio: true
 hassio_api: true
 discovery:

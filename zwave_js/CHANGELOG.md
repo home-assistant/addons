@@ -7,6 +7,13 @@
 - Fixed a crash scenario
 - Fixed an issue that caused device values to stop updating
 
+### Config file changes
+
+- Add LG U+ smart switches
+- Add/correct config files for iSurpass J1825
+- Added another variant of Kwikset 914C
+- Add Dawon PM-S140-ZW, PM-S340-ZW and KR frequencies
+
 ### Detailed changelogs
 
 - [Bump Z-Wave JS to 10.22.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.1)

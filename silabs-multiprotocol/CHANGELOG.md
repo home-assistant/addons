@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0
+## 2.0.0
 
 - Update OpenThread REST API to latest upstreamed API variant
 

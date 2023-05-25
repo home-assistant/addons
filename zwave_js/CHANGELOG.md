@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.82
+
+### Bug fixes
+
+- Fixed a crash scenario
+- Fixed an issue that caused device values to stop updating
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.22.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.1)
+- [Bump Z-Wave JS to 10.22.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.2)
+
 ## 0.1.81
 
 ### Bug fixes

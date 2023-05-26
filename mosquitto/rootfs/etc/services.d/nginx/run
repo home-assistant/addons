@@ -1,6 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Runs the NGINX daemon
-# ==============================================================================
-bashio::log.info "Starting NGINX for authentication handling..."
-exec nginx

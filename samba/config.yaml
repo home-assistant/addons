@@ -16,10 +16,6 @@ host_network: true
 image: homeassistant/{arch}-addon-samba
 init: false
 map:
-  - config:rw
-  - ssl:rw
-  - addons:rw
-  - share:rw
   - backup:rw
   - media:rw
 options:

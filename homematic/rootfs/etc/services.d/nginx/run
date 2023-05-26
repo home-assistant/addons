@@ -1,9 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Start NGINX service
-# ==============================================================================
-# Wait for HomeMatic httpd 
-bashio::net.wait_for 80
-
-bashio::log.info "Starting Nginx..."
-exec nginx

@@ -1,6 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Start light httpd service
-# ==============================================================================
-bashio::log.info "Initialize webinterface routing..."
-exec lighttpd-angel -D -f "${HM_HOME}/etc/lighttpd/lighttpd.conf"

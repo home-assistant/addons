@@ -1,8 +1,0 @@
-#!/command/with-contenv bashio
-# shellcheck shell=bash
-# ==============================================================================
-# Post-start finalization of MariaDB service
-# ==============================================================================
-
-bashio::log.info "Deleting service information from Home Assistant"
-bashio::services.delete "mysql" || true

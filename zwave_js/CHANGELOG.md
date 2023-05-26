@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.83
+
+### Bug fixes
+
+- Fixed an issue where devices wouldn't update after a multicast command
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.22.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.3)
+
 ## 0.1.82
 
 ### Bug fixes

@@ -1,7 +1,0 @@
----
-configuration:
-  log_level:
-    name: Matter Server Log Level
-    description: Logging level of the Matter Server component.
-network:
-  5580/tcp: Matter Server WebSocket server port.

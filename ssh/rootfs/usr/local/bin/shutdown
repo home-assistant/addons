@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# This script overrides the shutdown command to shutdown the host machine.
-# ==============================================================================
-bashio::host.shutdown

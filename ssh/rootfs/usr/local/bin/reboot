@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# This script overrides the reboot command to reboot the host machine.
-# ==============================================================================
-bashio::host.reboot

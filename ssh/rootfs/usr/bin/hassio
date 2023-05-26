@@ -1,3 +1,0 @@
-#!/usr/bin/env bashio
-bashio::log.yellow "The 'hassio' command is deprecated, please use 'ha' instead!"
-ha "$@"

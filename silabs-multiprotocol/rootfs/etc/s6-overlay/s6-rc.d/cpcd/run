@@ -1,8 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Start Co-Processor Communication Daemon (CPCd)
-# ==============================================================================
-
-bashio::log.info "Starting cpcd..."
-exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
-    "/usr/bin/stdbuf" -o0 /usr/local/bin/cpcd

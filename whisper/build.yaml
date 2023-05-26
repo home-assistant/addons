@@ -1,9 +1,0 @@
----
-build_from:
-  amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
-  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
-codenotary:
-  signer: notary@home-assistant.io
-  base_image: notary@home-assistant.io
-args:
-  WHISPER_VERSION: 0.0.3

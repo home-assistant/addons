@@ -23,6 +23,8 @@ options:
   password: null
   workgroup: WORKGROUP
   compatibility_mode: false
+  automount: true
+  moredisks: []
   veto_files:
     - ._*
     - .DS_Store
@@ -44,6 +46,9 @@ schema:
   veto_files:
     - str
   allow_hosts:
+    - str
+  automount: bool?
+  moredisks:
     - str
   udev: true
   #usb: true

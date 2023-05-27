@@ -1,0 +1,57 @@
+#include <tunables/global>
+
+profile addon_samba flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+  #include <abstractions/mdns>
+  #include <abstractions/samba>
+  #include <abstractions/smbpass>
+  #include <abstractions/winbind>
+  #include <abstractions/bash>
+
+  
+  capability,
+  file,
+  signal (send) set=(kill,term,int,hup,cont),
+  mount,
+  umount,
+  remount,
+
+  capability setgid,
+  capability setuid,
+  capability sys_admin, 
+  capability dac_read_search, 
+  capability sys_rawio,
+  capability sys_resource,
+  # capability dac_override,
+
+# S6-Overlay
+  /init ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /run/{s6,s6-rc*,service}/** ix,
+  /package/** ix,
+  /command/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /run/{,**} rwk,
+ # /dev/tty rw,
+ 
+  # Files required
+  /dev/** mrwkl,
+  /tmp/** mrkwl,
+  
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rwk,
+
+  # Data access
+  /data/** rw, 
+
+  # suppress ptrace denials when using 'docker ps' or using 'ps' inside a container
+  ptrace (trace,read) peer=docker-default,
+ 
+  # docker daemon confinement requires explict allow rule for signal
+  signal (receive) set=(kill,term) peer=/usr/bin/docker,
+
+}

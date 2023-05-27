@@ -1,6 +1,7 @@
 # Home Assistant Add-on: Samba share
 
-Share your configuration over the network using Windows file sharing.
+Share your backup and media over the network using Windows file sharing.
+Mount available USB drive in /media
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 

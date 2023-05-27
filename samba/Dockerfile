@@ -9,6 +9,15 @@ RUN \
     apk add --no-cache \
         samba-common-tools \
         samba-server \
+        dbus \
+        exfatprogs \
+        btrfs-progs \
+        xfsprogs \
+        udev \
+        e2fsprogs \
+        util-linux \
+        findmnt \
+        ntfs-3g-progs \
     \
     && mkdir -p /var/lib/samba \
     && touch \

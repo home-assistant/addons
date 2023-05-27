@@ -8,7 +8,7 @@ Mount available USB drive in /media
 ## About
 
 This Add-on allows you to enable file sharing across different operating systems over a network.
-It lets you access your config files with Windows and macOS devices.
+
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

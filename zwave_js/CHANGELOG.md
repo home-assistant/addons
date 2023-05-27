@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- Fixed an issue introduced in `10.21.0` where some optimistic value updates would no longer happen after successful multicast commands
+- Fixed an issue introduced in Z-Wave JS `10.21.0` where some optimistic value updates would no longer happen after successful multicast commands
 
 ### Detailed changelogs
 

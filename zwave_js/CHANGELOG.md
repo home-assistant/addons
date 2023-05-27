@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- Fixed an issue where devices wouldn't update after a multicast command
+- Fixed an issue introduced in `10.21.0` where some optimistic value updates would no longer happen after successful multicast commands
 
 ### Detailed changelogs
 

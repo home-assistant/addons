@@ -1,8 +1,8 @@
 ---
-version: 10.0.2
+version: 10.0.3
 slug: samba
 name: Samba share
-description: Expose Home Assistant folders with SMB/CIFS
+description: Expose Home Assistant backup and media with SMB/CIFS mount USB in media
 url: https://github.com/home-assistant/addons/tree/master/samba
 codenotary: notary@home-assistant.io
 arch:
@@ -45,4 +45,17 @@ schema:
     - str
   allow_hosts:
     - str
+  udev: true
+  #usb: true
+  host_dbus: true
+  kernel_modules: true
+  privileged:
+    - SYS_ADMIN
+    - SYS_RAWIO
+    - SYS_RESOURCE
+    - SYS_MODULE
+  full_access: true
+  devicetree: false
+  apparmor: true
+  host_ipc: true
 startup: services

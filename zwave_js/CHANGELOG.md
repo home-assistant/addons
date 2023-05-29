@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.83
+
+### Bug fixes
+
+- Fixed an issue introduced in Z-Wave JS `10.21.0` where some optimistic value updates would no longer happen after successful multicast commands
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.22.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.3)
+
 ## 0.1.82
 
 ### Bug fixes

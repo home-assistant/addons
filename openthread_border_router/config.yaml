@@ -1,5 +1,5 @@
 ---
-version: 1.2.0
+version: 2.0.0
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -8,6 +8,7 @@ url: >-
 arch:
   - aarch64
   - amd64
+homeassistant: 2023.6.0.dev20230531
 gpio: true
 hassio_api: true
 discovery:
@@ -43,6 +44,3 @@ schema:
   firewall: bool
 stage: experimental
 startup: services
-panel_title: OpenThread
-panel_icon: mdi:view-grid-plus-outline
-panel_admin: true

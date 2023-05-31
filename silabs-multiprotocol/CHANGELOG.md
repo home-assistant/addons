@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+- Update OpenThread REST API to latest upstreamed API variant
+
 ## 1.1.3
 
 - Use native zigbeed on x86-64/amd64 architecture

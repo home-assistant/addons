@@ -1,0 +1,173 @@
+From 472bb79b071c770758690f66789a6f5a20df2ddb Mon Sep 17 00:00:00 2001
+Message-Id: <472bb79b071c770758690f66789a6f5a20df2ddb.1684999160.git.stefan@agner.ch>
+In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1684999160.git.stefan@agner.ch>
+References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1684999160.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 12 May 2023 16:52:34 +0200
+Subject: [PATCH] [rest] allow to specify REST listen port (#1862)
+
+Allow to bind to a specific port to listen to for REST requests. Note
+that the built-in web interface always assumes the REST to be available
+on port 8081!
+
+(cherry picked from commit 7af2ca4aef636e5f6d71f5ac5cd038a11d6686a9)
+---
+ src/agent/application.cpp    |  6 ++++--
+ src/agent/application.hpp    |  5 ++++-
+ src/agent/main.cpp           | 14 +++++++++++++-
+ src/rest/rest_web_server.cpp |  6 ++----
+ src/rest/rest_web_server.hpp |  2 +-
+ 5 files changed, 24 insertions(+), 9 deletions(-)
+
+diff --git a/src/agent/application.cpp b/src/agent/application.cpp
+index 42cc307c09..ee5c947749 100644
+--- a/src/agent/application.cpp
++++ b/src/agent/application.cpp
+@@ -51,7 +51,8 @@ Application::Application(const std::string &              aInterfaceName,
+                          const std::vector<const char *> &aBackboneInterfaceNames,
+                          const std::vector<const char *> &aRadioUrls,
+                          bool                             aEnableAutoAttach,
+-                         const std::string               &aRestListenAddress)
++                         const std::string               &aRestListenAddress,
++                         int                              aRestListenPort)
+     : mInterfaceName(aInterfaceName)
+ #if __linux__
+     , mInfraLinkSelector(aBackboneInterfaceNames)
+@@ -70,7 +71,7 @@ Application::Application(const std::string &              aInterfaceName,
+     , mUbusAgent(mNcp)
+ #endif
+ #if OTBR_ENABLE_REST_SERVER
+-    , mRestWebServer(mNcp, aRestListenAddress)
++    , mRestWebServer(mNcp, aRestListenAddress, aRestListenPort)
+ #endif
+ #if OTBR_ENABLE_DBUS_SERVER && OTBR_ENABLE_BORDER_AGENT
+     , mDBusAgent(mNcp, mBorderAgent.GetPublisher())
+@@ -80,6 +81,7 @@ Application::Application(const std::string &              aInterfaceName,
+ #endif
+ {
+     OTBR_UNUSED_VARIABLE(aRestListenAddress);
++    OTBR_UNUSED_VARIABLE(aRestListenPort);
+ }
+ 
+ void Application::Init(void)
+diff --git a/src/agent/application.hpp b/src/agent/application.hpp
+index 829916772c..8c909b629f 100644
+--- a/src/agent/application.hpp
++++ b/src/agent/application.hpp
+@@ -85,13 +85,16 @@ public:
+      * @param[in] aBackboneInterfaceName Name of the backbone network interface.
+      * @param[in] aRadioUrls             The radio URLs (can be IEEE802.15.4 or TREL radio).
+      * @param[in] aEnableAutoAttach      Whether or not to automatically attach to the saved network.
++     * @param[in] aRestListenAddress     Network address to listen on.
++     * @param[in] aRestListenPort        Network port to listen on.
+      *
+      */
+     explicit Application(const std::string &              aInterfaceName,
+                          const std::vector<const char *> &aBackboneInterfaceNames,
+                          const std::vector<const char *> &aRadioUrls,
+                          bool                             aEnableAutoAttach,
+-                         const std::string               &aRestListenAddress);
++                         const std::string               &aRestListenAddress,
++                         int                              aRestListenPort);
+ 
+     /**
+      * This method initializes the Application instance.
+diff --git a/src/agent/main.cpp b/src/agent/main.cpp
+index 883c685671..f942cc916e 100644
+--- a/src/agent/main.cpp
++++ b/src/agent/main.cpp
+@@ -61,6 +61,9 @@
+ static const char kSyslogIdent[]          = "otbr-agent";
+ static const char kDefaultInterfaceName[] = "wpan0";
+ 
++// Port number used by Rest server.
++static const uint32_t kPortNumber = 8081;
++
+ enum
+ {
+     OTBR_OPT_BACKBONE_INTERFACE_NAME = 'B',
+@@ -73,6 +76,7 @@ enum
+     OTBR_OPT_RADIO_VERSION,
+     OTBR_OPT_AUTO_ATTACH,
+     OTBR_OPT_REST_LISTEN_ADDR,
++    OTBR_OPT_REST_LISTEN_PORT,
+ };
+ 
+ static jmp_buf            sResetJump;
+@@ -89,6 +93,7 @@ static const struct option kOptions[] = {
+     {"radio-version", no_argument, nullptr, OTBR_OPT_RADIO_VERSION},
+     {"auto-attach", optional_argument, nullptr, OTBR_OPT_AUTO_ATTACH},
+     {"rest-listen-address", required_argument, nullptr, OTBR_OPT_REST_LISTEN_ADDR},
++    {"rest-listen-port", required_argument, nullptr, OTBR_OPT_REST_LISTEN_PORT},
+     {0, 0, 0, 0}};
+ 
+ static bool ParseInteger(const char *aStr, long &aOutResult)
+@@ -192,6 +197,7 @@ static int realmain(int argc, char *argv[])
+     bool                      printRadioVersion = false;
+     bool                      enableAutoAttach  = true;
+     const char               *restListenAddress = "";
++    int                       restListenPort    = kPortNumber;
+     std::vector<const char *> radioUrls;
+     std::vector<const char *> backboneInterfaceNames;
+     long                      parseResult;
+@@ -250,6 +256,11 @@ static int realmain(int argc, char *argv[])
+             restListenAddress = optarg;
+             break;
+ 
++        case OTBR_OPT_REST_LISTEN_PORT:
++            VerifyOrExit(ParseInteger(optarg, parseResult), ret = EXIT_FAILURE);
++            restListenPort = parseResult;
++            break;
++
+         default:
+             PrintHelp(argv[0]);
+             ExitNow(ret = EXIT_FAILURE);
+@@ -280,7 +291,8 @@ static int realmain(int argc, char *argv[])
+     }
+ 
+     {
+-        otbr::Application app(interfaceName, backboneInterfaceNames, radioUrls, enableAutoAttach, restListenAddress);
++        otbr::Application app(interfaceName, backboneInterfaceNames, radioUrls, enableAutoAttach, restListenAddress,
++                              restListenPort);
+ 
+         gApp = &app;
+         app.Init();
+diff --git a/src/rest/rest_web_server.cpp b/src/rest/rest_web_server.cpp
+index cfb3dd4435..0327bb44ea 100644
+--- a/src/rest/rest_web_server.cpp
++++ b/src/rest/rest_web_server.cpp
+@@ -46,16 +46,14 @@ namespace rest {
+ 
+ // Maximum number of connection a server support at the same time.
+ static const uint32_t kMaxServeNum = 500;
+-// Port number used by Rest server.
+-static const uint32_t kPortNumber = 8081;
+ 
+-RestWebServer::RestWebServer(ControllerOpenThread &aNcp, const std::string &aRestListenAddress)
++RestWebServer::RestWebServer(ControllerOpenThread &aNcp, const std::string &aRestListenAddress, int aRestListenPort)
+     : mResource(Resource(&aNcp))
+     , mListenFd(-1)
+ {
+     mAddress.sin6_family = AF_INET6;
+     mAddress.sin6_addr   = in6addr_any;
+-    mAddress.sin6_port   = htons(kPortNumber);
++    mAddress.sin6_port   = htons(aRestListenPort);
+ 
+     if (!aRestListenAddress.empty())
+     {
+diff --git a/src/rest/rest_web_server.hpp b/src/rest/rest_web_server.hpp
+index 97e36b37e0..6e7956ba89 100644
+--- a/src/rest/rest_web_server.hpp
++++ b/src/rest/rest_web_server.hpp
+@@ -60,7 +60,7 @@ public:
+      * @param[in] aNcp  A reference to the NCP controller.
+      *
+      */
+-    RestWebServer(ControllerOpenThread &aNcp, const std::string &aRestListenAddress);
++    RestWebServer(ControllerOpenThread &aNcp, const std::string &aRestListenAddress, int aRestListenPort);
+ 
+     /**
+      * The destructor destroys the server instance.
+-- 
+2.40.1
+

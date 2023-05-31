@@ -1,30 +1,88 @@
-From daad0f74723bd5dfb63302ad07bd9e0aefcf9c1f Mon Sep 17 00:00:00 2001
-Message-Id: <daad0f74723bd5dfb63302ad07bd9e0aefcf9c1f.1673530580.git.stefan@agner.ch>
-In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
-References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1673530580.git.stefan@agner.ch>
+From ced6eebdb5c73617f81dfcf3369e9a62c3fafaf1 Mon Sep 17 00:00:00 2001
+Message-Id: <ced6eebdb5c73617f81dfcf3369e9a62c3fafaf1.1684999160.git.stefan@agner.ch>
+In-Reply-To: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1684999160.git.stefan@agner.ch>
+References: <c2dc2a9940d1f9809403d4dfb28e1f942ef90bab.1684999160.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
-Date: Fri, 23 Dec 2022 10:39:34 +0100
-Subject: [PATCH 07/10] [rest] implement REST API to get dataset
+Date: Wed, 10 May 2023 03:22:31 +0200
+Subject: [PATCH] [rest] add Operational Dataset API (#1682)
 
+This commit extends the REST API to support reading and writing Active
+and Pending Operational Datasets.
+
+It adds the following endpoints and methods:
+
+* /node/dataset/active [`GET`, `OPTIONS`, `POST`, `PUT`]
+* /node/dataset/pending [`GET`, `OPTIONS`, `POST`, `PUT`]
+
+The `GET` method returns current datasets, `POST` allows to create a
+new dataset (with defaults as initialized by the OpenThread
+implementation just like `ot-ctl dataset init new`). Any fields
+provided with `POST` will overwrite the defaults, hence a call like
+
+```
+curl -X POST http://localhost:8081/node/dataset/pending -d '{ "Delay": 30000, "ActiveTimestamp": 10 }'
+```
+
+Is equivalent to:
+
+```
+ot-ctl dataset init new
+ot-ctl dataset delay 30000
+ot-ctl dataset activetimestamp 10
+ot-ctl dataset commit pending
+```
+
+`PUT` requests do not initialize a new dataset (which makes the call
+idempotent as defined in HTTP). `PUT` simply loads the current dataset
+and updates it with the new values provided by the JSON body. When
+using the TLV format PUT is a simple write to the active/pending
+dataset.
+
+Datasets can be read and written using a straight forward JSON format
+or alternatively using the Dataset TLV format. This is implemented in
+a RESTful manor by using the same endpoints but `Content-Type` to
+distinguish the two data formats. The `application/json` type is used
+for JSON and `plain/text` for Dataset TLV format.
+
+The API is documented by a OpenAPI Specification (Swagger). The YAML
+description file is stored at `src/rest/openapi.yaml`. Swagger UI
+allows to test all the variants described above as well. To start
+Swagger UI locally the following command can be used:
+
+```
+docker run -p 8082:8080 -e SWAGGER_JSON=/openapi.yaml -v $(pwd)/src/rest/openapi.yaml:/openapi.yaml swaggerapi/swagger-ui
+```
+
+The following things are open/tbd at this point:
+
+- No method to change state of the OTBR (probably best done in a separate PR)
+- Automatic/implicit `ActiveTimestamp` support (or should this be left to the client)
+- Generate Swagger UI API in GitHub actions/deploy GitHub pages?
+- Additional testing/unit tests?
+
+The commit also removes the `/node/active-dataset-tlvs` endpoint as it
+is obsolete with this much more capable endpoints.
+
+(cherry picked from commit 21c5b675d883ba5e18415ba3d5dbb7ffc539829b)
 ---
- src/rest/json.cpp     | 355 +++++++++++++++++++++++++++++++
- src/rest/json.hpp     |  24 +++
- src/rest/openapi.yaml | 470 ++++++++++++++++++++++++++++++++++++++++++
+ src/rest/json.cpp     | 427 ++++++++++++++++++++++++++++++++++++++++++
+ src/rest/json.hpp     |  47 +++++
+ src/rest/openapi.yaml | 423 +++++++++++++++++++++++++++++++++++++++++
  src/rest/parser.cpp   |  28 ++-
  src/rest/request.cpp  |  18 ++
  src/rest/request.hpp  |  40 +++-
- src/rest/resource.cpp | 176 +++++++++++++---
+ src/rest/resource.cpp | 178 +++++++++++++++---
  src/rest/resource.hpp |  20 +-
  src/rest/response.cpp |  10 +-
  src/rest/response.hpp |   8 +
- src/rest/types.hpp    |   8 +
- src/utils/hex.cpp     |  38 ++--
+ src/rest/types.hpp    |  10 +-
+ src/utils/hex.cpp     |  40 ++--
  src/utils/hex.hpp     |  40 ++++
- 13 files changed, 1182 insertions(+), 53 deletions(-)
+ 13 files changed, 1230 insertions(+), 59 deletions(-)
  create mode 100644 src/rest/openapi.yaml
 
 diff --git a/src/rest/json.cpp b/src/rest/json.cpp
-index 3a6c9aa08f..e938b3db59 100644
+index 3a6c9aa08f..61c0be2046 100644
 --- a/src/rest/json.cpp
 +++ b/src/rest/json.cpp
 @@ -27,6 +27,7 @@
@@ -167,62 +225,85 @@ index 3a6c9aa08f..e938b3db59 100644
  static cJSON *ChildTableEntry2Json(const otNetworkDiagChildEntry &aChildEntry)
  {
      cJSON *childEntry = cJSON_CreateObject();
-@@ -482,6 +608,235 @@ std::string Error2JsonString(HttpStatusCode aErrorCode, std::string aErrorMessag
+@@ -482,6 +608,307 @@ std::string Error2JsonString(HttpStatusCode aErrorCode, std::string aErrorMessag
      return ret;
  }
  
-+std::string Dataset2JsonString(const otOperationalDataset &aDataset)
++cJSON *ActiveDataset2Json(const otOperationalDataset &aActiveDataset)
 +{
++    cJSON *node = cJSON_CreateObject();
++
++    if (aActiveDataset.mComponents.mIsActiveTimestampPresent)
++    {
++        cJSON_AddItemToObject(node, "ActiveTimestamp", Timestamp2Json(aActiveDataset.mActiveTimestamp));
++    }
++    if (aActiveDataset.mComponents.mIsNetworkKeyPresent)
++    {
++        cJSON_AddItemToObject(node, "NetworkKey", Bytes2HexJson(aActiveDataset.mNetworkKey.m8, OT_NETWORK_KEY_SIZE));
++    }
++    if (aActiveDataset.mComponents.mIsNetworkNamePresent)
++    {
++        cJSON_AddItemToObject(node, "NetworkName", cJSON_CreateString(aActiveDataset.mNetworkName.m8));
++    }
++    if (aActiveDataset.mComponents.mIsExtendedPanIdPresent)
++    {
++        cJSON_AddItemToObject(node, "ExtPanId", Bytes2HexJson(aActiveDataset.mExtendedPanId.m8, OT_EXT_PAN_ID_SIZE));
++    }
++    if (aActiveDataset.mComponents.mIsMeshLocalPrefixPresent)
++    {
++        cJSON_AddItemToObject(node, "MeshLocalPrefix", IpPrefix2Json(aActiveDataset.mMeshLocalPrefix));
++    }
++    if (aActiveDataset.mComponents.mIsPanIdPresent)
++    {
++        cJSON_AddItemToObject(node, "PanId", cJSON_CreateNumber(aActiveDataset.mPanId));
++    }
++    if (aActiveDataset.mComponents.mIsChannelPresent)
++    {
++        cJSON_AddItemToObject(node, "Channel", cJSON_CreateNumber(aActiveDataset.mChannel));
++    }
++    if (aActiveDataset.mComponents.mIsPskcPresent)
++    {
++        cJSON_AddItemToObject(node, "PSKc", Bytes2HexJson(aActiveDataset.mPskc.m8, OT_PSKC_MAX_SIZE));
++    }
++    if (aActiveDataset.mComponents.mIsSecurityPolicyPresent)
++    {
++        cJSON_AddItemToObject(node, "SecurityPolicy", SecurityPolicy2Json(aActiveDataset.mSecurityPolicy));
++    }
++    if (aActiveDataset.mComponents.mIsChannelMaskPresent)
++    {
++        cJSON_AddItemToObject(node, "ChannelMask", cJSON_CreateNumber(aActiveDataset.mChannelMask));
++    }
++
++    return node;
++}
++
++std::string ActiveDataset2JsonString(const otOperationalDataset &aActiveDataset)
++{
++    cJSON      *node;
++    std::string ret;
++
++    node = ActiveDataset2Json(aActiveDataset);
++    ret  = Json2String(node);
++    cJSON_Delete(node);
++
++    return ret;
++}
++
++std::string PendingDataset2JsonString(const otOperationalDataset &aPendingDataset)
++{
++    cJSON      *nodeActiveDataset;
 +    cJSON      *node = cJSON_CreateObject();
 +    std::string ret;
 +
-+    if (aDataset.mComponents.mIsActiveTimestampPresent)
++    nodeActiveDataset = ActiveDataset2Json(aPendingDataset);
++    cJSON_AddItemToObject(node, "ActiveDataset", nodeActiveDataset);
++    if (aPendingDataset.mComponents.mIsPendingTimestampPresent)
 +    {
-+        cJSON_AddItemToObject(node, "ActiveTimestamp", Timestamp2Json(aDataset.mActiveTimestamp));
++        cJSON_AddItemToObject(node, "PendingTimestamp", Timestamp2Json(aPendingDataset.mPendingTimestamp));
 +    }
-+    if (aDataset.mComponents.mIsPendingTimestampPresent)
++    if (aPendingDataset.mComponents.mIsDelayPresent)
 +    {
-+        cJSON_AddItemToObject(node, "PendingTimestamp", Timestamp2Json(aDataset.mPendingTimestamp));
-+    }
-+    if (aDataset.mComponents.mIsNetworkKeyPresent)
-+    {
-+        cJSON_AddItemToObject(node, "NetworkKey", Bytes2HexJson(aDataset.mNetworkKey.m8, OT_NETWORK_KEY_SIZE));
-+    }
-+    if (aDataset.mComponents.mIsNetworkNamePresent)
-+    {
-+        cJSON_AddItemToObject(node, "NetworkName", cJSON_CreateString(aDataset.mNetworkName.m8));
-+    }
-+    if (aDataset.mComponents.mIsExtendedPanIdPresent)
-+    {
-+        cJSON_AddItemToObject(node, "ExtPanId", Bytes2HexJson(aDataset.mExtendedPanId.m8, OT_EXT_PAN_ID_SIZE));
-+    }
-+    if (aDataset.mComponents.mIsMeshLocalPrefixPresent)
-+    {
-+        cJSON_AddItemToObject(node, "MeshLocalPrefix", IpPrefix2Json(aDataset.mMeshLocalPrefix));
-+    }
-+    if (aDataset.mComponents.mIsDelayPresent)
-+    {
-+        cJSON_AddItemToObject(node, "Delay", cJSON_CreateNumber(aDataset.mDelay));
-+    }
-+    if (aDataset.mComponents.mIsPanIdPresent)
-+    {
-+        cJSON_AddItemToObject(node, "PanId", cJSON_CreateNumber(aDataset.mPanId));
-+    }
-+    if (aDataset.mComponents.mIsChannelPresent)
-+    {
-+        cJSON_AddItemToObject(node, "Channel", cJSON_CreateNumber(aDataset.mChannel));
-+    }
-+    if (aDataset.mComponents.mIsPskcPresent)
-+    {
-+        cJSON_AddItemToObject(node, "PSKc", Bytes2HexJson(aDataset.mPskc.m8, OT_PSKC_MAX_SIZE));
-+    }
-+    if (aDataset.mComponents.mIsSecurityPolicyPresent)
-+    {
-+        cJSON_AddItemToObject(node, "SecurityPolicy", SecurityPolicy2Json(aDataset.mSecurityPolicy));
-+    }
-+    if (aDataset.mComponents.mIsChannelMaskPresent)
-+    {
-+        cJSON_AddItemToObject(node, "ChannelMask", cJSON_CreateNumber(aDataset.mChannelMask));
++        cJSON_AddItemToObject(node, "Delay", cJSON_CreateNumber(aPendingDataset.mDelay));
 +    }
 +
 +    ret = Json2String(node);
@@ -231,16 +312,13 @@ index 3a6c9aa08f..e938b3db59 100644
 +    return ret;
 +}
 +
-+bool JsonString2Dataset(const std::string &aJsonDataset, otOperationalDataset &aDataset)
++bool JsonActiveDataset2Dataset(const cJSON *jsonActiveDataset, otOperationalDataset &aDataset)
 +{
 +    cJSON      *value;
-+    cJSON      *jsonDataset;
 +    otTimestamp timestamp;
 +    bool        ret = true;
 +
-+    VerifyOrExit((jsonDataset = cJSON_Parse(aJsonDataset.c_str())) != nullptr, ret = false);
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "ActiveTimestamp");
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "ActiveTimestamp");
 +    if (cJSON_IsObject(value))
 +    {
 +        VerifyOrExit(Json2Timestamp(value, timestamp), ret = false);
@@ -252,6 +330,169 @@ index 3a6c9aa08f..e938b3db59 100644
 +        aDataset.mComponents.mIsActiveTimestampPresent = false;
 +    }
 +    else if (value != nullptr)
++    {
++        ExitNow(ret = false);
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "NetworkKey");
++    if (cJSON_IsString(value))
++    {
++        VerifyOrExit(value->valuestring != nullptr, ret = false);
++        VerifyOrExit(Hex2BytesJsonString(std::string(value->valuestring), aDataset.mNetworkKey.m8,
++                                         OT_NETWORK_KEY_SIZE) == OT_NETWORK_KEY_SIZE,
++                     ret = false);
++        aDataset.mComponents.mIsNetworkKeyPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsNetworkKeyPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "NetworkName");
++    if (cJSON_IsString(value))
++    {
++        VerifyOrExit(value->valuestring != nullptr, ret = false);
++        VerifyOrExit(strlen(value->valuestring) <= OT_NETWORK_NAME_MAX_SIZE, ret = false);
++        strncpy(aDataset.mNetworkName.m8, value->valuestring, OT_NETWORK_NAME_MAX_SIZE);
++        aDataset.mComponents.mIsNetworkNamePresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsNetworkNamePresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "ExtPanId");
++    if (cJSON_IsString(value))
++    {
++        VerifyOrExit(value->valuestring != nullptr, ret = false);
++        VerifyOrExit(Hex2BytesJsonString(std::string(value->valuestring), aDataset.mExtendedPanId.m8,
++                                         OT_EXT_PAN_ID_SIZE) == OT_EXT_PAN_ID_SIZE,
++                     ret = false);
++        aDataset.mComponents.mIsExtendedPanIdPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsExtendedPanIdPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "MeshLocalPrefix");
++    if (cJSON_IsString(value))
++    {
++        VerifyOrExit(value->valuestring != nullptr, ret = false);
++        VerifyOrExit(Json2IpPrefix(value, aDataset.mMeshLocalPrefix) == OTBR_ERROR_NONE, ret = false);
++        aDataset.mComponents.mIsMeshLocalPrefixPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsMeshLocalPrefixPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "PanId");
++    if (cJSON_IsNumber(value))
++    {
++        aDataset.mPanId                      = static_cast<otPanId>(value->valueint);
++        aDataset.mComponents.mIsPanIdPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsPanIdPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "Channel");
++    if (cJSON_IsNumber(value))
++    {
++        aDataset.mChannel                      = static_cast<uint16_t>(value->valueint);
++        aDataset.mComponents.mIsChannelPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsChannelPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "PSKc");
++    if (cJSON_IsString(value))
++    {
++        VerifyOrExit(value->valuestring != nullptr, ret = false);
++        VerifyOrExit(Hex2BytesJsonString(std::string(value->valuestring), aDataset.mPskc.m8, OT_PSKC_MAX_SIZE) ==
++                         OT_PSKC_MAX_SIZE,
++                     ret = false);
++        aDataset.mComponents.mIsPskcPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsPskcPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "SecurityPolicy");
++    if (cJSON_IsObject(value))
++    {
++        VerifyOrExit(Json2SecurityPolicy(value, aDataset.mSecurityPolicy), ret = false);
++        aDataset.mComponents.mIsSecurityPolicyPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsSecurityPolicyPresent = false;
++    }
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonActiveDataset, "ChannelMask");
++    if (cJSON_IsNumber(value))
++    {
++        aDataset.mChannelMask                      = value->valueint;
++        aDataset.mComponents.mIsChannelMaskPresent = true;
++    }
++    else if (cJSON_IsNull(value))
++    {
++        aDataset.mComponents.mIsChannelMaskPresent = false;
++    }
++
++exit:
++    return ret;
++}
++
++bool JsonActiveDatasetString2Dataset(const std::string &aJsonActiveDataset, otOperationalDataset &aDataset)
++{
++    cJSON *jsonActiveDataset;
++    bool   ret = true;
++
++    VerifyOrExit((jsonActiveDataset = cJSON_Parse(aJsonActiveDataset.c_str())) != nullptr, ret = false);
++    VerifyOrExit(cJSON_IsObject(jsonActiveDataset), ret = false);
++
++    ret = JsonActiveDataset2Dataset(jsonActiveDataset, aDataset);
++
++exit:
++    cJSON_Delete(jsonActiveDataset);
++
++    return ret;
++}
++
++bool JsonPendingDatasetString2Dataset(const std::string &aJsonPendingDataset, otOperationalDataset &aDataset)
++{
++    cJSON      *value;
++    cJSON      *jsonDataset;
++    otTimestamp timestamp;
++    bool        ret = true;
++
++    VerifyOrExit((jsonDataset = cJSON_Parse(aJsonPendingDataset.c_str())) != nullptr, ret = false);
++    VerifyOrExit(cJSON_IsObject(jsonDataset), ret = false);
++
++    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "ActiveDataset");
++    if (cJSON_IsObject(value))
++    {
++        VerifyOrExit(JsonActiveDataset2Dataset(value, aDataset), ret = false);
++    }
++    else if (cJSON_IsString(value))
++    {
++        otOperationalDatasetTlvs datasetTlvs;
++        int                      len;
++
++        len =
++            Hex2BytesJsonString(std::string(value->valuestring), datasetTlvs.mTlvs, OT_OPERATIONAL_DATASET_MAX_LENGTH);
++        VerifyOrExit(len > 0, ret = false);
++        datasetTlvs.mLength = len;
++
++        VerifyOrExit(otDatasetParseTlvs(&datasetTlvs, &aDataset) == OT_ERROR_NONE, ret = false);
++    }
++    else
 +    {
 +        ExitNow(ret = false);
 +    }
@@ -272,59 +513,6 @@ index 3a6c9aa08f..e938b3db59 100644
 +        ExitNow(ret = false);
 +    }
 +
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "NetworkKey");
-+    if (cJSON_IsString(value))
-+    {
-+        VerifyOrExit(value->valuestring != nullptr, ret = false);
-+        VerifyOrExit(Hex2BytesJsonString(std::string(value->valuestring), aDataset.mNetworkKey.m8,
-+                                         OT_NETWORK_KEY_SIZE) == OT_NETWORK_KEY_SIZE,
-+                     ret = false);
-+        aDataset.mComponents.mIsNetworkKeyPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsNetworkKeyPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "NetworkName");
-+    if (cJSON_IsString(value))
-+    {
-+        VerifyOrExit(value->valuestring != nullptr, ret = false);
-+        VerifyOrExit(strlen(value->valuestring) <= OT_NETWORK_NAME_MAX_SIZE, ret = false);
-+        strncpy(aDataset.mNetworkName.m8, value->valuestring, OT_NETWORK_NAME_MAX_SIZE);
-+        aDataset.mComponents.mIsNetworkNamePresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsNetworkNamePresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "ExtPanId");
-+    if (cJSON_IsString(value))
-+    {
-+        VerifyOrExit(value->valuestring != nullptr, ret = false);
-+        VerifyOrExit(Hex2BytesJsonString(std::string(value->valuestring), aDataset.mExtendedPanId.m8,
-+                                         OT_EXT_PAN_ID_SIZE) == OT_EXT_PAN_ID_SIZE,
-+                     ret = false);
-+        aDataset.mComponents.mIsExtendedPanIdPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsExtendedPanIdPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "MeshLocalPrefix");
-+    if (cJSON_IsString(value))
-+    {
-+        VerifyOrExit(value->valuestring != nullptr, ret = false);
-+        VerifyOrExit(Json2IpPrefix(value, aDataset.mMeshLocalPrefix) == OTBR_ERROR_NONE, ret = false);
-+        aDataset.mComponents.mIsMeshLocalPrefixPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsMeshLocalPrefixPresent = false;
-+    }
-+
 +    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "Delay");
 +    if (cJSON_IsNumber(value))
 +    {
@@ -334,64 +522,6 @@ index 3a6c9aa08f..e938b3db59 100644
 +    else if (cJSON_IsNull(value))
 +    {
 +        aDataset.mComponents.mIsDelayPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "PanId");
-+    if (cJSON_IsNumber(value))
-+    {
-+        aDataset.mPanId                      = static_cast<otPanId>(value->valueint);
-+        aDataset.mComponents.mIsPanIdPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsPanIdPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "Channel");
-+    if (cJSON_IsNumber(value))
-+    {
-+        aDataset.mChannel                      = static_cast<uint16_t>(value->valueint);
-+        aDataset.mComponents.mIsChannelPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsChannelPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "PSKc");
-+    if (cJSON_IsString(value))
-+    {
-+        VerifyOrExit(value->valuestring != nullptr, ret = false);
-+        VerifyOrExit(Hex2BytesJsonString(std::string(value->valuestring), aDataset.mPskc.m8, OT_PSKC_MAX_SIZE) ==
-+                         OT_PSKC_MAX_SIZE,
-+                     ret = false);
-+        aDataset.mComponents.mIsPskcPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsPskcPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "SecurityPolicy");
-+    if (cJSON_IsObject(value))
-+    {
-+        VerifyOrExit(Json2SecurityPolicy(value, aDataset.mSecurityPolicy), ret = false);
-+        aDataset.mComponents.mIsSecurityPolicyPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsSecurityPolicyPresent = false;
-+    }
-+
-+    value = cJSON_GetObjectItemCaseSensitive(jsonDataset, "ChannelMask");
-+    if (cJSON_IsNumber(value))
-+    {
-+        aDataset.mChannelMask                      = value->valueint;
-+        aDataset.mComponents.mIsChannelMaskPresent = true;
-+    }
-+    else if (cJSON_IsNull(value))
-+    {
-+        aDataset.mComponents.mIsChannelMaskPresent = false;
 +    }
 +
 +exit:
@@ -404,7 +534,7 @@ index 3a6c9aa08f..e938b3db59 100644
  } // namespace rest
  } // namespace otbr
 diff --git a/src/rest/json.hpp b/src/rest/json.hpp
-index e9fd178201..86d92c42ec 100644
+index e9fd178201..29153d5149 100644
 --- a/src/rest/json.hpp
 +++ b/src/rest/json.hpp
 @@ -34,6 +34,7 @@
@@ -415,42 +545,65 @@ index e9fd178201..86d92c42ec 100644
  #include "openthread/link.h"
  #include "openthread/thread_ftd.h"
  
-@@ -213,6 +214,29 @@ std::string ChildTableEntry2JsonString(const otNetworkDiagChildEntry &aChildEntr
+@@ -213,6 +214,52 @@ std::string ChildTableEntry2JsonString(const otNetworkDiagChildEntry &aChildEntr
   */
  std::string Error2JsonString(HttpStatusCode aErrorCode, std::string aErrorMessage);
  
 +/**
-+ * This method formats a Json object from a dataset.
++ * This method formats a Json object from an active dataset.
 + *
 + * @param[in] aDataset  A dataset struct.
 + *
 + * @returns A string of serialized Json object.
 + *
 + */
-+std::string Dataset2JsonString(const otOperationalDataset &aDataset);
++std::string ActiveDataset2JsonString(const otOperationalDataset &aDataset);
++
++/**
++ * This method formats a Json object from a pending dataset.
++ *
++ * @param[in] aDataset  A dataset struct.
++ *
++ * @returns A string of serialized Json object.
++ *
++ */
++std::string PendingDataset2JsonString(const otOperationalDataset &aPendingDataset);
 +
 +/**
 + * This method parses a Json string and fills the provided dataset. Fields
 + * set to null are cleared (set to not present). Non-present fields are left
 + * as is.
 + *
-+ * @param[in] aJsonDataset  The Json string to be parsed.
-+ * @param[in] aDataset      The dataset struct to be filled.
++ * @param[in] aJsonActiveDataset  The Json string to be parsed.
++ * @param[in] aDataset            The dataset struct to be filled.
 + *
 + * @returns If the Json string has been successfully parsed.
 + *
 + */
-+bool JsonString2Dataset(const std::string &aJsonDataset, otOperationalDataset &aDataset);
++bool JsonActiveDatasetString2Dataset(const std::string &aJsonActiveDataset, otOperationalDataset &aDataset);
++
++/**
++ * This method parses a Json string and fills the provided dataset. Fields
++ * set to null are cleared (set to not present). Non-present fields are left
++ * as is.
++ *
++ * @param[in] aJsonActiveDataset  The Json string to be parsed.
++ * @param[in] aDataset            The dataset struct to be filled.
++ *
++ * @returns If the Json string has been successfully parsed.
++ *
++ */
++bool JsonPendingDatasetString2Dataset(const std::string &aJsonPendingDataset, otOperationalDataset &aDataset);
 +
  }; // namespace Json
  
  } // namespace rest
 diff --git a/src/rest/openapi.yaml b/src/rest/openapi.yaml
 new file mode 100644
-index 0000000000..e4b23ca297
+index 0000000000..d2bb2f0026
 --- /dev/null
 +++ b/src/rest/openapi.yaml
-@@ -0,0 +1,470 @@
+@@ -0,0 +1,423 @@
 +openapi: 3.0.3
 +info:
 +  title: Swagger OpenThread REST API
@@ -631,56 +784,33 @@ index 0000000000..e4b23ca297
 +                $ref: "#/components/schemas/DatasetTlv"
 +        "204":
 +          description: No active operational dataset
-+    post:
-+      tags:
-+        - node
-+      summary: Create new active operational dataset
-+      description: |-
-+        Creates new active operational dataset on the current node. Only allowed if the Thread node is inactive. Create a
-+        pending dataset if you would like to change the current active operational dataset if the Thread node is active.
-+
-+        Default parameters are chosen for parameters not set in the request body.
-+      requestBody:
-+        description: |-
-+          Operational dataset object that will be stored as active operational dataset. JSON keys which are not set will be initialized with
-+          default or random values.
-+        content:
-+          application/json:
-+            schema:
-+              $ref: "#/components/schemas/Dataset"
-+      responses:
-+        "202":
-+          description: Successfully created the active operational dataset.
-+        "400":
-+          description: Invalid request body.
-+        "409":
-+          description: Writing active operational dataset rejected because Thread network is active.
 +    put:
 +      tags:
 +        - node
-+      summary: Update current active operational dataset
++      summary: Creates or updates the active operational dataset
 +      description: |-
-+        Updates the current active operational dataset on the current node. Only allowed if the Thread node is inactive. Create a
-+        pending dataset if you would like to change the current active operational dataset if the Thread node is active.
++        Creates or updates the the active operational dataset on the current node. Only allowed if the Thread node
++        is inactive. If the Thread node is active, a pending dataset should be used to update the current active
++        operational dataset.
 +      requestBody:
 +        description: |-
-+          Operational dataset object that will be stored as active operational dataset. Supports request body Content-Type `text/plain`
-+          (dataset in TLV format as hex string) or `application/json` (dataset in JSON format, JSON keys which are not set will be
-+          initialized with default or random values).
++          Operational dataset that will be stored as active operational dataset. Supports request body Content-Type
++          `text/plain` (dataset in TLV format as hex string) or `application/json` (dataset in JSON format). In both
++          cases keys which are not set will be initialized with defaults.
 +        content:
 +          application/json:
 +            schema:
-+              $ref: "#/components/schemas/Dataset"
++              $ref: "#/components/schemas/ActiveDataset"
 +          plain/text:
 +            schema:
 +              $ref: "#/components/schemas/DatasetTlv"
 +      responses:
-+        "202":
++        "200":
 +          description: Successfully updated the active operational dataset.
++        "201":
++          description: Successfully created the active operational dataset.
 +        "400":
 +          description: Invalid request body.
-+        "404":
-+          description: No active operational dataset to update.
 +        "409":
 +          description: Writing active operational dataset rejected because Thread network is active.
 +  /node/dataset/pending:
@@ -694,62 +824,38 @@ index 0000000000..e4b23ca297
 +          content:
 +            application/json:
 +              schema:
-+                $ref: "#/components/schemas/Dataset"
++                $ref: "#/components/schemas/PendingDataset"
 +            text/plain:
 +              schema:
 +                $ref: "#/components/schemas/DatasetTlv"
 +        "204":
 +          description: No pending operational dataset
-+    post:
-+      tags:
-+        - node
-+      summary: Create new pending operational dataset
-+      description: |-
-+        Creates new pending operational dataset on the current node. If the delay timer is specified, the new pending operational dataset
-+        will become active after the time elapsed. The pending dataset will become empty.
-+
-+        Default parameters are chosen for parameters not set in the request body. By default, the delay timer is *not* set.
-+
-+        Note: To be considered as a valid active operational dataset the ActiveTimestamp needs to be newer than the current active operational
-+        dataset.
-+      requestBody:
-+        description: |-
-+          Operational dataset object that will be stored as pending operational dataset. JSON keys which are not set will be initialized with
-+          default or random values.
-+        content:
-+          application/json:
-+            schema:
-+              $ref: "#/components/schemas/Dataset"
-+      responses:
-+        "202":
-+          description: Successfully created the active operational dataset.
-+        "400":
-+          description: Invalid request body.
 +    put:
 +      tags:
 +        - node
-+      summary: Update current pending operational dataset
++      summary: Creates or updates the pending operational dataset
 +      description: |-
-+        Updates the current pending operational dataset on the current node.
++        Creates or updates the the pending operational dataset on the current node. Delay needs to be set to let
++        the pending dataset apply as active dataset in the near future.
 +      requestBody:
 +        description: |-
-+          Operational dataset object that will be stored as pending operational dataset. Supports request body Content-Type `text/plain`
-+          (dataset in TLV format as hex string) or `application/json` (dataset in JSON format, JSON keys which are not set will be
-+          initialized with default or random values).
++          Operational dataset that will be stored as pending operational dataset. Supports request body Content-Type
++          `text/plain` (dataset in TLV format as hex string) or `application/json` (dataset in JSON format). In both
++          cases keys which are not set will be initialized with defaults.
 +        content:
 +          application/json:
 +            schema:
-+              $ref: "#/components/schemas/Dataset"
-+          plain/text:
++              $ref: "#/components/schemas/PendingDataset"
++          text/plain:
 +            schema:
 +              $ref: "#/components/schemas/DatasetTlv"
 +      responses:
-+        "202":
++        "200":
 +          description: Successfully updated the pending operational dataset.
++        "201":
++          description: Successfully created the pending operational dataset.
 +        "400":
 +          description: Invalid request body.
-+        "404":
-+          description: No pending operational dataset to update.
 +components:
 +  schemas:
 +    LeaderData:
@@ -779,12 +885,10 @@ index 0000000000..e4b23ca297
 +          format: uint8
 +          description: Leader Router ID
 +          example: 4
-+    Dataset:
++    ActiveDataset:
 +      type: object
 +      properties:
 +        ActiveTimestamp:
-+          $ref: "#/components/schemas/Timestamp"
-+        PendingTimestamp:
 +          $ref: "#/components/schemas/Timestamp"
 +        NetworkKey:
 +          type: string
@@ -806,12 +910,6 @@ index 0000000000..e4b23ca297
 +          description: Mesh local IPv6 prefix
 +          example: fd33:d3b9:89e3:72e4::/64
 +          default: random
-+        Delay:
-+          type: integer
-+          description: Delay timer in milliseconds
-+          format: uint32
-+          example: 30000
-+          default: not set
 +        PanId:
 +          type: integer
 +          description: IEEE 802.15.4 PAN ID of the Thread network
@@ -837,6 +935,21 @@ index 0000000000..e4b23ca297
 +          format: uint32
 +          example: 134215680
 +          default: 134215680
++    PendingDataset:
++      type: object
++      properties:
++        ActiveDataset:
++          oneOf:
++            - $ref: "#/components/schemas/ActiveDataset"
++            - $ref: "#/components/schemas/DatasetTlv"
++        PendingTimestamp:
++          $ref: "#/components/schemas/Timestamp"
++        Delay:
++          type: integer
++          description: Delay timer in milliseconds
++          format: uint32
++          example: 30000
++          default: not set
 +    SecurityPolicy:
 +      type: object
 +      properties:
@@ -914,13 +1027,6 @@ index 0000000000..e4b23ca297
 +      type: string
 +      description: Operational dataset as hex-encoded TLVs.
 +      example: 0E080000000000010000000300000F35060004001FFFE0020811111111222222220708FDAD70BFE5AA15DD051000112233445566778899AABBCCDDEEFF030E4F70656E54687265616444656D6F010212340410445F2B5CA6F2A93A55CE570A70EFEECB0C0402A0F7F8
-+  requestBodies:
-+    Dataset:
-+      description: Operational dataset object that will be stored
-+      content:
-+        application/json:
-+          schema:
-+            $ref: "#/components/schemas/Dataset"
 diff --git a/src/rest/parser.cpp b/src/rest/parser.cpp
 index 566f88cbb2..9401e4d0d5 100644
 --- a/src/rest/parser.cpp
@@ -1084,10 +1190,10 @@ index 63380f0080..5b73b06736 100644
  
  } // namespace rest
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index fdd1171339..b9a50691e7 100644
+index fdd1171339..a3265825f9 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
-@@ -45,7 +45,8 @@
+@@ -45,18 +45,21 @@
  #define OT_REST_RESOURCE_PATH_NODE_LEADERDATA "/node/leader-data"
  #define OT_REST_RESOURCE_PATH_NODE_NUMOFROUTER "/node/num-of-router"
  #define OT_REST_RESOURCE_PATH_NODE_EXTPANID "/node/ext-panid"
@@ -1097,10 +1203,11 @@ index fdd1171339..b9a50691e7 100644
  #define OT_REST_RESOURCE_PATH_NETWORK "/networks"
  #define OT_REST_RESOURCE_PATH_NETWORK_CURRENT "/networks/current"
  #define OT_REST_RESOURCE_PATH_NETWORK_CURRENT_COMMISSION "/networks/commission"
-@@ -53,10 +54,12 @@
+ #define OT_REST_RESOURCE_PATH_NETWORK_CURRENT_PREFIX "/networks/current/prefix"
  
  #define OT_REST_HTTP_STATUS_200 "200 OK"
- #define OT_REST_HTTP_STATUS_202 "202 Accepted"
+-#define OT_REST_HTTP_STATUS_202 "202 Accepted"
++#define OT_REST_HTTP_STATUS_201 "201 Created"
 +#define OT_REST_HTTP_STATUS_204 "204 No Content"
  #define OT_REST_HTTP_STATUS_400 "400 Bad Request"
  #define OT_REST_HTTP_STATUS_404 "404 Not Found"
@@ -1110,16 +1217,20 @@ index fdd1171339..b9a50691e7 100644
  #define OT_REST_HTTP_STATUS_500 "500 Internal Server Error"
  
  using std::chrono::duration_cast;
-@@ -93,6 +96,9 @@ static std::string GetHttpStatus(HttpStatusCode aErrorCode)
-     case HttpStatusCode::kStatusAccepted:
-         httpStatus = OT_REST_HTTP_STATUS_202;
+@@ -90,8 +93,11 @@ static std::string GetHttpStatus(HttpStatusCode aErrorCode)
+     case HttpStatusCode::kStatusOk:
+         httpStatus = OT_REST_HTTP_STATUS_200;
          break;
+-    case HttpStatusCode::kStatusAccepted:
+-        httpStatus = OT_REST_HTTP_STATUS_202;
++    case HttpStatusCode::kStatusCreated:
++        httpStatus = OT_REST_HTTP_STATUS_201;
++        break;
 +    case HttpStatusCode::kStatusNoContent:
 +        httpStatus = OT_REST_HTTP_STATUS_204;
-+        break;
+         break;
      case HttpStatusCode::kStatusBadRequest:
          httpStatus = OT_REST_HTTP_STATUS_400;
-         break;
 @@ -105,6 +111,9 @@ static std::string GetHttpStatus(HttpStatusCode aErrorCode)
      case HttpStatusCode::kStatusRequestTimeout:
          httpStatus = OT_REST_HTTP_STATUS_408;
@@ -1141,7 +1252,7 @@ index fdd1171339..b9a50691e7 100644
  
      // Resource callback handler
      mResourceCallbackMap.emplace(OT_REST_RESOURCE_PATH_DIAGNOETIC, &Resource::HandleDiagnosticCallback);
-@@ -499,68 +509,170 @@ void Resource::Rloc(const Request &aRequest, Response &aResponse) const
+@@ -499,68 +509,164 @@ void Resource::Rloc(const Request &aRequest, Response &aResponse) const
      }
  }
  
@@ -1180,12 +1291,13 @@ index fdd1171339..b9a50691e7 100644
 +        if (aDatasetType == DatasetType::kActive)
 +        {
 +            VerifyOrExit(otDatasetGetActive(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_NOT_FOUND);
++            body = Json::ActiveDataset2JsonString(dataset);
 +        }
 +        else if (aDatasetType == DatasetType::kPending)
 +        {
 +            VerifyOrExit(otDatasetGetPending(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_NOT_FOUND);
++            body = Json::PendingDataset2JsonString(dataset);
 +        }
-+        body = Json::Dataset2JsonString(dataset);
 +    }
  
      aResponse.SetBody(body);
@@ -1212,21 +1324,21 @@ index fdd1171339..b9a50691e7 100644
  }
  
 -void Resource::SetActiveDatasetTlvs(const Request &aRequest, Response &aResponse) const
-+void Resource::SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse, bool create) const
++void Resource::SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const
  {
 -    int                      ret;
--    otOperationalDatasetTlvs datasetTlvs;
--    otError                  error = OT_ERROR_NONE;
-+    otbrError                error = OTBR_ERROR_NONE;
++    otError                  errorOt = OT_ERROR_NONE;
++    otbrError                error   = OTBR_ERROR_NONE;
 +    struct NodeInfo          node;
 +    std::string              body;
-     std::string              errorCode;
++    std::string              errorCode = GetHttpStatus(HttpStatusCode::kStatusOk);
 +    otOperationalDataset     dataset;
-+    otOperationalDatasetTlvs datasetTlvs;
+     otOperationalDatasetTlvs datasetTlvs;
+-    otError                  error = OT_ERROR_NONE;
+-    std::string              errorCode;
++    otOperationalDatasetTlvs datasetUpdateTlvs;
 +    int                      ret;
-+    bool                     isText;
-+
-+    isText = aRequest.GetHeaderValue(OT_REST_CONTENT_TYPE_HEADER) == OT_REST_CONTENT_TYPE_PLAIN;
++    bool                     isTlv;
  
 -    ret = Json::Hex2BytesJsonString(aRequest.GetBody(), datasetTlvs.mTlvs, OT_OPERATIONAL_DATASET_MAX_LENGTH);
 -    if (ret < 0)
@@ -1235,60 +1347,61 @@ index fdd1171339..b9a50691e7 100644
 -        errorCode = GetHttpStatus(HttpStatusCode::kStatusBadRequest);
 -        aResponse.SetResponsCode(errorCode);
 -        ExitNow();
-+        otbrLogWarning("STate is %d", otThreadGetDeviceRole(mInstance));
 +        VerifyOrExit(otThreadGetDeviceRole(mInstance) == OT_DEVICE_ROLE_DISABLED, error = OTBR_ERROR_INVALID_STATE);
++        errorOt = otDatasetGetActiveTlvs(mInstance, &datasetTlvs);
++    }
++    else if (aDatasetType == DatasetType::kPending)
++    {
++        errorOt = otDatasetGetPendingTlvs(mInstance, &datasetTlvs);
      }
 -    datasetTlvs.mLength = ret;
  
 -    SuccessOrExit(error = otDatasetSetActiveTlvs(mInstance, &datasetTlvs));
-+    if (isText)
++    // Create a new operational dataset if it doesn't exist.
++    if (errorOt == OT_ERROR_NOT_FOUND)
 +    {
-+        // Only PUT allowed for text/plain
-+        VerifyOrExit(!create, error = OTBR_ERROR_INVALID_ARGS);
-+        ret = Json::Hex2BytesJsonString(aRequest.GetBody(), datasetTlvs.mTlvs, OT_OPERATIONAL_DATASET_MAX_LENGTH);
-+        VerifyOrExit(ret >= 0, error = OTBR_ERROR_INVALID_ARGS);
-+        datasetTlvs.mLength = ret;
++        VerifyOrExit(otDatasetCreateNewNetwork(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++        VerifyOrExit(otDatasetConvertToTlvs(&dataset, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++        errorCode = GetHttpStatus(HttpStatusCode::kStatusCreated);
++    }
 +
-+        if (aDatasetType == DatasetType::kActive)
-+        {
-+            VerifyOrExit(otDatasetSetActiveTlvs(mInstance, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
-+        }
-+        else if (aDatasetType == DatasetType::kPending)
-+        {
-+            VerifyOrExit(otDatasetSetPendingTlvs(mInstance, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
-+        }
++    isTlv = aRequest.GetHeaderValue(OT_REST_CONTENT_TYPE_HEADER) == OT_REST_CONTENT_TYPE_PLAIN;
++
++    if (isTlv)
++    {
++        ret = Json::Hex2BytesJsonString(aRequest.GetBody(), datasetUpdateTlvs.mTlvs, OT_OPERATIONAL_DATASET_MAX_LENGTH);
++        VerifyOrExit(ret >= 0, error = OTBR_ERROR_INVALID_ARGS);
++        datasetUpdateTlvs.mLength = ret;
++
++        VerifyOrExit(otDatasetParseTlvs(&datasetUpdateTlvs, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++        VerifyOrExit(otDatasetUpdateTlvs(&dataset, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
 +    }
 +    else
 +    {
-+        if (create)
-+        {
-+            VerifyOrExit(otDatasetCreateNewNetwork(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
-+        }
-+        else
-+        {
-+            if (aDatasetType == DatasetType::kActive)
-+            {
-+                VerifyOrExit(otDatasetGetActive(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_NOT_FOUND);
-+            }
-+            else if (aDatasetType == DatasetType::kPending)
-+            {
-+                VerifyOrExit(otDatasetGetPending(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_NOT_FOUND);
-+            }
-+        }
-+
-+        VerifyOrExit(Json::JsonString2Dataset(aRequest.GetBody(), dataset), error = OTBR_ERROR_INVALID_ARGS);
-+
 +        if (aDatasetType == DatasetType::kActive)
 +        {
-+            VerifyOrExit(otDatasetSetActive(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++            VerifyOrExit(Json::JsonActiveDatasetString2Dataset(aRequest.GetBody(), dataset),
++                         error = OTBR_ERROR_INVALID_ARGS);
 +        }
 +        else if (aDatasetType == DatasetType::kPending)
 +        {
-+            VerifyOrExit(otDatasetSetPending(mInstance, &dataset) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++            VerifyOrExit(Json::JsonPendingDatasetString2Dataset(aRequest.GetBody(), dataset),
++                         error = OTBR_ERROR_INVALID_ARGS);
++            VerifyOrExit(dataset.mComponents.mIsDelayPresent, error = OTBR_ERROR_INVALID_ARGS);
 +        }
++        VerifyOrExit(otDatasetUpdateTlvs(&dataset, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++    }
++
++    if (aDatasetType == DatasetType::kActive)
++    {
++        VerifyOrExit(otDatasetSetActiveTlvs(mInstance, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
++    }
++    else if (aDatasetType == DatasetType::kPending)
++    {
++        VerifyOrExit(otDatasetSetPendingTlvs(mInstance, &datasetTlvs) == OT_ERROR_NONE, error = OTBR_ERROR_REST);
 +    }
  
-     errorCode = GetHttpStatus(HttpStatusCode::kStatusAccepted);
+-    errorCode = GetHttpStatus(HttpStatusCode::kStatusAccepted);
      aResponse.SetResponsCode(errorCode);
 +
  exit:
@@ -1296,10 +1409,6 @@ index fdd1171339..b9a50691e7 100644
 +    if (error == OTBR_ERROR_INVALID_ARGS)
 +    {
 +        ErrorHandler(aResponse, HttpStatusCode::kStatusBadRequest);
-+    }
-+    else if (error == OTBR_ERROR_NOT_FOUND)
-+    {
-+        ErrorHandler(aResponse, HttpStatusCode::kStatusResourceNotFound);
 +    }
 +    else if (error == OTBR_ERROR_INVALID_STATE)
 +    {
@@ -1322,13 +1431,10 @@ index fdd1171339..b9a50691e7 100644
      case HttpMethod::kGet:
 -        GetActiveDatasetTlvs(aResponse);
 +        GetDataset(aDatasetType, aRequest, aResponse);
-+        break;
-+    case HttpMethod::kPost:
-+        SetDataset(aDatasetType, aRequest, aResponse, true);
          break;
      case HttpMethod::kPut:
 -        SetActiveDatasetTlvs(aRequest, aResponse);
-+        SetDataset(aDatasetType, aRequest, aResponse, false);
++        SetDataset(aDatasetType, aRequest, aResponse);
 +        break;
 +    case HttpMethod::kOptions:
 +        errorCode = GetHttpStatus(HttpStatusCode::kStatusOk);
@@ -1337,7 +1443,7 @@ index fdd1171339..b9a50691e7 100644
          break;
      default:
          ErrorHandler(aResponse, HttpStatusCode::kStatusMethodNotAllowed);
-@@ -568,6 +680,16 @@ void Resource::ActiveDatasetTlvs(const Request &aRequest, Response &aResponse) c
+@@ -568,6 +674,16 @@ void Resource::ActiveDatasetTlvs(const Request &aRequest, Response &aResponse) c
      }
  }
  
@@ -1355,7 +1461,7 @@ index fdd1171339..b9a50691e7 100644
  {
      auto eraseIt = mDiagSet.begin();
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index 7c0d4c2e7d..fa45b4fbd9 100644
+index 7c0d4c2e7d..2d25b7bc58 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
 @@ -39,6 +39,8 @@
@@ -1402,12 +1508,12 @@ index 7c0d4c2e7d..fa45b4fbd9 100644
 -    void GetActiveDatasetTlvs(Response &aResponse) const;
 -    void SetActiveDatasetTlvs(const Request &aRequest, Response &aResponse) const;
 +    void GetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
-+    void SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse, bool create) const;
++    void SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
  
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
 diff --git a/src/rest/response.cpp b/src/rest/response.cpp
-index 2cdfc80ea5..17ae97e384 100644
+index 2fd536c546..93cbe0b6df 100644
 --- a/src/rest/response.cpp
 +++ b/src/rest/response.cpp
 @@ -30,12 +30,11 @@
@@ -1420,12 +1526,12 @@ index 2cdfc80ea5..17ae97e384 100644
      "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, " \
      "Access-Control-Request-Headers"
 -#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "GET"
-+#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "GET, OPTIONS, POST, PUT"
++#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "GET, OPTIONS, PUT"
+ #define OT_REST_RESPONSE_CONNECTION "close"
  
  namespace otbr {
- namespace rest {
-@@ -48,7 +47,7 @@ Response::Response(void)
-     mProtocol = "HTTP/1.1 ";
+@@ -49,7 +48,7 @@ Response::Response(void)
+     mProtocol = "HTTP/1.1";
  
      // Pre-defined headers
 -    mHeaders["Content-Type"]                 = OT_REST_RESPONSE_CONTENT_TYPE_JSON;
@@ -1433,7 +1539,7 @@ index 2cdfc80ea5..17ae97e384 100644
      mHeaders["Access-Control-Allow-Origin"]  = OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_ORIGIN;
      mHeaders["Access-Control-Allow-Methods"] = OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD;
      mHeaders["Access-Control-Allow-Headers"] = OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_HEADERS;
-@@ -79,6 +78,11 @@ void Response::SetResponsCode(std::string &aCode)
+@@ -81,6 +80,11 @@ void Response::SetResponsCode(std::string &aCode)
      mCode = aCode;
  }
  
@@ -1465,7 +1571,7 @@ index 8ae24ffe30..a7cb73e372 100644
       * This method labels the response as need callback.
       *
 diff --git a/src/rest/types.hpp b/src/rest/types.hpp
-index addc7d2cbb..e1e048237d 100644
+index addc7d2cbb..8216a978d7 100644
 --- a/src/rest/types.hpp
 +++ b/src/rest/types.hpp
 @@ -40,6 +40,12 @@
@@ -1481,10 +1587,12 @@ index addc7d2cbb..e1e048237d 100644
  using std::chrono::steady_clock;
  
  namespace otbr {
-@@ -60,10 +66,12 @@ enum class HttpStatusCode : std::uint16_t
+@@ -59,11 +65,13 @@ enum class HttpMethod : std::uint8_t
+ enum class HttpStatusCode : std::uint16_t
  {
      kStatusOk                  = 200,
-     kStatusAccepted            = 202,
+-    kStatusAccepted            = 202,
++    kStatusCreated             = 201,
 +    kStatusNoContent           = 204,
      kStatusBadRequest          = 400,
      kStatusResourceNotFound    = 404,
@@ -1495,7 +1603,7 @@ index addc7d2cbb..e1e048237d 100644
  };
  
 diff --git a/src/utils/hex.cpp b/src/utils/hex.cpp
-index ad4eba9266..4205cd4412 100644
+index ad4eba9266..45da74e96f 100644
 --- a/src/utils/hex.cpp
 +++ b/src/utils/hex.cpp
 @@ -96,34 +96,48 @@ size_t Bytes2Hex(const uint8_t *aBytes, const uint16_t aBytesLength, char *aHex)
@@ -1514,7 +1622,7 @@ index ad4eba9266..4205cd4412 100644
      {
 -        sprintf(byteHex, "%02X", cur[i]);
 -        hexString += byteHex;
-+        sprintf(byteHex, "%02X", aBytes[i]);
++        snprintf(byteHex, sizeof(byteHex), "%02X", aBytes[i]);
 +        strcat(aHex, byteHex);
      }
 -    strcpy(aHex, hexString.c_str());
@@ -1549,8 +1657,9 @@ index ad4eba9266..4205cd4412 100644
      for (uint8_t i = 0; i < sizeof(uint64_t); i++)
      {
          uint8_t byte = longValue & 0xff;
-         sprintf(byteHex, "%02X", byte);
+-        sprintf(byteHex, "%02X", byte);
 -        hexString += byteHex;
++        snprintf(byteHex, sizeof(byteHex), "%02X", byte);
 +        strcat(aHex, byteHex);
          longValue = longValue >> 8;
      }
@@ -1622,5 +1731,5 @@ index 0aa4b23946..49ba37d561 100644
  
  } // namespace Utils
 -- 
-2.39.0
+2.40.1
 

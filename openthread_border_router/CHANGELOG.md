@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- Add REST API patches to fix a bugs and support deleting datasets
+
 ## 2.0.0
 
 - Bump to OTBR POSIX version f46f68956b (2023-05-23 09:28:30 -0700)

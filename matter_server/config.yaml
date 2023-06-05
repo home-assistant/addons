@@ -1,5 +1,5 @@
 ---
-version: 4.5.1
+version: 4.6.0
 slug: matter_server
 name: Matter Server
 description: Matter WebSocket Server for Home Assistant Matter support.
@@ -11,7 +11,7 @@ arch:
 discovery:
   - matter
 hassio_api: true
-homeassistant: 2023.3.0b0
+homeassistant: 2023.5.4
 # IPC is only used within the Add-on
 host_ipc: false
 host_network: true
@@ -24,5 +24,5 @@ schema:
   log_level: list(debug|info|warning|error|critical)
 ports:
   5580/tcp: null
-stage: experimental
+stage: stable
 startup: services

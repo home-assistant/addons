@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- Add REST API patches to fix a bugs and support deleting datasets
+
 ## 2.0.0
 
 - Update OpenThread REST API to latest upstreamed API variant

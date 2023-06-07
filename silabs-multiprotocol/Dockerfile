@@ -172,6 +172,8 @@ COPY 0008-rest-explicitly-set-Connection-header-to-close-1774.patch /usr/src
 COPY 0009-rest-add-Operational-Dataset-API-1682.patch /usr/src
 COPY 0010-rest-allow-to-specify-REST-listen-port-1862.patch /usr/src
 COPY 0011-rest-support-Thread-state-change-1866.patch /usr/src
+COPY 0012-rest-initialize-dataset.patch /usr/src
+COPY 0013-rest-support-deleting-the-dataset.patch /usr/src
 COPY 0001-dataset-add-otDatasetUpdateTlvs-API-8871.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
@@ -212,6 +214,8 @@ RUN \
     && patch -p1 < /usr/src/0009-rest-add-Operational-Dataset-API-1682.patch \
     && patch -p1 < /usr/src/0010-rest-allow-to-specify-REST-listen-port-1862.patch \
     && patch -p1 < /usr/src/0011-rest-support-Thread-state-change-1866.patch \
+    && patch -p1 < /usr/src/0012-rest-initialize-dataset.patch \
+    && patch -p1 < /usr/src/0013-rest-support-deleting-the-dataset.patch \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && ( \
            cd third_party/openthread/repo \

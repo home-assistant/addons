@@ -96,7 +96,7 @@ RUN \
        python3 \
        python3-jinja2 \
        python3-pip \
-       openjdk-11-jre \
+       openjdk-17-jre \
        git-lfs \
        unzip \
     && curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
@@ -112,8 +112,8 @@ RUN \
 
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
-COPY 0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
-COPY 0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
+COPY gecko-sdk-patches/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
+COPY zigbeed-app-patches/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
 
 RUN \
     set -x \
@@ -154,6 +154,8 @@ COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/util/third_party/ot-br-posix /usr/src/ot-br-posix
 COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/util/third_party/openthread /usr/src/openthread
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/protocol/openthread/platform-abstraction/posix/ /usr/src/silabs-vendor-interface
 COPY --from=cpcd-builder /usr/local/ /usr/local/
 
 ENV BORDER_ROUTING=1
@@ -161,20 +163,10 @@ ENV BACKBONE_ROUTER=1
 ENV WEB_GUI=1
 ENV DOCKER 1
 
-COPY 0001-Avoid-writing-to-system-console.patch /usr/src
-COPY 0001-web-rest-listen-on-IPv6-addresses-as-well-1659.patch /usr/src
-COPY 0002-rest-add-active-dataset-API-1658.patch /usr/src
-COPY 0003-rest-use-map-for-HTTP-headers-1665.patch /usr/src
-COPY 0005-web-bump-to-latest-Simple-Web-Server-version-1667.patch /usr/src
-COPY 0006-rest-allow-to-specify-REST-listen-address-1670.patch /usr/src
-COPY 0007-rest-remove-superfluous-space-in-HTTP-status-line-17.patch /usr/src
-COPY 0008-rest-explicitly-set-Connection-header-to-close-1774.patch /usr/src
-COPY 0009-rest-add-Operational-Dataset-API-1682.patch /usr/src
-COPY 0010-rest-allow-to-specify-REST-listen-port-1862.patch /usr/src
-COPY 0011-rest-support-Thread-state-change-1866.patch /usr/src
-COPY 0012-rest-initialize-dataset.patch /usr/src
-COPY 0013-rest-support-deleting-the-dataset.patch /usr/src
-COPY 0001-dataset-add-otDatasetUpdateTlvs-API-8871.patch /usr/src
+COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
+COPY otbr-patches/0001-rest-support-Thread-state-change-1866.patch /usr/src
+COPY otbr-patches/0002-rest-initialize-dataset.patch /usr/src
+COPY otbr-patches/0003-rest-support-deleting-the-dataset.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -204,23 +196,12 @@ RUN \
        sudo \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && patch -p1 < /usr/src/0001-web-rest-listen-on-IPv6-addresses-as-well-1659.patch \
-    && patch -p1 < /usr/src/0002-rest-add-active-dataset-API-1658.patch \
-    && patch -p1 < /usr/src/0003-rest-use-map-for-HTTP-headers-1665.patch \
-    && patch -p1 < /usr/src/0005-web-bump-to-latest-Simple-Web-Server-version-1667.patch \
-    && patch -p1 < /usr/src/0006-rest-allow-to-specify-REST-listen-address-1670.patch \
-    && patch -p1 < /usr/src/0007-rest-remove-superfluous-space-in-HTTP-status-line-17.patch \
-    && patch -p1 < /usr/src/0008-rest-explicitly-set-Connection-header-to-close-1774.patch \
-    && patch -p1 < /usr/src/0009-rest-add-Operational-Dataset-API-1682.patch \
-    && patch -p1 < /usr/src/0010-rest-allow-to-specify-REST-listen-port-1862.patch \
-    && patch -p1 < /usr/src/0011-rest-support-Thread-state-change-1866.patch \
-    && patch -p1 < /usr/src/0012-rest-initialize-dataset.patch \
-    && patch -p1 < /usr/src/0013-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0001-rest-support-Thread-state-change-1866.patch \
+    && patch -p1 < /usr/src/0002-rest-initialize-dataset.patch \
+    && patch -p1 < /usr/src/0003-rest-support-deleting-the-dataset.patch \
     && ln -s ../../../openthread/ third_party/openthread/repo \
-    && ( \
-           cd third_party/openthread/repo \
-           && patch -p1 < /usr/src/0001-dataset-add-otDatasetUpdateTlvs-API-8871.patch \
-       ) \
+    && (cd third_party/openthread/repo \
+        && ln -s ../../../../silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \
     && chmod +x ./script/* \
     && ./script/bootstrap \
     # Mimic rt_tables_install \
@@ -229,6 +210,7 @@ RUN \
     && (./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_MODULE_PATH=/usr/src/silabs-vendor-interface/ \
         -DOTBR_FEATURE_FLAGS=ON \
         -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
         -DOTBR_SRP_ADVERTISING_PROXY=ON \
@@ -238,7 +220,10 @@ RUN \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
         -DOT_MULTIPAN_RCP=ON \
-        -DOT_POSIX_CONFIG_RCP_BUS=CPC \
+        -DOT_POSIX_CONFIG_RCP_BUS=VENDOR \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=SilabsRcpDeps \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_INTERFACE=/usr/src/silabs-vendor-interface/cpc_interface.cpp \
+        -DOT_CONFIG="openthread-core-silabs-posix-config.h" \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0
+
+- Update firmare for Home Assistant SkyConnect and Yellow to the latest version
+  built from Gecko SDK v4.3.0.0.
+
 ## 2.1.0
 
 - Add REST API patches to fix a bugs and support deleting datasets

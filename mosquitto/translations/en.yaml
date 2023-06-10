@@ -7,7 +7,7 @@ configuration:
       don't need to do this because you can use Home Assistant users too,
       without any configuration.
   require_certificate:
-    name: Require Certificate
+    name: Require Client Certificate
     description: >-
       If enabled client will need to provide it's own certificate on top of username/password. 'cafile' must be set.
   certfile:

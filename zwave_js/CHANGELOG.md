@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- The Celsius temperature scale is no longer set as a preferred scale by default
+- Fixed an issue which could cause temperature to be shown in Celsius instead of Fahrenheit
 - Nodes are no longer assumed to be awake when they send a NonceGet
 - Disable optimistic value update for unsupervised Barrier Operator CC commands
 - Improve handling of unexpected/incorrect commands during S2 bootstrapping

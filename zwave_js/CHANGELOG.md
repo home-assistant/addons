@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.84
+
+### Bug fixes
+
+- The Celsius temperature scale is no longer set as a preferred scale by default
+- Nodes are no longer assumed to be awake when they send a NonceGet
+- Disable optimistic value update for unsupervised Barrier Operator CC commands
+- Improve handling of unexpected/incorrect commands during S2 bootstrapping
+
+### Config file changes
+
+- Correct config parameters for Duwi ZW ESJ 300
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.23.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.0)
+- [Bump Z-Wave JS to 10.23.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.1)
+- [Bump Z-Wave JS to 10.23.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.2)
+
 ## 0.1.83
 
 ### Bug fixes

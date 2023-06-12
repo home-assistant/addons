@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.84
+
+### Bug fixes
+
+- Fixed an issue which could cause temperature to be shown in Celsius instead of Fahrenheit
+- Fixed an issue which could cause devices to be incorrectly considered to be awake
+- Verify state change for barrier devices without support for Supervision CC instead of assuming commands to succeed
+
+### Config file changes
+
+- Correct config parameters for Duwi ZW ESJ 300
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.23.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.0)
+- [Bump Z-Wave JS to 10.23.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.1)
+- [Bump Z-Wave JS to 10.23.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.2)
+
 ## 0.1.83
 
 ### Bug fixes
@@ -380,7 +398,7 @@
 
 ## 0.1.10
 
-- [Bump Z-Wave JS Server to 1.1.0.](https://github.com/zwave-js/zwave-js-server/releases/tag/1.1.0) This is the same code as 2.0.0. Home Assistant 2021.2 rejects any ZJS Server version that is v2+
+- [Bump Z-Wave JS Server to 1.1.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.1.0) This is the same code as 2.0.0. Home Assistant 2021.2 rejects any ZJS Server version that is v2+
 
 ## 0.1.9
 

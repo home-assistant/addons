@@ -7,7 +7,6 @@
 - Fixed an issue which could cause temperature to be shown in Celsius instead of Fahrenheit
 - Fixed an issue which could cause devices to be incorrectly considered to be awake
 - Verify state change for barrier devices without support for Supervision CC instead of assuming commands to succeed
-- Improve handling of unexpected/incorrect commands during S2 bootstrapping
 
 ### Config file changes
 

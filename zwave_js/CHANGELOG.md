@@ -5,7 +5,7 @@
 ### Bug fixes
 
 - Fixed an issue which could cause temperature to be shown in Celsius instead of Fahrenheit
-- Nodes are no longer assumed to be awake when they send a NonceGet
+- Fixed an issue which could cause devices to be incorrectly considered to be awake
 - Disable optimistic value update for unsupervised Barrier Operator CC commands
 - Improve handling of unexpected/incorrect commands during S2 bootstrapping
 

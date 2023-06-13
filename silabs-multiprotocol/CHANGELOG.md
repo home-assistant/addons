@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.0
+
+- Use Silicon Labs Gecko SDK 4.3.0
+  - With this we get the OTBR version from May 17th, along with Border Agent ID
+    support (required for Android and iOS APIs)
+- Note: This update needs a new Multi-PAN firmware. Home Assistant SkyConnect and Yellow get automatically updated by this add-on.
+
 ## 2.1.0
 
 - Add REST API patches to fix a bugs and support deleting datasets

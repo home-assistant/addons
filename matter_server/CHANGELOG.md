@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.6.0
+
+- Bump Python Matter Server to [3.5.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.0)
+  - Uses libnl based address selection to avoid using deprecated/temporary IP addresses
+  - libnl avoids "Endpoint pool full" errors as well
+- Add dependency to support libnl based IP address selection
+
+## 4.5.1
+
+- Bump Python Matter Server to [3.4.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.2)
+
+## 4.5.0
+
+- Bump Python Matter Server to [3.4.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.1)
+- Bump to Python 3.11
+
 ## 4.4.0
 
 - Bump Python Matter Server to [3.4.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.0)

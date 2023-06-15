@@ -1,9 +1,9 @@
 ---
 build_from:
-  aarch64: python:3.10-slim-bullseye
-  amd64: python:3.10-slim-bullseye
+  aarch64: python:3.11-slim-bullseye
+  amd64: python:3.11-slim-bullseye
 args:
   BASHIO_VERSION: 0.14.3
   TEMPIO_VERSION: 2021.09.0
   S6_OVERLAY_VERSION: 3.1.5.0
-  MATTER_SERVER_VERSION: 3.4.0
+  MATTER_SERVER_VERSION: 3.5.0

@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.6.1
+
+- Bump Python Matter Server to [3.5.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.1)
+  - Various small bug/stability fixes
+
 ## 4.6.0
 
 - Bump Python Matter Server to [3.5.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.0)

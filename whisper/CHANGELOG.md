@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Exclude `*.bin` model files from backup
+
 ## 0.2.0
 
 - Hash model files at startup to detect bad downloads

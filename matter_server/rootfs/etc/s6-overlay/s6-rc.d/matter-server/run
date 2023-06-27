@@ -7,7 +7,7 @@ bashio::log.info "Starting Matter Server..."
 declare server_port
 declare log_level
 
-log_level=$(bashio::string.lower "$(bashio::config log_level)")
+log_level=$(bashio::string.lower "$(bashio::config log_level info)")
 
 # Bind to internal hassio network only unless user requests to expose
 server_port="$(bashio::addon.port 5580)"

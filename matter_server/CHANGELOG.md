@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.8.0
+
+- Bump Python Matter Server to [3.6.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.1.1)
+
 ## 4.7.0
 
 - Use the Python Matter Server container as base

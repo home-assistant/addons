@@ -1,5 +1,78 @@
 # Changelog
 
+## 0.1.84
+
+### Bug fixes
+
+- Fixed an issue which could cause temperature to be shown in Celsius instead of Fahrenheit
+- Fixed an issue which could cause devices to be incorrectly considered to be awake
+- Verify state change for barrier devices without support for Supervision CC instead of assuming commands to succeed
+
+### Config file changes
+
+- Correct config parameters for Duwi ZW ESJ 300
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.23.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.0)
+- [Bump Z-Wave JS to 10.23.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.1)
+- [Bump Z-Wave JS to 10.23.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.2)
+
+## 0.1.83
+
+### Bug fixes
+
+- Fixed an issue introduced in Z-Wave JS `10.21.0` where some optimistic value updates would no longer happen after successful multicast commands
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.22.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.3)
+
+## 0.1.82
+
+### Bug fixes
+
+- Fixed a crash scenario
+- Fixed an issue that caused device values to stop updating
+
+### Config file changes
+
+- Add LG U+ smart switches
+- Add/correct config files for iSurpass J1825
+- Added another variant of Kwikset 914C
+- Add Dawon PM-S140-ZW, PM-S340-ZW and KR frequencies
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.22.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.1)
+- [Bump Z-Wave JS to 10.22.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.22.2)
+
+## 0.1.81
+
+### Bug fixes
+
+- Fixed several crashes
+- Expose some device functionality that would previously be hidden as redundant
+- Auto-discovered config parameters (for new devices) can now be edited
+- Properly support config parameters above number 255
+- Optimized the config parameter queries during the interview to take much less time in many cases
+- Some minor changes to better comply with the Z-Wave specification
+
+### Config file changes
+
+- Add configuration for Zooz ZEN53, 54, 55
+- Extend version range for Vesternet VES-ZW-HLD-016
+- Add 700 series variant of SimonTech Roller Blind
+- Updated instructions for Leviton VRS15 and ZW15R
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 10.21.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.21.0)
+- [Bump Z-Wave JS to 10.20.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.20.0)
+- [Bump Z-Wave JS to 10.19.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.19.0)
+- [Bump Z-Wave JS to 10.18.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.18.0)
+- [Bump Z-Wave JS to 10.17.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.17.1)
+
 ## 0.1.80
 
 - [Bump Z-Wave JS to 10.17.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.17.0)
@@ -325,7 +398,7 @@
 
 ## 0.1.10
 
-- [Bump Z-Wave JS Server to 1.1.0.](https://github.com/zwave-js/zwave-js-server/releases/tag/1.1.0) This is the same code as 2.0.0. Home Assistant 2021.2 rejects any ZJS Server version that is v2+
+- [Bump Z-Wave JS Server to 1.1.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.1.0) This is the same code as 2.0.0. Home Assistant 2021.2 rejects any ZJS Server version that is v2+
 
 ## 0.1.9
 

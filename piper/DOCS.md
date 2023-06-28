@@ -63,6 +63,11 @@ The following voices are available:
     - `fr-siwis-medium`
     - `fr-gilles-low`
     - `fr-mls_1840-low`
+- Icelandic
+    - `is-bui-medium`
+    - `is-salka-medium`
+    - `is-steinn-medium`
+    - `is-ugla-medium`
 - Italian
     - `it-riccardo_fasol-x-low`
 - Kazakh
@@ -84,6 +89,8 @@ The following voices are available:
     - `pl-mls_6892-low`
 - Brazilian Portuguese
     - `pt-br-edresson-low`
+- Russian
+    - `ru-irinia-medium`
 - Ukrainian
     - `uk-lada-x-low`
 - Vietnamese

@@ -18,8 +18,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG \
     BASHIO_VERSION \
     TEMPIO_VERSION \
-    S6_OVERLAY_VERSION \
-    QEMU_CPU
+    S6_OVERLAY_VERSION
 
 # Base system
 WORKDIR /usr/src
@@ -73,27 +72,5 @@ RUN \
 # S6-Overlay
 WORKDIR /root
 ENTRYPOINT ["/init"]
-
-ARG MATTER_SERVER_VERSION
-
-RUN \
-    set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       libuv1 \
-       openssl \
-       zlib1g \
-       libjson-c5 \
-       unzip \
-       gdb \
-       gcc \
-       linux-libc-dev \
-       libc6-dev \
-    && pip3 install --no-cache-dir "python-matter-server[server]==${MATTER_SERVER_VERSION}" \
-    && apt-get purge -y --auto-remove \
-       gcc \
-       linux-libc-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /usr/src/*
 
 COPY rootfs /

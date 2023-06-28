@@ -54,6 +54,10 @@ Number of candidates to consider simultaneously during transcription (see [beam 
 
 Increasing the beam size will increase accuracy at the cost of performance.
 
+## Backups
+
+Whisper model files can be quite large, so they are automatically excluded from backups. The models will be re-downloaded when the backup is restored.
+
 ## Support
 
 Got questions?

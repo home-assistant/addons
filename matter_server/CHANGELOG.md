@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.7.0
+
+- Bump Python Matter Server to [3.6.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.1)
+  - Refactored subscription logic should bring better performance and prevents congestion.
+- Add workaround for the loglevel being read as null in some cases.
+
 ## 4.6.1
 
 - Bump Python Matter Server to [3.5.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.1)

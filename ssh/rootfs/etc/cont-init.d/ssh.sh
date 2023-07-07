@@ -42,6 +42,10 @@ elif bashio::var.has_value "$(bashio::addon.port 22)"; then
     bashio::exit.nok "You need to setup a login!"
 fi
 
+if bashio::config.has_value 'server.trusted_user_ca_keys'; then
+    echo "$(bashio::config 'server.trusted_user_ca_keys')" > /etc/ssh/ssh_ca.pub
+fi
+
 # Generate config
 mkdir -p /etc/ssh
 tempio \

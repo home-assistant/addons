@@ -20,6 +20,8 @@ bashio::var.json \
         -template /usr/share/tempio/ssh.environment \
         -out /data/.ssh/environment
 
+mkdir -p /etc/ssh
+
 if bashio::config.has_value 'authorized_keys'; then
     bashio::log.info "Setup authorized_keys"
 
@@ -44,10 +46,15 @@ fi
 
 if bashio::config.has_value 'server.trusted_user_ca_keys'; then
     bashio::config 'server.trusted_user_ca_keys' > /etc/ssh/ssh_ca.pub
+
+    if bashio::config.has_value 'authorized_principals'; then
+        while read -r line; do
+            echo "$line" >> /etc/ssh/principals
+        done <<< "$(bashio::config 'authorized_principals')"
+    fi
 fi
 
 # Generate config
-mkdir -p /etc/ssh
 tempio \
     -conf /data/options.json \
     -template /usr/share/tempio/sshd_config \

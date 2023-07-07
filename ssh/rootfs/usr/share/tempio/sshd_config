@@ -26,4 +26,7 @@ PasswordAuthentication no
 
 PermitUserEnvironment SUPERVISOR_TOKEN
 
-{{ if .server.trusted_user_ca_keys }}TrustedUserCAKeys /etc/ssh/ssh_ca.pub{{ end }}
+{{ if .server.trusted_user_ca_keys }}
+TrustedUserCAKeys /etc/ssh/ssh_ca.pub
+{{ if .server.authorized_principals }}AuthorizedPrincipalFiles /etc/ssh/principals{{ end }}
+{{ end }}

@@ -2,7 +2,7 @@
 
 ## 9.8.0
 
-- Add Trusted CA User Keys to configuration
+- Add Trusted User CA Keys to configuration
 
 ## 9.7.1
 

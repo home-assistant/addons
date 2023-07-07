@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.8.0
+
+- Add Trusted CA User Keys to configuration
+
 ## 9.7.1
 
 - Upgrade Home Assistant CLI to 4.26.0

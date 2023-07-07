@@ -1,5 +1,5 @@
 ---
-version: 9.7.1
+version: 9.8.0
 slug: ssh
 name: Terminal & SSH
 description: Allow logging in remotely to Home Assistant using SSH
@@ -32,6 +32,7 @@ options:
   apks: []
   server:
     tcp_forwarding: false
+    trusted_user_ca_keys: ""
 panel_icon: mdi:console
 panel_title: Terminal
 ports:
@@ -44,5 +45,6 @@ schema:
     - str
   server:
     tcp_forwarding: bool
+    trusted_user_ca_keys: str
 startup: services
 uart: true

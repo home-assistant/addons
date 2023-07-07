@@ -48,6 +48,6 @@ schema:
     tcp_forwarding: bool
     trusted_user_ca_keys: str
     authorized_principals:
-    - str
+      - str
 startup: services
 uart: true

@@ -25,3 +25,5 @@ PermitEmptyPasswords no
 {{ end }}
 
 PermitUserEnvironment SUPERVISOR_TOKEN
+
+{{ if .server.trusted_user_ca_keys }}TrustedUserCAKeys /etc/ssh/ssh_ca.pub{{ end }}

@@ -54,6 +54,7 @@ apks: []
 server:
   tcp_forwarding: false
   trusted_user_ca_keys: ""
+  authorized_principals: []
 ```
 
 ### Option: `apks`

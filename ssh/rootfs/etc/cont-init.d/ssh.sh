@@ -43,7 +43,7 @@ elif bashio::var.has_value "$(bashio::addon.port 22)"; then
 fi
 
 if bashio::config.has_value 'server.trusted_user_ca_keys'; then
-    echo "$(bashio::config 'server.trusted_user_ca_keys')" > /etc/ssh/ssh_ca.pub
+    bashio::config 'server.trusted_user_ca_keys' > /etc/ssh/ssh_ca.pub
 fi
 
 # Generate config

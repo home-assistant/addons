@@ -17,11 +17,11 @@ PermitRootLogin yes
 Banner none
 PrintMotd no
 
-{{ if .authorized_keys }}
-PasswordAuthentication no
-{{ else if .password }}
+{{ if .password }}
 PasswordAuthentication yes
 PermitEmptyPasswords no
+{{ else }}
+PasswordAuthentication no
 {{ end }}
 
 PermitUserEnvironment SUPERVISOR_TOKEN

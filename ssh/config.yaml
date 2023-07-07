@@ -33,6 +33,7 @@ options:
   server:
     tcp_forwarding: false
     trusted_user_ca_keys: ""
+    authorized_principals: []
 panel_icon: mdi:console
 panel_title: Terminal
 ports:
@@ -46,5 +47,7 @@ schema:
   server:
     tcp_forwarding: bool
     trusted_user_ca_keys: str
+    authorized_principals:
+    - str
 startup: services
 uart: true

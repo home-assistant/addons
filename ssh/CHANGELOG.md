@@ -3,6 +3,7 @@
 ## 9.8.0
 
 - Add Trusted User CA Keys to configuration
+- Add Authorized Principals to configuration
 
 ## 9.7.1
 

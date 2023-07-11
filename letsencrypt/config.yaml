@@ -100,6 +100,6 @@ schema:
     inwx_shared_secret: str?
     dreamhost_api_key: str?
     dreamhost_baseurl: str?
-  elliptic_curve: "list(secp256r1|secp284r1|secp521r1)?"
+  elliptic_curve: "list(secp256r1|secp384r1|secp521r1)?"
   key_type: "list(rsa|ecdsa)?"
 startup: once

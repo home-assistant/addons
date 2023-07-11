@@ -7,6 +7,7 @@ WORK_DIR=/data/workdir
 KEY_ARGUMENTS=()
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
+KEY_ARGUMENTS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
@@ -28,6 +29,17 @@ if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Use propagation seconds: ${PROPAGATION_SECONDS}"
 else
     bashio::log.info "Selected http verification"
+fi
+
+# NIST/SECG Elliptic Curve Support
+if bashio::config.exists 'key_type'; then
+    KEY_TYPE=$(bashio::config 'key_type')
+    KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
+
+    if bashio::config.exists 'elliptic_curve' && [ "${KEY_TYPE}" == "ecdsa" ]; then
+        ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
+        KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
+    fi
 fi
 
 # AWS
@@ -203,14 +215,14 @@ if [ "$CHALLENGE" == "dns" ]; then
         "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
-        --preferred-chain "ISRG Root X1"
+        --preferred-chain "ISRG Root X1" "${KEY_ARGUMENTS[@]}"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
-        --preferred-chain "ISRG Root X1"
+        --preferred-chain "ISRG Root X1" "${KEY_ARGUMENTS[@]}"
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store

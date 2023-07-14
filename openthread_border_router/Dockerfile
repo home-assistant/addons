@@ -40,7 +40,7 @@ RUN \
        python3 \
        python3-pip \
        lsb-release \
-       netcat \
+       netcat-openbsd \
        sudo \
        nodejs \
        npm \

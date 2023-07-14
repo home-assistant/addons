@@ -39,6 +39,7 @@ services:
     priority: 0
     weight: 100
 log_queries: false
+rebind_stop: false
 ```
 
 ### Option: `defaults` (required)
@@ -119,9 +120,21 @@ The name to resolve.
 
 The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
 
+### Option: `rebind_domains` (optional)
+
+This option allows you to provide domains to skip dns-rebind checks if you have set `rebind_stop` to true.
+
+#### Option: `rebind_domains.domains`
+
+The domain that dns-rebind will not be prevented on.
+
 ### Option: `log_queries` (required) 
 
 Log all DNS requests. Defaults to `false`.
+
+### Option: `rebind_stop` (required) 
+
+Reject addresses from upstream nameservers. This blocks an attack where a browser behind a firewall is used to probe machines on the local network. Defaults to `false`.
 
 ## Support
 

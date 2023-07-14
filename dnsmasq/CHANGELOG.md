@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.1
+
+- Adds support for stop-dns-rebind to prevent dns rebind attack 
+- Adds support for rebind-domain-ok
+
 ## 1.6.0
 
 - Update to Alpine 3.17

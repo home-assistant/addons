@@ -21,7 +21,9 @@ options:
   hosts: []
   services: []
   cnames: []
+  rebind_domains: []
   log_queries: false
+  rebind_stop: false
 ports:
   53/tcp: 53
   53/udp: 53
@@ -43,5 +45,8 @@ schema:
   cnames:
     - name: str
       target: str
+  rebind_domains:
+    - domain: str
   log_queries: bool
+  rebind_stop: bool
 startup: system

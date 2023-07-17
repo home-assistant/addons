@@ -3,8 +3,10 @@
 ## 1.1.0
 
 - Upgrade to Piper 1.1
+- Add over 30 new voices
 - Change voice format to `<language>_<REGION>-<name>-<quality>`
 - Voices are downloaded from https://huggingface.co/rhasspy/piper-voices
+- Add `max_piper_procs` option
 
 ## 0.1.3
 

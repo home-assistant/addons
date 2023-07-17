@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+- Upgrade to Piper 1.1
+- Change voice format to `<language>_<REGION>-<name>-<quality>`
+- Voices are downloaded from https://huggingface.co/rhasspy/piper-voices
+
 ## 0.1.3
 
 - Fix multi-line input

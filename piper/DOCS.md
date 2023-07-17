@@ -26,85 +26,15 @@ for more information.
 
 [Listen to voice samples](https://rhasspy.github.io/piper-samples/)
 
-Name of the Piper voice to use, such as `en-us-lessac-low` (the default).
-The following voices are available:
+Name of the Piper voice to use, such as `en_US-lessac-medium` (the default).
+Voice models are automatically downloaded from https://huggingface.co/rhasspy/piper-voices/tree/v1.0.0
 
-- Catalan
-    - `ca-upc_ona-x-low`
-    - `ca-upc_pau-x-low`
-- Danish
-    - `da-nst_talesyntese-medium`
-- German
-    - `de-eva_k-x-low`
-    - `de-thorsten-low`
-    - `de-karlsson-low`
-    - `de-kerstin-low`
-    - `de-pavoque-low`
-    - `de-ramona-low`
-- English
-    - `en-gb-alan-low`
-    - `en-gb-southern_english_female-low`
-    - `en-us-amy-low`
-    - `en-us-kathleen-low`
-    - `en-us-lessac-low`
-    - `en-us-lessac-medium`
-    - `en-us-libritts-high`
-    - `en-us-ryan-high`
-    - `en-us-ryan-low`
-    - `en-us-ryan-medium`
-- Spanish
-    - `es-carlfm-x-low`
-    - `es-mls_10246-low`
-    - `es-mls_9972-low`
-- Finnish
-    - `fi-harri-low`
-- French
-    - `fr-siwis-low`
-    - `fr-siwis-medium`
-    - `fr-gilles-low`
-    - `fr-mls_1840-low`
-- Icelandic
-    - `is-bui-medium`
-    - `is-salka-medium`
-    - `is-steinn-medium`
-    - `is-ugla-medium`
-- Italian
-    - `it-riccardo_fasol-x-low`
-- Kazakh
-    - `kk-iseke-x-low`
-    - `kk-issai-high`
-    - `kk-raya-x-low`
-- Nepali
-    - `ne-google-medium`
-    - `ne-google-x-low`
-- Dutch
-    - `nl-mls_7432-low`
-    - `nl-nathalie-x-low`
-    - `nl-rdh-medium`
-    - `nl-rdh-x-low`
-    - `nl-mls_5809-low`
-- Norwegian
-    - `no-talesyntese-medium`
-- Polish
-    - `pl-mls_6892-low`
-- Brazilian Portuguese
-    - `pt-br-edresson-low`
-- Russian
-    - `ru-irinia-medium`
-- Ukrainian
-    - `uk-lada-x-low`
-- Vietnamese
-    - `vi-25hours-single-low`
-    - `vi-vivos-x-low`
-- Chinese
-    - `zh-cn-huayan-x-low`
-
-Voices are named according to the following scheme: `<language>-<name>-<quality>`
+Voices are named according to the following scheme: `<language>_<REGION>-<name>-<quality>`
 The `<name>` portion comes from the dataset used to train the voice or the speaker's name if it was provided.
 
 A voice's quality comes in 4 different levels:
 
-- `x-low` - 16Khz, smallest/fastest
+- `x_low` - 16Khz, smallest/fastest
 - `low` - 16Khz, fast
 - `medium` - 22.05Khz, slower but better sounding
 - `high` - 22.05Khz, slowest but best sounding

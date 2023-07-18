@@ -119,12 +119,14 @@ RUN \
     set -x \
     && cd gecko_sdk \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
-    && slc signature trust --sdk=. \
+    && GECKO_SDK=$(pwd) \
+    && slc signature trust --sdk=${GECKO_SDK} \
     && cd protocol/zigbee \
     && slc generate \
-       --sdk=../.. \
-       --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
-       --export-destination=app/zigbeed/output \
+       --sdk=${GECKO_SDK} \
+       --with="${SLC_ARCH}" \
+       --project-file=$(pwd)/app/zigbeed/zigbeed.slcp \
+       --export-destination=$(pwd)/app/zigbeed/output \
        --copy-proj-sources \
     && cd app/zigbeed/output \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch \

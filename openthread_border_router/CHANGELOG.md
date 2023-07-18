@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0
+## 2.3.0
 
 - Bump to OTBR POSIX version 8d12b242db (2023-07-13 20:00:34 +0200)
   This update includes the new REST API to reset the OTBR

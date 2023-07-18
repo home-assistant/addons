@@ -5,6 +5,7 @@
 - Bump to OTBR POSIX version 8d12b242db (2023-07-13 20:00:34 +0200)
   This update includes the new REST API to reset the OTBR
 - Bump universal SiLabs flasher to 0.0.13
+- Use add-on hostname to connect to OTBR REST API
 
 ## 2.2.0
 

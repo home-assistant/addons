@@ -1,7 +1,7 @@
 From fb821cecc7d68463c9e48dc773d18c633d5efb1d Mon Sep 17 00:00:00 2001
-Message-ID: <fb821cecc7d68463c9e48dc773d18c633d5efb1d.1686315883.git.stefan@agner.ch>
-In-Reply-To: <2e3653d9966a55355a8706b94ff47873677f6264.1686315883.git.stefan@agner.ch>
-References: <2e3653d9966a55355a8706b94ff47873677f6264.1686315883.git.stefan@agner.ch>
+Message-ID: <fb821cecc7d68463c9e48dc773d18c633d5efb1d.1689663214.git.stefan@agner.ch>
+In-Reply-To: <2e3653d9966a55355a8706b94ff47873677f6264.1689663214.git.stefan@agner.ch>
+References: <2e3653d9966a55355a8706b94ff47873677f6264.1689663214.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 14:00:23 +0200
 Subject: [PATCH] [rest] initialize dataset

@@ -12,8 +12,12 @@
 ### Bug fixes
 
 - Z-Wave JS Server: Fix hard reset support in Z-Wave JS Server
-- Z-Wave JS: Fix an issue that sometimes occurred when attempting to remove a node from the network
-- Z-Wave JS: Fix handling of incoming S2 multicast commands
+- Z-Wave JS: Increased OTA update timeout, which can help with firmware updates in busy/unstable networks
+- Z-Wave JS: Fixed a crash that could happen when including a device with an inclusion controller
+- Z-Wave JS: Improved the automatic removal of factory-reset devices that are slow to leave the network
+- Z-Wave JS: Devices that failed to join using SmartStart are now automatically removed
+- Z-Wave JS: Fix an issue where Z-Wave JS could get stuck when removing a node from the network failed
+
 
 ### Config file changes
 

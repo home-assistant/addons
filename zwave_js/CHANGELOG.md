@@ -6,9 +6,8 @@
 
 - Z-Wave JS Server: Add support for inclusions that are started outside of Z-Wave JS Server
 - Z-Wave JS Server: Add support for lastSeen property
-- Z-Wave JS: Improve support for "identify" commands
-- Z-Wave JS: Add API to discover node neighbors
-- Z-Wave JS: Add support for assigning custom return routes and reading previously set priority return routes from cache
+- Z-Wave JS: Add support for identifying on request of other nodes
+- Z-Wave JS: Improved auto-discovery of config parameters
 
 ### Bug fixes
 

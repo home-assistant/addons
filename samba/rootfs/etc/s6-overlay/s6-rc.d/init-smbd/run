@@ -31,7 +31,12 @@ fi
 bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 
 # Set Samba log level
-case "${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}],,}" in
+if bashio::config.exists log_level; then
+  log_level=$(bashio::string.lower "$(bashio::config log_level)")
+else
+  log_level=info
+fi
+case "${log_level}" in
   trace)
     log_level=3;;
   debug)

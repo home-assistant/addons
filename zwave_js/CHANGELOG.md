@@ -1,5 +1,79 @@
 # Changelog
 
+## 0.1.85
+
+### New features
+
+- Z-Wave JS Server: Add support for inclusions that are started outside of Z-Wave JS Server
+- Z-Wave JS Server: Add support for lastSeen property
+- Z-Wave JS: Add support for identifying on request of other nodes
+- Z-Wave JS: Improved auto-discovery of config parameters
+
+### Bug fixes
+
+- Z-Wave JS Server: Fix hard reset support in Z-Wave JS Server
+- Z-Wave JS: Increased OTA update timeout, which can help with firmware updates in busy/unstable networks
+- Z-Wave JS: Fixed a crash that could happen when including a device with an inclusion controller
+- Z-Wave JS: Improved the automatic removal of factory-reset devices that are slow to leave the network
+- Z-Wave JS: Devices that failed to join using SmartStart are now automatically removed
+- Z-Wave JS: Fix an issue where Z-Wave JS could get stuck when removing a node from the network failed
+
+
+### Config file changes
+
+- Correct config parameters for Duwi ZW ESJ 300
+- Add new FW3.6 parameters to Aeotec ZW141 Nano Shutter
+- Add metadata to HANK Electronics Ltd. HKZW-SO01
+- Hide Binary Switch CC in favor of Window Covering CC on iBlinds v3
+- Remove unnecessary endpoints for RTC CT32
+- Update Swidget devices to match their June 8th 2023 spec
+- Add endpoint configuration parameters to SES 302
+- Disable Window Covering CC for ZVIDAR Roller Blind
+- Add missing product type to Aeotec Water Sensor 7 Basic ZWA018
+- Override endpoint indizes for heatapp! floor
+- Override schedule slot count for P-KFCON-MOD-YALE
+- Override supported color channels for Zipato RGBW Bulb2
+- Override supported thermostat modes for Z-Wave.me ZME_FT
+- Add Heatit ZM Dimmer
+- Add Heatit Z-HAN2
+- Add Remotec ZXT-800
+- Clarify Hand Button action for ZVIDAR Z-CM-V01 Smart Curtain Motor
+- Add MCOHome MH-S220 FW 3.2
+- Add another device ID for Switch IO On/Off Power Switch
+- Add/fix params for Intermatic PE653
+- Add ShenZhen Sunricher Technology Multisensor SR-ZV9032A-EU
+- Add new fingerprint for Zooz ZST10-700
+- Fix Zooz ZSE40 parameters 7 and 8
+- Correct parameters of Zooz ZEN05
+- Override supported setpoint types for Intermatic PE653
+- Update Inovelli LZW31 parameter 52 for FW 1.54
+- Add new product id to Fakro ZWS12
+- Disable Supervision for NICE Spa IBT4ZWAVE
+- Add variant of Inovelli NZW31T with manufacturer ID 0x015d
+- Split and correct Minoston MP21Z/MP31Z/MP21ZP/MP31ZP config files
+- Add EVA LOGIK (NIE Tech) ZKS31 Rotary Dimmer
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS Server to 1.29.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.29.0)
+- [Bump Z-Wave JS Server to 1.29.1](https://github.com/zwave-js/zwave-js-server/releases/tag/1.29.1)
+- [Bump Z-Wave JS Server to 1.30.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.30.0)
+- [Bump Z-Wave JS to 10.23.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.4)
+- [Bump Z-Wave JS to 10.23.5](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.5)
+- [Bump Z-Wave JS to 10.23.6](https://github.com/zwave-js/node-zwave-js/releases/tag/v10.23.6)
+- [Bump Z-Wave JS to 11.0.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.0.0)
+- [Bump Z-Wave JS to 11.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.1.0)
+- [Bump Z-Wave JS to 11.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.2.0)
+- [Bump Z-Wave JS to 11.3.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.3.0)
+- [Bump Z-Wave JS to 11.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.4.0)
+- [Bump Z-Wave JS to 11.4.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.4.1)
+- [Bump Z-Wave JS to 11.4.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.4.2)
+- [Bump Z-Wave JS to 11.5.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.0)
+- [Bump Z-Wave JS to 11.5.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.1)
+- [Bump Z-Wave JS to 11.5.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.2)
+- [Bump Z-Wave JS to 11.5.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.3)
+- [Bump Z-Wave JS to 11.6.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.6.0)
+
 ## 0.1.84
 
 ### Bug fixes

@@ -8,9 +8,8 @@ ARG ZWAVEJS_VERSION
 WORKDIR /usr/src
 RUN \
     set -x \
-    && echo "@edge https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && apk add --no-cache \
-        nodejs@edge \
+        nodejs \
         npm \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
@@ -18,7 +17,6 @@ RUN \
         linux-headers \
         python3 \
     \
-    && npm config set unsafe-perm \
     && npm install --force \
         "zwave-js@${ZWAVEJS_VERSION}" \
         "@zwave-js/server@${ZWAVEJS_SERVER_VERSION}" \

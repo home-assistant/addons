@@ -47,6 +47,11 @@
 - Correct parameters of Zooz ZEN05
 - Override supported setpoint types for Intermatic PE653
 - Update Inovelli LZW31 parameter 52 for FW 1.54
+- Add new product id to Fakro ZWS12
+- Disable Supervision for NICE Spa IBT4ZWAVE
+- Add variant of Inovelli NZW31T with manufacturer ID 0x015d
+- Split and correct Minoston MP21Z/MP31Z/MP21ZP/MP31ZP config files
+- Add EVA LOGIK (NIE Tech) ZKS31 Rotary Dimmer
 
 ### Detailed changelogs
 
@@ -67,6 +72,7 @@
 - [Bump Z-Wave JS to 11.5.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.1)
 - [Bump Z-Wave JS to 11.5.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.2)
 - [Bump Z-Wave JS to 11.5.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.5.3)
+- [Bump Z-Wave JS to 11.6.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.6.0)
 
 ## 0.1.84
 

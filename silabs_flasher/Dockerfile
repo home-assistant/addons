@@ -10,11 +10,17 @@ RUN \
     && apk add --no-cache \
         py3-pip \
         python3 \
+    && apk add --no-cache --virtual .tmp-build-deps \
+        gcc \
+        libc-dev \
+        libffi-dev \
+        python3-dev \
     && pip3 install \
         --no-cache-dir \
         --prefer-binary \
         --find-links "https://wheels.home-assistant.io/musllinux/${BUILD_ARCH}/" \
-        universal-silabs-flasher=="${UNIVERSAL_SILABS_FLASHER}"
+        universal-silabs-flasher=="${UNIVERSAL_SILABS_FLASHER}" \
+    && apk del .tmp-build-deps
 
 COPY rootfs /
 

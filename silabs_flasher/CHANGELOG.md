@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- Update universal-silabs-flasher to v0.0.13
+- Update firmware for Home Assistant Yellow and SkyConnect to v7.3.1.0
+
 ## 0.1.1
 
 - Fix firmware installation from URL

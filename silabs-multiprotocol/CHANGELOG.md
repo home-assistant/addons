@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1
+
+- Use Silicon Labs Gecko SDK 4.3.1
+
 ## 2.3.0
 
 - Add patch with new REST API to reset the OTBR

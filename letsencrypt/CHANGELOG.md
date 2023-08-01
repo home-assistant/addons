@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.3
+
+- Add deSEC DNS challenge support
+
 ## 5.0.2
 
 - Fix DirectAdmin DNS challenge support

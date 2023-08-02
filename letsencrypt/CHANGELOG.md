@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.12.10
+
+- Update GANDI DNS challenge to use new format
+- Add GANDI DNS propagation delay setting
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

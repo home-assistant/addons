@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.10
+
+- Add Namecheap DNS challenge support
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

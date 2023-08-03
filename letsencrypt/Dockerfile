@@ -10,6 +10,7 @@ ARG \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
+    CERTBOT_NAMECHEAP_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
@@ -52,6 +53,7 @@ RUN \
         certbot-dns-rfc2136==${CERTBOT_VERSION} \
         certbot-dns-route53==${CERTBOT_VERSION} \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
+        certbot-dns-namecheap==${CERTBOT_NAMECHEAP_VERSION} \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \

@@ -84,6 +84,8 @@ aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
 sakuracloud_api_secret: ''
+namecheap_username: ''
+namecheap_api_key: ''
 netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
@@ -359,6 +361,28 @@ on the DNS zone to be used for authentication.
 </details>
 
 <details>
+  <summary>Namecheap</summary>
+
+  To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
+
+  Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - ha.yourdomain.com
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-namecheap
+    namecheap_username: your-namecheap-username
+    namecheap_api_key: 0123456789abcdef0123456789abcdef01234567
+  ```
+
+</details>
+
+<details>
   <summary>Njalla</summary>
 
   You need to generate an API token inside Settings > API Access or directly at https://njal.la/settings/api/. If you have a static IP-address restrict the access to your IP. I you are not sure, you probably don't have a static IP-address.
@@ -541,6 +565,7 @@ dns-ovh
 dns-rfc2136
 dns-route53
 dns-sakuracloud
+dns-namecheap
 dns-netcup
 dns-gandi
 dns-transip

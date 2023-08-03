@@ -1,7 +1,5 @@
-From 2c6518003d6e9c3e48028883cecc6daadeed3410 Mon Sep 17 00:00:00 2001
-Message-ID: <2c6518003d6e9c3e48028883cecc6daadeed3410.1689663214.git.stefan@agner.ch>
-In-Reply-To: <2e3653d9966a55355a8706b94ff47873677f6264.1689663214.git.stefan@agner.ch>
-References: <2e3653d9966a55355a8706b94ff47873677f6264.1689663214.git.stefan@agner.ch>
+From 29c0b6b142c6692a53a83fb4604fc2bcebeb17af Mon Sep 17 00:00:00 2001
+Message-ID: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Thu, 13 Jul 2023 20:00:34 +0200
 Subject: [PATCH] [rest] support erasing all persistent info (#1908)
@@ -41,10 +39,10 @@ index 43747e2e01..2ba2a4dd56 100644
      get:
        tags:
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index db8aaa41f1..e78a647ae8 100644
+index 1139a2d788..a60e9d9483 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
-@@ -258,16 +258,46 @@ exit:
+@@ -257,16 +257,46 @@ exit:
      }
  }
  
@@ -96,10 +94,10 @@ index db8aaa41f1..e78a647ae8 100644
  }
  
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index 9285f21a39..dbdb24c90c 100644
+index 0c089c7296..d79085dbfc 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
-@@ -135,6 +135,7 @@ private:
+@@ -137,6 +137,7 @@ private:
      void HandleDiagnosticCallback(const Request &aRequest, Response &aResponse);
  
      void GetNodeInfo(Response &aResponse) const;

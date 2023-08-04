@@ -4,6 +4,7 @@
 
 - Update universal-silabs-flasher to v0.0.13
 - Update firmware for Home Assistant Yellow and SkyConnect to v7.3.1.0
+- Use Alpine 3.17/Python 3.11 base image
 
 ## 0.1.1
 

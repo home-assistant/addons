@@ -166,9 +166,6 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
-COPY otbr-patches/0001-rest-support-Thread-state-change-1866.patch /usr/src
-COPY otbr-patches/0002-rest-initialize-dataset.patch /usr/src
-COPY otbr-patches/0003-rest-deactive-IPv6-interface-when-disabling-the-OTBR.patch /usr/src
 COPY otbr-patches/0004-rest-support-erasing-all-persistent-info-1908.patch /usr/src
 COPY otbr-patches/0005-rest-support-deleting-the-dataset.patch /usr/src
 
@@ -200,9 +197,6 @@ RUN \
        sudo \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && patch -p1 < /usr/src/0001-rest-support-Thread-state-change-1866.patch \
-    && patch -p1 < /usr/src/0002-rest-initialize-dataset.patch \
-    && patch -p1 < /usr/src/0003-rest-deactive-IPv6-interface-when-disabling-the-OTBR.patch \
     && patch -p1 < /usr/src/0004-rest-support-erasing-all-persistent-info-1908.patch \
     && patch -p1 < /usr/src/0005-rest-support-deleting-the-dataset.patch \
     && ln -s ../../../openthread/ third_party/openthread/repo \

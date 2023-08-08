@@ -13,6 +13,7 @@
 - Z-Wave JS: Fixed an issue where turning on a Multilevel Switch with transition duration could update the currentValue to an illegal value
 - Z-Wave JS: Improve heuristic to refresh values from legacy nodes when receiving a node information frame
 - Z-Wave JS: Fixed an issue where no control values were exposed for devices that do not support/advertise Version CC
+- Z-Wave JS: Fixed a regression introduced in 11.9.1 that would sometimes cause the startup process to hang
 
 
 ### Config file changes
@@ -32,6 +33,7 @@
 - [Bump Z-Wave JS to 11.8.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.8.1)
 - [Bump Z-Wave JS to 11.9.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.0)
 - [Bump Z-Wave JS to 11.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.1)
+- [Bump Z-Wave JS to 11.9.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.2)
 
 ## 0.1.85
 

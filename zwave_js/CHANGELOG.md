@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.1.86
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where a delayed endpoint capability report could be associated with the wrong query
+- Z-Wave JS: During NVM migration, some invalid/unexpected bytes in the 500 series NVM can now be corrected
+- Z-Wave JS: Hide configuration values for Door Lock CC v4 functionality that is not supported by a lock
+- Z-Wave JS: When a CC version query times out, the CC version is now actually assumed to be 1
+- Z-Wave JS: Recover from Security S2 collisions in a common scenario where nodes send a supervised command at the same time Z-Wave JS is trying to control them
+- Z-Wave JS: During NVM migration, an incorrect flag for "on other network" is now automatically corrected instead of raising an error
+- Z-Wave JS: Fixed an issue where turning on a Multilevel Switch with transition duration could update the currentValue to an illegal value
+- Z-Wave JS: Improve heuristic to refresh values from legacy nodes when receiving a node information frame
+- Z-Wave JS: Fixed an issue where no control values were exposed for devices that do not support/advertise Version CC
+- Z-Wave JS: Fixed a regression introduced in 11.9.1 that would sometimes cause the startup process to hang
+
+
+### Config file changes
+
+- Add Leviton RZM10-1L
+- Force use of Multi Channel CC v1 for all versions of PE653
+- Correct state after power failure for Minoston MP21Z/31Z
+- Add Namron 4512757
+- Preserve endpoint 0 for Zooz ZEN14 to toggle both outlets at once
+- Correct value size for some Nortek PD300EMZ5-1 params that were previously swapped
+- Add new MCOHome MH-S411/S412 models
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 11.7.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.7.0)
+- [Bump Z-Wave JS to 11.8.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.8.0)
+- [Bump Z-Wave JS to 11.8.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.8.1)
+- [Bump Z-Wave JS to 11.9.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.0)
+- [Bump Z-Wave JS to 11.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.1)
+- [Bump Z-Wave JS to 11.9.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.2)
+
 ## 0.1.85
 
 ### New features

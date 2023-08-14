@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.87
+
+### Bug fixes
+
+- Z-Wave JS: Fixed a bug where firmware links that redirected to another URL were not supported
+- Z-Wave JS: Change order of commands so the startup does not fail when a controller is already set to use 16-bit node IDs and soft-reset is disabled
+- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers 
+- Z-Wave JS: Queried user codes and their status are now preserved during re-interview when they won't be re-queried automatically
+
+
+### Config file changes
+
+- Add parameters 9-13 to Minoston MP21ZP / MP31ZP
+- Add fingerprint to Yale YRD446-ZW2
+- Add and update Yale Assure ZW3 series locks
+- Remove unnecessary endpoint functionality for CT101
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 11.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.10.0)
+- [Bump Z-Wave JS to 11.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.10.1)
+
 ## 0.1.86
 
 ### Bug fixes

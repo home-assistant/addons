@@ -119,12 +119,14 @@ RUN \
     set -x \
     && cd gecko_sdk \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
-    && slc signature trust --sdk=. \
+    && GECKO_SDK=$(pwd) \
+    && slc signature trust --sdk=${GECKO_SDK} \
     && cd protocol/zigbee \
     && slc generate \
-       --sdk=../.. \
-       --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
-       --export-destination=app/zigbeed/output \
+       --sdk=${GECKO_SDK} \
+       --with="${SLC_ARCH}" \
+       --project-file=$(pwd)/app/zigbeed/zigbeed.slcp \
+       --export-destination=$(pwd)/app/zigbeed/output \
        --copy-proj-sources \
     && cd app/zigbeed/output \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch \
@@ -164,9 +166,8 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
-COPY otbr-patches/0001-rest-support-Thread-state-change-1866.patch /usr/src
-COPY otbr-patches/0002-rest-initialize-dataset.patch /usr/src
-COPY otbr-patches/0003-rest-support-deleting-the-dataset.patch /usr/src
+COPY otbr-patches/0004-rest-support-erasing-all-persistent-info-1908.patch /usr/src
+COPY otbr-patches/0005-rest-support-deleting-the-dataset.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -196,9 +197,8 @@ RUN \
        sudo \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && patch -p1 < /usr/src/0001-rest-support-Thread-state-change-1866.patch \
-    && patch -p1 < /usr/src/0002-rest-initialize-dataset.patch \
-    && patch -p1 < /usr/src/0003-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0004-rest-support-erasing-all-persistent-info-1908.patch \
+    && patch -p1 < /usr/src/0005-rest-support-deleting-the-dataset.patch \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && (cd third_party/openthread/repo \
         && ln -s ../../../../silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \

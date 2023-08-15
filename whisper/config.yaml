@@ -1,5 +1,5 @@
 ---
-version: 0.2.0
+version: 1.0.0
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper
@@ -10,6 +10,8 @@ arch:
 init: false
 discovery:
   - wyoming
+backup_exclude:
+  - "*.bin"
 options:
   model: tiny-int8
   language: en
@@ -21,5 +23,5 @@ schema:
   beam_size: int
 ports:
   "10300/tcp": null
-homeassistant: 2023.5.0.dev20230418
+homeassistant: 2023.8.0.dev20230728
 image: homeassistant/{arch}-addon-whisper

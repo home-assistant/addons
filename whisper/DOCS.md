@@ -24,7 +24,9 @@ for more information.
 
 ### Option: `language`
 
-Language that you will speak to the add-on (default is "en"). If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
+Default language for the add-on. In Home Assist 2023.8+, multiple languages can be used simultaneously by different [Assist pipelines](https://www.home-assistant.io/voice_control/voice_remote_local_assistant/).
+
+If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
 
 [Performance of supported languages](https://github.com/openai/whisper#available-models-and-languages)
 
@@ -53,6 +55,10 @@ Available models are sorted from least to most accurate.
 Number of candidates to consider simultaneously during transcription (see [beam search](https://en.wikipedia.org/wiki/Beam_search)).
 
 Increasing the beam size will increase accuracy at the cost of performance.
+
+## Backups
+
+Whisper model files can be quite large, so they are automatically excluded from backups. The models will be re-downloaded when the backup is restored.
 
 ## Support
 

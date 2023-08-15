@@ -1,7 +1,5 @@
-From 6c39e76384fd7b2b0d2985b4776f4e414ad0c698 Mon Sep 17 00:00:00 2001
-Message-ID: <6c39e76384fd7b2b0d2985b4776f4e414ad0c698.1686315883.git.stefan@agner.ch>
-In-Reply-To: <2e3653d9966a55355a8706b94ff47873677f6264.1686315883.git.stefan@agner.ch>
-References: <2e3653d9966a55355a8706b94ff47873677f6264.1686315883.git.stefan@agner.ch>
+From d9086b843d5da519fca876794d14026b14cc68ae Mon Sep 17 00:00:00 2001
+Message-ID: <d9086b843d5da519fca876794d14026b14cc68ae.1689665371.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 23:41:50 +0200
 Subject: [PATCH] [rest] support deleting the dataset
@@ -16,14 +14,13 @@ otDatasetCreateNewNetwork).
  src/rest/openapi.yaml | 21 +++++++++++++++++++++
  src/rest/resource.cpp | 35 +++++++++++++++++++++++++++++++++++
  src/rest/resource.hpp |  1 +
- src/rest/response.cpp |  2 +-
- 4 files changed, 58 insertions(+), 1 deletion(-)
+ 3 files changed, 57 insertions(+)
 
 diff --git a/src/rest/openapi.yaml b/src/rest/openapi.yaml
-index 43747e2e01..1608da33b7 100644
+index 2ba2a4dd56..2edc4af29a 100644
 --- a/src/rest/openapi.yaml
 +++ b/src/rest/openapi.yaml
-@@ -239,6 +239,18 @@ paths:
+@@ -248,6 +248,18 @@ paths:
            description: Invalid request body.
          "409":
            description: Writing active operational dataset rejected because Thread network is active.
@@ -42,7 +39,7 @@ index 43747e2e01..1608da33b7 100644
    /node/dataset/pending:
      get:
        tags:
-@@ -282,6 +294,15 @@ paths:
+@@ -291,6 +303,15 @@ paths:
            description: Successfully created the pending operational dataset.
          "400":
            description: Invalid request body.
@@ -59,10 +56,10 @@ index 43747e2e01..1608da33b7 100644
    schemas:
      LeaderData:
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index d8f2a39876..26230ca84a 100644
+index a60e9d9483..829835341a 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
-@@ -738,12 +738,47 @@ exit:
+@@ -767,12 +767,47 @@ exit:
      }
  }
  
@@ -111,10 +108,10 @@ index d8f2a39876..26230ca84a 100644
          GetDataset(aDatasetType, aRequest, aResponse);
          break;
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index 9285f21a39..05d905e263 100644
+index d79085dbfc..362e501471 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
-@@ -147,6 +147,7 @@ private:
+@@ -150,6 +150,7 @@ private:
      void GetDataRloc(Response &aResponse) const;
      void GetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
      void SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
@@ -122,19 +119,6 @@ index 9285f21a39..05d905e263 100644
  
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
-diff --git a/src/rest/response.cpp b/src/rest/response.cpp
-index 93cbe0b6df..3460b90e1f 100644
---- a/src/rest/response.cpp
-+++ b/src/rest/response.cpp
-@@ -34,7 +34,7 @@
- #define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_HEADERS                                                              \
-     "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, " \
-     "Access-Control-Request-Headers"
--#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "GET, OPTIONS, PUT"
-+#define OT_REST_RESPONSE_ACCESS_CONTROL_ALLOW_METHOD "DELETE, GET, OPTIONS, PUT"
- #define OT_REST_RESPONSE_CONNECTION "close"
- 
- namespace otbr {
 -- 
 2.41.0
 

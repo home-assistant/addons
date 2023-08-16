@@ -52,10 +52,8 @@ body:
     attributes:
       label: Which add-on are you reporting an issue with?
       options:
-        - Hey Ada!
         - Almond
         - CEC Scanner
-        - Check Home Assistant configuration
         - File editor
         - deCONZ
         - DHCP Server
@@ -66,13 +64,19 @@ body:
         - HomeMatic CCU
         - Let's Encrypt
         - MariaDB
+        - Matter Server
         - Mosquitto broker
         - NGINX Home Assistant SSL proxy
+        - OpenThread Border Router
+        - Piper
         - RPC Shutdown
         - Samba share
+        - Silicon Labs Flasher
+        - Silicon Labs Multiprotocol
         - Terminal & SSH
         - TellStick
         - VLC
+        - Whisper
         - OpenZWave
         - Z-Wave JS
 

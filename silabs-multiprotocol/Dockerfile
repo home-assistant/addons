@@ -51,6 +51,21 @@ RUN \
     && apt-get install -y --no-install-recommends \
        crossbuild-essential-arm64
 
+FROM --platform=linux/amd64 cross-builder-base AS cross-builder-amd64
+
+COPY debian-amd64.cmake /usr/src/debian.cmake
+
+ENV DEBIAN_ARCH=amd64 \
+        DEBIAN_CROSS_PREFIX=x86_64-linux-gnu \
+        SLC_ARCH=zigbee_x86_64
+
+RUN \
+    set -x \
+    && dpkg --add-architecture amd64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       crossbuild-essential-amd64
+
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
 
@@ -81,7 +96,7 @@ RUN \
        python3 \
        python3-jinja2 \
        python3-pip \
-       openjdk-11-jre \
+       openjdk-17-jre \
        git-lfs \
        unzip \
     && curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
@@ -97,19 +112,21 @@ RUN \
 
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
-COPY 0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
-COPY 0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
+COPY gecko-sdk-patches/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
+COPY zigbeed-app-patches/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
 
 RUN \
     set -x \
     && cd gecko_sdk \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
-    && slc signature trust --sdk=. \
+    && GECKO_SDK=$(pwd) \
+    && slc signature trust --sdk=${GECKO_SDK} \
     && cd protocol/zigbee \
     && slc generate \
-       --sdk=../.. \
-       --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
-       --export-destination=app/zigbeed/output \
+       --sdk=${GECKO_SDK} \
+       --with="${SLC_ARCH}" \
+       --project-file=$(pwd)/app/zigbeed/zigbeed.slcp \
+       --export-destination=$(pwd)/app/zigbeed/output \
        --copy-proj-sources \
     && cd app/zigbeed/output \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch \
@@ -122,6 +139,8 @@ RUN \
         debug
 
 FROM $BUILD_FROM
+
+ARG UNIVERSAL_SILABS_FLASHER
 
 RUN \
     set -x \
@@ -137,22 +156,18 @@ COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/util/third_party/ot-br-posix /usr/src/ot-br-posix
 COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/util/third_party/openthread /usr/src/openthread
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/protocol/openthread/platform-abstraction/posix/ /usr/src/silabs-vendor-interface
 COPY --from=cpcd-builder /usr/local/ /usr/local/
 
 ENV BORDER_ROUTING=1
 ENV BACKBONE_ROUTER=1
-ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_MULTIPAN_RCP=ON -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
 ENV WEB_GUI=1
 ENV DOCKER 1
 
-COPY 0001-Avoid-writing-to-system-console.patch /usr/src
-COPY 0001-web-rest-listen-on-IPv6-addresses-as-well-1659.patch /usr/src
-COPY 0002-rest-add-active-dataset-API-1658.patch /usr/src
-COPY 0003-rest-use-map-for-HTTP-headers-1665.patch /usr/src
-COPY 0005-web-bump-to-latest-Simple-Web-Server-version-1667.patch /usr/src
-COPY 0006-rest-allow-to-specify-REST-listen-address-1670.patch /usr/src
-COPY 0007-rest-implement-REST-API-to-get-dataset.patch /usr/src
-COPY 0008-rest-support-state-change.patch /usr/src
+COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
+COPY otbr-patches/0004-rest-support-erasing-all-persistent-info-1908.patch /usr/src
+COPY otbr-patches/0005-rest-support-deleting-the-dataset.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -178,22 +193,48 @@ RUN \
        python3-cryptography \
        python3-yarl \
        lsb-release \
+       netcat \
        sudo \
     && cd ot-br-posix \
-    && patch -p1 < /usr/src/0001-web-rest-listen-on-IPv6-addresses-as-well-1659.patch \
-    && patch -p1 < /usr/src/0002-rest-add-active-dataset-API-1658.patch \
-    && patch -p1 < /usr/src/0003-rest-use-map-for-HTTP-headers-1665.patch \
-    && patch -p1 < /usr/src/0005-web-bump-to-latest-Simple-Web-Server-version-1667.patch \
-    && patch -p1 < /usr/src/0006-rest-allow-to-specify-REST-listen-address-1670.patch \
-    && patch -p1 < /usr/src/0007-rest-implement-REST-API-to-get-dataset.patch \
-    && patch -p1 < /usr/src/0008-rest-support-state-change.patch \
-    && chmod +x ./script/bootstrap \
-    && ./script/bootstrap \
-    && ln -s ../../../openthread/ third_party/openthread/repo \
-    && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && ./script/setup \
-    && pip install universal-silabs-flasher==0.0.7 \
+    && patch -p1 < /usr/src/0004-rest-support-erasing-all-persistent-info-1908.patch \
+    && patch -p1 < /usr/src/0005-rest-support-deleting-the-dataset.patch \
+    && ln -s ../../../openthread/ third_party/openthread/repo \
+    && (cd third_party/openthread/repo \
+        && ln -s ../../../../silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \
+    && chmod +x ./script/* \
+    && ./script/bootstrap \
+    # Mimic rt_tables_install \
+    && echo "88 openthread" >> /etc/iproute2/rt_tables \
+    # Mimic otbr_install \
+    && (./script/cmake-build \
+        -DBUILD_TESTING=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_MODULE_PATH=/usr/src/silabs-vendor-interface/ \
+        -DOTBR_FEATURE_FLAGS=ON \
+        -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
+        -DOTBR_SRP_ADVERTISING_PROXY=ON \
+        -DOTBR_INFRA_IF_NAME=eth0 \
+        -DOTBR_MDNS=mDNSResponder \
+        -DOTBR_VERSION= \
+        -DOT_PACKAGE_VERSION= \
+        -DOTBR_DBUS=OFF \
+        -DOT_MULTIPAN_RCP=ON \
+        -DOT_POSIX_CONFIG_RCP_BUS=VENDOR \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=SilabsRcpDeps \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_INTERFACE=/usr/src/silabs-vendor-interface/cpc_interface.cpp \
+        -DOT_CONFIG="openthread-core-silabs-posix-config.h" \
+        -DOT_LINK_RAW=1 \
+        -DOTBR_VENDOR_NAME="Home Assistant" \
+        -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \
+        -DOTBR_WEB=ON \
+        -DOTBR_BORDER_ROUTING=ON \
+        -DOTBR_REST=ON \
+        -DOTBR_BACKBONE_ROUTER=ON \
+        && cd build/otbr/ \
+        && ninja \
+        && ninja install) \
+    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        build-essential \
        patch \
@@ -215,7 +256,7 @@ RUN ldconfig && touch /accept_silabs_msla
 COPY rootfs /
 
 ENV \
-    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/otbr-enable-check.sh
+    S6_STAGE2_HOOK=/etc/s6-overlay/scripts/enable-check.sh
 
 HEALTHCHECK --interval=10s --start-period=120s CMD [ "$(s6-svstat -u /run/service/zigbeed)" = "true" ]
 

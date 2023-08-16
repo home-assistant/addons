@@ -1,5 +1,5 @@
 ---
-version: 0.11.1
+version: 2.3.1
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -9,11 +9,15 @@ arch:
   - armv7
   - aarch64
   - amd64
+homeassistant: 2023.6.0.dev20230531
 gpio: true
 hassio_api: true
+discovery:
+  - otbr
 # IPC is only used within the Add-on
 host_ipc: false
 host_network: true
+host_uts: true
 privileged:
   - IPC_LOCK
   - NET_ADMIN
@@ -21,17 +25,21 @@ image: homeassistant/{arch}-addon-silabs-multiprotocol
 init: false
 options:
   device: null
-  baudrate: 115200
+  baudrate: "460800"
   flow_control: true
-  autoflash_firmware: false
+  autoflash_firmware: true
   cpcd_trace: false
   otbr_enable: true
   otbr_log_level: notice
   otbr_firewall: true
 ports:
   9999/tcp: null
+  8080/tcp: null
+  8081/tcp: null
 ports_description:
   9999/tcp: EmberZNet EZSP/ASH port
+  8080/tcp: OpenThread Web port
+  8081/tcp: OpenThread REST API port
 schema:
   device: device(subsystem=tty)?
   baudrate: list(57600|115200|230400|460800|921600)
@@ -44,8 +52,3 @@ schema:
   otbr_firewall: bool
 stage: experimental
 startup: services
-ingress: true
-ingress_port: 8080
-panel_title: OpenThread
-panel_icon: mdi:view-grid-plus-outline
-panel_admin: true

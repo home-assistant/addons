@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "deCONZ" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -28,7 +28,7 @@ The add-on needs to know where your ConBee/RaspBee can be found, and therefore,
 you'll need to configure the add-on to point to the right device.
 
 If you're using Home Assistant you may find the correct value for this on the
-`Supervisor -> System -> Host system -> Hardware` page. It is recommended
+`Settings -> System -> Hardware` page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
 
@@ -48,7 +48,7 @@ with "WEB UI" button.
 By default, Home Assistant has the `discovery` integration enabled, which
 automatically discovers this add-on.
 
-Navigate to **Configuration** -> **Integrations** page after starting this
+Navigate to **Settings** -> **Devices & Services** -> **Integrations** page after starting this
 add-on to configure the deCONZ integration.
 
 In case you don't have `discovery` enabled on your Home Assistant instance,
@@ -232,7 +232,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [manual-upgrade]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually
 [reddit]: https://reddit.com/r/homeassistant
 [vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/

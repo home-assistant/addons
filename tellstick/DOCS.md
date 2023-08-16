@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "TellStick" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -161,7 +161,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [conf]: http://developer.telldus.com/wiki/TellStick_conf
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [protocol-list]: http://developer.telldus.com/wiki/TellStick_conf
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository

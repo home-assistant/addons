@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.6.0
+
+- Update base image to Alpine 3.17
+- Migrate old style S6 Overlay service scripts to new `s6-rc.d` style
+- Add Docker healthchecks
+
+## 5.5.1
+
+- Fix Home Assistant wheels path
+
+## 5.5.0
+
+- Update base image to Alpine 3.16
+  - Bumps `git` to 2.36.3
+  - Bumps `ssh` to OpenSSH_9.0p1
+  - Bumps `python3` to 3.10.9
+
 ## 5.4.2
 
 - Bugfix: Fix page load with special characters in states

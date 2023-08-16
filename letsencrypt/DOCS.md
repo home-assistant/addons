@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "letsencrypt" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -60,6 +60,8 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 google_creds: ''
+google_domains_access_token: ''
+google_domains_zone: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
@@ -89,6 +91,9 @@ gandi_api_key: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+inwx_username: ''
+inwx_password: ''
+inwx_shared_secret: ''
 ```
 
 ## Advanced
@@ -182,7 +187,7 @@ on the DNS zone to be used for authentication.
 </details>
 
 <details>
-  <summary>Google DNS challenge</summary>
+  <summary>Google Cloud DNS challenge</summary>
 
   ```yaml
   email: your.email@example.com
@@ -204,6 +209,30 @@ on the DNS zone to be used for authentication.
   You can find additional information regarding the required permissions in the "credentials" section here:
 
   <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
+
+</details>
+
+<details>
+  <summary>Google Domains DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - subdomain.home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-google-domains
+    google_domains_access_token: XXXX
+    google_domains_zone: home-assistant.io
+  ```
+
+  To obtain the ACME DNS API token follow the instructions here:
+
+  <https://support.google.com/domains/answer/7630973#acme_dns>
+
+  The optional `google_domains_zone` option specifies the domain name registered with Google Domains.  If not specified, it is guessed based on the public suffix list.
 
 </details>
 
@@ -413,23 +442,19 @@ on the DNS zone to be used for authentication.
   You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
   
   ```
-  $ dnssec-keygen -a HMAC-SHA512 -b 512 -n HOST letsencrypt
-  Kletsencrypt.+165+20675
+  $ tsig-keygen -a hmac-sha512 letsencrypt
+  key "letsencrypt" {
+	  algorithm hmac-sha512;
+  	secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
+  };
   ```
   
-  The key file (Kletsencrypt.+165+20675.key in this example) looks like the following:
-  
-  ```
-  $ cat Kletsencrypt.+165+20675.key
-  letsencrypt. IN KEY 512 3 165 Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==
-  
-  ```
   You don't need to publish this; just copy the key data into your named.conf file:
   ```
   
   key "letsencrypt" {
     algorithm hmac-sha512;
-    secret "Cj2SJThIYZqZO39HIOA8dYryzsLT3CI+m43m3yfGfTMvpyYw5DXjn5da hokrwyLe3MTboGkloKIsT6DUcTSdEA==";
+    secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
   
   ```
@@ -463,6 +488,30 @@ on the DNS zone to be used for authentication.
   
 </details>
 
+<details>
+  <summary>INWX</summary>
+
+  Use the user for the dyndns service, not the normal user.
+  The shared secret is the 2FA code, it must be the same length as the example.
+  To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
+  Without 2FA leave the example key.
+
+  Example configuration:
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-inwx
+    inwx_username: user
+    inwx_password: password
+    inwx_shared_secret: ABCDEFGHIJKLMNOPQRSTUVWXYZ012345
+  ```
+
+</details>
 
 ## Certificate files
 
@@ -495,6 +544,7 @@ dns-sakuracloud
 dns-netcup
 dns-gandi
 dns-transip
+dns-inwx
 ```
 
 ## Support
@@ -512,6 +562,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [certbot]: https://certbot.eff.org
 [reddit]: https://reddit.com/r/homeassistant

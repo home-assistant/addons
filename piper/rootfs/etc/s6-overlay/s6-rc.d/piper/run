@@ -1,0 +1,16 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Start Piper service
+# ==============================================================================
+exec python3 -m wyoming_piper \
+    --piper '/usr/share/piper/piper' \
+    --uri 'tcp://0.0.0.0:10200' \
+    --length-scale "$(bashio::config 'length_scale')" \
+    --noise-scale "$(bashio::config 'noise_scale')" \
+    --noise-w "$(bashio::config 'noise_w')" \
+    --speaker "$(bashio::config 'speaker')" \
+    --voice "$(bashio::config 'voice')" \
+    --max-piper-procs "$(bashio::config 'max_piper_procs')" \
+    --data-dir /data \
+    --download-dir /data

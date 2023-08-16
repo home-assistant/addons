@@ -18,6 +18,7 @@ serial port (like the module on Yellow or most USB based wireless adapters).
 Once the firmware is loaded follow the following steps:
 
 1. Select the correct `device` in the add-on configuration tab and press `Save`.
+   On Home Assistant Yellow use `/dev/ttyAMA1`.
 2. Start the add-on.
 
 **NOTE:** the Web frontend is only accessible when OpenThread is enabled (see below).
@@ -38,17 +39,23 @@ To use Zigbee with ZHA configure the Integration as follows:
 ### OpenThread
 
 At this point OpenThread support is experimental. This add-on makes your Home
-Assistant installation an OpenThread BorderRouter (OTBR). There is no integration
-in Home Assistant Core at this point.
+Assistant installation an OpenThread Border Router (OTBR). A basic integration
+for Home Assistant Core named `otbr` is currently in the making.
 
-To use the OTBR enable it in the Configuration tab and restart the add-on. With
-that you will be able to access the OTBR web frontend. When joining or forming a
-network make sure to use the same IEEE 802.15.4 channel for both OpenThread and
-Zigbee, and *different* PAN IDs. This limitations stem from the fact that a single
-radio is used.
+To use the OTBR enable it in the Configuration tab and restart the add-on. Home
+Assistant should discover the OpenThread border router automatically and
+configure it as necessary.
 
-Follow the guides at [openthread.io](https://openthread.io), e.g. the [OpenThread
-Commissioner](https://openthread.io/guides/commissioner) guide.
+### Web interface (advanced)
+
+There is also a web interface provided by the OTBR. However, the web
+interface has caveats (e.g. forming a network does not generate an off-mesh
+routable IPv6 prefix which causes changing IPv6 addressing on first add-on
+restart). It is still possible to enable the web interface for debugging
+purpose. Make sure to expose both the Web UI port and REST API port (the
+latter needs to be on port 8081) on the host interface. To do so, click on
+"Show disabled ports" and enter a port (e.g. 8080) in the OpenThread Web UI
+and 8081 in the OpenThread REST API port field).
 
 ### Automatic firmware upgrade
 
@@ -82,7 +89,7 @@ Add-on configuration:
 The add-on runs several service internally. This architecture diagram shows what
 the add-on currently implements.
 
-![Silicon Labs Multiprotocol Add-on Architecture](images/architecture.png)
+![Silicon Labs Multiprotocol Add-on Architecture](https://raw.githubusercontent.com/home-assistant/addons/master/silabs-multiprotocol/images/architecture.png)
 
 ## Support
 

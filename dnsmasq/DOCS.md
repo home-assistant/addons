@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "Dnsmasq" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -38,6 +38,7 @@ services:
     port: 389
     priority: 0
     weight: 100
+log_queries: false
 ```
 
 ### Option: `defaults` (required)
@@ -118,6 +119,10 @@ The name to resolve.
 
 The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
 
+### Option: `log_queries` (required) 
+
+Log all DNS requests. Defaults to `false`.
+
 ## Support
 
 Got questions?
@@ -132,6 +137,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository

@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.20.0
+
+- Bump deCONZ to 2.22.2
+
+## 6.19.0
+
+- Bump deCONZ to 2.21.2
+
+## 6.18.0
+
+- Bump deCONZ to 2.20.1
+ 
 ## 6.17.1
 
 - Bump deCONZ to 2.19.3

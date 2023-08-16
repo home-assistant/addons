@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "Samba share" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -43,7 +43,9 @@ allow_hosts:
   - 10.0.0.0/8
   - 172.16.0.0/12
   - 192.168.0.0/16
+  - 169.254.0.0/16
   - fe80::/10
+  - fc00::/7
 veto_files:
   - "._*"
   - ".DS_Store"
@@ -96,6 +98,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository

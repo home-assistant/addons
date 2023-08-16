@@ -9,10 +9,13 @@ ARG \
     CERTBOT_DNS_AZURE_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
+    CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
-    CERTBOT_DNS_TRANSIP_VERSION
+    CERTBOT_DNS_TRANSIP_VERSION \
+    CERTBOT_DNS_INWX_VERSION \
+    ACME_VERSION
 
 RUN \
     set -x \
@@ -39,6 +42,7 @@ RUN \
         certbot-dns-dnsmadeeasy==${CERTBOT_VERSION} \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
+        certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
@@ -51,6 +55,8 @@ RUN \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
+        certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
+        acme==${ACME_VERSION} \
     && apk del .build-dependencies
 
 # Copy data

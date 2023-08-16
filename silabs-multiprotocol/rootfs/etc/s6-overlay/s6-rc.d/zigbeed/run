@@ -14,6 +14,6 @@ if ! bashio::var.has_value "${ezsp_listen_port}"; then
 fi
 
 bashio::log.info "Starting zigbeed..."
-exec /usr/local/bin/zigbeed --radio-url "spinel+cpc://cpcd_0?iid=1" \
+exec /usr/local/bin/zigbeed --radio-url "spinel+cpc://cpcd_0?iid=1&iid-list=0" \
                            --ezsp-listen ${ezsp_listen} \
                            --ezsp-listen-port ${ezsp_listen_port}

@@ -19,7 +19,8 @@ configuration:
   cafile:
     name: CA File
     description: >-
-      A file containing a root certificate that signed the client certificate (Only used if 'require_certificate' enabled). Place this file in the Home
+      A file containing a root certificate that signed the client certificate
+      (only used if 'require_certificate' enabled). Place this file in the Home
       Assistant `ssl` folder.
   keyfile:
     name: Private Key File

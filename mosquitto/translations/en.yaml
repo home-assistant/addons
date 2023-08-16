@@ -9,7 +9,7 @@ configuration:
   require_certificate:
     name: Require Client Certificate
     description: >-
-      If enabled client will need to provide it's own certificate on top of
+      If enabled client will need to provide its own certificate on top of
       username/password. 'cafile' must be set.
   certfile:
     name: Certificate File

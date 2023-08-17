@@ -3,7 +3,16 @@
 # ==============================================================================
 # Start Piper service
 # ==============================================================================
-exec python3 -m wyoming_piper \
+flags=()
+if bashio::config.true 'update_voices'; then
+    flags+=('--update-voices')
+fi
+
+if bashio::config.true 'debug_logging'; then
+    flags+=('--debug')
+fi
+
+exec /usr/src/.venv/bin/python3 -m wyoming_piper \
     --piper '/usr/share/piper/piper' \
     --uri 'tcp://0.0.0.0:10200' \
     --length-scale "$(bashio::config 'length_scale')" \
@@ -13,4 +22,4 @@ exec python3 -m wyoming_piper \
     --voice "$(bashio::config 'voice')" \
     --max-piper-procs "$(bashio::config 'max_piper_procs')" \
     --data-dir /data \
-    --download-dir /data
+    --download-dir /data ${flags[@]}

@@ -12,14 +12,16 @@ ARG PIPER_RELEASE
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        netcat \
+        netcat-traditional \
         python3 \
         python3-pip \
+        python3-venv \
     \
-    && pip3 install --no-cache-dir -U \
+    && python3 -m venv .venv \
+    && .venv/bin/pip3 install --no-cache-dir -U \
         setuptools \
         wheel \
-    && pip3 install --no-cache-dir \
+    && .venv/bin/pip3 install --no-cache-dir \
         "wyoming-piper==${PIPER_LIB_VERSION}" \
     \
     && ARCH="${BUILD_ARCH}" \

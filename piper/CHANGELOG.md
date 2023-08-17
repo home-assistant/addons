@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.1.0
+## 1.3.0
+
+- Add voices for Hungarian, Turkish, Portuguese, Slovak, and Czech
+- Add `upgrade_voices` and `debug_logging` options
+- Upgrade to Debian bookworm
+
+## 1.2.0
 
 - Upgrade to Piper 1.2
 - Add over 30 new voices

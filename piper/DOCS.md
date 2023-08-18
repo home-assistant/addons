@@ -71,7 +71,7 @@ Increase `max_piper_procs` if you need to quickly switch between multiple voices
 
 ### Option: `update_voices`
 
-Download list of new voices automatically every time the add-on starts. You will also need to reload the wyoming integration for Piper in Home Assistant to see new voices.
+Download the list of new voices automatically every time the add-on starts. You must also reload the Wyoming integration for Piper in Home Assistant to see new voices.
 
 ### Option: `debug_logging`
 

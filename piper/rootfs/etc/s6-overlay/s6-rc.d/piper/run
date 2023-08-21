@@ -22,4 +22,5 @@ exec python3 -m wyoming_piper \
     --voice "$(bashio::config 'voice')" \
     --max-piper-procs "$(bashio::config 'max_piper_procs')" \
     --data-dir /data \
+    --data-dir /share/piper \
     --download-dir /data ${flags[@]}

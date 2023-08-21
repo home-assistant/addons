@@ -77,6 +77,11 @@ Download the list of new voices automatically every time the add-on starts. You 
 
 Print DEBUG level messages to the add-on's log.
 
+## Custom Voices
+
+Add custom voice files to the `/share/piper` directory. Each custom voice must include a model file (`<voice>.onnx`) and config file (`<voice>.onnx.json`).
+See the [training guide](https://github.com/rhasspy/piper/blob/master/TRAINING.md) for details on how to train and export a custom voice.
+
 ## Support
 
 Got questions?

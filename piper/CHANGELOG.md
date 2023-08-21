@@ -3,6 +3,7 @@
 ## 1.3.0
 
 - Add voices for Hungarian, Turkish, Portuguese, Slovak, and Czech
+- Look for custom voices in `/share/piper`
 - Add `upgrade_voices` and `debug_logging` options
 - Upgrade to Debian bookworm
 

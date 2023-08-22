@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.0
+## 1.3.2
 
 - Add voices for Hungarian, Turkish, Portuguese, Slovak, and Czech
 - Look for custom voices in `/share/piper`

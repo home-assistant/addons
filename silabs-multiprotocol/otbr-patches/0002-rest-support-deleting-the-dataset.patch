@@ -1,7 +1,7 @@
-From 303ce77ee531b09057e2994aa52b03eb30ad133e Mon Sep 17 00:00:00 2001
-Message-ID: <303ce77ee531b09057e2994aa52b03eb30ad133e.1689663214.git.stefan@agner.ch>
-In-Reply-To: <2e3653d9966a55355a8706b94ff47873677f6264.1689663214.git.stefan@agner.ch>
-References: <2e3653d9966a55355a8706b94ff47873677f6264.1689663214.git.stefan@agner.ch>
+From ab31af226c8d4ad1f46d03616e68a80f2a04a35e Mon Sep 17 00:00:00 2001
+Message-ID: <ab31af226c8d4ad1f46d03616e68a80f2a04a35e.1691047014.git.stefan@agner.ch>
+In-Reply-To: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+References: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 23:41:50 +0200
 Subject: [PATCH] [rest] support deleting the dataset
@@ -58,10 +58,10 @@ index 2ba2a4dd56..2edc4af29a 100644
    schemas:
      LeaderData:
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index e78a647ae8..04d0b1654a 100644
+index a60e9d9483..829835341a 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
-@@ -769,12 +769,47 @@ exit:
+@@ -767,12 +767,47 @@ exit:
      }
  }
  
@@ -110,10 +110,10 @@ index e78a647ae8..04d0b1654a 100644
          GetDataset(aDatasetType, aRequest, aResponse);
          break;
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index dbdb24c90c..7d5e691317 100644
+index d79085dbfc..362e501471 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
-@@ -148,6 +148,7 @@ private:
+@@ -150,6 +150,7 @@ private:
      void GetDataRloc(Response &aResponse) const;
      void GetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
      void SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;

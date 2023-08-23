@@ -2,7 +2,7 @@
 
 ## 6.3.0
 
-- Update mosquitto to 2.0.16
+- Update mosquitto to 2.0.17
 
 ## 6.2.1
 

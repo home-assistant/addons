@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2
+
+- Update mDNSResponder to 1790.80.10
+
 ## 2.3.1
 
 - Update firmare for Home Assistant SkyConnect and Yellow to the latest version

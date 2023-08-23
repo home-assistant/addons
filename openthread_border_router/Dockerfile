@@ -19,6 +19,8 @@ ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0001-rest-support-deleting-the-dataset.patch /usr/src
+COPY 0002-mdns-update-mDNSResponder-to-1790.80.10.patch /usr/src
+COPY 0003-mdns-add-Linux-specific-patches.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -54,6 +56,8 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && patch -p1 < /usr/src/0001-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0002-mdns-update-mDNSResponder-to-1790.80.10.patch \
+    && patch -p1 < /usr/src/0003-mdns-add-Linux-specific-patches.patch \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \
     # Mimic otbr_install \

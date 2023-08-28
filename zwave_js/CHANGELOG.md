@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.1.88
+
+### Features
+
+Z-Wave JS: Applications can now report on controller status
+Z-Wave JS Server: Added support for controller identify event
+
+### Bug fixes
+
+- Z-Wave JS: Fixed a regression from v11.10.1 where the controller's firmware version was not fully queried
+- Z-Wave JS: Change order of commands so the startup does not fail when a controller is already set to use 16-bit node IDs and soft-reset is disabled
+- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers 
+- Z-Wave JS: Queried user codes and their status are now preserved during re-interview when they won't be re-queried automatically
+- Z-Wave JS: Fixed an issue where nodes were being marked as dead because the controller couldn't transmit.
+- Z-Wave JS: Fixed an issue where 700 series controllers were not soft-reset after NVM backup when soft-reset was disabled via config
+- Z-Wave JS: Discard Meter CC and Multilevel Sensor CC reports when the node they supposedly come from does not support them
+- Z-Wave JS: Abort inclusion when a node with the same ID is already part of the network
+
+### Config file changes
+
+- Disable Supervision for Kwikset HC620 to work around a device bug causing it to flood the network
+- Add fingerprint for Ring Outdoor Contact Sensor
+- Remove unnecessary endpoint functionality for CT100
+- Correct reporting frequency parameter values for Sensative AB Strips Comfort / Drips Multisensor
+
+### Detailed changelogs
+- [Bump Z-Wave JS Server to 1.31.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.31.0)
+- [Bump Z-Wave JS to 11.11.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.11.0)
+- [Bump Z-Wave JS to 11.12.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.12.0)
+- [Bump Z-Wave JS to 11.13.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.13.0)
+
 ## 0.1.87
 
 ### Bug fixes

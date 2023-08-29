@@ -17,6 +17,9 @@ Z-Wave JS Server: Added support for controller identify event
 - Z-Wave JS: Fixed an issue where 700 series controllers were not soft-reset after NVM backup when soft-reset was disabled via config
 - Z-Wave JS: Discard Meter CC and Multilevel Sensor CC reports when the node they supposedly come from does not support them
 - Z-Wave JS: Abort inclusion when a node with the same ID is already part of the network
+- Z-Wave JS: Fixed a startup crash that happens when the controller returns an empty list of nodes
+- Z-Wave JS: Fixed an issue where API calls would be rejected early or incorrectly resolved while the driver was still retrying a command to an unresponsive node
+- Z-Wave JS: Fixed an issue where the controller would be considered jammed if it responds with a Fail status, even after transmitting
 
 ### Config file changes
 
@@ -30,6 +33,7 @@ Z-Wave JS Server: Added support for controller identify event
 - [Bump Z-Wave JS to 11.11.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.11.0)
 - [Bump Z-Wave JS to 11.12.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.12.0)
 - [Bump Z-Wave JS to 11.13.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.13.0)
+- [Bump Z-Wave JS to 11.13.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.13.1)
 
 ## 0.1.87
 

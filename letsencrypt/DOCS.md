@@ -1,48 +1,78 @@
-# Home Assistant Add-on: Letsencrypt
+
+# Home Assistant Add-on: Let's Encrypt
+
+Additional Let's Encrypt setup instructions can be [found here](https://www.home-assistant.io/blog/2015/12/13/setup-encryption-using-lets-encrypt/).
 
 ## Installation
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "letsencrypt" add-on and click it.
-3. Click on the "INSTALL" button.
+1. Navigate in your Home Assistant frontend to **Settings** → **Add-ons** → **Add-on store**.
+2. Find the **Let's Encrypt** add-on and click it.
+3. Click on the **Install** button.
 
 ## How to use
 
-To use this add-on, you have two options on how to get your certificate:
+**Provide the required configuration:**
+- **Domain**
+	- The domain (or usually subdomain) that you want the SSL certificate for.
+- **Email**
+	- The email address that Let's Encrypt will use to register your SSL certificate.
+- **Private Key File**
+	- Keep this the same unless you just want to change it.
+- **Certificate File**
+	- Keep this the same unless you just want to change it.
+- **Challenge**
+	- To use this add-on, you have two options on how to validate your domain:
+		1. **HTTP challenge**
+			- Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address. This means you have to configure port forwarding. Note that most residential ISPs do NOT allow access to port 80 on your network. If you have a business account with your ISP they may allow it.
+			- Doesn’t allow wildcard certificates (*.yourdomain.com).
+			- Although this method sounds easier at first, it probably won't work if you're on a residential connection. When you're sure you have a port open, you can verify port connectivity with a site like [PortChecker.co](https://portchecker.co/).
+		2. **DNS challenge**
+			- Requires you to use one of the supported DNS providers.
+			- Allows to request wildcard certificates (*.yourdomain.com).
+			- Home Assistant does not need to be publicly accessible - no need to configure port forwarding.
+			- Take a few minutes longer but is probably the best choice.
 
-### 1. HTTP challenge
 
-- Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
-- Doesn’t allow wildcard certificates (*.yourdomain.com).
+If you choose **dns** as the **Challenge**, you will need to fill in the DNS section. These entries would be the same as in your config under the `dns:` line. You will need to specify the provider exactly as it appears on the list of **Supported DNS Providers** and the associated credential key/value (such as API key /secret).
 
-### 2. DNS challenge
+**Example using Cloudflare w/token:**
 
-- Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
-- Allows to request wildcard certificates (*.yourdomain.com)
-- Doesn’t need you to open a port to your Home Assistant host on your router.
+![Example DNS](https://github-production-user-asset-6210df.s3.amazonaws.com/49938263/264420168-307d9fb3-f9f8-455c-bc2d-4b66b8b05e7b.png)
 
-### You always need to provide the following entries within the configuration
+## Supported DNS Providers
 
-```yaml
-email: your@email.com
-domains:
-  # use "*.yourdomain.com" for wildcard certificates.
-  - yourdomain.com
-challenge: http OR dns
-```
+Find your DNS provider and use the value as shown below as the value for `provider:` in the **DNS** textarea.
 
-IF you choose `dns` as `challenge`, you will also need to fill:
+You can see example configurations below.
 
-```yaml
-# Add the dnsprovider of your choice from the list of "Supported DNS providers" below
-dns:
-  provider: ""
+```txt
+dns-azure
+dns-cloudflare
+dns-cloudxns
+dns-digitalocean
+dns-directadmin
+dns-dnsimple
+dns-dnsmadeeasy
+dns-gehirn
+dns-google
+dns-hetzner
+dns-linode
+dns-luadns
+dns-njalla
+dns-nsone
+dns-ovh
+dns-rfc2136
+dns-route53
+dns-sakuracloud
+dns-netcup
+dns-gandi
+dns-transip
+dns-inwx
 ```
 
 In addition add the fields according to the credentials required by your DNS provider:
-
 
 ```yaml
 propagation_seconds: 60
@@ -96,30 +126,27 @@ inwx_password: ''
 inwx_shared_secret: ''
 ```
 
-## Advanced
-
-<details>
-  <summary>Changing the ACME Server</summary>
-
-  By default, The addon uses Let’s Encrypt’s default server at https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
-
-  ```yaml
-  acme_server: 'https://my.custom-acme-server.com'
-  ```
-
-  If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
-  ```yaml
-  acme_server: 'https://my.custom-acme-server.com'
-  acme_root_ca_cert: |
-    -----BEGIN CERTIFICATE-----
-    MccBfTCCASugAwIBAgIRAPPIPTKNBXkBozsoE46UPZcwCGYIKoZIzj0EAwIwHTEb...kg==
-    -----END CERTIFICATE-----
-  ```
-
-</details>
-
-
 ## Example Configurations
+
+These are yaml configurations you would make if editing the `configuration.yaml` file. **You do not need to do this if you are using the Let's Encrypt add-on through the web interface** as it saves the information within the addon itself. If you're reading the information below to get DNS examples, just use the data below the `dns:` line.
+
+For example, **do not use this in the DNS textarea** of the add-on:
+```
+  dns:
+    provider: dns-route53
+    aws_access_key_id: 0123456789ABCDEF0123
+    aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
+```
+Instead **use this in the DNS text area** of the add-on:
+```
+    provider: dns-route53
+    aws_access_key_id: 0123456789ABCDEF0123
+    aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
+```
+
+Whatever is underneath `dns:` is what you want.
+
+As mentioned, if you are editing the `configuration.yaml` file directly or doing something outside of the add-on web interface itself, you may need the full information below.
 
 <details>
   <summary>HTTP challenge</summary>
@@ -170,16 +197,9 @@ dns:
   azure_config: azure.txt
 ```
 
-Please copy your credentials file "azure.txt" into the "share" shared folder
-on the Home Assistant host before starting the service. One way is to use the
-"Samba" add on to make the folder available via network or SSH Add-on. You
-can find information on the required file format in the [documentation][certbot-dns-azure-conf]
-for the Certbot Azure plugin.
+Please copy your credentials file `azure.txt` into the `share` shared folder on the Home Assistant host before starting the service. One way is to use the "Samba" add on to make the folder available via network or SSH Add-on. You can find information on the required file format in the [documentation] certbot-dns-azure-conf] for the Certbot Azure plugin.
 
-To use this plugin, [create an Azure Active Directory app registration][aad-appreg]
-and service principal; add a client secret; and create a credentials file
-using the above directions. Grant the app registration DNS Zone Contributor
-on the DNS zone to be used for authentication.
+To use this plugin, [create an Azure Active Directory app registration][aad-appreg] and service principal; add a client secret; and create a credentials file using the above directions. Grant the app registration DNS Zone Contributor on the DNS zone to be used for authentication.
 
 [aad-appreg]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal
 [certbot-dns-azure-conf]: https://certbot-dns-azure.readthedocs.io/en/latest/#configuration
@@ -285,10 +305,9 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>CloudFlare</summary>
 
-  Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
+Previously, Cloudflare’s "Global API Key" was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, **meaning it could cause *a lot* of damage if leaked**.
 
-  Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
-  The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
+  Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option. The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
 
   Example credentials file using restricted API Token (recommended):
   ```yaml
@@ -513,39 +532,68 @@ on the DNS zone to be used for authentication.
 
 </details>
 
-## Certificate files
+## Certificate Files
 
-The certificate files will be available within the "ssl" share after successful request of the certificates.
+The certificate files will be available within the `/ssl` share after successful request of the certificates. By default other addons are referring to the correct path of the certificates. Note that the `Let's Encrypt` log files may tell you that the certificate files are located under `/data/letsencrypt/live/` but that is NOT true. They are under the `/ssl` directory.
 
-By default other addons are referring to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share.
+After clicking **Save** on the configuration, go back to the **Info** tab and click **Start**. That will engage Certbot and start requesting the certificate. You can view the status under the **Log** tab.
 
-## Supported DNS providers
+## Configuration
 
-```txt
-dns-azure
-dns-cloudflare
-dns-cloudxns
-dns-digitalocean
-dns-directadmin
-dns-dnsimple
-dns-dnsmadeeasy
-dns-gehirn
-dns-google
-dns-hetzner
-dns-linode
-dns-luadns
-dns-njalla
-dns-nsone
-dns-ovh
-dns-rfc2136
-dns-route53
-dns-sakuracloud
-dns-netcup
-dns-gandi
-dns-transip
-dns-inwx
+Once the certificates are created, you will need to adjust the HTTP section of your `configuration.yaml` file. The easiest way to adjust the configuration file is by installing the **Studio Code Server** add-on. Then you can just click the button on the left side of Home Assistant, make your changes, press Ctrl+S, and you're done!
+
+Here is the minimum configuration required in order for SSL certificates to work properly:
+
 ```
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+```
+
+You may want to change additional settings, but the two above are required for SSL certificates to work correctly.
+
+[Full HTTP section documentation](https://www.home-assistant.io/integrations/http/)
+
+## Final Steps
+
+Go to **Settings** → **System** → **power button** (top right) → **Restart Home Assistant**.
+
+After a few minutes your system should now be up and you can connect to `https://subdomain.domain.com:8123`.
+
+If you want to confirm that port forwarding is working correctly, use a site like [PortChecker.co](https://portchecker.co/) to confirm connectivity. On your own computer, [pping](https://codingfreaks.de/pping/) is a great little tool that can "ping" a port. It quickly checks for connectivity to a port.
+
+Done!
+
+# Troubleshooting
+
+If PortChecker says your HA port is open, but you cannot connect from within your own network, keep in mind that a lot of basic routers won't let you access your public IP address from within your own local network. For instance, if you've set up port forwarding on your router to send traffic on port 8123 to your Home Assistant at local IP 192.168.1.150, trying to connect to your public IP (say, 1.2.3.4) from another local device (like one at 192.168.1.140) might not work. **This is because most routers only handle port forwarding for incoming traffic from the internet, not from within your home network.**
+
+If you run into this problem, you have a few options:
+- Some routers can get around this if you turn on or configure a feature called "hairpin NAT" or "NAT loopback". Look up how to enable that. It basically tells your router to allow accessing your public IP from a private IP address.
+- The simplest fix is usually to set up what's called "split DNS". Depending on your DNS setup, this makes it so when you're at home, your subdomain directs to your local IP, but when you're out and about, it'll point to your public IP.
+- You can edit your computer's hosts file with the IP and subdomain of HA, but that's not usually the recommended approach. 😊
+
+## Advanced Configuration
+
+<details>
+  <summary>Changing the ACME Server</summary>
+
+  By default, The addon uses Let’s Encrypt’s default server at https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+
+  ```yaml
+  acme_server: 'https://my.custom-acme-server.com'
+  ```
+
+  If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
+  ```yaml
+  acme_server: 'https://my.custom-acme-server.com'
+  acme_root_ca_cert: |
+    -----BEGIN CERTIFICATE-----
+    MccBfTCCASugAwIBAgIRAPPIPTKNBXkBozsoE46UPZcwCGYIKoZIzj0EAwIwHTEb...kg==
+    -----END CERTIFICATE-----
+  ```
+
+</details>
 
 ## Support
 

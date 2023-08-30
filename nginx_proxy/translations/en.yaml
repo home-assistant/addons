@@ -27,3 +27,6 @@ configuration:
 network:
   443/tcp: HTTPS (SSL) Port
   80/tcp: HTTP (non-SSL) Port
+  8443/tcp: Alternative HTTPS (SSL) Port
+  8080/tcp: Alternative HTTP (non-SSL) Port
+  

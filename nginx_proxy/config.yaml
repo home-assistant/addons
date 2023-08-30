@@ -1,5 +1,5 @@
 ---
-version: 3.5.0
+version: 3.5.1
 hassio_api: true
 slug: nginx_proxy
 name: NGINX Home Assistant SSL proxy
@@ -29,6 +29,8 @@ options:
 ports:
   443/tcp: 443
   80/tcp: null
+  8443/tcp: null
+  8080/tcp: null
 schema:
   domain: str
   hsts: str

@@ -27,5 +27,21 @@ configuration:
       Controls the variability of speaking cadence (phoneme widths). The effect
       highly depends on the voice itself, but in general a value of 0 removes
       variability and values above 1 produce extreme stutters and pauses.
+  max_piper_procs:
+    name: Maximum Piper processes
+    description: >-
+      Number of Piper processes to run simultaneously (default is 1). Increase
+      if you need to quickly switch between multiple voices, but beware that
+      this will increase RAM usage by the add-on.
+  update_voices:
+    name: Update voices
+    description: >-
+      Download the list of new voices automatically every time the add-on
+      starts.  You must also reload the Wyoming integration for Piper in Home
+      Assistant to see new voices.
+  debug_logging:
+    name: Debug logging
+    description: >-
+      Print DEBUG level messages to the add-on's log.
 network:
   10200/tcp: Piper Wyoming Protocol

@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.3.2
+
+- Bump to OTBR POSIX version 9e50efa8de (2023-08-23 21:28:30 -0700)
+  This updates mDNSResponder to 1790.80.10
+
+## 2.3.1
+
+- Update firmare for Home Assistant SkyConnect and Yellow to the latest version
+  built from Gecko SDK v4.3.1.0.
+
+## 2.3.0
+
+- Bump to OTBR POSIX version 8d12b242db (2023-07-13 20:00:34 +0200)
+  This update includes the new REST API to reset the OTBR
+- Bump universal SiLabs flasher to 0.0.13
+- Use add-on hostname to connect to OTBR REST API
+
 ## 2.2.0
 
 - Update firmare for Home Assistant SkyConnect and Yellow to the latest version

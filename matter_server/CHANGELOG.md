@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.9.0
+
+- Bump Python Matter Server to [3.7.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.7.0)
+
+## 4.8.3
+
+- Bump Python Matter Server to [3.6.4](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.4)
+
 ## 4.8.2
 
 - Bump Python Matter Server to [3.6.3](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.3)

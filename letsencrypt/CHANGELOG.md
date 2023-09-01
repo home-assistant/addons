@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.10
+
+- Add ECDSA option.
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

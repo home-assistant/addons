@@ -201,13 +201,16 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 </details>
 
 <details>
-  <summary>Changing the key type</summary>
 
-Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys are now the default. These keys utilize a more secure cryptography algorithm, however, they are not supported everywhere yet. For instance, Tasmota does not support MQTTS with an ECDSA key. If your use case does not support ECDSA keys, you can change them with the `keytype` parameter.
+  <summary>Selecting the Key Type</summary>
+
+  By default the RSA key type is used. You can choose to use an ECDSA key instead. 
 
   ```yaml
-  keytype: rsa
-  ``` 
+  key_type: 'ecdsa'
+  ```
+
+  When ECDSA is selected, keys will be generated using the secp384r1 curve.
 
 </details>
 

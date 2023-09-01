@@ -17,10 +17,7 @@ Follow these steps to get the add-on installed on your system:
 
 ## Configuration
 
-Add-on configuration:
-
-```yaml
-```
+Note that automatic discovery is expected when the add-on is being installed, and if that is not the case the user should make sure to remove the Telnet integration and reinstall the add-on.
 
 ## Support
 

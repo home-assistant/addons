@@ -118,6 +118,18 @@ inwx_shared_secret: ''
 
 </details>
 
+<details>
+  <summary>Selecting the Key Type</summary>
+
+  By default the RSA key type is used. You can choose to use an ECDSA key instead. 
+
+  ```yaml
+  key_type: 'ecdsa'
+  ```
+
+  When ECDSA is selected, keys will be generated using the secp384r1 curve.
+
+</details>
 
 ## Example Configurations
 

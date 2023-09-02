@@ -72,13 +72,36 @@ A file containing a root certificate. Place this file in the Home Assistant `ssl
 
 A file containing a certificate, including its chain. Place this file in the Home Assistant `ssl` folder.
 
+**Note on `certfile` and `keyfile`**  
+- If `certfile` and `keyfile` are _not_ provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+- If `certfile` and `keyfile` are provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+  - Encrypted connections are possible on the encrypted ports (default: `8883`, `8884` for websockets) 
+     - In that case, the client must trust the server's certificate
+
 ### Option: `keyfile`
 
 A file containing the private key. Place this file in the Home Assistant `ssl` folder.
 
+**Note on `certfile` and `keyfile`**  
+- If `certfile` and `keyfile` are _not_ provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+- If `certfile` and `keyfile` are provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+  - Encrypted connections are possible on the encrypted ports (default: `8883`, `8884` for websockets) 
+     - In that case, the client must trust the server's certificate
+
 ### Option: `require_certificate`
 
-If set to `true` encryption will be enabled using the cert- and keyfile options.
+If set to `false`:
+- Client is **not required** to provide a certificate to connect, username/password is enough
+- `cafile` option is ignored
+
+If set to `true`:
+- Client is **required** to provide its own certificate to connect, username/password is _not_ enough
+- A certificate authority (CA) must be provided: `cafile` option
+- The client certificate must be signed by the CA provided (`cafile`)
 
 ### Option: `debug`
 

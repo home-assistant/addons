@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.3.0
+
+- Update mosquitto to 2.0.17
+
 ## 6.2.1
 
 - Add explicit dependencies for dynamic security plugin and asynchronous name resolver 

@@ -1,5 +1,97 @@
 # Changelog
 
+## 0.1.88
+
+### Features
+
+Z-Wave JS: Applications can now report on controller status
+Z-Wave JS Server: Added support for controller identify event
+
+### Bug fixes
+
+- Z-Wave JS: Fixed a regression from v11.10.1 where the controller's firmware version was not fully queried
+- Z-Wave JS: Change order of commands so the startup does not fail when a controller is already set to use 16-bit node IDs and soft-reset is disabled
+- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers 
+- Z-Wave JS: Queried user codes and their status are now preserved during re-interview when they won't be re-queried automatically
+- Z-Wave JS: Fixed an issue where nodes were being marked as dead because the controller couldn't transmit.
+- Z-Wave JS: Fixed an issue where 700 series controllers were not soft-reset after NVM backup when soft-reset was disabled via config
+- Z-Wave JS: Discard Meter CC and Multilevel Sensor CC reports when the node they supposedly come from does not support them
+- Z-Wave JS: Abort inclusion when a node with the same ID is already part of the network
+- Z-Wave JS: Fixed a startup crash that happens when the controller returns an empty list of nodes
+- Z-Wave JS: Fixed an issue where API calls would be rejected early or incorrectly resolved while the driver was still retrying a command to an unresponsive node
+- Z-Wave JS: Fixed an issue where the controller would be considered jammed if it responds with a Fail status, even after transmitting
+
+### Config file changes
+
+- Disable Supervision for Kwikset HC620 to work around a device bug causing it to flood the network
+- Add fingerprint for Ring Outdoor Contact Sensor
+- Remove unnecessary endpoint functionality for CT100
+- Correct reporting frequency parameter values for Sensative AB Strips Comfort / Drips Multisensor
+
+### Detailed changelogs
+- [Bump Z-Wave JS Server to 1.31.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.31.0)
+- [Bump Z-Wave JS to 11.11.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.11.0)
+- [Bump Z-Wave JS to 11.12.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.12.0)
+- [Bump Z-Wave JS to 11.13.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.13.0)
+- [Bump Z-Wave JS to 11.13.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.13.1)
+
+## 0.1.87
+
+### Bug fixes
+
+- Z-Wave JS: Fixed a bug where firmware links that redirected to another URL were not supported
+- Z-Wave JS: Change order of commands so the startup does not fail when a controller is already set to use 16-bit node IDs and soft-reset is disabled
+- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers 
+- Z-Wave JS: Queried user codes and their status are now preserved during re-interview when they won't be re-queried automatically
+
+
+### Config file changes
+
+- Add parameters 9-13 to Minoston MP21ZP / MP31ZP
+- Add fingerprint to Yale YRD446-ZW2
+- Add and update Yale Assure ZW3 series locks
+- Remove unnecessary endpoint functionality for CT101
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 11.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.10.0)
+- [Bump Z-Wave JS to 11.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.10.1)
+
+## 0.1.86
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where a delayed endpoint capability report could be associated with the wrong query
+- Z-Wave JS: During NVM migration, some invalid/unexpected bytes in the 500 series NVM can now be corrected
+- Z-Wave JS: Hide configuration values for Door Lock CC v4 functionality that is not supported by a lock
+- Z-Wave JS: When a CC version query times out, the CC version is now actually assumed to be 1
+- Z-Wave JS: Recover from Security S2 collisions in a common scenario where nodes send a supervised command at the same time Z-Wave JS is trying to control them
+- Z-Wave JS: During NVM migration, an incorrect flag for "on other network" is now automatically corrected instead of raising an error
+- Z-Wave JS: Fixed an issue where turning on a Multilevel Switch with transition duration could update the currentValue to an illegal value
+- Z-Wave JS: Improve heuristic to refresh values from legacy nodes when receiving a node information frame
+- Z-Wave JS: Fixed an issue where no control values were exposed for devices that do not support/advertise Version CC
+- Z-Wave JS: Fixed a regression introduced in 11.9.1 that would sometimes cause the startup process to hang
+
+
+### Config file changes
+
+- Add Leviton RZM10-1L
+- Force use of Multi Channel CC v1 for all versions of PE653
+- Correct state after power failure for Minoston MP21Z/31Z
+- Add Namron 4512757
+- Preserve endpoint 0 for Zooz ZEN14 to toggle both outlets at once
+- Correct value size for some Nortek PD300EMZ5-1 params that were previously swapped
+- Add new MCOHome MH-S411/S412 models
+
+### Detailed changelogs
+
+- [Bump Z-Wave JS to 11.7.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.7.0)
+- [Bump Z-Wave JS to 11.8.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.8.0)
+- [Bump Z-Wave JS to 11.8.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.8.1)
+- [Bump Z-Wave JS to 11.9.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.0)
+- [Bump Z-Wave JS to 11.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.1)
+- [Bump Z-Wave JS to 11.9.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.9.2)
+
 ## 0.1.85
 
 ### New features

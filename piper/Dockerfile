@@ -9,10 +9,11 @@ WORKDIR /usr/src
 ARG BUILD_ARCH
 ARG PIPER_LIB_VERSION
 ARG PIPER_RELEASE
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        netcat \
+        netcat-traditional \
         python3 \
         python3-pip \
     \

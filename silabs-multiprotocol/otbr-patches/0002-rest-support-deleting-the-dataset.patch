@@ -1,5 +1,7 @@
-From d9086b843d5da519fca876794d14026b14cc68ae Mon Sep 17 00:00:00 2001
-Message-ID: <d9086b843d5da519fca876794d14026b14cc68ae.1689665371.git.stefan@agner.ch>
+From ab31af226c8d4ad1f46d03616e68a80f2a04a35e Mon Sep 17 00:00:00 2001
+Message-ID: <ab31af226c8d4ad1f46d03616e68a80f2a04a35e.1691047014.git.stefan@agner.ch>
+In-Reply-To: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+References: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 23:41:50 +0200
 Subject: [PATCH] [rest] support deleting the dataset

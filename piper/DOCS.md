@@ -69,6 +69,18 @@ Number of Piper processes to run simultaneously (default is 1). Each Piper proce
 This add-on will start a Piper process for each requested voice up to `max_piper_procs`. After that, the least recently used voice will be stopped.
 Increase `max_piper_procs` if you need to quickly switch between multiple voices, but beware that this will increase RAM usage by the add-on.
 
+### Option: `update_voices`
+
+Download the list of new voices automatically every time the add-on starts. You must also reload the Wyoming integration for Piper in Home Assistant to see new voices.
+
+### Option: `debug_logging`
+
+Print DEBUG level messages to the add-on's log.
+
+## Custom Voices
+
+Add custom voice files to the `/share/piper` directory. Each custom voice must include a model file (`<voice>.onnx`) and config file (`<voice>.onnx.json`).
+See the [training guide](https://github.com/rhasspy/piper/blob/master/TRAINING.md) for details on how to train and export a custom voice.
 
 ## Support
 

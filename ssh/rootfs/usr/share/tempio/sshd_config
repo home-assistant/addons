@@ -24,3 +24,4 @@ PasswordAuthentication yes
 PermitEmptyPasswords no
 {{ end }}
 
+PermitUserEnvironment SUPERVISOR_TOKEN

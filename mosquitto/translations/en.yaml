@@ -7,9 +7,10 @@ configuration:
       don't need to do this because you can use Home Assistant users too,
       without any configuration.
   require_certificate:
-    name: Require Certificate
+    name: Require Client Certificate
     description: >-
-      If enabled encryption will be enabled using the cert- and keyfile options.
+      If enabled client will need to provide its own certificate on top of
+      username/password. 'cafile' must be set.
   certfile:
     name: Certificate File
     description: >-
@@ -18,7 +19,8 @@ configuration:
   cafile:
     name: CA File
     description: >-
-      A file containing a root certificate. Place this file in the Home
+      A file containing a root certificate that signed the client certificate
+      (only used if 'require_certificate' enabled). Place this file in the Home
       Assistant `ssl` folder.
   keyfile:
     name: Private Key File

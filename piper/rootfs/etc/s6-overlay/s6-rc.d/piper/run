@@ -1,0 +1,26 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Start Piper service
+# ==============================================================================
+flags=()
+if bashio::config.true 'update_voices'; then
+    flags+=('--update-voices')
+fi
+
+if bashio::config.true 'debug_logging'; then
+    flags+=('--debug')
+fi
+
+exec python3 -m wyoming_piper \
+    --piper '/usr/share/piper/piper' \
+    --uri 'tcp://0.0.0.0:10200' \
+    --length-scale "$(bashio::config 'length_scale')" \
+    --noise-scale "$(bashio::config 'noise_scale')" \
+    --noise-w "$(bashio::config 'noise_w')" \
+    --speaker "$(bashio::config 'speaker')" \
+    --voice "$(bashio::config 'voice')" \
+    --max-piper-procs "$(bashio::config 'max_piper_procs')" \
+    --data-dir /data \
+    --data-dir /share/piper \
+    --download-dir /data ${flags[@]}

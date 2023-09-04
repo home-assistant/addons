@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "letsencrypt" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -60,6 +60,8 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 google_creds: ''
+google_domains_access_token: ''
+google_domains_zone: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
@@ -185,7 +187,7 @@ on the DNS zone to be used for authentication.
 </details>
 
 <details>
-  <summary>Google DNS challenge</summary>
+  <summary>Google Cloud DNS challenge</summary>
 
   ```yaml
   email: your.email@example.com
@@ -207,6 +209,30 @@ on the DNS zone to be used for authentication.
   You can find additional information regarding the required permissions in the "credentials" section here:
 
   <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
+
+</details>
+
+<details>
+  <summary>Google Domains DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - subdomain.home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-google-domains
+    google_domains_access_token: XXXX
+    google_domains_zone: home-assistant.io
+  ```
+
+  To obtain the ACME DNS API token follow the instructions here:
+
+  <https://support.google.com/domains/answer/7630973#acme_dns>
+
+  The optional `google_domains_zone` option specifies the domain name registered with Google Domains.  If not specified, it is guessed based on the public suffix list.
 
 </details>
 
@@ -536,6 +562,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [certbot]: https://certbot.eff.org
 [reddit]: https://reddit.com/r/homeassistant

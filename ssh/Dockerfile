@@ -43,7 +43,7 @@ RUN \
         -DCMAKE_VERBOSE_MAKEFILE=TRUE \
         -DLWS_IPV6=ON \
         -DLWS_STATIC_PIC=ON \
-        -DLWS_UNIX_SOCK=OFF \
+        -DLWS_UNIX_SOCK=ON \
         -DLWS_WITH_LIBUV=ON \
         -DLWS_WITH_SHARED=ON \
         -DLWS_WITHOUT_TESTAPPS=ON \

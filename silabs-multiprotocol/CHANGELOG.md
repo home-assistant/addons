@@ -1,5 +1,74 @@
 # Changelog
 
+## 2.3.2
+
+- Update mDNSResponder to 1790.80.10
+
+## 2.3.1
+
+- Use Silicon Labs Gecko SDK 4.3.1
+
+## 2.3.0
+
+- Add patch with new REST API to reset the OTBR
+- Bump universal SiLabs flasher to 0.0.13
+
+## 2.2.0
+
+- Use Silicon Labs Gecko SDK 4.3.0
+  - With this we get the OTBR version from May 17th, along with Border Agent ID
+    support (required for Android and iOS APIs)
+- Note: This update needs a new Multi-PAN firmware. Home Assistant SkyConnect and Yellow get automatically updated by this add-on.
+
+## 2.1.0
+
+- Add REST API patches to fix a bugs and support deleting datasets
+
+## 2.0.0
+
+- Update OpenThread REST API to latest upstreamed API variant
+
+## 1.1.3
+
+- Use native zigbeed on x86-64/amd64 architecture
+- Avoid deleting otbr-web user content twice
+
+## 1.1.2
+
+- Use Silicon Labs Gecko SDK 4.2.3
+- Avoid starting mdnsd when OpenThread Border Router is not enabled
+
+## 1.1.1
+
+- Bugfix: bump universal SiLabs flasher to 0.0.12 for amd64
+
+## 1.1.0
+
+- Use default baudrate of 460800 (WARNING: You MUST update your configuration!)
+- Bump universal SiLabs flasher to 0.0.12
+
+## 1.0.2
+
+- Use Silicon Labs Gecko SDK 4.2.2
+
+## 1.0.1
+
+- Use host namespace for hostname (make sure that the BR is announced with the
+  systems real hostname)
+
+## 1.0.0
+
+- Remove Web UI via ingress (expose ports to use the Web UI, see documentation)
+- Change vendor name to "Home Assistant" and product name to Silicon Labs
+  Multiprotocol" (used in OTBR mDNS/DNS-SD announcments)
+
+## 0.13.1
+
+- Set default baudrate 115200 correctly
+- Prevent OTBR discovery service from start when OTBR is disabled
+- Fix REST API to correctly set the Connection HTTP header on amd64
+- Fix network device support (properly start socat if necessary) on amd64
+
 ## 0.13.0
 
 - Use Silicon Labs Gecko SDK 4.2.1

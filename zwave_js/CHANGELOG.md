@@ -1,11 +1,32 @@
 # Changelog
 
+## 0.1.89
+
+### Features
+
+- Z-Wave JS: Optimized the order of node communication during startup to ensure responsive nodes are ready first
+
+### Bug fixes
+
+- Z-Wave JS: The start/stop time and date values in `Schedule Entry Lock` CC commands are now validated
+- Z-Wave JS: Fixed an issue where `hasDeviceConfigChanged` would return the opposite of what it should, triggering repair issues for users on HA version >= 2023.9.0b0.
+
+### Config file changes
+
+- Delay value refresh for ZW500D
+- Update several Zooz devices to their 800 series revisions
+- Extend version range for Vesternet VES-ZW-DIM-001
+
+### Detailed changelogs
+
+- https://github.com/zwave-js/node-zwave-js/releases/tag/v11.14.0
+
 ## 0.1.88
 
 ### Features
 
-Z-Wave JS: Applications can now report on controller status
-Z-Wave JS Server: Added support for controller identify event
+- Z-Wave JS: Applications can now report on controller status
+- Z-Wave JS Server: Added support for controller identify event
 
 ### Bug fixes
 

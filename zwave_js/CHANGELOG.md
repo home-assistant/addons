@@ -19,7 +19,7 @@
 
 ### Detailed changelogs
 
-- https://github.com/zwave-js/node-zwave-js/releases/tag/v11.14.0
+- [Z-Wave JS 11.14.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.14.0)
 
 ## 0.1.88
 

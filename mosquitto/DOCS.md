@@ -54,6 +54,15 @@ logins:
     password: passwd
 ```
 
+You can also optionally set `password` to the output of the `pw` command inside the container to use a pre-hashed password. If doing so, you must also specify `password_pre_hashed: true` alongside the `username` and `password` values:
+
+```yaml
+logins:
+  - username: user
+    password: "PBKDF2$sha512$100000$qsU7xQ8YCV/9nRuBBJVTxA==$jqw94Ej3aEr97UofY6rClmVCRkTdDiubQW0A6ZYmUI+pZjW9Hax+2w2FeYB3y5ut1SliB7+HAwIl2iONLKkohw=="
+    password_pre_hashed: true
+```
+
 #### Option: `customize.active`
 
 If set to `true` additional configuration files will be read, see the next option.

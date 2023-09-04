@@ -49,8 +49,7 @@ for login in $(bashio::config 'logins|keys'); do
   password=$(bashio::config "logins[${login}].password")
 
   bashio::log.info "Setting up user ${username}"
-  if ! { test "$(bashio::string.substring "${password}" 0 14)" == 'PBKDF2$sha512$' \
-      && test "$(bashio::string.length "${password}")" == 134; }
+  if ! bashio::config.true "logins[${login}].password_pre_hashed"
   then
       password=$(pw -p "${password}")
   else

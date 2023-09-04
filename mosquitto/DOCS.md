@@ -54,7 +54,12 @@ logins:
     password: passwd
 ```
 
-You can also optionally set `password` to the output of the `pw` command inside the container to use a pre-hashed password. If doing so, you must also specify `password_pre_hashed: true` alongside the `username` and `password` values:
+You can also optionally set a `password` value using the hashed password obtained from the `pw` command (which is present inside the Mosquitto container). If doing so, you must also specify `password_pre_hashed: true` alongside the `username` and `password` values:
+
+```console
+$ pw -p "foo"
+PBKDF2$sha512$100000$qsU7xQ8YCV/9nRuBBJVTxA==$jqw94Ej3aEr97UofY6rClmVCRkTdDiubQW0A6ZYmUI+pZjW9Hax+2w2FeYB3y5ut1SliB7+HAwIl2iONLKkohw==
+```
 
 ```yaml
 logins:

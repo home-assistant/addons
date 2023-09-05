@@ -25,6 +25,7 @@ options:
   certfile: fullchain.pem
   challenge: http
   dns: {}
+  key_type: ecdsa
 ports:
   80/tcp: 80
 schema:
@@ -101,5 +102,5 @@ schema:
     dreamhost_api_key: str?
     dreamhost_baseurl: str?
   elliptic_curve: "list(secp256r1|secp384r1|secp521r1)?"
-  key_type: "list(rsa|ecdsa)?"
+  key_type: "list(rsa|ecdsa)"
 startup: once

@@ -37,7 +37,7 @@ if bashio::config.exists 'key_type'; then
     KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
 
     if [ "${KEY_TYPE}" == "ecdsa" ]; then
-        if bashio::config.exists 'elliptic_curve'
+        if bashio::config.exists 'elliptic_curve'; then
             ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
             KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
         else

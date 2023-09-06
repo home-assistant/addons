@@ -37,5 +37,11 @@ configuration:
   dns:
     name: DNS
     description: DNS Provider configuration
+  key_type:
+    name: Key Type
+    description: Select the certificate key type.
+  elliptic_curve:
+    name: Elliptic Curve
+    description: Elliptic curve option for ECDSA keys.
 network:
   80/tcp: Only needed for http challenge

@@ -51,7 +51,7 @@ cloudflare: false
 
 ### Option: `domain` (required)
 
-The domain name to use for the proxy.
+The server's fully qualified domain name to use for the proxy.
 
 ### Option: `certfile` (required)
 

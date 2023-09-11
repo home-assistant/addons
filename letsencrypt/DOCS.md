@@ -534,7 +534,7 @@ Previously, Cloudflare’s "Global API Key" was used for authentication, however
 
 ## Certificate Files
 
-The certificate files will be available within the `/ssl` share after successful request of the certificates. By default other addons are referring to the correct path of the certificates. Note that the `Let's Encrypt` log files may tell you that the certificate files are located under `/data/letsencrypt/live/` but that is NOT true. They are under the `/ssl` directory.
+The certificate files will be available within the `/ssl` share after successful request of the certificates. By default other addons are referring to the correct path of the certificates. If you need to see more complete logs then are visible in the UI you can find them in the `/ssl` directory. Or by doing `ha addons logs core_letsencrypt` from the CLI.
 
 After clicking **Save** on the configuration, go back to the **Info** tab and click **Start**. That will engage Certbot and start requesting the certificate. You can view the status under the **Log** tab.
 

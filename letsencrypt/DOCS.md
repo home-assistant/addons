@@ -556,7 +556,7 @@ You may want to change additional settings, but the two above are required for S
 
 ## Final Steps
 
-Go to **Settings** → **System** → **power button** (top right) → **Restart Home Assistant**.
+Go to [Settings → System](https://my.home-assistant.io/redirect/system_dashboard/) → **power button** (top right) → **Restart Home Assistant**.
 
 After a few minutes your system should now be up and you can connect to `https://subdomain.domain.com:8123`.
 

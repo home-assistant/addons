@@ -7,8 +7,8 @@ Additional Let's Encrypt setup instructions can be [found here](https://www.home
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** → **Add-ons** → **Add-on store**.
-2. Find the **Let's Encrypt** add-on and click it.
+1. Navigate in your Home Assistant frontend to [Settings → Add-ons → Add-on store](https://my.home-assistant.io/redirect/supervisor_store/).
+2. Find the [Let's Encrypt](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_letsencrypt) add-on and click it.
 3. Click on the **Install** button.
 
 ## How to use

@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- Z-Wave JS: Fixed an issue causing commands that have previously been moved to the wakeup queue for sleeping nodes would no longer be handled correctly on wakeup and block the send queue for an extended amount of time
+- Z-Wave JS: Fixed an issue causing commands that have previously been moved to the wakeup queue for sleeping nodes to no longer be handled correctly on wakeup and block the send queue for an extended amount of time
 
 ### Detailed changelogs
 

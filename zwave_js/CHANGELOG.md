@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.90
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue causing commands that have previously been moved to the wakeup queue for sleeping nodes would no longer be handled correctly on wakeup and block the send queue for an extended amount of time
+
+### Detailed changelogs
+
+- [Z-Wave JS 11.14.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.14.1)
+- [Z-Wave JS 11.14.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.14.2)
+
 ## 0.1.89
 
 ### Features

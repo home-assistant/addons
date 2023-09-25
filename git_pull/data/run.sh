@@ -20,8 +20,26 @@ REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 ################
 
 #### functions ####
+function log {
+    local level="$2"
+    local message="$2"
+    echo "[$level][$(date '+%Y-%m-%d %H:%M:%S')] $message"
+}
+
+function log_i {
+    log "Info" "$1"
+}
+
+function log_e {
+    log "Error" "$1"
+}
+
+function log_w {
+    log "Warn" "$1"
+}
+
 function add-ssh-key {
-    echo "[Info] Start adding SSH key"
+    log_i "Start adding SSH key"
     mkdir -p ~/.ssh
 
     (
@@ -29,7 +47,7 @@ function add-ssh-key {
         echo "    StrictHostKeyChecking no"
     ) > ~/.ssh/config
 
-    echo "[Info] Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
+    log_i "Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     rm -f "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     while read -r line; do
         echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
@@ -42,7 +60,7 @@ function add-ssh-key {
 function git-clone {
     # create backup
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
-    echo "[Info] Backup configuration to $BACKUP_LOCATION"
+    log_i "Backup configuration to $BACKUP_LOCATION"
 
     mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
     cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
@@ -51,7 +69,7 @@ function git-clone {
     rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
 
     # git clone
-    echo "[Info] Start git clone"
+    log_i "Start git clone"
     git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
 
     # try to copy non yml files back
@@ -63,14 +81,14 @@ function git-clone {
 
 function check-ssh-key {
 if [ -n "$DEPLOYMENT_KEY" ]; then
-    echo "Check SSH connection"
+    log_i "Check SSH connection"
     IFS=':' read -ra GIT_URL_PARTS <<< "$REPOSITORY"
     # shellcheck disable=SC2029
     DOMAIN="${GIT_URL_PARTS[0]}"
     if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || { [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]; }; then
-        echo "[Info] Valid SSH connection for $DOMAIN"
+        log_i "Valid SSH connection for $DOMAIN"
     else
-        echo "[Warn] No valid SSH connection for $DOMAIN"
+        log_w "No valid SSH connection for $DOMAIN"
         add-ssh-key
     fi
 fi
@@ -79,7 +97,7 @@ fi
 function setup-user-password {
 if [ -n "$DEPLOYMENT_USER" ]; then
     cd /config || return
-    echo "[Info] setting up credential.helper for user: ${DEPLOYMENT_USER}"
+    log_i "setting up credential.helper for user: ${DEPLOYMENT_USER}"
     git config --system credential.helper 'store --file=/tmp/git-credentials'
 
     # Extract the hostname from repository
@@ -107,7 +125,7 @@ password=${DEPLOYMENT_PASSWORD}
 "
 
     # Use git commands to write the credentials to ~/.git-credentials
-    echo "[Info] Saving git credentials to /tmp/git-credentials"
+    log_i "Saving git credentials to /tmp/git-credentials"
     # shellcheck disable=SC2259
     git credential fill | git credential approve <<< "$cred_data"
 fi
@@ -117,32 +135,32 @@ function git-synchronize {
     # is /config a local git repo?
     if git rev-parse --is-inside-work-tree &>/dev/null
     then
-        echo "[Info] Local git repository exists"
+        log_i "Local git repository exists"
 
         # Is the local repo set to the correct origin?
         CURRENTGITREMOTEURL=$(git remote get-url --all "$GIT_REMOTE" | head -n 1)
         if [ "$CURRENTGITREMOTEURL" = "$REPOSITORY" ]
         then
-            echo "[Info] Git origin is correctly set to $REPOSITORY"
+            log_i "Git origin is correctly set to $REPOSITORY"
             OLD_COMMIT=$(git rev-parse HEAD)
 
             # Always do a fetch to update repos
-            echo "[Info] Start git fetch..."
+            log_i "Start git fetch..."
             git fetch "$GIT_REMOTE" || { echo "[Error] Git fetch failed"; return 1; }
 
             # Prune if configured
             if [ "$GIT_PRUNE" == "true" ]
             then
-              echo "[Info] Start git prune..."
+              log_i "Start git prune..."
               git prune || { echo "[Error] Git prune failed"; return 1; }
             fi
 
             # Do we switch branches?
             GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             if [ -z "$GIT_BRANCH" ] || [ "$GIT_BRANCH" == "$GIT_CURRENT_BRANCH" ]; then
-              echo "[Info] Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
+              log_i "Staying on currently checked out branch: $GIT_CURRENT_BRANCH..."
             else
-              echo "[Info] Switching branches - start git checkout of branch $GIT_BRANCH..."
+              log_i "Switching branches - start git checkout of branch $GIT_BRANCH..."
               git checkout "$GIT_BRANCH" || { echo "[Error] Git checkout failed"; exit 1; }
               GIT_CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
             fi
@@ -150,15 +168,15 @@ function git-synchronize {
             # Pull or reset depending on user preference
             case "$GIT_COMMAND" in
                 pull)
-                    echo "[Info] Start git pull..."
-                    git pull || { echo "[Error] Git pull failed"; return 1; }
+                    log_i "Start git pull..."
+                    git pull || { log_e "Git pull failed"; return 1; }
                     ;;
                 reset)
-                    echo "[Info] Start git reset..."
-                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { echo "[Error] Git reset failed"; return 1; }
+                    log_i "Start git reset..."
+                    git reset --hard "$GIT_REMOTE"/"$GIT_CURRENT_BRANCH" || { log_e "Git reset failed"; return 1; }
                     ;;
                 *)
-                    echo "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
+                    log_e "Git command is not set correctly. Should be either 'reset' or 'pull'"
                     exit 1
                     ;;
             esac
@@ -167,22 +185,22 @@ function git-synchronize {
         fi
 
     else
-        echo "[Warn] Git repository doesn't exist"
+        log_w "Git repository doesn't exist"
         git-clone
     fi
 }
 
 function validate-config {
-    echo "[Info] Checking if something has changed..."
+    log_i "Checking if something has changed..."
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
-        echo "[Info] Something has changed, checking Home-Assistant config..."
+        log_i "Something has changed, checking Home-Assistant config..."
         if ha --no-progress core check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"
                 CHANGED_FILES=$(git diff "$OLD_COMMIT" "$NEW_COMMIT" --name-only)
-                echo "Changed Files: $CHANGED_FILES"
+                log_i "Changed Files: $CHANGED_FILES"
                 if [ -n "$RESTART_IGNORED_FILES" ]; then
                     for changed_file in $CHANGED_FILES; do
                         restart_required_file=""
@@ -198,33 +216,33 @@ function validate-config {
                         done
                         if [ -z "$restart_required_file" ]; then
                             DO_RESTART="true"
-                            echo "[Info] Detected restart-required file: $changed_file"
+                            log_i "Detected restart-required file: $changed_file"
                         fi
                     done
                 else
                     DO_RESTART="true"
                 fi
                 if [ "$DO_RESTART" == "true" ]; then
-                    echo "[Info] Restart Home-Assistant"
+                    log_i "Restart Home-Assistant"
                     ha --no-progress core restart 2&> /dev/null
                 else
-                    echo "[Info] No Restart Required, only ignored changes detected"
+                    log_i "No Restart Required, only ignored changes detected"
                 fi
             else
-                echo "[Info] Local configuration has changed. Restart required."
+                log_i "Local configuration has changed. Restart required."
             fi
         else
-            echo "[Error] Configuration updated but it does not pass the config check. Do not restart until this is fixed!"
+            log_e "Configuration updated but it does not pass the config check. Do not restart until this is fixed!"
         fi
     else
-        echo "[Info] Nothing has changed."
+        log_i "Nothing has changed."
     fi
 }
 
 ###################
 
 #### Main program ####
-cd /config || { echo "[Error] Failed to cd into /config"; exit 1; }
+cd /config || { log_e "Failed to cd into /config"; exit 1; }
 
 while true; do
     check-ssh-key

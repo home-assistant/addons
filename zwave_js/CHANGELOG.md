@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.1.91
+
+### Features
+
+- Detect an unresponsive stick and reset it
+- The default time after which battery-powered devices with no pending commands are sent back to sleep is now 250 ms (down from 1000ms)
+
+### Bug fixes
+
+- A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0 however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected and Z-Wave JS attempts to recover by soft-resetting the controller when this happens.
+- Removed auto-disabling of soft-reset capability
+- Default to RF protection state Unprotected if not given for Protection CC V2+
+
+### Config file changes
+
+- Add warnings about broken controller firmware versions
+- Add Heatit Z-Water 2
+- Add Shelly Wave 1PM
+- Add Heatit Z-TRM6
+- Increase poll delay for ZW500D
+- Add fingerprint for Simon IO Master Roller Blind
+- Add HOPPE eHandle ConnectSense
+- Add parameters to Zooz ZEN17 from firmware 1.30
+- Update Zooz ZEN32 config to the latest firmware, include 800 series
+
+### Detailed changelogs
+
+- [Z-Wave JS 11.14.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.14.3)
+- [Z-Wave JS 12.0.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.0)
+- [Z-Wave JS Server 1.32.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.32.0)
+
 ## 0.1.90
 
 ### Bug fixes

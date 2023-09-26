@@ -21,7 +21,6 @@ RUN \
         "zwave-js@${ZWAVEJS_VERSION}" \
         "@zwave-js/server@${ZWAVEJS_SERVER_VERSION}" \
     \
-    && npm rebuild --build-from-source @serialport/bindings-cpp \
     && apk del --no-cache \
         .build-dependencies
 

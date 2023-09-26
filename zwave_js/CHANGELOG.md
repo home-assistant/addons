@@ -17,7 +17,7 @@
 - A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0 however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected and Z-Wave JS attempts to recover by soft-resetting the controller when this happens.
 - Removed auto-disabling of soft-reset capability
 - Default to RF protection state Unprotected if not given for Protection CC V2+
-
+- Devices that send notifications from endpoints, e.g. Aeotec Wallmote, are now properly supported
 ### Config file changes
 
 - Add warnings about broken controller firmware versions

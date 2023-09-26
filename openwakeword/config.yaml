@@ -25,3 +25,4 @@ schema:
 ports:
   "10400/tcp": null
 homeassistant: 2023.9.0.dev20230809
+image: homeassistant/{arch}-addon-openwakeword

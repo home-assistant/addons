@@ -7,4 +7,4 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  DECONZ_VERSION: 2.22.02
+  DECONZ_VERSION: 2.23.01

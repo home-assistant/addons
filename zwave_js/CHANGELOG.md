@@ -2,6 +2,10 @@
 
 ## 0.1.91
 
+### Breaking changes
+
+- Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backwards compatible. They will be fixed in 2023.10.0 .
+
 ### Features
 
 - Detect an unresponsive stick and reset it

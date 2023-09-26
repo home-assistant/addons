@@ -4,19 +4,22 @@
 
 ### Breaking changes
 
-- Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backwards compatible. Firmware updates will work once again starting in 2023.10.0. As a result of this breaking change, Checking for updates no longer requires communication with the device and therefore reduces the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices. 
+- Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backward compatible. Firmware updates will work once again starting in 2023.10.0. As a result of this breaking change, Checking for updates no longer requires communication with the device and, therefore, reduces the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices.
+
 
 ### Features
 
-- Unresponsive controllers are now detected and automatically restarted if possible
+- Unresponsive controllers are now detected and automatically restarted if possible.
 - Battery-powered devices are sent back to sleep after 250 ms with no command (down from 1000 ms). This should result in significant battery savings for devices that frequently wake up.
-- We no longer rebuild the @serialport/bindings-cpp package from source
+- We no longer rebuild the @serialport/bindings-cpp package from source.
+
 
 ### Bug fixes
 
-- A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0 however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected and Z-Wave JS attempts to recover by soft-resetting the controller when this happens.
-- Fixed an issue where supporting controllers would no longer be automatically restarted after failing to do so once
-- Devices that send notifications from endpoints, e.g. Aeotec Wallmote, are now properly supported
+- A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously, this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0, however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected, and Z-Wave JS attempts to recover by soft resetting the controller when this happens.
+- Fixed an issue where supporting controllers would no longer be automatically restarted after failing to do so once.
+- Devices that send notifications from endpoints, like Aeotec Wallmote, are now properly supported.
+
 
 ### Config file changes
 

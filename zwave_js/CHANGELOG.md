@@ -8,7 +8,7 @@
 
 ### Features
 
-- Detect an unresponsive stick and reset it
+- Unresponsive controllers are now detected and automatically restarted if possible
 - Battery-powered devices are sent back to sleep after 250 ms with no command (down from 1000 ms). This should result in significant battery savings for devices that frequently wake up.
 - We no longer rebuild the @serialport/bindings-cpp package from source
 

@@ -10,7 +10,7 @@
 
 - Detect an unresponsive stick and reset it
 - The default time after which battery-powered devices with no pending commands are sent back to sleep is now 250 ms (down from 1000ms)
-- We no long rebuild the @serialport/bindings-cpp package from source
+- We no longer rebuild the @serialport/bindings-cpp package from source
 
 ### Bug fixes
 

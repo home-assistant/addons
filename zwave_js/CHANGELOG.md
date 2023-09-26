@@ -4,7 +4,7 @@
 
 ### Breaking changes
 
-- Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backwards compatible.They will be fixed in 2023.10.0. As a result of this breaking change, Checking for updates no longer requires communication with the device and therefore reduces the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices. 
+- Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backwards compatible. Firmware updates will work once again starting in 2023.10.0. As a result of this breaking change, Checking for updates no longer requires communication with the device and therefore reduces the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices. 
 
 ### Features
 

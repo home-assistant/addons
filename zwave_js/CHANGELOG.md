@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- Revert change to stop rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all
+- Z-Wave JS Server: For users that opted in to data collection, a missing return caused the server to try to soft reset the controller. This has now been resolved.
 
 ### Detailed changelog
 

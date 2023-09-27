@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.93
+
+### Bug fixes
+
+- Revert change to stop rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all
+
+### Detailed changelog
+
+- [Z-Wave JS Server 1.32.1](https://github.com/zwave-js/zwave-js-server/releases/tag/1.32.1)
+
 ## 0.1.92
 
 ### Bug fixes

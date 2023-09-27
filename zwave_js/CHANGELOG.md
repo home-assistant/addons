@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- Continue rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all (the functionality was removed in the last release)
+- Revert change to stop rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all
 
 ## 0.1.91
 

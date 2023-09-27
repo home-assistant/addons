@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.92
+
+### Bug fixes
+
+- Revert change to stop rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all
+
 ## 0.1.91
 
 ### Breaking changes

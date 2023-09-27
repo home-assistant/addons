@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.92
+
+### Bug fixes
+
+- Re-add rebuilding @serialport/bindings-cpp as the problem is fixed on some CPU platforms but not all
+
 ## 0.1.91
 
 ### Breaking changes

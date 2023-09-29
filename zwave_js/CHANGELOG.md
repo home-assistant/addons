@@ -4,12 +4,18 @@
 
 ### Bug fixes
 
-- Z-Wave JS Server: For users that have opted in to data collection in their Home Assistant Z-Wave configuration, a missing return caused the server to try to soft reset the controller during Home Assistant startup for Home Assiststant versions 2023.9.x or less. This has now been resolved.
+- Z-Wave JS: The workaround from v12.0.0 for the 7.19.x SDK bug was not working correctly when the command that caused the controller to get stuck could be retried. This has now been fixed.
+- Z-Wave JS: Ignore when a node reports Security S0/S2 CC to have version 0 (unsupported) although it is using that CC
+
+### Config file changes
+- Add Shelly to manufacturers
+- Add Shelly Wave 1, Wave 2PM, update Wave 1PM association labels
+- Add Sunricher SR-ZV2833PAC
 
 ### Detailed changelog
 
-- [Z-Wave JS 12.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/12.0.1)
-- [Z-Wave JS 12.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/12.0.2)
+- [Z-Wave JS 12.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.1)
+- [Z-Wave JS 12.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.2)
 
 ## 0.1.93
 
@@ -33,7 +39,6 @@
 
 - Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backward compatible, but will work once again starting in 2023.10.0. This breaking change ultimately improves firmware updates, as checking for updates no longer requires communication with the device, therefore reducing the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices.
 
-
 ### Features
 
 - Unresponsive controllers are now detected and automatically restarted if possible.
@@ -46,7 +51,6 @@
 - A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously, this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0, however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected, and Z-Wave JS attempts to recover by soft resetting the controller when this happens.
 - Fixed an issue where supporting controllers would no longer be automatically restarted after failing to do so once.
 - Devices that send notifications from endpoints, like Aeotec Wallmote, are now properly supported.
-
 
 ### Config file changes
 

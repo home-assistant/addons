@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.1
+
+- Include language in wake word descriptions
+
 ## 1.5.0
 
 - Remove webrtc (done in core now)

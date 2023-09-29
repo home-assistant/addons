@@ -6,4 +6,4 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  OPENWAKEWORD_LIB_VERSION: 1.5.0
+  OPENWAKEWORD_LIB_VERSION: 1.5.1

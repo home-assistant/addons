@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.94
+
+### Bug fixes
+
+- Z-Wave JS Server: For users that have opted in to data collection in their Home Assistant Z-Wave configuration, a missing return caused the server to try to soft reset the controller during Home Assistant startup for Home Assiststant versions 2023.9.x or less. This has now been resolved.
+
+### Detailed changelog
+
+- [Z-Wave JS 12.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/12.0.1)
+- [Z-Wave JS 12.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/12.0.2)
+
 ## 0.1.93
 
 ### Bug fixes

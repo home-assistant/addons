@@ -105,7 +105,7 @@ host_chassis=$(bashio::host.chassis)
 if [ "${host_chassis}" == "vm" ]; then
     soft_reset=false
     bashio::log.info "Virtual Machine detected, disabling soft-reset"
-elif [ bashio::config.true 'disable_soft_reset' ]; then
+elif bashio::config.true 'disable_soft_reset'; then
     soft_reset=false
     bashio::log.info "Soft-reset disabled by user"
 else

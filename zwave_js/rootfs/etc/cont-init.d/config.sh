@@ -40,7 +40,7 @@ if bashio::config.has_value 'network_key'; then
         bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
         bashio::addon.option s0_legacy_key "$(bashio::config 'network_key')"
         bashio::log.info "Flushing config to disk due to key migration..."
-        bashio::addon.options > "/data/options.json"
+        bashio::addon.options >"/data/options.json"
     fi
 fi
 
@@ -84,7 +84,7 @@ done
 # flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
-    bashio::addon.options > "/data/options.json"
+    bashio::addon.options >"/data/options.json"
 fi
 
 s0_legacy=$(bashio::config "s0_legacy_key")
@@ -92,7 +92,7 @@ s2_access_control=$(bashio::config "s2_access_control_key")
 s2_authenticated=$(bashio::config "s2_authenticated_key")
 s2_unauthenticated=$(bashio::config "s2_unauthenticated_key")
 
-if  ! bashio::config.has_value 'log_level'; then
+if ! bashio::config.has_value 'log_level'; then
     log_level=$(bashio::info.logging)
     bashio::log.info "No log level specified, falling back to Supervisor"
     bashio::log.info "log level (${log_level})..."
@@ -105,11 +105,13 @@ host_chassis=$(bashio::host.chassis)
 if [ "${host_chassis}" == "vm" ]; then
     soft_reset=false
     bashio::log.info "Virtual Machine detected, disabling soft-reset"
+elif [ bashio::config.true 'disable_soft_reset' ]; then
+    soft_reset=false
+    bashio::log.info "Soft-reset disabled by user"
 else
     soft_reset=true
     bashio::log.info "Virtual Machine not detected, enabling soft-reset"
 fi
-
 
 # Generate config
 bashio::var.json \
@@ -118,7 +120,7 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
-    soft_reset "^${soft_reset}" \
-    | tempio \
+    soft_reset "^${soft_reset}" |
+    tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

@@ -2,6 +2,10 @@
 
 ## 0.1.94
 
+### Features
+
+- Add-on: Add a `disable_soft_reset` configuration option to forcefully disable the soft-reset functionality.
+
 ### Bug fixes
 
 - Z-Wave JS: The workaround from v12.0.0 for the 7.19.x SDK bug was not working correctly when the command that caused the controller to get stuck could be retried. This has now been fixed.

@@ -37,5 +37,11 @@ configuration:
     description: >-
       This must be provided in order to include devices with the S2
       Unauthenticated security class.
+  disable_soft_reset:
+    name: Disable Soft-reset
+    description: >-
+      By enabling this option, 500 series controllers will not be soft-reset on
+      startup. The add-on normally detects whether or not this needs to be
+      enabled, so only enable this setting if you know what you are doing.
 network:
   3000/tcp: Z-Wave JS communication

@@ -143,6 +143,17 @@ the Supervisor.
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
 
+### Option `disable_soft_reset` (optional)
+
+By default, Z-Wave JS may attempt a soft-reset on 500 series Z-Wave controllers
+on startup or when certain commands are issued to the controller. Soft-resets
+can be problematic in certain environments, so Z-Wave JS has an option to
+disable this functionality. The add-on will automatically attempt to detect
+whether soft-reset should be disabled, but it may not be correct 100% of the
+time. This setting allows you to override the internal logic in the add-on and
+to forcefully disable soft-reset. You should only use this option if you know
+what you are doing and/or you are asked to do so by a developer.
+
 ### Option `network_key` (deprecated)
 
 In previous versions of the addon, this was the only key that was needed. With

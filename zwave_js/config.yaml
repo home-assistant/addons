@@ -35,5 +35,6 @@ schema:
   s2_access_control_key: match(|[0-9a-fA-F]{32,32})?
   s2_authenticated_key: match(|[0-9a-fA-F]{32,32})?
   s2_unauthenticated_key: match(|[0-9a-fA-F]{32,32})?
+  disable_soft_reset: bool?
 stage: stable
 startup: services

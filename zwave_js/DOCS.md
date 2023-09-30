@@ -145,13 +145,10 @@ It will not be able to control any real devices.
 
 ### Option `soft_reset`
 
-By default, Z-Wave JS may attempt a soft-reset on 500 series Z-Wave controllers
-on startup or when certain commands are issued to the controller. Soft-resets
-can be problematic in certain environments, so Z-Wave JS has an option to
-disable this functionality. This option tells the add-on how to handle soft-resets as follows:
-1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled. This is the deafult option and should work for most people.
-2. Enabled - Soft-reset will be explicitly be enabled.
-3. Disabled - Soft-reset will be explicitly be disabled.
+This setting tells the add-on how to handle soft-resets for 500 series controllers:
+1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the deafult option and should work for most people.
+2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
+3. Disabled - Soft-reset will be explicitly disabledfor 500 series controllers.
 
 ### Option `network_key` (deprecated)
 

@@ -102,15 +102,20 @@ fi
 
 host_chassis=$(bashio::host.chassis)
 
-if [ "${host_chassis}" == "vm" ]; then
-    soft_reset=false
-    bashio::log.info "Virtual Machine detected, disabling soft-reset"
-elif bashio::config.true 'disable_soft_reset'; then
+if bashio::config.equals 'soft_reset' 'Automatic'; then
+    if [ "${host_chassis}" == "vm" ]; then
+        soft_reset=false
+        bashio::log.info "Virtual Machine detected, disabling soft-reset"
+    else
+        soft_reset=true
+        bashio::log.info "Virtual Machine not detected, enabling soft-reset"
+    fi
+elif bashio::config.equals 'soft_reset' 'Enabled'; then
+    soft_reset=true
+    bashio::log.info "Soft-reset enabled by user"
+else
     soft_reset=false
     bashio::log.info "Soft-reset disabled by user"
-else
-    soft_reset=true
-    bashio::log.info "Virtual Machine not detected, enabling soft-reset"
 fi
 
 # Generate config

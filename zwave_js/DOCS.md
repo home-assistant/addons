@@ -146,7 +146,7 @@ It will not be able to control any real devices.
 ### Option `soft_reset`
 
 This setting tells the add-on how to handle soft-resets for 500 series controllers:
-1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the deafult option and should work for most people.
+1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
 2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
 3. Disabled - Soft-reset will be explicitly disabledfor 500 series controllers.
 

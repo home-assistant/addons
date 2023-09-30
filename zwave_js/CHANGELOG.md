@@ -4,7 +4,7 @@
 
 ### Features
 
-- Add-on: Add a `disable_soft_reset` configuration option to forcefully disable the soft-reset functionality.
+- Add-on: Add a `soft_reset` configuration option to choose how to handle soft-reset functionality for 500 series controllers.
 
 ### Bug fixes
 

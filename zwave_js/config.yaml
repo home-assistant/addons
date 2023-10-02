@@ -39,3 +39,4 @@ schema:
   network_key: match(|[0-9a-fA-F]{32,32})?
 stage: stable
 startup: services
+timeout: 30

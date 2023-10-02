@@ -5,6 +5,7 @@
 ### Features
 
 - Add-on: Add a `soft_reset` configuration option to choose how to handle soft-reset functionality for 500 series controllers.
+- Add-on: Extend timeout from 3 seconds to 30 to give Z-Wave JS more time to commit things to disk.
 
 ### Bug fixes
 

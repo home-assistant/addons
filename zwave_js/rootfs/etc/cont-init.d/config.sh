@@ -40,7 +40,7 @@ if bashio::config.has_value 'network_key'; then
         bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
         bashio::addon.option s0_legacy_key "$(bashio::config 'network_key')"
         bashio::log.info "Flushing config to disk due to key migration..."
-        bashio::addon.options > "/data/options.json"
+        bashio::addon.options >"/data/options.json"
     fi
 fi
 
@@ -92,7 +92,7 @@ s2_access_control=$(bashio::config "s2_access_control_key")
 s2_authenticated=$(bashio::config "s2_authenticated_key")
 s2_unauthenticated=$(bashio::config "s2_unauthenticated_key")
 
-if  ! bashio::config.has_value 'log_level'; then
+if ! bashio::config.has_value 'log_level'; then
     log_level=$(bashio::info.logging)
     bashio::log.info "No log level specified, falling back to Supervisor"
     bashio::log.info "log level (${log_level})..."
@@ -102,14 +102,22 @@ fi
 
 host_chassis=$(bashio::host.chassis)
 
-if [ "${host_chassis}" == "vm" ]; then
-    soft_reset=false
-    bashio::log.info "Virtual Machine detected, disabling soft-reset"
-else
+if bashio::config.equals 'soft_reset' 'Automatic'; then
+    bashio::log.info "Soft-reset set to automatic"
+    if [ "${host_chassis}" == "vm" ]; then
+        soft_reset=false
+        bashio::log.info "Virtual Machine detected, disabling soft-reset"
+    else
+        soft_reset=true
+        bashio::log.info "Virtual Machine not detected, enabling soft-reset"
+    fi
+elif bashio::config.equals 'soft_reset' 'Enabled'; then
     soft_reset=true
-    bashio::log.info "Virtual Machine not detected, enabling soft-reset"
+    bashio::log.info "Soft-reset enabled by user"
+else
+    soft_reset=false
+    bashio::log.info "Soft-reset disabled by user"
 fi
-
 
 # Generate config
 bashio::var.json \
@@ -118,7 +126,7 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
-    soft_reset "^${soft_reset}" \
-    | tempio \
+    soft_reset "^${soft_reset}" |
+    tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

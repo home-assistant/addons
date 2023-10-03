@@ -143,6 +143,13 @@ the Supervisor.
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
 
+### Option `soft_reset`
+
+This setting tells the add-on how to handle soft-resets for 500 series controllers:
+1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
+2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
+3. Disabled - Soft-reset will be explicitly disabled for 500 series controllers.
+
 ### Option `network_key` (deprecated)
 
 In previous versions of the addon, this was the only key that was needed. With

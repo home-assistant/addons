@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.94
+
+### Features
+
+- Add-on: Add a `soft_reset` configuration option to choose how to handle soft-reset functionality for 500 series controllers.
+- Add-on: Extend timeout from 3 seconds to 30 to give Z-Wave JS more time to commit things to disk.
+
+### Bug fixes
+
+- Z-Wave JS: The workaround from v12.0.0 for the 7.19.x SDK bug was not working correctly when the command that caused the controller to get stuck could be retried. This has now been fixed.
+- Z-Wave JS: Ignore when a node reports Security S0/S2 CC to have version 0 (unsupported) although it is using that CC
+
+### Config file changes
+- Add Shelly to manufacturers
+- Add Shelly Wave 1, Wave 2PM, update Wave 1PM association labels
+- Add Sunricher SR-ZV2833PAC
+
+### Detailed changelog
+
+- [Z-Wave JS 12.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.1)
+- [Z-Wave JS 12.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.2)
+
 ## 0.1.93
 
 ### Bug fixes
@@ -14,28 +36,25 @@
 
 ### Bug fixes
 
-- Revert change to stop rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all
+- Add-on: Revert change to stop rebuilding @serialport/bindings-cpp from source as the problem is fixed on some CPU platforms but not all
 
 ## 0.1.91
 
 ### Breaking changes
 
-- Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backward compatible, but will work once again starting in 2023.10.0. This breaking change ultimately improves firmware updates, as checking for updates no longer requires communication with the device, therefore reducing the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices.
-
+- Z-Wave JS: Firmware updates may no longer work properly in Home Assistant versions 2023.9.x and earlier due to a breaking change upstream that couldn't be made backward compatible, but will work once again starting in 2023.10.0. This breaking change ultimately improves firmware updates, as checking for updates no longer requires communication with the device, therefore reducing the risk of corrupting manufacturer information. This also means that updates for battery-powered devices can be detected without waking up the devices.
 
 ### Features
 
-- Unresponsive controllers are now detected and automatically restarted if possible.
-- Battery-powered devices are sent back to sleep after 250 ms with no command (down from 1000 ms). This should result in significant battery savings for devices that frequently wake up.
-- We no longer rebuild the @serialport/bindings-cpp package from source.
-
+- Z-Wave JS: Unresponsive controllers are now detected and automatically restarted if possible.
+- Z-Wave JS: Battery-powered devices are sent back to sleep after 250 ms with no command (down from 1000 ms). This should result in significant battery savings for devices that frequently wake up.
+- Add-on: We no longer rebuild the @serialport/bindings-cpp package from source.
 
 ### Bug fixes
 
-- A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously, this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0, however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected, and Z-Wave JS attempts to recover by soft resetting the controller when this happens.
-- Fixed an issue where supporting controllers would no longer be automatically restarted after failing to do so once.
-- Devices that send notifications from endpoints, like Aeotec Wallmote, are now properly supported.
-
+- Z-Wave JS: A bug in the 7.19.x SDK has surfaced where the controller gets stuck in the middle of a transmission. Previously, this would go unnoticed because the failed commands would cause the nodes to be marked dead until the controller finally recovered. Since v11.12.0, however, Z-Wave JS would consider the controller jammed and retry the last command indefinitely. This situation is now detected, and Z-Wave JS attempts to recover by soft resetting the controller when this happens.
+- Z-Wave JS: Fixed an issue where supporting controllers would no longer be automatically restarted after failing to do so once.
+- Z-Wave JS: Devices that send notifications from endpoints, like Aeotec Wallmote, are now properly supported.
 
 ### Config file changes
 

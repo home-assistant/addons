@@ -84,7 +84,7 @@ done
 # flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
-    bashio::addon.options >"/data/options.json"
+    bashio::addon.options > "/data/options.json"
 fi
 
 s0_legacy=$(bashio::config "s0_legacy_key")
@@ -103,7 +103,7 @@ fi
 host_chassis=$(bashio::host.chassis)
 
 if bashio::config.equals 'soft_reset' 'Automatic'; then
-    bashio:log.info "Soft-reset set to automatic"
+    bashio::log.info "Soft-reset set to automatic"
     if [ "${host_chassis}" == "vm" ]; then
         soft_reset=false
         bashio::log.info "Virtual Machine detected, disabling soft-reset"

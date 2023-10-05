@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- Z-Wave JS: Fixes or works around multiple issues with 500 series controllers.
+- Z-Wave JS: Fixes or works around multiple issues with 500 series controllers that were introduced in Z-Wave JS 12.
 
 ### Bug fixes
 

@@ -10,7 +10,7 @@ LE_UPDATE="0"
 if bashio::config.has_value "ipv4"; then IPV4=$(bashio::config 'ipv4'); else IPV4=""; fi
 if bashio::config.has_value "ipv6"; then IPV6=$(bashio::config 'ipv6'); else IPV6=""; fi
 TOKEN=$(bashio::config 'token')
-DOMAINS=$(bashio::config 'domains | join(",")')
+DOMAINS=$(bashio::config 'domains | join(",")' | sed 's/[^,]*[ > ]//g') # Handle domains of the form "*.xxx.duckdns.org > xxx.duckdns.org"
 WAIT_TIME=$(bashio::config 'seconds')
 ALGO=$(bashio::config 'lets_encrypt.algo')
 

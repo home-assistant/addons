@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.95
+
+### Bug fixes
+
+- Z-Wave JS: Fixes or works around multiple issues with 500 series controllers that could trigger the unresponsive controller detection in Z-Wave JS 12 in situations where it was not necessary, causing restart loops.
+
+
+### Bug fixes
+
+- [Z-Wave JS 12.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.3)
+
 ## 0.1.94
 
 ### Features

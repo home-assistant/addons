@@ -4,7 +4,8 @@
 
 ### Bug fixes
 
-- Z-Wave JS: Fixes or works around multiple issues with 500 series controllers that were introduced in Z-Wave JS 12.
+- Z-Wave JS: Fixes or works around multiple issues with 500 series controllers that could trigger the unresponsive controller detection in Z-Wave JS 12 in situations where it was not necessary, causing restart loops.
+
 
 ### Bug fixes
 

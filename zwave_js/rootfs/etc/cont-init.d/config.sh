@@ -119,6 +119,9 @@ else
     bashio::log.info "Soft-reset disabled by user"
 fi
 
+timeouts=$(bashio::config 'timeouts' '{}')
+attempts=$(bashio::config 'attempts' '{}')
+
 # Generate config
 bashio::var.json \
     s0_legacy "${s0_legacy}" \
@@ -126,7 +129,9 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
-    soft_reset "^${soft_reset}" |
+    soft_reset "^${soft_reset}" \
+    timeouts "${timeouts}" \
+    attempts "${attempts}" |
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

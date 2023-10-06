@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.0
+
+- Automatically search /share/openwakeword for custom models (`*.tflite`)
+- Change share permissions to read only
+
 ## 1.5.1
 
 - Include language in wake word descriptions

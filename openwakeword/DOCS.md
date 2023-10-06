@@ -36,6 +36,16 @@ means fewer detections.
 
 Enable debug logging. Useful for seeing satellite connections and each wake word detection in the logs.
 
+## Custom Wake Word Models
+
+The add-on will automatically load custom wake word models from the `/share/openwakeword` directory on start-up.
+Models should be named `<wake_word>_<version>.tflite`, for example `hey_homeassistant_v1.tflite` for a "hey home assistant" model.
+
+After adding new models to `/share/openwakeword`, make sure to:
+
+1. Restart the openWakeWord add-on
+2. Reload any Wyoming integrations for openWakeWord
+
 ## Support
 
 Got questions?

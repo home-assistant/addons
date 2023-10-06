@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.96
+
+### Bug fixes
+
+- Add-on: Make `soft_reset` configuration option optional since, when required, it breaks add-on installations done through the `zwave_js` integration.
+
 ## 0.1.95
 
 ### Bug fixes

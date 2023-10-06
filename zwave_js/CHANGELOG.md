@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.99
+
+### Features
+
+- Add-on: Add `timeouts` and `attempts` configuration options to adjust the defaults for the corresponding Z-Wave driver options. These are advanced configuration options that should not be adjusted in most cases and have therefore been hidden from the default view.
+
 ## 0.1.98
 
 ### Bug fixes

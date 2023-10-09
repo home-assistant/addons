@@ -15,7 +15,7 @@
 
 ### Detailed changelogs
 
-- - [Z-Wave JS 12.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.4)
+- [Z-Wave JS 12.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.4)
 
 ## 0.1.96
 

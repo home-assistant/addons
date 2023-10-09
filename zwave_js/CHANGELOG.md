@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.97
+
+### Bug fixes
+
+- Z-Wave JS: Fixed a crash that could happen while logging dropped sensor readings.
+- Z-Wave JS: Change the default timeout to handle slow 500 series controllers.
+
+### Config file changes
+
+- Treat Basic Set as events for TKB TZ35S/D and TZ55S/D
+- Add Zooz ZAC38 Range Extender
+- Corrected the label of the notification event `0x0a` to be `Emergency Alarm`
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.4)
+
 ## 0.1.96
 
 ### Bug fixes

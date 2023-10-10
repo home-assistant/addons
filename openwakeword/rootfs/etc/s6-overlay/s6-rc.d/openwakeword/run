@@ -11,11 +11,6 @@ fi
 
 exec python3 -m wyoming_openwakeword \
     --uri 'tcp://0.0.0.0:10400' \
-    --model 'ok_nabu' \
-    --model 'hey_jarvis' \
-    --model 'hey_rhasspy' \
-    --model 'hey_mycroft' \
-    --model 'alexa' \
     --preload-model 'ok_nabu' \
     --custom-model-dir /share/openwakeword \
     --threshold "$(bashio::config 'threshold')" \

@@ -40,7 +40,7 @@ schema:
   timeouts:
     ack: int(1,)?
     byte: int(1,)?
-    response: int(500,20000)?
+    response: int(500,60000)?
     sendDataCallback: int(10000,)?
     report: int(500,10000)?
     nonce: int(3000,20000)?

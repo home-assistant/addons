@@ -38,13 +38,9 @@ Enable debug logging. Useful for seeing satellite connections and each wake word
 
 ## Custom Wake Word Models
 
-The add-on will automatically load custom wake word models from the `/share/openwakeword` directory on start-up.
-Models should be named `<wake_word>_<version>.tflite`, for example `hey_homeassistant_v1.tflite` for a "hey home assistant" model.
+The add-on will automatically load custom wake word models from the `/share/openwakeword` directory. [Install the Samba add-on](https://www.home-assistant.io/common-tasks/supervised/#installing-and-using-the-samba-add-on) to copy wake word model files (`*.tflite`) to this directory.
 
-After adding new models to `/share/openwakeword`, make sure to:
-
-1. Restart the openWakeWord add-on
-2. Reload any Wyoming integrations for openWakeWord
+After adding new models to `/share/openwakeword`, make sure to reload any Wyoming integrations for openWakeWord. Once reloaded, the new wake words will be available to select in the Voice Assistants settings page.
 
 ## Support
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.0
+
+- Make wake word loading completely dynamic (new models are automatically discovered)
+- Rebuild Wyoming info message on each request
+- Deprecate --model
+
 ## 1.6.0
 
 - Automatically search /share/openwakeword for custom models (`*.tflite`)

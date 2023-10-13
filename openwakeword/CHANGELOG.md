@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.1
+
+- Always use wake word file name as key (avoid duplicate model loading)
+
 ## 1.7.0
 
 - Make wake word loading completely dynamic (new models are automatically discovered)

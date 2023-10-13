@@ -119,8 +119,29 @@ else
     bashio::log.info "Soft-reset disabled by user"
 fi
 
-timeouts=$(bashio::config 'timeouts' '{}')
-attempts=$(bashio::config 'attempts' '{}')
+timeouts_and_attempts=""
+
+if bashio::config.true 'safe_mode'; then
+    timeouts_and_attempts=",
+    \"timeouts\": {
+        \"ack\": 10000,
+        \"byte\": 10000,
+        \"response\": 60000,
+        \"sendDataCallback\": 650000,
+        \"report\": 10000,
+        \"nonce\": 20000,
+        \"retryJammed\": 5000,
+        \"sendToSleep\": 5000,
+        \"serialAPIStarted\": 30000
+    },
+    \"attempts\": {
+        \"openSerialPort\": 20000,
+        \"controller\": 3,
+        \"sendData\": 5,
+        \"sendDataJammed\": 10,
+        \"nodeInterview\": 10
+    }"
+fi
 
 # Generate config
 bashio::var.json \
@@ -130,8 +151,7 @@ bashio::var.json \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
     soft_reset "^${soft_reset}" \
-    timeouts "${timeouts}" \
-    attempts "${attempts}" |
+    timeouts_and_attempts "${timeouts_and_attempts}" |
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

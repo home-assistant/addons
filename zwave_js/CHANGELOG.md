@@ -4,7 +4,7 @@
 
 ### Features
 
-- Add-on: Add `timeouts` and `attempts` configuration options to adjust the defaults for the corresponding Z-Wave driver options. These are advanced configuration options that should not be adjusted in most cases and have therefore been hidden from the default view.
+- Add-on: Add `safe_mode` configuration option to put Z-Wave network in safe mode. This can be help with troubleshooting network issues and getting access to logs that you otherwise wouldn't be able to. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
 
 ## 0.1.98
 

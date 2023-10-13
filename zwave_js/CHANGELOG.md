@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.1.98
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue with multi-target firmware updates that prevented updates from being applied correctly
+
+### Config file changes
+
+Almost 1000 device configuration files have been reworked to be more consistent, mostly affecting device labels, parameter labels, descriptions and predefined options. After updating, you should expect to see several notifications for changed device configurations, prompting you to re-interview the affected nodes. Unless the device is mentioned below, there's no need to do this immediately.
+
+- Add parameter 26 to Inovelli VZW31-SN
+- Always set time for Namron 16A thermostats as UTC
+- Add Alloy (Zipato) devices
+- Parameter 21 of Inovelli VZW31-SN is readonly
+- Add Shelly Wave Shutter
+- Add Eurotronic Comet Z (700 series)
+- Add params 7, 18, 19 to Zooz ZEN71 FW 10.20
+- Add Qubino Shades Remote Controller
+- Add fingerprint for new MH8-FC version, add new option for param 1
+- Add Hank HKZW-SO08
+- Add link to manual of Honeywell T6 Pro Thermostat
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.1.0)
+- [Z-Wave JS 12.1.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.1.1)
+
 ## 0.1.97
 
 ### Bug fixes

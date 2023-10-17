@@ -4,7 +4,7 @@
 
 ### Features
 
-- Add-on: Add `safe_mode` configuration option to put Z-Wave network in safe mode. This can be help with troubleshooting network issues and getting access to logs that you otherwise wouldn't be able to. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
+- Add-on: Add `safe_mode` configuration option to put Z-Wave network in safe mode. This can be help with troubleshooting network issues and getting access to logs that you otherwise wouldn't be able to, but will likely slow down your network and should therefore be used sparingly. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
 - Add-on: Introduce semantic versioning. With semantic versioning, major version changes to the addon will now reflect e.g. a major version release of Z-Wave JS or a significant change to the add-on structure. This should help users better understand the potential impact of an upgrade.
 
 ### Bug fixes

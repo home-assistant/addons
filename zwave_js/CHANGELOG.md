@@ -2,6 +2,10 @@
 
 ## 1.0.0
 
+### Breaking changes
+
+- Users that are on Home Assistant versions `2021.2.x` will no longer be able to receive add-on updates. Users still on this version are encouraged to update to a newer version which will support additional updates and will have many additional capabilities in the integration.
+
 ### Features
 
 - Add-on: Add `safe_mode` configuration option to put Z-Wave network in safe mode. This can be help with troubleshooting network issues and getting access to logs that you otherwise wouldn't be able to. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.

@@ -119,11 +119,11 @@ else
     bashio::log.info "Soft-reset disabled by user"
 fi
 
-presets=""
+driver_presets=""
 
 if bashio::config.true 'safe_mode'; then
-    presets=",
-    \"presets\": [\"SAFE_MODE\"]"
+    driver_presets=",
+    \"driverPresets\": [\"SAFE_MODE\"]"
 fi
 
 # Generate config
@@ -134,7 +134,7 @@ bashio::var.json \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
     soft_reset "^${soft_reset}" \
-    presets "${presets}" |
+    driver_presets "${driver_presets}" |
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

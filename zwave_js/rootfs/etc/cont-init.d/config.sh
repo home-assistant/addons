@@ -122,6 +122,8 @@ fi
 presets=""
 
 if bashio::config.true 'safe_mode'; then
+    bashio::log.info "Safe mode enabled"
+    bashio::log.warning "WARNING: While in safe mode, the performance of your Z-Wave network will be in a reduced state. This is only meant for debugging purposes."
     presets=",
     \"presets\": [\"SAFE_MODE\"]"
 fi

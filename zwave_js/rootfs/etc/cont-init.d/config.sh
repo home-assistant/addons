@@ -84,7 +84,7 @@ done
 # flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
-    bashio::addon.options > "/data/options.json"
+    bashio::addon.options >"/data/options.json"
 fi
 
 s0_legacy=$(bashio::config "s0_legacy_key")
@@ -119,13 +119,12 @@ else
     bashio::log.info "Soft-reset disabled by user"
 fi
 
-presets=""
+safe_mode=""
 
 if bashio::config.true 'safe_mode'; then
     bashio::log.info "Safe mode enabled"
     bashio::log.warning "WARNING: While in safe mode, the performance of your Z-Wave network will be in a reduced state. This is only meant for debugging purposes."
-    presets=",
-    \"presets\": [\"SAFE_MODE\"]"
+    safe_mode="\"SAFE_MODE\""
 fi
 
 # Generate config
@@ -136,7 +135,7 @@ bashio::var.json \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
     soft_reset "^${soft_reset}" \
-    presets "${presets}" |
+    safe_mode "${safe_mode}" |
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

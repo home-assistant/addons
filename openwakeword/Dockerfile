@@ -15,11 +15,13 @@ RUN \
         netcat-traditional \
         python3 \
         python3-pip \
+        libopenblas0 \
     \
     && pip3 install --no-cache-dir -U \
         setuptools \
         wheel \
     && pip3 install --no-cache-dir \
+        --extra-index-url https://www.piwheels.org/simple \
         "wyoming-openwakeword==${OPENWAKEWORD_LIB_VERSION}" \
     \
     && rm -rf /var/lib/apt/lists/*

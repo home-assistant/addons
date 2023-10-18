@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0
+
+- Include fix for potential deadlock
+- Only process wake words that a client requests
+- armv7 support
+
 ## 1.7.1
 
 - Always use wake word file name as key (avoid duplicate model loading)

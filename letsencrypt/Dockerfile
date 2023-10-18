@@ -9,6 +9,7 @@ ARG \
     CERTBOT_DNS_AZURE_VERSION \
     CERTBOT_DNS_DESEC_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
+    CERTBOT_DNS_DREAMHOST_VERSION \
     CERTBOT_DNS_DUCKDNS_VERSION \
     CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
@@ -65,6 +66,7 @@ RUN \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
+        certbot-dns-dreamhost==${CERTBOT_DNS_DREAMHOST_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 

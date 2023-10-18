@@ -99,6 +99,8 @@ inwx_password: ''
 inwx_shared_secret: ''
 porkbun_key: ''
 porkbun_secret: ''
+dreamhost_api_baseurl: ''
+dreamhost_api_key: ''
 ```
 
 ## Advanced
@@ -583,7 +585,22 @@ dns:
   porkbun_key: 0123456789abcdef0123456789abcdef01234
   porkbun_secret: 0123456789abcdef0123456789abcdef01234
 ```
+</details>
+<details>
+  <summary>Dreamhost</summary>
 
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-dreamhost
+    dreamhost_baseurl: https://api.dreamhost.com/
+    dreamhost_api_key: XXXXXX
+  ```
 </details>
 
 ## Certificate files
@@ -604,6 +621,7 @@ dns-directadmin
 dns-dnsimple
 dns-dnsmadeeasy
 dns-duckdns
+dns-dreamhost
 dns-gehirn
 dns-google
 dns-hetzner

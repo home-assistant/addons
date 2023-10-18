@@ -45,5 +45,14 @@ configuration:
       automatically detect whether or not this needs to be enabled. The
       default setting should work for most users, so only change this setting
       if you know what you are doing and/or you are asked to.
+  safe_mode:
+    name: Enable safe mode
+    description: >-
+      This setting puts your network in safe mode, which could significantly
+      decrease the performance of your network but may also help get the
+      network up and running so that you can troubleshoot issues, grab logs,
+      etc. In most cases, users will never need to use this feature, so only
+      change this setting if you know what you are doing and/or you are asked
+      to.
 network:
   3000/tcp: Z-Wave JS communication

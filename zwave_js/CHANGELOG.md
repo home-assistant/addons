@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.2.0
+
+### Features
+
+- Add-on: Add `safe_mode` configuration option to put Z-Wave network in safe mode. This can be used help with troubleshooting network issues, such as being unable to start it, but will likely slow down your network and should therefore be used sparingly. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
+- Add-on: Switch to [semantic versioning](https://semver.org/). With this change, major version changes to the addon will now reflect e.g. a major version release of Z-Wave JS or a significant change to the add-on structure. This should help users better understand the potential impact of an upgrade.
+
+### Bug fixes
+
+- Z-Wave JS: Includes several more fixes and workarounds for the problematic interaction between some controller firmware bugs and the automatic controller recovery introduced in the `v12` release
+
+### Config file changes
+
+- Add NEO Cool Cam Repeater
+- Increase report timeout for Aeotec Multisensor 6 to 2s
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.2.0)
+- [Z-Wave JS Server 1.32.2](https://github.com/zwave-js/zwave-js-server/releases/tag/1.32.2)
+
 ## 0.1.98
 
 ### Bug fixes

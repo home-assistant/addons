@@ -3,6 +3,7 @@
 ## 2.3.3
 
 - Use Silicon Labs Gecko SDK 4.3.2
+- Fail if primary network interface can't be found
 
 ## 2.3.2
 

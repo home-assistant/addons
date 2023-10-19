@@ -48,8 +48,7 @@ case "${otbr_log_level}" in
 esac
 
 if [ -z ${backbone_if} ]; then
-    bashio::log.warning "No primary network interface found! Using static eth0."
-    backbone_if="eth0"
+    bashio::exit.nok "No primary network interface found!"
 fi
 
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."

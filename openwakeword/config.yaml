@@ -3,7 +3,7 @@ version: 1.8.0
 slug: openwakeword
 name: openWakeWord
 description: openWakeWord using the Wyoming protocol
-url: https://github.com/home-assistant/addons/blob/master/openWakeWord
+url: https://github.com/home-assistant/addons/blob/master/openwakeword
 arch:
   - amd64
   - aarch64

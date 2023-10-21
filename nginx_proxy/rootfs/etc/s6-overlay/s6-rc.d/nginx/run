@@ -56,6 +56,23 @@ sed -i "s/%%HA_PORT%%/$HA_PORT/g" /etc/nginx.conf
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
+if bashio::config.true 'proxy_protocol.enabled'; then
+    REAL_IP_FROM=$(bashio::config 'proxy_protocol.real_ip_from')
+    if [ -z "$REAL_IP_FROM" ]; then
+        echo "real_ip_from under proxy_protocol has to be provided"
+        exit 1
+    fi
+    sed -i "s#%%REAL_IP_FROM%%#$REAL_IP_FROM#g" /etc/nginx/serverProxyProtocol.conf
+    SERVER_CONF=serverProxyProtocol.conf
+    LOCATION_CONF=locationProxyProtocol.conf
+else
+    SERVER_CONF=serverDefault.conf
+    LOCATION_CONF=locationDefault.conf
+fi
+
+sed -i "s/%%SERVER_CONF%%/$SERVER_CONF/g" /etc/nginx.conf
+sed -i "s/%%LOCATION_CONF%%/$LOCATION_CONF/g" /etc/nginx.conf
+
 # Allow customize configs from share
 if bashio::config.true 'customize.active'; then
     CUSTOMIZE_DEFAULT=$(bashio::config 'customize.default')

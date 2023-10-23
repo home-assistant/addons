@@ -40,8 +40,7 @@ You can then connect to the port specified, using the username `root`. Please no
 
 If you enable connecting to the SSH Server using an SSH client, you are strongly recommended to use private/public keys to log in. As long as you keep the private part of your key safe, this makes your system much harder to break into. Using passwords is, therefore, generally considered a less secure mechanism. To generate private/public SSH keys, follow the [instructions for Windows][keygen-windows] and [these for other platforms][keygen].
 
-> [!IMPORTANT]  
-> While following the instructions select ECDSA as **Type of key to generate** instead of RSA. RSA is no longer supported.
+> **Note**: While following the instructions above, select ECDSA as `Type of key to generate` instead of RSA. RSA is no longer supported.
 
 Enabling login via password will disable key-based login. You can not run both variants at the same time.
 

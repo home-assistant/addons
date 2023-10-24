@@ -4,13 +4,19 @@
 
 ### Config file changes
 
+- Treat Binary Switch Set and Thermostat Mode Set as reports for SRT321 HRT4-ZW
 - Override supported Thermostat modes for Eurotronics Spirit TRV
 - Correct firmware warnings for Zooz controllers
 - Correct overridden thermostatMode metadata for ZME_FT
 - Add MCOHome C521/C621 shutters, fix C321, make shutters consistent
+- Correct product id for Fakro ZWS12
+- add PM-B400ZW-N
+- Ensure kWh is written consistently in parameter units
 
 ### Detailed changelogs
 
+- [Z-Wave JS 12.2.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.2.3)
+- [Z-Wave JS 12.2.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.2.2)
 - [Z-Wave JS 12.2.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.2.1)
 - [Z-Wave JS Server 1.33.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.33.0)
 

@@ -3,5 +3,10 @@ configuration:
   log_level:
     name: Matter Server Log Level
     description: Logging level of the Matter Server component.
+  beta:
+    name: Use the latest beta version
+    description: >-
+      Installs the latest beta of the Python Matter Server. It is recommended
+      to create a backup before starting the add-on with this flag enabled!
 network:
   5580/tcp: Matter Server WebSocket server port.

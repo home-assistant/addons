@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.13.0
+
+- Update certbot
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

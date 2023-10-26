@@ -23,7 +23,7 @@ options:
   beta: false
 schema:
   log_level: list(debug|info|warning|error|critical)
-  beta: bool
+  beta: bool?
 ports:
   5580/tcp: null
 stage: stable

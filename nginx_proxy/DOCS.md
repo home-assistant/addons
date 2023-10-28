@@ -12,7 +12,7 @@ Follow these steps to get the add-on installed on your system:
 
 The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
 
-1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on or another method. Make sure that the certificate files exist in the `/ssl` directory.
+1. The certificate to your registered domain should already be created via the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on or another method. Make sure that the certificate files exist in the `/ssl` directory. Note: symlinks may not be followed, it is best to put raw certificate and key files into `/ssl`.
 2. In the `configuration.yaml` file, some options in the `http:` section are no longer necessary for this scenario, and should be commented out or removed:
    - `ssl_certificate`
    - `ssl_key`

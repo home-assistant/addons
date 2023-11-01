@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.10.1
+
+- Bump Python Matter Server to [4.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/4.0.1)
+
 ## 4.10.0
 
 - Add beta flag to the add-on which installs Python Matter Server pre-releases at startup.

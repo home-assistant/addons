@@ -48,7 +48,6 @@ Available models are sorted from least to most accurate.
 - `small-int8` (255 MB)
 - `small` (968 MB)
 - `medium-int8` (786 MB)
-- `medium` (3.1 GB)
 
 ### Option: `beam_size`
 

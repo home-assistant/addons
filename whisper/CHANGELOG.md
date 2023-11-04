@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Remove model `medium` from documentation
+
 ## 1.0.0
 
 - Upgrade to `wyoming-whisper` 1.0.1

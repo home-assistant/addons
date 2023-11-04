@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.10.2
+
+- Bump Python Matter Server to [4.0.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/4.0.2)
+
 ## 4.10.1
 
 - Bump Python Matter Server to [4.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/4.0.1)

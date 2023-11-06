@@ -1,0 +1,17 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Start openWakeWord service
+# ==============================================================================
+flags=()
+
+if bashio::config.true 'debug_logging'; then
+    flags+=('--debug')
+fi
+
+exec python3 -m wyoming_openwakeword \
+    --uri 'tcp://0.0.0.0:10400' \
+    --preload-model 'ok_nabu' \
+    --custom-model-dir /share/openwakeword \
+    --threshold "$(bashio::config 'threshold')" \
+    --trigger-level "$(bashio::config 'trigger_level')" ${flags[@]}

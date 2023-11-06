@@ -1,5 +1,5 @@
 ---
-version: 0.1.88
+version: 0.2.1
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
@@ -20,6 +20,7 @@ init: false
 options:
   device: null
   log_level: info
+  soft_reset: Automatic
   s0_legacy_key: ""
   s2_access_control_key: ""
   s2_authenticated_key: ""
@@ -28,12 +29,15 @@ ports:
   3000/tcp: null
 schema:
   device: device(subsystem=tty)
-  emulate_hardware: bool?
   log_level: list(silly|debug|verbose|http|info|warn|error)?
-  network_key: match(|[0-9a-fA-F]{32,32})?
+  soft_reset: list(Automatic|Enabled|Disabled)?
   s0_legacy_key: match(|[0-9a-fA-F]{32,32})?
   s2_access_control_key: match(|[0-9a-fA-F]{32,32})?
   s2_authenticated_key: match(|[0-9a-fA-F]{32,32})?
   s2_unauthenticated_key: match(|[0-9a-fA-F]{32,32})?
+  network_key: match(|[0-9a-fA-F]{32,32})?
+  emulate_hardware: bool?
+  safe_mode: bool?
 stage: stable
 startup: services
+timeout: 30

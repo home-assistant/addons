@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0
+
+- Add voices for Arabic (kareem), Hungarian (imre), English (libritts_r), and more
+- Fix error when voice contains UTF-8 character (quote url)
+- Fix missing "dataset" key error
+- Fix unnecessary downloads due to /share
+
 ## 1.3.2
 
 - Add voices for Hungarian, Turkish, Portuguese, Slovak, and Czech

@@ -13,6 +13,11 @@ if [ "$log_level" = "invalid" ]; then
   log_level="info"
 fi
 
+if bashio::config.true "beta"; then
+    bashio::log.info 'Upgrading Python Matter Server to latest pre-release'
+    pip3 install --upgrade --pre python-matter-server[server]
+fi
+
 # Bind to internal hassio network only unless user requests to expose
 server_port="$(bashio::addon.port 5580)"
 if ! bashio::var.has_value "${server_port}"; then

@@ -138,10 +138,25 @@ This option sets the log level of Z-Wave JS. Valid options are:
 If no `log_level` is specified, the log level will be set to the level set in
 the Supervisor.
 
+### Option `soft_reset`
+
+This setting tells the add-on how to handle soft-resets for 500 series controllers:
+1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
+2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
+3. Disabled - Soft-reset will be explicitly disabled for 500 series controllers.
+
 ### Option `emulate_hardware` (optional)
 
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
+
+### Option `safe_mode` (optional)
+
+This setting puts your network in safe mode, which could significantly decrease
+the performance of your network but may also help get the network up and running
+so that you can troubleshoot issues, grab logs, etc. In most cases, users will
+never need to use this feature, so only change this setting if you know what you
+are doing and/or you are asked to.
 
 ### Option `network_key` (deprecated)
 

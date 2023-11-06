@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.3.0
+
+### Features
+
+- Add-On: Add `disable_controller_recovery` configuration option. When enabled, the driver will not attempt to automatically recover from an unresponsive controller and will instead either let the controller recover on its own or wait for the user to restart the add-on to attempt recovery. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
+
+### Bug fixes
+
+- Z-Wave JS: Ensure the default Basic CC values are only exposed if they should be
+- Z-Wave JS: Auto-remove failed SmartStart nodes when bootstrapping times out
+- Z-Wave JS: Improve how unresponsive controllers are handled
+
+### Config file changes
+
+- Tweak Heatit Z-TRM6 options
+- Add Ring Alarm Panic Button Gen2
+- Update fingerprints for Vesternet device
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.3.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.3.0)
+
 ## 0.2.1
 
 ### Config file changes

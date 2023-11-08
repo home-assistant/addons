@@ -150,6 +150,17 @@ This setting tells the add-on how to handle soft-resets for 500 series controlle
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
 
+### Optional `disable_controller_recovery` (optional):
+
+This setting will disable Z-Wave JS's automatic recovery process when the
+controller appears to be unresponsive and will instead let the controller
+recover on its own if it's capable of doing so. While the controller is
+unresponsive, commands will start to fail and nodes may randomly get
+marked as dead. If a controller is not able to recover on its own, you
+will need to restart the add-on to attempt recovery. In most cases, users
+will never need to use this feature, so only change this setting if you
+know what you are doing and/or you are asked to.
+
 ### Option `safe_mode` (optional)
 
 This setting puts your network in safe mode, which could significantly decrease

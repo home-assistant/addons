@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.7.0
+
+- Use new location for accessing the Home Assistant configuration folder using `/homeassistant`
+- Add access to the new public configuration folders of add-ons
+- Upgrade to Alpine 3.18
+- Remove unneeded pip configuration when building add-on
+- Remove unused variable in finish script
+
 ## 5.6.0
 
 - Update base image to Alpine 3.17

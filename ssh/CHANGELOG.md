@@ -2,7 +2,7 @@
 
 ## 9.8.0
 
-- The `config` share has been renamed to `homeassistant` to match upstream changes.
+- Please note: the `/config` folder has been renamed to `/homeassistant`.
 - Add support for accessing public add-on configurations
 - Upgrade to Alpine 3.18
 

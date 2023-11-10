@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.8.0
+
+- Please note: the `/config` folder has been renamed to `/homeassistant`.
+- Add support for accessing public add-on configurations
+- Upgrade to Alpine 3.18
+
 ## 9.7.1
 
 - Upgrade Home Assistant CLI to 4.26.0

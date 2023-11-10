@@ -13,6 +13,8 @@ declare log_level
 declare flush_to_disk
 declare host_chassis
 declare soft_reset
+declare presets_array
+declare presets
 
 readonly DOCS_EXAMPLE_KEY_1="2232666D100F795E5BB17F0A1BB7A146"
 readonly DOCS_EXAMPLE_KEY_2="A97D2A51A6D4022998BEFC7B5DAE8EA1"
@@ -40,7 +42,7 @@ if bashio::config.has_value 'network_key'; then
         bashio::log.info "Migrating \"network_key\" option to \"s0_legacy_key\"..."
         bashio::addon.option s0_legacy_key "$(bashio::config 'network_key')"
         bashio::log.info "Flushing config to disk due to key migration..."
-        bashio::addon.options > "/data/options.json"
+        bashio::addon.options >"/data/options.json"
     fi
 fi
 
@@ -84,7 +86,7 @@ done
 # flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
     bashio::log.info "Flushing config to disk due to creation of new key(s)..."
-    bashio::addon.options > "/data/options.json"
+    bashio::addon.options >"/data/options.json"
 fi
 
 s0_legacy=$(bashio::config "s0_legacy_key")
@@ -92,7 +94,7 @@ s2_access_control=$(bashio::config "s2_access_control_key")
 s2_authenticated=$(bashio::config "s2_authenticated_key")
 s2_unauthenticated=$(bashio::config "s2_unauthenticated_key")
 
-if  ! bashio::config.has_value 'log_level'; then
+if ! bashio::config.has_value 'log_level'; then
     log_level=$(bashio::info.logging)
     bashio::log.info "No log level specified, falling back to Supervisor"
     bashio::log.info "log level (${log_level})..."
@@ -102,14 +104,46 @@ fi
 
 host_chassis=$(bashio::host.chassis)
 
-if [ "${host_chassis}" == "vm" ]; then
-    soft_reset=false
-    bashio::log.info "Virtual Machine detected, disabling soft-reset"
-else
+if bashio::config.equals 'soft_reset' 'Automatic'; then
+    bashio::log.info "Soft-reset set to automatic"
+    if [ "${host_chassis}" == "vm" ]; then
+        soft_reset=false
+        bashio::log.info "Virtual Machine detected, disabling soft-reset"
+    else
+        soft_reset=true
+        bashio::log.info "Virtual Machine not detected, enabling soft-reset"
+    fi
+elif bashio::config.equals 'soft_reset' 'Enabled'; then
     soft_reset=true
-    bashio::log.info "Virtual Machine not detected, enabling soft-reset"
+    bashio::log.info "Soft-reset enabled by user"
+else
+    soft_reset=false
+    bashio::log.info "Soft-reset disabled by user"
 fi
 
+# Create empty presets array
+presets_array=()
+
+if bashio::config.true 'safe_mode'; then
+    bashio::log.info "Safe mode enabled"
+    bashio::log.warning "WARNING: While in safe mode, the performance of your Z-Wave network will be in a reduced state. This is only meant for debugging purposes."
+    # Add SAFE_MODE to presets array
+    presets_array+=("SAFE_MODE")
+fi
+
+if bashio::config.true 'disable_controller_recovery'; then
+    bashio::log.info "Automatic controller recovery disabled"
+    bashio::log.warning "WARNING: If your controller becomes unresponsive, commands may start to fail and nodes may start to get marked as dead until the controller is able to recover on its own. If it doesn't recover on its own, you will need to restart the add-on manually to try to recover yourself."
+    # Add NO_CONTROLLER_RECOVERY to presets array
+    presets_array+=("NO_CONTROLLER_RECOVERY")
+fi
+
+# Convert presets array to JSON string and add to config
+if [[ ${#presets_array[@]} -eq 0 ]]; then
+    presets="[]"
+else
+    presets="$(printf '%s\n' "${presets_array[@]}" | jq -R . | jq -s .)"
+fi
 
 # Generate config
 bashio::var.json \
@@ -119,6 +153,7 @@ bashio::var.json \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
     soft_reset "^${soft_reset}" \
-    | tempio \
+    presets "${presets}" |
+    tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json

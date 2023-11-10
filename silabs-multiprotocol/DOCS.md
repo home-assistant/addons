@@ -18,6 +18,7 @@ serial port (like the module on Yellow or most USB based wireless adapters).
 Once the firmware is loaded follow the following steps:
 
 1. Select the correct `device` in the add-on configuration tab and press `Save`.
+   On Home Assistant Yellow use `/dev/ttyAMA1`.
 2. Start the add-on.
 
 **NOTE:** the Web frontend is only accessible when OpenThread is enabled (see below).
@@ -45,14 +46,16 @@ To use the OTBR enable it in the Configuration tab and restart the add-on. Home
 Assistant should discover the OpenThread border router automatically and
 configure it as necessary.
 
-There is also a web interface provided by the OTBR.  Previous versions of this
-add-on shipped with that web interface enabled by default. However, the web
+### Web interface (advanced)
+
+There is also a web interface provided by the OTBR. However, the web
 interface has caveats (e.g. forming a network does not generate an off-mesh
 routable IPv6 prefix which causes changing IPv6 addressing on first add-on
 restart). It is still possible to enable the web interface for debugging
-purpose. Make sure to expose the OpenThread REST API port on port 8081 (by
-clicking "Show disabled ports" and entering 8081 in the OpenThread REST API port
-field).
+purpose. Make sure to expose both the Web UI port and REST API port (the
+latter needs to be on port 8081) on the host interface. To do so, click on
+"Show disabled ports" and enter a port (e.g. 8080) in the OpenThread Web UI
+and 8081 in the OpenThread REST API port field).
 
 ### Automatic firmware upgrade
 
@@ -78,7 +81,6 @@ Add-on configuration:
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processor Communication tracing (trace in log)      |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
-| otbr_web_enable    | Enable OpenThread BorderRouter Web interface (see caveats in docuemntation above)              |
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |
 
@@ -87,7 +89,7 @@ Add-on configuration:
 The add-on runs several service internally. This architecture diagram shows what
 the add-on currently implements.
 
-![Silicon Labs Multiprotocol Add-on Architecture](images/architecture.png)
+![Silicon Labs Multiprotocol Add-on Architecture](https://raw.githubusercontent.com/home-assistant/addons/master/silabs-multiprotocol/images/architecture.png)
 
 ## Support
 

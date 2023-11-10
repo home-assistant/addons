@@ -1,5 +1,94 @@
 # Changelog
 
+## 4.10.2
+
+- Bump Python Matter Server to [4.0.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/4.0.2)
+
+## 4.10.1
+
+- Bump Python Matter Server to [4.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/4.0.1)
+
+## 4.10.0
+
+- Add beta flag to the add-on which installs Python Matter Server pre-releases at startup.
+
+## 4.9.0
+
+- Bump Python Matter Server to [3.7.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.7.0)
+
+## 4.8.3
+
+- Bump Python Matter Server to [3.6.4](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.4)
+
+## 4.8.2
+
+- Bump Python Matter Server to [3.6.3](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.3)
+
+## 4.8.1
+
+- Bump Python Matter Server to [3.6.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.2)
+
+## 4.8.0
+
+- Bump Python Matter Server to [3.6.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.6.1)
+
+## 4.7.0
+
+- Use the Python Matter Server container as base
+- Bump Python Matter Server to [3.5.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.2)
+
+## 4.6.1
+
+- Bump Python Matter Server to [3.5.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.1)
+  - Various small bug/stability fixes
+
+## 4.6.0
+
+- Bump Python Matter Server to [3.5.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.5.0)
+  - Uses libnl based address selection to avoid using deprecated/temporary IP addresses
+  - libnl avoids "Endpoint pool full" errors as well
+- Add dependency to support libnl based IP address selection
+
+## 4.5.1
+
+- Bump Python Matter Server to [3.4.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.2)
+
+## 4.5.0
+
+- Bump Python Matter Server to [3.4.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.1)
+- Bump to Python 3.11
+
+## 4.4.0
+
+- Bump Python Matter Server to [3.4.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.4.0)
+  - This updates Matter to 1.1
+- Update S6 Overlay to v3.1.5.0
+
+## 4.3.1
+
+- Bump Python Matter Server to [3.3.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.3.1)
+
+## 4.3.0
+
+- Bump Matter Server to [3.3.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.3.0)
+
+## 4.2.0
+
+- Bump Matter Server to [3.2.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.2.0)
+- Significantly reduced add-on size
+
+## 4.1.0
+
+- Bump Matter Server to [3.1.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.1.0)
+
+## 4.0.0
+
+- Bump Matter Server to [3.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/3.0.0)
+
+## 3.1.0
+
+- Use Python 3.10
+
 ## 3.0.4
 
 - Bump Matter Server to [2.1.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/2.1.1)

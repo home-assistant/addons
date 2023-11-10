@@ -5,7 +5,6 @@ FROM $BUILD_FROM
 RUN apk add --no-cache nginx openssl
 
 # Copy data
-COPY data/run.sh /
-COPY data/nginx.conf /etc/
+COPY rootfs /
 
-CMD [ "/run.sh" ]
+WORKDIR /

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0
+
+- Update to Alpine 3.17
+- Limit open file descriptors to 1024 to minimize
+
+## 1.5.2
+
+- Disable DNS request logging by default
+
 ## 1.5.1
 
 - Default cnames to empty array

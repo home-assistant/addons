@@ -48,7 +48,10 @@ elif bashio::config.exists 'dns.google_creds'; then
       bashio::log.info "Google Credentials File doesnt exists in folder share."
     fi
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/${GOOGLE_CREDS}")
-
+#Google Domains
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google-domains" ]; then
+    bashio::config.require 'dns.google_domains_access_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 #Netcup
 elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dns.netcup_api_key' && bashio::config.exists 'dns.netcup_api_password'; then
     PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${PROPAGATION_SECONDS}")

@@ -7,7 +7,16 @@ bashio::log.info "Starting Matter Server..."
 declare server_port
 declare log_level
 
-log_level=$(bashio::string.lower "$(bashio::config log_level)")
+log_level=$(bashio::string.lower "$(bashio::config log_level invalid)")
+if [ "$log_level" = "invalid" ]; then
+  bashio::log.magenta 'Received invalid log_level from config, fallback to info'
+  log_level="info"
+fi
+
+if bashio::config.true "beta"; then
+    bashio::log.info 'Upgrading Python Matter Server to latest pre-release'
+    pip3 install --upgrade --pre python-matter-server[server]
+fi
 
 # Bind to internal hassio network only unless user requests to expose
 server_port="$(bashio::addon.port 5580)"

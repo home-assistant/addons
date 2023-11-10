@@ -1,19 +1,15 @@
 # Home Assistant Add-ons: The official repository
 
-Add-ons for Home Assistant, allow you to extend the functionality
+Add-ons for Home Assistant allow you to extend the functionality
 around your Home Assistant setup. These add-ons can consist of an application
-that Home Assistant can integrate with (e.g., a MQTT broker or database server)
-or allow access to your Home Assistant configuration (e.g., via Samba or using
-the Configurator).
+that Home Assistant can integrate with (e.g., a [MQTT broker](/mosquitto/README.md) or [database server](/mariadb/README.md))
+or allow access to your Home Assistant configuration (e.g., via [Samba](/samba/README.md) or using
+the [File Editor](/configurator/README.md)).
 
 Add-ons can be installed and configured via the Home Assistant frontend on
 systems that have installed Home Assistant.
 
 ## Add-ons provided by this repository
-
-- **[Almond](/almond/README.md)**
-
-    Almond For Home Servers.
 
 - **[CEC Scanner](/cec_scan/README.md)**
 
@@ -38,6 +34,10 @@ systems that have installed Home Assistant.
 - **[File editor](/configurator/README.md)**
 
     Simple browser-based file editor for Home Assistant.
+    
+- **[Genie](/almond/README.md)**
+
+    The Open-source, Privacy-Preserving Voice Assistant.
 
 - **[Git pull](/git_pull/README.md)**
 
@@ -46,10 +46,6 @@ systems that have installed Home Assistant.
 - **[Google Assistant SDK](/google_assistant/README.md)**
 
     A virtual personal assistant developed by Google.
-
-- **[Hey Ada!](/ada/README.md)**
-
-    Voice assistant powered by Home Assistant.
 
 - **[Let's Encrypt](/letsencrypt/README.md)**
 
@@ -73,11 +69,11 @@ systems that have installed Home Assistant.
 
 - **[Samba share](/samba/README.md)**
 
-    Expose Home Assistant folders with SMB/CIFS.
+    Share your configuration over the network using Windows file sharing.
 
 - **[SSH server](/ssh/README.md)**
 
-    Allow logging in remotely to Home Assistant using SSH.
+    Allow logging in remotely to Home Assistant using SSH or just the web terminal with Ingress.
 
 - **[TellStick](/tellstick/README.md)**
 
@@ -89,6 +85,10 @@ systems that have installed Home Assistant.
 
 ### Deprecated Add-ons
 
+- **[Hey Ada!](/ada/README.md)**
+
+    Voice assistant powered by Home Assistant.
+
 - **[HomeMatic](/homematic/README.md)**
 
     HomeMatic central based on OCCU.
@@ -99,7 +99,7 @@ systems that have installed Home Assistant.
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 
-    Deprecated in favor of [Z-Wave JS](/zwave_js/README.md)
+    Deprecated in favor of [Z-Wave JS](/zwave_js/README.md).
 
 ## Support
 
@@ -109,7 +109,7 @@ You have several options to get them answered:
 
 - The [Home Assistant Discord Chat Server][discord].
 - The Home Assistant [Community Forum][forum].
-- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
+- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit].
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
@@ -123,6 +123,6 @@ about developing an add-on, please see our
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[dev-docs]: https://developers.home-assistant.io/docs/add-ons
+[dev-docs]: https://developers.home-assistant.io/docs/add-ons/

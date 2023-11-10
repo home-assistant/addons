@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.0.0
+
+- The `config` share has been renamed to `homeassistant` to match upstream changes.
+- Add support for accessing public add-on configurations
+- Update to Alpine 3.18
+- Adds HEALTCHECK support
+
+## 10.0.2
+
+- Enable IPv6 ULA and IPv4 link-local addresses by default
+
+## 10.0.1
+
+- Update to Alpine 3.17
+
 ## 10.0.0
 
 BREAKING CHANGE: Don't mangle filenames
@@ -81,4 +96,3 @@ systems do not have these restrictions.
 ## 8.0.0
 
 - Fix access to /backup
-

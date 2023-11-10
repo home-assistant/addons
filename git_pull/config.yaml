@@ -3,7 +3,7 @@ version: 7.13.1
 slug: git_pull
 name: Git pull
 description: Simple git pull to update the local configuration
-url: https://github.com/home-assistant/hassio-addons/tree/master/git_pull
+url: https://github.com/home-assistant/addons/tree/master/git_pull
 advanced: true
 arch:
   - armhf

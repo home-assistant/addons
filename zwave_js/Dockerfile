@@ -4,13 +4,17 @@ FROM ${BUILD_FROM}
 ARG ZWAVEJS_SERVER_VERSION
 ARG ZWAVEJS_VERSION
 
+# Environment configuration
+ENV \
+    S6_KILL_GRACETIME=30000 \
+    S6_SERVICES_GRACETIME=30000
+
 # Install Z-Wave JS
 WORKDIR /usr/src
 RUN \
     set -x \
-    && echo "@edge https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && apk add --no-cache \
-        nodejs@edge \
+        nodejs \
         npm \
     && apk add --no-cache --virtual .build-dependencies \
         build-base \
@@ -18,7 +22,6 @@ RUN \
         linux-headers \
         python3 \
     \
-    && npm config set unsafe-perm \
     && npm install --force \
         "zwave-js@${ZWAVEJS_VERSION}" \
         "@zwave-js/server@${ZWAVEJS_SERVER_VERSION}" \

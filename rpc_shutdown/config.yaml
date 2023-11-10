@@ -1,9 +1,9 @@
 ---
-version: "2.2"
+version: "2.4"
 slug: rpc_shutdown
 name: RPC Shutdown
 description: Shutdown Windows machines remotely
-url: https://github.com/home-assistant/hassio-addons/tree/master/rpc_shutdown
+url: https://github.com/home-assistant/addons/tree/master/rpc_shutdown
 arch:
   - armhf
   - armv7
@@ -25,7 +25,7 @@ schema:
   computers:
     - address: str
       alias: match(^[\w-]*$)
-      credentials: match(^[^%]*(?:%[^%]*)?$)
+      credentials: match(^[^%]*(?:%.*)?$)
       delay: int(0,600)?
       message: str?
 startup: services

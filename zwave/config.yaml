@@ -3,7 +3,7 @@ version: 0.9.1
 slug: zwave
 name: OpenZWave
 description: Control a ZWave network with Home Assistant
-url: https://github.com/home-assistant/hassio-addons/tree/master/zwave
+url: https://github.com/home-assistant/addons/tree/master/zwave
 arch:
   - amd64
   - i386

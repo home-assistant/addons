@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "Mosquitto broker" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -16,7 +16,7 @@ The add-on has a couple of options available. To get the add-on running:
 2. Have some patience and wait a couple of minutes.
 3. Check the add-on log output to see the result.
 
-Create a new user for MQTT via your Home Assistant's frontend **Configuration** -> **Users (manage users)** , (i.e. not on Mosquitto's **Configuration** tab).
+Create a new user for MQTT via your Home Assistant's frontend **Settings** -> **People** -> **Users** , (i.e. not on Mosquitto's **Configuration** tab).
 Notes:
 
 1. This name cannot be `homeassistant` or `addons`, those are reserved usernames.
@@ -24,7 +24,7 @@ Notes:
 
 To use the Mosquitto as a broker, go to the integration page and install the configuration with one click:
 
-1. Navigate in your Home Assistant frontend to **Configuration** -> **Integrations**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Devices & Services** -> **Integrations**.
 2. MQTT should appear as a discovered integration at the top of the page
 3. Select it and check the box to enable MQTT discovery if desired, and hit submit.
 
@@ -54,6 +54,20 @@ logins:
     password: passwd
 ```
 
+You can also optionally set a `password` value using the hashed password obtained from the `pw` command (which is present inside the Mosquitto container). If doing so, you must also specify `password_pre_hashed: true` alongside the `username` and `password` values:
+
+```console
+$ pw -p "foo"
+PBKDF2$sha512$100000$qsU7xQ8YCV/9nRuBBJVTxA==$jqw94Ej3aEr97UofY6rClmVCRkTdDiubQW0A6ZYmUI+pZjW9Hax+2w2FeYB3y5ut1SliB7+HAwIl2iONLKkohw==
+```
+
+```yaml
+logins:
+  - username: user
+    password: "PBKDF2$sha512$100000$qsU7xQ8YCV/9nRuBBJVTxA==$jqw94Ej3aEr97UofY6rClmVCRkTdDiubQW0A6ZYmUI+pZjW9Hax+2w2FeYB3y5ut1SliB7+HAwIl2iONLKkohw=="
+    password_pre_hashed: true
+```
+
 #### Option: `customize.active`
 
 If set to `true` additional configuration files will be read, see the next option.
@@ -72,13 +86,36 @@ A file containing a root certificate. Place this file in the Home Assistant `ssl
 
 A file containing a certificate, including its chain. Place this file in the Home Assistant `ssl` folder.
 
+**Note on `certfile` and `keyfile`**  
+- If `certfile` and `keyfile` are _not_ provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+- If `certfile` and `keyfile` are provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+  - Encrypted connections are possible on the encrypted ports (default: `8883`, `8884` for websockets) 
+     - In that case, the client must trust the server's certificate
+
 ### Option: `keyfile`
 
 A file containing the private key. Place this file in the Home Assistant `ssl` folder.
 
+**Note on `certfile` and `keyfile`**  
+- If `certfile` and `keyfile` are _not_ provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+- If `certfile` and `keyfile` are provided
+  - Unencrypted connections are possible on the unencrypted ports (default: `1883`, `1884` for websockets)
+  - Encrypted connections are possible on the encrypted ports (default: `8883`, `8884` for websockets) 
+     - In that case, the client must trust the server's certificate
+
 ### Option: `require_certificate`
 
-If set to `true` encryption will be enabled using the cert- and keyfile options.
+If set to `false`:
+- Client is **not required** to provide a certificate to connect, username/password is enough
+- `cafile` option is ignored
+
+If set to `true`:
+- Client is **required** to provide its own certificate to connect, username/password is _not_ enough
+- A certificate authority (CA) must be provided: `cafile` option
+- The client certificate must be signed by the CA provided (`cafile`)
 
 ### Option: `debug`
 
@@ -148,7 +185,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository
 [mosquitto]: https://mosquitto.org/

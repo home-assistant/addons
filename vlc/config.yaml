@@ -1,9 +1,9 @@
 ---
-version: 0.1.3
+version: 0.2.0
 slug: vlc
 name: VLC
 description: Turn your device into a Media Player with VLC
-url: https://github.com/home-assistant/hassio-addons/tree/master/vlc
+url: https://github.com/home-assistant/addons/tree/master/vlc
 arch:
   - amd64
   - i386
@@ -22,5 +22,5 @@ map:
 options: {}
 panel_icon: mdi:vlc
 schema: false
-stage: experimental
+stage: stable
 startup: services

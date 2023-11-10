@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.9
+
+- Add Google Domains DNS challenge support
+
 ## 4.12.8
 
 - Add INWX DNS challenge support

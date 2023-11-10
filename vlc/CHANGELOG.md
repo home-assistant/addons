@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+- Update to Alpine 3.17
+- Mark add-on as stable
+- Use new s6-overlay
+
 ## 0.1.3
 
 - Correct port on discovery

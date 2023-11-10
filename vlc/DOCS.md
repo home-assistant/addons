@@ -4,7 +4,7 @@
 
 Follow these steps to get the add-on installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
 2. Find the "VLC" add-on and click it.
 3. Click on the "INSTALL" button.
 
@@ -17,10 +17,7 @@ Follow these steps to get the add-on installed on your system:
 
 ## Configuration
 
-Add-on configuration:
-
-```yaml
-```
+Note that automatic discovery is expected when the add-on is being installed. If no "VLC media player via Telnet" integration is being discovered, make sure to remove any stale "VLC media player via Telnet" integrations and reinstall the add-on to trigger discovery again.
 
 ## Support
 
@@ -36,5 +33,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant

@@ -138,10 +138,36 @@ This option sets the log level of Z-Wave JS. Valid options are:
 If no `log_level` is specified, the log level will be set to the level set in
 the Supervisor.
 
+### Option `soft_reset`
+
+This setting tells the add-on how to handle soft-resets for 500 series controllers:
+1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
+2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
+3. Disabled - Soft-reset will be explicitly disabled for 500 series controllers.
+
 ### Option `emulate_hardware` (optional)
 
 If you don't have a USB stick, you can use a fake stick for testing purposes.
 It will not be able to control any real devices.
+
+### Optional `disable_controller_recovery` (optional):
+
+This setting will disable Z-Wave JS's automatic recovery process when the
+controller appears to be unresponsive and will instead let the controller
+recover on its own if it's capable of doing so. While the controller is
+unresponsive, commands will start to fail and nodes may randomly get
+marked as dead. If a controller is not able to recover on its own, you
+will need to restart the add-on to attempt recovery. In most cases, users
+will never need to use this feature, so only change this setting if you
+know what you are doing and/or you are asked to.
+
+### Option `safe_mode` (optional)
+
+This setting puts your network in safe mode, which could significantly decrease
+the performance of your network but may also help get the network up and running
+so that you can troubleshoot issues, grab logs, etc. In most cases, users will
+never need to use this feature, so only change this setting if you know what you
+are doing and/or you are asked to.
 
 ### Option `network_key` (deprecated)
 
@@ -168,5 +194,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
+[issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant

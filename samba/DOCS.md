@@ -26,7 +26,7 @@ Directory | Description
 -- | --
 `addons` | This is for your local add-ons.
 `backup` | This is for your backups.
-`config` | This is for your Home Assistant configuration.
+`homeassistant` | This is for your Home Assistant configuration (formerly known as `config`).
 `media` | This is for local media files.
 `share` | This is for your data that is shared between add-ons and Home Assistant.
 `ssl` | This is for your SSL certificates.

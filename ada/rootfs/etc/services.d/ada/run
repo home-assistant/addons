@@ -1,8 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Start Ada service
-# ==============================================================================
-STT=$(bashio::config 'stt')
-TTS=$(bashio::config 'tts')
-
-exec python3 -m ada --url "http://supervisor/core/api" --key "$SUPERVISOR_TOKEN" --stt "$STT" --tts "$TTS"

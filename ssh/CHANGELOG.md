@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.8.1
+
+- Add `/config` symlink to for backward and docs compatibility.
+
 ## 9.8.0
 
 - Please note: the `/config` folder has been renamed to `/homeassistant`.

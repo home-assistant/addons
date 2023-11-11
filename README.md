@@ -85,10 +85,6 @@ systems that have installed Home Assistant.
 
 ### Deprecated Add-ons
 
-- **[Hey Ada!](/ada/README.md)**
-
-    Voice assistant powered by Home Assistant.
-
 - **[HomeMatic](/homematic/README.md)**
 
     HomeMatic central based on OCCU.

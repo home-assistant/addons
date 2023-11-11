@@ -17,7 +17,7 @@ This add-on adds two main features to your Home Assistant installation:
 - enable connecting to your system using an SSH client.
 
 Regardless of how you connect (using the web terminal or using an SSH client), you end up in this add-on's container. The Home Assistant configuration
-directory is located on the path `/config`.
+directory is located on the path `/homeassistant`.
 
 This add-on comes bundled with [The Home Assistant CLI](https://www.home-assistant.io/common-tasks/os#home-assistant-via-the-command-line). Try it out using:
 

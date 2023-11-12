@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/command/with-contenv bashio
 # ==============================================================================
-# Start nmbd service
+# Start smbd service
 # ==============================================================================
-exec nmbd \
+exec smbd \
   --foreground \
   --debug-stdout \
   --no-process-group

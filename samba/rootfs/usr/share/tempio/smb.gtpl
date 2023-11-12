@@ -24,10 +24,10 @@
    dos charset = CP850
    unix charset = UTF-8
 
-[homeassistant]
+[config]
    browseable = yes
    writeable = yes
-   path = /homeassistant
+   path = /config
 
    valid users = {{ .username }}
    force user = root
@@ -39,17 +39,6 @@
    browseable = yes
    writeable = yes
    path = /addons
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-
-[addon_configs]
-   browseable = yes
-   writeable = yes
-   path = /addon_configs
 
    valid users = {{ .username }}
    force user = root

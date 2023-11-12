@@ -24,10 +24,10 @@
    dos charset = CP850
    unix charset = UTF-8
 
-[homeassistant]
+[config]
    browseable = yes
    writeable = yes
-   path = /homeassistant
+   path = /config
 
    valid users = {{ .username }}
    force user = root

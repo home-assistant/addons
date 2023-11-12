@@ -2,6 +2,8 @@
 
 ## 11.1.0
 
+- Revert `config` share name change to avoid user facing change
+- Adjust location of Home Assistant config to match latest dev/beta Supervisor
 - Migrate add-on layout to S6 Overlay
 
 ## 11.0.0

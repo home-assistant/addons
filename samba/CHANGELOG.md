@@ -1,5 +1,10 @@
 # Changelog
 
+## 12.1.0
+
+- Use the new Home Assistant folder for the `config` share
+- Add support for accessing public add-on configurations
+
 ## 12.0.0
 
 - Temporary remove access to add-on config shares, until Supervisor 2023.11.2 has been rolled out stable

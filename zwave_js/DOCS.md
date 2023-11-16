@@ -138,6 +138,11 @@ This option sets the log level of Z-Wave JS. Valid options are:
 If no `log_level` is specified, the log level will be set to the level set in
 the Supervisor.
 
+### Optional `log_to_file`
+
+When this option is enabled, logs will be written to the `/addon_configs/core_zwave_js` folder.
+Log filenames will begin with `zwave_` and will end with `.log`.
+
 ### Option `soft_reset`
 
 This setting tells the add-on how to handle soft-resets for 500 series controllers:
@@ -175,6 +180,12 @@ In previous versions of the addon, this was the only key that was needed. With
 the introduction of S2 security inclusion in zwave-js, this option has been
 deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
 migrated to `s0_legacy_key` on first startup.
+
+## Custom device config files
+
+In some cases, it may be useful for Z-Wave JS to use custom device config files. To
+load custom device config files into Z-Wave JS, put them in
+`/addon_configs/core_zwave_js/custom_device_configs` before starting the add-on.
 
 ## Known issues and limitations
 

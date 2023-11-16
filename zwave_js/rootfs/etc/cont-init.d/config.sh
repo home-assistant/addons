@@ -145,6 +145,8 @@ else
     presets="$(printf '%s\n' "${presets_array[@]}" | jq -R . | jq -s .)"
 fi
 
+log_to_file=$(bashio::config "log_to_file")
+
 # Generate config
 bashio::var.json \
     s0_legacy "${s0_legacy}" \
@@ -152,6 +154,7 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
+    log_to_file "${log_to_file}" \
     soft_reset "^${soft_reset}" \
     presets "${presets}" |
     tempio \

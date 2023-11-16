@@ -140,8 +140,8 @@ the Supervisor.
 
 ### Optional `log_to_file`
 
-When this option is enabled, logs will be written to the `/addon_configs/core_zwave_js` folder.
-Log filenames will begin with `zwave_` and will end with `.log`.
+When this option is enabled, logs will be written to the `/addon_configs/core_zwave_js`
+folder with the `.log` file extension.
 
 ### Option `soft_reset`
 

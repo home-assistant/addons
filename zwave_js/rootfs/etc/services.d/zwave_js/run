@@ -9,22 +9,6 @@ if bashio::config.true 'emulate_hardware'; then
     SERIAL_DEVICE="--mock-driver"
 fi
 
-if bashio::fs.directory_exists '/data/cache'; then
-    bashio::log.info "Migrating 'cache' folder to '/addon_configs/core_zwave_js/cache'"
-    mv /data/cache /config/cache
-fi
-
-if ! bashio::fs.directory_exists '/config/cache'; then
-    bashio::log.info "Creating 'cache' folder in '/addon_configs/core_zwave_js'"
-    mkdir -p /config/cache
-fi
-
-if ! bashio::fs.directory_exists '/config/custom_device_configs'; then
-bashio::log.info "Creating 'custom_device_configs' folder in '/addon_configs/core_zwave_js'"
-    mkdir -p /config/custom_device_configs
-fi
-
-
 # Send out discovery information to Home Assistant
 ./discovery &
 

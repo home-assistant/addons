@@ -6,7 +6,7 @@
 
 - Add-On: Allow custom device config files to be manually installed in `/addon_configs/core_zwave_js/custom_device_configs`
 - Add-On: Provide access to Z-Wave JS cache files for debugging in `/addon_configs/core_zwave_js/cache`
-- Add-On: Add configuration option to log to file. When enabled, logs will be written to `/addon_configs/core_zwave_js/zwave_js.log`
+- Add-On: Add configuration option to log to file. When enabled, logs will be written to `/addon_configs/core_zwave_js` with the `.log` file extension
 
 ## 0.3.0
 

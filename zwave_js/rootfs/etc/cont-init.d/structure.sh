@@ -12,7 +12,3 @@ fi
 if ! bashio::fs.directory_exists '/config/cache'; then
     mkdir -p /config/cache
 fi
-
-if ! bashio::fs.directory_exists '/config/custom_device_configs'; then
-    mkdir -p /config/custom_device_configs
-fi

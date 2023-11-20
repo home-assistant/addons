@@ -181,12 +181,6 @@ the introduction of S2 security inclusion in zwave-js, this option has been
 deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
 migrated to `s0_legacy_key` on first startup.
 
-## Custom device config files
-
-In some cases, it may be useful for Z-Wave JS to use custom device config files. To
-load custom device config files into Z-Wave JS, put them in
-`/addon_configs/core_zwave_js/custom_device_configs` before starting the add-on.
-
 ## Known issues and limitations
 
 - Your hardware needs to be compatible with the Z-Wave JS library

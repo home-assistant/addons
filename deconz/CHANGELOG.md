@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.23.0
+
+- Bump deCONZ to 2.24.2
+
 ## 6.22.0
 
 - Revert deCONZ to 2.22.2 due to a Phoscon bug: https://forum.phoscon.de/t/phoscon-de-pwa-login-html-does-not-work-anymore/3967

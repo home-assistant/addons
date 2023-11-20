@@ -138,10 +138,16 @@ This option sets the log level of Z-Wave JS. Valid options are:
 If no `log_level` is specified, the log level will be set to the level set in
 the Supervisor.
 
-### Optional `log_to_file`
+### Option `log_to_file`
 
 When this option is enabled, logs will be written to the `/addon_configs/core_zwave_js`
 folder with the `.log` file extension.
+
+### Option `log_max_files`
+
+When `log_to_file` is true, Z-Wave JS will create a log file for each
+day. This option allows you to control the maximum number of files that
+Z-Wave JS will keep.
 
 ### Option `soft_reset`
 

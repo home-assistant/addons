@@ -16,6 +16,12 @@ configuration:
     description: >-
       When this option is enabled, logs will be written to the
       `/addon_configs/core_zwave_js` folder with the `.log` file extension.
+  log_max_files:
+    name: Max number of log files to keep
+    description: >-
+      When `log_to_file` is true, Z-Wave JS will create a log file for each
+      day. This option allows you to control the maximum number of files that
+      Z-Wave JS will keep.
   network_key:
     name: Network Key
     description: >-

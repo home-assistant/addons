@@ -187,6 +187,17 @@ the introduction of S2 security inclusion in zwave-js, this option has been
 deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
 migrated to `s0_legacy_key` on first startup.
 
+### Troubleshooting network issues
+
+There are several features available in the add-on that can help you in troubleshooting network issues and/or providing data to either the Home Assistant or Z-Wave JS team to help in tracing an issue:
+
+1. **Update the log level:** It is extremely helpful when opening a GitHub issue to set the `log_level` configuration option to `debug` and capture when the issue occurs.
+2. **Log to file:** The `log_to_file` and `log_max_files` configuration options allow you to enable and configure that. Note that in order to access the log files, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh add-ons among others.
+3. **Access Z-Wave JS cache:** Z-Wave JS stores information it discovers about your network in cache files so that your devices don't have to be reinterviewed on every startup. In some cases, when opening a GitHub issue, you may be asked to provide the cache files. You can access them in `/addon_configs/core_zwave_js/cache`. Note that in order to access the cache, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh add-ons among others.
+4. **Change soft reset behavior:** By default, the addon will choose whether or not to soft reset the controller at startup automatically. In most cases that shouldn't be changed, but if asked to make a change when troubleshooting an issue, you can do so using the `soft_reset` configuration option.
+5. **Disable controller recovery:** By default, if the network controller appears to be jammed, Z-Wave JS will automatically try to restore the controller to a healthy state. In most cases that shouldn't be changed, but if asked to make a change when troubleshooting an issue, you can do so using the `disable_controller_recovery` configuration option.
+6. **Enable safe mode:** When Z-Wave JS is having trouble starting up, it can sometimes be hard to get useful logs to troubleshoot the issue. By setting `safe_mode` to true, Z-Wave JS may be able to start up in cases where it wouldn't with the `safe_mode` set to false. Note that enabling `safe_mode` will have a negative impact on the performance of your network and should be used sparingly.
+
 ## Known issues and limitations
 
 - Your hardware needs to be compatible with the Z-Wave JS library

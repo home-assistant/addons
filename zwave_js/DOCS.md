@@ -138,18 +138,18 @@ This option sets the log level of Z-Wave JS. Valid options are:
 If no `log_level` is specified, the log level will be set to the level set in
 the Supervisor.
 
-### Option `log_to_file`
+### Option `log_to_file` (optional)
 
 When this option is enabled, logs will be written to the `/addon_configs/core_zwave_js`
 folder with the `.log` file extension.
 
-### Option `log_max_files`
+### Option `log_max_files` (optional)
 
 When `log_to_file` is true, Z-Wave JS will create a log file for each
 day. This option allows you to control the maximum number of files that
 Z-Wave JS will keep.
 
-### Option `soft_reset`
+### Option `soft_reset` (optional)
 
 This setting tells the add-on how to handle soft-resets for 500 series controllers:
 1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.

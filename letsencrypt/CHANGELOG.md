@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.10
+
+- Bump version Certbot Direct Admin
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

@@ -67,7 +67,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
         bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
         PROPAGATION_SECONDS=240
     fi
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-${DNS_PROVIDER}:${DNS_PROVIDER}" "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-credentials" /data/dnsapikey "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # CloudFlare
 elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then

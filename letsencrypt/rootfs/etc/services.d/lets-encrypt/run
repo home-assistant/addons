@@ -87,7 +87,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; 
     bashio::config.require 'dns.directadmin_url'
     bashio::config.require 'dns.directadmin_username'
     bashio::config.require 'dns.directadmin_password'
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-directadmin:directadmin" "--certbot-dns-directadmin:directadmin-credentials" /data/dnsapikey "--certbot-dns-directadmin:directadmin-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Gandi
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then

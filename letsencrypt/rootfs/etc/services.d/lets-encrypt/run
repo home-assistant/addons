@@ -29,7 +29,10 @@ else
 fi
 
 # AWS
-if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.aws_secret_access_key'; then
+if [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-route53" ]; then
+    bashio::config.require 'dns.aws_access_key_id'
+    bashio::config.require 'dns.aws_secret_access_key'
+
     AWS_ACCESS_KEY_ID="$(bashio::config 'dns.aws_access_key_id')"
     AWS_SECRET_ACCESS_KEY="$(bashio::config 'dns.aws_secret_access_key')"
 
@@ -37,7 +40,8 @@ if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.a
     export AWS_SECRET_ACCESS_KEY
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}")
 #Google
-elif bashio::config.exists 'dns.google_creds'; then
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google" ]; then
+    bashio::config.require 'dns.google_creds'
     GOOGLE_CREDS="$(bashio::config 'dns.google_creds')"
 
     export GOOGLE_CREDS

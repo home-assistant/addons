@@ -6,6 +6,7 @@
 - Drop CloudXNS (removed in Certbot upstream)
 - Update to Python 3.11
 - Update to Alpine 3.18
+- Add GANDI DNS propagation delay setting
 
 ## 4.12.9
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.0
+
+- Upgrade to Certbot 2.7.4 & all DNS authenticator plug-ins
+- Drop CloudXNS (removed in Certbot upstream)
+- Update to Python 3.11
+- Update to Alpine 3.18
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

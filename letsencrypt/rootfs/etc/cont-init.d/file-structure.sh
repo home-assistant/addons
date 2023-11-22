@@ -6,9 +6,7 @@ mkdir -p /data/workdir
 mkdir -p /data/letsencrypt
 
 # Setup Let's encrypt config
-echo -e "dns_cloudxns_api_key = $(bashio::config 'dns.cloudxns_api_key')\n" \
-      "dns_cloudxns_secret_key = $(bashio::config 'dns.cloudxns_secret_key')\n" \
-      "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
+echo -e "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
       "certbot_dns_directadmin:directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
       "certbot_dns_directadmin:directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
       "certbot_dns_directadmin:directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
@@ -60,4 +58,12 @@ if bashio::config.exists 'dns.transip_api_key'; then
       TRANSIP_API_KEY=$(bashio::config 'dns.transip_api_key')
       echo "${TRANSIP_API_KEY}" | openssl rsa -out /data/transip-rsa.key
       chmod 600 /data/transip-rsa.key
+fi
+
+# Cleanup removed add-on options
+if bashio::config.exists 'dns.cloudxns_api_key'; then
+      bashio::addon.option 'dns.cloudxns_api_key'
+fi
+if bashio::config.exists 'dns.cloudxns_secret_key'; then
+      bashio::addon.option 'dns.cloudxns_secret_key'
 fi

@@ -1,8 +1,16 @@
 # Changelog
 
-## 4.12.10
+## 5.0.1
 
 - Add DuckDNS DNS challenge support
+
+## 5.0.0
+
+- Upgrade to Certbot 2.7.4 & all DNS authenticator plug-ins
+- Drop CloudXNS (removed in Certbot upstream)
+- Update to Python 3.11
+- Update to Alpine 3.18
+- Add GANDI DNS propagation delay setting
 
 ## 4.12.9
 

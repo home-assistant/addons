@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.4.0
+
+- Add voices for Arabic (kareem), Hungarian (imre), English (libritts_r), and more
+- Fix error when voice contains UTF-8 character (quote url)
+- Fix missing "dataset" key error
+- Fix unnecessary downloads due to /share
+
+## 1.3.2
+
+- Add voices for Hungarian, Turkish, Portuguese, Slovak, and Czech
+- Look for custom voices in `/share/piper`
+- Add `upgrade_voices` and `debug_logging` options
+- Upgrade to Debian bookworm
+
+## 1.2.0
+
+- Upgrade to Piper 1.2
+- Add over 30 new voices
+- Change voice format to `<language>_<REGION>-<name>-<quality>`
+- Voices are downloaded from https://huggingface.co/rhasspy/piper-voices
+- Add `max_piper_procs` option
+
 ## 0.1.3
 
 - Fix multi-line input

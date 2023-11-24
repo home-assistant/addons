@@ -1,10 +1,10 @@
 ---
 build_from:
-  amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
-  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
+  amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
+  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
 codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  PIPER_LIB_VERSION: 0.0.3
-  PIPER_RELEASE: v0.0.2
+  PIPER_LIB_VERSION: 1.4.0
+  PIPER_RELEASE: v1.2.0

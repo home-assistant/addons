@@ -166,11 +166,10 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
-COPY otbr-patches/0001-rest-support-Thread-state-change-1866.patch /usr/src
-COPY otbr-patches/0002-rest-initialize-dataset.patch /usr/src
-COPY otbr-patches/0003-rest-deactive-IPv6-interface-when-disabling-the-OTBR.patch /usr/src
-COPY otbr-patches/0004-rest-support-erasing-all-persistent-info-1908.patch /usr/src
-COPY otbr-patches/0005-rest-support-deleting-the-dataset.patch /usr/src
+COPY otbr-patches/0001-rest-support-erasing-all-persistent-info-1908.patch /usr/src
+COPY otbr-patches/0002-rest-support-deleting-the-dataset.patch /usr/src
+COPY otbr-patches/0003-mdns-update-mDNSResponder-to-1790.80.10.patch /usr/src
+COPY otbr-patches/0004-mdns-add-Linux-specific-patches.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -200,11 +199,10 @@ RUN \
        sudo \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && patch -p1 < /usr/src/0001-rest-support-Thread-state-change-1866.patch \
-    && patch -p1 < /usr/src/0002-rest-initialize-dataset.patch \
-    && patch -p1 < /usr/src/0003-rest-deactive-IPv6-interface-when-disabling-the-OTBR.patch \
-    && patch -p1 < /usr/src/0004-rest-support-erasing-all-persistent-info-1908.patch \
-    && patch -p1 < /usr/src/0005-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0001-rest-support-erasing-all-persistent-info-1908.patch \
+    && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0003-mdns-update-mDNSResponder-to-1790.80.10.patch \
+    && patch -p1 < /usr/src/0004-mdns-add-Linux-specific-patches.patch \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && (cd third_party/openthread/repo \
         && ln -s ../../../../silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \

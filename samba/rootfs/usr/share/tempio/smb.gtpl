@@ -12,8 +12,8 @@
    log level = 2
 
    bind interfaces only = yes
-   interfaces = {{ .interfaces | join " " }}
-   hosts allow = {{ .allow_hosts | join " " }}
+   interfaces = 127.0.0.1 {{ .interfaces | join " " }}
+   hosts allow = 127.0.0.1 {{ .allow_hosts | join " " }}
 
    {{ if .compatibility_mode }}
    client min protocol = NT1
@@ -27,7 +27,7 @@
 [config]
    browseable = yes
    writeable = yes
-   path = /config
+   path = /homeassistant
 
    valid users = {{ .username }}
    force user = root
@@ -39,6 +39,17 @@
    browseable = yes
    writeable = yes
    path = /addons
+
+   valid users = {{ .username }}
+   force user = root
+   force group = root
+   veto files = /{{ .veto_files | join "/" }}/
+   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+
+[addon_configs]
+   browseable = yes
+   writeable = yes
+   path = /addon_configs
 
    valid users = {{ .username }}
    force user = root

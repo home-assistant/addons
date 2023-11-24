@@ -1,5 +1,5 @@
 ---
-version: 5.6.0
+version: 5.7.0
 slug: configurator
 name: File editor
 description: Simple browser-based file editor for Home Assistant
@@ -17,8 +17,9 @@ image: homeassistant/{arch}-addon-configurator
 ingress: true
 init: false
 map:
+  - all_addon_configs:rw
   - backup:rw
-  - config:rw
+  - homeassistant_config:rw
   - media:rw
   - share:rw
   - ssl:rw

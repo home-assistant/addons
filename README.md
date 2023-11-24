@@ -39,7 +39,6 @@ systems that have installed Home Assistant.
 
     The Open-source, Privacy-Preserving Voice Assistant.
 
-
 - **[Git pull](/git_pull/README.md)**
 
     Load and update configuration files for Home Assistant from a Git repository.
@@ -86,10 +85,6 @@ systems that have installed Home Assistant.
 
 ### Deprecated Add-ons
 
-- **[Hey Ada!](/ada/README.md)**
-
-    Voice assistant powered by Home Assistant.
-
 - **[HomeMatic](/homematic/README.md)**
 
     HomeMatic central based on OCCU.
@@ -100,7 +95,7 @@ systems that have installed Home Assistant.
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 
-    Deprecated in favor of [Z-Wave JS](/zwave_js/README.md)
+    Deprecated in favor of [Z-Wave JS](/zwave_js/README.md).
 
 ## Support
 
@@ -110,7 +105,7 @@ You have several options to get them answered:
 
 - The [Home Assistant Discord Chat Server][discord].
 - The Home Assistant [Community Forum][forum].
-- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit]
+- Join the [Reddit subreddit][reddit] in [/r/homeassistant][reddit].
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 

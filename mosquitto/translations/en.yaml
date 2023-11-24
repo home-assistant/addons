@@ -3,13 +3,16 @@ configuration:
   logins:
     name: Logins
     description: >-
-      A list of local users that will be created with username and password. You
-      don't need to do this because you can use Home Assistant users too,
-      without any configuration.
+      A list of local users that will be created with username and password.
+      You don't need to do this because you can use Home Assistant users too,
+      without any configuration. You can also specify
+      `password_pre_hashed: true` to utilize a pre-hashed password from the
+      output of the `pw` command (which is present inside the container).
   require_certificate:
-    name: Require Certificate
+    name: Require Client Certificate
     description: >-
-      If enabled encryption will be enabled using the cert- and keyfile options.
+      If enabled client will need to provide its own certificate on top of
+      username/password. 'cafile' must be set.
   certfile:
     name: Certificate File
     description: >-
@@ -18,7 +21,8 @@ configuration:
   cafile:
     name: CA File
     description: >-
-      A file containing a root certificate. Place this file in the Home
+      A file containing a root certificate that signed the client certificate
+      (only used if 'require_certificate' enabled). Place this file in the Home
       Assistant `ssl` folder.
   keyfile:
     name: Private Key File

@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.4.0
+
+- Update mosquitto to 2.0.18
+
+## 6.3.1
+
+- Add ability to use a pre-hashed password for custom logins
+
+## 6.3.0
+
+- Update mosquitto to 2.0.17
+
 ## 6.2.1
 
 - Add explicit dependencies for dynamic security plugin and asynchronous name resolver 

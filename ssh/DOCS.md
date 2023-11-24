@@ -30,11 +30,10 @@ ha help
 You can access the web terminal by clicking the "Open Web UI" button on this add-on's Info tab. If you set the "Show in sidebar" setting (found on the same Info tab) to "on", a shortcut is added to the sidebar allowing you to access the web terminal quickly.
 
 To copy text from the Web UI:
-- hold down the SHIFT key
-- select the text you want to copy using your mouse
-- releasing the left mouse button will copy the text to your system clipboard
-
-To paste text in the Web UI press SHIFT + INSERT
+1. Hold down the SHIFT key.
+2. Select the text you want to copy using your mouse.
+3. To copy the text to your system clipboard, release the left mouse button.
+4. To paste text in the Web UI, press SHIFT + INSERT.
 
 ### SSH Server Connection
 

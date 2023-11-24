@@ -97,7 +97,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; 
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     if bashio::config.exists 'dns.gandi_sharing_id'; then
         bashio::log.info "Use Gandi sharing ID"
-        echo "certbot_plugin_gandi:dns_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> "/data/dnsapikey"
+        echo "dns_gandi_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> "/data/dnsapikey"
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}" )
 

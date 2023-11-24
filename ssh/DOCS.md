@@ -31,8 +31,8 @@ You can access the web terminal by clicking the "Open Web UI" button on this add
 
 To copy text from the Web UI:
 - hold down the SHIFT key
-- select the text you want to copy
-- when you release the left mouse button the text will copy to your system clipboard
+- select the text you want to copy using your mouse
+- releasing the left mouse button will copy the text to your system clipboard
 
 To paste text in the Web UI press SHIFT + INSERT
 

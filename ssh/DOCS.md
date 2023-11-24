@@ -32,8 +32,10 @@ You can access the web terminal by clicking the "Open Web UI" button on this add
 To copy text from the Web UI:
 1. Hold down the SHIFT key.
 2. Select the text you want to copy using your mouse.
-3. To copy the text to your system clipboard, release the left mouse button.
-4. To paste text in the Web UI, press SHIFT + INSERT.
+3. On releasing the left mouse button, the text gets copied to your system clipboard.
+
+To paste text into the Web UI:
+1. Press SHIFT + INSERT.
 
 ### SSH Server Connection
 

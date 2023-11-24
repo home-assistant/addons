@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.1
+
+- Add DuckDNS DNS challenge support
+
 ## 5.0.0
 
 - Upgrade to Certbot 2.7.4 & all DNS authenticator plug-ins

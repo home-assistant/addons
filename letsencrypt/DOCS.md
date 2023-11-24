@@ -57,6 +57,7 @@ directadmin_password: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
+duckdns_token: ''
 google_creds: ''
 google_domains_access_token: ''
 google_domains_zone: ''
@@ -527,6 +528,7 @@ dns-digitalocean
 dns-directadmin
 dns-dnsimple
 dns-dnsmadeeasy
+dns-duckdns
 dns-gehirn
 dns-google
 dns-hetzner

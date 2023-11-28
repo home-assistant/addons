@@ -1,9 +1,5 @@
 # Changelog
 
-## 12.2.0
-
-- Make Samba log level configurable
-
 ## 12.1.0
 
 - Use the new Home Assistant folder for the `config` share

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.4
+
+- Add Namecheap DNS challenge support
+
 ## 5.0.3
 
 - Add deSEC DNS challenge support

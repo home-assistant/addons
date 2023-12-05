@@ -1,15 +1,15 @@
 #!/command/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Take down the S6 supervision tree when service fails
-# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# Take down the S6 supervision tree when nmbd fails
 # ==============================================================================
 readonly exit_code_container=$(</run/s6-linux-init-container-results/exitcode)
 readonly exit_code_service="${1}"
 readonly exit_code_signal="${2}"
+readonly service="nmbd"
 
 bashio::log.info \
-  "Service exited with code ${exit_code_service}" \
+  "Service ${service} exited with code ${exit_code_service}" \
   "(by signal ${exit_code_signal})"
 
 if [[ "${exit_code_service}" -eq 256 ]]; then

@@ -131,12 +131,22 @@ if bashio::config.true 'safe_mode'; then
     presets_array+=("SAFE_MODE")
 fi
 
+if bashio::config.true 'disable_controller_recovery'; then
+    bashio::log.info "Automatic controller recovery disabled"
+    bashio::log.warning "WARNING: If your controller becomes unresponsive, commands may start to fail and nodes may start to get marked as dead until the controller is able to recover on its own. If it doesn't recover on its own, you will need to restart the add-on manually to try to recover yourself."
+    # Add NO_CONTROLLER_RECOVERY to presets array
+    presets_array+=("NO_CONTROLLER_RECOVERY")
+fi
+
 # Convert presets array to JSON string and add to config
 if [[ ${#presets_array[@]} -eq 0 ]]; then
     presets="[]"
 else
     presets="$(printf '%s\n' "${presets_array[@]}" | jq -R . | jq -s .)"
 fi
+
+log_to_file=$(bashio::config "log_to_file")
+log_max_files=$(bashio::config "log_max_files")
 
 # Generate config
 bashio::var.json \
@@ -145,6 +155,8 @@ bashio::var.json \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
     log_level "${log_level}" \
+    log_to_file "${log_to_file}" \
+    log_max_files "${log_max_files}" \
     soft_reset "^${soft_reset}" \
     presets "${presets}" |
     tempio \

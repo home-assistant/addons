@@ -7,15 +7,17 @@ ARG \
     CRYPTOGRAPHY_VERSION \
     CERTBOT_VERSION \
     CERTBOT_DNS_AZURE_VERSION \
+    CERTBOT_DNS_DESEC_VERSION \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
-    CERTBOT_DNS_HETZNER_VERSION \
+    CERTBOT_DNS_DUCKDNS_VERSION \
     CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
-    CERTBOT_NAMECHEAP_VERSION \
+    CERTBOT_DNS_NAMECHEAP_VERSION \
+    CERTBOT_DNS_HETZNER_VERSION \
+    CERTBOT_DNS_INWX_VERSION \
+    CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
-    CERTBOT_DNS_TRANSIP_VERSION \
-    CERTBOT_DNS_INWX_VERSION \
     ACME_VERSION
 
 RUN \
@@ -36,11 +38,12 @@ RUN \
         certbot==${CERTBOT_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
-        certbot-dns-cloudxns==${CERTBOT_VERSION} \
+        certbot-dns-desec==${CERTBOT_DNS_DESEC_VERSION} \
         certbot-dns-digitalocean==${CERTBOT_VERSION} \
         certbot-dns-directadmin==${CERTBOT_DNS_DIRECTADMIN_VERSION} \
         certbot-dns-dnsimple==${CERTBOT_VERSION} \
         certbot-dns-dnsmadeeasy==${CERTBOT_VERSION} \
+        certbot-dns-duckdns==${CERTBOT_DNS_DUCKDNS_VERSION} \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
         certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \
@@ -53,7 +56,7 @@ RUN \
         certbot-dns-rfc2136==${CERTBOT_VERSION} \
         certbot-dns-route53==${CERTBOT_VERSION} \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
-        certbot-dns-namecheap==${CERTBOT_NAMECHEAP_VERSION} \
+        certbot-dns-namecheap==${CERTBOT_DNS_NAMECHEAP_VERSION} \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \

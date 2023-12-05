@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.5
+
+- Fix DirectAdmin DNS challenge support
+
 ## 5.0.4
 
 - Add Namecheap DNS challenge support

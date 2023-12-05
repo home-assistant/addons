@@ -8,9 +8,9 @@ mkdir -p /data/letsencrypt
 # Setup Let's encrypt config
 echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \
-      "directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
-      "directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
-      "directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
+      "dns_directadmin_url = $(bashio::config 'dns.directadmin_url')\n" \
+      "dns_directadmin_username = $(bashio::config 'dns.directadmin_username')\n" \
+      "dns_directadmin_password = $(bashio::config 'dns.directadmin_password')\n" \
       "dns_dnsimple_token = $(bashio::config 'dns.dnsimple_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \

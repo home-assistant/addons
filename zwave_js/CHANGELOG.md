@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.4.2
+
+### Features
+
+- Expose rebuild routes progress as a controller property
+
+### Bug fixes
+
+- On devices that should/must not support `Basic CC`, but use it for reporting, only the `currentValue` is now exposed. This allows applications to consider it a sensor, not an actor
+
+### Config file changes
+
+- Correct firmware version condition for Zooz ZSE40 v3.0
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.0)
+- [Z-Wave JS 12.3.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.3.2)
+
 ## 0.4.1
 
 ### Bug fixes

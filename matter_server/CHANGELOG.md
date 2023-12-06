@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.0
+
+- Bump Python Matter Server to [5.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.0.1)
+- Bump minimum required Home Assistant core version to 2023.12 due to breaking changes in the schema
+
 ## 4.10.2
 
 - Bump Python Matter Server to [4.0.2](https://github.com/home-assistant-libs/python-matter-server/releases/tag/4.0.2)

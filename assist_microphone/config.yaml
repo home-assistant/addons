@@ -1,5 +1,5 @@
 ---
-version: 1.0.0-10
+version: 1.0.0
 slug: assist_microphone
 name: Assist Microphone
 description: Use Assist with local microphone
@@ -26,3 +26,4 @@ schema:
   debug_logging: bool
 audio: true
 homeassistant: 2023.12.1
+image: homeassistant/{arch}-addon-assist_microphone

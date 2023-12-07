@@ -1,0 +1,28 @@
+---
+version: 1.0.0-10
+slug: assist_microphone
+name: Assist Microphone
+description: Use Assist with local microphone
+url: https://github.com/home-assistant/addons/blob/master/assist_microphone
+hassio_api: true
+arch:
+  - amd64
+  - aarch64
+  - armv7
+init: false
+discovery:
+  - wyoming
+map:
+  - share:ro
+options:
+  awake_wav: "/usr/src/sounds/awake.wav"
+  done_wav: "/usr/src/sounds/done.wav"
+  snd_volume_multiplier: 1.0
+  debug_logging: false
+schema:
+  awake_wav: str
+  done_wav: str
+  snd_volume_multiplier: float
+  debug_logging: bool
+audio: true
+homeassistant: 2023.12.1

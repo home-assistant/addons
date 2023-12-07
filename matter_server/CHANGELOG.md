@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1
+
+- Bump Python Matter Server to [5.0.3](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.0.3)
+- Fix matter-server finish script to report exit code
+- Attach gdb debugger in beta mode to print stack traces on crash
+
 ## 5.0.0
 
 - Bump Python Matter Server to [5.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.0.1)

@@ -116,6 +116,11 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hetzner" ]; then
     bashio::config.require 'dns.hetzner_api_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "dns-hetzner" "--dns-hetzner-credentials" "/data/dnsapikey" "--dns-hetzner-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Infomaniak
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-infomaniak" ]; then
+    bashio::config.require 'dns.infomaniak_api_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Njalla
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'

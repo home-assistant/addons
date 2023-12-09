@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.4.3
+
+### Features
+
+- Z-Wave JS Server: Enable server to listen on IPv6 interfaces
+
+### Bug fixes
+
+- Handle more cases of unexpected Serial API restarts
+
+### Config file changes
+
+- Add wakeup instructions for Nexia ZSENS930
+- Correct parameter 5 size for Zooz ZEN34
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.4.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.1)
+- [Z-Wave JS Server 1.34.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.34.0)
+
 ## 0.4.2
 
 ### Features

@@ -71,6 +71,8 @@ schema:
     netcup_customer_id: str?
     njalla_token: str?
     nsone_api_key: str?
+    porkbun_key: str?
+    porkbun_secret: str?
     ovh_application_key: str?
     ovh_application_secret: str?
     ovh_consumer_key: str?
@@ -80,7 +82,7 @@ schema:
       dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|dns-duckdns|\
       dns-gehirn|dns-google|dns-google-domains|\
       dns-hetzner|dns-infomaniak|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
-      dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-namecheap|\
+      dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|dns-namecheap|\
       dns-netcup|dns-gandi|dns-transip|dns-inwx)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?

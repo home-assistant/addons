@@ -16,6 +16,7 @@ ARG \
     CERTBOT_DNS_INWX_VERSION \
     CERTBOT_DNS_NAMECHEAP_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
+    CERTBOT_DNS_PORKBUN_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
@@ -54,6 +55,7 @@ RUN \
         certbot-dns-luadns==${CERTBOT_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
         certbot-dns-nsone==${CERTBOT_VERSION} \
+        certbot-dns-porkbun==${CERTBOT_DNS_PORKBUN_VERSION} \
         certbot-dns-ovh==${CERTBOT_VERSION} \
         certbot-dns-rfc2136==${CERTBOT_VERSION} \
         certbot-dns-route53==${CERTBOT_VERSION} \

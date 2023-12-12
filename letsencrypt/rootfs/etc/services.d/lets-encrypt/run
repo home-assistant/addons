@@ -160,7 +160,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-desec" ]; then
 elif  [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-porkbun" ]; then
     bashio::config.require 'dns.porkbun_key'
     bashio::config.require 'dns.porkbun_secret'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-porkbun-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #All others
 else

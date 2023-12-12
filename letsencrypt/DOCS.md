@@ -97,6 +97,8 @@ transip_api_key: ''
 inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
+porkbun_key: ''
+porkbun_secret: ''
 ```
 
 ## Advanced
@@ -561,6 +563,29 @@ on the DNS zone to be used for authentication.
 
 </details>
 
+<details>
+  <summary>Porkbun</summary>
+
+In order to use a domain with this challenge, API access will need enabling on the domain. In order to
+do this go to domain management -> select the domain -> details and click the API access toggle.
+Then go to the menu in the top right select API access and then create a new api key.
+The title does not matter and is not used by certbot, make note of the key and the secret as both are required.
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-porkbun
+  porkbun_key: 0123456789abcdef0123456789abcdef01234
+  porkbun_secret: 0123456789abcdef0123456789abcdef01234
+```
+
+</details>
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -596,6 +621,7 @@ dns-netcup
 dns-gandi
 dns-transip
 dns-inwx
+dns-porkbun
 ```
 
 ## Support

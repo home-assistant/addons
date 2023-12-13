@@ -3,8 +3,6 @@
 # ==============================================================================
 # Start service
 # ==============================================================================
-export PYTHONPATH=/usr/src
-
 extra_args=()
 if bashio::config.true 'debug_logging'; then
     extra_args+=('--debug')

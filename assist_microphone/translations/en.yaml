@@ -8,7 +8,23 @@ configuration:
     name: Done WAV
     description: >-
       Path to WAV file to play when voice command is finished (empty to disable)
-  snd_volume_multiplier:
+  noise_suppression:
+    name: Noise suppression
+    description: >-
+      Noise suppression level (0 is disabled, 4 is max)
+  auto_gain:
+    name: Auto gain
+    description: >-
+      Automatic volume boost for microphone (0 is disabled, 31 is max)
+  mic_volume_multiplier:
+    name: Microphone volume multiplier
+    description: >-
+      Multiply microphone volume by fixed value (1.0 = no change, 2.0 = twice as loud)
+  sound_enabled:
+    name: Sound enabled
+    description: >-
+      Enables or disables output audio.
+  sound_volume_multiplier:
     name: Sound volume multiplier
     description: >-
       Multiply sound output volume by fixed value (1.0 = no change, 2.0 = twice

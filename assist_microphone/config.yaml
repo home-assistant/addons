@@ -8,7 +8,6 @@ hassio_api: true
 arch:
   - amd64
   - aarch64
-  - armv7
 init: false
 discovery:
   - wyoming
@@ -17,12 +16,20 @@ map:
 options:
   awake_wav: "/usr/src/sounds/awake.wav"
   done_wav: "/usr/src/sounds/done.wav"
-  snd_volume_multiplier: 1.0
+  sound_enabled: true
+  noise_suppression: 0
+  auto_gain: 0
+  mic_volume_multiplier: 1.0
+  sound_volume_multiplier: 1.0
   debug_logging: false
 schema:
   awake_wav: str
   done_wav: str
-  snd_volume_multiplier: float
+  sound_enabled: bool
+  noise_suppression: int
+  auto_gain: int
+  mic_volume_multiplier: float
+  sound_volume_multiplier: float
   debug_logging: bool
 audio: true
 homeassistant: 2023.12.1

@@ -1,6 +1,6 @@
 # Home Assistant Add-on: Assist Microphone
 
-![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
+![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
 Home Assistant add-on that uses a local USB microphone to control  [Assist](https://www.home-assistant.io/voice_control/).
 

@@ -67,7 +67,7 @@ RUN \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
-        -DOT_POSIX_CONFIG_RCP_BUS=UART \
+        -DOT_POSIX_RCP_BUS_UART=ON \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="OpenThread Border Router" \

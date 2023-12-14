@@ -4,6 +4,8 @@
 
 - Enable TREL
 - Enable NAT64 (disabled by default)
+- Bump to OTBR POSIX version 27ed99f375 (2023-12-13 10:11:52 -0800)
+- Bump universal SiLabs flasher to 0.0.15
 
 ## 2.3.2
 

@@ -10,7 +10,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV BORDER_ROUTING 1
 ENV BACKBONE_ROUTER 1
-ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_POSIX_CONFIG_RCP_BUS=UART -DOT_DIAGNOSTIC=1 -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
 ENV PLATFORM debian
 ENV RELEASE 1
 ENV WEB_GUI 1
@@ -31,18 +30,19 @@ ENV OTBR_UNUSED_DEBS libavahi-client3 avahi-daemon rsyslog
 
 WORKDIR /usr/src
 
-# Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
+# Install npm/nodejs for WebUI before calling script/bootstrap to avoid
+# systemd getting pulled in
 RUN \
     set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       git \
        iproute2 \
        python3 \
        python3-pip \
        lsb-release \
        netcat-openbsd \
        sudo \
+       git \
        nodejs \
        npm \
     && git clone --depth 1 -b main \
@@ -85,6 +85,8 @@ RUN \
     && pip install gpiod==1.5.4 universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
+       nodejs \
+       npm \
        ${OTBR_BUILD_DEPS} \
        ${OTBR_UNUSED_DEBS} \
     && rm -rf /var/lib/apt/lists/* \

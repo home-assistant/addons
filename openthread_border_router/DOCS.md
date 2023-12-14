@@ -64,6 +64,7 @@ Add-on configuration:
 | autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
+| nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |
 
 ## Support
 

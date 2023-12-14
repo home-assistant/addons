@@ -10,7 +10,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV BORDER_ROUTING 1
 ENV BACKBONE_ROUTER 1
-ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_POSIX_CONFIG_RCP_BUS=UART -DOT_DIAGNOSTIC=1 -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
 ENV PLATFORM debian
 ENV RELEASE 1
 ENV WEB_GUI 1
@@ -31,18 +30,19 @@ ENV OTBR_UNUSED_DEBS libavahi-client3 avahi-daemon rsyslog
 
 WORKDIR /usr/src
 
-# Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
+# Install npm/nodejs for WebUI before calling script/bootstrap to avoid
+# systemd getting pulled in
 RUN \
     set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       git \
        iproute2 \
        python3 \
        python3-pip \
        lsb-release \
        netcat-openbsd \
        sudo \
+       git \
        nodejs \
        npm \
     && git clone --depth 1 -b main \
@@ -63,12 +63,11 @@ RUN \
         -DOTBR_FEATURE_FLAGS=ON \
         -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
         -DOTBR_SRP_ADVERTISING_PROXY=ON \
-        -DOTBR_INFRA_IF_NAME=eth0 \
         -DOTBR_MDNS=mDNSResponder \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
-        -DOT_POSIX_CONFIG_RCP_BUS=UART \
+        -DOT_POSIX_RCP_BUS_UART=ON \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="OpenThread Border Router" \
@@ -76,12 +75,18 @@ RUN \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
+        -DOTBR_TREL=ON \
+        -DOTBR_NAT64=ON \
+        -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
+        -DOTBR_DNS_UPSTREAM_QUERY=ON \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
-    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
+    && pip install gpiod==1.5.4 universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
+       nodejs \
+       npm \
        ${OTBR_BUILD_DEPS} \
        ${OTBR_UNUSED_DEBS} \
     && rm -rf /var/lib/apt/lists/* \

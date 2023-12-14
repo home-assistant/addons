@@ -1,5 +1,5 @@
 ---
-version: 2.3.2
+version: 2.4.0
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -29,6 +29,7 @@ options:
   autoflash_firmware: true
   otbr_log_level: notice
   firewall: true
+  nat64: false
 ports:
   8080/tcp: null
   8081/tcp: null
@@ -42,5 +43,6 @@ schema:
   autoflash_firmware: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
+  nat64: bool
 stage: experimental
 startup: services

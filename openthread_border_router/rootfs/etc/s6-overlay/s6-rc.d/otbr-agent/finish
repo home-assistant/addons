@@ -2,8 +2,17 @@
 #==============================================================================
 # OpenThread BorderRouter Daemon finish script
 #==============================================================================
-bashio::log.info "otbr-agent ended with exit code ${1} (signal ${2})..."
+if test "$1" -eq 256 ; then
+  e=$((128 + $2))
+else
+  e="$1"
+fi
 
+if test "$e" -ne 0; then
+    bashio::log.warning "otbr-agent exited with code $e (by signal $2)."
+else
+    bashio::log.info "otbr-agent exited with code $e (by signal $2)."
+fi
 
 . /etc/s6-overlay/scripts/otbr-agent-common
 
@@ -40,10 +49,10 @@ if ip6tables -L $otbr_forward_egress_chain 2> /dev/null; then
 fi
 bashio::log.info "OTBR firewall teardown completed."
 
-if test "$1" -eq 256 ; then
-  e=$((128 + $2))
-else
-  e="$1"
+if test "$e" -ne 0; then
+    echo "$e" > /run/s6-linux-init-container-results/exitcode
+    # It seems this is required otherwise this script gets called twice for some
+    # reason...
+    s6-svc -d /run/s6-rc/servicedirs/otbr-agent/
+    /run/s6/basedir/bin/halt
 fi
-
-echo "$e" > /run/s6-linux-init-container-results/exitcode

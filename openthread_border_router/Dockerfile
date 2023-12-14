@@ -79,7 +79,7 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
-    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
+    && pip install gpiod==1.5.4 universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
        ${OTBR_BUILD_DEPS} \

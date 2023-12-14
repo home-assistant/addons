@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.1
+
+- Fix NAT64 enable script
+
 ## 2.4.0
 
 - Enable TREL

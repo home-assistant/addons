@@ -63,7 +63,6 @@ RUN \
         -DOTBR_FEATURE_FLAGS=ON \
         -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
         -DOTBR_SRP_ADVERTISING_PROXY=ON \
-        -DOTBR_INFRA_IF_NAME=eth0 \
         -DOTBR_MDNS=mDNSResponder \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
@@ -76,6 +75,10 @@ RUN \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
+        -DOTBR_TREL=ON \
+        -DOTBR_NAT64=ON \
+        -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
+        -DOTBR_DNS_UPSTREAM_QUERY=ON \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

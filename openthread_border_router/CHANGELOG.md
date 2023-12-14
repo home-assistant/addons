@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.0
+
+- Enable TREL
+- Enable NAT64 (disabled by default)
+
 ## 2.3.2
 
 - Bump to OTBR POSIX version 9e50efa8de (2023-08-23 21:28:30 -0700)

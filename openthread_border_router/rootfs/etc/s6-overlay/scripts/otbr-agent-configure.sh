@@ -3,7 +3,7 @@
 # Configure OTBR depending on add-on settings
 # ==============================================================================
 
-#if bashio::config.true 'nat64'; then
+if bashio::config.true 'nat64'; then
+    bashio::log.info "Enabling NAT64."
     ot-ctl nat64 enable
-    bashio::log.info "NAT64 enabled."
-#fi
+fi

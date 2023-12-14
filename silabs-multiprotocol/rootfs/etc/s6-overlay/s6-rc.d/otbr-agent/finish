@@ -46,4 +46,10 @@ else
   e="$1"
 fi
 
-echo "$e" > /run/s6-linux-init-container-results/exitcode
+if test "$e" -ne 0; then
+    bashio::log.warning "otbr-agent exited with code $e (by signal $2)."
+    echo "$e" > /run/s6-linux-init-container-results/exitcode
+    exec /run/s6/basedir/bin/halt
+else
+    bashio::log.info "otbr-agent exited with code $e (by signal $2)."
+fi

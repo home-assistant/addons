@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.8
+
+- Add Dreamhost DNS challenge support
+
 ## 5.0.7
 
 - Add Porkbun DNS challenge support

@@ -52,7 +52,9 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_inwx_username = $(bashio::config 'dns.inwx_username')\n" \
       "dns_inwx_password = $(bashio::config 'dns.inwx_password')\n" \
       "dns_inwx_shared_secret = $(bashio::config 'dns.inwx_shared_secret')\n" \
-      "dns_google_domains_access_token = $(bashio::config 'dns.google_domains_access_token')\n" > /data/dnsapikey
+      "dns_google_domains_access_token = $(bashio::config 'dns.google_domains_access_token')\n" \
+      "dns_dreamhost_baseurl = $(bashio::config 'dns.dreamhost_baseurl')\n" \
+      "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" > /data/dnsapikey
 
 if bashio::config.exists 'dns.google_domains_zone'; then
       echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey

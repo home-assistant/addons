@@ -181,6 +181,9 @@ ENV DOCKER 1
 COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
 COPY otbr-patches/0002-rest-support-deleting-the-dataset.patch /usr/src
 
+# OTBR accesses the CPC Daemon build directory
+COPY --from=cpcd-builder /usr/src/cpc-daemon /usr/src/gecko_sdk/platform/service/cpc/daemon
+
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
   libreadline-dev libncurses-dev libcpputest-dev libdbus-1-dev libavahi-common-dev \
@@ -207,6 +210,7 @@ RUN \
        lsb-release \
        netcat \
        sudo \
+       libmbedtls-dev \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
@@ -230,11 +234,13 @@ RUN \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
+        -DOT_THREAD_VERSION=1.3 \
         -DOT_MULTIPAN_RCP=ON \
-        -DOT_POSIX_CONFIG_RCP_BUS=VENDOR \
-        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=SilabsRcpDeps \
+        -DCPCD_SOURCE_DIR=/usr/src/gecko_sdk/platform/service/cpc/daemon \
+        -DOT_POSIX_RCP_VENDOR_BUS=ON \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=/usr/src/silabs-vendor-interface/posix_vendor_rcp.cmake \
         -DOT_POSIX_CONFIG_RCP_VENDOR_INTERFACE=/usr/src/silabs-vendor-interface/cpc_interface.cpp \
-        -DOT_CONFIG="openthread-core-silabs-posix-config.h" \
+        -DOT_PLATFORM_CONFIG="openthread-core-silabs-posix-config.h" \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \

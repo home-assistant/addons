@@ -124,11 +124,11 @@ RUN \
     && GECKO_SDK=$(pwd) \
     && slc signature trust --sdk=${GECKO_SDK} \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then \
-            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n - name: arm32v7" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
+            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n  - name: arm32v7\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
         elif [ "${BUILD_ARCH}" = "amd64" ]; then \
             /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
         elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
-            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n - name: arm64v8" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
+            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n  - name: arm64v8\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
         else \
             exit 1; \
         fi \

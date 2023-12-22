@@ -89,6 +89,7 @@ RUN \
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
 ARG GECKO_SDK_VERSION
+ARG BUILD_ARCH
 
 RUN \
     set -x \
@@ -121,6 +122,15 @@ RUN \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
     && GECKO_SDK=$(pwd) \
     && slc signature trust --sdk=${GECKO_SDK} \
+    && if [ "${BUILD_ARCH}" = "armv7" ]; then \
+            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n - name: arm32v7" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
+        elif [ "${BUILD_ARCH}" = "amd64" ]; then \
+            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
+        elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
+            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n - name: arm64v8" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
+        else \
+            exit 1; \
+        fi \
     && cd protocol/zigbee \
     && slc generate \
        --sdk=${GECKO_SDK} \
@@ -136,6 +146,8 @@ RUN \
         LD="${DEBIAN_CROSS_PREFIX}-gcc" \
         CXX="${DEBIAN_CROSS_PREFIX}-g++" \
         C_FLAGS="-std=gnu99 -DEMBER_MULTICAST_TABLE_SIZE=16" \
+        LD_FLAGS="" \
+        GROUP_START="-Wl,--start-group" GROUP_END="-Wl,--end-group -lpthread" \
         debug
 
 FROM $BUILD_FROM

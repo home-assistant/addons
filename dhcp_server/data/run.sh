@@ -8,22 +8,30 @@ bashio::log.info "Creating DHCP configuration..."
 
 # Create main config
 DEFAULT_LEASE=$(bashio::config 'default_lease')
-DNS=$(bashio::config 'dns|join(", ")')
 DOMAIN=$(bashio::config 'domain')
 MAX_LEASE=$(bashio::config 'max_lease')
 
 {
     echo "option domain-name \"${DOMAIN}\";"
-    echo "option domain-name-servers ${DNS};";
     echo "default-lease-time ${DEFAULT_LEASE};"
     echo "max-lease-time ${MAX_LEASE};"
     echo "authoritative;"
 } > "${CONFIG}"
 
+# Create DNS Server List
+if [ "$(bashio::config 'dns')" ]
+then
+    DNS=$(bashio::config 'dns|join(", ")')
+    {
+        echo "option domain-name-servers ${DNS};";
+    } >> "${CONFIG}"
+fi
+
+
 # Create NTP Server List
 if [ "$(bashio::config 'ntp')" ]
 then
-	NTP=$(bashio::config 'ntp|join(", ")')
+    NTP=$(bashio::config 'ntp|join(", ")')
     {
         echo "option ntp-servers ${NTP};";
     } >> "${CONFIG}"

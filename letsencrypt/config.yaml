@@ -31,7 +31,7 @@ schema:
   domains:
     - str
   email: email
-  keytype: list(ecdsa|rsa)
+  keytype: list(ecdsa|rsa)?
   keyfile: str
   certfile: str
   challenge: list(dns|http)

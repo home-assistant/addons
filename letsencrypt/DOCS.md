@@ -128,7 +128,7 @@ dreamhost_api_key: ''
 <details>
   <summary>Changing the key type</summary>
   
-  Starting with Certbot version 2.0.0 (aaddon version 5.0.0), ECDSA keys are now the default. They utilize a more secure cryptography algorithm, however, they are not supported everywhere yet. For instance, Tasmota does not support MQTTS with an ECDSA key. If your use case does not support ECDSA keys, you can change them with the `keytype` parameter.
+  Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys are now the default. These keys utilize a more secure cryptography algorithm, however, they are not supported everywhere yet. For instance, Tasmota does not support MQTTS with an ECDSA key. If your use case does not support ECDSA keys, you can change them with the `keytype` parameter.
 
   ```yaml
   keytype: rsa

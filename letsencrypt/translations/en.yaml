@@ -8,6 +8,11 @@ configuration:
   email:
     name: Email
     description: The email address that will be registered for the certificate.
+  keytype:
+    name: Private Key type
+    description: >-
+      The cryptographic algorithm to use for the Private Key. If you're unsure
+      which one you need, leave it set to ecdsa.
   keyfile:
     name: Private Key File
     description: Path to where the Private Key File will be placed.

@@ -125,6 +125,15 @@ dreamhost_api_key: ''
 
 </details>
 
+<details>
+  <summary>Changing the key type</summary>
+  
+  Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys are now the default. These keys utilize a more secure cryptography algorithm, however, they are not supported everywhere yet. For instance, Tasmota does not support MQTTS with an ECDSA key. If your use case does not support ECDSA keys, you can change them with the `keytype` parameter.
+
+  ```yaml
+  keytype: rsa
+  ``` 
+
 
 ## Example Configurations
 
@@ -161,6 +170,24 @@ dreamhost_api_key: ''
 
 </details>
 
+<details>
+  <summary>RSA key</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  keytype: rsa
+  challenge: dns
+  dns:
+    provider: dns-cloudflare
+    cloudflare_email: your.email@example.com
+    cloudflare_api_key: 31242lk3j4ljlfdwsjf0
+  ```
+
+</details>
 
 <details>
   <summary>Azure DNS challenge</summary>

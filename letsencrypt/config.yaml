@@ -1,5 +1,5 @@
 ---
-version: 5.0.8
+version: 5.0.9
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -20,6 +20,7 @@ options:
   domains:
     - null
   email: null
+  keytype: ecdsa
   keyfile: privkey.pem
   certfile: fullchain.pem
   challenge: http
@@ -30,6 +31,7 @@ schema:
   domains:
     - str
   email: email
+  keytype: list(ecdsa|rsa)?
   keyfile: str
   certfile: str
   challenge: list(dns|http)

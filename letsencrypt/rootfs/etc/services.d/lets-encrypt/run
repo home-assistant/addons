@@ -4,11 +4,13 @@
 # ==============================================================================
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
+KEY_ARGUMENTS=()
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
+KEYTYPE=$(bashio::config 'keytype')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
@@ -182,6 +184,11 @@ if bashio::config.has_value 'acme_server' ; then
     fi
 fi
 
+# Add key arguments if appropriate config entries exist
+if bashio::config.has_value 'keytype' ; then
+  KEY_ARGUMENTS+=("--key-type" "${KEYTYPE}")
+fi
+
 # Gather all domains into a plaintext file
 DOMAIN_ARR=()
 for line in $DOMAINS; do
@@ -193,12 +200,14 @@ echo "$DOMAINS" > /data/domains.gen
 if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
+        "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
+        "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
         --preferred-chain "ISRG Root X1"

@@ -116,7 +116,7 @@ COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
 COPY gecko-sdk-patches/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
 COPY zigbeed-app-patches/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
 
-# shellcheck disable=SC3037,SC2039
+# hadolint ignore=SC3037,SC2039
 RUN \
     set -x \
     && cd gecko_sdk \

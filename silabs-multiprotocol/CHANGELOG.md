@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.0
+- Use Silicon Labs Gecko SDK 4.4.0
+
 ## 2.3.2
 
 - Update mDNSResponder to 1790.80.10

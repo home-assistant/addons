@@ -26,8 +26,8 @@ fi
 # Assume to run on Yellow if UART4 is mapped to ttyAMA1
 if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
     bashio::log.info "Detected Home Assistant Yellow"
-    firmware="NabuCasa_Yellow_RCP_v4.3.1_rcp-uart-hw-802154_460800.gbl"
-    gpio_reset_flag="--yellow-gpio-reset"
+    firmware="NabuCasa_Yellow_RCP_v4.4.0_rcp-uart-hw-802154_460800.gbl"
+    gpio_reset_flag="--bootloader-reset yellow"
 else
     # Check device manufacturer/product information
     usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}))/../../../../)
@@ -46,7 +46,7 @@ else
 
     bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}."
     if [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "SkyConnect"* ]]; then
-        firmware="NabuCasa_SkyConnect_RCP_v4.3.1_rcp-uart-hw-802154_460800.gbl"
+        firmware="NabuCasa_SkyConnect_RCP_v4.4.0_rcp-uart-hw-802154_460800.gbl"
     else
         exit_no_firmware
     fi

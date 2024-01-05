@@ -147,9 +147,9 @@ http:
 
 ### Create & renew certificates
 
-The letsencrypt add-on crates the certificates once it is started: navigate to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the **START** button on the bottom. The add-on stops once the certificates are created.
+The letsencrypt add-on creates the certificates once it is started: navigate to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the **START** button on the bottom. The add-on stops once the certificates are create.
 
-Certificates are not renewed automatically by the plugin. The add-on has to be started again to renew certificates: If the add-on is started again, it checks if the certificates are due for renewal. This us usually the case 30 days before the certificates due date. If the certificates are not due for renewal, the add-on terminates without changes. If the certificates are due for renewal, new certificates will be created.
+Certificates are not renewed automatically by the plugin. The add-on has to be started again to renew certificates. If the add-on is started again, it checks if the certificates are due for renewal. This is usually the case 30 days before the certificates' due date. If the certificates are not due for renewal, the add-on terminates without changes. If the certificates are due for renewal, new certificates will be created.
 
 There are multiple ways how the add-on can be started to check/renew the certificates. One way to automate the certificate renewal it to configure a renewal via [Home Assistant automation][haauto], and then restarting this automation every night via the [Supervisor Addon restart action][supervisorrestart].
 

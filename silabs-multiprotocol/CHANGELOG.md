@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.2
+- This is a re-release of 2.4.0 that is compatible only with Home Assisstant Core 2024.1.0 and above.
+
 ## 2.4.1
 
 - Revert back to Silicon Labs Gecko SDK 4.3.1 to maintain compatibility with Home Assistant Core 2023.12.0 and Zigbee2MQTT. If you are running 2024.1.0 with ZHA, you don't have to downgrade.

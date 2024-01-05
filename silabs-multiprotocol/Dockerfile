@@ -89,7 +89,6 @@ RUN \
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
 ARG GECKO_SDK_VERSION
-ARG BUILD_ARCH
 
 RUN \
     set -x \
@@ -103,7 +102,7 @@ RUN \
     && curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
     && unzip slc_cli_linux.zip \
     && cd slc_cli/ && chmod +x slc
-
+ 
 ENV PATH="/usr/src/slc_cli/:$PATH"
 
 RUN \
@@ -116,22 +115,12 @@ COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
 COPY gecko-sdk-patches/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch /usr/src
 COPY zigbeed-app-patches/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch /usr/src
 
-# hadolint ignore=SC3037,SC2039
 RUN \
     set -x \
     && cd gecko_sdk \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
     && GECKO_SDK=$(pwd) \
     && slc signature trust --sdk=${GECKO_SDK} \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then \
-            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n  - name: arm32v7\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
-        elif [ "${BUILD_ARCH}" = "amd64" ]; then \
-            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
-        elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
-            /bin/echo -e "\nprovides:\n  - name: zigbee_use_release_libraries\n  - name: arm64v8\n" >> protocol/zigbee/app/zigbeed/zigbeed.slcp; \
-        else \
-            exit 1; \
-        fi \
     && cd protocol/zigbee \
     && slc generate \
        --sdk=${GECKO_SDK} \
@@ -147,8 +136,6 @@ RUN \
         LD="${DEBIAN_CROSS_PREFIX}-gcc" \
         CXX="${DEBIAN_CROSS_PREFIX}-g++" \
         C_FLAGS="-std=gnu99 -DEMBER_MULTICAST_TABLE_SIZE=16" \
-        LD_FLAGS="" \
-        GROUP_START="-Wl,--start-group" GROUP_END="-Wl,--end-group -lpthread" \
         debug
 
 FROM $BUILD_FROM
@@ -179,10 +166,10 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
+COPY otbr-patches/0001-rest-support-erasing-all-persistent-info-1908.patch /usr/src
 COPY otbr-patches/0002-rest-support-deleting-the-dataset.patch /usr/src
-
-# OTBR accesses the CPC Daemon build directory
-COPY --from=cpcd-builder /usr/src/cpc-daemon /usr/src/gecko_sdk/platform/service/cpc/daemon
+COPY otbr-patches/0003-mdns-update-mDNSResponder-to-1790.80.10.patch /usr/src
+COPY otbr-patches/0004-mdns-add-Linux-specific-patches.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -210,10 +197,12 @@ RUN \
        lsb-release \
        netcat \
        sudo \
-       libmbedtls-dev \
     && cd ot-br-posix \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
+    && patch -p1 < /usr/src/0001-rest-support-erasing-all-persistent-info-1908.patch \
     && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0003-mdns-update-mDNSResponder-to-1790.80.10.patch \
+    && patch -p1 < /usr/src/0004-mdns-add-Linux-specific-patches.patch \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && (cd third_party/openthread/repo \
         && ln -s ../../../../silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \
@@ -234,13 +223,11 @@ RUN \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
-        -DOT_THREAD_VERSION=1.3 \
         -DOT_MULTIPAN_RCP=ON \
-        -DCPCD_SOURCE_DIR=/usr/src/gecko_sdk/platform/service/cpc/daemon \
-        -DOT_POSIX_RCP_VENDOR_BUS=ON \
-        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=/usr/src/silabs-vendor-interface/posix_vendor_rcp.cmake \
+        -DOT_POSIX_CONFIG_RCP_BUS=VENDOR \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=SilabsRcpDeps \
         -DOT_POSIX_CONFIG_RCP_VENDOR_INTERFACE=/usr/src/silabs-vendor-interface/cpc_interface.cpp \
-        -DOT_PLATFORM_CONFIG="openthread-core-silabs-posix-config.h" \
+        -DOT_CONFIG="openthread-core-silabs-posix-config.h" \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \

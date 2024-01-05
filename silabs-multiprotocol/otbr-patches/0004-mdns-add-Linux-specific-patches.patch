@@ -1,0 +1,1004 @@
+From ae25221254a6e59e51bac2cce981e1bcc313446a Mon Sep 17 00:00:00 2001
+Message-ID: <ae25221254a6e59e51bac2cce981e1bcc313446a.1691047014.git.stefan@agner.ch>
+In-Reply-To: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+References: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 23 Jun 2023 10:38:07 +0200
+Subject: [PATCH] [mdns] add Linux specific patches
+
+---
+ etc/docker/Dockerfile                         |   1 +
+ script/bootstrap                              |  11 +-
+ tests/scripts/bootstrap.sh                    |  11 +-
+ .../mDNSResponder/0001-Fix-Linux-build.patch  |  32 +++
+ ...utine-for-cleaning-recent-interfaces.patch |  64 +++++
+ ...outine-for-tearing-down-an-interface.patch |  62 +++++
+ .../0004-Track-interface-socket-family.patch  |  54 ++++
+ ...cate-loopback-interface-to-mDNS-core.patch |  61 +++++
+ ...0006-Use-list-for-changed-interfaces.patch | 178 ++++++++++++
+ .../0007-Handle-noisy-netlink-sockets.patch   | 255 ++++++++++++++++++
+ ...-deleted-interfaces-as-being-changed.patch |  43 +++
+ ...0009-Handle-errors-from-socket-calls.patch |  66 +++++
+ ...10-Handle-interface-without-ifa_addr.patch |  41 +++
+ 13 files changed, 873 insertions(+), 6 deletions(-)
+ create mode 100644 third_party/mDNSResponder/0001-Fix-Linux-build.patch
+ create mode 100644 third_party/mDNSResponder/0002-Create-subroutine-for-cleaning-recent-interfaces.patch
+ create mode 100644 third_party/mDNSResponder/0003-Create-subroutine-for-tearing-down-an-interface.patch
+ create mode 100644 third_party/mDNSResponder/0004-Track-interface-socket-family.patch
+ create mode 100644 third_party/mDNSResponder/0005-Indicate-loopback-interface-to-mDNS-core.patch
+ create mode 100644 third_party/mDNSResponder/0006-Use-list-for-changed-interfaces.patch
+ create mode 100644 third_party/mDNSResponder/0007-Handle-noisy-netlink-sockets.patch
+ create mode 100644 third_party/mDNSResponder/0008-Mark-deleted-interfaces-as-being-changed.patch
+ create mode 100644 third_party/mDNSResponder/0009-Handle-errors-from-socket-calls.patch
+ create mode 100644 third_party/mDNSResponder/0010-Handle-interface-without-ifa_addr.patch
+
+diff --git a/script/bootstrap b/script/bootstrap
+index 2256f5e437..2ad1d0800b 100755
+--- a/script/bootstrap
++++ b/script/bootstrap
+@@ -57,13 +57,18 @@ install_packages_apt()
+     # mDNS
+     sudo apt-get install --no-install-recommends -y libavahi-client3 libavahi-common-dev libavahi-client-dev avahi-daemon
+     (MDNS_RESPONDER_SOURCE_NAME=mDNSResponder-1790.80.10 \
++        && MDNS_RESPONDER_PATCH_PATH=$(realpath "$(dirname "$0")"/../third_party/mDNSResponder) \
+         && cd /tmp \
+         && wget --no-check-certificate https://github.com/apple-oss-distributions/mDNSResponder/archive/refs/tags/$MDNS_RESPONDER_SOURCE_NAME.tar.gz \
+         && mkdir -p $MDNS_RESPONDER_SOURCE_NAME \
+         && tar xvf $MDNS_RESPONDER_SOURCE_NAME.tar.gz -C $MDNS_RESPONDER_SOURCE_NAME --strip-components=1 \
+-        && cd /tmp/"$MDNS_RESPONDER_SOURCE_NAME"/mDNSShared \
+-        && sed -i 's/__block mStatus err;/mStatus err;/' uds_daemon.c \
+-        && cd /tmp/"$MDNS_RESPONDER_SOURCE_NAME"/mDNSPosix \
++        && cd /tmp/"$MDNS_RESPONDER_SOURCE_NAME" \
++        && (
++            for patch in "$MDNS_RESPONDER_PATCH_PATH"/*.patch; do
++                patch -p1 <"$patch"
++            done
++        ) \
++        && cd mDNSPosix \
+         && make os=linux tls=no && sudo make install os=linux tls=no)
+ 
+     # Boost
+diff --git a/tests/scripts/bootstrap.sh b/tests/scripts/bootstrap.sh
+index 6b4affffce..42182b8748 100755
+--- a/tests/scripts/bootstrap.sh
++++ b/tests/scripts/bootstrap.sh
+@@ -127,12 +127,17 @@ case "$(uname)" in
+ 
+         if [ "${OTBR_MDNS-}" == 'mDNSResponder' ]; then
+             SOURCE_NAME=mDNSResponder-1790.80.10
++            PATCH_PATH=$(realpath "$(dirname "$0")"/../../third_party/mDNSResponder)
+             wget https://github.com/apple-oss-distributions/mDNSResponder/archive/refs/tags/$SOURCE_NAME.tar.gz \
+                 && mkdir -p $SOURCE_NAME \
+                 && tar xvf $SOURCE_NAME.tar.gz -C $SOURCE_NAME --strip-components=1 \
+-                && cd "$SOURCE_NAME"/mDNSShared \
+-                && sed -i 's/__block mStatus err;/mStatus err;/' uds_daemon.c \
+-                && cd ../mDNSPosix \
++                && cd "$SOURCE_NAME" \
++                && (
++                    for patch in "$PATCH_PATH"/*.patch; do
++                        patch -p1 <"$patch"
++                    done
++                ) \
++                && cd mDNSPosix \
+                 && make os=linux tls=no && sudo make install os=linux tls=no
+         fi
+ 
+diff --git a/third_party/mDNSResponder/0001-Fix-Linux-build.patch b/third_party/mDNSResponder/0001-Fix-Linux-build.patch
+new file mode 100644
+index 0000000000..1dc01f3fca
+--- /dev/null
++++ b/third_party/mDNSResponder/0001-Fix-Linux-build.patch
+@@ -0,0 +1,32 @@
++From e136dcdcdd93ef32ada981e89c195905eb809eea Mon Sep 17 00:00:00 2001
++Message-ID: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Thu, 23 Mar 2023 00:15:52 -0500
++Subject: [PATCH] Fix Linux build
++
++The __block qualifier is not used in Linux builds.
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++---
++ mDNSShared/uds_daemon.c | 4 ++++
++ 1 file changed, 4 insertions(+)
++
++diff --git a/mDNSShared/uds_daemon.c b/mDNSShared/uds_daemon.c
++index 9ae5f78..5a00bb5 100644
++--- a/mDNSShared/uds_daemon.c
+++++ b/mDNSShared/uds_daemon.c
++@@ -2912,7 +2912,11 @@ exit:
++ mDNSlocal mStatus add_domain_to_browser(request_state *info, const domainname *d)
++ {
++     browser_t *b, *p;
+++#if defined(TARGET_OS_MAC) && TARGET_OS_MAC
++     __block mStatus err;
+++#else
+++    mStatus err;
+++#endif
++ 
++     for (p = info->u.browser.browsers; p; p = p->next)
++     {
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0002-Create-subroutine-for-cleaning-recent-interfaces.patch b/third_party/mDNSResponder/0002-Create-subroutine-for-cleaning-recent-interfaces.patch
+new file mode 100644
+index 0000000000..98da74c500
+--- /dev/null
++++ b/third_party/mDNSResponder/0002-Create-subroutine-for-cleaning-recent-interfaces.patch
+@@ -0,0 +1,64 @@
++From 4f7970ac1615aba7a39ae94c1ca14135265574e9 Mon Sep 17 00:00:00 2001
++Message-ID: <4f7970ac1615aba7a39ae94c1ca14135265574e9.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Wed, 28 Jun 2017 17:30:00 -0500
++Subject: [PATCH] Create subroutine for cleaning recent interfaces
++
++Moves functionality for cleaning the list of recent
++interfaces into its own subroutine.
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 24 ++++++++++++++----------
++ 1 file changed, 14 insertions(+), 10 deletions(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index 0a7c3df..fe7242d 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1322,6 +1322,19 @@ mDNSlocal int SetupSocket(struct sockaddr *intfAddr, mDNSIPPort port, int interf
++     return err;
++ }
++ 
+++// Clean up any interfaces that have been hanging around on the RecentInterfaces list for more than a minute
+++mDNSlocal void CleanRecentInterfaces(void)
+++{
+++    PosixNetworkInterface **ri = &gRecentInterfaces;
+++    const mDNSs32 utc = mDNSPlatformUTC();
+++    while (*ri)
+++    {
+++        PosixNetworkInterface *pi = *ri;
+++        if (utc - pi->LastSeen < 60) ri = (PosixNetworkInterface **)&pi->coreIntf.next;
+++        else { *ri = (PosixNetworkInterface *)pi->coreIntf.next; mdns_free(pi); }
+++    }
+++}
+++
++ // Creates a PosixNetworkInterface for the interface whose IP address is
++ // intfAddr and whose name is intfName and registers it with mDNS core.
++ mDNSlocal int SetupOneInterface(mDNS *const m, struct sockaddr *intfAddr, struct sockaddr *intfMask,
++@@ -1559,16 +1572,7 @@ mDNSlocal int SetupInterfaceList(mDNS *const m)
++ 
++     // Clean up.
++     if (intfList != NULL) freeifaddrs(intfList);
++-
++-    // Clean up any interfaces that have been hanging around on the RecentInterfaces list for more than a minute
++-    PosixNetworkInterface **ri = &gRecentInterfaces;
++-    const mDNSs32 utc = mDNSPlatformUTC();
++-    while (*ri)
++-    {
++-        PosixNetworkInterface *pi = *ri;
++-        if (utc - pi->LastSeen < 60) ri = (PosixNetworkInterface **)&pi->coreIntf.next;
++-        else { *ri = (PosixNetworkInterface *)pi->coreIntf.next; mdns_free(pi); }
++-    }
+++    CleanRecentInterfaces();
++ 
++     return err;
++ }
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0003-Create-subroutine-for-tearing-down-an-interface.patch b/third_party/mDNSResponder/0003-Create-subroutine-for-tearing-down-an-interface.patch
+new file mode 100644
+index 0000000000..812bd20c57
+--- /dev/null
++++ b/third_party/mDNSResponder/0003-Create-subroutine-for-tearing-down-an-interface.patch
+@@ -0,0 +1,62 @@
++From f7ab91f739b936305ca56743adfb4673e3f2f4ba Mon Sep 17 00:00:00 2001
++Message-ID: <f7ab91f739b936305ca56743adfb4673e3f2f4ba.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Wed, 28 Jun 2017 17:30:00 -0500
++Subject: [PATCH] Create subroutine for tearing down an interface
++
++Creates a subroutine for tearing down an interface.
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 22 ++++++++++++++++------
++ 1 file changed, 16 insertions(+), 6 deletions(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index fe7242d..a32a880 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1043,6 +1043,19 @@ mDNSlocal void FreePosixNetworkInterface(PosixNetworkInterface *intf)
++     gRecentInterfaces = intf;
++ }
++ 
+++mDNSlocal void TearDownInterface(mDNS *const m, PosixNetworkInterface *intf)
+++{
+++    mDNS_DeregisterInterface(m, &intf->coreIntf, NormalActivation);
+++    if (gMDNSPlatformPosixVerboseLevel > 0) fprintf(stderr, "Deregistered interface %s\n", intf->intfName);
+++    FreePosixNetworkInterface(intf);
+++
+++    num_registered_interfaces--;
+++    if (num_registered_interfaces == 0) {
+++        num_pkts_accepted = 0;
+++        num_pkts_rejected = 0;
+++    }
+++}
+++
++ // Grab the first interface, deregister it, free it, and repeat until done.
++ mDNSlocal void ClearInterfaceList(mDNS *const m)
++ {
++@@ -1051,13 +1064,10 @@ mDNSlocal void ClearInterfaceList(mDNS *const m)
++     while (m->HostInterfaces)
++     {
++         PosixNetworkInterface *intf = (PosixNetworkInterface*)(m->HostInterfaces);
++-        mDNS_DeregisterInterface(m, &intf->coreIntf, NormalActivation);
++-        if (gMDNSPlatformPosixVerboseLevel > 0) fprintf(stderr, "Deregistered interface %s\n", intf->intfName);
++-        FreePosixNetworkInterface(intf);
+++        TearDownInterface(m, intf);
++     }
++-    num_registered_interfaces = 0;
++-    num_pkts_accepted = 0;
++-    num_pkts_rejected = 0;
+++
+++    assert(num_registered_interfaces == 0);
++ }
++ 
++ mDNSlocal int SetupIPv6Socket(int fd)
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0004-Track-interface-socket-family.patch b/third_party/mDNSResponder/0004-Track-interface-socket-family.patch
+new file mode 100644
+index 0000000000..48fbc741b8
+--- /dev/null
++++ b/third_party/mDNSResponder/0004-Track-interface-socket-family.patch
+@@ -0,0 +1,54 @@
++From 542c1b2ce1dcc069cf848d11978c8b6ae5982b6e Mon Sep 17 00:00:00 2001
++Message-ID: <542c1b2ce1dcc069cf848d11978c8b6ae5982b6e.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Wed, 28 Jun 2017 17:30:00 -0500
++Subject: [PATCH] Track interface socket family
++
++Tracks the socket family associated with the interface.
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 1 +
++ mDNSPosix/mDNSPosix.h | 2 ++
++ 2 files changed, 3 insertions(+)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index a32a880..9a5b4d7 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1415,6 +1415,7 @@ mDNSlocal int SetupOneInterface(mDNS *const m, struct sockaddr *intfAddr, struct
++         // Set up the extra fields in PosixNetworkInterface.
++         assert(intf->intfName != NULL);         // intf->intfName already set up above
++         intf->index                = intfIndex;
+++        intf->sa_family            = intfAddr->sa_family;
++         intf->multicastSocket4     = -1;
++ #if HAVE_IPV6
++         intf->multicastSocket6     = -1;
++diff --git a/mDNSPosix/mDNSPosix.h b/mDNSPosix/mDNSPosix.h
++index 9675591..dd7864c 100644
++--- a/mDNSPosix/mDNSPosix.h
+++++ b/mDNSPosix/mDNSPosix.h
++@@ -19,6 +19,7 @@
++ #define __mDNSPlatformPosix_h
++ 
++ #include <signal.h>
+++#include <sys/socket.h>
++ #include <sys/time.h>
++ 
++ #ifdef  __cplusplus
++@@ -40,6 +41,7 @@ struct PosixNetworkInterface
++     char *                  intfName;
++     PosixNetworkInterface * aliasIntf;
++     int index;
+++    sa_family_t sa_family;
++     int multicastSocket4;
++ #if HAVE_IPV6
++     int multicastSocket6;
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0005-Indicate-loopback-interface-to-mDNS-core.patch b/third_party/mDNSResponder/0005-Indicate-loopback-interface-to-mDNS-core.patch
+new file mode 100644
+index 0000000000..f7aa461767
+--- /dev/null
++++ b/third_party/mDNSResponder/0005-Indicate-loopback-interface-to-mDNS-core.patch
+@@ -0,0 +1,61 @@
++From 44385771ef63f081ed7e80eae6f24591046b4c7c Mon Sep 17 00:00:00 2001
++Message-ID: <44385771ef63f081ed7e80eae6f24591046b4c7c.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Tue, 1 Aug 2017 17:06:01 -0500
++Subject: [PATCH] Indicate loopback interface to mDNS core
++
++Tells the mDNS core if an interface is a loopback interface,
++similar to AddInterfaceToList() in the MacOS implementation.
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 7 ++++---
++ 1 file changed, 4 insertions(+), 3 deletions(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index 9a5b4d7..02a19b4 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1348,7 +1348,7 @@ mDNSlocal void CleanRecentInterfaces(void)
++ // Creates a PosixNetworkInterface for the interface whose IP address is
++ // intfAddr and whose name is intfName and registers it with mDNS core.
++ mDNSlocal int SetupOneInterface(mDNS *const m, struct sockaddr *intfAddr, struct sockaddr *intfMask,
++-    const mDNSu8 *intfHaddr, mDNSu16 intfHlen, const char *intfName, int intfIndex)
+++    const mDNSu8 *intfHaddr, mDNSu16 intfHlen, const char *intfName, int intfIndex, int intfFlags)
++ {
++     int err = 0;
++     PosixNetworkInterface *intf;
++@@ -1411,6 +1411,7 @@ mDNSlocal int SetupOneInterface(mDNS *const m, struct sockaddr *intfAddr, struct
++ 
++         intf->coreIntf.Advertise = m->AdvertiseLocalAddresses;
++         intf->coreIntf.McastTxRx = mDNStrue;
+++        intf->coreIntf.Loopback = ((intfFlags & IFF_LOOPBACK) != 0) ? mDNStrue : mDNSfalse;
++ 
++         // Set up the extra fields in PosixNetworkInterface.
++         assert(intf->intfName != NULL);         // intf->intfName already set up above
++@@ -1561,7 +1562,7 @@ mDNSlocal int SetupInterfaceList(mDNS *const m)
++                     }
++ #endif
++                     if (SetupOneInterface(m, i->ifa_addr, i->ifa_netmask,
++-                                          hwaddr, hwaddr_len, i->ifa_name, ifIndex) == 0)
+++                                          hwaddr, hwaddr_len, i->ifa_name, ifIndex, i->ifa_flags) == 0)
++                     {
++                         if (i->ifa_addr->sa_family == AF_INET)
++                             foundav4 = mDNStrue;
++@@ -1578,7 +1579,7 @@ mDNSlocal int SetupInterfaceList(mDNS *const m)
++         // if ((m->HostInterfaces == NULL) && (firstLoopback != NULL))
++         if (!foundav4 && firstLoopback)
++             (void) SetupOneInterface(m, firstLoopback->ifa_addr, firstLoopback->ifa_netmask,
++-                NULL, 0, firstLoopback->ifa_name, firstLoopbackIndex);
+++                NULL, 0, firstLoopback->ifa_name, firstLoopbackIndex, firstLoopback->ifa_flags);
++     }
++ 
++     // Clean up.
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0006-Use-list-for-changed-interfaces.patch b/third_party/mDNSResponder/0006-Use-list-for-changed-interfaces.patch
+new file mode 100644
+index 0000000000..87ac19074d
+--- /dev/null
++++ b/third_party/mDNSResponder/0006-Use-list-for-changed-interfaces.patch
+@@ -0,0 +1,178 @@
++From 2a0f873184068f21e1d0d2a3e0d8c26bc705bf88 Mon Sep 17 00:00:00 2001
++Message-ID: <2a0f873184068f21e1d0d2a3e0d8c26bc705bf88.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Thu, 13 Jul 2017 09:00:00 -0500
++Subject: [PATCH] Use list for changed interfaces
++
++Uses a linked list to store the index of changed network interfaces
++instead of a bitfield. This allows for network interfaces with an
++index greater than 31 (an index of 36 was seen on Android).
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++Change-Id: Ibeab0ec68ca0d21da8384d4362e59afd2951f138
++---
++ mDNSPosix/mDNSPosix.c | 60 +++++++++++++++++++++++++++++++------------
++ 1 file changed, 44 insertions(+), 16 deletions(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index 02a19b4..9867881 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -74,6 +74,14 @@ struct IfChangeRec
++ };
++ typedef struct IfChangeRec IfChangeRec;
++ 
+++// Used to build a list of network interface indices
+++struct NetworkInterfaceIndex
+++{
+++    int if_index;
+++    struct NetworkInterfaceIndex *Next;
+++};
+++typedef struct NetworkInterfaceIndex NetworkInterfaceIndex;
+++
++ // Note that static data is initialized to zero in (modern) C.
++ static PosixEventSource *gEventSources;             // linked list of PosixEventSource's
++ static sigset_t gEventSignalSet;                // Signals which event loop listens for
++@@ -1621,6 +1629,23 @@ mDNSlocal mStatus OpenIfNotifySocket(int *pFD)
++     return err;
++ }
++ 
+++mDNSlocal void AddInterfaceIndexToList(GenLinkedList *list, int if_index)
+++{
+++    NetworkInterfaceIndex *item;
+++
+++    for (item = (NetworkInterfaceIndex*)list->Head; item != NULL; item = item->Next)
+++    {
+++        if (if_index == item->if_index) return;
+++    }
+++
+++    item = mdns_malloc(sizeof *item);
+++    if (item == NULL) return;
+++
+++    item->if_index = if_index;
+++    item->Next = NULL;
+++    AddToTail(list, item);
+++}
+++
++ #if MDNS_DEBUGMSGS
++ mDNSlocal void      PrintNetLinkMsg(const struct nlmsghdr *pNLMsg)
++ {
++@@ -1648,14 +1673,13 @@ mDNSlocal void      PrintNetLinkMsg(const struct nlmsghdr *pNLMsg)
++ }
++ #endif
++ 
++-mDNSlocal mDNSu32       ProcessRoutingNotification(int sd)
+++mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *changedInterfaces)
++ // Read through the messages on sd and if any indicate that any interface records should
++ // be torn down and rebuilt, return affected indices as a bitmask. Otherwise return 0.
++ {
++     ssize_t readCount;
++     char buff[4096];
++     struct nlmsghdr         *pNLMsg = (struct nlmsghdr*) buff;
++-    mDNSu32 result = 0;
++ 
++     // The structure here is more complex than it really ought to be because,
++     // unfortunately, there's no good way to size a buffer in advance large
++@@ -1691,9 +1715,9 @@ mDNSlocal mDNSu32       ProcessRoutingNotification(int sd)
++ 
++         // Process the NetLink message
++         if (pNLMsg->nlmsg_type == RTM_GETLINK || pNLMsg->nlmsg_type == RTM_NEWLINK)
++-            result |= 1 << ((struct ifinfomsg*) NLMSG_DATA(pNLMsg))->ifi_index;
+++            AddInterfaceIndexToList(changedInterfaces, ((struct ifinfomsg*) NLMSG_DATA(pNLMsg))->ifi_index);
++         else if (pNLMsg->nlmsg_type == RTM_DELADDR || pNLMsg->nlmsg_type == RTM_NEWADDR)
++-            result |= 1 << ((struct ifaddrmsg*) NLMSG_DATA(pNLMsg))->ifa_index;
+++            AddInterfaceIndexToList(changedInterfaces, ((struct ifaddrmsg*) NLMSG_DATA(pNLMsg))->ifa_index);
++ 
++         // Advance pNLMsg to the next message in the buffer
++         if ((pNLMsg->nlmsg_flags & NLM_F_MULTI) != 0 && pNLMsg->nlmsg_type != NLMSG_DONE)
++@@ -1704,8 +1728,6 @@ mDNSlocal mDNSu32       ProcessRoutingNotification(int sd)
++         else
++             break;  // all done!
++     }
++-
++-    return result;
++ }
++ 
++ #else // USES_NETLINK
++@@ -1737,18 +1759,17 @@ mDNSlocal void      PrintRoutingSocketMsg(const struct ifa_msghdr *pRSMsg)
++ }
++ #endif
++ 
++-mDNSlocal mDNSu32       ProcessRoutingNotification(int sd)
+++mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *changedInterfaces)
++ // Read through the messages on sd and if any indicate that any interface records should
++ // be torn down and rebuilt, return affected indices as a bitmask. Otherwise return 0.
++ {
++     ssize_t readCount;
++     char buff[4096];
++     struct ifa_msghdr       *pRSMsg = (struct ifa_msghdr*) buff;
++-    mDNSu32 result = 0;
++ 
++     readCount = read(sd, buff, sizeof buff);
++     if (readCount < (ssize_t) sizeof(struct ifa_msghdr))
++-        return mStatus_UnsupportedErr;      // cannot decipher message
+++        return;      // cannot decipher message
++ 
++ #if MDNS_DEBUGMSGS
++     PrintRoutingSocketMsg(pRSMsg);
++@@ -1759,12 +1780,10 @@ mDNSlocal mDNSu32       ProcessRoutingNotification(int sd)
++         pRSMsg->ifam_type == RTM_IFINFO)
++     {
++         if (pRSMsg->ifam_type == RTM_IFINFO)
++-            result |= 1 << ((struct if_msghdr*) pRSMsg)->ifm_index;
+++            AddInterfaceIndexToList(changedInterfaces, ((struct if_msghdr*) pRSMsg)->ifm_index);
++         else
++-            result |= 1 << pRSMsg->ifam_index;
+++            AddInterfaceIndexToList(changedInterfaces, pRSMsg->ifam_index);
++     }
++-
++-    return result;
++ }
++ 
++ #endif // USES_NETLINK
++@@ -1774,7 +1793,8 @@ mDNSlocal void InterfaceChangeCallback(int fd, void *context)
++ {
++     IfChangeRec     *pChgRec = (IfChangeRec*) context;
++     fd_set readFDs;
++-    mDNSu32 changedInterfaces = 0;
+++    GenLinkedList changedInterfaces;
+++    NetworkInterfaceIndex *changedInterface;
++     struct timeval zeroTimeout = { 0, 0 };
++ 
++     (void)fd; // Unused
++@@ -1782,17 +1802,25 @@ mDNSlocal void InterfaceChangeCallback(int fd, void *context)
++     FD_ZERO(&readFDs);
++     FD_SET(pChgRec->NotifySD, &readFDs);
++ 
+++    InitLinkedList(&changedInterfaces, offsetof(NetworkInterfaceIndex, Next));
+++
++     do
++     {
++-        changedInterfaces |= ProcessRoutingNotification(pChgRec->NotifySD);
+++        ProcessRoutingNotification(pChgRec->NotifySD, &changedInterfaces);
++     }
++     while (0 < select(pChgRec->NotifySD + 1, &readFDs, (fd_set*) NULL, (fd_set*) NULL, &zeroTimeout));
++ 
++     // Currently we rebuild the entire interface list whenever any interface change is
++     // detected. If this ever proves to be a performance issue in a multi-homed
++     // configuration, more care should be paid to changedInterfaces.
++-    if (changedInterfaces)
+++    if (changedInterfaces.Head != NULL)
++         mDNSPlatformPosixRefreshInterfaceList(pChgRec->mDNS);
+++
+++    while ((changedInterface = (NetworkInterfaceIndex*)changedInterfaces.Head) != NULL)
+++    {
+++        RemoveFromList(&changedInterfaces, changedInterface);
+++        mdns_free(changedInterface);
+++    }
++ }
++ 
++ // Register with either a Routing Socket or RtNetLink to listen for interface changes.
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0007-Handle-noisy-netlink-sockets.patch b/third_party/mDNSResponder/0007-Handle-noisy-netlink-sockets.patch
+new file mode 100644
+index 0000000000..08cce016b0
+--- /dev/null
++++ b/third_party/mDNSResponder/0007-Handle-noisy-netlink-sockets.patch
+@@ -0,0 +1,255 @@
++From 00289e89cccb9567d6ea6bd2a394fd14b61e5ad1 Mon Sep 17 00:00:00 2001
++Message-ID: <00289e89cccb9567d6ea6bd2a394fd14b61e5ad1.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Mon, 24 Jul 2017 09:38:55 -0500
++Subject: [PATCH] Handle noisy netlink sockets
++
++The POSIX implementation currently clears all network interfaces
++when netlink indicates that there has been a change. This causes
++the following problems:
++
++  1) Applications are informed that all of the services they are
++     tracking have been removed.
++  2) Increases network load because the client must re-query for
++     all records it is interested in.
++
++This changes netlink notification handling by:
++
++  1) Always comparing with the latest interface list returned
++     by the OS.
++  2) Confirming that the interface has been changed in a way
++     that we care about.
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 182 +++++++++++++++++++++++++++++++++++++++---
++ 1 file changed, 172 insertions(+), 10 deletions(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index 9867881..ad7000d 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1788,14 +1788,43 @@ mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *change
++ 
++ #endif // USES_NETLINK
++ 
+++// Test whether the given PosixNetworkInterface matches the given struct ifaddrs
+++mDNSlocal mDNSBool InterfacesMatch(PosixNetworkInterface *intf, struct ifaddrs *ifi)
+++{
+++    mDNSBool match = mDNSfalse;
+++    mDNSAddr ip, mask;
+++    int if_index;
+++
+++    if_index = if_nametoindex(ifi->ifa_name);
+++    if (if_index == 0)
+++        return mDNSfalse;
+++
+++    if((intf->index == if_index) &&
+++       (intf->sa_family == ifi->ifa_addr->sa_family) &&
+++       (strcmp(intf->coreIntf.ifname, ifi->ifa_name) == 0))
+++        {
+++        SockAddrTomDNSAddr(ifi->ifa_addr,    &ip,   NULL);
+++        SockAddrTomDNSAddr(ifi->ifa_netmask, &mask, NULL);
+++
+++        match = mDNSSameAddress(&intf->coreIntf.ip, &ip) &&
+++                mDNSSameAddress(&intf->coreIntf.mask, &mask);
+++        }
+++
+++    return match;
+++}
+++
++ // Called when data appears on interface change notification socket
++ mDNSlocal void InterfaceChangeCallback(int fd, void *context)
++ {
++     IfChangeRec     *pChgRec = (IfChangeRec*) context;
+++    mDNS            *m = pChgRec->mDNS;
++     fd_set readFDs;
++     GenLinkedList changedInterfaces;
++     NetworkInterfaceIndex *changedInterface;
++     struct timeval zeroTimeout = { 0, 0 };
+++    struct ifaddrs *ifa_list, **ifi, *ifa_loop4 = NULL;
+++    PosixNetworkInterface *intf, *intfNext;
+++    mDNSBool found, foundav4;
++ 
++     (void)fd; // Unused
++ 
++@@ -1810,12 +1839,149 @@ mDNSlocal void InterfaceChangeCallback(int fd, void *context)
++     }
++     while (0 < select(pChgRec->NotifySD + 1, &readFDs, (fd_set*) NULL, (fd_set*) NULL, &zeroTimeout));
++ 
++-    // Currently we rebuild the entire interface list whenever any interface change is
++-    // detected. If this ever proves to be a performance issue in a multi-homed
++-    // configuration, more care should be paid to changedInterfaces.
++-    if (changedInterfaces.Head != NULL)
++-        mDNSPlatformPosixRefreshInterfaceList(pChgRec->mDNS);
+++    CleanRecentInterfaces();
+++
+++    if (changedInterfaces.Head == NULL) goto cleanup;
+++
+++    if (getifaddrs(&ifa_list) < 0) goto cleanup;
+++
+++    for (intf = (PosixNetworkInterface*)(m->HostInterfaces); intf != NULL; intf = intfNext)
+++    {
+++        intfNext = (PosixNetworkInterface*)(intf->coreIntf.next);
+++
+++        // Loopback interface(s) are handled later
+++        if (intf->coreIntf.Loopback) continue;
+++
+++        found = mDNSfalse;
+++        for (ifi = &ifa_list; *ifi != NULL; ifi = &(*ifi)->ifa_next)
+++        {
+++            if (InterfacesMatch(intf, *ifi))
+++            {
+++                found = mDNStrue;
+++                break;
+++            }
+++        }
+++
+++        // Removes changed and old interfaces from m->HostInterfaces
+++        if (!found) TearDownInterface(m, intf);
+++    }
+++
+++    // Add new and changed interfaces in ifa_list
+++    // Save off loopback interface in case it is needed later
+++    for (ifi = &ifa_list; *ifi != NULL; ifi = &(*ifi)->ifa_next)
+++    {
+++        found = mDNSfalse;
+++        for (intf = (PosixNetworkInterface*)(m->HostInterfaces); intf != NULL; intf = intfNext)
+++        {
+++            intfNext = (PosixNetworkInterface*)(intf->coreIntf.next);
+++
+++            // Loopback interface(s) are handled later
+++            if (intf->coreIntf.Loopback) continue;
+++
+++            if (InterfacesMatch(intf, *ifi))
+++            {
+++                found = mDNStrue;
+++                break;
+++            }
+++
+++            // Removes changed and old interfaces from m->HostInterfaces
+++        }
+++        if (found)
+++	    continue;
+++
+++        if ((ifa_loop4 == NULL) &&
+++            ((*ifi)->ifa_addr->sa_family == AF_INET) &&
+++            ((*ifi)->ifa_flags & IFF_UP) &&
+++            ((*ifi)->ifa_flags & IFF_LOOPBACK))
+++        {
+++            ifa_loop4 = *ifi;
+++            continue;
+++        }
+++
+++        if (     (((*ifi)->ifa_addr->sa_family == AF_INET)
+++#if HAVE_IPV6
+++                  || ((*ifi)->ifa_addr->sa_family == AF_INET6)
+++#endif
+++                  ) && ((*ifi)->ifa_flags & IFF_UP)
+++                    && !((*ifi)->ifa_flags & IFF_POINTOPOINT)
+++                    && !((*ifi)->ifa_flags & IFF_LOOPBACK))
+++        {
+++            struct ifaddrs *i = *ifi;
+++
+++#define ethernet_addr_len 6
+++            uint8_t hwaddr[ethernet_addr_len];
+++            int hwaddr_len = 0;
+++
+++#if defined(TARGET_OS_LINUX) && TARGET_OS_LINUX
+++            struct ifreq ifr;
+++            int sockfd = socket(AF_INET6, SOCK_DGRAM, 0);
+++            if (sockfd >= 0)
+++            {
+++                /* Add hardware address */
+++                memcpy(ifr.ifr_name, i->ifa_name, IFNAMSIZ);
+++                if (ioctl(sockfd, SIOCGIFHWADDR, &ifr) != -1)
+++                {
+++                    if (ifr.ifr_hwaddr.sa_family == ARPHRD_ETHER)
+++                    {
+++                        memcpy(hwaddr, ifr.ifr_hwaddr.sa_data, ethernet_addr_len);
+++                        hwaddr_len = ethernet_addr_len;
+++                    }
+++                }
+++                close(sockfd);
+++            }
+++            else
+++            {
+++                memset(hwaddr, 0, sizeof(hwaddr));
+++            }
+++#endif // TARGET_OS_LINUX
+++            SetupOneInterface(m, i->ifa_addr, i->ifa_netmask,
+++                              hwaddr, hwaddr_len, i->ifa_name, if_nametoindex(i->ifa_name), i->ifa_flags);
+++        }
+++    }
+++
+++    // Determine if there is at least one non-loopback IPv4 interface. This is to work around issues
+++    // with multicast loopback on IPv6 interfaces -- see corresponding logic in SetupInterfaceList().
+++    foundav4 = mDNSfalse;
+++    for (intf = (PosixNetworkInterface*)(m->HostInterfaces); intf != NULL; intf = (PosixNetworkInterface*)(intf->coreIntf.next))
+++    {
+++        if (intf->sa_family == AF_INET && !intf->coreIntf.Loopback)
+++        {
+++            foundav4 = mDNStrue;
+++            break;
+++        }
+++    }
+++
+++    if (foundav4)
+++    {
+++        for (intf = (PosixNetworkInterface*)(m->HostInterfaces); intf != NULL; intf = intfNext)
+++        {
+++            intfNext = (PosixNetworkInterface*)(intf->coreIntf.next);
+++            if (intf->coreIntf.Loopback) TearDownInterface(m, intf);
+++        }
+++    }
+++    else
+++    {
+++        found = mDNSfalse;
+++
+++        for (intf = (PosixNetworkInterface*)(m->HostInterfaces); intf != NULL; intf = (PosixNetworkInterface*)(intf->coreIntf.next))
+++        {
+++            if (intf->coreIntf.Loopback)
+++            {
+++                found = mDNStrue;
+++                break;
+++            }
+++        }
+++
+++        if (!found && (ifa_loop4 != NULL))
+++        {
+++            SetupOneInterface(m, ifa_loop4->ifa_addr, ifa_loop4->ifa_netmask,
+++                              NULL, 0, ifa_loop4->ifa_name, if_nametoindex(ifa_loop4->ifa_name), ifa_loop4->ifa_flags);
+++        }
+++    }
+++
+++    if (ifa_list != NULL) freeifaddrs(ifa_list);
++ 
+++cleanup:
++     while ((changedInterface = (NetworkInterfaceIndex*)changedInterfaces.Head) != NULL)
++     {
++         RemoveFromList(&changedInterfaces, changedInterface);
++@@ -1947,15 +2113,11 @@ mDNSexport void mDNSPlatformClose(mDNS *const m)
++ #endif
++ }
++ 
++-// This is used internally by InterfaceChangeCallback.
++-// It's also exported so that the Standalone Responder (mDNSResponderPosix)
+++// This is exported so that the Standalone Responder (mDNSResponderPosix)
++ // can call it in response to a SIGHUP (mainly for debugging purposes).
++ mDNSexport mStatus mDNSPlatformPosixRefreshInterfaceList(mDNS *const m)
++ {
++     int err;
++-    // This is a pretty heavyweight way to process interface changes --
++-    // destroying the entire interface list and then making fresh one from scratch.
++-    // We should make it like the OS X version, which leaves unchanged interfaces alone.
++     ClearInterfaceList(m);
++     err = SetupInterfaceList(m);
++     return PosixErrorToStatus(err);
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0008-Mark-deleted-interfaces-as-being-changed.patch b/third_party/mDNSResponder/0008-Mark-deleted-interfaces-as-being-changed.patch
+new file mode 100644
+index 0000000000..216fde7f03
+--- /dev/null
++++ b/third_party/mDNSResponder/0008-Mark-deleted-interfaces-as-being-changed.patch
+@@ -0,0 +1,43 @@
++From 8ebfeaf55ab364a1e51a3438dfa9a742a01b8d36 Mon Sep 17 00:00:00 2001
++Message-ID: <8ebfeaf55ab364a1e51a3438dfa9a742a01b8d36.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Wed, 9 Aug 2017 09:16:58 -0500
++Subject: [PATCH] Mark deleted interfaces as being changed
++
++Netlink notification handling ignores messages for deleted links,
++RTM_DELLINK. It does handle RTM_GETLINK. According to libnl docu-
++mentation (http://www.infradead.org/~tgr/libnl/doc/route.html)
++RTM_DELLINK can be sent by the kernel, but RTM_GETLINK cannot.
++There was likely a mixup in the original implementation, so this
++change replaces handling for RTM_GETLINK with RTM_DELLINK.
++
++Testing and Verification Instructions:
++  1. Use ip-link to add and remove a VLAN interface and verify
++     that mDNSResponder handles the deleted link.
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index ad7000d..010f266 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1714,7 +1714,7 @@ mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *change
++ #endif
++ 
++         // Process the NetLink message
++-        if (pNLMsg->nlmsg_type == RTM_GETLINK || pNLMsg->nlmsg_type == RTM_NEWLINK)
+++        if (pNLMsg->nlmsg_type == RTM_DELLINK || pNLMsg->nlmsg_type == RTM_NEWLINK)
++             AddInterfaceIndexToList(changedInterfaces, ((struct ifinfomsg*) NLMSG_DATA(pNLMsg))->ifi_index);
++         else if (pNLMsg->nlmsg_type == RTM_DELADDR || pNLMsg->nlmsg_type == RTM_NEWADDR)
++             AddInterfaceIndexToList(changedInterfaces, ((struct ifaddrmsg*) NLMSG_DATA(pNLMsg))->ifa_index);
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0009-Handle-errors-from-socket-calls.patch b/third_party/mDNSResponder/0009-Handle-errors-from-socket-calls.patch
+new file mode 100644
+index 0000000000..2057e2cb3e
+--- /dev/null
++++ b/third_party/mDNSResponder/0009-Handle-errors-from-socket-calls.patch
+@@ -0,0 +1,66 @@
++From dae89c4e97faf408394961c0f4b1577a7d5976cc Mon Sep 17 00:00:00 2001
++Message-ID: <dae89c4e97faf408394961c0f4b1577a7d5976cc.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Nate Karstens <nate.karstens@garmin.com>
++Date: Thu, 10 Aug 2017 08:27:32 -0500
++Subject: [PATCH] Handle errors from socket calls
++
++Adds handling for socket() or read() returning a
++negative value (indicating an error has occurred).
++
++Upstream-Status: Submitted [dts@apple.com]
++
++Signed-off-by: Nate Karstens <nate.karstens@garmin.com>
++Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
++---
++ mDNSPosix/mDNSPosix.c | 12 +++++++++---
++ 1 file changed, 9 insertions(+), 3 deletions(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index 010f266..89e108f 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1677,7 +1677,7 @@ mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *change
++ // Read through the messages on sd and if any indicate that any interface records should
++ // be torn down and rebuilt, return affected indices as a bitmask. Otherwise return 0.
++ {
++-    ssize_t readCount;
+++    ssize_t readVal, readCount;
++     char buff[4096];
++     struct nlmsghdr         *pNLMsg = (struct nlmsghdr*) buff;
++ 
++@@ -1686,7 +1686,10 @@ mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *change
++     // enough to hold all pending data and so avoid message fragmentation.
++     // (Note that FIONREAD is not supported on AF_NETLINK.)
++ 
++-    readCount = read(sd, buff, sizeof buff);
+++    readVal = read(sd, buff, sizeof buff);
+++    if (readVal < 0) return;
+++    readCount = readVal;
+++
++     while (1)
++     {
++         // Make sure we've got an entire nlmsghdr in the buffer, and payload, too.
++@@ -1702,7 +1705,9 @@ mDNSlocal void          ProcessRoutingNotification(int sd, GenLinkedList *change
++                 pNLMsg = (struct nlmsghdr*) buff;
++ 
++                 // read more data
++-                readCount += read(sd, buff + readCount, sizeof buff - readCount);
+++                readVal = read(sd, buff + readCount, sizeof buff - readCount);
+++                if (readVal < 0) return;
+++                readCount += readVal;
++                 continue;                   // spin around and revalidate with new readCount
++             }
++             else
++@@ -2017,6 +2022,7 @@ mDNSlocal mDNSBool mDNSPlatformInit_CanReceiveUnicast(void)
++     int err;
++     int s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
++     struct sockaddr_in s5353;
+++    if (s < 0) return mDNSfalse;
++     s5353.sin_family      = AF_INET;
++     s5353.sin_port        = MulticastDNSPort.NotAnInteger;
++     s5353.sin_addr.s_addr = 0;
++-- 
++2.41.0
++
+diff --git a/third_party/mDNSResponder/0010-Handle-interface-without-ifa_addr.patch b/third_party/mDNSResponder/0010-Handle-interface-without-ifa_addr.patch
+new file mode 100644
+index 0000000000..602b205e3f
+--- /dev/null
++++ b/third_party/mDNSResponder/0010-Handle-interface-without-ifa_addr.patch
+@@ -0,0 +1,41 @@
++From e501d58e9ec6cb6e19a682d425fa638069585fbc Mon Sep 17 00:00:00 2001
++Message-ID: <e501d58e9ec6cb6e19a682d425fa638069585fbc.1687508149.git.stefan@agner.ch>
++In-Reply-To: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++References: <e136dcdcdd93ef32ada981e89c195905eb809eea.1687508149.git.stefan@agner.ch>
++From: Stefan Agner <stefan@agner.ch>
++Date: Fri, 23 Jun 2023 10:10:00 +0200
++Subject: [PATCH] Handle interface without `ifa_addr`
++
++It seems that certain interface types may have `ifa_addr` set to null.
++Handle this case gracefully.
++
++Signed-off-by: Stefan Agner <stefan@agner.ch>
++---
++ mDNSPosix/mDNSPosix.c | 4 +++-
++ 1 file changed, 3 insertions(+), 1 deletion(-)
++
++diff --git a/mDNSPosix/mDNSPosix.c b/mDNSPosix/mDNSPosix.c
++index 89e108f..2056871 100644
++--- a/mDNSPosix/mDNSPosix.c
+++++ b/mDNSPosix/mDNSPosix.c
++@@ -1895,6 +1895,7 @@ mDNSlocal void InterfaceChangeCallback(int fd, void *context)
++ 	    continue;
++ 
++         if ((ifa_loop4 == NULL) &&
+++            ((*ifi)->ifa_addr != NULL) &&
++             ((*ifi)->ifa_addr->sa_family == AF_INET) &&
++             ((*ifi)->ifa_flags & IFF_UP) &&
++             ((*ifi)->ifa_flags & IFF_LOOPBACK))
++@@ -1903,7 +1904,8 @@ mDNSlocal void InterfaceChangeCallback(int fd, void *context)
++             continue;
++         }
++ 
++-        if (     (((*ifi)->ifa_addr->sa_family == AF_INET)
+++        if (     ((*ifi)->ifa_addr != NULL) &&
+++                 (((*ifi)->ifa_addr->sa_family == AF_INET)
++ #if HAVE_IPV6
++                   || ((*ifi)->ifa_addr->sa_family == AF_INET6)
++ #endif
++-- 
++2.41.0
++
+-- 
+2.41.0
+

@@ -147,7 +147,7 @@ http:
 
 ### Create & renew certificates
 
-The letsencrypt add-on creates the certificates once it is started: navigate to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the **START** button on the bottom. The add-on stops once the certificates are create.
+The letsencrypt add-on creates the certificates once it is started: navigate to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the **START** button on the bottom. The add-on stops once the certificates are created.
 
 Certificates are not renewed automatically by the plugin. The add-on has to be started again to renew certificates. If the add-on is started again, it checks if the certificates are due for renewal. This is usually the case 30 days before the certificates' due date. If the certificates are not due for renewal, the add-on terminates without changes. If the certificates are due for renewal, new certificates will be created.
 

@@ -23,6 +23,9 @@ configuration:
     name: OTBR firewall
     description: >-
       Use OpenThread Border Router firewall to block unnecessary traffic.
+  nat64:
+    name: NAT64
+    description: Enable IPv6 to IPv4 network address translation.
 network:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

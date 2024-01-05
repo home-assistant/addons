@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.0
+
+- Add port to Host header to fix origin issues affecting ESPHome and other addons
+
 ## 3.5.0
 
 - Update Alpine to 3.18 (nginx 1.24.x)

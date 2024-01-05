@@ -9,7 +9,7 @@
    load printers = no
    disable spoolss = yes
 
-   log level = 2
+   log level = 1
 
    bind interfaces only = yes
    interfaces = 127.0.0.1 {{ .interfaces | join " " }}
@@ -24,7 +24,7 @@
    dos charset = CP850
    unix charset = UTF-8
 
-[homeassistant]
+[config]
    browseable = yes
    writeable = yes
    path = /homeassistant

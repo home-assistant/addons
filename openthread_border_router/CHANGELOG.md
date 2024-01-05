@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.4.2
+
+- Update firmare for Home Assistant SkyConnect and Yellow to the latest version
+  built from Gecko SDK v4.4.0.0.
+- Bump universal SiLabs flasher to 0.0.16
+
+## 2.4.1
+
+- Fix NAT64 enable script
+
+## 2.4.0
+
+- Enable TREL
+- Enable NAT64 (disabled by default)
+- Bump to OTBR POSIX version 27ed99f375 (2023-12-13 10:11:52 -0800)
+- Bump universal SiLabs flasher to 0.0.15
+- Shutdown add-on on otbr-agent crash (use Supervisor Watchdog functionality
+  for automatic restarts)
+
 ## 2.3.2
 
 - Bump to OTBR POSIX version 9e50efa8de (2023-08-23 21:28:30 -0700)

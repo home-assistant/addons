@@ -74,8 +74,7 @@ azure_config: ''
 cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
-cloudxns_api_key: ''
-cloudxns_secret_key: ''
+desec_token: ''
 digitalocean_token: ''
 directadmin_url: ''
 directadmin_username: ''
@@ -83,12 +82,14 @@ directadmin_password: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
+duckdns_token: ''
 google_creds: ''
 google_domains_access_token: ''
 google_domains_zone: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
+infomaniak_api_token: ''
 linode_key: ''
 linode_version: ''
 luadns_email: ''
@@ -108,6 +109,8 @@ aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
 sakuracloud_api_secret: ''
+namecheap_username: ''
+namecheap_api_key: ''
 netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
@@ -118,6 +121,10 @@ transip_api_key: ''
 inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
+porkbun_key: ''
+porkbun_secret: ''
+dreamhost_api_baseurl: ''
+dreamhost_api_key: ''
 ```
 </details>
 
@@ -173,6 +180,15 @@ In this example, the automation will run every day at the chosen time, checking 
 
 </details>
 
+<details>
+  <summary>Changing the key type</summary>
+  
+  Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys are now the default. These keys utilize a more secure cryptography algorithm, however, they are not supported everywhere yet. For instance, Tasmota does not support MQTTS with an ECDSA key. If your use case does not support ECDSA keys, you can change them with the `keytype` parameter.
+
+  ```yaml
+  keytype: rsa
+  ``` 
+
 ## Example Configurations
 
 <details>
@@ -199,6 +215,25 @@ In this example, the automation will run every day at the chosen time, checking 
     - home-assistant.io
   certfile: fullchain.pem
   keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudflare
+    cloudflare_email: your.email@example.com
+    cloudflare_api_key: 31242lk3j4ljlfdwsjf0
+  ```
+
+</details>
+
+<details>
+  <summary>RSA key</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  keytype: rsa
   challenge: dns
   dns:
     provider: dns-cloudflare
@@ -286,6 +321,29 @@ on the DNS zone to be used for authentication.
   <https://support.google.com/domains/answer/7630973#acme_dns>
 
   The optional `google_domains_zone` option specifies the domain name registered with Google Domains.  If not specified, it is guessed based on the public suffix list.
+
+</details>
+
+<details>
+  <summary>Infomaniak DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - subdomain.home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-infomaniak
+    infomaniak_api_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  ```
+
+  To obtain the DNS API token follow the instructions here:
+
+  <https://manager.infomaniak.com/v3/infomaniak-api>
+
+  Choose "Domain" as the scope.
 
 </details>
 
@@ -407,6 +465,28 @@ on the DNS zone to be used for authentication.
     directadmin_url: 'https://domain.tld:2222/'
     directadmin_username: da_user
     directadmin_password: da_password_or_key
+  ```
+
+</details>
+
+<details>
+  <summary>Namecheap</summary>
+
+  To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
+
+  Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - ha.yourdomain.com
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-namecheap
+    namecheap_username: your-namecheap-username
+    namecheap_api_key: 0123456789abcdef0123456789abcdef01234567
   ```
 
 </details>
@@ -565,6 +645,83 @@ on the DNS zone to be used for authentication.
   ```
 
 </details>
+
+<details>
+  <summary>Porkbun</summary>
+
+In order to use a domain with this challenge, API access will need enabling on the domain. In order to
+do this go to domain management -> select the domain -> details and click the API access toggle.
+Then go to the menu in the top right select API access and then create a new api key.
+The title does not matter and is not used by certbot, make note of the key and the secret as both are required.
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-porkbun
+  porkbun_key: 0123456789abcdef0123456789abcdef01234
+  porkbun_secret: 0123456789abcdef0123456789abcdef01234
+```
+</details>
+<details>
+  <summary>Dreamhost</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-dreamhost
+    dreamhost_baseurl: https://api.dreamhost.com/
+    dreamhost_api_key: XXXXXX
+  ```
+</details>
+
+## Certificate files
+
+The certificate files will be available within the "ssl" share after successful request of the certificates.
+
+By default other addons are referring to the correct path of the certificates.
+You can in addition find the files via the "samba" addon within the "ssl" share.
+
+## Supported DNS providers
+
+```txt
+dns-azure
+dns-cloudflare
+dns-desec
+dns-digitalocean
+dns-directadmin
+dns-dnsimple
+dns-dnsmadeeasy
+dns-duckdns
+dns-dreamhost
+dns-gehirn
+dns-google
+dns-hetzner
+dns-infomaniak
+dns-linode
+dns-luadns
+dns-njalla
+dns-nsone
+dns-ovh
+dns-rfc2136
+dns-route53
+dns-sakuracloud
+dns-namecheap
+dns-netcup
+dns-gandi
+dns-transip
+dns-inwx
+dns-porkbun
+```
 
 ## Support
 

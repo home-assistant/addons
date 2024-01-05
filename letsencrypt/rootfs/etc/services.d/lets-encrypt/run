@@ -4,11 +4,13 @@
 # ==============================================================================
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
+KEY_ARGUMENTS=()
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
+KEYTYPE=$(bashio::config 'keytype')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
@@ -29,7 +31,10 @@ else
 fi
 
 # AWS
-if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.aws_secret_access_key'; then
+if [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-route53" ]; then
+    bashio::config.require 'dns.aws_access_key_id'
+    bashio::config.require 'dns.aws_secret_access_key'
+
     AWS_ACCESS_KEY_ID="$(bashio::config 'dns.aws_access_key_id')"
     AWS_SECRET_ACCESS_KEY="$(bashio::config 'dns.aws_secret_access_key')"
 
@@ -37,7 +42,8 @@ if bashio::config.exists 'dns.aws_access_key_id' && bashio::config.exists 'dns.a
     export AWS_SECRET_ACCESS_KEY
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}")
 #Google
-elif bashio::config.exists 'dns.google_creds'; then
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google" ]; then
+    bashio::config.require 'dns.google_creds'
     GOOGLE_CREDS="$(bashio::config 'dns.google_creds')"
 
     export GOOGLE_CREDS
@@ -52,9 +58,17 @@ elif bashio::config.exists 'dns.google_creds'; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google-domains" ]; then
     bashio::config.require 'dns.google_domains_access_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+#Namecheap
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-namecheap" ]; then
+    bashio::config.require 'dns.namecheap_username'
+    bashio::config.require 'dns.namecheap_api_key'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 #Netcup
-elif bashio::config.exists 'dns.netcup_customer_id' && bashio::config.exists 'dns.netcup_api_key' && bashio::config.exists 'dns.netcup_api_password'; then
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-netcup:dns-netcup" "--certbot-dns-netcup:dns-netcup-credentials" /data/dnsapikey "--certbot-dns-netcup:dns-netcup-propagation-seconds" "${PROPAGATION_SECONDS}")
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-netcup" ]; then
+    bashio::config.require 'dns.netcup_customer_id'
+    bashio::config.require 'dns.netcup_api_key'
+    bashio::config.require 'dns.netcup_api_password'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #TransIP
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
@@ -64,49 +78,59 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
         bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
         PROPAGATION_SECONDS=240
     fi
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-${DNS_PROVIDER}:${DNS_PROVIDER}" "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-credentials" /data/dnsapikey "--certbot-${DNS_PROVIDER}:${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # CloudFlare
 elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
     if bashio::config.exists 'dns.cloudflare_api_token'; then
         bashio::log.info "Use CloudFlare token"
-        echo "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')" >> /data/dnsapikey
+        echo "dns_cloudflare_api_token = $(bashio::config 'dns.cloudflare_api_token')" >> "/data/dnsapikey"
     else
         bashio::log.warning "Use CloudFlare global key (not recommended!)"
         echo -e "dns_cloudflare_email = $(bashio::config 'dns.cloudflare_email')\n" \
-            "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" >> /data/dnsapikey
+            "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" >> "/data/dnsapikey"
     fi
 
-    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--dns-cloudflare-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-cloudflare-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # DirectAdmin
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; then
     bashio::config.require 'dns.directadmin_url'
     bashio::config.require 'dns.directadmin_username'
     bashio::config.require 'dns.directadmin_password'
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-directadmin:directadmin" "--certbot-dns-directadmin:directadmin-credentials" /data/dnsapikey "--certbot-dns-directadmin:directadmin-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+#DuckDNS
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-duckdns" ]; then
+    bashio::config.require 'dns.duckdns_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Gandi
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     if bashio::config.exists 'dns.gandi_sharing_id'; then
         bashio::log.info "Use Gandi sharing ID"
-        echo "certbot_plugin_gandi:dns_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> /data/dnsapikey
+        echo "dns_gandi_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> "/data/dnsapikey"
     fi
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-plugin-gandi:dns" "--certbot-plugin-gandi:dns-credentials" /data/dnsapikey)
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}" )
 
 # Hetzner
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hetzner" ]; then
     bashio::config.require 'dns.hetzner_api_token'
-    PROVIDER_ARGUMENTS+=("--authenticator" "dns-hetzner" "--dns-hetzner-credentials" /data/dnsapikey "--dns-hetzner-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "dns-hetzner" "--dns-hetzner-credentials" "/data/dnsapikey" "--dns-hetzner-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+# Infomaniak
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-infomaniak" ]; then
+    bashio::config.require 'dns.infomaniak_api_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Njalla
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'
-    PROVIDER_ARGUMENTS+=("--authenticator" "certbot-dns-njalla:dns-njalla" "--certbot-dns-njalla:dns-njalla-credentials" /data/dnsapikey "--certbot-dns-njalla:dns-njalla-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # rfc2136
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-rfc2136" ]; then
-    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Azure
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
@@ -129,9 +153,25 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-inwx" ]; then
     bashio::config.require 'dns.inwx_shared_secret'
     PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--dns-inwx-credentials" "/data/dnsapikey" "--dns-inwx-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-desec" ]; then
+    bashio::config.require 'dns.desec_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+#Porkbun
+elif  [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-porkbun" ]; then
+    bashio::config.require 'dns.porkbun_key'
+    bashio::config.require 'dns.porkbun_secret'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+# Dreamhost
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dreamhost" ]; then
+    bashio::config.require 'dns.dreamhost_baseurl'
+    bashio::config.require 'dns.dreamhost_api_key'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--dns-dreamhost-credentials" "/data/dnsapikey")
+
 #All others
 else
-    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey)
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey")
 fi
 
 if bashio::config.has_value 'acme_server' ; then
@@ -142,6 +182,11 @@ if bashio::config.has_value 'acme_server' ; then
       # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
       export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
     fi
+fi
+
+# Add key arguments if appropriate config entries exist
+if bashio::config.has_value 'keytype' ; then
+  KEY_ARGUMENTS+=("--key-type" "${KEYTYPE}")
 fi
 
 # Gather all domains into a plaintext file
@@ -155,12 +200,14 @@ echo "$DOMAINS" > /data/domains.gen
 if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
+        "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
+        "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
         --preferred-chain "ISRG Root X1"

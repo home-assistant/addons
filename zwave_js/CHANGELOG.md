@@ -1,5 +1,66 @@
 # Changelog
 
+## 0.4.3
+
+### Features
+
+- Z-Wave JS Server: Enable server to listen on IPv6 interfaces
+
+### Bug fixes
+
+- Handle more cases of unexpected Serial API restarts
+
+### Config file changes
+
+- Add wakeup instructions for Nexia ZSENS930
+- Correct parameter 5 size for Zooz ZEN34
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.4.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.1)
+- [Z-Wave JS Server 1.34.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.34.0)
+
+## 0.4.2
+
+### Features
+
+- Expose rebuild routes progress as a controller property
+
+### Bug fixes
+
+- On devices that should/must not support `Basic CC`, but use it for reporting, only the `currentValue` is now exposed. This allows applications to consider it a sensor, not an actor
+
+### Config file changes
+
+- Correct firmware version condition for Zooz ZSE40 v3.0
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.0)
+- [Z-Wave JS 12.3.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.3.2)
+
+## 0.4.1
+
+### Bug fixes
+
+- Fixed an issue where the unresponsive controller recovery could do the wrong thing and block all outgoing communication.
+
+### Config file changes
+
+- Add missing units and firmware condition for Heatit Z-Temp2
+- Correct device label for Airzone Aidoo Control HVAC unit
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.3.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.3.1)
+
+## 0.4.0
+
+### Features
+
+- Add-On: Provide access to Z-Wave JS cache files for debugging in `/addon_configs/core_zwave_js/cache`
+- Add-On: Add configuration option to log to file. When enabled, logs will be written to `/addon_configs/core_zwave_js` with the `.log` file extension
+
 ## 0.3.0
 
 ### Features

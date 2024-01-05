@@ -1,7 +1,10 @@
 # Changelog
 
+## 2.4.3
+- This is a re-release of 2.4.0 that is compatible only with Home Assistant Core 2024.1.0 and above.
+
 ## 2.4.2
-- This is a re-release of 2.4.0 that is compatible only with Home Assisstant Core 2024.1.0 and above.
+- Bump universal SiLabs flasher to 0.0.16 so that firmware is successfully installed on startup.
 
 ## 2.4.1
 

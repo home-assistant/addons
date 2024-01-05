@@ -37,14 +37,17 @@ There are two options to obtain certificates.
 ```txt
 dns-azure
 dns-cloudflare
-dns-cloudxns
+dns-desec
 dns-digitalocean
 dns-directadmin
 dns-dnsimple
 dns-dnsmadeeasy
+dns-duckdns
+dns-dreamhost
 dns-gehirn
 dns-google
 dns-hetzner
+dns-infomaniak
 dns-linode
 dns-luadns
 dns-njalla
@@ -53,10 +56,12 @@ dns-ovh
 dns-rfc2136
 dns-route53
 dns-sakuracloud
+dns-namecheap
 dns-netcup
 dns-gandi
 dns-transip
 dns-inwx
+dns-porkbun
 ```
 </details>
 
@@ -139,16 +144,12 @@ The letsencrypt add-on crates the certificates once it is started: navigate to *
 
 Certificates are not renewed automatically by the plugin. The add-on has to be started again to renew certificates: If the add-on is started again, it checks if the certificates are due for renewal. This us usually the case 30 days before the certificates due date. If the certificates are not due for renewal, the add-on terminates without changes. If the certificates are due for renewal, new certificates will be created.
 
-There are multiple ways how the add-on can be started to check/renew the certificates. One way to automate the certificate renewal it to use an automation, starting the add-on for example every night:
+There are multiple ways how the add-on can be started to check/renew the certificates. One way to automate the certificate renewal it to configure a renewal via [Home Assistant automation][haauto], and then restarting this automation every night via the [Supervisor Addon restart action][supervisorrestart].
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Automations & Scenes**
-2. Click the button **CREATE AUTOMATION**
-3. Pick **Start with empty automation**
-4. Click **ADD TRIGGER**, pick **Time** and enter any time at the day
-5. Click **ADD ACTION**, pick **Call Service**, pick **Home Assistant Supervisor: Restart add-on.**, pick the add-on **Let's Encrypt**
-6. Click **SAVE**
+[haauto]: https://www.home-assistant.io/docs/automation/editor/
+[supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#service-hassioaddon_restart
 
-The automation will run every day at the chosen time, checking if a renewal is due, and will request it if needed.
+In this example, the automation will run every day at the chosen time, checking if a renewal is due, and will request it if needed.
 
 ## Advanced
 

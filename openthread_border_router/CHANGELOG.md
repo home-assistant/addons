@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.3
+
+- Enable TREL support on infrastructure link
+
 ## 2.4.2
 
 - Update firmare for Home Assistant SkyConnect and Yellow to the latest version

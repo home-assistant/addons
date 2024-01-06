@@ -3,6 +3,7 @@
 ## 2.4.3
 
 - Enable TREL support on infrastructure link
+- Enable Channel Monitor support (disabled by default)
 
 ## 2.4.2
 

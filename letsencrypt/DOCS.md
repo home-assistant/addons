@@ -209,6 +209,8 @@ Starting with Certbot version 2.0.0 (add-on version 5.0.0 and newer), ECDSA keys
   keytype: rsa
   ``` 
 
+</details>
+
 ## Example Configurations
 
 <details>

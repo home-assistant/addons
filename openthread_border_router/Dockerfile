@@ -83,6 +83,8 @@ RUN \
         -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
         -DOTBR_DNS_UPSTREAM_QUERY=ON \
         -DOT_CHANNEL_MONITOR=ON \
+        -DOT_COAP=OFF \
+        -DOT_COAPS=OFF \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

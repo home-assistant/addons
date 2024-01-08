@@ -4,6 +4,7 @@
 
 - Enable TREL support on infrastructure link
 - Enable Channel Monitor support (disabled by default)
+- Bump to OTBR POSIX version 657e775cd9 (2024-01-05 17:10:13 -0800)
 
 ## 2.4.2
 

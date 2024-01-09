@@ -115,4 +115,5 @@ exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
     "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
         --rest-listen-address "${otbr_rest_listen}" \
         -d${otbr_log_level_int} -v \
-        "spinel+hdlc+uart://${device}?uart-baudrate=${baudrate}${flow_control}"
+        "spinel+hdlc+uart://${device}?uart-baudrate=${baudrate}${flow_control}" \
+        "trel://${backbone_if}"

@@ -18,6 +18,7 @@ ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0002-rest-support-deleting-the-dataset.patch /usr/src
+COPY 0001-channel-monitor-disable-by-default.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -54,6 +55,8 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
+    && (cd third_party/openthread/repo && \
+        patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch) \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \
     # Mimic otbr_install \
@@ -79,6 +82,9 @@ RUN \
         -DOTBR_NAT64=ON \
         -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
         -DOTBR_DNS_UPSTREAM_QUERY=ON \
+        -DOT_CHANNEL_MONITOR=ON \
+        -DOT_COAP=OFF \
+        -DOT_COAPS=OFF \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

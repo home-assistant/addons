@@ -2,7 +2,7 @@
 
 ## 1.0.2
 
-- Added warning for CPUs not supporting AVX instructions
+- Convert error to warning for CPUs not supporting AVX instructions
 
 ## 1.0.1
 

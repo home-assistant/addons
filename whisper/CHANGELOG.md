@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Convert error to warning for CPUs not supporting AVX instructions
+
 ## 1.0.1
 
 - Handle unsupported CPU configurations

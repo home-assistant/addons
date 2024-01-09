@@ -82,7 +82,7 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
-    && pip install gpiod==1.5.4 universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
+    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
        nodejs \

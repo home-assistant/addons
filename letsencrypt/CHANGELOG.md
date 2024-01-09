@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.9
+
+- Add option to specify Private Key type
+
 ## 5.0.8
 
 - Add Dreamhost DNS challenge support

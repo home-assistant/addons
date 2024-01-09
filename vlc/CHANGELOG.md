@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Prevent race condition reading secrets on startup
+- Update to Alpine 3.19
+
 ## 0.2.0
 
 - Update to Alpine 3.17

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.2
+
+- Update firmare for Home Assistant SkyConnect and Yellow to the latest version
+  built from Gecko SDK v4.4.0.0.
+- Bump universal SiLabs flasher to 0.0.16
+
 ## 2.4.1
 
 - Fix NAT64 enable script

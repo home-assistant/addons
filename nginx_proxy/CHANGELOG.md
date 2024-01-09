@@ -1,8 +1,12 @@
 # Changelog
 
-## 3.7.0
+## 3.8.0
 
 - Supporting TCP Proxy Protocol
+
+## 3.7.0
+
+- Modify `server_names_hash_bucket_size` to add support for longer domain names
 
 ## 3.6.0
 

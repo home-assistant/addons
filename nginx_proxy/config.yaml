@@ -29,6 +29,11 @@ options:
 ports:
   443/tcp: 443
   80/tcp: null
+  11150/tcp: null
+  11151/tcp: null
+  11152/tcp: null
+  11153/tcp: null
+  11154/tcp: null
 schema:
   domain: str
   hsts: str

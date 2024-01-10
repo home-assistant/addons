@@ -65,6 +65,31 @@ Value for the [`Strict-Transport-Security`][hsts] HTTP header to send. If empty,
 
 If true, additional NGINX configuration files for the default server and additional servers are read from files in the `/share` directory specified by the `default` and `servers` variables.
 
+If you would like to host additional `server` blocks on different, non-443, ports, the NGINX addon supports this via five ports reserved for custom uses.
+These ports can be configured in the addon's Network settings and are disabled by default. To use one, assign the port you want to access externally
+in the setting (you may need to toggle the `Show disabled ports` option first) and then use the corresponding reserved port in your custom server definition. 
+
+The additional TCP ports that can be used inside of configuration files are:
+- `11150`
+- `11151`
+- `11152`
+- `11153`
+- `11154`
+
+This example configuration listens for TLS/SSL connections on the first reserved port, `11150`:
+```nginx
+server {
+  listen 11150 ssl http2;
+  listen [::]:11150 ssl http2;
+
+  server_name subdomain.example.com;
+
+  location / {
+    return 200 'This is an example';
+  }
+}
+```
+
 ### Option `customize.default` (required)
 
 The filename of the NGINX configuration for the default server, found in the `/share` directory.

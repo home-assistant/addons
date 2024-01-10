@@ -41,6 +41,7 @@ hsts: "max-age=31536000; includeSubDomains"
 customize:
   active: false
   default: "nginx_proxy_default*.conf"
+  http_root: "nginx_proxy_http*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
 ```
@@ -93,6 +94,10 @@ server {
 ### Option `customize.default` (required)
 
 The filename of the NGINX configuration for the default server, found in the `/share` directory.
+
+### Option `customize.http_root` (required)
+
+The filename of the NGINX configuration for additional instance-wide `http` block options, found in the `/share` directory.
 
 ### Option `customize.servers` (required)
 

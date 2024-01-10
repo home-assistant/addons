@@ -25,6 +25,7 @@ options:
   customize:
     active: false
     default: nginx_proxy_default*.conf
+    http_root: nginx_proxy_http*.conf
     servers: nginx_proxy/*.conf
 ports:
   443/tcp: 443
@@ -43,4 +44,5 @@ schema:
   customize:
     active: bool
     default: str
+    http_root: str
     servers: str

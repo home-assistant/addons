@@ -9,7 +9,7 @@ arch:
   - armv7
   - aarch64
   - amd64
-homeassistant: 2023.6.0.dev20230531
+homeassistant: 2024.1.0
 gpio: true
 hassio_api: true
 discovery:

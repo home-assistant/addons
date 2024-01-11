@@ -1,7 +1,7 @@
-From ab31af226c8d4ad1f46d03616e68a80f2a04a35e Mon Sep 17 00:00:00 2001
-Message-ID: <ab31af226c8d4ad1f46d03616e68a80f2a04a35e.1691047014.git.stefan@agner.ch>
-In-Reply-To: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
-References: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+From 2c0c78e5f4dc85a63934fc0c32c035a9c5b5babd Mon Sep 17 00:00:00 2001
+Message-ID: <2c0c78e5f4dc85a63934fc0c32c035a9c5b5babd.1692864566.git.stefan@agner.ch>
+In-Reply-To: <e0792b7605e6d6cb2ebd491025aee7f84d1edbaa.1692864566.git.stefan@agner.ch>
+References: <e0792b7605e6d6cb2ebd491025aee7f84d1edbaa.1692864566.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 23:41:50 +0200
 Subject: [PATCH] [rest] support deleting the dataset
@@ -122,5 +122,5 @@ index d79085dbfc..362e501471 100644
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
 -- 
-2.41.0
+2.42.0
 

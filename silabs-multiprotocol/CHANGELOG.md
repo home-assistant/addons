@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.3
+- ⚠️ Zigbee2MQTT does not yet support this version of the Gecko SDK. Do not update if you are using Z2M! ⚠️.
+- This is a re-release of 2.4.0 that is compatible only with Home Assistant Core 2024.1.0 and above.
+
 ## 2.4.2
 - Bump universal SiLabs flasher to 0.0.16 so that firmware is successfully installed on startup.
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.11
+
+- Add HE DNS challenge support
+
 ## 5.0.10
 
 - Add ClouDNS DNS challenge support

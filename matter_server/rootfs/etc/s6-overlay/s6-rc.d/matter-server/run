@@ -6,6 +6,7 @@ bashio::log.info "Starting Matter Server..."
 
 declare server_port
 declare log_level
+declare primary_interface
 
 log_level=$(bashio::string.lower "$(bashio::config log_level invalid)")
 if [ "$log_level" = "invalid" ]; then
@@ -29,6 +30,12 @@ fi
 #    export CHIP_WS_SERVER_HOST="$(bashio::addon.ip_address)"
 #fi
 
+primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+if [ -z ${primary_interface} ]; then
+    bashio::exit.nok "No primary network interface found!"
+fi
+bashio::log.info "Using '${primary_interface}' as primary network interface."
+
 # Send out discovery information to Home Assistant
 /etc/s6-overlay/scripts/matter-server-discovery &
 
@@ -37,10 +44,10 @@ cd /root
 if bashio::config.true "beta"; then
     exec /usr/bin/gdb --quiet -ex="set confirm off" -ex run -ex backtrace -ex "quit \$_exitcode" --args /usr/local/bin/python \
          /usr/local/bin/matter-server --storage-path "/data" --port "${server_port}" \
-                       --log-level "${log_level}" \
+                       --log-level "${log_level}" --primary-interface "${primary_interface}" \
                        --fabricid 2 --vendorid 4939
 else
     exec /usr/local/bin/matter-server --storage-path "/data" --port "${server_port}" \
-                       --log-level "${log_level}" \
+                       --log-level "${log_level}" --primary-interface "${primary_interface}" \
                        --fabricid 2 --vendorid 4939
 fi

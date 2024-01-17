@@ -82,6 +82,7 @@ Add-on configuration:
 | cpcd_trace         | Co-Processor Communication tracing (trace in log)      |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
+| otbr_infra_if      | HA host network interface name to bind the "infrastructure" side of the OpenThread Border Router to |
 | otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |
 
 ## Architecture

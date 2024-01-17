@@ -5,7 +5,7 @@
 
 . /etc/s6-overlay/scripts/otbr-agent-common
 
-declare backbone_if
+declare otbr_infra_if
 declare device
 declare baudrate
 declare flow_control
@@ -13,8 +13,6 @@ declare otbr_log_level
 declare otbr_log_level_int
 declare otbr_rest_listen
 declare otbr_rest_listen_port
-
-backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
 case "${otbr_log_level}" in
@@ -47,9 +45,17 @@ case "${otbr_log_level}" in
         ;;
 esac
 
-if [ -z ${backbone_if} ]; then
-    bashio::log.warning "No primary network interface found! Using static eth0."
-    backbone_if="eth0"
+if bashio::config.has_value 'otbr_infra_if'; then
+    otbr_infra_if="$(bashio::config 'otbr_infra_if')"
+    bashio::log.info "Using configured network interface ${otbr_infra_if} for otbr_infra_if."
+else
+    otbr_infra_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+    if [ -n "${otbr_infra_if}" ]; then
+        bashio::log.info "Using primary network interface ${otbr_infra_if} for otbr_infra_if."
+    else
+        bashio::log.warning 'No primary network interface found!  Using static eth0 for otbr_infra_if.'
+        otbr_infra_if='eth0'
+    fi
 fi
 
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
@@ -98,7 +104,7 @@ echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 bashio::log.info "Starting otbr-agent..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
-    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
+    "/usr/sbin/otbr-agent" -I ${thread_if} -B "${otbr_infra_if}" \
         --rest-listen-address "${otbr_rest_listen}" \
         -d${otbr_log_level_int} -v \
         "spinel+cpc://cpcd_0?iid=2&iid-list=0"

@@ -30,6 +30,12 @@ configuration:
     name: OpenThread Border Router agent log level
     description: >-
       Set logging level of the OpenThread Border Router agent (otbr-agent).
+  otbr_infra_if:
+    name: OpenThread Border Router infrastructure interface
+    description: >-
+      HA host network interface name to bind the "infrastructure" side (vs the
+      "Thread" side) of the OpenThread Border Router to.  By default, the
+      first interface with an associated default route is used.
   otbr_firewall:
     name: OTBR firewall
     description: >-

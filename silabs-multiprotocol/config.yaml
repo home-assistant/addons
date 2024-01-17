@@ -31,6 +31,7 @@ options:
   cpcd_trace: false
   otbr_enable: true
   otbr_log_level: notice
+  otbr_infra_if: null
   otbr_firewall: true
 ports:
   9999/tcp: null
@@ -49,6 +50,7 @@ schema:
   cpcd_trace: bool
   otbr_enable: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
+  otbr_infra_if: str?
   otbr_firewall: bool
 stage: experimental
 startup: services

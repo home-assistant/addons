@@ -75,15 +75,15 @@ Add-on configuration:
 | Configuration      | Description                                            |
 |--------------------|--------------------------------------------------------|
 | device (mandatory) | Serial service where the Silicon Labs radio is attached |
-| baudrate           | Serial port baudrate (depends on firmware)   |
+| baudrate           | Serial port baudrate (depends on firmware)             |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
-| autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
+| autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | cpcd_trace         | Co-Processor Communication tracing (trace in log)      |
-| otbr_enable        | Enable OpenThread BorderRouter                         |
-| otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
+| otbr_enable        | Enable OpenThread Border Router                        |
+| otbr_log_level     | Set the log level of the OpenThread Border Router Agent |
 | otbr_infra_if      | HA host network interface name to bind the "infrastructure" side of the OpenThread Border Router to |
-| otbr_firewall      | Enable OpenThread Border Router firewall to block unnecessary traffic |
+| otbr_firewall      | Configure firewall to block unnecessary traffic to/from the OpenThread Border Router |
 
 ## Architecture
 

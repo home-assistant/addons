@@ -1,0 +1,17 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start GDB
+# ==============================================================================
+
+declare device
+
+device=$(bashio::config 'device')
+
+if [ ! -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] || [ "${device}" != "/dev/ttyAMA1" ]; then
+    bashio::exit.ok "Platform is not Yellow, skipping"
+fi
+
+mkdir -p /config/silabs_multiprotocol_crash_dumps
+
+bashio::log.info "Starting gdb..."
+exec /usr/bin/gdb -ex 'target extended-remote 127.0.0.1:3333' -ex 'file /root/NabuCasa_Yellow_RCP_v4.4.0_rcp-uart-hw-802154_460800.out' -x /usr/local/share/crash-dumper.gdb -ex 'cont'

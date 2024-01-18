@@ -270,6 +270,86 @@ COPY --from=zigbeed-builder \
 
 RUN ldconfig && touch /accept_silabs_msla
 
+ARG OPENOCD_COMMIT
+ARG OPENOCD_EFM32_SERIES2_COMMIT
+
+# Set up OpenOCD for the Yellow
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        make \
+        autoconf \
+        libtool \
+        gcc \
+        gdb \
+        git \
+        pkg-config \
+    # Build OpenOCD + EFR32 patches
+    && cd /usr/src \
+    && git clone https://github.com/knieriem/openocd-efm32-series2 \
+    && git -C openocd-efm32-series2 checkout ${OPENOCD_EFM32_SERIES2_COMMIT} \
+    && git clone https://github.com/openocd-org/openocd \
+    && cd openocd \
+    && git checkout ${OPENOCD_COMMIT} \
+    && git submodule init \
+    && git submodule update -r \
+    && cp ../openocd-efm32-series2/efm32s2/efm32s2.c src/flash/nor/ \
+    && cp ../openocd-efm32-series2/efm32s2/efm32s2.cfg tcl/target/ \
+    && git apply ../openocd-efm32-series2/efm32s2/adjust_openocd.patch \
+    # Build and install openocd
+    && ./bootstrap \
+    && ./configure \
+        --enable-bcm2835gpio \
+        --disable-shared \
+        --without-capstone \
+        --disable-jlink \
+        --disable-cmsis-dap \
+        --disable-ftdi \
+        --disable-presto \
+        --disable-stlink \
+        --disable-rshim \
+        --disable-usb-blaster-2 \
+        --disable-ti-icdi \
+        --disable-vsllink \
+        --disable-ft232r \
+        --disable-xds110 \
+        --disable-osbdm \
+        --disable-opendous \
+        --disable-armjtagew \
+        --disable-rlink \
+        --disable-usbprog \
+        --disable-aice \
+        --disable-nulink \
+        --disable-kitprog \
+        --disable-buspirate \
+        --disable-parport \
+        --disable-parport-ppdev \
+        --disable-amtjtagaccel \
+        --disable-openjtag \
+        --disable-usb-blaster \
+        --disable-remote-bitbang \
+        --disable-xlnx-pcie-xvc \
+        --disable-gw16012 \
+        --disable-at91rm9200 \
+        --disable-ep93xx \
+        --disable-imx_gpio \
+        --disable-ssl \
+    && make -j$(nproc) \
+    && make install \
+    # Cleanup to reduce image size
+    && apt-get purge -y --auto-remove \
+        build-essential \
+        make \
+        autoconf \
+        libtool \
+        gcc \
+        # gdb is kept around in the image
+        git \
+        pkg-config \
+    && apt-get clean \
+    && rm -rf /usr/src/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 COPY rootfs /
 
 ENV \

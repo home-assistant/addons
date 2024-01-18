@@ -10,6 +10,8 @@ arch:
   - aarch64
   - amd64
 homeassistant: 2024.1.0
+map:
+  - homeassistant_config
 gpio: true
 hassio_api: true
 discovery:

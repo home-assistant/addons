@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start OpenOCD
+# ==============================================================================
+
+declare device
+
+device=$(bashio::config 'device')
+
+if [ ! -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] || [ "${device}" != "/dev/ttyAMA1" ]; then
+    bashio::exit.ok "Platform is not Yellow, skipping"
+fi
+
+bashio::log.info "Starting openocd..."
+exec /usr/local/bin/openocd -f interface/yellow.cfg -f target/efm32s2.cfg

@@ -277,6 +277,7 @@ ARG OPENOCD_EFM32_SERIES2_COMMIT
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         build-essential \
+        automake \
         ca-certificates \
         make \
         autoconf \
@@ -340,6 +341,7 @@ RUN apt-get update -y \
     # Cleanup to reduce image size
     && apt-get purge -y --auto-remove \
         build-essential \
+        automake \
         ca-certificates \
         make \
         autoconf \

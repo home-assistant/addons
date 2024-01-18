@@ -283,9 +283,12 @@ RUN apt-get update -y \
         autoconf \
         libtool \
         gcc \
-        gdb \
         git \
         pkg-config \
+        libgpiod-dev \
+        # The following are used during runtime
+        gdb \
+        libgpiod2 \
     # Build OpenOCD + EFR32 patches
     && cd /usr/src \
     && git clone https://github.com/knieriem/openocd-efm32-series2 \
@@ -301,7 +304,9 @@ RUN apt-get update -y \
     # Build and install openocd
     && ./bootstrap \
     && ./configure \
-        --enable-bcm2835gpio \
+        # We just use the generic gpiod interface for SWD
+        --enable-linuxgpiod \
+        # Everything else is disabled
         --disable-shared \
         --without-capstone \
         --disable-jlink \
@@ -335,6 +340,7 @@ RUN apt-get update -y \
         --disable-at91rm9200 \
         --disable-ep93xx \
         --disable-imx_gpio \
+        --disable-bcm2835gpio \
         --disable-ssl \
     && make -j$(nproc) \
     && make install \
@@ -347,6 +353,7 @@ RUN apt-get update -y \
         autoconf \
         libtool \
         gcc \
+        libgpiod-dev \
         # gdb is kept around in the image
         git \
         pkg-config \

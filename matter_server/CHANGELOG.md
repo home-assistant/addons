@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.4
+
+- Correctly bump Python Matter Server to [5.2.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.2.1)
+
 ## 5.0.3
 
 - Bump Python Matter Server to [5.2.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.2.1)

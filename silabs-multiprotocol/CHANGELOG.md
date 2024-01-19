@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.4
+- Revert back to Silicon Labs Gecko SDK 4.3.1 while 4.4.0 instability is investigated.
+- Backport firmware modifications for improved stability.
+
 ## 2.4.3
 - ⚠️ Zigbee2MQTT does not yet support this version of the Gecko SDK. Do not update if you are using Z2M! ⚠️.
 - This is a re-release of 2.4.0 that is compatible only with Home Assistant Core 2024.1.0 and above.

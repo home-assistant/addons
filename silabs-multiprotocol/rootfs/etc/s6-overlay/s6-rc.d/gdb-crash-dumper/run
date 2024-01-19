@@ -14,4 +14,8 @@ fi
 mkdir -p /share/silabs_multiprotocol_crash_dumps
 
 bashio::log.info "Starting gdb..."
-exec /usr/bin/gdb -ex 'target extended-remote 127.0.0.1:3333' -ex 'file /root/NabuCasa_Yellow_RCP_v4.4.0_rcp-uart-hw-802154_460800.out' -x /usr/local/share/crash-dumper.gdb -ex 'cont'
+exec /usr/bin/gdb \
+    -ex 'file /root/NabuCasa_Yellow_RCP_v4.4.0_rcp-uart-hw-802154_460800.out' \
+    -ex 'target extended-remote 127.0.0.1:3333' \
+    -x /usr/local/share/crash-dumper.gdb \
+    -ex 'cont'

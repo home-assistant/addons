@@ -757,6 +757,22 @@ API Users have full account access.  It is recommended to create an API Sub-user
     cloudns_auth_password: ******
   ```
 </details>
+<details>
+  <summary>Hurricane Electric (HE)</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-he
+    he_user: me
+    he_pass: ******
+  ```
+</details>
 
 ## Certificate files
 

@@ -1,8 +1,12 @@
 # Changelog
 
+## 5.0.12
+
+- Default to RSA and allow ECDSA curve selection
+
 ## 5.0.11
 
- - Default to RSA and allow ECDSA curve selection
+- Add HE DNS challenge support
 
 ## 5.0.10
 

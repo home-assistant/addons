@@ -212,6 +212,7 @@ if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
+        --cert-name "${DOMAIN_ARR[0]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1"
@@ -219,6 +220,7 @@ else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
+        --cert-name "${DOMAIN_ARR[0]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
         --preferred-chain "ISRG Root X1"

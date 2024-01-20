@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.4
+
+- Fix Thread network interface (wpan0) route metric
+  This fixes devices becoming unreachable when operating the OTBR with other TBRs
+- Bump to OTBR POSIX version 02421b0ea6 (2024-01-19 15:58:03 -0800)
+
 ## 2.4.3
 
 - Enable TREL support on infrastructure link

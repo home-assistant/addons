@@ -18,6 +18,7 @@ ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0002-rest-support-deleting-the-dataset.patch /usr/src
+COPY 0003-openthread-set-netif-route-metric-lower.patch /usr/src
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
@@ -55,6 +56,7 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0003-openthread-set-netif-route-metric-lower.patch \
     && (cd third_party/openthread/repo && \
         patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch) \
     # Mimic rt_tables_install \

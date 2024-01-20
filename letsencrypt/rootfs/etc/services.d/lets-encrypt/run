@@ -34,7 +34,6 @@ if bashio::config.exists 'key_type'; then
     # Use key type set in configuration
     KEY_TYPE=$(bashio::config 'key_type')
     KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
-
     if [ "${KEY_TYPE}" == "ecdsa" ]; then
         if bashio::config.exists 'elliptic_curve'; then
             ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
@@ -45,9 +44,7 @@ if bashio::config.exists 'key_type'; then
     fi
 else
     bashio::log.info "Automatically detecting existing certificate type."
-    
     readarray -t CBCERTS < <(certbot certificates --non-interactive) 
-    
     for output in "${CBCERTS[@]}"; do
         if [[ $output =~ "No certificates found." ]]; then
             bashio::log.info "No certificates found - using 'ecdsa' key type."
@@ -234,17 +231,17 @@ if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
-        --cert-name "${DOMAIN_ARR[0]}" \
+        --cert-name "${DOMAIN_ARR[0]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
+        --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
-        --cert-name "${DOMAIN_ARR[0]}" \
+        --cert-name "${DOMAIN_ARR[0]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
+        --preferred-challenges "$CHALLENGE" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
         --preferred-chain "ISRG Root X1"
 fi
 

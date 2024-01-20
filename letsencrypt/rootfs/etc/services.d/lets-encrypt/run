@@ -215,11 +215,21 @@ if bashio::config.exists 'key_type'; then
         fi
     fi
 else
-    bashio::log.info "Automatically detecting existing certificate type."
+    bashio::log.info "Detecting existing certificate type for ${DOMAINS[0]}"
     readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAINS[0]}") 
     for output in "${CBCERTS[@]}"; do
         if [[ $output =~ "No certificates found." ]]; then
-            bashio::log.info "No certificates found - using 'ecdsa' key type."
+            bashio::log.info "No certificate found - using 'ecdsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "ecdsa")
+            break
+        fi
+        if [[ $output =~ "Key Type: RSA" ]]; then
+            bashio::log.info "Existing certificate using 'rsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "rsa")
+            break
+        fi
+        if [[ $output =~ "Key Type: ECDSA" ]]; then
+            bashio::log.info "Existing certificate using 'ecdsa' key type."
             KEY_ARGUMENTS+=("--key-type" "ecdsa")
             break
         fi

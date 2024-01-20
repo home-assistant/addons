@@ -3,7 +3,7 @@
 ## 5.0.12
 
 - Allow ECDSA curve selection.
-- Check for existing certificates at startup.
+- By default, choose key type based on existing certificates at startup.
 
 ## 5.0.11
 

@@ -44,7 +44,6 @@
 - Update to Alpine 3.18
 - Add GANDI DNS propagation delay setting
 
-
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

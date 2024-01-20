@@ -29,31 +29,6 @@ else
     bashio::log.info "Selected http verification"
 fi
 
-# Key detection or manual ECDSA/RSA selection
-if bashio::config.exists 'key_type'; then
-    # Use key type set in configuration
-    KEY_TYPE=$(bashio::config 'key_type')
-    KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
-    if [ "${KEY_TYPE}" == "ecdsa" ]; then
-        if bashio::config.exists 'elliptic_curve'; then
-            ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
-            KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
-        else
-            KEY_ARGUMENTS+=("--elliptic-curve" "secp384r1")
-        fi
-    fi
-else
-    bashio::log.info "Automatically detecting existing certificate type."
-    readarray -t CBCERTS < <(certbot certificates --non-interactive) 
-    for output in "${CBCERTS[@]}"; do
-        if [[ $output =~ "No certificates found." ]]; then
-            bashio::log.info "No certificates found - using 'ecdsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "ecdsa")
-            break
-        fi
-    done
-fi
-
 # AWS
 if [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-route53" ]; then
     bashio::config.require 'dns.aws_access_key_id'
@@ -225,6 +200,31 @@ for line in $DOMAINS; do
     DOMAIN_ARR+=(-d "$line")
 done
 echo "$DOMAINS" > /data/domains.gen
+
+# Key detection or manual ECDSA/RSA selection
+if bashio::config.exists 'key_type'; then
+    # Use key type set in configuration
+    KEY_TYPE=$(bashio::config 'key_type')
+    KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
+    if [ "${KEY_TYPE}" == "ecdsa" ]; then
+        if bashio::config.exists 'elliptic_curve'; then
+            ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
+            KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
+        else
+            KEY_ARGUMENTS+=("--elliptic-curve" "secp384r1")
+        fi
+    fi
+else
+    bashio::log.info "Automatically detecting existing certificate type."
+    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAINS[0]}") 
+    for output in "${CBCERTS[@]}"; do
+        if [[ $output =~ "No certificates found." ]]; then
+            bashio::log.info "No certificates found - using 'ecdsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "ecdsa")
+            break
+        fi
+    done
+fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
 if [ "$CHALLENGE" == "dns" ]; then

@@ -58,7 +58,9 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_cloudns_sub_auth_user = $(bashio::config 'dns.cloudns_sub_auth_user')\n" \
       "dns_cloudns_auth_password = $(bashio::config 'dns.cloudns_auth_password')\n" \
       "dns_dreamhost_baseurl = $(bashio::config 'dns.dreamhost_baseurl')\n" \
-      "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" > /data/dnsapikey
+      "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" \
+      "dns_he_user = $(bashio::config 'dns.he_user')\n" \
+      "dns_he_pass = $(bashio::config 'dns.he_pass')\n" > /data/dnsapikey
 
 if bashio::config.exists 'dns.google_domains_zone'; then
       echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey

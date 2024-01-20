@@ -42,6 +42,7 @@ There are two options to obtain certificates.
 ```txt
 dns-azure
 dns-cloudflare
+dns-cloudns
 dns-desec
 dns-digitalocean
 dns-directadmin
@@ -79,6 +80,10 @@ azure_config: ''
 cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
+cloudns_auth_id: ''
+cloudns_sub_auth_id: ''
+cloudns_sub_auth_user: ''
+cloudns_auth_password: ''
 desec_token: ''
 digitalocean_token: ''
 directadmin_url: ''
@@ -708,6 +713,50 @@ dns:
     dreamhost_api_key: XXXXXX
   ```
 </details>
+<details>
+  <summary>ClouDNS</summary>
+In order to use a domain with this challenge, you first need to log into your control panel and create a 
+new HTTP API user from the "API & Resellers" page on top of your control panel.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudns
+    cloudns_auth_id: 12345
+    cloudns_auth_password: ******
+  ```
+API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope.  You can use either the `sub-auth-id` or the `sub-auth-user` as follows:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudns
+    cloudns_sub_auth_id: 12345
+    cloudns_auth_password: ******
+  ```
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudns
+    cloudns_sub_auth_user: alice
+    cloudns_auth_password: ******
+  ```
+</details>
 
 ## Certificate files
 
@@ -720,6 +769,7 @@ You can in addition find the files via the "samba" addon within the "ssl" share.
 
 ```txt
 dns-azure
+dns-cloudns
 dns-cloudflare
 dns-desec
 dns-digitalocean

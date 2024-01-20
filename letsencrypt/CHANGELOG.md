@@ -1,8 +1,12 @@
 # Changelog
 
-## 5.0.10
+## 5.0.11
 
  - Default to RSA and allow ECDSA curve selection
+
+## 5.0.10
+
+- Add ClouDNS DNS challenge support
 
 ## 5.0.9
 

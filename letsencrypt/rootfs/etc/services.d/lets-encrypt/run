@@ -179,6 +179,11 @@ elif  [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-porkbun" ]; the
     bashio::config.require 'dns.porkbun_secret'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# ClouDNS
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-cloudns" ]; then
+    bashio::config.require 'dns.cloudns_auth_password'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Dreamhost
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dreamhost" ]; then
     bashio::config.require 'dns.dreamhost_baseurl'

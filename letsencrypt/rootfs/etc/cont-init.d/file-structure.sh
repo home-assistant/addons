@@ -53,6 +53,10 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_inwx_password = $(bashio::config 'dns.inwx_password')\n" \
       "dns_inwx_shared_secret = $(bashio::config 'dns.inwx_shared_secret')\n" \
       "dns_google_domains_access_token = $(bashio::config 'dns.google_domains_access_token')\n" \
+      "dns_cloudns_auth_id = $(bashio::config 'dns.cloudns_auth_id')\n" \
+      "dns_cloudns_sub_auth_id = $(bashio::config 'dns.cloudns_sub_auth_id')\n" \
+      "dns_cloudns_sub_auth_user = $(bashio::config 'dns.cloudns_sub_auth_user')\n" \
+      "dns_cloudns_auth_password = $(bashio::config 'dns.cloudns_auth_password')\n" \
       "dns_dreamhost_baseurl = $(bashio::config 'dns.dreamhost_baseurl')\n" \
       "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" > /data/dnsapikey
 

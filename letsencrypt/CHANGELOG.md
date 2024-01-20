@@ -2,7 +2,8 @@
 
 ## 5.0.12
 
-- Allow ECDSA curve selection
+- Allow ECDSA curve selection.
+- Check for existing certificates at startup.
 
 ## 5.0.11
 

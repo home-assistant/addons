@@ -2,7 +2,7 @@
 
 ## 5.0.12
 
-- Default to RSA and allow ECDSA curve selection
+- Allow ECDSA curve selection
 
 ## 5.0.11
 

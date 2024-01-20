@@ -202,9 +202,9 @@ done
 echo "$DOMAINS" > /data/domains.gen
 
 # Key detection or manual ECDSA/RSA selection
-if bashio::config.exists 'key_type'; then
+if bashio::config.exists 'keytype'; then
     # Use key type set in configuration
-    KEY_TYPE=$(bashio::config 'key_type')
+    KEY_TYPE=$(bashio::config 'keytype')
     KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
     if [ "${KEY_TYPE}" == "ecdsa" ]; then
         if bashio::config.exists 'elliptic_curve'; then

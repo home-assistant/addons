@@ -214,14 +214,14 @@ if [ "$CHALLENGE" == "dns" ]; then
         "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
-        --preferred-chain "ISRG Root X1" "${KEY_ARGUMENTS[@]}"
+        --preferred-chain "ISRG Root X1"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
-        --preferred-chain "ISRG Root X1" "${KEY_ARGUMENTS[@]}"
+        --preferred-chain "ISRG Root X1"
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store

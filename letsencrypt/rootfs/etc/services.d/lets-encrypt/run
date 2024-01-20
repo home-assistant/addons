@@ -29,8 +29,9 @@ else
     bashio::log.info "Selected http verification"
 fi
 
-# NIST/SECG Elliptic Curve Support
+# Key detection or manual ECDSA/RSA selection
 if bashio::config.exists 'key_type'; then
+    # Use key type set in configuration
     KEY_TYPE=$(bashio::config 'key_type')
     KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
 
@@ -43,7 +44,17 @@ if bashio::config.exists 'key_type'; then
         fi
     fi
 else
-    KEY_ARGUMENTS+=("--key-type" "rsa")
+    bashio::log.info "Automatically detecting existing certificate type."
+    
+    readarray -t CBCERTS < <(certbot certificates --non-interactive) 
+    
+    for output in "${CBCERTS[@]}"; do
+        if [[ $output =~ "No certificates found." ]]; then
+            bashio::log.info "No certificates found - using 'ecdsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "ecdsa")
+            break
+        fi
+    done
 fi
 
 # AWS

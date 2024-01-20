@@ -25,7 +25,7 @@ options:
   certfile: fullchain.pem
   challenge: http
   dns: {}
-  key_type: ecdsa
+  key_type: rsa
 ports:
   80/tcp: 80
 schema:

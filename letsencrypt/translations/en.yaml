@@ -35,10 +35,11 @@ configuration:
   keytype:
     name: Key Type
     description: >-
-      Select the certificate key type. Leave this unset for auto-detect or choose
-      a key type to override the default behavior.
+      Select the certificate key type. Leave this unset for auto-detect or
+      choose a key type to override the default behavior.
   elliptic_curve:
     name: Elliptic Curve
-    description: Elliptic curve for ECDSA keys. This setting is ignored for RSA keys.
+    description: >-
+      Elliptic curve for ECDSA keys. This setting is ignored for RSA keys.
 network:
   80/tcp: Only needed for http challenge

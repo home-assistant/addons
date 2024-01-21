@@ -221,7 +221,7 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 <details>
   <summary>Selecting the ECDSA Elliptic Curve</summary>
   
-  You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
+  You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`, `secp521r1`
 
   ```yaml
   elliptic_curve: 'secp256r1'

@@ -206,16 +206,28 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 </details>
 
 <details>
-
   <summary>Selecting the Key Type</summary>
 
-  By default the RSA key type is used. You can choose to use an ECDSA key instead. 
+  By default the ECDSA key type is used. You can choose to use an RSA key for compatibility with systems where ECDSA keys are not supported. ECDSA is widely supported in modern software with security and performance benefits.
 
   ```yaml
-  key_type: 'ecdsa'
+  keytype: 'rsa'
   ```
 
-  ECDSA keys will be generated using the secp384r1 curve by default.
+  When the `keytype` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
+
+</details>
+
+<details>
+  <summary>Selecting the ECDSA Elliptic Curve</summary>
+  
+  You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
+
+  ```yaml
+  elliptic_curve: 'secp256r1'
+  ```
+
+  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using `secp384r1`. This option is ignored if `keytype` is set to `"rsa"` or an existing certificate is detected as RSA.
 
 </details>
 

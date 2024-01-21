@@ -42,6 +42,6 @@ configuration:
     description: Select the certificate key type.
   elliptic_curve:
     name: Elliptic Curve
-    description: Elliptic curve option for ECDSA keys.
+    description: Elliptic curve for ECDSA keys. This setting is ignored for RSA keys.
 network:
   80/tcp: Only needed for http challenge

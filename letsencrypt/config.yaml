@@ -36,7 +36,7 @@ schema:
   acme_root_ca_cert: str?
   acme_server: url?
   keytype: list(ecdsa|rsa)?
-  elliptic_curve: list(secp256r1|secp384r1|secp521r1)?
+  elliptic_curve: list(secp256r1|secp384r1)?
   dns:
     aws_access_key_id: str?
     aws_secret_access_key: str?

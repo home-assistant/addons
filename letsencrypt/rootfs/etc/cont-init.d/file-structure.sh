@@ -53,9 +53,6 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_inwx_password = $(bashio::config 'dns.inwx_password')\n" \
       "dns_inwx_shared_secret = $(bashio::config 'dns.inwx_shared_secret')\n" \
       "dns_google_domains_access_token = $(bashio::config 'dns.google_domains_access_token')\n" \
-      "dns_cloudns_auth_id = $(bashio::config 'dns.cloudns_auth_id')\n" \
-      "dns_cloudns_sub_auth_id = $(bashio::config 'dns.cloudns_sub_auth_id')\n" \
-      "dns_cloudns_sub_auth_user = $(bashio::config 'dns.cloudns_sub_auth_user')\n" \
       "dns_cloudns_auth_password = $(bashio::config 'dns.cloudns_auth_password')\n" \
       "dns_dreamhost_baseurl = $(bashio::config 'dns.dreamhost_baseurl')\n" \
       "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" \
@@ -64,6 +61,20 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
 
 if bashio::config.exists 'dns.google_domains_zone'; then
       echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey
+fi
+
+# ClouDNS
+# Only a single non-empty auth option must be in /data/dnsapikey when using ClouDNS to avoid a certbot error
+if bashio::config.exists 'dns.cloudns_auth_id'; then
+      echo -e "dns_cloudns_auth_id = $(bashio::config 'dns.cloudns_auth_id')\n" >> /data/dnsapikey
+fi
+
+if bashio::config.exists 'dns.cloudns_sub_auth_id'; then
+      echo -e "dns_cloudns_sub_auth_id = $(bashio::config 'dns.cloudns_sub_auth_id')\n" >> /data/dnsapikey
+fi
+
+if bashio::config.exists 'dns.cloudns_sub_auth_user'; then
+      echo -e "dns_cloudns_sub_auth_user = $(bashio::config 'dns.cloudns_sub_auth_user')\n" >> /data/dnsapikey
 fi
 
 chmod 600 /data/dnsapikey

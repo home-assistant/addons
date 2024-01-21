@@ -2,8 +2,7 @@
 
 ## 5.0.12
 
-- Allow ECDSA curve selection.
-- By default, choose key type based on existing certificates at startup.
+- Fix ClouDNS challenge support
 
 ## 5.0.11
 

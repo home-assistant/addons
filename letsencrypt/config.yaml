@@ -20,7 +20,6 @@ options:
   domains:
     - null
   email: null
-  keytype: ecdsa
   keyfile: privkey.pem
   certfile: fullchain.pem
   challenge: http

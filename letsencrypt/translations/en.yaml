@@ -35,8 +35,8 @@ configuration:
   keytype:
     name: Key Type
     description: >-
-      Select the certificate key type. Leave this unset for auto-detect or
-      choose a key type to override the default behavior.
+      Select the certificate key type. If unset, will auto-detect based on
+      the key type of the existing certificate or default to ecdsa.
   elliptic_curve:
     name: Elliptic Curve
     description: >-

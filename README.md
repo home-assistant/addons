@@ -34,10 +34,6 @@ systems that have installed Home Assistant.
 - **[File editor](/configurator/README.md)**
 
     Simple browser-based file editor for Home Assistant.
-    
-- **[Genie](/almond/README.md)**
-
-    The Open-source, Privacy-Preserving Voice Assistant.
 
 - **[Git pull](/git_pull/README.md)**
 

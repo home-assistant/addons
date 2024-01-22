@@ -1,7 +1,0 @@
-{
-    "server-login": {
-        "password":"x",
-        "salt":"x",
-        "sqliteKeySalt":"x"
-    }
-}

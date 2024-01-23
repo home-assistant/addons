@@ -76,7 +76,6 @@ body:
         - TellStick
         - VLC
         - Whisper
-        - OpenZWave
         - Z-Wave JS
 
   - type: input

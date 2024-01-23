@@ -1,9 +1,0 @@
----
-build_from:
-  armv7: ghcr.io/home-assistant/armv7-base-debian:bullseye
-  i386: ghcr.io/home-assistant/i386-base-debian:bullseye
-codenotary:
-  signer: notary@home-assistant.io
-  base_image: notary@home-assistant.io
-args:
-  OCCU_VERSION: 3.59.6

@@ -79,14 +79,6 @@ systems that have installed Home Assistant.
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
 
-### Deprecated Add-ons
-
-- **[HomeMatic](/homematic/README.md)**
-
-    HomeMatic central based on OCCU.
-
-    Deprecated in favor of the much more advanced third-party [RaspberryMatic CCU](https://github.com/jens-maus/RaspberryMatic/tree/master/home-assistant-addon).
-
 ## Support
 
 Got questions?

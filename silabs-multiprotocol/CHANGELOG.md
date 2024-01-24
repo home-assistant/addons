@@ -3,6 +3,7 @@
 ## 2.4.4
 - Revert back to Silicon Labs Gecko SDK 4.3.1 while 4.4.0 instability is investigated.
 - Backport firmware modifications for improved stability.
+- Bump universal SiLabs flasher to 0.0.17
 
 ## 2.4.3
 - ⚠️ Zigbee2MQTT does not yet support this version of the Gecko SDK. Do not update if you are using Z2M! ⚠️.

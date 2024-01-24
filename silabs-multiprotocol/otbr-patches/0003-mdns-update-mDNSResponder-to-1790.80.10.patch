@@ -1,0 +1,66 @@
+From b7c0c61b56d32ec5fc65160d10c0fd66f0ac9c8a Mon Sep 17 00:00:00 2001
+Message-ID: <b7c0c61b56d32ec5fc65160d10c0fd66f0ac9c8a.1691047014.git.stefan@agner.ch>
+In-Reply-To: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+References: <29c0b6b142c6692a53a83fb4604fc2bcebeb17af.1691047014.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 21 Jun 2023 12:04:33 +0200
+Subject: [PATCH] [mdns] update mDNSResponder to 1790.80.10
+
+---
+ script/bootstrap           | 11 +++++------
+ tests/scripts/bootstrap.sh |  9 ++++-----
+ 2 files changed, 9 insertions(+), 11 deletions(-)
+
+diff --git a/script/bootstrap b/script/bootstrap
+index 0b72aa4971..2256f5e437 100755
+--- a/script/bootstrap
++++ b/script/bootstrap
+@@ -56,16 +56,15 @@ install_packages_apt()
+ 
+     # mDNS
+     sudo apt-get install --no-install-recommends -y libavahi-client3 libavahi-common-dev libavahi-client-dev avahi-daemon
+-    (MDNS_RESPONDER_SOURCE_NAME=mDNSResponder-1310.80.1 \
++    (MDNS_RESPONDER_SOURCE_NAME=mDNSResponder-1790.80.10 \
+         && cd /tmp \
+         && wget --no-check-certificate https://github.com/apple-oss-distributions/mDNSResponder/archive/refs/tags/$MDNS_RESPONDER_SOURCE_NAME.tar.gz \
+         && mkdir -p $MDNS_RESPONDER_SOURCE_NAME \
+         && tar xvf $MDNS_RESPONDER_SOURCE_NAME.tar.gz -C $MDNS_RESPONDER_SOURCE_NAME --strip-components=1 \
+-        && cd /tmp/$MDNS_RESPONDER_SOURCE_NAME/Clients \
+-        && sed -i '/#include <ctype.h>/a #include <stdarg.h>' dns-sd.c \
+-        && sed -i '/#include <ctype.h>/a #include <sys/param.h>' dns-sd.c \
+-        && cd /tmp/$MDNS_RESPONDER_SOURCE_NAME/mDNSPosix \
+-        && make os=linux && sudo make install os=linux)
++        && cd /tmp/"$MDNS_RESPONDER_SOURCE_NAME"/mDNSShared \
++        && sed -i 's/__block mStatus err;/mStatus err;/' uds_daemon.c \
++        && cd /tmp/"$MDNS_RESPONDER_SOURCE_NAME"/mDNSPosix \
++        && make os=linux tls=no && sudo make install os=linux tls=no)
+ 
+     # Boost
+     sudo apt-get install --no-install-recommends -y libboost-dev libboost-filesystem-dev libboost-system-dev
+diff --git a/tests/scripts/bootstrap.sh b/tests/scripts/bootstrap.sh
+index a89e9ccd6e..6b4affffce 100755
+--- a/tests/scripts/bootstrap.sh
++++ b/tests/scripts/bootstrap.sh
+@@ -126,15 +126,14 @@ case "$(uname)" in
+         fi
+ 
+         if [ "${OTBR_MDNS-}" == 'mDNSResponder' ]; then
+-            SOURCE_NAME=mDNSResponder-1310.80.1
++            SOURCE_NAME=mDNSResponder-1790.80.10
+             wget https://github.com/apple-oss-distributions/mDNSResponder/archive/refs/tags/$SOURCE_NAME.tar.gz \
+                 && mkdir -p $SOURCE_NAME \
+                 && tar xvf $SOURCE_NAME.tar.gz -C $SOURCE_NAME --strip-components=1 \
+-                && cd $SOURCE_NAME/Clients \
+-                && sed -i '/#include <ctype.h>/a #include <stdarg.h>' dns-sd.c \
+-                && sed -i '/#include <ctype.h>/a #include <sys/param.h>' dns-sd.c \
++                && cd "$SOURCE_NAME"/mDNSShared \
++                && sed -i 's/__block mStatus err;/mStatus err;/' uds_daemon.c \
+                 && cd ../mDNSPosix \
+-                && make os=linux && sudo make install os=linux
++                && make os=linux tls=no && sudo make install os=linux tls=no
+         fi
+ 
+         # Enable IPv6
+-- 
+2.41.0
+

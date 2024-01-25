@@ -93,3 +93,6 @@ fi
 if bashio::config.exists 'dns.cloudxns_secret_key'; then
       bashio::addon.option 'dns.cloudxns_secret_key'
 fi
+if bashio::config.exists 'keytype'; then
+    bashio::addon.option 'keytype'
+fi

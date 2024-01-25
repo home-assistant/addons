@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.13
+
+- By default, choose key type based on existing certificates at startup.
+- Allow ECDSA curve selection.
+
 ## 5.0.12
 
 - Fix ClouDNS challenge support

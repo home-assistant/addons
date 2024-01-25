@@ -1,5 +1,5 @@
 ---
-version: 5.0.12
+version: 5.0.13
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -20,7 +20,6 @@ options:
   domains:
     - null
   email: null
-  keytype: ecdsa
   keyfile: privkey.pem
   certfile: fullchain.pem
   challenge: http
@@ -31,12 +30,13 @@ schema:
   domains:
     - str
   email: email
-  keytype: list(ecdsa|rsa)?
   keyfile: str
   certfile: str
   challenge: list(dns|http)
   acme_root_ca_cert: str?
   acme_server: url?
+  key_type: list(ecdsa|rsa)?
+  elliptic_curve: list(secp256r1|secp384r1)?
   dns:
     aws_access_key_id: str?
     aws_secret_access_key: str?

@@ -787,6 +787,31 @@ API Users have full account access.  It is recommended to create an API Sub-user
   ```
 </details>
 
+<details>
+  <summary>Netcup</summary>
+
+Both the API password and key can be obtained via the following page: https://www.customercontrolpanel.de/daten_aendern.php?sprung=api
+It is important to set the propagation_seconds to >= 630 seconds due to the slow DNS update of Netcup.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-netcup
+    netcup_customer_id: "userid"
+    netcup_api_key: ****
+    netcup_api_password: ****
+    propagation_seconds: "900"
+  ```
+References:
+* https://helpcenter.netcup.com/de/wiki/general/unsere-api#authentifizierung
+* https://github.com/coldfix/certbot-dns-netcup/issues/28
+</details>
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.

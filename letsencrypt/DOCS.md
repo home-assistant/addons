@@ -211,10 +211,10 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
   By default the ECDSA key type is used. You can choose to use an RSA key for compatibility with systems where ECDSA keys are not supported. ECDSA is widely supported in modern software with security and performance benefits.
 
   ```yaml
-  keytype: 'rsa'
+  key_type: 'rsa'
   ```
 
-  When the `keytype` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
+  When the `key_type` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
 
 </details>
 
@@ -224,10 +224,11 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
   You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
 
   ```yaml
-  elliptic_curve: 'secp256r1'
+  key_type: 'ecdsa'
+  elliptic_curve: 'secp384r1'
   ```
 
-  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using `secp384r1`. This option is ignored if `keytype` is set to `"rsa"` or an existing certificate is detected as RSA.
+  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using the Certbot default. This option must be used with `key_type` set to `'ecdsa'`.
 
 </details>
 
@@ -275,7 +276,7 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
     - home-assistant.io
   certfile: fullchain.pem
   keyfile: privkey.pem
-  keytype: rsa
+  key_type: rsa
   challenge: dns
   dns:
     provider: dns-cloudflare

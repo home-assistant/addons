@@ -40,6 +40,7 @@ configuration:
   elliptic_curve:
     name: Elliptic Curve
     description: >-
-      Elliptic curve for ECDSA keys. This setting is ignored for RSA keys.
+      Elliptic curve for ECDSA keys. This option must be used with Key Type
+      set to ECDSA. If unset the Certbot default will be used.
 network:
   80/tcp: Only needed for http challenge

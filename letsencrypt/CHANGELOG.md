@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.14
+
+- Update docs for key_type setting
+
 ## 5.0.13
 
 - By default, choose key type based on existing certificates at startup.

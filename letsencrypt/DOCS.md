@@ -228,7 +228,7 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
   elliptic_curve: 'secp384r1'
   ```
 
-  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using the Certbot default. This option must be used with `key_type` set to `"ecdsa"`.
+  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using the Certbot default. This option must be used with `key_type` set to `'ecdsa'`.
 
 </details>
 

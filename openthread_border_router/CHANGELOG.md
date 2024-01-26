@@ -3,6 +3,7 @@
 ## 2.4.5
 
 - Set default transmit power on startup
+- Enable DNS when NAT64 is enabled
 
 ## 2.4.4
 

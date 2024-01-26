@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.5
+
+- Set default transmit power on startup
+
 ## 2.4.4
 
 - Fix Thread network interface (wpan0) route metric

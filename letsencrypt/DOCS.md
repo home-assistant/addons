@@ -37,7 +37,7 @@ There are two options to obtain certificates.
 ### DNS providers
 
 <details>
-  <summary>Supported DNS providerss</summary>
+  <summary>Supported DNS providers</summary>
 
 ```txt
 dns-azure

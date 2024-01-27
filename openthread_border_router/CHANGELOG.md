@@ -4,6 +4,7 @@
 
 - Set default transmit power on startup
 - Enable DNS when NAT64 is enabled
+- Bump universal SiLabs flasher to 0.0.17
 
 ## 2.4.4
 

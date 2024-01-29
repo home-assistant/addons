@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.5
+
+- Set default transmit power on startup
+- Enable DNS when NAT64 is enabled
+- Bump universal SiLabs flasher to 0.0.17
+- Bump to OTBR POSIX version 13d583e361 (2024-01-26 09:51:26 -0800)
+
 ## 2.4.4
 
 - Fix Thread network interface (wpan0) route metric

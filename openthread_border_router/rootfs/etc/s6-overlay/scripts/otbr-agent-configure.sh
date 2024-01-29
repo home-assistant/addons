@@ -9,5 +9,6 @@ if bashio::config.true 'nat64'; then
     ot-ctl dns server upstream enable
 fi
 
-# Set higher transmit power
+# To avoid asymmetric link quality the TX power from the controller should not
+# exceed that of what other Thread routers devices typically use.
 ot-ctl txpower 6

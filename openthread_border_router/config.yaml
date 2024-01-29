@@ -44,5 +44,4 @@ schema:
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
   nat64: bool
-stage: experimental
 startup: services

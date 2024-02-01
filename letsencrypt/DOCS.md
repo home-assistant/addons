@@ -68,6 +68,7 @@ dns-gandi
 dns-transip
 dns-inwx
 dns-porkbun
+dns-easydns
 ```
 </details>
 
@@ -812,6 +813,27 @@ References:
 * https://github.com/coldfix/certbot-dns-netcup/issues/28
 </details>
 
+<details>
+  <summary>easyDNS</summary>
+
+easyDNS REST API access must be requested and granted in order to use this module: https://cp.easydns.com/manage/security/api/signup.php after logging into your account. 
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-easydns
+    easydns_token: 0123456789abcdef
+    easydns_key: ****
+    easydns_endpoint: https://rest.easydns.net
+  ```
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -850,6 +872,7 @@ dns-gandi
 dns-transip
 dns-inwx
 dns-porkbun
+dns-easydns
 ```
 
 ## Support

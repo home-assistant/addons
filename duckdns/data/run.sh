@@ -41,14 +41,11 @@ function le_renew() {
   LE_UPDATE="$(date +%s)"
 }
 
-echo "start"
-
 # Register/generate certificate if terms accepted
 if bashio::config.true 'lets_encrypt.accept_terms'; then
   # Init folder structs
   mkdir -p "${CERT_DIR}"
   mkdir -p "${WORK_DIR}"
-  echo "sure"
 
   # Clean up possible stale lock file
   if [ -e "${WORK_DIR}/lock" ]; then
@@ -65,11 +62,8 @@ if bashio::config.true 'lets_encrypt.accept_terms'; then
   fi
 fi
 
-echo "run"
-
 # Run duckdns
 while true; do
-  echo "while"
 
   ipv4="none"
   if [[ ${IPV4} != "none" ]]; then
@@ -126,9 +120,9 @@ while true; do
     # Send update to duckdns if IPv6 was retrieved
     if [[ ${ipv6} == *:* ]]; then
       # Could retrieve IPv6, send the update
-      echo "Send update https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true"
+      bashio::log.info "Send update https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true"
       if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-        echo "${answer}"
+        bashio::log.info "${answer}"
       else
         bashio::log.warning "Error: Sending IP address ${ipv6}: DuckDNS answered: ${answer}"
       fi

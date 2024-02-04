@@ -16,91 +16,132 @@ ALGO=$(bashio::config 'lets_encrypt.algo')
 
 # Function that performs a renew
 function le_renew() {
-    local domain_args=()
-    local domains=''
-    local aliases=''
+  local domain_args=()
+  local domains=''
+  local aliases=''
 
-    domains=$(bashio::config 'domains')
+  domains=$(bashio::config 'domains')
 
-    # Prepare domain for Let's Encrypt
-    for domain in ${domains}; do
-        for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
-            aliases="${aliases} ${alias}"
-        done
+  # Prepare domain for Let's Encrypt
+  for domain in ${domains}; do
+    for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json); do
+      aliases="${aliases} ${alias}"
     done
+  done
 
-    aliases="$(echo "${aliases}" | tr ' ' '\n' | sort | uniq)"
+  aliases="$(echo "${aliases}" | tr ' ' '\n' | sort | uniq)"
 
-    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
+  bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
 
-    for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
-        domain_args+=("--domain" "${domain}")
-    done
+  for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
+    domain_args+=("--domain" "${domain}")
+  done
 
-    dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
-    LE_UPDATE="$(date +%s)"
+  dehydrated --cron --algo "${ALGO}" --hook ./hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
+  LE_UPDATE="$(date +%s)"
 }
+
+echo "start"
 
 # Register/generate certificate if terms accepted
 if bashio::config.true 'lets_encrypt.accept_terms'; then
-    # Init folder structs
-    mkdir -p "${CERT_DIR}"
-    mkdir -p "${WORK_DIR}"
+  # Init folder structs
+  mkdir -p "${CERT_DIR}"
+  mkdir -p "${WORK_DIR}"
+  echo "sure"
 
-    # Clean up possible stale lock file
-    if [ -e "${WORK_DIR}/lock" ]; then
-        rm -f "${WORK_DIR}/lock"
-        bashio::log.warning "Reset dehydrated lock file"
-    fi
+  # Clean up possible stale lock file
+  if [ -e "${WORK_DIR}/lock" ]; then
+    rm -f "${WORK_DIR}/lock"
+    bashio::log.warning "Reset dehydrated lock file"
+  fi
 
-    # Generate new certs
-    if [ ! -d "${CERT_DIR}/live" ]; then
-        # Create empty dehydrated config file so that this dir will be used for storage
-        touch "${WORK_DIR}/config"
+  # Generate new certs
+  if [ ! -d "${CERT_DIR}/live" ]; then
+    # Create empty dehydrated config file so that this dir will be used for storage
+    touch "${WORK_DIR}/config"
 
-        dehydrated --register --accept-terms --config "${WORK_DIR}/config"
-    fi
+    dehydrated --register --accept-terms --config "${WORK_DIR}/config"
+  fi
 fi
+
+echo "run"
 
 # Run duckdns
 while true; do
+  echo "while"
 
-    [[ ${IPV4} != *:/* ]] && ipv4=${IPV4} || ipv4=$(curl -s -m 10 "${IPV4}") || bashio::log.warning "Couldn't retrieve ipv4 from server"
-    [[ ${IPV6} != *:/* ]] && ipv6=${IPV6} || ipv6=$(curl -s -m 10 "${IPV6}") || bashio::log.warning "Couldn't retrieve ipv6 from server"
+  ipv4="none"
+  if [[ ${IPV4} != "none" ]]; then
+    # IPv4 update was activated
 
-    # Get IPv6-address from host interface
-    if [[ -n "$IPV6" && ${ipv6} != *:* ]]; then
-        ipv6=
-        bashio::cache.flush_all
-        for addr in $(bashio::network.ipv6_address "$IPV6"); do
-	    # Skip non-global addresses
-	    if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
-              ipv6=${addr%/*}
-              break
-            fi
-        done
+    if [[ ${IPV4} == *:/* ]]; then
+      # Server address was specified
+      if ! ipv4=$(curl -s -m 10 "${IPV4}") || [[ $ipv4 != *.* ]]; then
+        bashio::log.warning "Retrieved invalid address from server"
+      fi
+    elif [[ ${IPV4} == *.* || -z "${IPV4}" ]]; then
+      # IP address was directly specified or should be detected by duckdns
+      ipv4=${IPV4}
     fi
 
-    if [[ ${ipv6} == *:* ]]; then
-        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-            bashio::log.info "${answer}"
-        else
-            bashio::log.warning "${answer}"
-        fi
-    fi
-
+    # Send IPv4 update to duckdns if we found one or it should be detected by duckdns
     if [[ -z ${ipv4} || ${ipv4} == *.* ]]; then
-        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-            bashio::log.info "${answer}"
-        else
-            bashio::log.warning "${answer}"
+      if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+        bashio::log.info "${answer}"
+      else
+        bashio::log.warning "Error: Sending IP address ${ipv4}: DuckDNS answered: ${answer}"
+      fi
+    else
+      bashio::log.warning "Couldnot retrieve any IPv4 address"
+    fi
+  fi
+
+  ipv6="none"
+  if [[ ${IPV6} != "none" ]]; then
+    # IPv6 update is activated
+
+    if [[ ${IPV6} == *:/* ]]; then
+      bashio::log.warning "Retrieving an IPv6 address over an url is not supported"
+    elif [[ ${IPV6} == *:* ]]; then
+      # IPv6 is directly specified
+      ipv6=${IPV6}
+    else
+      # Get IPv6-address from host interface
+      if [[ -z $IPV6 ]]; then
+        # No interface was specified, use default one
+        IPV6="default"
+      fi
+      ipv6=
+      bashio::cache.flush_all
+      for addr in $(bashio::network.ipv6_address "$IPV6"); do
+        # Skip non-global addresses
+        if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
+          ipv6=${addr%/*}
+          break
         fi
+      done
     fi
 
-    now="$(date +%s)"
-    if bashio::config.true 'lets_encrypt.accept_terms' && [ $((now - LE_UPDATE)) -ge 43200 ]; then
-        le_renew
+    # Send update to duckdns if IPv6 was retrieved
+    if [[ ${ipv6} == *:* ]]; then
+      # Could retrieve IPv6, send the update
+      echo "Send update https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true"
+      if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+        echo "${answer}"
+      else
+        bashio::log.warning "Error: Sending IP address ${ipv6}: DuckDNS answered: ${answer}"
+      fi
+    else
+      # No IPv6 address found
+      bashio::log.warning "I retrieved an invalid IPv6 address ${ipv6}"
     fi
+  fi
 
-    sleep "${WAIT_TIME}"
+  now="$(date +%s)"
+  if bashio::config.true 'lets_encrypt.accept_terms' && [ $((now - LE_UPDATE)) -ge 43200 ]; then
+    le_renew
+  fi
+
+  sleep "${WAIT_TIME}"
 done

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.4.4
+
+### Bug fixes
+
+- Reduce idle CPU load
+
+### Config file changes
+
+- Add 2nd product ID for Ring Panic Button Gen2
+- Disable Supervision for Alfred DB1 Digital Deadbolt Lock to work around battery drain issue
+- Extend version range for Vesternet VES-ZW-DIM-001
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.4.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.2)
+- [Z-Wave JS 12.4.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.3)
+
 ## 0.4.3
 
 ### Features

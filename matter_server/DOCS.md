@@ -17,6 +17,13 @@ Start the Matter Server add-on to make the WebSocket available to Home
 Assistant Core. Install the [Matter integration][matter_integration]
 in Home Assistant Core.
 
+### Access WebSocket interface externally (advanced)
+
+By default, the Python Matter Server's WebSocket interface is only exposed
+internally. It is still possible to enable access through the host interface
+To do so, click on "Show disabled ports" and enter a port (e.g. 5580) in the
+Matter Server WebSocket server port field.
+
 ## Configuration
 
 Add-on configuration:

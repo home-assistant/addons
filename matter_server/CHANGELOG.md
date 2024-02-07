@@ -2,7 +2,7 @@
 
 ## 5.1.0
 
-- Bump Python Matter Server to [5.5.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.5.0)
+- Bump Python Matter Server to [5.5.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.5.1)
 - Bind Python WebSocket on internal interface only by default
 
 ## 5.0.4

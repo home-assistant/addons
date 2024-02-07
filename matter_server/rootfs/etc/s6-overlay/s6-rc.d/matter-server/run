@@ -24,10 +24,6 @@ fi
 server_port="$(bashio::addon.port 5580)"
 if ! bashio::var.has_value "${server_port}"; then
     server_port=5580
-fi
-
-# Reenable once Matter Server can bind to a specific IP
-if ! bashio::var.has_value "${server_port}"; then
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
 fi
 

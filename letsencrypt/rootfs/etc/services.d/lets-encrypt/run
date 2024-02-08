@@ -4,13 +4,12 @@
 # ==============================================================================
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
-KEY_ARGUMENTS=()
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
+KEY_ARGUMENTS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
-KEYTYPE=$(bashio::config 'keytype')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
@@ -180,6 +179,13 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-he" ]; then
     bashio::config.require 'dns.he_pass'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# easyDNS
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-easydns" ]; then
+    bashio::config.require 'dns.easydns_key'
+    bashio::config.require 'dns.easydns_token'
+    bashio::config.require 'dns.easydns_endpoint'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 #All others
 else
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey")
@@ -195,11 +201,6 @@ if bashio::config.has_value 'acme_server' ; then
     fi
 fi
 
-# Add key arguments if appropriate config entries exist
-if bashio::config.has_value 'keytype' ; then
-  KEY_ARGUMENTS+=("--key-type" "${KEYTYPE}")
-fi
-
 # Gather all domains into a plaintext file
 DOMAIN_ARR=()
 for line in $DOMAINS; do
@@ -207,20 +208,57 @@ for line in $DOMAINS; do
 done
 echo "$DOMAINS" > /data/domains.gen
 
+# Key detection or manual ECDSA/RSA selection
+if bashio::config.exists 'key_type'; then
+    # Use key type set in configuration
+    KEY_TYPE=$(bashio::config 'key_type')
+    KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
+    if [ "${KEY_TYPE}" == "ecdsa" ]; then
+        if bashio::config.exists 'elliptic_curve'; then
+            ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
+            KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
+        else
+            KEY_ARGUMENTS+=("--elliptic-curve" "secp384r1")
+        fi
+    fi
+else
+    bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
+    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR") 
+    for output in "${CBCERTS[@]}"; do
+        if [[ $output =~ "No certificates found." ]]; then
+            bashio::log.info "No certificate found - using 'ecdsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "ecdsa")
+            break
+        fi
+        if [[ $output =~ "Key Type: RSA" ]]; then
+            bashio::log.info "Existing certificate using 'rsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "rsa")
+            break
+        fi
+        if [[ $output =~ "Key Type: ECDSA" ]]; then
+            bashio::log.info "Existing certificate using 'ecdsa' key type."
+            KEY_ARGUMENTS+=("--key-type" "ecdsa")
+            break
+        fi
+    done
+fi
+
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
 if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
+        --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${PROVIDER_ARGUMENTS[@]}" \
+        --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
+        --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${DOMAIN_ARR[@]}" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
+        --preferred-challenges "$CHALLENGE" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
         --preferred-chain "ISRG Root X1"
 fi
 

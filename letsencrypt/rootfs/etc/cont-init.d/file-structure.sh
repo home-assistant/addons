@@ -57,7 +57,10 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_dreamhost_baseurl = $(bashio::config 'dns.dreamhost_baseurl')\n" \
       "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" \
       "dns_he_user = $(bashio::config 'dns.he_user')\n" \
-      "dns_he_pass = $(bashio::config 'dns.he_pass')\n" > /data/dnsapikey
+      "dns_he_pass = $(bashio::config 'dns.he_pass')\n" \
+      "dns_easydns_endpoint = $(bashio::config 'dns.easydns_endpoint')\n" \
+      "dns_easydns_usertoken = $(bashio::config 'dns.easydns_token')\n" \
+      "dns_easydns_userkey = $(bashio::config 'dns.easydns_key')\n" > /data/dnsapikey
 
 if bashio::config.exists 'dns.google_domains_zone'; then
       echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey
@@ -92,4 +95,7 @@ if bashio::config.exists 'dns.cloudxns_api_key'; then
 fi
 if bashio::config.exists 'dns.cloudxns_secret_key'; then
       bashio::addon.option 'dns.cloudxns_secret_key'
+fi
+if bashio::config.exists 'keytype'; then
+    bashio::addon.option 'keytype'
 fi

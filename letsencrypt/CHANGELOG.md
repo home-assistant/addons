@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.15
+
+- Add easyDNS challenge support
+
+## 5.0.14
+
+- Update docs for key_type setting
+
+## 5.0.13
+
+- By default, choose key type based on existing certificates at startup.
+- Allow ECDSA curve selection.
+
 ## 5.0.12
 
 - Fix ClouDNS challenge support

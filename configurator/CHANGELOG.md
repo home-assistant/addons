@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.8.0
+
+- Update base image to Alpine 3.19
+
 ## 5.7.0
 
 - Use new location for accessing the Home Assistant configuration folder using `/homeassistant`

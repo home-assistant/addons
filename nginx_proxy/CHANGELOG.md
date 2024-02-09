@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.8.0
+
+- Update Alpine Linux to 3.19
+
 ## 3.7.0
 
 - Modify `server_names_hash_bucket_size` to add support for longer domain names

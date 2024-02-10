@@ -24,7 +24,7 @@ function le_renew() {
 
     # Prepare domain for Let's Encrypt
     for domain in ${domains}; do
-        for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
+        for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json); do
             aliases="${aliases} ${alias}"
         done
     done
@@ -65,35 +65,70 @@ fi
 # Run duckdns
 while true; do
 
-    [[ ${IPV4} != *:/* ]] && ipv4=${IPV4} || ipv4=$(curl -s -m 10 "${IPV4}")
-    [[ ${IPV6} != *:/* ]] && ipv6=${IPV6} || ipv6=$(curl -s -m 10 "${IPV6}")
+    ipv4="none"
+    if [[ ${IPV4} != "none" ]]; then
+        # IPv4 update was activated
 
-    # Get IPv6-address from host interface
-    if [[ -n "$IPV6" && ${ipv6} != *:* ]]; then
-        ipv6=
-        bashio::cache.flush_all
-        for addr in $(bashio::network.ipv6_address "$IPV6"); do
-	    # Skip non-global addresses
-	    if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
-              ipv6=${addr%/*}
-              break
+        if [[ ${IPV4} == *:/* ]]; then
+            # Server address was specified
+            if ! ipv4=$(curl -s -m 10 "${IPV4}") || [[ $ipv4 != *.* ]]; then
+                bashio::log.warning "Retrieved invalid address from server"
             fi
-        done
-    fi
+        elif [[ ${IPV4} == *.* || -z "${IPV4}" ]]; then
+            # IP address was directly specified or should be detected by duckdns
+            ipv4=${IPV4}
+        fi
 
-    if [[ ${ipv6} == *:* ]]; then
-        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-            bashio::log.info "${answer}"
+        # Send IPv4 update to duckdns if we found one or it should be detected by duckdns
+        if [[ -z ${ipv4} || ${ipv4} == *.* ]]; then
+            if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+                bashio::log.info "${answer}"
+            else
+                bashio::log.warning "Error: Sending IP address ${ipv4}: DuckDNS answered: ${answer}"
+            fi
         else
-            bashio::log.warning "${answer}"
+            bashio::log.warning "Couldnot retrieve any IPv4 address"
         fi
     fi
 
-    if [[ -z ${ipv4} || ${ipv4} == *.* ]]; then
-        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-            bashio::log.info "${answer}"
+    ipv6="none"
+    if [[ ${IPV6} != "none" ]]; then
+        # IPv6 update is activated
+
+        if [[ ${IPV6} == *:/* ]]; then
+            bashio::log.warning "Retrieving an IPv6 address over an url is not supported"
+        elif [[ ${IPV6} == *:* ]]; then
+            # IPv6 is directly specified
+            ipv6=${IPV6}
         else
-            bashio::log.warning "${answer}"
+            # Get IPv6-address from host interface
+            if [[ -z $IPV6 ]]; then
+                # No interface was specified, use default one
+                IPV6="default"
+            fi
+            ipv6=
+            bashio::cache.flush_all
+            for addr in $(bashio::network.ipv6_address "$IPV6"); do
+                # Skip non-global addresses
+                if [[ ${addr} != fe80:* && ${addr} != fc* && ${addr} != fd* ]]; then
+                    ipv6=${addr%/*}
+                    break
+                fi
+            done
+        fi
+
+        # Send update to duckdns if IPv6 was retrieved
+        if [[ ${ipv6} == *:* ]]; then
+            # Could retrieve IPv6, send the update
+            bashio::log.info "Send update https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true"
+            if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+                bashio::log.info "${answer}"
+            else
+                bashio::log.warning "Error: Sending IP address ${ipv6}: DuckDNS answered: ${answer}"
+            fi
+        else
+            # No IPv6 address found
+            bashio::log.warning "I retrieved an invalid IPv6 address ${ipv6}"
         fi
     fi
 

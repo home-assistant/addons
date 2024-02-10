@@ -84,12 +84,14 @@ a service like https://api.ipify.org/ or https://ipv4.text.wtfismyip.com
 ### Option: `ipv6` (optional)
 
 By default, Duck DNS will auto detect your IPv6 address and use that.
-This option allows you to override the auto-detection and specify an
-IPv6 address manually.
+This option allows you to specify an interface name from which the IPv6
+address should be retrieved. Use `default` to choose the primary network
+interface automatically.
 
-If you specify a URL here, contents of the resource it points to will be
-fetched and used as the address. This enables getting the address using
-a service like https://api6.ipify.org/ or https://ipv6.text.wtfismyip.com
+If you set this option to an IPv6 address, this static address will be used
+instead.
+
+Retrieving the IPv6 address over a URL is not supported.
 
 ### Option: `token`
 

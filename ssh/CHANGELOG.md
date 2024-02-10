@@ -1,5 +1,12 @@
 # Changelog
 
+## 9.9.0
+
+- Upgrade to Alpine Linux 3.19
+- Upgrade Home Assistant CLI to 4.29.0
+- Upgrade libwebsockets to 4.3.3
+- Upgrade ttyd to 1.7.4
+
 ## 9.8.1
 
 - Add `/config` symlink to for backward and docs compatibility.

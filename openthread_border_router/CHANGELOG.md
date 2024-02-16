@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.7
+
+- Better fix for container shutdown in case of OTBR agent failures
+
 ## 2.4.6
 
 - Bump to OTBR POSIX version 9bdaa91016 (2024-02-15 08:50:34 -0800)

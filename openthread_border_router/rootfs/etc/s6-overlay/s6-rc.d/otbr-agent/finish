@@ -51,8 +51,9 @@ bashio::log.info "OTBR firewall teardown completed."
 
 if test "$e" -ne 0; then
     echo "$e" > /run/s6-linux-init-container-results/exitcode
-    # It seems this is required otherwise this script gets called twice for some
-    # reason...
-    s6-svc -d /run/s6-rc/servicedirs/otbr-agent/
+    # It seems this is required to properly initiate shutdown, at least when
+    # otbr-agent exits with an error e.g. in case the REST port is used.
+    # See: https://github.com/just-containers/s6-overlay/issues/566
+    kill $(pidof s6-rc) || true
     /run/s6/basedir/bin/halt
 fi

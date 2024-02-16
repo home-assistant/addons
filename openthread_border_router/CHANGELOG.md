@@ -5,6 +5,8 @@
 - Bump to OTBR POSIX version 9bdaa91016 (2024-02-15 08:50:34 -0800)
 - Bump universal SiLabs flasher to 0.0.18
 - Fix container shutdown in case OTBR agent fails to startup
+- Shutdown mDNS daemon after OTBR agent (allows the OTBR service to
+  properly sign off on the network)
 
 ## 2.4.5
 

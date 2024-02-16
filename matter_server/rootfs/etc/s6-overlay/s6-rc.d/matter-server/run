@@ -30,7 +30,12 @@ if ! bashio::var.has_value "${server_port}"; then
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
 fi
 
-primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+if bashio::config.has_value "custom_primary_interface"; then
+  primary_interface=$(bashio::config 'custom_primary_interface');
+else 
+  primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')";
+fi
+
 if [ -z ${primary_interface} ]; then
     bashio::exit.nok "No primary network interface found!"
 fi

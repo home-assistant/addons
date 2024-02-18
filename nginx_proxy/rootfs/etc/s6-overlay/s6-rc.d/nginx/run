@@ -47,6 +47,10 @@ if bashio::config.true 'cloudflare'; then
     fi
 fi
 
+if bashio::config.true 'letsencrypt'; then
+    sed -i "s|#include /etc/nginx-addon/letsencrypt.conf;|include /etc/nginx-addon/letsencrypt.conf;|g" /etc/nginx.conf
+fi
+
 # Prepare config file
 sed -i "s#%%FULLCHAIN%%#$CERTFILE#g" /etc/nginx.conf
 sed -i "s#%%PRIVKEY%%#$KEYFILE#g" /etc/nginx.conf

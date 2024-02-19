@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Run YAMLLint
-        uses: frenck/action-yamllint@v1.4
+        uses: frenck/action-yamllint@v1.5
 
   shellcheck:
     runs-on: ubuntu-latest

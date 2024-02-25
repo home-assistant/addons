@@ -21,7 +21,7 @@ RUN \
         setuptools \
         wheel \
     && pip3 install --no-cache-dir \
-        "wyoming_satellite[webrtc]==${WYOMING_SATELLITE_VERSION}" \
+        "wyoming-satellite[webrtc] @ https://github.com/rhasspy/wyoming-satellite/archive/refs/tags/v${WYOMING_SATELLITE_VERSION}.tar.gz" \
     \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

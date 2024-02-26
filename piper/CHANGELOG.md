@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.0
+
+- Add voices for Persian: amir, gyro
+- Add voice for Slovenian: artur
+- Add voice for Turkish: fettah
+- Add voices for French: tom, mls
+- Add voice for Dutch: mls
+- Add voice for German: mls
+
 ## 1.4.0
 
 - Add voices for Arabic (kareem), Hungarian (imre), English (libritts_r), and more

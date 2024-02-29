@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.3.0
+
+- Bump Python Matter Server to [5.7.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.6.0)
+- Add Matter SDK log options
+
 ## 5.2.0
 
 - Bump Python Matter Server to [5.6.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.6.0)

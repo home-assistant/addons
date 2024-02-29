@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.0
+
+- Bump to OTBR POSIX version 2279c02f3c (2024-02-28 22:36:55 -0800)
+- Bump base image to Debian bookworm
+
 ## 2.4.7
 
 - Better fix for container shutdown in case of OTBR agent failures

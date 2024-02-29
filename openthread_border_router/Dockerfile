@@ -90,7 +90,8 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
-    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
+    && pip install --break-system-packages \
+       universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
        nodejs \

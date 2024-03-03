@@ -30,15 +30,17 @@ if ! bashio::var.has_value "${server_port}"; then
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
 fi
 
-if bashio::config.has_value "custom_primary_interface"; then
-  primary_interface=$(bashio::config 'custom_primary_interface');
-else 
-  primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')";
+primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')";
+
+# Try fallback method (e.g. in case NetworkManager is not available)
+if [ -z ${primary_interface} ]; then
+  primary_interface="ip --json route show default | jq --raw-output '.[0].dev'";
 fi
 
 if [ -z ${primary_interface} ]; then
     bashio::exit.nok "No primary network interface found!"
 fi
+
 bashio::log.info "Using '${primary_interface}' as primary network interface."
 
 # Send out discovery information to Home Assistant

@@ -26,7 +26,6 @@ schema:
   log_level: list(debug|info|warning|error|critical)
   log_level_sdk: list(automation|detail|progress|error|none)?
   beta: bool?
-  custom_primary_interface: str?
 ports:
   5580/tcp: null
 stage: stable

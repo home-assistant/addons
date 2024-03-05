@@ -20,5 +20,11 @@ configuration:
       Whisper model which is able to run on a Raspberry Pi 4. Compressed models
       (`int8`) are slightly less accurate than their counterparts, but smaller
       and faster.
+  prompt:
+    name: Prompt
+    description: >-
+      This will define a prompt passed to whisper before parsing your voice.
+      Including things that may appear in your commands, like uncommon names,
+      may help their recognition.
 network:
   10300/tcp: Whisper Wyoming Protocol

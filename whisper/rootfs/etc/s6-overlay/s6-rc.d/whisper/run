@@ -15,3 +15,4 @@ exec python3 -m wyoming_faster_whisper \
     --language "$(bashio::config 'language')" \
     --data-dir /data \
     --download-dir /data
+    --initial_prompt "$(bashio::config 'prompt')"

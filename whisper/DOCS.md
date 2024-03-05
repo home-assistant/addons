@@ -55,6 +55,16 @@ Number of candidates to consider simultaneously during transcription (see [beam 
 
 Increasing the beam size will increase accuracy at the cost of performance.
 
+### Option: prompt
+
+If you have uncommon names for your users or devices, it may help to include them in a prompt, passed to whisper.
+
+An example of this may be:
+
+```
+"The following command is about things and places in the possession of the person named <Name>."
+```
+
 ## Backups
 
 Whisper model files can be quite large, so they are automatically excluded from backups. The models will be re-downloaded when the backup is restored.

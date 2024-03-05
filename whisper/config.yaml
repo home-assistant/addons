@@ -16,11 +16,13 @@ options:
   model: tiny-int8
   language: en
   beam_size: 1
+  prompt: ""
 schema:
   model: list(tiny-int8|tiny|base|base-int8|small-int8|small|medium-int8)
   language: |
     list(auto|af|am|ar|as|az|ba|be|bg|bn|bo|br|bs|ca|cs|cy|da|de|el|en|es|et|eu|fa|fi|fo|fr|gl|gu|ha|haw|he|hi|hr|ht|hu|hy|id|is|it|ja|jw|ka|kk|km|kn|ko|la|lb|ln|lo|lt|lv|mg|mi|mk|ml|mn|mr|ms|mt|my|ne|nl|nn|no|oc|pa|pl|ps|pt|ro|ru|sa|sd|si|sk|sl|sn|so|sq|sr|su|sv|sw|ta|te|tg|th|tk|tl|tr|tt|uk|ur|uz|vi|yi|yo|zh)
   beam_size: int
+  prompt: str
 ports:
   "10300/tcp": null
 homeassistant: 2023.8.0.dev20230728

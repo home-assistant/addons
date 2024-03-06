@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.5
+
+### Bug fixes
+
+- NVM backups can now be restored onto 800 series controllers
+
+### Config file changes
+
+- Use Color Switch V2 for Inovelli LZW42
+- Correct Zooz ZEN1x timer config params
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.4.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.4.4)
+
 ## 0.4.4
 
 ### Bug fixes

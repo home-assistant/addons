@@ -38,7 +38,7 @@ if [ -z ${primary_interface} ]; then
   primary_interface="$(ip --json route show default | jq --raw-output '.[0].dev')"
 fi
 
-if [ -z ${primary_interface} ]; then
+if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
     bashio::exit.nok "No primary network interface found!"
 fi
 

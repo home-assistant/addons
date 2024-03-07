@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- NVM backups can now be restored onto 800 series controllers
+- Z-Wave JS: NVM backups can now be restored onto 800 series controllers
 
 ### Config file changes
 
@@ -19,7 +19,7 @@
 
 ### Bug fixes
 
-- Reduce idle CPU load
+- Z-Wave JS: Reduce idle CPU load
 
 ### Config file changes
 
@@ -40,7 +40,7 @@
 
 ### Bug fixes
 
-- Handle more cases of unexpected Serial API restarts
+- Z-Wave JS: Handle more cases of unexpected Serial API restarts
 
 ### Config file changes
 
@@ -56,11 +56,11 @@
 
 ### Features
 
-- Expose rebuild routes progress as a controller property
+- Z-Wave JS: Expose rebuild routes progress as a controller property
 
 ### Bug fixes
 
-- On devices that should/must not support `Basic CC`, but use it for reporting, only the `currentValue` is now exposed. This allows applications to consider it a sensor, not an actor
+- Z-Wave JS: On devices that should/must not support `Basic CC`, but use it for reporting, only the `currentValue` is now exposed. This allows applications to consider it a sensor, not an actor
 
 ### Config file changes
 
@@ -75,7 +75,7 @@
 
 ### Bug fixes
 
-- Fixed an issue where the unresponsive controller recovery could do the wrong thing and block all outgoing communication.
+- Z-Wave JS: Fixed an issue where the unresponsive controller recovery could do the wrong thing and block all outgoing communication.
 
 ### Config file changes
 

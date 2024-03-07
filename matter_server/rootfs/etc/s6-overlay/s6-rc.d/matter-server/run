@@ -30,7 +30,7 @@ if ! bashio::var.has_value "${server_port}"; then
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
 fi
 
-primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')";
+primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 
 # Try fallback method (e.g. in case NetworkManager is not available)
 if [ -z ${primary_interface} ]; then

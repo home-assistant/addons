@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.0
+
+- Add more models for `model` option
+- Add "custom" option for `model` that will use `custom_model` instead
+- Add `custom_model` that can be a path to a model directory or HuggingFace Hub model ID
+- Use faster-whisper PyPI package
+
 ## 1.0.2
 
 - Convert error to warning for CPUs not supporting AVX instructions

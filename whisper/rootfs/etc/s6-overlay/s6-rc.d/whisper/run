@@ -8,10 +8,20 @@ if [ "$(uname -m)" == "x86_64" ] && ! grep -qw 'avx' /proc/cpuinfo; then
     bashio::log.warning "Your CPU does not support Advanced Vector Extensions (AVX). Whisper will run slower than normal."
 fi
 
+model="$(bashio::config 'model')"
+if [ "${model}" = 'custom' ]; then
+    # Override with custom model
+    model="$(bashio::config 'custom_model')"
+fi
+
+if bashio::config.true 'debug_logging'; then
+    flags+=('--debug')
+fi
+
 exec python3 -m wyoming_faster_whisper \
     --uri 'tcp://0.0.0.0:10300' \
-    --model "$(bashio::config 'model')" \
+    --model "${model}" \
     --beam-size "$(bashio::config 'beam_size')" \
     --language "$(bashio::config 'language')" \
     --data-dir /data \
-    --download-dir /data
+    --download-dir /data ${flags[@]}

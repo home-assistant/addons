@@ -34,20 +34,36 @@ If you select "auto", the model will run **much** slower but will auto-detect th
 
 ### Option: `model`
 
-Whisper model that will be used for transcription.
+Whisper model that will be used for transcription. Choose `custom` to use the model name in `custom_model`, which may be a HuggingFace model ID like "Systran/faster-distil-whisper-small.en".
 
 The default model is `tiny-int8`, a compressed version of the smallest Whisper model which is able to run on a Raspberry Pi 4.
-Compressed models (`int8`) are slightly less accurate than their counterparts, but smaller and faster.
+Compressed models (`int8`) are slightly less accurate than their counterparts, but smaller and faster. [Distilled](https://github.com/huggingface/distil-whisper) models are not compressed, but are faster and smaller than their non-distilled counterparts.
 
-Available models are sorted from least to most accurate.
+Available models:
 
-- `tiny-int8` (43 MB)
-- `tiny` (152 MB)
-- `base-int8` (80 MB)
-- `base` (291 MB)
-- `small-int8` (255 MB)
-- `small` (968 MB)
-- `medium-int8` (786 MB)
+- `tiny-int8` (compressed)
+- `tiny`
+- `tiny.en` (English only)
+- `base-int8` (compressed)
+- `base`
+- `base.en` (English only)
+- `small-int8` (compressed)
+- `distil-small.en` (distilled, English only)
+- `small`
+- `small.en` (English only)
+- `medium-int8` (compressed)
+- `distil-medium.en` (distilled, English only)
+- `medium`
+- `medium.en` (English only)
+- `large`
+- `large-v1`
+- `distil-large-v2` (distilled, English only)
+- `large-v2`
+- `large-v3`
+
+### Option: `custom_model`
+
+Path to a converted model directory, or a CTranslate2-converted Whisper model ID from the HuggingFace Hub like "Systran/faster-distil-whisper-small.en". 
 
 ### Option: `beam_size`
 

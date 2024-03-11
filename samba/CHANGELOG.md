@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.3.1
+
+- Handle passwords with backslash correctly
+
 ## 12.3.0
 
 - Upgrade Alpine Linux to 3.19

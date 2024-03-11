@@ -13,8 +13,7 @@ if [ "${model}" = 'custom' ]; then
     # Override with custom model
     model="$(bashio::config 'custom_model')"
     if [ -z "${model}" ]; then
-      bashio::log.fatal "Custom model is not set"
-      exit 1
+      bashio::exit.nok "Custom model is not set"
     fi
 fi
 

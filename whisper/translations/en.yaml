@@ -26,6 +26,11 @@ configuration:
       Path to a converted model directory, or a CTranslate2-converted Whisper
       model ID from the HuggingFace Hub like
       "Systran/faster-distil-whisper-small.en".
+  initial_prompt:
+    name: Initial prompt
+    description: >-
+      Description of audio that can help Whisper transcribe unusual words
+      better.
   debug_logging:
     name: Debug logging
     description: >-

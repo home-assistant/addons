@@ -27,5 +27,6 @@ exec python3 -m wyoming_faster_whisper \
     --model "${model}" \
     --beam-size "$(bashio::config 'beam_size')" \
     --language "$(bashio::config 'language')" \
+    --initial-prompt "$(bashio::config 'initial_prompt')" \
     --data-dir /data \
     --download-dir /data ${flags[@]}

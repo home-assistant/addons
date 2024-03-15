@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
+- Use Alpine 3.19
+
 ## 2.1.0
 
 - Update hardware configuration for Supervisor 2021.02.5

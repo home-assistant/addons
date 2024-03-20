@@ -3,6 +3,7 @@
 ## 1.16.0
 
 - Update base image to Alpine 3.19
+- Update dehydrated to 0.7.1
 
 ## 1.15.0
 

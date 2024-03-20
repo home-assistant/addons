@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.0
+
+- Update base image to Alpine 3.19
+
 ## 1.15.0
 
 - Use Supervisor API to detect IPv6 host addresses, selectable by interface

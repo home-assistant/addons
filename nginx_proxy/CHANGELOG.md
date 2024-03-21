@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.9.0
+
+- Add `map_hash_bucket_size` to add support for longer matches in `map`
+
 ## 3.8.0
 
 - Update Alpine Linux to 3.19

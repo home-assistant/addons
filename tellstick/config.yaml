@@ -42,3 +42,4 @@ startup: system
 stdin: true
 usb: true
 init: false
+stage: deprecated

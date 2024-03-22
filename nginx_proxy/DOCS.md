@@ -43,6 +43,7 @@ customize:
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
+letsencrypt: false
 ```
 
 ### Option: `domain` (required)
@@ -77,6 +78,12 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
+### Option `letsencrypt` (optional)
+
+If enabled, forwards HTTP ACME challenges to the [Letsencrypt addon](https://github.com/home-assistant/addons/blob/master/letsencrypt/DOCS.md). Make sure to install and configure it separately.
+
+Make sure to configure some other port than `80` in the Letsencrypt addon so it doesn't conflict with this addon. Which port you choose doesn't matter, nginx will use the internal docker network to reach the addon which doesn't depend on the port setting in the addon.
 
 ## Known issues and limitations
 

@@ -27,6 +27,7 @@ There are two options to obtain certificates.
 
 - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
 - Doesn’t allow wildcard certificates (*.yourdomain.com).
+- When using the nginx addon, you can configure it to forward HTTP challenges to this addon using the `letsencrypt` option. Make sure to use a port other than `80` for this plugin in that case.
 
 ### 2. DNS challenge
 
@@ -221,7 +222,7 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 
 <details>
   <summary>Selecting the ECDSA Elliptic Curve</summary>
-  
+
   You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
 
   ```yaml
@@ -628,16 +629,16 @@ You will need to set up a server with RFC2136 (Dynamic Update) support with a TK
 
 You don't need to publish this; just copy the key data into your named.conf file:
   ```
-  
+
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
-  
+
   ```
 And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
   ```
-  
+
      update-policy {
         grant letsencrypt name _acme-challenge.home-assistant.io. txt;
      };
@@ -729,7 +730,7 @@ dns:
 </details>
 <details>
   <summary>ClouDNS</summary>
-In order to use a domain with this challenge, you first need to log into your control panel and create a 
+In order to use a domain with this challenge, you first need to log into your control panel and create a
 new HTTP API user from the "API & Resellers" page on top of your control panel.
 
   ```yaml
@@ -816,7 +817,7 @@ References:
 <details>
   <summary>easyDNS</summary>
 
-easyDNS REST API access must be requested and granted in order to use this module: https://cp.easydns.com/manage/security/api/signup.php after logging into your account. 
+easyDNS REST API access must be requested and granted in order to use this module: https://cp.easydns.com/manage/security/api/signup.php after logging into your account.
 
   ```yaml
   email: your.email@example.com

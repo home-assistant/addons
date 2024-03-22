@@ -25,15 +25,22 @@ configuration:
     description: Enable tracing for the Co-Processor Communication daemon.
   otbr_enable:
     name: Enable OpenThread Border Router
-    description: Enable OpenThread Border Router agent.
+    description: Enable the OpenThread Border Router.
   otbr_log_level:
     name: OpenThread Border Router agent log level
     description: >-
       Set logging level of the OpenThread Border Router agent (otbr-agent).
+  otbr_infra_if:
+    name: OpenThread Border Router infrastructure interface
+    description: >-
+      HA host network interface name to bind the "infrastructure" side (vs the
+      "Thread" side) of the OpenThread Border Router to.  By default, the
+      first interface with an associated default route is used.
   otbr_firewall:
     name: OTBR firewall
     description: >-
-      Use OpenThread Border Router firewall to block unnecessary traffic.
+      Configure firewall to block unnecessary traffic to/from the OpenThread
+      Border Router.
 network:
   9999/tcp: EmberZNet EZSP/ASH port
   8080/tcp: OpenThread Web port

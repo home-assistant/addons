@@ -43,6 +43,7 @@ RUN \
        python3-pip \
        lsb-release \
        netcat-openbsd \
+       socat \
        sudo \
        git \
        nodejs \

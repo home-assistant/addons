@@ -27,3 +27,8 @@ configuration:
 network:
   443/tcp: HTTPS (SSL) Port
   80/tcp: HTTP (non-SSL) Port
+  11150/tcp: User-configurable Port 1
+  11151/tcp: User-configurable Port 2
+  11152/tcp: User-configurable Port 3
+  11153/tcp: User-configurable Port 4
+  11154/tcp: User-configurable Port 5

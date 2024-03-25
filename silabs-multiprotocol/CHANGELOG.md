@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.5
+- Support Home Assistant Connect ZBT-1.
+
 ## 2.4.4
 - Revert back to Silicon Labs Gecko SDK 4.3.1 while 4.4.0 instability is investigated.
 - Backport firmware modifications for improved stability.

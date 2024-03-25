@@ -1,6 +1,6 @@
 # Home Assistant Add-on: Silicon Labs Multiprotocol
 
-**NOTE**: This add-on has the option to automatically install the right firmware for Home Assistant Yellow and Home Assistant SkyConnect. Follow [this guide](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually) to change back to a firmware that is compatible with other Zigbee software.
+**NOTE**: This add-on has the option to automatically install the right firmware for Home Assistant Yellow, SkyConnect, and Connect ZBT-1. Follow [this guide](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually) to change back to a firmware that is compatible with other Zigbee software.
 
 ## Installation
 
@@ -60,8 +60,8 @@ and 8081 in the OpenThread REST API port field).
 ### Automatic firmware upgrade
 
 If the `autoflash_firmware` configuration is set, the add-on will automatically
-install or update to the RCP Multi-PAN firmware if a Home Assistant SkyConnect
-or Home Assistant Yellow is detected.
+install or update to the RCP Multi-PAN firmware if a Home Assistant Connect ZBT-1/
+SkyConnect or Home Assistant Yellow is detected.
 
 **NOTE:** Switching back to a Zigbee only (EmberZNet) firmware requires manual
 steps currently. You can find a guide on the Nabu Casa Silicon Labs firmware
@@ -77,7 +77,7 @@ Add-on configuration:
 | device (mandatory) | Serial service where the Silicon Labs radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
-| autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
+| autoflash_firmware | Automatically install/update firmware (Home Assistant Connect ZBT-1/SkyConnect/Yellow) |
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processor Communication tracing (trace in log)      |
 | otbr_enable        | Enable OpenThread BorderRouter                         |

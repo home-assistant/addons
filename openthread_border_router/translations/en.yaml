@@ -14,7 +14,7 @@ configuration:
     name: Automatically flash firmware
     description: >-
       Automatically flash OpenThread RCP firmware on Home Assistant Yellow and
-      SkyConnect.
+      SkyConnect/Connect ZBT-1.
   otbr_log_level:
     name: OpenThread Border Router agent log level
     description: >-

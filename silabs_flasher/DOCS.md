@@ -12,7 +12,7 @@ Follow these steps to get the add-on installed on your system:
 
 The add-on needs a Silicon Labs based wireless module accessible through a
 serial port (like the module on Home Assistant Yellow, Home Assistant
-SkyConnect or other USB based wireless adapters).
+SkyConnect/ZBT-1 or other USB based wireless adapters).
 
 1. Select the correct `device` in the add-on configuration tab and press `Save`.
 2. Start the add-on.

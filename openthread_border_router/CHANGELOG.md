@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.1
+- Add support for network sockets using socat
+
 ## 2.5.0
 
 - Bump to OTBR POSIX version 2279c02f3c (2024-02-28 22:36:55 -0800)

@@ -16,6 +16,11 @@ declare otbr_rest_listen_port
 
 backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 device=$(bashio::config 'device')
+
+if bashio::config.has_value 'network_device'; then
+    device="/tmp/ttyOTBR"
+fi
+
 baudrate=$(bashio::config 'baudrate')
 flow_control=""
 

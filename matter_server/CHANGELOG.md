@@ -2,6 +2,7 @@
 
 ## 5.5.0
 
+- Bump Python Matter Server to [5.9.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.9.0)
 - Enable Ingress for the Python Matter Server built-in web interface
 - Store PAA root certificates in /data to avoid download on every startup (downloads once a day)
 

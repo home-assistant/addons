@@ -53,10 +53,12 @@ if bashio::config.true "beta"; then
     exec /usr/bin/gdb --quiet -ex="set confirm off" -ex run -ex backtrace -ex "quit \$_exitcode" --args /usr/local/bin/python \
          /usr/local/bin/matter-server --storage-path "/data" --port "${server_port}" \
                        --log-level "${log_level}" --primary-interface "${primary_interface}" \
+                       --paa-root-cert-dir "/data/credentials" \
                        --fabricid 2 --vendorid 4939 "${extra_args[@]}"
 else
     exec /usr/local/bin/matter-server --storage-path "/data" --port "${server_port}" \
                        --log-level "${log_level}" --log-level-sdk "${log_level_sdk}" \
                        --primary-interface "${primary_interface}" \
+                       --paa-root-cert-dir "/data/credentials" \
                        --fabricid 2 --vendorid 4939 "${extra_args[@]}"
 fi

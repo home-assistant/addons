@@ -34,7 +34,7 @@ primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.int
 
 # Try fallback method (e.g. in case NetworkManager is not available)
 if [ -z ${primary_interface} ]; then
-  bashio::log.warn 'Trying fallback method to determine primary interface'
+  bashio::log.warning 'Trying fallback method to determine primary interface'
   primary_interface="$(ip --json route show default | jq --raw-output '.[0].dev')"
 fi
 

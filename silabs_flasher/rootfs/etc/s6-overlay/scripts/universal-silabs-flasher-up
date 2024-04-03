@@ -35,7 +35,7 @@ bootloader_baudrate=$(bashio::config 'bootloader_baudrate')
 
 if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
     bashio::log.info "Detected Home Assistant Yellow"
-    gpio_reset_flag="--yellow-gpio-reset"
+    gpio_reset_flag="--bootloader-reset yellow"
 else
     gpio_reset_flag=""
 fi
@@ -86,8 +86,11 @@ if bashio::config.true 'verbose'; then
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
-universal-silabs-flasher ${verbose} --device ${device} \
-     --bootloader-baudrate "${bootloader_baudrate}" \
-     flash ${gpio_reset_flag} --force --firmware "/root/${firmware}"
+universal-silabs-flasher \
+    ${verbose} \
+    --device ${device} \
+    --bootloader-baudrate "${bootloader_baudrate}" \
+    ${gpio_reset_flag} \
+    flash --force --firmware "/root/${firmware}"
 
 

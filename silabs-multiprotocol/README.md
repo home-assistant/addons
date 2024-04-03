@@ -1,7 +1,7 @@
 # Home Assistant Add-on: SiliconLabs Zigbee/OpenThread Multiprotocol Add-on
 
 Zigbee/OpenThread Multiprotocol container for Silicon Labs based radios such as
-Home Assistant Yellow or Home Assistant SkyConnect.
+Home Assistant Yellow, Home Assistant SkyConnect, and Home Assistant Connect ZBT-1.
 
 **NOTE:** Use System -> Hardware -> Configure to enable Multiprotocol support
 seamlessly.

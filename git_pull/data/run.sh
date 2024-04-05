@@ -3,6 +3,7 @@
 #### config ####
 
 CONFIG_PATH=/data/options.json
+HOME=~
 
 DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)

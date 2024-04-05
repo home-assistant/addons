@@ -24,6 +24,7 @@ ARG \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
+    CERTBOT_DNS_DOMAINOFFENSIVE\
     ACME_VERSION
 
 RUN \
@@ -73,6 +74,7 @@ RUN \
         certbot-dns-dreamhost==${CERTBOT_DNS_DREAMHOST_VERSION} \
         certbot-dns-he==${CERTBOT_DNS_HE_VERSION} \
         certbot-dns-easydns==${CERTBOT_DNS_EASYDNS_VERSION} \
+        certbot-dns-domainoffensive==${CERTBOT_DNS_DOMAINOFFENSIVE}
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 

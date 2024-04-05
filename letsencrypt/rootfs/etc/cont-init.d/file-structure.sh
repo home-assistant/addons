@@ -60,7 +60,8 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_he_pass = $(bashio::config 'dns.he_pass')\n" \
       "dns_easydns_endpoint = $(bashio::config 'dns.easydns_endpoint')\n" \
       "dns_easydns_usertoken = $(bashio::config 'dns.easydns_token')\n" \
-      "dns_easydns_userkey = $(bashio::config 'dns.easydns_key')\n" > /data/dnsapikey
+      "dns_easydns_userkey = $(bashio::config 'dns.easydns_key')\n" \
+      "dns_domainoffensive_api_token = $(bashio::config 'dns.domainoffensive_token'" > /data/dnsapikey
 
 if bashio::config.exists 'dns.google_domains_zone'; then
       echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey

@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2
+- Update universal-silabs-flasher to v0.0.19
+
 ## 0.2.1
 - Support flashing the Connect ZBT-1.
 

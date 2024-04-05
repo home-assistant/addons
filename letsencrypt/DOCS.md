@@ -69,6 +69,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-domainoffensive
 ```
 </details>
 
@@ -136,6 +137,7 @@ porkbun_key: ''
 porkbun_secret: ''
 dreamhost_api_baseurl: ''
 dreamhost_api_key: ''
+domainoffensive_token: ''
 ```
 </details>
 

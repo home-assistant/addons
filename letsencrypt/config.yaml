@@ -90,7 +90,7 @@ schema:
       dns-hetzner|dns-infomaniak|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
       dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|\
       dns-namecheap|dns-netcup|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\
-      dns-he|dns-easydns)?"
+      dns-he|dns-easydns|dns-domainoffensive)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?
@@ -110,4 +110,5 @@ schema:
     easydns_endpoint: str?
     easydns_key: str?
     easydns_token: str?
+    domainoffensive_token: str?
 startup: once

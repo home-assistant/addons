@@ -190,7 +190,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-easydns" ]; then
 
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-domainoffensive" ]; then
     bashio::config.require 'domainoffensive_token'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--agree-tos")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--agree-tos" "-m ${EMAIL}")
 
 #All others
 else

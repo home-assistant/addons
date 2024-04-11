@@ -1,5 +1,5 @@
 ---
-version: 5.0.15
+version: 5.0.16
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -57,6 +57,7 @@ schema:
     dnsmadeeasy_api_key: str?
     dnsmadeeasy_secret_key: str?
     duckdns_token: str?
+    dynu_auth_token: str?
     gandi_api_key: str?
     gandi_sharing_id: str?
     gehirn_api_secret: str?
@@ -86,7 +87,7 @@ schema:
     propagation_seconds: int(60,3600)?
     provider: "list(dns-azure|dns-cloudflare|dns-cloudns|dns-desec|\
       dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|\
-      dns-duckdns|dns-gehirn|dns-google|dns-google-domains|\
+      dns-duckdns|dns-dynu|dns-gehirn|dns-google|dns-google-domains|\
       dns-hetzner|dns-infomaniak|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
       dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|\
       dns-namecheap|dns-netcup|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\

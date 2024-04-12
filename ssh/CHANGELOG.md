@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.13.0
+
+- Enable ha command completion for non-login shell (e.g. the web terminal)
+
 ## 9.12.0
 
 - Install completions for ha commands

@@ -840,8 +840,7 @@ easyDNS REST API access must be requested and granted in order to use this modul
 <details>
   <summary>Joker.com</summary>
 
-You should first enable dynamic DNS on your joker.com dns control page which will create the credentials needed for the plugin. You should use these dynamic DNS credentials, not your joker.com login credentials.
-
+For each of your domains hosted using the Joker DNS server that would would like to obtain certificates for you must enable Dynamic DNS for the domain in the Joker web console. Do this by visiting your Joker Dashboard, clicking the "DNS" action for the domain you want to enable Dynamic DNS for, then ensuring that the "Dynamic DNS active" slider is turned on. A dialog should appear with the DynDNS username and password for that domain. These will be used in the credentials file described below.
 
 ```yaml
   email: your.email@example.com
@@ -852,8 +851,8 @@ You should first enable dynamic DNS on your joker.com dns control page which wil
   challenge: dns
   dns:
     provider: dns-joker
-    dns_joker_username: abcdefghi
-    dns_joker_password: zxcvbnm
+    dns_joker_username: dyndns_username
+    dns_joker_password: dyndns_password
     dns_joker_domain: your.domain.tld
   ```
 References:

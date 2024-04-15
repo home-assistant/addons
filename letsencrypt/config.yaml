@@ -1,5 +1,5 @@
 ---
-version: 5.0.15
+version: 5.0.16
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -53,6 +53,9 @@ schema:
     directadmin_password: str?
     directadmin_url: str?
     directadmin_username: str?
+    dns_joker_username: str?
+    dns_joker_password: str?
+    dns_joker_domain: str?
     dnsimple_token: str?
     dnsmadeeasy_api_key: str?
     dnsmadeeasy_secret_key: str?
@@ -90,7 +93,7 @@ schema:
       dns-hetzner|dns-infomaniak|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
       dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|\
       dns-namecheap|dns-netcup|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\
-      dns-he|dns-easydns)?"
+      dns-he|dns-easydns|dns-joker)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?

@@ -54,6 +54,7 @@ dns-gehirn
 dns-google
 dns-hetzner
 dns-infomaniak
+dns-joker
 dns-linode
 dns-luadns
 dns-njalla
@@ -91,6 +92,9 @@ directadmin_url: ''
 directadmin_username: ''
 directadmin_password: ''
 dnsimple_token: ''
+dns_joker_username: ''
+dns_joker_password: ''
+dns_joker_domain: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 duckdns_token: ''
@@ -833,6 +837,29 @@ easyDNS REST API access must be requested and granted in order to use this modul
   ```
 </details>
 
+<details>
+  <summary>Joker.com</summary>
+
+You should first enable dynamic DNS on your joker.com dns control page which will create the credentials needed for the plugin. You should use these dynamic DNS credentials, not your joker.com login credentials.
+
+
+```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-joker
+    dns_joker_username: abcdefghi
+    dns_joker_password: zxcvbnm
+    dns_joker_domain: your.domain.tld
+  ```
+References:
+* https://github.com/dhull/certbot-dns-joker
+* https://joker.com/faq/books/jokercom-faq-en/page/dynamic-dns-dyndns
+</details>
 
 ## Certificate files
 
@@ -840,6 +867,7 @@ The certificate files will be available within the "ssl" share after successful 
 
 By default other addons are referring to the correct path of the certificates.
 You can in addition find the files via the "samba" addon within the "ssl" share.
+
 
 ## Supported DNS providers
 
@@ -858,6 +886,7 @@ dns-gehirn
 dns-google
 dns-hetzner
 dns-infomaniak
+dns-joker
 dns-linode
 dns-luadns
 dns-njalla

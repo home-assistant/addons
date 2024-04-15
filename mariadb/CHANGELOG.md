@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.0
+
+- Update to Alpine 3.19
+
 ## 2.6.1
 
 - Use proper log redirection during backup
@@ -34,6 +38,7 @@
 - Update options schema for passwords
 
 ## 2.2.1
+
 - Don't delete the mariadb.sys user, it's needed in MariaDB >= 10.4.13
 
 ## 2.2.0

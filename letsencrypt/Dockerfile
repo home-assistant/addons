@@ -18,6 +18,7 @@ ARG \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
     CERTBOT_DNS_INWX_VERSION \
+    CERTBOT_DNS_JOKER_VERSION \
     CERTBOT_DNS_NAMECHEAP_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_DNS_PORKBUN_VERSION \
@@ -73,6 +74,7 @@ RUN \
         certbot-dns-dreamhost==${CERTBOT_DNS_DREAMHOST_VERSION} \
         certbot-dns-he==${CERTBOT_DNS_HE_VERSION} \
         certbot-dns-easydns==${CERTBOT_DNS_EASYDNS_VERSION} \
+        certbot-dns-joker==${CERTBOT_DNS_JOKER_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 

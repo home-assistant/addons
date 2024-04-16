@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.1
+
+- Enable MariaDB auto-upgrade
+
 ## 2.7.0
 
 - Update to Alpine 3.19

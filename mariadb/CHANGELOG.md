@@ -2,7 +2,11 @@
 
 ## 2.7.1
 
-- Increase MariaDB add-on shutdown timeout to 60s
+**Note:** Restart the add-on before upgrade if the current version is lower
+than 2.7.0! This is to ensure a clean stop right before the update (see also
+https://github.com/home-assistant/addons/issues/3566).
+
+- Increase MariaDB add-on shutdown timeout to 300s
 
 ## 2.7.0
 

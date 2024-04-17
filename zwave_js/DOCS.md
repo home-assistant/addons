@@ -64,9 +64,9 @@ In most cases this looks like one of the following:
 
 ### Security Keys
 
-There are four different security keys required to take full advantage of the
+There are six different security keys required to take full advantage of the
 different inclusion methods that Z-Wave JS supports: `s0_legacy_key`,
-`s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key`.
+`s2_access_control_key`, `s2_authenticated_key`, `s2_unauthenticated_key`, `lr_s2_access_control_key`, and `lr_s2_authenticated_key`.
 
 If you are coming from a previous version of `zwave-js`, you likely have a key
 stored in the `network_key` configuration option. When the addon is first
@@ -122,6 +122,18 @@ the S2 Unauthenticated security class. This is similar to S2 Authenticated, but
 without verification that the correct device was included. This configuration
 option is required, but if it is unset the addon will generate a new one
 automatically on startup.
+
+#### Option `lr_s2_access_control_key`
+
+The `lr_s2_access_control_key` must be provided in order to include devices using
+Z-Wave Long Range. This configuration option is required, but if it is unset
+the addon will generate a new one automatically on startup.
+
+#### Option `lr_s2_authenticated_key`
+
+The `lr_s2_authenticated_key` must be provided in order to include devices using
+Z-Wave Long Range. This configuration option is required, but if it is unset
+the addon will generate a new one automatically on startup.
 
 ### Option `log_level` (optional)
 

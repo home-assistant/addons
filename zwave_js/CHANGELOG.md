@@ -1,5 +1,59 @@
 # Changelog
 
+## 0.5.0
+
+### Features
+
+- Z-Wave JS: Map more Basic CC values to more useful command classes
+- Z-Wave JS: Add Z-Wave long range support
+- Z-Wave JS Server: Add Z-Wave long range support
+- Addon: Add support for collecting Z-Wave Long Range security keys
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an infinite loop during NVM migration which could happen in rare cases
+- Z-Wave JS: Firmware updates on Z-Wave Long Range now utilize the larger frame size better
+- Z-Wave JS: Fixed an issue with multicast setValue response
+- Z-Wave JS: Disallow associating a node with itself and skip self-associations when rebuilding routes
+
+### Config file changes
+
+- Always map Basic CC to Binary Sensor CC for Aeotec ZW100 Multisensor 6
+- Fix versioning logic for parameter 26 of Zooz ZEN72
+- Add new Leviton 800 series devices
+- Add UltraPro Z-Wave Plus In-Wall Toggle Switch, 700S
+- Rename generic 700 series controller to include 800 series
+- Add fingerprint and config parameters for UltraPro 700 Switch
+- Add Zooz Zen37 800LR Wall Remote
+- Added 11 Shelly Qubino Wave devices
+- Add Heatit Leakage Water Stopper
+- Add Ring Smoke/CO Listener
+- Add ZVIDAR Z-TRV-V01 thermostatic valve
+- Add Safe Grow NSG-AB-02 Z-Wave Plus Smart Outlet Plug
+- Add a new productId and add parameters to 14297/ZW1002 outlet
+- Remove Association Groups 2 & 3 from AEON Labs DSB09
+- Correct group 3 label for GE/Enbrighten 26931/ZW4006
+- Add new Fingerprint for Ring Contact sensor
+- Preserve root endpoint in Vision ZL7432
+- Add new Product ID to Fibaro Smoke Detector
+- Add Product ID for Benext Energy Switch FW1.6
+- Add fingerprint for Ring Glass Break Sensor EU
+- Change MH9-CO2 Temperature Reporting Threshold step size to 0.1
+- Add new product ID to Fibaro FGS-213
+- Add units, improve descriptions for Everspring ST814
+- Label and parameter definitions for Sensative Drip 700
+- Override supported sensor scales for HELTUN HE-ZW-THERM-FL2
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 1.35.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.35.0)
+- [Z-Wave JS 12.5.5](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.5)
+- [Z-Wave JS 12.5.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.4)
+- [Z-Wave JS 12.5.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.3)
+- [Z-Wave JS 12.5.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.2)
+- [Z-Wave JS 12.5.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.1)
+- [Z-Wave JS 12.5.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.0)
+
 ## 0.4.5
 
 ### Bug fixes

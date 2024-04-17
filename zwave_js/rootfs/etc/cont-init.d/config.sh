@@ -48,7 +48,7 @@ fi
 
 # Validate that no keys are using the example from the docs and generate new random
 # keys for any missing keys.
-for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
+for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key" "lr_access_control_key" "lr_authenticated_key"; do
     network_key=$(bashio::config "${key}")
     network_key_upper=$(bashio::string.upper "${network_key}")
     if [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
@@ -93,6 +93,8 @@ s0_legacy=$(bashio::config "s0_legacy_key")
 s2_access_control=$(bashio::config "s2_access_control_key")
 s2_authenticated=$(bashio::config "s2_authenticated_key")
 s2_unauthenticated=$(bashio::config "s2_unauthenticated_key")
+lr_s2_access_control=$(bashio::config "lr_s2_access_control_key")
+lr_s2_authenticated=$(bashio::config "lr_s2_authenticated_key")
 
 if ! bashio::config.has_value 'log_level'; then
     log_level=$(bashio::info.logging)
@@ -154,6 +156,8 @@ bashio::var.json \
     s2_access_control "${s2_access_control}" \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
+    lr_s2_access_control "${lr_s2_access_control}" \
+    lr_s2_authenticated "${lr_s2_authenticated}" \
     log_level "${log_level}" \
     log_to_file "${log_to_file}" \
     log_max_files "${log_max_files}" \

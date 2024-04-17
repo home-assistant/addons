@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.1
+
+- Increase MariaDB add-on shutdown timeout to 60s
+
 ## 2.7.0
 
 - Update to Alpine 3.19

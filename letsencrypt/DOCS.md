@@ -151,6 +151,8 @@ For example, to use the certificates provided by this add-on to enable TLS on
 Home Assistant in the default paths, add the following lines to Home
 Assistant's main configuration file, `configuration.yaml`:
 
+If you are configuring the DNS method with UI configuration of the add-On called *DNS Provider configuration*, only add the necessary attributes below the *dns:* key in the form.
+
 ```yaml
 # TLS with letsencrypt add-on
 http:

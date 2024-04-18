@@ -6,7 +6,7 @@
 
 - Z-Wave JS: Map more Basic CC values to more useful command classes
 - Z-Wave JS: Add Z-Wave Long Range support
-- Z-Wave JS Server: Add Z-Wave long range support
+- Z-Wave JS Server: Add Z-Wave Long Range support
 - Addon: Add support for collecting Z-Wave Long Range security keys
 
 ### Bug fixes

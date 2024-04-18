@@ -5,12 +5,15 @@
 ### Features
 
 - Z-Wave JS: Map more Basic CC values to more useful command classes
-- Z-Wave JS: Add Z-Wave long range support
+- Z-Wave JS: Add Z-Wave Long Range support
 - Z-Wave JS Server: Add Z-Wave long range support
 - Addon: Add support for collecting Z-Wave Long Range security keys
 
 ### Bug fixes
 
+- Z-Wave JS: Fixed an issue that caused additional invalid values to be discovered
+- Z-Wave JS: Fixed a crash that could happen in some cases during the Configuration CC interview
+- Z-Wave JS: Fixed an issue where provisioning entries could disappear
 - Z-Wave JS: Fixed an infinite loop during NVM migration which could happen in rare cases
 - Z-Wave JS: Firmware updates on Z-Wave Long Range now utilize the larger frame size better
 - Z-Wave JS: Fixed an issue with multicast setValue response

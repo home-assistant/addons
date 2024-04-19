@@ -1,10 +1,10 @@
 ---
-version: 2.4.6-1
+version: 2.5.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
 url: >
-  https://github.com/zalatnaicsongor/addons/tree/master/silabs-multiprotocol
+  https://github.com/home-assistant/addons/tree/master/silabs-multiprotocol
 arch:
   - armv7
   - aarch64

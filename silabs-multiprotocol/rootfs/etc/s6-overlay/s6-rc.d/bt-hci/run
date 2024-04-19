@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start bt_host_cpc_hci_bridge
+# ==============================================================================
+
+bashio::log.info "Starting bt_host_cpc_hci_bridge..."
+exec /usr/local/bin/bt_host_cpc_hci_bridge

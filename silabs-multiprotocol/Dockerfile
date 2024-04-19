@@ -151,6 +151,20 @@ RUN \
         GROUP_START="-Wl,--start-group" GROUP_END="-Wl,--end-group -lpthread" \
         debug
 
+# hadolint ignore=SC3037,SC2039
+RUN \
+    set -x \
+    && cd gecko_sdk \
+    && GECKO_SDK=$(pwd) \
+    && cd app/bluetooth/example_host/bt_host_cpc_hci_bridge \
+    && make -f makefile \
+        AR="${DEBIAN_CROSS_PREFIX}-ar" \
+        CC="${DEBIAN_CROSS_PREFIX}-gcc" \
+        LD="${DEBIAN_CROSS_PREFIX}-gcc" \
+        CXX="${DEBIAN_CROSS_PREFIX}-g++" \
+        C_FLAGS="-std=gnu99" \
+        LD_FLAGS=""
+
 FROM $BUILD_FROM
 
 ARG UNIVERSAL_SILABS_FLASHER
@@ -266,6 +280,10 @@ RUN \
 
 COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/protocol/zigbee/app/zigbeed/output/build/debug/zigbeed \
+     /usr/local/bin
+
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/app/bluetooth/example_host/bt_host_cpc_hci_bridge/exe/bt_host_cpc_hci_bridge \
      /usr/local/bin
 
 RUN ldconfig && touch /accept_silabs_msla

@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv bashio
+#==============================================================================
+# bt_host_cpc_hci_bridge finish script
+#==============================================================================
+bashio::log.info "bt_host_cpc_hci_bridge ended with exit code ${1} (signal ${2})..."

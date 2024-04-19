@@ -4,4 +4,5 @@
 # ==============================================================================
 
 bashio::log.info "Starting bt_host_cpc_hci_bridge..."
+cd /root
 exec /usr/local/bin/bt_host_cpc_hci_bridge

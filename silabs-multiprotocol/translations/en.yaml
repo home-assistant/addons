@@ -23,6 +23,9 @@ configuration:
   cpcd_trace:
     name: Co-Processor Communication tracing
     description: Enable tracing for the Co-Processor Communication daemon.
+  bt_hci_enable:
+    name: Enable BT HCI through CPCd
+    description: Enable BT HCI through CPCd. Requires a firmware with BT multi-protocol support.
   otbr_enable:
     name: Enable OpenThread Border Router
     description: Enable OpenThread Border Router agent.

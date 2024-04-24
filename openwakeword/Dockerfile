@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install openWakeWord
 WORKDIR /usr/src
-ARG OPENWAKEWORD_LIB_VERSION
+ARG WYOMING_OPENWAKEWORD_VERSION
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 RUN \
@@ -15,12 +15,14 @@ RUN \
         netcat-traditional \
         python3 \
         python3-pip \
+        libopenblas0 \
     \
     && pip3 install --no-cache-dir -U \
         setuptools \
         wheel \
     && pip3 install --no-cache-dir \
-        "wyoming-openwakeword==${OPENWAKEWORD_LIB_VERSION}" \
+        --extra-index-url https://www.piwheels.org/simple \
+        "wyoming-openwakeword @ https://github.com/rhasspy/wyoming-openwakeword/archive/refs/tags/v${WYOMING_OPENWAKEWORD_VERSION}.tar.gz" \
     \
     && rm -rf /var/lib/apt/lists/*
 

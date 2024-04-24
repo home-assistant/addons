@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.4.5
+- Support Home Assistant Connect ZBT-1.
+
+## 2.4.4
+- Revert back to Silicon Labs Gecko SDK 4.3.1 while 4.4.0 instability is investigated.
+- Backport firmware modifications for improved stability.
+- Bump universal SiLabs flasher to 0.0.17
+
+## 2.4.3
+- ⚠️ Zigbee2MQTT does not yet support this version of the Gecko SDK. Do not update if you are using Z2M! ⚠️.
+- This is a re-release of 2.4.0 that is compatible only with Home Assistant Core 2024.1.0 and above.
+
+## 2.4.2
+- Bump universal SiLabs flasher to 0.0.16 so that firmware is successfully installed on startup.
+
+## 2.4.1
+
+- Revert back to Silicon Labs Gecko SDK 4.3.1 to maintain compatibility with Home Assistant Core 2023.12.0 and Zigbee2MQTT. If you are running 2024.1.0 with ZHA, you don't have to downgrade.
+
+## 2.4.0
+
+- Use Silicon Labs Gecko SDK 4.4.0
+- Bump universal SiLabs flasher to 0.0.16
+- Improved firmware configurations for Home Assistant Yellow and SkyConnect
+  for stability (without ZGP, with watchdog)
+
 ## 2.3.2
 
 - Update mDNSResponder to 1790.80.10

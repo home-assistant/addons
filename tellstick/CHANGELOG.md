@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.0
+
+**Deprecation notice**
+This will be the final update for this addon. The library it depends on is abandoned.
+It's last activity was 5 years ago it it cannot be built on alpine >3.15. Users
+can continue to use it but no issues or PRs will be accepted for it going forward.
+
+- Use Alpine 3.15
+
 ## 2.1.0
 
 - Update hardware configuration for Supervisor 2021.02.5

@@ -1,5 +1,5 @@
 ---
-version: 10.0.2
+version: 12.3.1
 slug: samba
 name: Samba share
 description: Expose Home Assistant folders with SMB/CIFS
@@ -16,12 +16,13 @@ host_network: true
 image: homeassistant/{arch}-addon-samba
 init: false
 map:
-  - config:rw
-  - ssl:rw
   - addons:rw
-  - share:rw
+  - all_addon_configs:rw
   - backup:rw
+  - homeassistant_config:rw
   - media:rw
+  - share:rw
+  - ssl:rw
 options:
   username: homeassistant
   password: null

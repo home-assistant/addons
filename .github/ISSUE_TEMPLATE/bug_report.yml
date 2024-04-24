@@ -52,7 +52,6 @@ body:
     attributes:
       label: Which add-on are you reporting an issue with?
       options:
-        - Almond
         - CEC Scanner
         - File editor
         - deCONZ
@@ -61,7 +60,6 @@ body:
         - Duck DNS
         - Git pull
         - Google Assistant SDK
-        - HomeMatic CCU
         - Let's Encrypt
         - MariaDB
         - Matter Server
@@ -77,7 +75,6 @@ body:
         - TellStick
         - VLC
         - Whisper
-        - OpenZWave
         - Z-Wave JS
 
   - type: input

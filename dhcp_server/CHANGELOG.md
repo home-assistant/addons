@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0
+
+- Update base image to alpine 3.19
+
+## 1.3.1
+
+- Don't fail if no DNS is provided
+
 ## 1.3.0
 
 - Add NTP server configuration option.

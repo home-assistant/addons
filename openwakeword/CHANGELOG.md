@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.10.0
+
+- Upgrade to wyoming 1.5.3
+- Add wake word phrase
+
+## 1.8.2
+
+- Add `armv7` image to `build.yaml`
+
+## 1.8.1
+
+- Remove batching from wake word processing since not all models support it
+
+## 1.8.0
+
+- Include fix for potential deadlock
+- Only process wake words that a client requests
+- armv7 support
+
+## 1.7.1
+
+- Always use wake word file name as key (avoid duplicate model loading)
+
 ## 1.7.0
 
 - Make wake word loading completely dynamic (new models are automatically discovered)

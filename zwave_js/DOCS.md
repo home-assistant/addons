@@ -43,6 +43,8 @@ s0_legacy_key: 2232666D100F795E5BB17F0A1BB7A146
 s2_access_control_key: A97D2A51A6D4022998BEFC7B5DAE8EA1
 s2_authenticated_key: 309D4AAEF63EFD85967D76ECA014D1DF
 s2_unauthenticated_key: CF338FE0CB99549F7C0EA96308E5A403
+lr_s2_access_control_key: E2CEA6B5986C818EEC0D0065D81E2BD5
+lr_s2_authenticated_key: 863027C59CFC522A9A3C41976AE54254
 ```
 
 ### Option `device`
@@ -64,9 +66,9 @@ In most cases this looks like one of the following:
 
 ### Security Keys
 
-There are four different security keys required to take full advantage of the
+There are six different security keys required to take full advantage of the
 different inclusion methods that Z-Wave JS supports: `s0_legacy_key`,
-`s2_access_control_key`, `s2_authenticated_key`, and `s2_unauthenticated_key`.
+`s2_access_control_key`, `s2_authenticated_key`, `s2_unauthenticated_key`, `lr_s2_access_control_key`, and `lr_s2_authenticated_key`.
 
 If you are coming from a previous version of `zwave-js`, you likely have a key
 stored in the `network_key` configuration option. When the addon is first
@@ -123,6 +125,18 @@ without verification that the correct device was included. This configuration
 option is required, but if it is unset the addon will generate a new one
 automatically on startup.
 
+#### Option `lr_s2_access_control_key`
+
+The `lr_s2_access_control_key` must be provided in order to include devices using
+Z-Wave Long Range. This configuration option is required, but if it is unset
+the addon will generate a new one automatically on startup.
+
+#### Option `lr_s2_authenticated_key`
+
+The `lr_s2_authenticated_key` must be provided in order to include devices using
+Z-Wave Long Range. This configuration option is required, but if it is unset
+the addon will generate a new one automatically on startup.
+
 ### Option `log_level` (optional)
 
 This option sets the log level of Z-Wave JS. Valid options are:
@@ -138,17 +152,47 @@ This option sets the log level of Z-Wave JS. Valid options are:
 If no `log_level` is specified, the log level will be set to the level set in
 the Supervisor.
 
-### Option `emulate_hardware` (optional)
+### Option `log_to_file` (optional)
 
-If you don't have a USB stick, you can use a fake stick for testing purposes.
-It will not be able to control any real devices.
+When this option is enabled, logs will be written to the `/addon_configs/core_zwave_js`
+folder with the `.log` file extension.
 
-### Option `soft_reset`
+### Option `log_max_files` (optional)
+
+When `log_to_file` is true, Z-Wave JS will create a log file for each
+day. This option allows you to control the maximum number of files that
+Z-Wave JS will keep.
+
+### Option `soft_reset` (optional)
 
 This setting tells the add-on how to handle soft-resets for 500 series controllers:
 1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
 2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
 3. Disabled - Soft-reset will be explicitly disabled for 500 series controllers.
+
+### Option `emulate_hardware` (optional)
+
+If you don't have a USB stick, you can use a fake stick for testing purposes.
+It will not be able to control any real devices.
+
+### Optional `disable_controller_recovery` (optional):
+
+This setting will disable Z-Wave JS's automatic recovery process when the
+controller appears to be unresponsive and will instead let the controller
+recover on its own if it's capable of doing so. While the controller is
+unresponsive, commands will start to fail and nodes may randomly get
+marked as dead. If a controller is not able to recover on its own, you
+will need to restart the add-on to attempt recovery. In most cases, users
+will never need to use this feature, so only change this setting if you
+know what you are doing and/or you are asked to.
+
+### Option `safe_mode` (optional)
+
+This setting puts your network in safe mode, which could significantly decrease
+the performance of your network but may also help get the network up and running
+so that you can troubleshoot issues, grab logs, etc. In most cases, users will
+never need to use this feature, so only change this setting if you know what you
+are doing and/or you are asked to.
 
 ### Option `network_key` (deprecated)
 
@@ -156,6 +200,17 @@ In previous versions of the addon, this was the only key that was needed. With
 the introduction of S2 security inclusion in zwave-js, this option has been
 deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
 migrated to `s0_legacy_key` on first startup.
+
+### Troubleshooting network issues
+
+There are several features available in the add-on that can help you in troubleshooting network issues and/or providing data to either the Home Assistant or Z-Wave JS team to help in tracing an issue:
+
+1. **Update the log level:** It is extremely helpful when opening a GitHub issue to set the `log_level` configuration option to `debug` and capture when the issue occurs.
+2. **Log to file:** The `log_to_file` and `log_max_files` configuration options allow you to enable and configure that. Note that in order to access the log files, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh add-ons among others.
+3. **Access Z-Wave JS cache:** Z-Wave JS stores information it discovers about your network in cache files so that your devices don't have to be reinterviewed on every startup. In some cases, when opening a GitHub issue, you may be asked to provide the cache files. You can access them in `/addon_configs/core_zwave_js/cache`. Note that in order to access the cache, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh add-ons among others.
+4. **Change soft reset behavior:** By default, the addon will choose whether or not to soft reset the controller at startup automatically. In most cases that shouldn't be changed, but if asked to make a change when troubleshooting an issue, you can do so using the `soft_reset` configuration option.
+5. **Disable controller recovery:** By default, if the network controller appears to be jammed, Z-Wave JS will automatically try to restore the controller to a healthy state. In most cases that shouldn't be changed, but if asked to make a change when troubleshooting an issue, you can do so using the `disable_controller_recovery` configuration option.
+6. **Enable safe mode:** When Z-Wave JS is having trouble starting up, it can sometimes be hard to get useful logs to troubleshoot the issue. By setting `safe_mode` to true, Z-Wave JS may be able to start up in cases where it wouldn't with the `safe_mode` set to false. Note that enabling `safe_mode` will have a negative impact on the performance of your network and should be used sparingly.
 
 ## Known issues and limitations
 

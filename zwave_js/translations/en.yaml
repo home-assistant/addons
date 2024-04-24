@@ -11,6 +11,17 @@ configuration:
   log_level:
     name: Log Level
     description: This option sets the log level of Z-Wave JS.
+  log_to_file:
+    name: Log to File?
+    description: >-
+      When this option is enabled, logs will be written to the
+      `/addon_configs/core_zwave_js` folder with the `.log` file extension.
+  log_max_files:
+    name: Max number of log files to keep
+    description: >-
+      When `log_to_file` is true, Z-Wave JS will create a log file for each
+      day. This option allows you to control the maximum number of files that
+      Z-Wave JS will keep.
   network_key:
     name: Network Key
     description: >-
@@ -37,6 +48,16 @@ configuration:
     description: >-
       This must be provided in order to include devices with the S2
       Unauthenticated security class.
+  lr_s2_access_control_key:
+    name: Z-Wave Long Range S2 Access Control Key
+    description: >-
+      This must be provided in order to include devices using Z-Wave
+      Long Range with the S2 Access Control security class.
+  lr_s2_authenticated_key:
+    name: Z-Wave Long Range S2 Authenticated Key
+    description: >-
+      This must be provided in order to include devices using Z-Wave
+      Long Range with the S2 Authenticated security class.
   soft_reset:
     name: 500 series controller soft-reset
     description: >-
@@ -45,5 +66,25 @@ configuration:
       automatically detect whether or not this needs to be enabled. The
       default setting should work for most users, so only change this setting
       if you know what you are doing and/or you are asked to.
+  disable_controller_recovery:
+    name: Disable automatic controller recovery
+    description: >-
+      This setting will disable Z-Wave JS's automatic recovery process when the
+      controller appears to be unresponsive and will instead let the controller
+      recover on its own if it's capable of doing so. While the controller is
+      unresponsive, commands will start to fail and nodes may randomly get
+      marked as dead. If a controller is not able to recover on its own, you
+      will need to restart the add-on to attempt recovery. In most cases, users
+      will never need to use this feature, so only change this setting if you
+      know what you are doing and/or you are asked to.
+  safe_mode:
+    name: Enable safe mode
+    description: >-
+      This setting puts your network in safe mode, which could significantly
+      decrease the performance of your network but may also help get the
+      network up and running so that you can troubleshoot issues, grab logs,
+      etc. In most cases, users will never need to use this feature, so only
+      change this setting if you know what you are doing and/or you are asked
+      to.
 network:
   3000/tcp: Z-Wave JS communication

@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.14.1
+- Fix error where $HOME is not defined
+
+## 7.14.0
+
+- Update base image to Alpine 3.19
+- Update Home Assistant CLI to 4.31.0
+
 ## 7.13.1
 
 - Update Home Assistant CLI to 4.12.2

@@ -14,7 +14,7 @@ configuration:
     name: Automatically flash firmware
     description: >-
       Automatically flash OpenThread RCP firmware on Home Assistant Yellow and
-      SkyConnect.
+      SkyConnect/Connect ZBT-1.
   otbr_log_level:
     name: OpenThread Border Router agent log level
     description: >-
@@ -23,6 +23,11 @@ configuration:
     name: OTBR firewall
     description: >-
       Use OpenThread Border Router firewall to block unnecessary traffic.
+  nat64:
+    name: NAT64
+    description: >-
+      Enable IPv6 to IPv4 network address translation. This allows Thread
+      devices to communicate with devices on the Internet.
 network:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

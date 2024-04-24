@@ -1,5 +1,39 @@
 # Changelog
 
+## 9.13.0
+
+- Enable ha command completion for non-login shell (e.g. the web terminal)
+
+## 9.12.0
+
+- Install completions for ha commands
+- Fix bash_history file check in startup
+
+## 9.11.0
+
+- Upgrade Home Assistant CLI to 4.32.0
+
+## 9.10.0
+
+- Upgrade Home Assistant CLI to 4.31.0
+
+## 9.9.0
+
+- Upgrade to Alpine Linux 3.19
+- Upgrade Home Assistant CLI to 4.29.0
+- Upgrade libwebsockets to 4.3.3
+- Upgrade ttyd to 1.7.4
+
+## 9.8.1
+
+- Add `/config` symlink to for backward and docs compatibility.
+
+## 9.8.0
+
+- Please note: the `/config` folder has been renamed to `/homeassistant`.
+- Add support for accessing public add-on configurations
+- Upgrade to Alpine 3.18
+
 ## 9.7.1
 
 - Upgrade Home Assistant CLI to 4.26.0

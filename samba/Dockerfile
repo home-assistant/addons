@@ -6,10 +6,7 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN \
-    apk add --no-cache \
-        samba-common-tools \
-        samba-server \
-    \
+    apk add --no-cache samba \
     && mkdir -p /var/lib/samba \
     && touch \
         /etc/samba/lmhosts \
@@ -19,3 +16,6 @@ RUN \
 
 # Copy data
 COPY rootfs /
+
+HEALTHCHECK \
+    CMD smbclient -L '\\localhost' -U '%' -m SMB3

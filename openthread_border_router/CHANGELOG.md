@@ -1,5 +1,63 @@
 # Changelog
 
+## 2.5.1
+- Support Home Assistant Connect ZBT-1.
+
+## 2.5.0
+
+- Bump to OTBR POSIX version 2279c02f3c (2024-02-28 22:36:55 -0800)
+- Bump base image to Debian bookworm
+
+## 2.4.7
+
+- Better fix for container shutdown in case of OTBR agent failures
+
+## 2.4.6
+
+- Bump to OTBR POSIX version 9bdaa91016 (2024-02-15 08:50:34 -0800)
+- Bump universal SiLabs flasher to 0.0.18
+- Fix container shutdown in case OTBR agent fails to startup
+- Shutdown mDNS daemon after OTBR agent (allows the OTBR service to
+  properly sign off on the network)
+
+## 2.4.5
+
+- Set default transmit power on startup
+- Enable DNS when NAT64 is enabled
+- Bump universal SiLabs flasher to 0.0.17
+- Bump to OTBR POSIX version 13d583e361 (2024-01-26 09:51:26 -0800)
+
+## 2.4.4
+
+- Fix Thread network interface (wpan0) route metric
+  This fixes devices becoming unreachable when operating the OTBR with other TBRs
+- Bump to OTBR POSIX version 02421b0ea6 (2024-01-19 15:58:03 -0800)
+
+## 2.4.3
+
+- Enable TREL support on infrastructure link
+- Enable Channel Monitor support (disabled by default)
+- Bump to OTBR POSIX version 657e775cd9 (2024-01-05 17:10:13 -0800)
+
+## 2.4.2
+
+- Update firmare for Home Assistant SkyConnect and Yellow to the latest version
+  built from Gecko SDK v4.4.0.0.
+- Bump universal SiLabs flasher to 0.0.16
+
+## 2.4.1
+
+- Fix NAT64 enable script
+
+## 2.4.0
+
+- Enable TREL
+- Enable NAT64 (disabled by default)
+- Bump to OTBR POSIX version 27ed99f375 (2023-12-13 10:11:52 -0800)
+- Bump universal SiLabs flasher to 0.0.15
+- Shutdown add-on on otbr-agent crash (use Supervisor Watchdog functionality
+  for automatic restarts)
+
 ## 2.3.2
 
 - Bump to OTBR POSIX version 9e50efa8de (2023-08-23 21:28:30 -0700)

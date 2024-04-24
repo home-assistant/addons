@@ -17,10 +17,7 @@ Follow these steps to get the add-on installed on your system:
 
 ## Configuration
 
-Add-on configuration:
-
-```yaml
-```
+Note that automatic discovery is expected when the add-on is being installed. If no "VLC media player via Telnet" integration is being discovered, make sure to remove any stale "VLC media player via Telnet" integrations and reinstall the add-on to trigger discovery again.
 
 ## Support
 

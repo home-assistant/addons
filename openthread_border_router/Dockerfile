@@ -10,7 +10,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV BORDER_ROUTING 1
 ENV BACKBONE_ROUTER 1
-ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_POSIX_CONFIG_RCP_BUS=UART -DOT_DIAGNOSTIC=1 -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
 ENV PLATFORM debian
 ENV RELEASE 1
 ENV WEB_GUI 1
@@ -19,6 +18,8 @@ ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0002-rest-support-deleting-the-dataset.patch /usr/src
+COPY 0003-openthread-set-netif-route-metric-lower.patch /usr/src
+COPY 0001-channel-monitor-disable-by-default.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -31,18 +32,19 @@ ENV OTBR_UNUSED_DEBS libavahi-client3 avahi-daemon rsyslog
 
 WORKDIR /usr/src
 
-# Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
+# Install npm/nodejs for WebUI before calling script/bootstrap to avoid
+# systemd getting pulled in
 RUN \
     set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       git \
        iproute2 \
        python3 \
        python3-pip \
        lsb-release \
        netcat-openbsd \
        sudo \
+       git \
        nodejs \
        npm \
     && git clone --depth 1 -b main \
@@ -54,6 +56,9 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
+    && patch -p1 < /usr/src/0003-openthread-set-netif-route-metric-lower.patch \
+    && (cd third_party/openthread/repo && \
+        patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch) \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \
     # Mimic otbr_install \
@@ -63,12 +68,11 @@ RUN \
         -DOTBR_FEATURE_FLAGS=ON \
         -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
         -DOTBR_SRP_ADVERTISING_PROXY=ON \
-        -DOTBR_INFRA_IF_NAME=eth0 \
         -DOTBR_MDNS=mDNSResponder \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
-        -DOT_POSIX_CONFIG_RCP_BUS=UART \
+        -DOT_POSIX_RCP_BUS_UART=ON \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="OpenThread Border Router" \
@@ -76,12 +80,22 @@ RUN \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
+        -DOTBR_TREL=ON \
+        -DOTBR_NAT64=ON \
+        -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
+        -DOTBR_DNS_UPSTREAM_QUERY=ON \
+        -DOT_CHANNEL_MONITOR=ON \
+        -DOT_COAP=OFF \
+        -DOT_COAPS=OFF \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
-    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
+    && pip install --break-system-packages \
+       universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
+       nodejs \
+       npm \
        ${OTBR_BUILD_DEPS} \
        ${OTBR_UNUSED_DEBS} \
     && rm -rf /var/lib/apt/lists/* \

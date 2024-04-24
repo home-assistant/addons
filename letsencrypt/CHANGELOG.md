@@ -1,5 +1,74 @@
 # Changelog
 
+## 5.0.15
+
+- Add easyDNS challenge support
+
+## 5.0.14
+
+- Update docs for key_type setting
+
+## 5.0.13
+
+- By default, choose key type based on existing certificates at startup.
+- Allow ECDSA curve selection.
+
+## 5.0.12
+
+- Fix ClouDNS challenge support
+
+## 5.0.11
+
+- Add HE DNS challenge support
+
+## 5.0.10
+
+- Add ClouDNS DNS challenge support
+
+## 5.0.9
+
+- Add option to specify Private Key type
+
+## 5.0.8
+
+- Add Dreamhost DNS challenge support
+
+## 5.0.7
+
+- Add Porkbun DNS challenge support
+
+## 5.0.6
+
+- Add Infomaniak DNS challenge support
+
+## 5.0.5
+
+- Fix DirectAdmin DNS challenge support
+
+## 5.0.4
+
+- Add Namecheap DNS challenge support
+
+## 5.0.3
+
+- Add deSEC DNS challenge support
+
+## 5.0.2
+
+- Fix DirectAdmin DNS challenge support
+
+## 5.0.1
+
+- Add DuckDNS DNS challenge support
+
+## 5.0.0
+
+- Upgrade to Certbot 2.7.4 & all DNS authenticator plug-ins
+- Drop CloudXNS (removed in Certbot upstream)
+- Update to Python 3.11
+- Update to Alpine 3.18
+- Add GANDI DNS propagation delay setting
+
 ## 4.12.9
 
 - Add Google Domains DNS challenge support

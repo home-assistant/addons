@@ -34,10 +34,6 @@ systems that have installed Home Assistant.
 - **[File editor](/configurator/README.md)**
 
     Simple browser-based file editor for Home Assistant.
-    
-- **[Genie](/almond/README.md)**
-
-    The Open-source, Privacy-Preserving Voice Assistant.
 
 - **[Git pull](/git_pull/README.md)**
 
@@ -82,24 +78,6 @@ systems that have installed Home Assistant.
 - **[Z-Wave JS](/zwave_js/README.md)**
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
-
-### Deprecated Add-ons
-
-- **[Hey Ada!](/ada/README.md)**
-
-    Voice assistant powered by Home Assistant.
-
-- **[HomeMatic](/homematic/README.md)**
-
-    HomeMatic central based on OCCU.
-
-    Deprecated in favor of the much more advanced third-party [RaspberryMatic CCU](https://github.com/jens-maus/RaspberryMatic/tree/master/home-assistant-addon).
-
-- **[OpenZWave](/zwave/README.md)**
-
-    Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
-
-    Deprecated in favor of [Z-Wave JS](/zwave_js/README.md).
 
 ## Support
 

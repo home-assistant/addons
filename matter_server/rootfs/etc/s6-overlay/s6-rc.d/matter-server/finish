@@ -1,1 +1,18 @@
-/etc/s6-overlay/scripts/matter-server-finish
+#!/usr/bin/env bashio
+# ==============================================================================
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# ==============================================================================
+
+if test "$1" -eq 256 ; then
+  e=$((128 + $2))
+else
+  e="$1"
+fi
+
+if test "$e" -ne 0; then
+    bashio::log.warning "matter-server service exited with code $e (by signal $2)."
+    echo "$e" > /run/s6-linux-init-container-results/exitcode
+    exec /run/s6/basedir/bin/halt
+else
+    bashio::log.info "matter-server service exited with code $e (by signal $2)."
+fi

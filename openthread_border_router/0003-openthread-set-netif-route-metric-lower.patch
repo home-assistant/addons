@@ -1,0 +1,28 @@
+From e1857ad3e14df6e950d51cd1f76c12f1c0f59f18 Mon Sep 17 00:00:00 2001
+Message-ID: <e1857ad3e14df6e950d51cd1f76c12f1c0f59f18.1705764864.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Sat, 20 Jan 2024 16:31:28 +0100
+Subject: [PATCH] [openthread] set netif route metric lower
+
+It seems that routes learned through IPv6 Neighbor Discovery Protocol
+get a metric of 128 when NetworkManager is used. Make sure the
+OpenThread network interface's own route is lower than that.
+---
+ third_party/openthread/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/third_party/openthread/CMakeLists.txt b/third_party/openthread/CMakeLists.txt
+index f07625da96..0bcca3b79c 100644
+--- a/third_party/openthread/CMakeLists.txt
++++ b/third_party/openthread/CMakeLists.txt
+@@ -105,6 +105,7 @@ target_compile_definitions(ot-config INTERFACE
+     "-DOPENTHREAD_CONFIG_MAX_STATECHANGE_HANDLERS=3"
+     "-DOPENTHREAD_CONFIG_MLE_STEERING_DATA_SET_OOB_ENABLE=1"
+     "-DOPENTHREAD_CONFIG_TCP_ENABLE=0"
++    "-DOPENTHREAD_POSIX_CONFIG_NETIF_PREFIX_ROUTE_METRIC=64"
+     "-DOPENTHREAD_POSIX_CONFIG_FILE=\"${PROJECT_BINARY_DIR}/src/agent/openthread-otbr-posix-config.h\""
+ )
+ 
+-- 
+2.43.0
+

@@ -2,10 +2,10 @@
 # ==============================================================================
 # Setup persistent user settings
 # ==============================================================================
-readonly DIRECTORIES=(addons backup config share ssl)
+readonly DIRECTORIES=(addon_configs addons backup homeassistant media share ssl)
 
 # Persist shell history by redirecting .bash_history to /data
-if ! bashio::fs.file_exists /data/.bash_profile; then
+if ! bashio::fs.file_exists /data/.bash_history; then
     touch /data/.bash_history
 fi
 chmod 600 /data/.bash_history
@@ -31,3 +31,9 @@ for dir in "${DIRECTORIES[@]}"; do
         || bashio::log.warning "Failed linking common directory: ${dir}"
 done
 
+# Some links to "old" locations, to match documentation,
+# backwards compatibility and musle memory
+ln -s "/homeassistant" "/config" \
+    || bashio::log.warning "Failed linking common directory: /config"
+ln -s "/homeassistant" "${HOME}/config" \
+    || bashio::log.warning "Failed linking common directory: ${HOME}/config"

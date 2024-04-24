@@ -87,6 +87,13 @@ else
     ip6tables-legacy -P FORWARD ACCEPT
 fi
 
+if bashio::config.true 'nat64'; then
+    iptables -t mangle -A PREROUTING -i ${thread_if} -j MARK --set-mark 0x1001
+    iptables -t nat -A POSTROUTING -m mark --mark 0x1001 -j MASQUERADE
+    iptables -t filter -A FORWARD -o ${backbone_if} -j ACCEPT
+    iptables -t filter -A FORWARD -i ${backbone_if} -j ACCEPT
+fi
+
 otbr_rest_listen="::"
 otbr_rest_listen_port="$(bashio::addon.port 8081)"
 
@@ -108,4 +115,5 @@ exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
     "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
         --rest-listen-address "${otbr_rest_listen}" \
         -d${otbr_log_level_int} -v \
-        "spinel+hdlc+uart://${device}?uart-baudrate=${baudrate}${flow_control}"
+        "spinel+hdlc+uart://${device}?uart-baudrate=${baudrate}${flow_control}" \
+        "trel://${backbone_if}"

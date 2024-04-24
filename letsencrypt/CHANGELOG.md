@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.16
+
+- Add WebSupport challenge support
+
 ## 5.0.15
 
 - Add easyDNS challenge support

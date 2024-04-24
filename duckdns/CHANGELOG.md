@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.17.0
+
+- Reduce log spam when updating IP address
+
 ## 1.16.0
 
 - Update base image to Alpine 3.19

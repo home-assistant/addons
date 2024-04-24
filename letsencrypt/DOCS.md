@@ -69,6 +69,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-websupport
 ```
 </details>
 
@@ -833,6 +834,25 @@ easyDNS REST API access must be requested and granted in order to use this modul
   ```
 </details>
 
+<details>
+  <summary>WebSupport</summary>
+
+An identifier and secret key have to be obtained to use this module (see https://admin.websupport.sk/sk/auth/apiKey).
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-websupport
+    websupport_identifier: <identifier>
+    websupport_secret_key: <secret_key>
+  ```
+</details>
+
 
 ## Certificate files
 
@@ -873,6 +893,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-websupport
 ```
 
 ## Support

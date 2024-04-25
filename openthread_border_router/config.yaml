@@ -37,7 +37,7 @@ ports_description:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port
 schema:
-  device: device(subsystem=tty)?
+  device: device(subsystem=tty)
   baudrate: list(57600|115200|230400|460800|921600)
   flow_control: bool
   network_device: str?

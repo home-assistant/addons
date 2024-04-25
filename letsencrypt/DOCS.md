@@ -70,6 +70,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-websupport
 ```
 </details>
 
@@ -854,6 +855,26 @@ dns:
 
 </details>
 
+<details>
+
+  <summary>WebSupport</summary>
+
+An identifier and secret key have to be obtained to use this module (see https://admin.websupport.sk/sk/auth/apiKey).
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-websupport
+    websupport_identifier: <identifier>
+    websupport_secret_key: <secret_key>
+  ```
+</details>
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -894,6 +915,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-websupport
 ```
 
 ## Support

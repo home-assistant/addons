@@ -837,7 +837,6 @@ easyDNS REST API access must be requested and granted in order to use this modul
 </details>
 
 <details>
-
   <summary>Dynu</summary>
 
 You can get the API key in the API Credentials area of the Dynu control panel: https://www.dynu.com/ControlPanel/APICredentials

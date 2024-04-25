@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.7.1
+
+**Note:** Restart the add-on before upgrade if the current version is lower
+than 2.7.0! This is to ensure a clean stop right before the update (see also
+https://github.com/home-assistant/addons/issues/3566).
+
+- Increase MariaDB add-on shutdown timeout to 300s
+
+## 2.7.0
+
+- Update to Alpine 3.19
+
 ## 2.6.1
 
 - Use proper log redirection during backup
@@ -34,6 +46,7 @@
 - Update options schema for passwords
 
 ## 2.2.1
+
 - Don't delete the mariadb.sys user, it's needed in MariaDB >= 10.4.13
 
 ## 2.2.0

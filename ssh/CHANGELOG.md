@@ -1,5 +1,18 @@
 # Changelog
 
+## 9.13.0
+
+- Enable ha command completion for non-login shell (e.g. the web terminal)
+
+## 9.12.0
+
+- Install completions for ha commands
+- Fix bash_history file check in startup
+
+## 9.11.0
+
+- Upgrade Home Assistant CLI to 4.32.0
+
 ## 9.10.0
 
 - Upgrade Home Assistant CLI to 4.31.0

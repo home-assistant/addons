@@ -37,7 +37,7 @@ There are two options to obtain certificates.
 ### DNS providers
 
 <details>
-  <summary>Supported DNS providerss</summary>
+  <summary>Supported DNS providers</summary>
 
 ```txt
 dns-azure
@@ -50,6 +50,7 @@ dns-dnsimple
 dns-dnsmadeeasy
 dns-duckdns
 dns-dreamhost
+dns-dynu
 dns-gehirn
 dns-google
 dns-hetzner
@@ -94,6 +95,7 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 duckdns_token: ''
+dynu_auth_token: ''
 google_creds: ''
 google_domains_access_token: ''
 google_domains_zone: ''
@@ -833,6 +835,24 @@ easyDNS REST API access must be requested and granted in order to use this modul
   ```
 </details>
 
+<details>
+  <summary>Dynu</summary>
+
+You can get the API key in the API Credentials area of the Dynu control panel: https://www.dynu.com/ControlPanel/APICredentials
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-dynu
+  dynu_auth_token: 0123456789abcdef
+```
+
+</details>
 
 ## Certificate files
 
@@ -854,6 +874,7 @@ dns-dnsimple
 dns-dnsmadeeasy
 dns-duckdns
 dns-dreamhost
+dns-dynu
 dns-gehirn
 dns-google
 dns-hetzner

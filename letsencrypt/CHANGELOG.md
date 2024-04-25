@@ -1,8 +1,12 @@
 # Changelog
 
-## 5.0.16
+## 5.0.17
 
 - Add WebSupport challenge support
+
+## 5.0.16
+
+- Add Dynu challenge support
 
 ## 5.0.15
 

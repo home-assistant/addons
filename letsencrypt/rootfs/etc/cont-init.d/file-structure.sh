@@ -15,6 +15,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \
       "dns_duckdns_token = $(bashio::config 'dns.duckdns_token')\n" \
+      "dns_dynu_auth_token = $(bashio::config 'dns.dynu_auth_token')\n" \
       "dns_gehirn_api_token = $(bashio::config 'dns.gehirn_api_token')\n" \
       "dns_gehirn_api_secret = $(bashio::config 'dns.gehirn_api_secret')\n" \
       "dns_hetzner_api_token = $(bashio::config 'dns.hetzner_api_token')\n" \

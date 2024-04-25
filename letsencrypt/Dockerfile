@@ -12,6 +12,7 @@ ARG \
     CERTBOT_DNS_DIRECTADMIN_VERSION \
     CERTBOT_DNS_DREAMHOST_VERSION \
     CERTBOT_DNS_DUCKDNS_VERSION \
+    CERTBOT_DNS_DYNU_VERSION \
     CERTBOT_DNS_EASYDNS_VERSION \
     CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
     CERTBOT_DNS_HE_VERSION \
@@ -52,6 +53,7 @@ RUN \
         certbot-dns-dnsimple==${CERTBOT_VERSION} \
         certbot-dns-dnsmadeeasy==${CERTBOT_VERSION} \
         certbot-dns-duckdns==${CERTBOT_DNS_DUCKDNS_VERSION} \
+        certbot-dns-dynu-dev==${CERTBOT_DNS_DYNU_VERSION} \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
         certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \

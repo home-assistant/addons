@@ -1,5 +1,5 @@
 ---
-version: 5.0.16
+version: 5.0.18
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -59,6 +59,7 @@ schema:
     duckdns_token: str?
     dynu_auth_token: str?
     gandi_api_key: str?
+    gandi_token: str?
     gandi_sharing_id: str?
     gehirn_api_secret: str?
     gehirn_api_token: str?

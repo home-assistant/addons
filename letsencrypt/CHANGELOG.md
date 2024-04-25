@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.18
+
+- Fix Gandi DNS support using API key
+- Add Gandi DNS support using token authentication
+
 ## 5.0.17
 
 - Add WebSupport challenge support

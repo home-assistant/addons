@@ -115,6 +115,14 @@ elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
         bashio::log.info "Use Gandi sharing ID"
         echo "dns_gandi_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> "/data/dnsapikey"
     fi
+    if bashio::config.exists 'dns.gandi_token'; then
+        bashio::log.info "Use Gandi gandi_token"
+        echo "dns_gandi_token = $(bashio::config 'dns.gandi_token')" >> "/data/dnsapikey"
+    fi
+    if bashio::config.exists 'dns.gandi_api_key'; then
+        bashio::log.info "Use Gandi gandi_api_key"
+        echo "dns_gandi_api_key = $(bashio::config 'dns.gandi_api_key')" >> "/data/dnsapikey"
+    fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}" )
 
 # Hetzner

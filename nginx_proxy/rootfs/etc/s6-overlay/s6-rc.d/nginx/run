@@ -57,17 +57,14 @@ sed -i "s/%%HA_PORT%%/$HA_PORT/g" /etc/nginx.conf
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
 if bashio::config.true 'proxy_protocol.enabled'; then
+    bashio::config.require 'proxy_protocol.real_ip_from' "real_ip_from under proxy_protocol has to be provided"
     REAL_IP_FROM=$(bashio::config 'proxy_protocol.real_ip_from')
-    if [ -z "$REAL_IP_FROM" ]; then
-        echo "real_ip_from under proxy_protocol has to be provided"
-        exit 1
-    fi
-    sed -i "s#%%REAL_IP_FROM%%#$REAL_IP_FROM#g" /etc/nginx/serverProxyProtocol.conf
-    SERVER_CONF=serverProxyProtocol.conf
-    LOCATION_CONF=locationProxyProtocol.conf
+    sed -i "s#%%REAL_IP_FROM%%#$REAL_IP_FROM#g" /etc/nginx/conf.d/server-proxy-protocol.conf
+    SERVER_CONF=server-proxy-protocol.conf
+    LOCATION_CONF=location-proxy-protocol.conf
 else
-    SERVER_CONF=serverDefault.conf
-    LOCATION_CONF=locationDefault.conf
+    SERVER_CONF=server-default.conf
+    LOCATION_CONF=location-default.conf
 fi
 
 sed -i "s/%%SERVER_CONF%%/$SERVER_CONF/g" /etc/nginx.conf

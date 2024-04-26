@@ -45,4 +45,3 @@ schema:
   proxy_protocol:
     enabled: bool
     real_ip_from: str?
-

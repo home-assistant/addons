@@ -50,6 +50,9 @@ else
         firmware="NabuCasa_SkyConnect_OpenThread_RCP_v2.4.0.0_ot-rcp_hw_460800.gbl"
     elif [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "Home Assistant Connect ZBT-1"* ]]; then
         firmware="NabuCasa_SkyConnect_OpenThread_RCP_v2.4.0.0_ot-rcp_hw_460800.gbl"
+    elif [[ "${usb_manufacturer}" == "ITEAD" && "${usb_product}" == "SONOFF Zigbee 3.0 USB Dongle Plus V2" ]]; then
+        firmware="ot-rcp-v2.4.2.0-zbdonglee-460800.gbl"
+        gpio_reset_flag="--bootloader-reset sonoff"
     else
         exit_no_firmware
     fi

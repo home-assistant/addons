@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.0
+
+- Support auto firmware updates for Sonoff ZBDongle-E
+
 ## 2.6.0
 
 - Add support for network sockets using socat

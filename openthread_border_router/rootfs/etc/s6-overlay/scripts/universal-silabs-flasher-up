@@ -30,7 +30,7 @@ if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}"
     gpio_reset_flag="--yellow-gpio-reset"
 else
     # Check device manufacturer/product information
-    usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}))/../../../../)
+    usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}) | sed 's:/[^/]*tty[^/]*::g' )/../)
     if [ ! -f "${usb_device_path}/idProduct" ]; then
         bashio::log.info "The selected serial port is not a USB device."
         exit_no_firmware

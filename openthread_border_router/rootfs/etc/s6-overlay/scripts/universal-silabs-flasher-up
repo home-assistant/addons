@@ -53,6 +53,9 @@ else
     elif [[ "${usb_manufacturer}" == "ITEAD" && "${usb_product}" == "SONOFF Zigbee 3.0 USB Dongle Plus V2" ]]; then
         firmware="ot-rcp-v2.4.2.0-zbdonglee-460800.gbl"
         gpio_reset_flag="--bootloader-reset sonoff"
+    elif [[ "${usb_manufacturer}" == "SMLIGHT" && "${usb_product}" == "SMLIGHT SLZB-07" ]]; then
+        firmware="ot-rcp-v2.4.2.0-slzb-07-460800.gbl"
+        gpio_reset_flag="--bootloader-reset slzb07"
     else
         exit_no_firmware
     fi

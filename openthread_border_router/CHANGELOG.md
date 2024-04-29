@@ -3,6 +3,7 @@
 ## 2.7.0
 
 - Support auto firmware updates for Sonoff ZBDongle-E
+- Support auto firmware updates for SMLIGHT SLZB-07
 
 ## 2.6.0
 

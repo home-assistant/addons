@@ -17,6 +17,7 @@ function exit_no_firmware {
 }
 
 device=$(bashio::config 'device')
+gpio_reset_flag=""
 
 if bashio::config.false 'autoflash_firmware'; then
     bashio::log.info "Flashing firmware is disabled"
@@ -27,7 +28,7 @@ fi
 if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
     bashio::log.info "Detected Home Assistant Yellow"
     firmware="NabuCasa_Yellow_OpenThread_RCP_v2.4.0.0_PA32_ot-rcp_hw_460800.gbl"
-    gpio_reset_flag="--yellow-gpio-reset"
+    gpio_reset_flag="--bootloader-reset yellow"
 else
     # Check device manufacturer/product information
     usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}) | sed 's:/[^/]*tty[^/]*::g' )/../)
@@ -52,9 +53,8 @@ else
     else
         exit_no_firmware
     fi
-    gpio_reset_flag=""
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device}"
-exec universal-silabs-flasher --device ${device} \
-     flash ${gpio_reset_flag} --ensure-exact-version --allow-cross-flashing --firmware "/root/${firmware}"
+exec universal-silabs-flasher --device ${device}  ${gpio_reset_flag}  \
+     flash --ensure-exact-version --allow-cross-flashing --firmware "/root/${firmware}"

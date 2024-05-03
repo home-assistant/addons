@@ -15,6 +15,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_dnsmadeeasy_api_key = $(bashio::config 'dns.dnsmadeeasy_api_key')\n" \
       "dns_dnsmadeeasy_secret_key = $(bashio::config 'dns.dnsmadeeasy_secret_key')\n" \
       "dns_duckdns_token = $(bashio::config 'dns.duckdns_token')\n" \
+      "dns_dynu_auth_token = $(bashio::config 'dns.dynu_auth_token')\n" \
       "dns_gehirn_api_token = $(bashio::config 'dns.gehirn_api_token')\n" \
       "dns_gehirn_api_secret = $(bashio::config 'dns.gehirn_api_secret')\n" \
       "dns_hetzner_api_token = $(bashio::config 'dns.hetzner_api_token')\n" \
@@ -61,7 +62,9 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_easydns_endpoint = $(bashio::config 'dns.easydns_endpoint')\n" \
       "dns_easydns_usertoken = $(bashio::config 'dns.easydns_token')\n" \
       "dns_easydns_userkey = $(bashio::config 'dns.easydns_key')\n" \
-      "dns_domainoffensive_api_token = $(bashio::config 'dns.domainoffensive_token'" > /data/dnsapikey
+      "dns_domainoffensive_api_token = $(bashio::config 'dns.domainoffensive_token'" \
+      "dns_websupport_identifier = $(bashio::config 'dns.websupport_identifier')\n" \
+      "dns_websupport_secret_key = $(bashio::config 'dns.websupport_secret_key')\n" > /data/dnsapikey
 
 if bashio::config.exists 'dns.google_domains_zone'; then
       echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey

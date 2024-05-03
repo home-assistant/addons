@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.0
+
+- Update to Alpine 3.19
+
 ## 1.6.0
 
 - Update to Alpine 3.17

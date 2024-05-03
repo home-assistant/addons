@@ -1,5 +1,5 @@
 ---
-version: 1.6.0
+version: 1.7.0
 slug: dnsmasq
 name: Dnsmasq
 description: A simple DNS server

@@ -37,7 +37,7 @@ There are two options to obtain certificates.
 ### DNS providers
 
 <details>
-  <summary>Supported DNS providerss</summary>
+  <summary>Supported DNS providers</summary>
 
 ```txt
 dns-azure
@@ -50,6 +50,7 @@ dns-dnsimple
 dns-dnsmadeeasy
 dns-duckdns
 dns-dreamhost
+dns-dynu
 dns-gehirn
 dns-google
 dns-hetzner
@@ -70,6 +71,7 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
+dns-websupport
 ```
 </details>
 
@@ -95,6 +97,7 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 duckdns_token: ''
+dynu_auth_token: ''
 google_creds: ''
 google_domains_access_token: ''
 google_domains_zone: ''
@@ -127,6 +130,7 @@ netcup_customer_id: ''
 netcup_api_key: ''
 netcup_api_password: ''
 gandi_api_key: ''
+gandi_token: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
@@ -835,6 +839,44 @@ easyDNS REST API access must be requested and granted in order to use this modul
   ```
 </details>
 
+<details>
+  <summary>Dynu</summary>
+
+You can get the API key in the API Credentials area of the Dynu control panel: https://www.dynu.com/ControlPanel/APICredentials
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-dynu
+  dynu_auth_token: 0123456789abcdef
+```
+
+</details>
+
+<details>
+
+  <summary>WebSupport</summary>
+
+An identifier and secret key have to be obtained to use this module (see https://admin.websupport.sk/sk/auth/apiKey).
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-websupport
+    websupport_identifier: <identifier>
+    websupport_secret_key: <secret_key>
+  ```
+</details>
 
 <details>
   <summary>domainoffensive</summary>
@@ -873,6 +915,7 @@ dns-dnsimple
 dns-dnsmadeeasy
 dns-duckdns
 dns-dreamhost
+dns-dynu
 dns-gehirn
 dns-google
 dns-hetzner
@@ -893,6 +936,7 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
+dns-websupport
 ```
 
 ## Support

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0
+
+- Add support for network sockets using socat
+
 ## 2.5.1
 - Support Home Assistant Connect ZBT-1.
 

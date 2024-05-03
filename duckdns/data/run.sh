@@ -83,7 +83,11 @@ while true; do
 
     if [[ ${ipv6} == *:* ]]; then
         if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-            bashio::log.info "${answer}"
+            if [[ "${answer}" == *NOCHANGE* ]]; then
+   		bashio::log.debug "${answer}"
+	    else
+		bashio::log.info "${answer}"
+      	    fi
         else
             bashio::log.warning "${answer}"
         fi
@@ -91,7 +95,11 @@ while true; do
 
     if [[ -z ${ipv4} || ${ipv4} == *.* ]]; then
         if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
-            bashio::log.info "${answer}"
+            if [[ "${answer}" == *NOCHANGE* ]]; then
+   		bashio::log.debug "${answer}"
+	    else
+		bashio::log.info "${answer}"
+      	    fi
         else
             bashio::log.warning "${answer}"
         fi

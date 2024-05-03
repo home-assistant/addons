@@ -20,6 +20,8 @@ readonly DOCS_EXAMPLE_KEY_1="2232666D100F795E5BB17F0A1BB7A146"
 readonly DOCS_EXAMPLE_KEY_2="A97D2A51A6D4022998BEFC7B5DAE8EA1"
 readonly DOCS_EXAMPLE_KEY_3="309D4AAEF63EFD85967D76ECA014D1DF"
 readonly DOCS_EXAMPLE_KEY_4="CF338FE0CB99549F7C0EA96308E5A403"
+readonly DOCS_EXAMPLE_KEY_5="E2CEA6B5986C818EEC0D0065D81E2BD5"
+readonly DOCS_EXAMPLE_KEY_6="863027C59CFC522A9A3C41976AE54254"
 
 if bashio::config.has_value 'network_key'; then
     # If both 'network_key' and 's0_legacy_key' are set and keys don't match,
@@ -48,10 +50,10 @@ fi
 
 # Validate that no keys are using the example from the docs and generate new random
 # keys for any missing keys.
-for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key"; do
+for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key" "lr_s2_access_control_key" "lr_s2_authenticated_key"; do
     network_key=$(bashio::config "${key}")
     network_key_upper=$(bashio::string.upper "${network_key}")
-    if [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_4}" ]; then
+    if [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_4}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_5}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_6}" ]; then
         bashio::log.fatal
         bashio::log.fatal "The add-on detected that the Z-Wave network key used"
         bashio::log.fatal "is from the documented example."
@@ -93,6 +95,8 @@ s0_legacy=$(bashio::config "s0_legacy_key")
 s2_access_control=$(bashio::config "s2_access_control_key")
 s2_authenticated=$(bashio::config "s2_authenticated_key")
 s2_unauthenticated=$(bashio::config "s2_unauthenticated_key")
+lr_s2_access_control=$(bashio::config "lr_s2_access_control_key")
+lr_s2_authenticated=$(bashio::config "lr_s2_authenticated_key")
 
 if ! bashio::config.has_value 'log_level'; then
     log_level=$(bashio::info.logging)
@@ -154,6 +158,8 @@ bashio::var.json \
     s2_access_control "${s2_access_control}" \
     s2_authenticated "${s2_authenticated}" \
     s2_unauthenticated "${s2_unauthenticated}" \
+    lr_s2_access_control "${lr_s2_access_control}" \
+    lr_s2_authenticated "${lr_s2_authenticated}" \
     log_level "${log_level}" \
     log_to_file "${log_to_file}" \
     log_max_files "${log_max_files}" \

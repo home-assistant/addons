@@ -836,6 +836,23 @@ easyDNS REST API access must be requested and granted in order to use this modul
 </details>
 
 
+<details>
+  <summary>domainoffensive</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-domainoffensive
+    domainoffensive_token: *****
+  ```
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -875,6 +892,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-domainoffensive
 ```
 
 ## Support

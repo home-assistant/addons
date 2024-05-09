@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.14.0
+
+- Upgrade Home Assistant CLI to 4.34.0
+
 ## 9.13.0
 
 - Enable ha command completion for non-login shell (e.g. the web terminal)

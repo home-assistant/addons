@@ -1,4 +1,10 @@
-# Changelog
+# Changelogs
+
+## 7.14.2
+- Point $HOME to /root, not ~
+- Immediately exit the script if an error occurs to avoid losing data
+- Deployment key should be passed base64-encoded to avoid newline concatenation problems
+- Clone the repository in a fresh folder, copy the contents and then delete the old config contents
 
 ## 7.14.1
 - Fix error where $HOME is not defined

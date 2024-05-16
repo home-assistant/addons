@@ -3,6 +3,9 @@ configuration:
   log_level:
     name: Matter Server Log Level
     description: Logging level of the Matter Server component.
+  log_level_sdk:
+    name: Matter SDK Log Level
+    description: Logging level of the Matter SDK.
   beta:
     name: Use the latest beta version
     description: >-

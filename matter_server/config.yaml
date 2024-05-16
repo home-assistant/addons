@@ -25,7 +25,7 @@ options:
   log_level_sdk: error
   beta: false
 schema:
-  log_level: list(debug|info|warning|error|critical)
+  log_level: list(verbose|debug|info|warning|error|critical)
   log_level_sdk: list(automation|detail|progress|error|none)?
   beta: bool?
 ports:

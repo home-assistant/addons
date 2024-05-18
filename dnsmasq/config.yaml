@@ -22,6 +22,7 @@ options:
   services: []
   cnames: []
   log_queries: false
+  cache_size: 150
 ports:
   53/tcp: 53
   53/udp: 53
@@ -44,4 +45,5 @@ schema:
     - name: str
       target: str
   log_queries: bool
+  cache_size: int
 startup: system

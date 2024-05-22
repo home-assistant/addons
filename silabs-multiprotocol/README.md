@@ -3,9 +3,6 @@
 Zigbee/OpenThread Multiprotocol container for Silicon Labs based radios such as
 Home Assistant Yellow, Home Assistant SkyConnect, and Home Assistant Connect ZBT-1.
 
-**NOTE:** Use System -> Hardware -> Configure to enable Multiprotocol support
-seamlessly.
-
 ![Supports armv7 Architecture][armv7-shield]
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]

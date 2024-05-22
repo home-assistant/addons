@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.0.0
+
+- Bump Python Matter Server to [6.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.0.0)
+  - This updates Matter to 1.3
+
+## 5.6.0
+
+- Bump Python Matter Server to [5.10.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/5.10.0)
+
 ## 5.5.1
 
 - Fix logging in case fallback method for determining the primary network interface is used

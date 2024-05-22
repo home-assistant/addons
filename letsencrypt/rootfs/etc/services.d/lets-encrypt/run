@@ -104,11 +104,24 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-duckdns" ]; then
     bashio::config.require 'dns.duckdns_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Dynu
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dynu" ]; then
+    bashio::config.require 'dns.dynu_auth_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Gandi
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     if bashio::config.exists 'dns.gandi_sharing_id'; then
         bashio::log.info "Use Gandi sharing ID"
         echo "dns_gandi_sharing_id = $(bashio::config 'dns.gandi_sharing_id')" >> "/data/dnsapikey"
+    fi
+    if bashio::config.exists 'dns.gandi_token'; then
+        bashio::log.info "Use Gandi gandi_token"
+        echo "dns_gandi_token = $(bashio::config 'dns.gandi_token')" >> "/data/dnsapikey"
+    fi
+    if bashio::config.exists 'dns.gandi_api_key'; then
+        bashio::log.info "Use Gandi gandi_api_key"
+        echo "dns_gandi_api_key = $(bashio::config 'dns.gandi_api_key')" >> "/data/dnsapikey"
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}" )
 
@@ -184,6 +197,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-easydns" ]; then
     bashio::config.require 'dns.easydns_key'
     bashio::config.require 'dns.easydns_token'
     bashio::config.require 'dns.easydns_endpoint'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+# WebSupport
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-websupport" ]; then
+    bashio::config.require 'dns.websupport_identifier'
+    bashio::config.require 'dns.websupport_secret_key'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #All others

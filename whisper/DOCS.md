@@ -59,6 +59,7 @@ Available models:
 - `large-v1`
 - `distil-large-v2` (distilled, English only)
 - `large-v2`
+- `distil-large-v3` (distilled, English only)
 - `large-v3`
 
 ### Option: `custom_model`

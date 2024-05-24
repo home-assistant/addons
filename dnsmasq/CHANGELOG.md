@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0
+
+- Add cache_size option
+
 ## 1.7.0
 
 - Update to Alpine 3.19

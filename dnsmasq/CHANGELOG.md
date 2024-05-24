@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.1
+
+- Fix config bug of cache_size option
+
 ## 1.8.0
 
 - Add cache_size option

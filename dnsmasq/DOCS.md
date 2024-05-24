@@ -125,7 +125,7 @@ Log all DNS requests. Defaults to `false`.
 
 ### Option: `cache_size`
 
-Sets the size of the Dnsmasq cache. The default setting is 150. If this is set to 0 this disable caching. Note that huge cache sizes can create performance problems.
+Sets the size of the Dnsmasq cache. The default setting is 150. If this is set to 0 this disables caching. Note that huge cache sizes can create performance problems.
 
 ## Support
 

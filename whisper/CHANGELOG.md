@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.0 (in progress)
+## 2.1.0
 
 - Add distil-large-v3 `model` option
 

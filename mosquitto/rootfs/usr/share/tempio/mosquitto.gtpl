@@ -15,8 +15,8 @@ persistence_location /data/
 
 # Limits
 # max_queued_messages is effectively the upper limit of
-# the number of entities on Home Assistant is startup
-# is busy and cannot ready messages fast enough
+# the number of entities on Home Assistant if startup
+# is busy and cannot read messages fast enough
 max_queued_messages 8192
 
 # Authentication plugin

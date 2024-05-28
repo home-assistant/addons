@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.4.1
+
+- Increase default max_queued_messages to 8192 to fix dropped messages during Home Assistant startup
+
 ## 6.4.0
 
 - Update mosquitto to 2.0.18

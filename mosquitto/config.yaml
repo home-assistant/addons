@@ -1,5 +1,5 @@
 ---
-version: 6.4.0
+version: 6.4.1
 slug: mosquitto
 name: Mosquitto broker
 description: An Open Source MQTT broker

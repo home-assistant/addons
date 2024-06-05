@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.0
+
+- Bump Python Matter Server to [6.1.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.1.0)
+  - This update is required for Home Assistant Core 2024.6.0
+
 ## 6.0.0
 
 - Bump Python Matter Server to [6.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.0.0)

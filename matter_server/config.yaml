@@ -1,5 +1,5 @@
 ---
-version: 6.1.1
+version: 6.1.2
 slug: matter_server
 name: Matter Server
 description: Matter WebSocket Server for Home Assistant Matter support.

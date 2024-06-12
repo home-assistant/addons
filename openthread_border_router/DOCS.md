@@ -65,7 +65,7 @@ Add-on configuration:
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
 | nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |
-| network_device     | IP address and port to connect to a network based RCP - note you still need to set a duummy device e.g /dev/ttyS3|
+| network_device     | IP address and port to connect to a network-based RCP - note you still need to set a dummy device, e.g., /dev/ttyS3 |
 
 ## Support
 

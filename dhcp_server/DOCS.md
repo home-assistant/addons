@@ -38,7 +38,7 @@ networks:
     range_end: 192.168.1.200
     broadcast: 192.168.1.255
     gateway: 192.168.1.1
-    interface: eth0
+    interface: end0
 hosts:
   - name: webcam_xy
     mac: aa:bb:ee:cc
@@ -110,7 +110,7 @@ This is usually the IP address of your router.
 
 #### Option: `networks.interface`
 
-The network interface to listen to for this network, e.g., `eth0`.
+The network interface to listen to for this network, e.g., `end0`.
 
 ### Option: `hosts` (optional)
 

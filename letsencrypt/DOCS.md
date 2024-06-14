@@ -414,7 +414,7 @@ Choose "Domain" as the scope.
     joker_password: password
   ```
 
-You can find further detailed informations here:
+You can find further detailed information here:
 
 <https://joker.com/faq/books/jokercom-faq-en/page/lets-encrypt-ssl-certificates>
 

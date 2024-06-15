@@ -57,17 +57,31 @@ for network in $(bashio::config 'networks|keys'); do
     } >> "${CONFIG}"
 done
 
-# Create hosts
+# Create DHCP Hosts by enumerating Host List & Keys (IP, MAC, Name, or DHCP Option)
 for host in $(bashio::config 'hosts|keys'); do
-    IP=$(bashio::config "hosts[${host}].ip")
-    MAC=$(bashio::config "hosts[${host}].mac")
     NAME=$(bashio::config "hosts[${host}].name")
 
     {
         echo "host ${NAME} {"
-        echo "  hardware ethernet ${MAC};"
-        echo "  fixed-address ${IP};"
-        echo "  option host-name \"${NAME}\";"
+
+    # Iterate all Hosts
+    for key in $(bashio::config "hosts[${host}]|keys"); do
+        VALUE=$(bashio::config "hosts[${host}].${key}")
+
+        # Validate: Named options
+        if [[ "${key}" == "ip" ]]; then
+            echo "  fixed-address ${VALUE};"
+        elif [[ "${key}" == "mac" ]]; then
+            echo "  hardware ethernet ${VALUE};"
+        
+        # Validate: Numeric DHCP Option
+        elif [[ "${key}" =~ ^[0-9]+$ ]]; then
+            if (( key > 0 && key < 255 )); then
+                echo "  option ${key} ${VALUE};"
+            fi
+        fi
+    done
+
         echo "}"
     } >> "${CONFIG}"
 done

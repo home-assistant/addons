@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.6.0
+
+### Features
+
+- 
+- Z-Wave JS: Map more Basic CC values to more useful command classes
+- Z-Wave JS: Automatically prefer ZWLR-capable RF regions over their non-ZWLR counterparts
+- Z-Wave JS: Add driver option to configure vendor-specific constants Z-Wave JS uses to reply to requests from other nodes, including manufacturer ID, product type/ID and hardware version
+
+### Bug fixes
+
+- Z-Wave JS: NVM restore now works around an issue that affects some 800 series controllers
+- Z-Wave JS: More gracefully handle scenario where inclusion couldn't be completed due to missing security keys
+- Z-Wave JS: Fixed an issue where excluded ZWLR nodes were not removed from the list of nodes until restart
+- Z-Wave JS: Always query Basic CC version as part of the interview
+- Z-Wave JS: Add support for Z-Wave Long Range devices in NVM backup and restore
+- Z-Wave JS: Abort S2 bootstrapping when CSA is requested (not supported in Z-Wave JS)
+- Z-Wave JS: Implement workaround to recover jammed controller by soft-resetting
+- Z-Wave JS: Fixed a race condition that would cause a timeout error to be shown after an actually successful OTW update
+
+### Config file changes
+
+- Add HomeSeer PS100 presence sensor, fix broken links
+- Fix value size for Fibaro FGWCEU-201, params 150/151
+- Disable Supervision for Heatit Z-Temp2, firmware 1.2.1
+- Use specific float encoding for Namron 4512757
+- Add fingerprint for Aeotec MultiSensor 7
+- Override CC versions for Wayne Dalton WDTC-20
+- Disable Supervision for Everspring EH403
+- Add parameter 117 to Shelly Wave Plug US and UK
+- Add params 12, 20, 254 for Aeotec DSB09
+- Use HomeSeer template for LED Indicator (parameter 3) for all HomeSeer switches
+- Add Fibaro FGR-224 Roller Shutter 4
+- Parameter update for Zooz Zen16 v2.0 and v2.10
+- Override Central Scene CC version for Springs Window Fashions BRZ
+- Add fingerprint 0x0004:0xffff to "Yale YRD210"
+- Correct config parameters for Minoston MP21ZD Dimmer Plug
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.0)
+- [Z-Wave JS 12.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.10.1)
+- [Z-Wave JS 12.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.10.0)
+- [Z-Wave JS 12.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.9.1)
+- [Z-Wave JS 12.9.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.9.0)
+- [Z-Wave JS 12.8.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.8.1)
+- [Z-Wave JS 12.8.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.8.0)
+- [Z-Wave JS 12.7.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.7.0)
+- [Z-Wave JS 12.6.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.6.0)
+- [Z-Wave JS 12.5.6](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.5.6)
+
 ## 0.5.0
 
 ### Features

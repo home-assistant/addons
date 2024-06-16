@@ -4,7 +4,6 @@
 
 ### Features
 
-- 
 - Z-Wave JS: Map more Basic CC values to more useful command classes
 - Z-Wave JS: Automatically prefer ZWLR-capable RF regions over their non-ZWLR counterparts
 - Z-Wave JS: Add driver option to configure vendor-specific constants Z-Wave JS uses to reply to requests from other nodes, including manufacturer ID, product type/ID and hardware version

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.6.1
+
+### Bug fixes
+
+- Z-Wave JS: When attempting communication with a node that's considered dead, the command is now sent immediately instead of pinging first
+
+### Config file changes
+
+- Remove endpoint workaround for Zooz ZEN30 800LR
+- Encode CCs using target's CC version for TKB Home TZ67
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.11.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.1)
+
 ## 0.6.0
 
 ### Features
@@ -39,7 +54,7 @@
 
 ### Detailed changelogs
 
-- [Z-Wave JS 12.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.0)
+- [Z-Wave JS 12.11.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.0)
 - [Z-Wave JS 12.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.10.1)
 - [Z-Wave JS 12.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.10.0)
 - [Z-Wave JS 12.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.9.1)

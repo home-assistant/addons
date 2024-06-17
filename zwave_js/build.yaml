@@ -9,5 +9,5 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  ZWAVEJS_SERVER_VERSION: 1.35.0
-  ZWAVEJS_VERSION: 12.5.5
+  ZWAVEJS_SERVER_VERSION: 1.36.0
+  ZWAVEJS_VERSION: 12.11.0

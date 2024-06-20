@@ -5,6 +5,7 @@
 ### Bug fixes
 
 - Z-Wave JS: When attempting communication with a node that's considered dead, the command is now sent immediately instead of pinging first
+- Z-Wave JS: Fixed prioritization of queued transactions once a node wakes up
 
 ### Config file changes
 

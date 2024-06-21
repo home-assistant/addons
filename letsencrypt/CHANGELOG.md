@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.21
+
+- Fix configuration to make list of provider parsable again
+
 ## 5.0.20
 
 - Fix file-structure.sh script

@@ -241,6 +241,10 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 
 ## Example Configurations
 
+Note: These configuration examples are raw YAML configs. When you use UI edit
+mode (default), and configure DNS, simply copy the attributes underneath *dns*
+into the *DNS Provider configuration* field.
+
 <details>
   <summary>HTTP challenge</summary>
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.20
+
+- Fix file-structure.sh script
+
 ## 5.0.19
 
 - Add domainoffensive challenge support

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.19
+
+- Add domainoffensive challenge support
+
 ## 5.0.18
 
 - Fix Gandi DNS support using API key

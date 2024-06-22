@@ -67,7 +67,7 @@ Add-on configuration:
 | nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |
 | network_device     | IP address and port to connect to a network-based RCP (1) |
 
-(1) Note you still need to set a dummy device e.g. /dev/ttyS3. Also note that the RCP protocol is not designed to be transferred over an IP network: It is a timing sensitive protocol. You might experience Thread issues if your network link has excessive latencies. As Thread on its own is networking capable, it is recommended to run a Thread border router on the system the RCP radio is plugged in.
+(1) Note you still need to set a dummy device, e.g., `/dev/ttyS3`. Also, note that the RCP protocol is not designed to be transferred over an IP network: It is a timing-sensitive protocol. You might experience Thread issues if your network link has excessive latencies. As Thread is networking capable, running a Thread border router on the system the RCP radio is plugged in is recommended.
 
 ## Support
 

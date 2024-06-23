@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.22
+
+- Add joker.com DNS challenge support
+
 ## 5.0.18
 
 - Fix Gandi DNS support using API key

@@ -64,6 +64,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_easydns_endpoint = $(bashio::config 'dns.easydns_endpoint')\n" \
       "dns_easydns_usertoken = $(bashio::config 'dns.easydns_token')\n" \
       "dns_easydns_userkey = $(bashio::config 'dns.easydns_key')\n" \
+      "dns_domainoffensive_api_token = $(bashio::config 'dns.domainoffensive_token')\n" \
       "dns_websupport_identifier = $(bashio::config 'dns.websupport_identifier')\n" \
       "dns_websupport_secret_key = $(bashio::config 'dns.websupport_secret_key')\n" > /data/dnsapikey
 

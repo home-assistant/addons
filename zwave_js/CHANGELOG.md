@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.6.2
+
+### Bug fixes
+
+- Z-Wave JS: Fixed a regression causing commands to sleeping nodes to block communication with other nodes
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.11.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.2)
+
+## 0.6.1
+
+### Bug fixes
+
+- Z-Wave JS: When attempting communication with a node that's considered dead, the command is now sent immediately instead of pinging first
+- Z-Wave JS: Fixed prioritization of queued transactions once a node wakes up
+
+### Config file changes
+
+- Remove endpoint workaround for Zooz ZEN30 800LR
+- Encode CCs using target's CC version for TKB Home TZ67
+
+### Detailed changelogs
+
+- [Z-Wave JS 12.11.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.1)
+
 ## 0.6.0
 
 ### Features
@@ -39,7 +65,7 @@
 
 ### Detailed changelogs
 
-- [Z-Wave JS 12.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.0)
+- [Z-Wave JS 12.11.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.11.0)
 - [Z-Wave JS 12.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.10.1)
 - [Z-Wave JS 12.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.10.0)
 - [Z-Wave JS 12.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.9.1)
@@ -319,7 +345,6 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 
 - Z-Wave JS: Fixes or works around multiple issues with 500 series controllers that could trigger the unresponsive controller detection in Z-Wave JS 12 in situations where it was not necessary, causing restart loops.
 
-
 ### Bug fixes
 
 - [Z-Wave JS 12.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.0.3)
@@ -337,6 +362,7 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 - Z-Wave JS: Ignore when a node reports Security S0/S2 CC to have version 0 (unsupported) although it is using that CC
 
 ### Config file changes
+
 - Add Shelly to manufacturers
 - Add Shelly Wave 1, Wave 2PM, update Wave 1PM association labels
 - Add Sunricher SR-ZV2833PAC
@@ -441,7 +467,7 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 
 - Z-Wave JS: Fixed a regression from v11.10.1 where the controller's firmware version was not fully queried
 - Z-Wave JS: Change order of commands so the startup does not fail when a controller is already set to use 16-bit node IDs and soft-reset is disabled
-- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers 
+- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers
 - Z-Wave JS: Queried user codes and their status are now preserved during re-interview when they won't be re-queried automatically
 - Z-Wave JS: Fixed an issue where nodes were being marked as dead because the controller couldn't transmit.
 - Z-Wave JS: Fixed an issue where 700 series controllers were not soft-reset after NVM backup when soft-reset was disabled via config
@@ -459,6 +485,7 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 - Correct reporting frequency parameter values for Sensative AB Strips Comfort / Drips Multisensor
 
 ### Detailed changelogs
+
 - [Bump Z-Wave JS Server to 1.31.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.31.0)
 - [Bump Z-Wave JS to 11.11.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.11.0)
 - [Bump Z-Wave JS to 11.12.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v11.12.0)
@@ -471,9 +498,8 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 
 - Z-Wave JS: Fixed a bug where firmware links that redirected to another URL were not supported
 - Z-Wave JS: Change order of commands so the startup does not fail when a controller is already set to use 16-bit node IDs and soft-reset is disabled
-- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers 
+- Z-Wave JS: Soft-reset is now always enabled on 700+ series controllers
 - Z-Wave JS: Queried user codes and their status are now preserved during re-interview when they won't be re-queried automatically
-
 
 ### Config file changes
 
@@ -501,7 +527,6 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 - Z-Wave JS: Improve heuristic to refresh values from legacy nodes when receiving a node information frame
 - Z-Wave JS: Fixed an issue where no control values were exposed for devices that do not support/advertise Version CC
 - Z-Wave JS: Fixed a regression introduced in 11.9.1 that would sometimes cause the startup process to hang
-
 
 ### Config file changes
 
@@ -539,7 +564,6 @@ Almost 1000 device configuration files have been reworked to be more consistent,
 - Z-Wave JS: Improved the automatic removal of factory-reset devices that are slow to leave the network
 - Z-Wave JS: Devices that failed to join using SmartStart are now automatically removed
 - Z-Wave JS: Fix an issue where Z-Wave JS could get stuck when removing a node from the network failed
-
 
 ### Config file changes
 

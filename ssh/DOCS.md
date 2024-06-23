@@ -85,7 +85,7 @@ Some SSH server options.
 
 #### Option `tcp_forwarding`
 
-Specifies whether TCP forwarding is permitted or not.
+Specifies whether TCP port forwarding (-L -R etc.) is permitted or not.
 
 **Note**: _Enabling this option lowers the security of your SSH server! Nevertheless, this warning is debatable._
 

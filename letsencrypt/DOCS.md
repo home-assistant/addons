@@ -71,6 +71,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-domainoffensive
 dns-websupport
 ```
 </details>
@@ -143,6 +144,7 @@ porkbun_key: ''
 porkbun_secret: ''
 dreamhost_api_baseurl: ''
 dreamhost_api_key: ''
+domainoffensive_token: ''
 ```
 </details>
 
@@ -241,6 +243,10 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 </details>
 
 ## Example Configurations
+
+Note: These configuration examples are raw YAML configs. When you use UI edit
+mode (default), and configure DNS, simply copy the attributes underneath *dns*
+into the *DNS Provider configuration* field.
 
 <details>
   <summary>HTTP challenge</summary>
@@ -901,6 +907,23 @@ An identifier and secret key have to be obtained to use this module (see https:/
   ```
 </details>
 
+<details>
+  <summary>domainoffensive</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-domainoffensive
+    domainoffensive_token: *****
+  ```
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -941,6 +964,7 @@ dns-transip
 dns-inwx
 dns-porkbun
 dns-easydns
+dns-domainoffensive
 dns-websupport
 ```
 

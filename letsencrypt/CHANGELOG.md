@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.21
+
+- Fix configuration to make list of provider parsable again
+
+## 5.0.20
+
+- Fix file-structure.sh script
+- Fix domainoffensive plug-in installation
+
+## 5.0.19
+
+- Add domainoffensive challenge support
+
 ## 5.0.18
 
 - Fix Gandi DNS support using API key

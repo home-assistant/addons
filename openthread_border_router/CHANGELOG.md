@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.0
+
+- Support auto firmware updates for Sonoff ZBDongle-E
+- Support auto firmware updates for SMLIGHT SLZB-07
+- Bump universal SiLabs flasher to 0.0.20
+
 ## 2.6.0
 
 - Add support for network sockets using socat

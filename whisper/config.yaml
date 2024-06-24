@@ -12,6 +12,7 @@ discovery:
   - wyoming
 backup_exclude:
   - "*.bin"
+  - "data/models*"
 options:
   model: tiny-int8
   language: en

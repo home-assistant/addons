@@ -74,6 +74,7 @@ schema:
     luadns_token: str?
     joker_username: str?
     joker_password: str?
+    joker_domain: str?
     namecheap_username: str?
     namecheap_api_key: str?
     netcup_api_key: str?

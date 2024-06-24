@@ -1,5 +1,5 @@
 ---
-version: 5.0.21
+version: 5.0.22
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -72,6 +72,8 @@ schema:
     linode_version: str?
     luadns_email: email?
     luadns_token: str?
+    joker_username: str?
+    joker_password: str?
     namecheap_username: str?
     namecheap_api_key: str?
     netcup_api_key: str?
@@ -89,7 +91,7 @@ schema:
     provider: "list(dns-azure|dns-cloudflare|dns-cloudns|dns-desec|\
       dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|\
       dns-duckdns|dns-dynu|dns-gehirn|dns-google|dns-google-domains|\
-      dns-hetzner|dns-infomaniak|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
+      dns-hetzner|dns-infomaniak|dns-joker|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
       dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|\
       dns-namecheap|dns-netcup|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\
       dns-he|dns-easydns|dns-domainoffensive|dns-websupport)?"

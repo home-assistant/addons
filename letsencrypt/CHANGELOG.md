@@ -2,7 +2,7 @@
 
 ## 5.0.23
 
-- Fix missing domain for joker.com DNS challenge
+- Fix missing domain configuration for joker.com DNS challenge
 
 ## 5.0.22
 

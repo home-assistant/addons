@@ -4,6 +4,7 @@ FROM $BUILD_FROM
 # setup base
 ARG \
     BUILD_ARCH \
+    CLOUDFLARE_VERSION \
     CRYPTOGRAPHY_VERSION \
     CERTBOT_VERSION \
     CERTBOT_DNS_AZURE_VERSION \
@@ -44,6 +45,7 @@ RUN \
         cargo \
     && pip3 install --no-cache-dir --find-links \
         "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \ 
+        cloudflare==${CLOUDFLARE_VERSION} \
         cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
@@ -61,7 +63,7 @@ RUN \
         certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
         certbot-dns-infomaniak==${CERTBOT_DNS_INFOMANIAK_VERSION} \
-	certbot-dns-joker==${CERTBOT_DNS_JOKER_VERSION} \
+        certbot-dns-joker==${CERTBOT_DNS_JOKER_VERSION} \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \

@@ -43,6 +43,9 @@ customize:
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
+proxy_protocol:
+  enabled: false
+  real_ip_from: null
 ```
 
 ### Option: `domain` (required)
@@ -77,6 +80,10 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
+### Option `proxy_protocol` (optional)
+
+If enabled, configures Nginx to use Proxy Protocol to get the Real Ip from an upstream load balancer; needs `real_ip_from` to be provided as well, [for more information](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/).
 
 ## Known issues and limitations
 

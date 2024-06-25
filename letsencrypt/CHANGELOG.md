@@ -2,7 +2,7 @@
 
 ## 5.0.23
 
-- Upgrade certbot-dns-joker to 2.1.0 and fix missing domain
+- Fix missing domain for joker.com DNS challenge
 
 ## 5.0.22
 

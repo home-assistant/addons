@@ -1,5 +1,4 @@
-From f84792cd229e9c3c4f5921cf92d280810dc56716 Mon Sep 17 00:00:00 2001
-Message-ID: <f84792cd229e9c3c4f5921cf92d280810dc56716.1704584255.git.stefan@agner.ch>
+From 2d67b5d8d711e61551a28cac522484fd5cbc4982 Mon Sep 17 00:00:00 2001
 From: Stefan Agner <stefan@agner.ch>
 Date: Sun, 7 Jan 2024 00:35:53 +0100
 Subject: [PATCH] [channel-monitor] disable by default
@@ -29,5 +28,5 @@ index 8e6848832..c79660de8 100644
  
      mIsUp = true;
 -- 
-2.43.0
+2.45.2
 

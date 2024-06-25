@@ -108,6 +108,7 @@ gehirn_api_secret: ''
 infomaniak_api_token: ''
 joker_username: ''
 joker_password: ''
+joker_domain: ''
 linode_key: ''
 linode_version: ''
 luadns_email: ''
@@ -410,7 +411,7 @@ Choose "Domain" as the scope.
   ```yaml
   email: your.email@example.com
   domains:
-    - subdomain.home-assistant.io
+    - subdomain.example.com
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -418,11 +419,13 @@ Choose "Domain" as the scope.
     provider: dns-joker
     joker_username: username
     joker_password: password
+    joker_domain: example.com
   ```
 
 You can find further detailed information here:
 
 <https://joker.com/faq/books/jokercom-faq-en/page/lets-encrypt-ssl-certificates>
+<https://github.com/dhull/certbot-dns-joker/blob/master/README.md>
 
 </details>
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.8.0
+
+- Bump to OTBR POSIX version 41474ce29a (2024-06-21 08:41:31 -0700)
+
 ## 2.7.0
 
 - Support auto firmware updates for Sonoff ZBDongle-E

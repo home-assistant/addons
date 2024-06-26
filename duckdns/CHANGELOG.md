@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.18.0
+
+- Update to use s6-overlay to manage service
+- Update base image to Alpine 3.20
+
 ## 1.17.0
 
 - Reduce log spam when updating IP address

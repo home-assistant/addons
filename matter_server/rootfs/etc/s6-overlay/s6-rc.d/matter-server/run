@@ -30,12 +30,12 @@ if ! bashio::var.has_value "${server_port}"; then
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
 fi
 
-if ! bashio::config.exists primary_interface; then
-  bashio::log.magenta 'No primary_interface set in config, fallback to using supervisor primary interface'
+if ! bashio::config.exists primary_interface || [ -z $(bashio::config primary_interface) ]; then
+  bashio::log.info 'No primary_interface set in config, fallback to using supervisor primary interface'
   primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 else
   primary_interface=$(bashio::string.lower "$(bashio::config primary_interface)")
-  bashio::log.magenta "primary_interface set in config to ${primary_interface}"
+  bashio::log.info "primary_interface set in config to ${primary_interface}"
 fi
 
 # Try fallback method (e.g. in case NetworkManager is not available)

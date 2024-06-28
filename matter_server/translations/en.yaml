@@ -11,5 +11,8 @@ configuration:
     description: >-
       Installs the latest beta of the Python Matter Server. It is recommended
       to create a backup before starting the add-on with this flag enabled!
+  primary_interface:
+    name: Primary network interface
+    description: Override for the name of the network interface to use
 network:
   5580/tcp: Matter Server WebSocket server port.

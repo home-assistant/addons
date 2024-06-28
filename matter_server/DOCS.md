@@ -31,6 +31,7 @@ Add-on configuration:
 | Configuration      | Description                                                 |
 |--------------------|-------------------------------------------------------------|
 | log_level          | Logging level of the Matter Server component.               |
+| primary_interface  | Override auto detected primary interface (optional)         |
 
 ## Support
 

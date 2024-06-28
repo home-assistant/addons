@@ -24,10 +24,12 @@ options:
   log_level: info
   log_level_sdk: error
   beta: false
+  primary_interface: ""
 schema:
   log_level: list(verbose|debug|info|warning|error|critical)
   log_level_sdk: list(automation|detail|progress|error|none)?
   beta: bool?
+  primary_interface: str?
 ports:
   5580/tcp: null
 stage: stable

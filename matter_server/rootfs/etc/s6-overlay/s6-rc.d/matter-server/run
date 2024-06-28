@@ -36,6 +36,10 @@ if ! bashio::config.exists primary_interface || [ -z $(bashio::config primary_in
 else
   primary_interface=$(bashio::string.lower "$(bashio::config primary_interface)")
   bashio::log.info "primary_interface set in config to ${primary_interface}"
+  if ! ip ad ls dev ${primary_interface} > /dev/null ; then
+    bashio::log.warning 'Specified interface does not exist. Falling back to supervisor primary interface'
+    primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+  fi
 fi
 
 # Try fallback method (e.g. in case NetworkManager is not available)

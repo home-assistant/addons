@@ -14,7 +14,17 @@ declare otbr_log_level_int
 declare otbr_rest_listen
 declare otbr_rest_listen_port
 
-backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+if ! bashio::config.exists backbone_if || [ -z $(bashio::config backbone_if) ]; then
+  bashio::log.info 'No backbone_if set in config, fallback to using supervisor primary interface'
+  backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+else
+  backbone_if=$(bashio::string.lower "$(bashio::config backbone_if)")
+  bashio::log.info "primary_interface set in config to ${backbone_if}"
+  if ! ip ad ls dev ${backbone_if} > /dev/null ; then
+    bashio::log.warning 'Specified interface does not exist. Falling back to supervisor primary interface'
+    backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+  fi
+fi
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
 case "${otbr_log_level}" in

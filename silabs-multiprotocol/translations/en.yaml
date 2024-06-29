@@ -34,6 +34,11 @@ configuration:
     name: OTBR firewall
     description: >-
       Use OpenThread Border Router firewall to block unnecessary traffic.
+  backbone_if:
+    name: Backbone Interface
+    description: >-
+      Used to override the ethernet interface where WiFi Matter traffic runs.
+      (optional)
 network:
   9999/tcp: EmberZNet EZSP/ASH port
   8080/tcp: OpenThread Web port

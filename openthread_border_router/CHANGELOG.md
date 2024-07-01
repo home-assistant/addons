@@ -2,7 +2,7 @@
 
 ## 2.9.0
 
-- Deassert DTR/RTS lines for USB devices using these for BSL
+- Avoid triggering reset/boot loader on TI CC2652 based devices
 
 ## 2.8.0
 

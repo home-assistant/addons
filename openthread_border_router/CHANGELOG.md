@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.0
+
+- Deassert DTR/RTS lines for USB devices using these for BSL
+
 ## 2.8.0
 
 - Bump to OTBR POSIX version 41474ce29a (2024-06-21 08:41:31 -0700)
@@ -15,6 +19,7 @@
 - Add support for network sockets using socat
 
 ## 2.5.1
+
 - Support Home Assistant Connect ZBT-1.
 
 ## 2.5.0

@@ -20,7 +20,7 @@ COPY 0002-rest-support-deleting-the-dataset.patch /usr/src
 COPY 0003-openthread-set-netif-route-metric-lower.patch /usr/src
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
 COPY 0002-posix-fix-build-with-custom-netif-prefix-route-set.patch /usr/src
-
+COPY 0004-Deassert-DTR-and-RTS-if-flow-control-is-disabled.patch /usr/src
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
   libreadline-dev libncurses-dev libcpputest-dev libdbus-1-dev libavahi-common-dev \
@@ -61,6 +61,7 @@ RUN \
         cd third_party/openthread/repo \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \
         && patch -p1 < /usr/src/0002-posix-fix-build-with-custom-netif-prefix-route-set.patch \
+        && patch -p1 < /usr/src/0004-Deassert-DTR-and-RTS-if-flow-control-is-disabled.patch \
        ) \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \

@@ -1,0 +1,40 @@
+From b5adc7fb59939a5054e2e2d301b26b5132254262 Mon Sep 17 00:00:00 2001
+From: Tim Lunn <tl@smlight.tech>
+Date: Mon, 1 Jul 2024 14:27:40 +1000
+Subject: [PATCH] Deassert DTR and RTS if flow control is disabled
+
+Many USB radio devices (particularly those based on TI CC2652) have
+reset and bootloader activation directly connected to DTR/RTS lines.
+These devices will fail to start, in the default state where both
+DTR/RTS are asserted on connection.
+
+This patch ensures flow control is disabled and both DTR and RTS are
+deasserted on startup while configuring the terminal.
+---
+ src/posix/platform/hdlc_interface.cpp | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/posix/platform/hdlc_interface.cpp b/src/posix/platform/hdlc_interface.cpp
+index 12726fc72..056224786 100644
+--- a/src/posix/platform/hdlc_interface.cpp
++++ b/src/posix/platform/hdlc_interface.cpp
+@@ -600,6 +600,16 @@ int HdlcInterface::OpenFile(const Url::Url &aRadioUrl)
+         {
+             tios.c_cflag |= CRTSCTS;
+         }
++        else
++        {
++            tios.c_cflag &= ~(CRTSCTS);
++
++            // Deassert DTR and RTS
++            int flags;
++            VerifyOrExit((ioctl(fd, TIOCMGET, &flags)) != -1, perror("tiocmget"));
++            flags &= ~(TIOCM_DTR | TIOCM_RTS);
++            VerifyOrExit((ioctl(fd, TIOCMSET, &flags)) != -1, perror("tiocmset"));
++        }
+ 
+         VerifyOrExit((rval = cfsetspeed(&tios, static_cast<speed_t>(speed))) == 0, perror("cfsetspeed"));
+         rval = tcsetattr(fd, TCSANOW, &tios);
+-- 
+2.43.0
+

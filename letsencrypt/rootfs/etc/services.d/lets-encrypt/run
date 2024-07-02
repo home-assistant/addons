@@ -92,6 +92,11 @@ elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
 
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-cloudflare-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# DigitalOcean
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-digitalocean" ]; then
+    bashio::config.require 'dns.digitalocean_token'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # DirectAdmin
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; then
     bashio::config.require 'dns.directadmin_url'

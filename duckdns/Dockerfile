@@ -8,7 +8,5 @@ RUN apk add --no-cache openssl \
     "https://raw.githubusercontent.com/lukas2511/dehydrated/v${DEHYDRATED_VERSION}/dehydrated" \
   && chmod a+x /usr/bin/dehydrated
 
-# Copy data
-COPY data/*.sh /
-
-CMD [ "/run.sh" ]
+# Copy root filesystem 
+COPY rootfs /

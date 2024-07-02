@@ -1,5 +1,5 @@
 ---
-version: 2.1.0
+version: 2.1.1
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper
@@ -11,7 +11,7 @@ init: false
 discovery:
   - wyoming
 backup_exclude:
-  - "*.bin"
+  - "data/models*"
 options:
   model: tiny-int8
   language: en

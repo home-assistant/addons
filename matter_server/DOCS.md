@@ -28,9 +28,12 @@ Matter Server WebSocket server port field.
 
 Add-on configuration:
 
-| Configuration      | Description                                                 |
-|--------------------|-------------------------------------------------------------|
-| log_level          | Logging level of the Matter Server component.               |
+| Configuration       | Description                                                 |
+|---------------------|-------------------------------------------------------------|
+| log_level           | Logging level of the Matter Server component.               |
+| log_level_sdk       | Logging level for Matter SDK logs.                          |
+| beta                | Whether to install the latest beta version on startup       |
+| enable_test_net_dcl | Enable test-net DCL for PAA root certificates and other device information. |
 
 ## Support
 

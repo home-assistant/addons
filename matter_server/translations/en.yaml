@@ -11,5 +11,10 @@ configuration:
     description: >-
       Installs the latest beta of the Python Matter Server. It is recommended
       to create a backup before starting the add-on with this flag enabled!
+  enable_test_net_dcl:
+    name: Enable test-net DCL usage.
+    description: >-
+      Enable PAA root certificates and other device information from test-net
+      DCL. This is meant for development and testing purposes.
 network:
   5580/tcp: Matter Server WebSocket server port.

@@ -4,7 +4,7 @@ OpenThread Border Router add-on. The add-on uses the upstream OpenThread
 Border Router implementation and wraps it as an add-on for Home Assistant.
 
 **NOTE:** This requires a supported 802.15.4 capable radio with OpenThread
-RCP firmware. If you are using Home Assistant Yellow or SkyConnect then
+RCP firmware. If you are using [Home Assistant Yellow](https://www.home-assistant.io/yellow/) or [Home Assistant Connect ZBT-1](https://www.home-assistant.io/connectzbt1/) (previously called SkyConnect) then
 the correct firmware is automatically installed.
 
 ![Supports aarch64 Architecture][aarch64-shield]

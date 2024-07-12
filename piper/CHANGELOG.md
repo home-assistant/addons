@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.1
+
+- Add voice for English: cori
+
 ## 1.5.0
 
 - Add voices for Persian: amir, gyro

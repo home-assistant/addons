@@ -34,6 +34,7 @@ Add-on configuration:
 | log_level_sdk       | Logging level for Matter SDK logs.                          |
 | beta                | Whether to install the latest beta version on startup       |
 | enable_test_net_dcl | Enable test-net DCL for PAA root certificates and other device information. |
+| bluetooth_adapter_id | Set BlueZ Bluetooth Controller ID (for local commissioning) |
 
 ## Support
 

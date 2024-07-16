@@ -16,5 +16,13 @@ configuration:
     description: >-
       Enable PAA root certificates and other device information from test-net
       DCL. This is meant for development and testing purposes.
+  bluetooth_adapter_id:
+    name: Bluetooth Adapter ID
+    description: >-
+      BlueZ Bluetooth Adapter Controller ID used by the Matter Server. This is
+      required if local commissioning via Bluetooth is used. Note: Using the
+      Home Assistant Companion app commissioning method is recommended as it is
+      better tested and allows to commission directly in proximity of the device
+      itself.
 network:
   5580/tcp: Matter Server WebSocket server port.

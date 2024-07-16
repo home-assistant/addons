@@ -46,6 +46,10 @@ if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
     bashio::exit.nok "No primary network interface found!"
 fi
 
+if bashio::config.has_value "bluetooth_adapter_id"; then
+  extra_args+=('--bluetooth-adapter' $(bashio::config 'bluetooth_adapter_id'))
+fi
+
 bashio::log.info "Using '${primary_interface}' as primary network interface."
 
 # Send out discovery information to Home Assistant

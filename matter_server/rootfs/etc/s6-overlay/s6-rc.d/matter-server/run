@@ -8,6 +8,7 @@ declare server_port
 declare log_level
 declare log_level_sdk
 declare primary_interface
+matter_server_args=()
 extra_args=()
 
 if ! bashio::config.exists log_level; then
@@ -57,16 +58,21 @@ bashio::log.info "Using '${primary_interface}' as primary network interface."
 
 cd /root
 
+matter_server_args+=(
+  '--storage-path' "/data"
+  '--port' "${server_port}"
+  '--log-level' "${log_level}"
+  '--log-level-sdk' "${log_level_sdk}"
+  '--primary-interface' "${primary_interface}"
+  '--paa-root-cert-dir' "/data/credentials"
+  '--fabricid' 2
+  '--vendorid' 4939
+  ${extra_args[@]}
+)
+
 if bashio::config.true "beta"; then
     exec /usr/bin/gdb --quiet -ex="set confirm off" -ex run -ex backtrace -ex "quit \$_exitcode" --args /usr/local/bin/python \
-         /usr/local/bin/matter-server --storage-path "/data" --port "${server_port}" \
-                       --log-level "${log_level}" --primary-interface "${primary_interface}" \
-                       --paa-root-cert-dir "/data/credentials" \
-                       --fabricid 2 --vendorid 4939 "${extra_args[@]}"
+         /usr/local/bin/matter-server "${matter_server_args[@]}"
 else
-    exec /usr/local/bin/matter-server --storage-path "/data" --port "${server_port}" \
-                       --log-level "${log_level}" --log-level-sdk "${log_level_sdk}" \
-                       --primary-interface "${primary_interface}" \
-                       --paa-root-cert-dir "/data/credentials" \
-                       --fabricid 2 --vendorid 4939 "${extra_args[@]}"
+    exec /usr/local/bin/matter-server "${matter_server_args[@]}"
 fi

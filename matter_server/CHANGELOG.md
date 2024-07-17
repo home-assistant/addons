@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.3.1
+
+- Fix Matter SDK log level when using beta flag
+
 ## 6.3.0
 
 - Bump Python Matter Server to [6.3.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.3.0)

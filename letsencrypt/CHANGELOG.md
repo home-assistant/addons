@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.25
+
+- Add DigitalOcean propagation-seconds support
+
 ## 5.0.24
 
 - Fix Gandi DNS support using API key

@@ -33,6 +33,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
       "dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \
       "dns_njalla_token = $(bashio::config 'dns.njalla_token')\n" \
+      "dns_noris_token = $(bashio::config 'dns.noris_token')\n" \
       "dns_nsone_api_key = $(bashio::config 'dns.nsone_api_key')\n" \
       "dns_porkbun_key = $(bashio::config 'dns.porkbun_key')\n" \
       "dns_porkbun_secret = $(bashio::config 'dns.porkbun_secret')\n" \

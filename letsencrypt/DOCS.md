@@ -947,7 +947,7 @@ An identifier and secret key have to be obtained to use this module (see https:/
 
 To obtain the `noris_token` follow the instructions as described in our [GitHub repository][GitHub repo].
 
-You can define the `propagation_seconds` explicitly, otherwise it will use the default value (currently set to `60` seconds).
+You can define the `propagation_seconds` explicitly. Otherwise, it will use the default value (currently set to `60` seconds).
 
 [GitHub repo]: https://github.com/noris-network/certbot-dns-norisnetwork#get-your-api-token
 

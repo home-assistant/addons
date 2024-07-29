@@ -18,7 +18,6 @@ if bashio::config.false 'enable_addons' && bashio::config.false 'enable_addon_co
     bashio::exit.nok "No shares enabled for Samba to present!"
 fi
 
-
 # Read hostname from API or setting default "hassio"
 HOSTNAME=$(bashio::info.hostname)
 if bashio::var.is_empty "${HOSTNAME}"; then

@@ -21,3 +21,24 @@ configuration:
   allow_hosts:
     name: Allowed Hosts
     description: List of hosts/networks allowed to access the shared folders.
+  enable_addons:
+    name: Enable Add-Ons folders
+    description: Enable SMB access to the Add-ons folder.  This is disabled by default.
+  enable_addon_configs:
+    name: Enable Add-On Configs folder.
+    description: Enable SMB access to the Add-on Configuraitons folder. This is disabled by default.
+  enable_backup:
+    name: Enable Backups folder
+    description: Enable SMB access to the folder where HomeAssistant keeps its backups. This is disabled by default.
+  enable_config:
+    name: Enable Configs folder
+    description: Enable SMB access to the HomeAssistant Core configuration folder.  This is disabled by default.
+  enable_media:
+    name: Enable Media folder
+    description: Enable SMB access to the Media folder
+  enable_share:
+    name: Enable Share folders
+    description: Enable SMB access to the Share folder (which is shared with all HomeAssistant Add-ons).
+  enable_ssl:
+    name: Enable SSL folder
+    description: Enable SMB access to the ssl folder, where HomeAssistant keeps its SSL Keys.  This is disabled by default.

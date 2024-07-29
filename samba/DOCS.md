@@ -85,6 +85,59 @@ when you absolutely need it and understand the possible consequences.
 
 Defaults to `false`.
 
+### Option: `enable_addons`
+
+Setting this option to `true` will allow Samba to expose the 'addons' folder,
+which is used for installing custom local plugins.
+
+Defaults to `false`.
+
+### Option: `enable_addon_configs`
+
+Setting this option to `true` will allow Samba to expose the 'addon_configs' folder,
+which is used for setting configuration of plugins.
+
+defaults to `false`.
+
+### Option: `enable_backups`
+
+Setting this option to `true` will allow Samba to expose the 'backup' folder,
+which is where HomeAssistant places its backups.  These backups can contain any information
+stored in your configurations for Homeassistant or any add-on, including secrets.
+
+Defaults to `false`.
+
+### Option: `enable_configs`
+
+Setting this option to `true` will allow Samba to expose the 'config' folder,
+which is where HomeAssistant stores it core configuration files and databases.  This
+includes secrets.
+
+Defaults to `false`.
+
+### Option: `enable_media`
+
+This option will allow Samba to expose the 'media' folder, which is where HomeAssistant
+expects you to store any local media files.  This is generally safe to expose.
+
+Defaults to `true`.  If you want to not allow this access, change to `false`.
+
+### Option: `enable_share`
+
+This option will allow Samba to expose the 'share' folder, which is where HomeAssistant
+stores information it expects to be shared between different plugins and HomeAssistant.
+
+Defaults to `true`.  If you want to not allow this access, change to `false`.
+
+### Option: `enable_ssl`
+
+Setting this option to `true` will allow Samba to expose the 'ssl' folder,
+which is where HomeAssistant stores its public and private SSL keys.  These are considered
+sensitive, because anyone who gets ahold of both parts can impersonante your HomeAssistant server,
+including using that to collect credentials.
+
+Defaults to `false`.
+
 ## Support
 
 Got questions?

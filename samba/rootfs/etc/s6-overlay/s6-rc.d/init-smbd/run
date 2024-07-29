@@ -12,6 +12,13 @@ if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password
     bashio::exit.nok "Setting a username and password is required!"
 fi
 
+if bashio::config.false 'enable_addons' && bashio::config.false 'enable_addon_configs' && bashio::config.false 'enable_backup' && \
+ bashio::config.false 'enable_config' && bashio::config.false 'enable_media' && bashio::config.false 'enable_share' && \
+ bashio::config.false 'enable_ssl'; then
+    bashio::exit.nok "No shares enabled for Samba to present!"
+fi
+
+
 # Read hostname from API or setting default "hassio"
 HOSTNAME=$(bashio::info.hostname)
 if bashio::var.is_empty "${HOSTNAME}"; then

@@ -133,7 +133,7 @@ Defaults to `true`.  If you want to not allow this access, change to `false`.
 
 Setting this option to `true` will allow Samba to expose the 'ssl' folder,
 which is where HomeAssistant stores its public and private SSL keys.  These are considered
-sensitive, because anyone who gets ahold of both parts can impersonante your HomeAssistant server,
+sensitive because anyone who gets ahold of both parts can impersonante your HomeAssistant server,
 including using that to collect credentials.
 
 Defaults to `false`.

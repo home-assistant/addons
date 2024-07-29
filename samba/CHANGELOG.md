@@ -2,9 +2,13 @@
 
 ## 13.0.0
 
-BREAKING CHANGE: Default shares will reduce to media and shared.  Other folders will have to be enabled by the end user.
+BREAKING CHANGE: Default shares will be limited to "media" and "share" by default.  
 
-- Add ability to selectively enable shares
+This change enhances security and user control, but may require updating your configuration to access shares that contain
+potentially sensitive information.
+
+- Default shares reduced to 'media' and 'share'
+- Add ability to selectively enable exposed shares.
 
 ## 12.3.1
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 13.0.0
+
+BREAKING CHANGE: Default shares will reduce to media and shared.  Other folders will have to be enabled by the end user.
+
+- Add ability to selectively enable shares
+
 ## 12.3.1
 
 - Handle passwords with backslash correctly

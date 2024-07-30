@@ -1,4 +1,7 @@
 # Changelog
+## 12.3.2
+
+- Suppress benign idmap logged error
 
 ## 13.0.0
 

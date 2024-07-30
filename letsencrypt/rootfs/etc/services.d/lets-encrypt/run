@@ -7,6 +7,7 @@ WORK_DIR=/data/workdir
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
 KEY_ARGUMENTS=()
+EAB_ARGUMENTS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
@@ -16,6 +17,8 @@ CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 ACME_SERVER=$(bashio::config 'acme_server')
 ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
+EAB_KID=$(bashio::config 'eab_kid')
+EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
@@ -294,6 +297,12 @@ else
     done
 fi
 
+# Set External Account Binding
+if bashio::config.has_value 'eab_kid' ; then
+    bashio::config.require 'eab_hmac_key'
+    EAB_ARGUMENTS+=("--eab-kid" "${EAB_KID}" "--eab-hmac-key" "${EAB_HMAC_KEY}")
+fi
+
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
 if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
@@ -302,7 +311,8 @@ if [ "$CHALLENGE" == "dns" ]; then
         --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
-        --preferred-chain "ISRG Root X1"
+        --preferred-chain "ISRG Root X1" \
+        "${EAB_ARGUMENTS[@]}"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
@@ -310,7 +320,8 @@ else
         --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
-        --preferred-chain "ISRG Root X1"
+        --preferred-chain "ISRG Root X1" \
+        "${EAB_ARGUMENTS[@]}"
 fi
 
 # Get the last modified cert directory and copy the cert and private key to store

@@ -248,6 +248,18 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 
 </details>
 
+<details>
+  <summary>Set up external account binding</summary>
+
+   The ACME protocol (RFC 8555) defines an external account binding (EAB) field that ACME clients can use to access a specific account on the certificate authority (CA). Some CAs may require the client to utilize the EAB protocol to operate. You can add your EAB key ID and HMAC key through the config options `eab_kid` and `eab_hmac_key`.
+
+  ```yaml
+  eab_kid: 'key_id'
+  eab_hmac_key: 'AABBCCDD' #Base64url encoded key
+  ```
+
+</details>
+
 ## Example Configurations
 
 Note: These configuration examples are raw YAML configs. When you use UI edit

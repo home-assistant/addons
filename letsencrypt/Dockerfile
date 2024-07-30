@@ -22,6 +22,7 @@ ARG \
     CERTBOT_DNS_INWX_VERSION \
     CERTBOT_DNS_JOKER_VERSION \
     CERTBOT_DNS_NAMECHEAP_VERSION \
+    CERTBOT_DNS_NORISNETWORK_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_DNS_PORKBUN_VERSION \
     CERTBOT_DNS_WEBSUPPORT_VERSION \
@@ -67,6 +68,7 @@ RUN \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
+        certbot-dns-norisnetwork==${CERTBOT_DNS_NORISNETWORK_VERSION} \
         certbot-dns-nsone==${CERTBOT_VERSION} \
         certbot-dns-porkbun==${CERTBOT_DNS_PORKBUN_VERSION} \
         certbot-dns-ovh==${CERTBOT_VERSION} \

@@ -1,5 +1,5 @@
 ---
-version: 5.0.26
+version: 5.0.27
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -35,6 +35,8 @@ schema:
   challenge: list(dns|http)
   acme_root_ca_cert: str?
   acme_server: url?
+  eab_kid: str?
+  eab_hmac_key: str?
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
   dns:

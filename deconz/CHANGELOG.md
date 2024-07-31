@@ -3,6 +3,8 @@
 ## 6.24.0
 
 - Bump deCONZ to 2.27.6
+- Use debian bookworm for all arch types
+- Use dwm instead of wmii as window manager
 
 ## 6.23.0
 

@@ -29,7 +29,7 @@ configuration:
   enable_addon_configs:
     name: Enable Add-On Configs folder
     description: >-
-      Enable SMB access to the Add-on Configuraitons folder.
+      Enable SMB access to the Add-on Configurations folder.
       This is disabled by default.
   enable_backup:
     name: Enable Backups folder

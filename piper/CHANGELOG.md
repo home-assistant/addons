@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+
+- Add voice for English: norman
+
 ## 1.5.1
 
 - Add voice for English: cori

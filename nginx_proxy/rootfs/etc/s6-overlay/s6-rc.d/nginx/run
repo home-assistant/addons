@@ -56,9 +56,8 @@ sed -i "s/%%HA_PORT%%/$HA_PORT/g" /etc/nginx.conf
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
 
-if bashio::config.true 'proxy_protocol.enabled'; then
-    bashio::config.require 'proxy_protocol.real_ip_from' "real_ip_from under proxy_protocol has to be provided"
-    REAL_IP_FROM=$(bashio::config 'proxy_protocol.real_ip_from')
+if bashio::config.exists 'real_ip_from'; then
+    REAL_IP_FROM=$(bashio::config 'real_ip_from')
     sed -i "s#%%REAL_IP_FROM%%#$REAL_IP_FROM#g" /etc/nginx/conf.d/server-proxy-protocol.conf
     SERVER_CONF=server-proxy-protocol.conf
     LOCATION_CONF=location-proxy-protocol.conf

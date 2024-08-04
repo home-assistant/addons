@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.27
+
+- Add external account binding support
+
 ## 5.0.26
 
 - Add noris network DNS challenge support

@@ -26,9 +26,6 @@ options:
     active: false
     default: nginx_proxy_default*.conf
     servers: nginx_proxy/*.conf
-  proxy_protocol:
-    enabled: false
-    real_ip_from: null
 ports:
   443/tcp: 443
   80/tcp: null
@@ -40,8 +37,6 @@ schema:
   cloudflare: bool
   customize:
     active: bool
-    default: str?
-    servers: str?
-  proxy_protocol:
-    enabled: bool
-    real_ip_from: str?
+    default: str
+    servers: str
+  real_ip_from: str?

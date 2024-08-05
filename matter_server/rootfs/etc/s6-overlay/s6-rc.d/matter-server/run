@@ -65,6 +65,7 @@ matter_server_args+=(
   '--log-level-sdk' "${log_level_sdk}"
   '--primary-interface' "${primary_interface}"
   '--paa-root-cert-dir' "/data/credentials"
+  '--ota-provider-dir' "/config/updates"
   '--fabricid' 2
   '--vendorid' 4939
   ${extra_args[@]}

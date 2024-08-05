@@ -1,5 +1,5 @@
 ---
-version: 6.3.1
+version: 6.4.0
 slug: matter_server
 name: Matter Server
 description: Matter WebSocket Server for Home Assistant Matter support.
@@ -20,6 +20,9 @@ image: homeassistant/{arch}-addon-matter-server
 ingress: true
 ingress_port: 5580
 init: false
+map:
+  - type: addon_config
+    read_only: false
 options:
   log_level: info
   log_level_sdk: error

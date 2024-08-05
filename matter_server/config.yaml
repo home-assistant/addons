@@ -23,8 +23,6 @@ init: false
 map:
   - type: addon_config
     read_only: false
-  - type: data
-    read_only: false
 options:
   log_level: info
   log_level_sdk: error

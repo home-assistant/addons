@@ -1,8 +1,11 @@
 # Changelog
 
-## 6.4.0
+## 6.4.1
 
 - Bump Python Matter Server to [6.4.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.4.0)
+
+## 6.4.0
+
 - Use add-on config directory as update directory
 
 ## 6.3.1

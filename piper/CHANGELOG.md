@@ -2,7 +2,7 @@
 
 ## 1.5.2
 
-- Add voice for English: norman
+- Add missing voices supported by Piper (gwryw_gogleddol, bryce, john, norman and paola)
 
 ## 1.5.1
 

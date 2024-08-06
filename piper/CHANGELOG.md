@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+
+- Add missing voices supported by Piper (gwryw_gogleddol, bryce, john, norman and paola)
+
 ## 1.5.1
 
 - Add voice for English: cori

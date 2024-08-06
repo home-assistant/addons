@@ -3,9 +3,9 @@
 #### config ####
 
 CONFIG_PATH=/data/options.json
-HOME=~
+HOME=/root
 
-DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
+DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key_base64_encoded" $CONFIG_PATH)
 DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
 DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
 DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
@@ -23,18 +23,19 @@ REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
 #### functions ####
 function add-ssh-key {
     echo "[Info] Start adding SSH key"
+    DECODED_KEY="$(echo "${DEPLOYMENT_KEY}" | base64 -d)"
+
     mkdir -p ~/.ssh
 
     (
         echo "Host *"
         echo "    StrictHostKeyChecking no"
+        echo "    IdentityFile ${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
     ) > ~/.ssh/config
 
     echo "[Info] Setup deployment_key on id_${DEPLOYMENT_KEY_PROTOCOL}"
     rm -f "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
-    while read -r line; do
-        echo "$line" >> "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
-    done <<< "$DEPLOYMENT_KEY"
+    echo "$DECODED_KEY" > "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
 
     chmod 600 "${HOME}/.ssh/config"
     chmod 600 "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
@@ -48,12 +49,18 @@ function git-clone {
     mkdir "${BACKUP_LOCATION}" || { echo "[Error] Creation of backup directory failed"; exit 1; }
     cp -rf /config/* "${BACKUP_LOCATION}" || { echo "[Error] Copy files to backup directory failed"; exit 1; }
 
+    # git clone
+    echo "[Info] Start git clone to /new_config"
+    git clone "$REPOSITORY" /new_config || { echo "[Error] Git clone failed"; exit 1; }
+
     # remove config folder content
     rm -rf /config/{,.[!.],..?}* || { echo "[Error] Clearing /config failed"; exit 1; }
 
-    # git clone
-    echo "[Info] Start git clone"
-    git clone "$REPOSITORY" /config || { echo "[Error] Git clone failed"; exit 1; }
+    # copy the new config folder into the existing config folder, dotfiles included (for git tracking)
+    cp -a /new_config/. /config || { echo "[Error] replacing /config with /new_config"; exit 1; }
+
+    # delete new_config folder
+    rm -rf /new_config || { echo "[Error] deleting /new_config"; exit 1; }
 
     # try to copy non yml files back
     cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
@@ -116,6 +123,7 @@ fi
 
 function git-synchronize {
     # is /config a local git repo?
+    set +e
     if git rev-parse --is-inside-work-tree &>/dev/null
     then
         echo "[Info] Local git repository exists"
@@ -171,10 +179,12 @@ function git-synchronize {
         echo "[Warn] Git repository doesn't exist"
         git-clone
     fi
+    set -e
 }
 
 function validate-config {
     echo "[Info] Checking if something has changed..."
+    set +e
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
@@ -220,6 +230,7 @@ function validate-config {
     else
         echo "[Info] Nothing has changed."
     fi
+    set -e
 }
 
 ###################

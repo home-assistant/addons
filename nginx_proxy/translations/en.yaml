@@ -27,7 +27,7 @@ configuration:
   real_ip_from:
     name: RealIpFrom
     description: >-
-      Configures Nginx to use TCP Proxy Protocol, 
+      Configures Nginx to use TCP Proxy Protocol,
       specifies what IP to trust TLS upstream requests from.
 network:
   443/tcp: HTTPS (SSL) Port

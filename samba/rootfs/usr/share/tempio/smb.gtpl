@@ -26,6 +26,7 @@
    dos charset = CP850
    unix charset = UTF-8
 
+{{ if .enable_config }}
 [config]
    browseable = yes
    writeable = yes
@@ -36,7 +37,9 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}
 
+{{ if .enable_addons }}
 [addons]
    browseable = yes
    writeable = yes
@@ -47,7 +50,9 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}
 
+{{ if .enable_addon_configs }}
 [addon_configs]
    browseable = yes
    writeable = yes
@@ -58,7 +63,9 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}
 
+{{ if .enable_ssl }}
 [ssl]
    browseable = yes
    writeable = yes
@@ -69,7 +76,9 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}
 
+{{ if .enable_share }}
 [share]
    browseable = yes
    writeable = yes
@@ -80,7 +89,9 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}
 
+{{ if .enable_backup }}
 [backup]
    browseable = yes
    writeable = yes
@@ -91,7 +102,9 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}
 
+{{ if .enable_media }}
 [media]
    browseable = yes
    writeable = yes
@@ -102,3 +115,4 @@
    force group = root
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
+{{ end }}

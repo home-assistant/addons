@@ -86,7 +86,7 @@ schema:
     netcup_api_password: str?
     netcup_customer_id: str?
     simply_api_key: str?
-    simply_customer_id: str?
+    simply_account_name: str?
     njalla_token: str?
     noris_token: str?
     nsone_api_key: str?

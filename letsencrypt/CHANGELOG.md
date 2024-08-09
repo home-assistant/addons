@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.28
+
+- Add Simply DNS support
+
 ## 5.0.27
 
 - Add Plesk DNS challenge support

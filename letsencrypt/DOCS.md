@@ -1015,8 +1015,8 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
     simply_api_key: DSHJdsjh2812872sahj
   ```
 
-The `simply_account_name` is the Simply.com account-number (Sxxxxxx) and the `simply_api_key` is the API-KEY for the specific account. 
-The API-Key assigned to your Simply.com account can be found in your Simply.com Control panel.
+The simply_account_name is the Simply.com account number (Sxxxxxx), and the simply_api_key is the specific account's API key.
+The API key assigned to your Simply.com account can be found in your Simply.com Control panel.
 
 </details>
 

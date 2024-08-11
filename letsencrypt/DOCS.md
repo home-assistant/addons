@@ -1012,7 +1012,7 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
   dns:
     provider: dns-simply
     simply_account_name: Sxxxxxx
-    simply_api_key: OAHJdsjhJHIa872sahl # Replace 'OAHJdsjhJHIa872sahl' with your actual Simply.com API key. 
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
   ```
 
 The simply_account_name is the Simply.com account number (Sxxxxxx), and the simply_api_key is the account's API key.

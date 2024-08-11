@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Letsencrypt
+O# Home Assistant Add-on: Letsencrypt
 
 ## Installation
 
@@ -1015,7 +1015,7 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
     simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
   ```
 
-The simply_account_name is the Simply.com account number (Sxxxxxx), and the simply_api_key is the account's API key.
+The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.
 The API key assigned to your Simply.com account can be found in your Simply.com Control panel.
 
 </details>

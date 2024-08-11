@@ -53,8 +53,15 @@ http {
         # dhparams file
         ssl_dhparam /data/dhparams.pem;
         
-        include /etc/nginx/conf.d/%%SERVER_CONF%%;
-        
+        {{- if not .real_ip_from  }}
+        listen 443 ssl http2;
+        {{- else }}
+        listen 443 ssl http2 proxy_protocol;
+          {{- range .real_ip_from }}
+        set_real_ip_from {{.}};
+          {{- end  }}
+        real_ip_header proxy_protocol;
+        {{- end }}
         %%HSTS%%
 
         proxy_buffering off;
@@ -69,7 +76,12 @@ http {
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
             proxy_set_header X-Forwarded-Host $http_host;
-            include /etc/nginx/conf.d/%%LOCATION_CONF%%;
+            {{- if not .real_ip_from }}
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            {{- else }}
+            proxy_set_header X-Real-IP $proxy_protocol_addr;
+            proxy_set_header X-Forwarded-For $proxy_protocol_addr;
+            {{- end }}
         }
     }
 

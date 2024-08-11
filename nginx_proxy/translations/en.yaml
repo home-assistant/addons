@@ -25,7 +25,7 @@ configuration:
     description: >-
       See the Documentation tab for more information about these options.
   real_ip_from:
-    name: RealIpFrom
+    name: Real IP from (enables PROXY protocol)
     description: >-
       Configures Nginx to use TCP Proxy Protocol,
       specifies what IP to trust TLS upstream requests from.

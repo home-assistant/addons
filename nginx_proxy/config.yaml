@@ -39,4 +39,5 @@ schema:
     active: bool
     default: str
     servers: str
-  real_ip_from: str?
+  real_ip_from:
+    - str

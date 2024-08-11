@@ -6,6 +6,12 @@
 
 set -e
 
+bashio::log.info "Generating nginx.conf from template in /etc/nginx/nginx.conf.gtpl"
+tempio \
+    -conf /data/options.json \
+    -template /etc/nginx/nginx.conf.gtpl \
+    -out /etc/nginx.conf
+
 DHPARAMS_PATH=/data/dhparams.pem
 
 CLOUDFLARE_CONF=/data/cloudflare.conf
@@ -55,19 +61,6 @@ sed -i "s/%%HA_PORT%%/$HA_PORT/g" /etc/nginx.conf
 
 [ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
 sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
-
-if bashio::config.exists 'real_ip_from'; then
-    REAL_IP_FROM=$(bashio::config 'real_ip_from')
-    sed -i "s#%%REAL_IP_FROM%%#$REAL_IP_FROM#g" /etc/nginx/conf.d/server-proxy-protocol.conf
-    SERVER_CONF=server-proxy-protocol.conf
-    LOCATION_CONF=location-proxy-protocol.conf
-else
-    SERVER_CONF=server-default.conf
-    LOCATION_CONF=location-default.conf
-fi
-
-sed -i "s/%%SERVER_CONF%%/$SERVER_CONF/g" /etc/nginx.conf
-sed -i "s/%%LOCATION_CONF%%/$LOCATION_CONF/g" /etc/nginx.conf
 
 # Allow customize configs from share
 if bashio::config.true 'customize.active'; then

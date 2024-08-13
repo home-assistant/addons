@@ -21,7 +21,7 @@ http {
     server_tokens off;
 
     server_names_hash_bucket_size 128;
-	
+    
     # intermediate configuration
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
@@ -29,7 +29,7 @@ http {
 
     {{- if .options.cloudflare }}
     include /data/cloudflare.conf;
-	{{- end }}
+    {{- end }}
 
     server {
         server_name _;
@@ -53,8 +53,8 @@ http {
         ssl_session_timeout 1d;
         ssl_session_cache shared:MozSSL:10m;
         ssl_session_tickets off;
-        ssl_certificate /ssl/{{.options.certfile}};
-        ssl_certificate_key /ssl/{{.options.keyfile}};
+        ssl_certificate /ssl/{{ .options.certfile }};
+        ssl_certificate_key /ssl/{{ .options.keyfile }};
 
         # dhparams file
         ssl_dhparam /data/dhparams.pem;
@@ -63,9 +63,9 @@ http {
         listen 443 ssl http2;
         {{- else }}
         listen 443 ssl http2 proxy_protocol;
-          {{- range .options.real_ip_from }}
+        {{- range .options.real_ip_from }}
         set_real_ip_from {{.}};
-          {{- end  }}
+        {{- end  }}
         real_ip_header proxy_protocol;
         {{- end }}
 

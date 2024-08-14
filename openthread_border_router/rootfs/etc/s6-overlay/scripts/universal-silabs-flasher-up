@@ -24,6 +24,11 @@ if bashio::config.false 'autoflash_firmware'; then
     exit 0
 fi
 
+if bashio::config.has_value 'network_device'; then
+    bashio::log.info "Network device is selected, skipping firmware flashing"
+    exit 0
+fi
+
 # Assume to run on Yellow if UART4 is mapped to ttyAMA1
 if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
     bashio::log.info "Detected Home Assistant Yellow"

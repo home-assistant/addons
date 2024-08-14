@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.27
+
+- Add Plesk DNS challenge support
+
 ## 5.0.26
 
 - Add noris network DNS challenge support

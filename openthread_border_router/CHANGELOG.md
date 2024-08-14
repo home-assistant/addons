@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.1
+
+- Abort firmware flasher if network device is selected
+
 ## 2.9.0
 
 - Avoid triggering reset/boot loader on TI CC2652 based devices

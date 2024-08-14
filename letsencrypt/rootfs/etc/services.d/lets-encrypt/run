@@ -146,6 +146,17 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-joker" ]; then
     bashio::config.require 'dns.joker_password'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Plesk
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-plesk" ]; then
+    bashio::config.require 'dns.plesk_username'
+    bashio::config.require 'dns.plesk_password'
+    bashio::config.require 'dns.plesk_api_url'
+    if (( PROPAGATION_SECONDS < 120 )); then
+        bashio::log.info "Increasing DNS propagation limit for Plesk to at least 120 seconds."
+        PROPAGATION_SECONDS=120
+    fi
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Njalla
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
     bashio::config.require 'dns.njalla_token'

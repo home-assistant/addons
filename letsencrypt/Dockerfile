@@ -30,6 +30,7 @@ ARG \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
     CERTBOT_DNS_DOMAINOFFENSIVE_VERSION \
+    CERTBOT_DNS_PLESK_VERSION \
     ACME_VERSION
 
 RUN \
@@ -85,6 +86,7 @@ RUN \
         certbot-dns-easydns==${CERTBOT_DNS_EASYDNS_VERSION} \
         certbot-dns-domainoffensive==${CERTBOT_DNS_DOMAINOFFENSIVE_VERSION} \
         certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \
+        certbot-dns-plesk==${CERTBOT_DNS_PLESK_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 

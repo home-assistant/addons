@@ -41,13 +41,13 @@ options:
     - 169.254.0.0/16
     - fe80::/10
     - fc00::/7
-  enable_addons: false
-  enable_addon_configs: false
-  enable_backup: false
-  enable_config: false
-  enable_media: true
-  enable_share: true
-  enable_ssl: false
+  allow_addons: false
+  allow_addon_configs: false
+  allow_backup: false
+  allow_config: false
+  allow_media: true
+  allow_share: true
+  allow_ssl: false
 schema:
   username: str
   password: password
@@ -57,11 +57,11 @@ schema:
     - str
   allow_hosts:
     - str
-  enable_addons: bool
-  enable_addon_configs: bool
-  enable_backup: bool
-  enable_config: bool
-  enable_media: bool
-  enable_share: bool
-  enable_ssl: bool
+  allow_addons: bool
+  allow_addon_configs: bool
+  allow_backup: bool
+  allow_config: bool
+  allow_media: bool
+  allow_share: bool
+  allow_ssl: bool
 startup: services

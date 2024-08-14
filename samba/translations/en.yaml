@@ -12,46 +12,46 @@ configuration:
     name: Workgroup
     description: Change WORKGROUP to reflect your network needs.
   compatibility_mode:
-    name: Enable Compatibility Mode
+    name: Allow Compatibility Mode
     description: >-
-      Enable this to use old legacy Samba protocols on the Samba add-on.
+      Allow this to use old legacy Samba protocols on the Samba add-on.
   veto_files:
     name: Veto Files
     description: List of files that are neither visible nor accessible.
   allow_hosts:
     name: Allowed Hosts
     description: List of hosts/networks allowed to access the shared folders.
-  enable_addons:
-    name: Enable Add-Ons folder
+  allow_addons:
+    name: Allow Add-Ons folder
     description: >-
-      Enable SMB access to the Add-ons folder.
+      Allow SMB access to the Add-ons folder.
       This is disabled by default.
-  enable_addon_configs:
-    name: Enable Add-On Configs folder
+  allow_addon_configs:
+    name: Allow Add-On Configs folder
     description: >-
-      Enable SMB access to the Add-on Configurations folder.
+      Allow SMB access to the Add-on Configurations folder.
       This is disabled by default.
-  enable_backup:
-    name: Enable Backups folder
+  allow_backup:
+    name: Allow Backups folder
     description: >-
-      Enable SMB access to the folder where HomeAssistant keeps its backups.
+      Allow SMB access to the folder where HomeAssistant keeps its backups.
       This is disabled by default.
-  enable_config:
-    name: Enable Configs folder
+  allow_config:
+    name: Allow Configs folder
     description: >-
-      Enable SMB access to the HomeAssistant Core configuration folder.
+      Allow SMB access to the HomeAssistant Core configuration folder.
       This is disabled by default.
-  enable_media:
-    name: Enable Media folder
+  allow_media:
+    name: Allow Media folder
     description: >-
-      Enable SMB access to the Media folder
-  enable_share:
-    name: Enable Share folders
+      Allow SMB access to the Media folder
+  allow_share:
+    name: Allow Share folders
     description: >-
-      Enable SMB access to the Share folder (which is shared with all
+      Allow SMB access to the Share folder (which is shared with all
       HomeAssistant Add-ons).
-  enable_ssl:
-    name: Enable SSL folder
+  allow_ssl:
+    name: Allow SSL folder
     description: >-
-      Enable SMB access to the ssl folder, where HomeAssistant keeps SSL Keys.
+      Allow SMB access to the ssl folder, where HomeAssistant keeps SSL Keys.
       This is disabled by default.

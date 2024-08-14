@@ -1,8 +1,6 @@
 # Changelog
 ## 13.0.0
 
-BREAKING CHANGE: Default shares will be limited to "media" and "share" by default.  
-
 This change enhances security and user control, but may require updating your configuration
 to access shares that contain potentially sensitive information.
 

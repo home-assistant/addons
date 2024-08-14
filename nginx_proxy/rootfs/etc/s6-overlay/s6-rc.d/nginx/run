@@ -6,16 +6,18 @@
 
 set -e
 
+bashio::log.info "Merging options & variables for template"
+JSON_CONF=$(jq --arg port $(bashio::core.port) \
+    '({options: .}) + ({variables: {port: $port}})' \
+    /data/options.json)
+bashio::log.info "Generating nginx.conf from template in /etc/nginx/nginx.conf.gtpl"
+echo $JSON_CONF | tempio \
+    -template /etc/nginx/nginx.conf.gtpl \
+    -out /etc/nginx.conf
+
 DHPARAMS_PATH=/data/dhparams.pem
 
 CLOUDFLARE_CONF=/data/cloudflare.conf
-
-DOMAIN=$(bashio::config 'domain')
-KEYFILE=$(bashio::config 'keyfile')
-CERTFILE=$(bashio::config 'certfile')
-HSTS=$(bashio::config 'hsts')
-
-HA_PORT=$(bashio::core.port)
 
 # Generate dhparams
 if ! bashio::fs.file_exists "${DHPARAMS_PATH}"; then
@@ -24,7 +26,6 @@ if ! bashio::fs.file_exists "${DHPARAMS_PATH}"; then
 fi
 
 if bashio::config.true 'cloudflare'; then
-    sed -i "s|#include /data/cloudflare.conf;|include /data/cloudflare.conf;|" /etc/nginx.conf
     # Generate cloudflare.conf
     if ! bashio::fs.file_exists "${CLOUDFLARE_CONF}"; then
         bashio::log.info "Creating 'cloudflare.conf' for real visitor IP address..."
@@ -47,24 +48,7 @@ if bashio::config.true 'cloudflare'; then
     fi
 fi
 
-# Prepare config file
-sed -i "s#%%FULLCHAIN%%#$CERTFILE#g" /etc/nginx.conf
-sed -i "s#%%PRIVKEY%%#$KEYFILE#g" /etc/nginx.conf
-sed -i "s/%%DOMAIN%%/$DOMAIN/g" /etc/nginx.conf
-sed -i "s/%%HA_PORT%%/$HA_PORT/g" /etc/nginx.conf
-
-[ -n "$HSTS" ] && HSTS="add_header Strict-Transport-Security \"$HSTS\" always;"
-sed -i "s/%%HSTS%%/$HSTS/g" /etc/nginx.conf
-
-# Allow customize configs from share
-if bashio::config.true 'customize.active'; then
-    CUSTOMIZE_DEFAULT=$(bashio::config 'customize.default')
-    sed -i "s|#include /share/nginx_proxy_default.*|include /share/$CUSTOMIZE_DEFAULT;|" /etc/nginx.conf
-    CUSTOMIZE_SERVERS=$(bashio::config 'customize.servers')
-    sed -i "s|#include /share/nginx_proxy/.*|include /share/$CUSTOMIZE_SERVERS;|" /etc/nginx.conf
-fi
-
 # start server
 bashio::log.info "Running nginx..."
-stat "/ssl/${CERTFILE}" -c %y > /tmp/certificate_timestamp
+stat "/ssl/$(bashio::config 'certfile')" -c %y > /tmp/certificate_timestamp
 exec nginx -c /etc/nginx.conf < /dev/null

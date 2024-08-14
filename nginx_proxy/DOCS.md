@@ -43,7 +43,7 @@ customize:
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
-real_ip_from:
+real_ip_from: []
 ```
 
 ### Option: `domain` (required)

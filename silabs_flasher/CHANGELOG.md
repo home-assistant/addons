@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.4
+- Update firmwares to EmberZNet 7.4.3
+- Update universal-silabs-flasher to v0.0.22
+
 ## 0.2.3
 
 - Upgrade to Alpine 3.19

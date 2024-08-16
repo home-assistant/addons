@@ -2,7 +2,7 @@
 
 ## 5.1.1
 
-- Add Simply DNS support
+- Add Simply.com DNS support
 
 ## 5.1.0
 

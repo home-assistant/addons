@@ -1,5 +1,5 @@
 ---
-version: 5.0.27
+version: 5.1.1
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -35,6 +35,8 @@ schema:
   challenge: list(dns|http)
   acme_root_ca_cert: str?
   acme_server: url?
+  eab_kid: str?
+  eab_hmac_key: str?
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
   dns:
@@ -83,6 +85,8 @@ schema:
     netcup_api_key: str?
     netcup_api_password: str?
     netcup_customer_id: str?
+    simply_api_key: str?
+    simply_account_name: str?
     njalla_token: str?
     noris_token: str?
     nsone_api_key: str?
@@ -98,7 +102,7 @@ schema:
       dns-duckdns|dns-dynu|dns-gehirn|dns-google|dns-google-domains|\
       dns-hetzner|dns-infomaniak|dns-joker|dns-linode|dns-luadns|dns-njalla|dns-nsone|\
       dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|\
-      dns-namecheap|dns-netcup|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\
+      dns-namecheap|dns-netcup|dns-simply|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\
       dns-he|dns-easydns|dns-domainoffensive|dns-websupport|dns-noris|dns-plesk)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?

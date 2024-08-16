@@ -60,6 +60,7 @@ dns-linode
 dns-luadns
 dns-njalla
 dns-noris
+dns-simply
 dns-nsone
 dns-ovh
 dns-rfc2136
@@ -151,6 +152,8 @@ domainoffensive_token: ''
 plesk_username: ''
 plesk_password: ''
 plesk_api_url: ''
+simply_account_name: ''
+simply_api_key: ''
 ```
 </details>
 
@@ -245,6 +248,18 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
   ```
 
   When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using the Certbot default. This option must be used with `key_type` set to `'ecdsa'`.
+
+</details>
+
+<details>
+  <summary>Set up external account binding</summary>
+
+   The ACME protocol (RFC 8555) defines an external account binding (EAB) field that ACME clients can use to access a specific account on the certificate authority (CA). Some CAs may require the client to utilize the EAB protocol to operate. You can add your EAB key ID and HMAC key through the config options `eab_kid` and `eab_hmac_key`.
+
+  ```yaml
+  eab_kid: 'key_id'
+  eab_hmac_key: 'AABBCCDD' #Base64url encoded key
+  ```
 
 </details>
 
@@ -984,6 +999,28 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
 </details>
 
 
+<details>
+  <summary>Simply.com DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-simply
+    simply_account_name: Sxxxxxx
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
+  ```
+
+The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.
+The API key assigned to your Simply.com account can be found in your Simply.com Control panel.
+
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -1014,6 +1051,7 @@ dns-luadns
 dns-njalla
 dns-noris
 dns-plesk
+dns-simply
 dns-nsone
 dns-ovh
 dns-rfc2136

@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.1.1
+
+- Add Simply.com DNS support
+
+## 5.1.0
+
+- Add external account binding support
+
 ## 5.0.27
 
 - Add Plesk DNS challenge support

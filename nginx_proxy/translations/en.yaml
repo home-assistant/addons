@@ -24,6 +24,11 @@ configuration:
     name: Customize
     description: >-
       See the Documentation tab for more information about these options.
+  real_ip_from:
+    name: Real IP from (enables PROXY protocol)
+    description: >-
+      Configures Nginx to use TCP Proxy Protocol,
+      specifies what IP to trust TLS upstream requests from.
 network:
   443/tcp: HTTPS (SSL) Port
   80/tcp: HTTP (non-SSL) Port

@@ -1,4 +1,4 @@
-O# Home Assistant Add-on: Letsencrypt
+# Home Assistant Add-on: Letsencrypt
 
 ## Installation
 

@@ -1,8 +1,7 @@
-From e1857ad3e14df6e950d51cd1f76c12f1c0f59f18 Mon Sep 17 00:00:00 2001
-Message-ID: <e1857ad3e14df6e950d51cd1f76c12f1c0f59f18.1705764864.git.stefan@agner.ch>
+From 7662acaaffb9cf730a8ba1d4f6014832dad23d0f Mon Sep 17 00:00:00 2001
 From: Stefan Agner <stefan@agner.ch>
 Date: Sat, 20 Jan 2024 16:31:28 +0100
-Subject: [PATCH] [openthread] set netif route metric lower
+Subject: [PATCH] set netif route metric lower
 
 It seems that routes learned through IPv6 Neighbor Discovery Protocol
 get a metric of 128 when NetworkManager is used. Make sure the
@@ -12,10 +11,10 @@ OpenThread network interface's own route is lower than that.
  1 file changed, 1 insertion(+)
 
 diff --git a/third_party/openthread/CMakeLists.txt b/third_party/openthread/CMakeLists.txt
-index f07625da96..0bcca3b79c 100644
+index 8ea4516e4e..97007a58cd 100644
 --- a/third_party/openthread/CMakeLists.txt
 +++ b/third_party/openthread/CMakeLists.txt
-@@ -105,6 +105,7 @@ target_compile_definitions(ot-config INTERFACE
+@@ -106,6 +106,7 @@ target_compile_definitions(ot-config INTERFACE
      "-DOPENTHREAD_CONFIG_MAX_STATECHANGE_HANDLERS=3"
      "-DOPENTHREAD_CONFIG_MLE_STEERING_DATA_SET_OOB_ENABLE=1"
      "-DOPENTHREAD_CONFIG_TCP_ENABLE=0"
@@ -24,5 +23,5 @@ index f07625da96..0bcca3b79c 100644
  )
  
 -- 
-2.43.0
+2.46.0
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.10.0
+
+- Bump to OTBR POSIX version b66cabfaa0 (2024-08-14 08:01:56 -0700)
+- Avoid OTBR Web spamming system console
+- Bump universal SiLabs flasher to 0.0.22
+
 ## 2.9.1
 
 - Abort firmware flasher if network device is selected

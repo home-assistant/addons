@@ -60,6 +60,7 @@ dns-linode
 dns-luadns
 dns-njalla
 dns-noris
+dns-simply
 dns-nsone
 dns-ovh
 dns-rfc2136
@@ -151,6 +152,8 @@ domainoffensive_token: ''
 plesk_username: ''
 plesk_password: ''
 plesk_api_url: ''
+simply_account_name: ''
+simply_api_key: ''
 ```
 </details>
 
@@ -996,6 +999,28 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
 </details>
 
 
+<details>
+  <summary>Simply.com DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-simply
+    simply_account_name: Sxxxxxx
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
+  ```
+
+The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.
+The API key assigned to your Simply.com account can be found in your Simply.com Control panel.
+
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -1026,6 +1051,7 @@ dns-luadns
 dns-njalla
 dns-noris
 dns-plesk
+dns-simply
 dns-nsone
 dns-ovh
 dns-rfc2136

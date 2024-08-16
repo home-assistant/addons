@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.1
+
+- Add Simply DNS support
+
 ## 5.1.0
 
 - Add external account binding support

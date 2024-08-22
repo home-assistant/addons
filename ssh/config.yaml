@@ -37,6 +37,7 @@ panel_icon: mdi:console
 panel_title: Terminal
 ports:
   22/tcp: null
+  39108/tcp: null
 schema:
   authorized_keys:
     - str

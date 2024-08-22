@@ -52,6 +52,7 @@ dns-duckdns
 dns-dreamhost
 dns-dynu
 dns-gehirn
+dns-godaddy
 dns-google
 dns-hetzner
 dns-infomaniak
@@ -107,6 +108,9 @@ google_domains_zone: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
+godaddy_secret: ''
+godaddy_key: ''
+godaddy_ttl: ''
 infomaniak_api_token: ''
 joker_username: ''
 joker_password: ''
@@ -349,6 +353,28 @@ on the DNS zone to be used for authentication.
 
 [aad-appreg]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal
 [certbot-dns-azure-conf]: https://certbot-dns-azure.readthedocs.io/en/latest/#configuration
+
+</details>
+
+<details>
+  <summary>GoDaddy DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - subdomain.home-assistant.io
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-godaddy
+    godaddy_secret: 0123456789abcdef0123456789abcdef01234567
+    godaddy_key: abcdef0123456789abcdef01234567abcdef0123
+    godaddy_ttl: 3600 #optional; default: 600
+  ```
+
+To obtain the ACME DNS API Key and Secret, follow the instructions here:
+<https://developer.godaddy.com/getstarted>
 
 </details>
 

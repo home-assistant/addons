@@ -11,7 +11,7 @@ arch:
   - amd64
   - i386
 boot: manual
-image: homeassistant/{arch}-addon-letsencrypt
+#image: homeassistant/{arch}-addon-letsencrypt
 init: false
 map:
   - ssl:rw

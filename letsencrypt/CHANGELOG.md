@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.2
+
+- Fixes subdomain DNS challenge not working for Simply.com
+
 ## 5.1.1
 
 - Add Simply.com DNS support

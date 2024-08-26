@@ -1,10 +1,7 @@
-From 2c0c78e5f4dc85a63934fc0c32c035a9c5b5babd Mon Sep 17 00:00:00 2001
-Message-ID: <2c0c78e5f4dc85a63934fc0c32c035a9c5b5babd.1692864566.git.stefan@agner.ch>
-In-Reply-To: <e0792b7605e6d6cb2ebd491025aee7f84d1edbaa.1692864566.git.stefan@agner.ch>
-References: <e0792b7605e6d6cb2ebd491025aee7f84d1edbaa.1692864566.git.stefan@agner.ch>
+From e67d11327f3ee5f67107d866c2df575a2695727c Mon Sep 17 00:00:00 2001
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 23:41:50 +0200
-Subject: [PATCH] [rest] support deleting the dataset
+Subject: [PATCH] support deleting the dataset
 
 Add REST API to support deleting the active or pending operational
 dataset. Deleting the active operational dataset requires the Thread
@@ -58,7 +55,7 @@ index 2ba2a4dd56..2edc4af29a 100644
    schemas:
      LeaderData:
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index a60e9d9483..829835341a 100644
+index ce154c2e5b..1708faf6ab 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -767,12 +767,47 @@ exit:
@@ -110,7 +107,7 @@ index a60e9d9483..829835341a 100644
          GetDataset(aDatasetType, aRequest, aResponse);
          break;
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index d79085dbfc..362e501471 100644
+index 0929dbcc50..cbe1702f2f 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
 @@ -150,6 +150,7 @@ private:
@@ -122,5 +119,5 @@ index d79085dbfc..362e501471 100644
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
 -- 
-2.42.0
+2.46.0
 

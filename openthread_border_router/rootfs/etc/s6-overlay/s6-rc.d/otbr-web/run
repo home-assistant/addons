@@ -7,4 +7,4 @@ declare otbr_web_port
 
 otbr_web_port="$(bashio::addon.port 8080)"
 
-exec /usr/sbin/otbr-web -I wpan0 -d6 -p "${otbr_web_port}"
+exec /usr/sbin/otbr-web -I wpan0 -d6 -s -p "${otbr_web_port}"

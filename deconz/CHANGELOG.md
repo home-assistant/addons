@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.24.0
+## 7.0.0
 
 - Bump deCONZ to 2.28.1
 - Use debian bookworm for all arch types

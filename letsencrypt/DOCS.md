@@ -367,8 +367,8 @@ on the DNS zone to be used for authentication.
   challenge: dns
   dns:
     provider: dns-godaddy
-    godaddy_secret: 0123456789abcdef0123456789abcdef01234567
-    godaddy_key: abcdef0123456789abcdef01234567abcdef0123
+    godaddy_secret: YOUR_GODADDY_SECRET
+    godaddy_key: YOUR_GODADDY_KEY
   ```
 
 To obtain the ACME DNS API Key and Secret, follow the instructions here:

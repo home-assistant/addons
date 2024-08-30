@@ -110,7 +110,6 @@ gehirn_api_token: ''
 gehirn_api_secret: ''
 godaddy_secret: ''
 godaddy_key: ''
-godaddy_ttl: ''
 infomaniak_api_token: ''
 joker_username: ''
 joker_password: ''
@@ -370,7 +369,6 @@ on the DNS zone to be used for authentication.
     provider: dns-godaddy
     godaddy_secret: 0123456789abcdef0123456789abcdef01234567
     godaddy_key: abcdef0123456789abcdef01234567abcdef0123
-    godaddy_ttl: 3600 #optional; default: 600
   ```
 
 To obtain the ACME DNS API Key and Secret, follow the instructions here:

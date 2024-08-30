@@ -67,7 +67,6 @@ schema:
     gehirn_api_token: str?
     godaddy_secret: str?
     godaddy_key: str?
-    godaddy_ttl: int(600,3600)?
     google_creds: str?
     google_domains_access_token: str?
     google_domains_zone: str?

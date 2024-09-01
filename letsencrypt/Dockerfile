@@ -20,6 +20,7 @@ ARG \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
     CERTBOT_DNS_INWX_VERSION \
+    CERTBOT_DNS_IONOS_VERSION \
     CERTBOT_DNS_JOKER_VERSION \
     CERTBOT_DNS_NAMECHEAP_VERSION \
     CERTBOT_DNS_NORISNETWORK_VERSION \
@@ -68,6 +69,7 @@ RUN \
         certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
         certbot-dns-infomaniak==${CERTBOT_DNS_INFOMANIAK_VERSION} \
+        certbot-dns-ionos==${CERTBOT_DNS_IONOS_VERSION} \
         certbot-dns-joker==${CERTBOT_DNS_JOKER_VERSION} \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \

@@ -31,5 +31,16 @@ configuration:
       Server. Use `--help` to get a list of possible arguments. Note that
       arguments are also added by the startup script controlled by other add-on
       options.
+  matter_server_version:
+    name: Matter Server version
+    description: >-
+      Install custom Matter Server version. WARNING: An older version might have
+      an incompatible storage format! Use this feature with cauption! Make sure
+      you have a recent backup of the add-on!
+  matter_sdk_wheels_version:
+    name: Matter SDK wheels version
+    description: >-
+      Install custom Matter SDK wheels version. NOTE: The API might not be
+      compatible with the Python Matter server.
 network:
   5580/tcp: Matter Server WebSocket server port.

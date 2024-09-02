@@ -36,6 +36,8 @@ schema:
   bluetooth_adapter_id: int?
   matter_server_args:
     - str?
+  matter_server_version: str?
+  matter_sdk_wheels_version: str?
 ports:
   5580/tcp: null
 stage: stable

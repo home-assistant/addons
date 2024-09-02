@@ -3,6 +3,7 @@
 ## 6.4.2
 
 - Add support for custom Matter Server arguments
+- Add support to install custom Matter Server and Matter SDK (CHIP) versions
 
 ## 6.4.1
 

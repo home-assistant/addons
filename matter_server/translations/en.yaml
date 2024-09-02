@@ -35,7 +35,7 @@ configuration:
     name: Matter Server version
     description: >-
       Install custom Matter Server version. WARNING: An older version might have
-      an incompatible storage format! Use this feature with cauption! Make sure
+      an incompatible storage format! Use this feature with caution! Make sure
       you have a recent backup of the add-on!
   matter_sdk_wheels_version:
     name: Matter SDK wheels version

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.4
+
+- Add IONOS DNS support
+
 ## 5.1.3
 
 - Add godaddy.com DNS support

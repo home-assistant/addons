@@ -32,6 +32,7 @@ ARG \
     CERTBOT_GANDI_VERSION \
     CERTBOT_DNS_DOMAINOFFENSIVE_VERSION \
     CERTBOT_DNS_PLESK_VERSION \
+    CERTBOT_DNS_GODADDY_VERSION \
     ACME_VERSION
 
 RUN \
@@ -47,7 +48,7 @@ RUN \
         openssl-dev \
         cargo \
     && pip3 install --no-cache-dir --find-links \
-        "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \ 
+        "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \
         cloudflare==${CLOUDFLARE_VERSION} \
         cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
@@ -62,6 +63,7 @@ RUN \
         certbot-dns-duckdns==${CERTBOT_DNS_DUCKDNS_VERSION} \
         certbot-dns-dynu-dev==${CERTBOT_DNS_DYNU_VERSION} \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
+        certbot-dns-godaddy==${CERTBOT_DNS_GODADDY_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
         certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \

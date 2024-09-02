@@ -11,6 +11,7 @@ RUN \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        dwm \
         iproute2 \
         iputils-ping \
         kmod \
@@ -24,7 +25,7 @@ RUN \
         libqt5widgets5 \
         libqt5qml5 \
         lsof \
-        netcat \
+        netcat-traditional \
         nginx \
         novnc \
         sqlite3 \
@@ -32,33 +33,9 @@ RUN \
         tigervnc-standalone-server \
         udev \
         wget \
-        wmii \
         xfonts-base \
         xfonts-scalable \
-    && rm -rf /var/lib/apt/lists/* \
-    && if [[ "armhf aarch64" = *"$BUILD_ARCH"* ]]; \
-        then \
-            apt-get update \
-            && apt-get install -y --no-install-recommends \
-                build-essential \
-                git \
-            && git clone --depth 1 https://github.com/WiringPi/WiringPi /usr/src/wiringpi \
-            && cd /usr/src/wiringpi/wiringPi \
-            && make \
-            && make install \
-            && cd ../devLib \
-            && make \
-            && make install \
-            && cd ../gpio \
-            && make \
-            && make install \
-            && apt-get purge -y --auto-remove \
-                build-essential \
-                git \
-            && rm -rf \
-                /var/lib/apt/lists/* \
-                /usr/src/wiringpi; \
-        fi
+    && rm -rf /var/lib/apt/lists/*
 
 # Install deCONZ
 ARG DECONZ_VERSION

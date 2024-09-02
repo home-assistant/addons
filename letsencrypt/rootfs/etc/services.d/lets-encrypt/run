@@ -139,6 +139,12 @@ elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}" )
 
+# GoDaddy
+elif [ "${DNS_PROVIDER}" == "dns-godaddy" ]; then
+    bashio::config.require 'dns.godaddy_secret'
+    bashio::config.require 'dns.godaddy_key'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Hetzner
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hetzner" ]; then
     bashio::config.require 'dns.hetzner_api_token'

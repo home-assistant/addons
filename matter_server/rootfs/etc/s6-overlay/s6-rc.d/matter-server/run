@@ -51,6 +51,10 @@ if bashio::config.has_value "bluetooth_adapter_id"; then
   extra_args+=('--bluetooth-adapter' $(bashio::config 'bluetooth_adapter_id'))
 fi
 
+if bashio::config.has_value "matter_server_args"; then
+  extra_args+=($(bashio::config 'matter_server_args'))
+fi
+
 bashio::log.info "Using '${primary_interface}' as primary network interface."
 
 # Send out discovery information to Home Assistant

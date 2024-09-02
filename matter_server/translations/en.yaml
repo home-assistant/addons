@@ -24,5 +24,12 @@ configuration:
       Home Assistant Companion app commissioning method is recommended as it is
       better tested and allows to commission directly in proximity of the device
       itself.
+  matter_server_args:
+    name: Extra Matter Server arguments
+    description: >-
+      This allows to pass additional command line arguments to the Python Matter
+      Server. Use `--help` to get a list of possible arguments. Note that
+      arguments are also added by the startup script controlled by other add-on
+      options.
 network:
   5580/tcp: Matter Server WebSocket server port.

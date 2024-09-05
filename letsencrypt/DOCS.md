@@ -104,8 +104,6 @@ dnsmadeeasy_secret_key: ''
 duckdns_token: ''
 dynu_auth_token: ''
 google_creds: ''
-google_domains_access_token: ''
-google_domains_zone: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
 gehirn_api_secret: ''
@@ -401,30 +399,6 @@ The credential file can be created and downloaded when creating the service user
 You can find additional information regarding the required permissions in the "credentials" section here:
 
 <https://github.com/certbot/certbot/blob/master/certbot-dns-google/certbot_dns_google/__init__.py>
-
-</details>
-
-<details>
-  <summary>Google Domains DNS challenge</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - subdomain.home-assistant.io
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-google-domains
-    google_domains_access_token: XXXX
-    google_domains_zone: home-assistant.io
-  ```
-
-To obtain the ACME DNS API token follow the instructions here:
-
-<https://support.google.com/domains/answer/7630973#acme_dns>
-
-The optional `google_domains_zone` option specifies the domain name registered with Google Domains.  If not specified, it is guessed based on the public suffix list.
 
 </details>
 

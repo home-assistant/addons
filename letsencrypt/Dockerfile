@@ -15,7 +15,6 @@ ARG \
     CERTBOT_DNS_DUCKDNS_VERSION \
     CERTBOT_DNS_DYNU_VERSION \
     CERTBOT_DNS_EASYDNS_VERSION \
-    CERTBOT_DNS_GOOGLE_DOMAINS_VERSION \
     CERTBOT_DNS_HE_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
@@ -66,7 +65,6 @@ RUN \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
         certbot-dns-godaddy==${CERTBOT_DNS_GODADDY_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
-        certbot-dns-google-domains==${CERTBOT_DNS_GOOGLE_DOMAINS_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
         certbot-dns-infomaniak==${CERTBOT_DNS_INFOMANIAK_VERSION} \
         certbot-dns-joker==${CERTBOT_DNS_JOKER_VERSION} \

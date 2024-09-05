@@ -1,8 +1,12 @@
 # Changelog
 
-## 5.1.4
+## 5.1.5
 
 - Add mijn.host DNS support
+
+## 5.1.4
+
+- Drop Google Domains support (the new operator Squarespace has no ACME support)
 
 ## 5.1.3
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.4
+
+- Drop Google Domains support (the new operator Squarespace has no ACME support)
+
 ## 5.1.3
 
 - Add godaddy.com DNS support

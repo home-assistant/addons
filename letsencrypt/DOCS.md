@@ -59,6 +59,7 @@ dns-infomaniak
 dns-joker
 dns-linode
 dns-luadns
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-simply
@@ -118,6 +119,7 @@ linode_key: ''
 linode_version: ''
 luadns_email: ''
 luadns_token: ''
+mijn_host_api_key: ''
 njalla_token: ''
 noris_token: ''
 nsone_api_key: ''
@@ -1045,6 +1047,28 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 </details>
 
 
+<details>
+  <summary>mijn.host DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-mijn-host
+    mijn_host_api_key: XXXXXX
+    propagation_seconds: 60
+  ```
+
+The `mijn_host_api_key` is the account's API key.
+The API key assigned to your mijn.host account can be found in your mijn.host Control panel.
+
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -1072,6 +1096,7 @@ dns-hetzner
 dns-infomaniak
 dns-linode
 dns-luadns
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-plesk

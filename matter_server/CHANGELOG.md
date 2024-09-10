@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.5.0
+
+- Bump Python Matter Server to [6.5.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.5.0)
+
 ## 6.4.2
 
 - Add support for custom Matter Server arguments

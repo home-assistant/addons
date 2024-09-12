@@ -4,6 +4,12 @@
 
 ### Features
 
+- Z-Wave JS: Add support for EU Long Range
+- Z-Wave JS: Support learn mode to become a secondary controller
+- Z-Wave JS: Add method to query supported RF regions and their info
+- Z-Wave JS: Support Firmware Update Meta Data CC v8
+- Z-Wave JS: Implement 32-bit addressed NVM operations
+- Z-Wave JS: Add methods to reset SPAN of one or all nodes
 - Z-Wave JS: Add method to enumerate all device classes
 - Z-Wave JS: Update list of manufacturers and existing CCs
 - Z-Wave JS: Add inclusion state changed event
@@ -16,6 +22,7 @@
 
 ### Bug fixes
 
+- Fix missing values in endpoint dump
 - Z-Wave JS: Preserve granted security classes of provisioning entries when switching protocols
 - Z-Wave JS: Version of Humidity Control Mode CC is 1, not 2
 - Z-Wave JS: Abort S2 bootstrapping when KEXSetEcho has reserved bits set
@@ -44,6 +51,11 @@
 
 ### Config file changes
 
+- Add new fingerprint for TZ45 thermostat
+- Add alarm mapping for Schlage lock CKPD FE599
+- Add fingerprint for Climax Technology SDCO-1
+- Add Shelly Wave Pro 3 and Wave Pro Shutter
+- Remove endpoint workaround for Zooz ZEN30, FW 3.20+
 - Add ZVIDAR ZW872 800 series Pi Module
 - Add ZVIDAR ZW871 800 series USB Controller
 - Rename Zvidar config file name Z-PI to Z-PI.json
@@ -65,6 +77,7 @@
 
 ### Detailed changelogs
 
+- [Z-Wave JS 13.3.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.3.0)
 - [Z-Wave JS 13.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.2.0)
 - [Z-Wave JS 13.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.1.0)
 - [Z-Wave JS 13.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.0.3)

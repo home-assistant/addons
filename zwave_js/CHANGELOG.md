@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- - Add-On: Fix the soft reset driver option that was moved in driver v.13.
+- Add-on: Fix the soft reset driver option that was moved in driver v.13.
 
 ## 0.7.0
 

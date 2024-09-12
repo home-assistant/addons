@@ -1,5 +1,97 @@
 # Changelog
 
+## 0.7.0
+
+### Features
+
+- Z-Wave JS: Add support for EU Long Range
+- Z-Wave JS: Support learn mode to become a secondary controller
+- Z-Wave JS: Add method to query supported RF regions and their info
+- Z-Wave JS: Support Firmware Update Meta Data CC v8
+- Z-Wave JS: Implement 32-bit addressed NVM operations
+- Z-Wave JS: Add methods to reset SPAN of one or all nodes
+- Z-Wave JS: Add method to enumerate all device classes
+- Z-Wave JS: Update list of manufacturers and existing CCs
+- Z-Wave JS: Add inclusion state changed event
+- Z-Wave JS: Add support for new notifications
+- Z-Wave JS: Bump version of Association CC and Multi Channel Association CC
+- Z-Wave JS: Add link reliability check feature
+- Z-Wave JS: Enable hardware watchdog on 700/800 series controllers
+- Z-Wave JS: Add method to query supported RF regions
+- Z-Wave JS: Add notification variable for Door/Window tilt state
+
+### Bug fixes
+
+- Fix missing values in endpoint dump
+- Z-Wave JS: Preserve granted security classes of provisioning entries when switching protocols
+- Z-Wave JS: Version of Humidity Control Mode CC is 1, not 2
+- Z-Wave JS: Abort S2 bootstrapping when KEXSetEcho has reserved bits set
+- Z-Wave JS: Fixed an issue causing non-implemented CCs to be dropped before applications could handle them
+- Z-Wave JS: Fixed an issue causing all ZWLR multicast groups to be considered identical
+- Z-Wave JS: Fixed a startup crash on Zniffers older than FW 2.55
+- Z-Wave JS: Fixed latency calculation in link reliability check, distinguish between latency and RTT
+- Z-Wave JS: Fixed a regression that could cause incorrect units and missing sensor readings
+- Z-Wave JS: Don't verify delivery of S2 frames in link reliability check
+- Z-Wave JS: Reset aborted flags when starting link reliability or route health check
+- Z-Wave JS: Supported CCs of endpoints are now reset during a re-interview
+- Z-Wave JS: Basic CC is no longer automatically marked as supported if included in the list of securely supported commands
+- Z-Wave JS: Set highest version also for Basic CC if Version CC is not supported
+- Z-Wave JS: Fixed an issue where CC values could be returned for the controller node
+- Z-Wave JS: Fixed a regression from v12.12.3 would result in Basic CC values being exposed unnecessarily for some devices
+- Z-Wave JS: Fixed an issue where Basic CC values would be exposed unnecessarily for devices with a compat flag that maps Basic CC Set to a different CC
+- Z-Wave JS: When responding to Version CC Get queries, Z-Wave JS's own version is now included as the Firmware 1 version
+- Z-Wave JS: When receiving a notification with an unknown notification type, the created "unknown" value now correctly has metadata set
+- Z-Wave JS: When receiving an idle notification, the values for unknown notification events are now also reset to idle
+- Z-Wave JS: Auto-enable all supported Barrier Operator signaling subsystem during the interview
+- Z-Wave JS: Fixed an issue where the watchdog feature could cause Z-Wave JS to stall after attempting controller recovery
+- Z-Wave JS: Reset controller again when transmitting to a problematic node makes the controller become unresponsive again after automatic recovery
+- Z-Wave JS: Node interviews are now aborted in more cases when node is determined to be dead
+- Z-Wave JS: Expose Basic CC currentValue when certain compat flags are set
+- Z-Wave JS: Fixed an issue where value metadata for unknown notification events with known notification types would only be created if the CC version was exactly 2
+
+### Config file changes
+
+- Add new fingerprint for TZ45 thermostat
+- Add alarm mapping for Schlage lock CKPD FE599
+- Add fingerprint for Climax Technology SDCO-1
+- Add Shelly Wave Pro 3 and Wave Pro Shutter
+- Remove endpoint workaround for Zooz ZEN30, FW 3.20+
+- Add ZVIDAR ZW872 800 series Pi Module
+- Add ZVIDAR ZW871 800 series USB Controller
+- Rename Zvidar config file name Z-PI to Z-PI.json
+- Update Zooz ZEN30 to latest revisions
+- Support MCO Home MH-S412 parameters properly
+- Add Ring Flood Freeze Sensor
+- Override user code count for Yale ZW2 locks to expose admin code
+- Add GDZW7-ECO Ecolink 700 Series Garage Door Controller
+- Correct label for Remote 3-Way Switch parameter on Zooz ZEN32
+- Add UltraPro 700 Series Z-Wave In-Wall Smart Dimmer
+- Add Yale Assure 2 Biometric Deadbolt locks
+- Add iDevices In-Wall Smart Dimmer
+- Support Comet parameters properly
+- Update label of Nortek GD00Z-6, -7, -8
+- Disable Supervision for Zooz ZSE11
+- Clarify parameters and units for Everspring AN158
+- Force-add support for Multilevel Switch CC to FGRM-222, remove Binary Switch CC
+- Add ZVIDAR Z-PI 800 Series PI Module
+
+### Detailed changelogs
+
+- [Z-Wave JS 13.3.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.3.0)
+- [Z-Wave JS 13.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.2.0)
+- [Z-Wave JS 13.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.1.0)
+- [Z-Wave JS 13.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.0.3)
+- [Z-Wave JS 13.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.0.2)
+- [Z-Wave JS 13.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.0.1)
+- [Z-Wave JS 13.0.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.0.0)
+- [Z-Wave JS 12.13.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.13.0)
+- [Z-Wave JS 12.12.5](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.12.5)
+- [Z-Wave JS 12.12.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.12.4)
+- [Z-Wave JS 12.12.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.12.3)
+- [Z-Wave JS 12.12.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.12.2)
+- [Z-Wave JS 12.12.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.12.1)
+- [Z-Wave JS 12.12.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v12.12.0)
+
 ## 0.6.2
 
 ### Bug fixes

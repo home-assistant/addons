@@ -76,7 +76,8 @@ to view recorder data should create a user limited to read-only access on the da
 
 ### Option: `parameters.innodb_buffer_pool_size` (optional)
 
-During Home Assistant schema updates some people experienced [errors][migration-issues] on large databases. Increasing this value can help if there is RAM available.
+Some users have experienced [errors][migration-issues] during Home Assistant schema updates on large databases.
+Increasing this value from the default 128M can help if there is RAM available.
 
 ## Home Assistant Configuration
 

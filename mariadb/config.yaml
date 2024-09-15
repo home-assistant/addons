@@ -1,9 +1,9 @@
 ---
-version: 2.7.1
+version: 2.7.2
 slug: mariadb
 name: MariaDB
 description: A SQL database server
-url: https://github.com/home-assistant/addons/tree/master/mariadb
+url: https://github.com/danielszilagyi/homeassistant-addons/tree/master/mariadb
 arch:
   - armhf
   - armv7

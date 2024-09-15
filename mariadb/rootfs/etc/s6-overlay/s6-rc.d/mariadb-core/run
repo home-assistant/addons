@@ -7,20 +7,14 @@
 # Initialize an empty string to hold the concatenated parameters
 param_string=""
 
-# Init params
-for param in $(bashio::config "parameters"); do
-    bashio::log.info "$param"
-    PARAM=$(bashio::config "parameters[${right}].key")
-    VALUE=$(bashio::config "parameters[${right}].value")
-    bashio::log.info "Configured ${PARAM}: ${VALUE}"
-    param_string+="--${PARAM}=${VALUE} "
-done
+# Fetch the full array of parameters
+item=$(bashio::config "parameters")
 
-# Trim the trailing space (optional)
-param_string=$(echo "$param_string" | sed 's/ *$//')
+while read -r param; do
+    param_string+="--${param} "
+done < <(jq --raw-output 'to_entries[] | "\(.key)=\(.value)"' <<< "$item")
 
-# Print the concatenated string of parameters
-bashio::log.info "Concatenated parameters: $param_string"
+bashio::log.info "Using command line parameters for MariaDB: $param_string"
 
 
 # Start mariadb

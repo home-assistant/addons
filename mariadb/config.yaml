@@ -3,7 +3,7 @@ version: 2.7.2
 slug: mariadb
 name: MariaDB
 description: A SQL database server
-url: https://github.com/danielszilagyi/homeassistant-addons/tree/master/mariadb
+url: https://github.com/home-assistant/addons/tree/master/mariadb
 arch:
   - armhf
   - armv7
@@ -25,6 +25,7 @@ options:
       username: homeassistant
   parameters:
     - innodb_buffer_pool_size: 128M
+      key_buffer_size: 16M
 ports:
   3306/tcp: null
 schema:
@@ -42,6 +43,7 @@ schema:
       username: str
   parameters:
     - innodb_buffer_pool_size: str
+      key_buffer_size: str
 services:
   - mysql:provide
 startup: system

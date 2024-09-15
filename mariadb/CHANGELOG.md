@@ -2,7 +2,7 @@
 
 ## 2.7.2
 
-- Add option to configure MariaDB server parameters (see also https://github.com/home-assistant/addons/issues/3754)
+- Add option to configure MariaDB server parameters (see also [home-assistant/addons#3754](https://github.com/home-assistant/addons/issues/3754))
 
 ## 2.7.1
 

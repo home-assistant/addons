@@ -74,6 +74,10 @@ If omitted, grants `ALL PRIVILEGES` to the user. Restricting privileges of the u
 that Home Assistant uses is not recommended but if you want to allow other applications
 to view recorder data should create a user limited to read-only access on the database.
 
+### Option: `parameters.innodb_buffer_pool_size` (optional)
+
+During Home Assistant schema updates some people experienced [errors][migration-issues] on large databases. Increasing this value can help if there is RAM available.
+
 ## Home Assistant Configuration
 
 MariaDB will be used by the `recorder` and `history` components within Home Assistant. For more information about setting this up, see the [recorder integration][mariadb-ha-recorder] documentation for Home Assistant.
@@ -101,6 +105,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [username]: https://mariadb.com/kb/en/create-user/#user-name-component
 [hostname]: https://mariadb.com/kb/en/create-user/#host-name-component
 [grant]: https://mariadb.com/kb/en/grant/
+[migration-issues]: https://github.com/home-assistant/core/issues/125339
 [mariadb-ha-recorder]: https://www.home-assistant.io/integrations/recorder/
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io

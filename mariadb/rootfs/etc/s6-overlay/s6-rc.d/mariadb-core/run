@@ -4,7 +4,26 @@
 # Start MariaDB service
 # ==============================================================================
 
+# Initialize an empty string to hold the concatenated parameters
+param_string=""
+
+# Print the concatenated string of parameters
+echo "Concatenated parameters: $param_string"
+
+# You can now use this $param_string in your mysqld command or configuration file.
+
+# Init params
+for param in $(bashio::config "parameters"); do
+    PARAM=$(bashio::config "parameters[${right}].key")
+    VALUE=$(bashio::config "parameters[${right}].value")
+    bashio::log.info "Configured ${PARAM}: ${VALUE}"
+    param_string+="--${PARAM}=${VALUE} "
+done
+
+# Trim the trailing space (optional)
+param_string=$(echo "$param_string" | sed 's/ *$//')
+
 # Start mariadb
 bashio::log.info "Starting MariaDB"
 mkdir -p /run/mysqld
-exec mysqld --datadir="${MARIADB_DATA}" --user=root < /dev/null
+exec mysqld --datadir="${MARIADB_DATA}" --user=root "${param_string}" < /dev/null

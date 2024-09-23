@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.7.2
+
+### Bug fixes
+
+- Z-Wave JS: Fixed the identification of the primary controller role on some older controllers
+- Z-Wave JS: Fixed an issue where passing a custom log transport to updateOptions would cause a call stack overflow
+- Z-Wave JS: Implement deserialization for more WindowCoveringCC commands to be used in mocks
+
+### Config file changes
+
+- Add Philio Technology Smart Keypad
+- Add LED indication parameter for Inovelli NZW31 dimmer
+
+### Detailed changelogs
+
+- [Z-Wave JS 13.3.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.3.1)
+
 ## 0.7.1
 
 ### Bug fixes
@@ -28,7 +45,7 @@
 
 ### Bug fixes
 
-- Fix missing values in endpoint dump
+- Z-Wave JS: Fix missing values in endpoint dump
 - Z-Wave JS: Preserve granted security classes of provisioning entries when switching protocols
 - Z-Wave JS: Version of Humidity Control Mode CC is 1, not 2
 - Z-Wave JS: Abort S2 bootstrapping when KEXSetEcho has reserved bits set

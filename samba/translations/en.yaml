@@ -12,9 +12,9 @@ configuration:
     name: Workgroup
     description: Change WORKGROUP to reflect your network needs.
   compatibility_mode:
-    name: Allow Compatibility Mode
+    name: Enable Compatibility Mode
     description: >-
-      Allow this to use old legacy Samba protocols on the Samba add-on.
+      Enable this to use old legacy Samba protocols on the Samba add-on.
   veto_files:
     name: Veto Files
     description: List of files that are neither visible nor accessible.

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.8.0
+
+### Features
+
+- Add-On: Add `disable_watchdog` configuration option. When enabled, the driver will not enable the hardware watchdog of the Z-Wave controller. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
+
+### Config file changes
+
+- Update Z-Wave SDK warnings to mention recommended versions
+- Update Zooz device labels
+
+### Detailed changelogs
+
+- [Z-Wave JS 13.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.4.0)
+
 ## 0.7.2
 
 ### Bug fixes

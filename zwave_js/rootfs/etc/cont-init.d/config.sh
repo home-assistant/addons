@@ -142,6 +142,12 @@ if bashio::config.true 'disable_controller_recovery'; then
     presets_array+=("NO_CONTROLLER_RECOVERY")
 fi
 
+if bashio::config.true 'disable_watchdog'; then
+    bashio::log.info "Hardware watchdog disabled"
+    # Add NO_WATCHDOG to presets array
+    presets_array+=("NO_WATCHDOG")
+fi
+
 # Convert presets array to JSON string and add to config
 if [[ ${#presets_array[@]} -eq 0 ]]; then
     presets="[]"

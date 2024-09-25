@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.15.0
+
+- Upgrade Home Assistant CLI to 4.36.0
+
 ## 9.14.0
 
 - Upgrade Home Assistant CLI to 4.34.0

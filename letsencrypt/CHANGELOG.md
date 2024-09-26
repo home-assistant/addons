@@ -1,5 +1,10 @@
 # Changelog
 
+
+## 5.2.1
+
+- Add mijn.host DNS support
+
 ## 5.2.0
 
 - Update Certbot/ACME to 2.11.0 & update all plugins to their latest version

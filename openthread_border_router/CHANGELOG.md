@@ -2,7 +2,7 @@
 
 ## 2.11.0
 
-- Bump to OTBR POSIX version 09574a202c2 (2024-09-23 08:54:32 -0700)
+- Bump to OTBR POSIX version ff7227ea9a2 (2024-09-25 14:54:08 -0700)
 - Make log output unbuffered
 - Avoid ipset errors when firewall is disabled
 

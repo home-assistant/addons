@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.2.1
+
+- Revert Cryptography to 42.0.8 to avoid deprecation warnings
+
+## 5.2.0
+
+- Update Certbot/ACME to 2.11.0 & update all plugins to their latest version
+- Update to Python 3.12
+- Update to Alpine 3.20
+
 ## 5.1.4
 
 - Drop Google Domains support (the new operator Squarespace has no ACME support)

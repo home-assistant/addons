@@ -9,6 +9,8 @@ the [File Editor](/configurator/README.md)).
 Add-ons can be installed and configured via the Home Assistant frontend on
 systems that have installed Home Assistant.
 
+[![Home Assistant - A project from the Open Home Foundation](https://www.openhomefoundation.org/badges/home-assistant.png)](https://www.openhomefoundation.org/)
+
 ## Add-ons provided by this repository
 
 - **[CEC Scanner](/cec_scan/README.md)**
@@ -104,5 +106,3 @@ about developing an add-on, please see our
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [dev-docs]: https://developers.home-assistant.io/docs/add-ons/
-
-[![Home Assistant - A project from the Open Home Foundation](https://www.openhomefoundation.org/badges/home-assistant.png)](https://www.openhomefoundation.org/)

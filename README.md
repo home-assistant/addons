@@ -104,3 +104,5 @@ about developing an add-on, please see our
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [dev-docs]: https://developers.home-assistant.io/docs/add-ons/
+
+[![Home Assistant - A project from the Open Home Foundation](https://www.openhomefoundation.org/badges/home-assistant.png)](https://www.openhomefoundation.org/)

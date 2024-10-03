@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.11.1
+
+-  Fix issue with USB TI CC2652 based devices
+
 ## 2.11.0
 
 - Bump to OTBR POSIX version ff7227ea9a2 (2024-09-25 14:54:08 -0700)

@@ -26,6 +26,8 @@ flow_control=""
 
 if bashio::config.true 'flow_control'; then
     flow_control="&uart-flow-control"
+else
+    flow_control="&uart-init-deassert"
 fi
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")

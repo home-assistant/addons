@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.11.0
+
+- Update Alpine Linux to 3.20 (nginx 1.26.x)
+
 ## 3.10.1
 
 - Make `real_ip_from` optional through an empty default value

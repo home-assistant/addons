@@ -32,6 +32,7 @@ ARG \
     CERTBOT_DNS_DOMAINOFFENSIVE_VERSION \
     CERTBOT_DNS_PLESK_VERSION \
     CERTBOT_DNS_GODADDY_VERSION \
+    CERTBOT_DNS_LOOPIA_VERSION \
     ACME_VERSION
 
 RUN \
@@ -89,6 +90,7 @@ RUN \
         certbot-dns-domainoffensive==${CERTBOT_DNS_DOMAINOFFENSIVE_VERSION} \
         certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \
         certbot-dns-plesk==${CERTBOT_DNS_PLESK_VERSION} \
+        certbot-dns-loopia==${CERTBOT_DNS_LOOPIA_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies
 

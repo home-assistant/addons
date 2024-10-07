@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.6.0
+
+- Bump Python Matter Server to [6.6.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.6.0)
+
 ## 6.5.1
 
 - Bump Python Matter Server to [6.5.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.5.1)

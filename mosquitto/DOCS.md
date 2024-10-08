@@ -68,6 +68,8 @@ logins:
     password_pre_hashed: true
 ```
 
+**Note:** This add-on does not support anonymous logins; all connections must use a username/password to connect. `allow_anonymous true` nor any anonymous ACLs will not work with this add-on. 
+
 #### Option: `customize.active`
 
 If set to `true` additional configuration files will be read, see the next option.

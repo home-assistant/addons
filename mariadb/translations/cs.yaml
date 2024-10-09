@@ -1,0 +1,12 @@
+configuration:
+  databases:
+    name: Databáze
+    description: Jméno databáze(í).
+  logins:
+    name: Přihlášení
+    description: Tato sekce definuje vytvoření uživatele v MariaDB.
+  rights:
+    name: Oprávnění
+    description: Tato sekce nastavuje oprávnění pro uživatele v MariaDB.
+network:
+  3306/tcp: Port pro přístup do databáze.

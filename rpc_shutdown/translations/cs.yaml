@@ -1,0 +1,5 @@
+configuration:
+  computers:
+    name: Počítače
+    description: >-
+      Seznam všech počítačů, které chcete vypnout z Home Assistanta.

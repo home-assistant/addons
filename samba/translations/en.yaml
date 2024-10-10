@@ -12,10 +12,13 @@ configuration:
     name: Workgroup
     description: Change WORKGROUP to reflect your network needs.
   enabled_shares:
-    name: Enabled Shares - allowed values are addons, addon_configs, backup, config, media, share, or ssl
+    name: >-
+      Enabled Shares - allowed values are:
+      addons, addon_configs, backup, config, media, share, or ssl
     description: >-
-      List of file shares to make available.  Any you wish to add must be typed in.
-      The listed values are the only allowed values;  Config cannot be saved if any other value is in the list.
+      List of file shares to make available.  Any you wish to add must be typed.
+      The listed values are the only allowed values.
+      Config cannot be saved if any non-allowed value is in the list.
   compatibility_mode:
     name: Enable Compatibility Mode
     description: >-

@@ -16,7 +16,8 @@ configuration:
       Enabled Shares - allowed values are:
       addons, addon_configs, backup, config, media, share, or ssl
     description: >-
-      List of file shares to make available.  Any you wish to add must be typed.
+      List of file shares to make available.
+      Adding a share requires typing its name to add it.
       The listed values are the only allowed values.
       Config cannot be saved if any non-allowed value is in the list.
   compatibility_mode:
@@ -31,4 +32,7 @@ configuration:
     description: List of hosts/networks allowed to access the shared folders.
   debug:
     name: Debug Logging
-    description: Log the resulting Samba config in the log
+    description: >-
+      Log the resulting Samba config in the log file.
+      Generally, unless you know what you want this for, you probably do not
+      need this.  This does not log credentials.

@@ -1,11 +1,8 @@
 # Changelog
-## 13.0.0
+## 12.4.0
 
-This change enhances security and user control, but may require updating your configuration
-to access shares that contain potentially sensitive information.
-
-- Default shares reduced to 'media' and 'share'
-- Add ability to selectively enable exposed shares.
+- Add the ability to enable and disable specific shares
+- Add optional logging of samba configuration at startup
 
 ## 12.3.2
 

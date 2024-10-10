@@ -11,6 +11,11 @@ configuration:
   workgroup:
     name: Workgroup
     description: Change WORKGROUP to reflect your network needs.
+  enabled_shares:
+    name: Enabled Shares - allowed values are addons, addon_configs, backup, config, media, share, or ssl
+    description: >-
+      List of file shares to make available.  Any you wish to add must be typed in.
+      The listed values are the only allowed values;  Config cannot be saved if any other value is in the list.
   compatibility_mode:
     name: Enable Compatibility Mode
     description: >-
@@ -21,37 +26,6 @@ configuration:
   allow_hosts:
     name: Allowed Hosts
     description: List of hosts/networks allowed to access the shared folders.
-  allow_addons:
-    name: Allow Add-Ons folder
-    description: >-
-      Allow SMB access to the Add-ons folder.
-      This is disabled by default.
-  allow_addon_configs:
-    name: Allow Add-On Configs folder
-    description: >-
-      Allow SMB access to the Add-on Configurations folder.
-      This is disabled by default.
-  allow_backup:
-    name: Allow Backups folder
-    description: >-
-      Allow SMB access to the folder where HomeAssistant keeps its backups.
-      This is disabled by default.
-  allow_config:
-    name: Allow Configs folder
-    description: >-
-      Allow SMB access to the HomeAssistant Core configuration folder.
-      This is disabled by default.
-  allow_media:
-    name: Allow Media folder
-    description: >-
-      Allow SMB access to the Media folder
-  allow_share:
-    name: Allow Share folders
-    description: >-
-      Allow SMB access to the Share folder (which is shared with all
-      HomeAssistant Add-ons).
-  allow_ssl:
-    name: Allow SSL folder
-    description: >-
-      Allow SMB access to the ssl folder, where HomeAssistant keeps SSL Keys.
-      This is disabled by default.
+  debug:
+    name: Debug Logging
+    description: Log the resulting Samba config in the log

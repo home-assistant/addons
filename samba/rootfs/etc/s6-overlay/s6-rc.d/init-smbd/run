@@ -12,11 +12,7 @@ if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password
     bashio::exit.nok "Setting a username and password is required!"
 fi
 
-if bashio::config.false 'enable_addons' && bashio::config.false 'enable_addon_configs' && bashio::config.false 'enable_backup' && \
- bashio::config.false 'enable_config' && bashio::config.false 'enable_media' && bashio::config.false 'enable_share' && \
- bashio::config.false 'enable_ssl'; then
-    bashio::exit.nok "No shares enabled for Samba to present!"
-fi
+bashio::config.require "enabled_shares" "Samba is a tool for sharing folders.  Starting it without sharing any folders defeats the purpose."
 
 # Read hostname from API or setting default "hassio"
 HOSTNAME=$(bashio::info.hostname)
@@ -36,10 +32,16 @@ fi
 bashio::log.info "Interfaces: $(printf '%s ' "${interfaces[@]}")"
 
 # Generate Samba configuration.
-jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- "${interfaces[@]}")" /data/options.json \
+jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- "${interfaces[@]}") |
+    .enabled_shares.[] |= ascii_downcase" /data/options.json \
     | tempio \
       -template /usr/share/tempio/smb.gtpl \
       -out /etc/samba/smb.conf
+
+if bashio::config.true 'debug'; then
+    bashio::log.yellow "Resulting Samba config:"
+    bashio::log.yellow "$(cat /etc/samba/smb.conf)"
+fi
 
 # Init user
 username=$(bashio::config 'username')

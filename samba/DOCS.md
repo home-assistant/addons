@@ -12,9 +12,10 @@ Follow these steps to get the add-on installed on your system:
 
 1. In the configuration section, set a username and password.
    You can specify any username and password; these are not related in any way to the login credentials you use to log in to Home Assistant or to log in to the computer with which you will use Samba share.
-2. Save the configuration.
-3. Start the add-on.
-4. Check the add-on log output to see the result.
+2. Review the enabled shares.  Disable any you do not plan to use (they can be re-enabled later)
+3. Save the configuration.
+4. Start the add-on.
+5. Check the add-on log output to see the result.
 
 ## Connection
 
@@ -40,6 +41,14 @@ Add-on configuration:
 workgroup: WORKGROUP
 username: homeassistant
 password: YOUR_PASSWORD
+enabled_shares:
+  - addons
+  - addon_configs
+  - backup
+  - config
+  - media
+  - share
+  - ssl
 allow_hosts:
   - 10.0.0.0/8
   - 172.16.0.0/12
@@ -52,6 +61,7 @@ veto_files:
   - ".DS_Store"
   - Thumbs.db
 compatibility_mode: false
+debug: false
 ```
 
 ### Option: `workgroup` (required)
@@ -65,6 +75,10 @@ The username you would like to use to authenticate with the Samba server.
 ### Option: `password` (required)
 
 The password that goes with the username configured for authentication.
+
+### Option: `enabled_shares` (required)
+
+List of Samba shares able to be accessed.
 
 ### Option: `allow_hosts` (required)
 
@@ -85,58 +99,12 @@ when you absolutely need it and understand the possible consequences.
 
 Defaults to `false`.
 
-### Option: `enable_addons`
+### Option: `debug` (optional)
 
-Setting this option to `true` will allow Samba to expose the 'addons' folder,
-which is used for installing custom local plugins.
+Outputs the resulting Samba config in the log. Generally, unless you
+know what you would be wanting to do with this information, not necessary.
 
-Defaults to `false`.
-
-### Option: `enable_addon_configs`
-
-Setting this option to `true` will allow Samba to expose the 'addon_configs' folder,
-which is used for setting configuration of plugins.
-
-defaults to `false`.
-
-### Option: `enable_backups`
-
-Setting this option to `true` will allow Samba to expose the 'backup' folder,
-which is where HomeAssistant places its backups.  These backups can contain any information
-stored in your configurations for Homeassistant or any add-on, including secrets.
-
-Defaults to `false`.
-
-### Option: `enable_configs`
-
-Setting this option to `true` will allow Samba to expose the 'config' folder,
-which is where HomeAssistant stores it core configuration files and databases.  This
-includes secrets.
-
-Defaults to `false`.
-
-### Option: `enable_media`
-
-This option will allow Samba to expose the 'media' folder, which is where HomeAssistant
-expects you to store any local media files.  This is generally safe to expose.
-
-Defaults to `true`.  If you want to not allow this access, change to `false`.
-
-### Option: `enable_share`
-
-This option will allow Samba to expose the 'share' folder, which is where HomeAssistant
-stores information it expects to be shared between different plugins and HomeAssistant.
-
-Defaults to `true`.  If you want to not allow this access, change to `false`.
-
-### Option: `enable_ssl`
-
-Setting this option to `true` will allow Samba to expose the 'ssl' folder,
-which is where HomeAssistant stores its public and private SSL keys.  These are considered
-sensitive because anyone who gets ahold of both parts can impersonante your HomeAssistant server,
-including using that to collect credentials.
-
-Defaults to `false`.
+Optional config.  If not defined, then it will default to `false`.
 
 ## Support
 

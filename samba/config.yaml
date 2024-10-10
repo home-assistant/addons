@@ -1,5 +1,5 @@
 ---
-version: 13.0.0
+version: 12.4.0
 slug: samba
 name: Samba share
 description: Expose Home Assistant folders with SMB/CIFS
@@ -27,6 +27,14 @@ options:
   username: homeassistant
   password: null
   workgroup: WORKGROUP
+  enabled_shares:
+    - addons
+    - addon_configs
+    - backup
+    - config
+    - media
+    - share
+    - ssl
   compatibility_mode: false
   veto_files:
     - ._*
@@ -41,27 +49,16 @@ options:
     - 169.254.0.0/16
     - fe80::/10
     - fc00::/7
-  allow_addons: false
-  allow_addon_configs: false
-  allow_backup: false
-  allow_config: false
-  allow_media: true
-  allow_share: true
-  allow_ssl: false
 schema:
   username: str
   password: password
   workgroup: str
+  enabled_shares:
+    - "match(^(?i:(addons|addon_configs|backup|config|media|share|ssl))$)"
   compatibility_mode: bool
   veto_files:
     - str
   allow_hosts:
     - str
-  allow_addons: bool
-  allow_addon_configs: bool
-  allow_backup: bool
-  allow_config: bool
-  allow_media: bool
-  allow_share: bool
-  allow_ssl: bool
+  debug: bool?
 startup: services

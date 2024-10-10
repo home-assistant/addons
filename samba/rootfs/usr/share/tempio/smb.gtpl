@@ -26,7 +26,7 @@
    dos charset = CP850
    unix charset = UTF-8
 
-{{ if .allow_config }}
+{{ if (has "config" .enabled_shares) }}
 [config]
    browseable = yes
    writeable = yes
@@ -39,7 +39,7 @@
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
 
-{{ if .allow_addons }}
+{{ if (has "addons" .enabled_shares) }}
 [addons]
    browseable = yes
    writeable = yes
@@ -52,7 +52,7 @@
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
 
-{{ if .allow_addon_configs }}
+{{ if (has "addon_configs" .enabled_shares) }}
 [addon_configs]
    browseable = yes
    writeable = yes
@@ -65,7 +65,7 @@
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
 
-{{ if .allow_ssl }}
+{{ if (has "ssl" .enabled_shares) }}
 [ssl]
    browseable = yes
    writeable = yes
@@ -78,7 +78,7 @@
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
 
-{{ if .allow_share }}
+{{ if (has "share" .enabled_shares) }}
 [share]
    browseable = yes
    writeable = yes
@@ -91,7 +91,7 @@
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
 
-{{ if .allow_backup }}
+{{ if (has "backup" .enabled_shares) }}
 [backup]
    browseable = yes
    writeable = yes
@@ -104,7 +104,7 @@
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
 
-{{ if .allow_media }}
+{{ if (has "media" .enabled_shares) }}
 [media]
    browseable = yes
    writeable = yes

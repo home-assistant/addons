@@ -77,6 +77,7 @@ dns-porkbun
 dns-easydns
 dns-domainoffensive
 dns-websupport
+dns-loopia
 ```
 </details>
 
@@ -159,6 +160,8 @@ plesk_password: ''
 plesk_api_url: ''
 simply_account_name: ''
 simply_api_key: ''
+loopia_account_name: ''
+loopia_api_key: ''
 ```
 </details>
 
@@ -1047,6 +1050,27 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 
 </details>
 
+<details>
+  <summary>Loopia DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-loopia
+    loopia_account_name: user@loopiaapi # On the form xyz@loopiaapi 
+    loopia_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Loopia API key. 
+  ```
+
+The `loopia_account_name` refers to a specific API-user, not your general
+Loopia user. It should be on the form `xyz@loopiaapi. `loopia_api_key` is
+the specific API key. See https://customerzone.loopia.se/api/?popup=1
+
+</details>
 
 ## Certificate files
 
@@ -1094,6 +1118,7 @@ dns-porkbun
 dns-easydns
 dns-domainoffensive
 dns-websupport
+dns-loopia
 ```
 
 ## Support

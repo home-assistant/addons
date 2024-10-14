@@ -7,9 +7,10 @@
 if bashio::config.has_value "mariadb_server_args"; then
   extra_args+=($(bashio::config 'mariadb_server_args'))
   bashio::log.info "Starting MariaDB with command line parameters: ${extra_args[@]}"
+else
+  bashio::log.info "Starting MariaDB"
 fi
 
 # Start mariadb
-bashio::log.info "Starting MariaDB with command line parameters: ${extra_args[@]}"
 mkdir -p /run/mysqld
 exec mysqld --datadir="${MARIADB_DATA}" --user=root "${extra_args[@]}" < /dev/null

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.2
+
+- Add IONOS DNS support
+
 ## 5.2.1
 
 - Revert Cryptography to 42.0.8 to avoid deprecation warnings

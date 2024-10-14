@@ -9,6 +9,6 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  CLI_VERSION: 4.34.0
+  CLI_VERSION: 4.36.0
   LIBWEBSOCKETS_VERSION: 4.3.3
   TTYD_VERSION: 1.7.4

@@ -1,5 +1,22 @@
 # Changelog
 
+## 6.6.0
+
+- Bump Python Matter Server to [6.6.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.6.0)
+
+## 6.5.1
+
+- Bump Python Matter Server to [6.5.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.5.1)
+
+## 6.5.0
+
+- Bump Python Matter Server to [6.5.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.5.0)
+
+## 6.4.2
+
+- Add support for custom Matter Server arguments
+- Add support to install custom Matter Server and Matter SDK (CHIP) versions
+
 ## 6.4.1
 
 - Bump Python Matter Server to [6.4.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.4.0)

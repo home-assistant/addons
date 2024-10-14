@@ -66,7 +66,6 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_inwx_username = $(bashio::config 'dns.inwx_username')\n" \
       "dns_inwx_password = $(bashio::config 'dns.inwx_password')\n" \
       "dns_inwx_shared_secret = $(bashio::config 'dns.inwx_shared_secret')\n" \
-      "dns_google_domains_access_token = $(bashio::config 'dns.google_domains_access_token')\n" \
       "dns_cloudns_auth_password = $(bashio::config 'dns.cloudns_auth_password')\n" \
       "dns_dreamhost_baseurl = $(bashio::config 'dns.dreamhost_baseurl')\n" \
       "dns_dreamhost_api_key = $(bashio::config 'dns.dreamhost_api_key')\n" \
@@ -78,10 +77,6 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_domainoffensive_api_token = $(bashio::config 'dns.domainoffensive_token')\n" \
       "dns_websupport_identifier = $(bashio::config 'dns.websupport_identifier')\n" \
       "dns_websupport_secret_key = $(bashio::config 'dns.websupport_secret_key')\n" > /data/dnsapikey
-
-if bashio::config.exists 'dns.google_domains_zone'; then
-      echo -e "dns_google_domains_zone = $(bashio::config 'dns.google_domains_zone')\n" >> /data/dnsapikey
-fi
 
 # ClouDNS
 # Only a single non-empty auth option must be in /data/dnsapikey when using ClouDNS to avoid a certbot error
@@ -115,4 +110,10 @@ if bashio::config.exists 'dns.cloudxns_secret_key'; then
 fi
 if bashio::config.exists 'keytype'; then
     bashio::addon.option 'keytype'
+fi
+if bashio::config.exists 'dns.google_domains_access_token'; then
+    bashio::addon.option 'dns.google_domains_access_token'
+fi
+if bashio::config.exists 'dns.google_domains_zone'; then
+    bashio::addon.option 'dns.google_domains_zone'
 fi

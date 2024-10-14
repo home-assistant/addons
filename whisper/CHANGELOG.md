@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
+- Bump `wyoming-whisper` to 2.2.0 (`faster-whisper` to 1.0.3)
+
 ## 2.1.2
 
 - Fix excluding models files from backup

@@ -74,10 +74,12 @@ If omitted, grants `ALL PRIVILEGES` to the user. Restricting privileges of the u
 that Home Assistant uses is not recommended but if you want to allow other applications
 to view recorder data should create a user limited to read-only access on the database.
 
-### Option: `parameters.innodb_buffer_pool_size` (optional)
+### Option: `mariadb_server_args` (optional)
 
 Some users have experienced [errors][migration-issues] during Home Assistant schema updates on large databases.
-Increasing this value from the default 128M can help if there is RAM available.
+Defining the recommended parameters can help if there is RAM available.
+
+Example: `--innodb_buffer_pool_size=512M`
 
 ## Home Assistant Configuration
 

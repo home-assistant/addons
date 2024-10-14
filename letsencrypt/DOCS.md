@@ -372,8 +372,7 @@ on the DNS zone to be used for authentication.
 To obtain the ACME DNS API Key and Secret, follow the instructions here:
 <https://developer.godaddy.com/getstarted>
 
-> [!IMPORTANT]  
-> GoDaddy limits DNS API access to customers with 10 or more domains and/or an active "Discount Domain Club – Premier Membership" plan; the API will respond with a HTTP401 otherwise. See the [Terms of Use](https://developer.godaddy.com/getstarted) for more information.
+**IMPORTANT**: GoDaddy limits DNS API access to customers with 10 or more domains and/or an active "Discount Domain Club – Premier Membership" plan; the API will respond with a HTTP401 otherwise. See the [Terms of Use](https://developer.godaddy.com/getstarted) for more information.
 
 </details>
 

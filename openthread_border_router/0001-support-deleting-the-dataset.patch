@@ -1,4 +1,4 @@
-From e67d11327f3ee5f67107d866c2df575a2695727c Mon Sep 17 00:00:00 2001
+From 2efa60f83b71402ce0c1ef176be8f88a9bfdefac Mon Sep 17 00:00:00 2001
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 5 Jun 2023 23:41:50 +0200
 Subject: [PATCH] support deleting the dataset
@@ -16,7 +16,7 @@ otDatasetCreateNewNetwork).
  3 files changed, 57 insertions(+)
 
 diff --git a/src/rest/openapi.yaml b/src/rest/openapi.yaml
-index 2ba2a4dd56..2edc4af29a 100644
+index 2ba2a4dd56f..2edc4af29ad 100644
 --- a/src/rest/openapi.yaml
 +++ b/src/rest/openapi.yaml
 @@ -248,6 +248,18 @@ paths:
@@ -55,7 +55,7 @@ index 2ba2a4dd56..2edc4af29a 100644
    schemas:
      LeaderData:
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index ce154c2e5b..1708faf6ab 100644
+index ce154c2e5b3..1708faf6abc 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -767,12 +767,47 @@ exit:
@@ -107,7 +107,7 @@ index ce154c2e5b..1708faf6ab 100644
          GetDataset(aDatasetType, aRequest, aResponse);
          break;
 diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
-index 0929dbcc50..cbe1702f2f 100644
+index 0929dbcc50c..cbe1702f2fb 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
 @@ -150,6 +150,7 @@ private:
@@ -119,5 +119,5 @@ index 0929dbcc50..cbe1702f2f 100644
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
 -- 
-2.46.0
+2.46.1
 

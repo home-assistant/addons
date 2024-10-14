@@ -26,6 +26,8 @@ flow_control=""
 
 if bashio::config.true 'flow_control'; then
     flow_control="&uart-flow-control"
+else
+    flow_control="&uart-init-deassert"
 fi
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
@@ -66,13 +68,16 @@ fi
 
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
 
+# We compile the OTBR with firewall support, so otbr-agent tries to update the
+# ipsets. Therefor, create ipsets always to avoid errors from otbr-agent. Just
+# the ipsets  won't have an effect in practice when the firewall is disabled.
+ipset create -exist otbr-ingress-deny-src hash:net family inet6
+ipset create -exist otbr-ingress-deny-src-swap hash:net family inet6
+ipset create -exist otbr-ingress-allow-dst hash:net family inet6
+ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
+
 if bashio::config.true 'firewall'; then
     bashio::log.info "Setup OTBR firewall..."
-    ipset create -exist otbr-ingress-deny-src hash:net family inet6
-    ipset create -exist otbr-ingress-deny-src-swap hash:net family inet6
-    ipset create -exist otbr-ingress-allow-dst hash:net family inet6
-    ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
-
     ip6tables -N $otbr_forward_ingress_chain
     ip6tables -I FORWARD 1 -o $thread_if -j $otbr_forward_ingress_chain
 
@@ -116,7 +121,7 @@ echo "${otbr_rest_listen}" > /tmp/otbr-agent-rest-api
 echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 bashio::log.info "Starting otbr-agent..."
-exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
+exec s6-notifyoncheck -d -s 300 -w 300 -n 0 stdbuf -oL \
     "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
         --rest-listen-address "${otbr_rest_listen}" \
         -d${otbr_log_level_int} -v -s \

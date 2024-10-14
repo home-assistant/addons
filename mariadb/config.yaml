@@ -23,8 +23,6 @@ options:
   rights:
     - database: homeassistant
       username: homeassistant
-  parameters:
-    - innodb_buffer_pool_size: 128M
 ports:
   3306/tcp: null
 schema:
@@ -40,8 +38,8 @@ schema:
           CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|\
           INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
       username: str
-  parameters:
-    - innodb_buffer_pool_size: str
+  mariadb_server_args:
+    - str?
 services:
   - mysql:provide
 startup: system

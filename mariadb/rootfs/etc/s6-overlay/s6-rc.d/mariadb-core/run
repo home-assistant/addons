@@ -4,19 +4,12 @@
 # Start MariaDB service
 # ==============================================================================
 
-# Initialize an empty string to hold the concatenated parameters
-param_string=""
-
-# Fetch the full array of parameters
-item=$(bashio::config "parameters")
-
-while read -r param; do
-    param_string+="--$param "
-done < <(jq --raw-output 'to_entries[] | "\(.key)=\(.value)"' <<< "$item")
-
-param_string=$(echo -n "$param_string" | sed 's/[[:space:]]*$//'|tr -d '\n')
+if bashio::config.has_value "mariadb_server_args"; then
+  extra_args+=($(bashio::config 'mariadb_server_args'))
+  bashio::log.info "Starting MariaDB with command line parameters: ${extra_args[@]}"
+fi
 
 # Start mariadb
-bashio::log.info "Starting MariaDB with command line parameters: ${param_string}"
+bashio::log.info "Starting MariaDB with command line parameters: ${extra_args[@]}"
 mkdir -p /run/mysqld
-exec mysqld --datadir="${MARIADB_DATA}" --user=root "$param_string" < /dev/null
+exec mysqld --datadir="${MARIADB_DATA}" --user=root "${extra_args[@]}" < /dev/null

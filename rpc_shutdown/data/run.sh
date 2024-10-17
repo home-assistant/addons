@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 set -e
 
 # Read from STDIN aliases to send shutdown

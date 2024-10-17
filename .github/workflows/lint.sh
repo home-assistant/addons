@@ -32,7 +32,7 @@ annotate_shellcheck() {
     done
 }
 
-if [ "$1" = "-l" ]; then
+if [ "${1-}" = "-l" ]; then
     # Print only the list of files where shellcheck has detected violations.
     shellcheck --format=gcc "${scan_files[@]}" | cut -d: -f1 | sort -u
 elif [ -z "$GITHUB_ACTIONS" ]; then

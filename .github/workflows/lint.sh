@@ -18,20 +18,6 @@ while IFS= read -r -d '' file; do
     scan_files+=("$file")
 done < <(find . -type f ! -name '*.*' -perm "$perm_executable" -print0)
 
-# Convert shellcheck "gcc" format to GitHub Actions annotations.
-# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-error-message
-annotate_shellcheck() {
-    local file lineno _ severity message
-    while IFS=: read -r file lineno _ severity message; do
-        case "${severity# }" in
-        error ) severity="error" ;;
-        warning ) severity="warning" ;;
-        info | note | style ) severity="notice" ;;
-        esac
-        printf "::%s file=%s,line=%d::%s\n" "$severity" "$file" "$lineno" "${message# }"
-    done
-}
-
 if [ "${1-}" = "-l" ]; then
     # Print only the list of files where shellcheck has detected violations.
     shellcheck --format=gcc "${scan_files[@]}" | cut -d: -f1 | sort -u
@@ -40,6 +26,19 @@ elif [ -z "$GITHUB_ACTIONS" ]; then
 else
     shellcheck --version
     echo
+    # If shellcheck fails, ensure that this script fails even after piping to jq.
     set -o pipefail
-    shellcheck --format=gcc "${scan_files[@]}" | annotate_shellcheck
+
+    # Convert shellcheck JSON format to GitHub Actions annotations:
+    # - shellcheck "style" becomes ::notice::
+    # - shellcheck "info" becomes ::notice::
+    # - shellcheck "note" becomes ::notice::
+    # - shellcheck "error" becomes ::error::
+    # - shellcheck "warning" becomes ::warning::
+    #
+    # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-error-message
+    shellcheck --format=json "${scan_files[@]}" | jq -r '
+        def workflow_command: if . == "note" or . == "info" or . == "style" then "notice" else . end;
+        .[] | "::\(.level | workflow_command) file=\(.file),line=\(.line),endLine=\(.endLine)::\(.message) [SC\(.code)]"
+    '
 fi

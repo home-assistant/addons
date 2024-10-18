@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Send vlc_telnet discovery information to Home Assistant
 # ==============================================================================

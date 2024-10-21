@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.12.0
+- Bump universal-silabs-flasher to 0.0.23
+- Bump OTBR firmwares to latest versions
+- Bump OTBR POSIX version 580cafc150 (2024-10-21 10:47:10 +0000)
+
 ## 2.11.1
 
 -  Fix issue with USB TI CC2652 based devices

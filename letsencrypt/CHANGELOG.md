@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.2.3
+
+- Fix syntax error in run script
+
+## 5.2.2
+
+- Add IONOS DNS support
+
 ## 5.2.1
 
 - Revert Cryptography to 42.0.8 to avoid deprecation warnings

@@ -4,4 +4,4 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
 args:
   OTBR_VERSION: ff7227ea9a2dc0e50f92ab93bd5c9a29e82fe793
-  UNIVERSAL_SILABS_FLASHER: 0.0.22
+  UNIVERSAL_SILABS_FLASHER: 0.0.23

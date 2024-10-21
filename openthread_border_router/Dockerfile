@@ -88,7 +88,7 @@ RUN \
         -DOT_COAP=OFF \
         -DOT_COAPS=OFF \
         -DOT_DNS_CLIENT_OVER_TCP=OFF \
-        -DOT_THREAD_VERSION=1.3 \
+        -DOT_THREAD_VERSION=1.4 \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

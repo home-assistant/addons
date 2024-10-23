@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.8.1
+
+Rename Z-Wave watchdog option to avoid confusion with add-on watchdog.
+
+## 0.8.0
+
+### Features
+
+- Add-on: Add `disable_watchdog` configuration option. When enabled, the driver will not enable the hardware watchdog of the Z-Wave controller. This is an advanced configuration option that should not be adjusted in most cases and is therefore hidden from the default view.
+- Z-Wave JS: Multiple parallel firmware updates are now supported
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where open/close for some covers was inverted
+
+### Config file changes
+
+- Update Z-Wave SDK warnings to mention recommended versions
+- Update Zooz device labels
+- Add fingerprint to Aeotec ZWA024
+- Correct max. value of SKU parameters for Kwikset locks
+- Add fingerprint to Remotec ZXT-800
+- Add incompatibility warning to UZB1
+- Override Central Scene CC version for Springs Window Fashions VCZ1
+- Add manual and reset metadata for Danfoss LC-13
+
+### Detailed changelogs
+
+- [Z-Wave JS 13.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.4.0)
+- [Z-Wave JS 13.5.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.5.0)
+- [Z-Wave JS 13.6.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.6.0)
+- [Z-Wave JS 13.7.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.7.0)
+- [Z-Wave JS 13.8.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.8.0)
+- [Z-Wave JS 13.9.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.9.0)
+
 ## 0.7.2
 
 ### Bug fixes

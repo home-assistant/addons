@@ -78,7 +78,7 @@ configuration:
       will never need to use this feature, so only change this setting if you
       know what you are doing and/or you are asked to.
   disable_watchdog:
-    name: Disable watchdog
+    name: Disable Z-Wave JS (hardware) watchdog
     description: >-
       This setting will prevent Z-Wave JS from enabling the hardware watchdog
       on supporting controllers. In most cases, users will never need to use

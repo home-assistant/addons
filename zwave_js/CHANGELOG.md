@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+Rename Z-Wave watchdog option to avoid confusion with add-on watchdog.
+
 ## 0.8.0
 
 ### Features

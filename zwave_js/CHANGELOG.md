@@ -30,7 +30,7 @@
 
 ### Detailed changelogs
 
-- [Z-Wave JS Server 1.39.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v1.39.0)
+[Z-Wave JS Server 1.39.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.39.0)
 - [Z-Wave JS 13.10.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.3)
 - [Z-Wave JS 13.10.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.2)
 - [Z-Wave JS 13.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.1)

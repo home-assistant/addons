@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.9.0
+
+### Features
+
+- Z-Wave JS: mock-server now supports putting the simulated controller into add and remove mode
+- Z-Wave JS Server: Support get_raw_config_parameter_value
+- Z-Wave JS Server: Support all signatures of node.manuallyIdleNotificationValue
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where preferred scales were not being found when set as a string
+- Z-Wave JS: Correct unit of Meter CC values
+- Z-Wave JS: Bootloader mode is now detected even when short chunks of data are received
+- Z-Wave JS: Corrected the wording of idle/busy queue logging
+
+### Config file changes
+
+- Add Heatit Z-TEMP3
+- Add new parameters 17 and 18 for HeatIt TF016_TF021 FW 1.92
+- Disable Supervision for Heatit TF021
+- Add ZVIDAR WB04V Smartwings Day Night Shades
+- Add ZVIDAR WM25L Smartwings Smart Motor
+- Add ZVIDAR ZW881 Multi-Protocol Gateway
+- Add include, exclude, and wakeup instructions for VCZ1
+- Add new Product ID to Namron 16A Switch
+- Add Minoston MP24Z 800LR Outdoor Smart Plug - 2 Outlet
+- Disable Supervision for Everspring SE813
+
+### Detailed changelogs
+
+- [Z-Wave JS 13.9.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.9.1)
+- [Z-Wave JS 13.10.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.0)
+- [Z-Wave JS 13.10.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.1)
+- [Z-Wave JS 13.10.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.2)
+- [Z-Wave JS 13.10.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.3)
+
 ## 0.8.1
 
 Rename Z-Wave watchdog option to avoid confusion with add-on watchdog.

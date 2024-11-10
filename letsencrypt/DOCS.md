@@ -573,20 +573,27 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
 <details>
   <summary>Loopia</summary>
 
-To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/), with at least addZoneRecord, getZoneRecords, removeZoneRecord and removeSubdomain permissions.
+To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
 
-  ```yaml
-  email: you@mailprovider.com
-  domains:
-    - ha.yourdomain.com
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-loopia
-    loopia_username: example@loopiaapi
-    loopia_password: supersecretpasswordhere
-  ```
+* `addZoneRecord` - Required to create DNS records
+* `getZoneRecords` - Required to verify DNS records
+* `removeZoneRecord` - Required to clean up DNS records
+* `removeSubdomain` - Required for complete cleanup
+
+Example configuration in YAML edit mode:
+
+```yaml
+email: you@mailprovider.com
+domains:
+  - ha.yourdomain.com
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-loopia
+  loopia_username: example@loopiaapi
+  loopia_password: supersecretpasswordhere
+```
 
 </details>
 

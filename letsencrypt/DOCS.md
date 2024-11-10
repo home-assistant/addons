@@ -575,10 +575,10 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
 
 To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
 
-* `addZoneRecord` - Required to create DNS records
-* `getZoneRecords` - Required to verify DNS records
-* `removeZoneRecord` - Required to clean up DNS records
-* `removeSubdomain` - Required for complete cleanup
+- `addZoneRecord` - Required to create DNS records
+- `getZoneRecords` - Required to verify DNS records
+- `removeZoneRecord` - Required to clean up DNS records
+- `removeSubdomain` - Required for complete cleanup
 
 Example configuration in YAML edit mode:
 

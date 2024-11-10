@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.4
+
+- Add Loopia DNS support
+
 ## 5.2.3
 
 - Fix syntax error in run script

@@ -21,6 +21,7 @@ ARG \
     CERTBOT_DNS_INWX_VERSION \
     CERTBOT_DNS_IONOS_VERSION \
     CERTBOT_DNS_JOKER_VERSION \
+    CERTBOT_DNS_LOOPIA_VERSION \
     CERTBOT_DNS_NAMECHEAP_VERSION \
     CERTBOT_DNS_NORISNETWORK_VERSION \
     CERTBOT_DNS_SIMPLY_VERSION \
@@ -70,6 +71,7 @@ RUN \
         certbot-dns-ionos==${CERTBOT_DNS_IONOS_VERSION} \
         certbot-dns-joker==${CERTBOT_DNS_JOKER_VERSION} \
         certbot-dns-linode==${CERTBOT_VERSION} \
+        certbot-dns-loopia==${CERTBOT_DNS_LOOPIA_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
         certbot-dns-norisnetwork==${CERTBOT_DNS_NORISNETWORK_VERSION} \

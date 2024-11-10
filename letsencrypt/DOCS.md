@@ -59,6 +59,7 @@ dns-infomaniak
 dns-ionos
 dns-joker
 dns-linode
+dns-loopia
 dns-luadns
 dns-njalla
 dns-noris
@@ -118,6 +119,8 @@ joker_password: ''
 joker_domain: ''
 linode_key: ''
 linode_version: ''
+loopia_username: ''
+loopia_password: ''
 luadns_email: ''
 luadns_token: ''
 njalla_token: ''
@@ -563,6 +566,26 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
     provider: dns-linode
     linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
     linode_version: '4'
+  ```
+
+</details>
+
+<details>
+  <summary>Loopia</summary>
+
+To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/), with at least addZoneRecord, getZoneRecords, removeZoneRecord and removeSubdomain permissions.
+
+  ```yaml
+  email: you@mailprovider.com
+  domains:
+    - ha.yourdomain.com
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-loopia
+    loopia_username: example@loopiaapi
+    loopia_password: supersecretpasswordhere
   ```
 
 </details>
@@ -1075,6 +1098,7 @@ dns-hetzner
 dns-infomaniak
 dns-ionos
 dns-linode
+dns-loopia
 dns-luadns
 dns-njalla
 dns-noris

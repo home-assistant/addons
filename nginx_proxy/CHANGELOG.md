@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.11.1
+
+- Uptate to new nginx http2 directive. This also supress a deprecation warning.
+
 ## 3.11.0
 
 - Update Alpine Linux to 3.20 (nginx 1.26.x)

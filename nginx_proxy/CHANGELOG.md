@@ -2,7 +2,7 @@
 
 ## 3.11.1
 
-- Uptate to new nginx http2 directive. This also supress a deprecation warning.
+- Update to new nginx http2 directive. This also suppress a deprecation warning.
 
 ## 3.11.0
 

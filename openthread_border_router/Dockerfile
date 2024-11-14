@@ -19,7 +19,6 @@ ENV DOCKER 1
 
 COPY 0001-support-deleting-the-dataset.patch /usr/src
 COPY 0002-set-netif-route-metric-lower.patch /usr/src
-COPY 0003-Implement-node-coprocessor-version.patch /usr/src
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -57,7 +56,6 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-support-deleting-the-dataset.patch \
     && patch -p1 < /usr/src/0002-set-netif-route-metric-lower.patch \
-    && patch -p1 < /usr/src/0003-Implement-node-coprocessor-version.patch \
     && ( \
         cd third_party/openthread/repo \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \

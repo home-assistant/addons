@@ -3,7 +3,8 @@
 ## 2.12.0
 - Bump universal-silabs-flasher to 0.0.23
 - Bump OTBR firmwares to latest versions
-- Bump OTBR POSIX version 580cafc150 (2024-10-21 10:47:10 +0000)
+- Bump to OTBR POSIX version b041fa52daa (2024-11-14 08:18:28 -0800)
+- Add radio firmware version to discovery information
 
 ## 2.11.1
 

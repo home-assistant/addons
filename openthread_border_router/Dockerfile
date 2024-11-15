@@ -14,6 +14,7 @@ ENV PLATFORM debian
 ENV RELEASE 1
 ENV WEB_GUI 1
 ENV REST_API 1
+ENV DHCPV6_PD_REF 0
 ENV DOCKER 1
 
 COPY 0001-support-deleting-the-dataset.patch /usr/src

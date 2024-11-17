@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.5
+
+- Update certbot-dns-directadmin to 1.0.12
+
 ## 5.2.4
 
 - Add Loopia DNS support

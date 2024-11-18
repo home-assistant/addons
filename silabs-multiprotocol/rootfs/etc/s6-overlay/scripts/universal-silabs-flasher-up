@@ -4,6 +4,7 @@
 # Start universal-silabs-flasher if requested
 # ==============================================================================
 
+# shellcheck disable=SC2034
 declare autoflash_firmware
 declare device
 declare firmware
@@ -31,6 +32,7 @@ if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}"
     gpio_reset_flag="--yellow-gpio-reset"
 else
     # Check device manufacturer/product information
+    # shellcheck disable=SC2046,SC2086
     usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}))/../../../../)
     if [ ! -f "${usb_device_path}/idProduct" ]; then
         bashio::log.info "The selected serial port is not a USB device."
@@ -60,5 +62,6 @@ fi
 echo 460800 > /tmp/known-baudrate
 
 bashio::log.info "Starting universal-silabs-flasher with ${device}"
+# shellcheck disable=SC2086
 exec universal-silabs-flasher --device ${device} \
      flash ${gpio_reset_flag} --ensure-exact-version --allow-cross-flashing --firmware "/root/${firmware}"

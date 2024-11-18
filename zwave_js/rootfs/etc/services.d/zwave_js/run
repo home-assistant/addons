@@ -17,4 +17,5 @@ fi
 export ZWAVEJS_EXTERNAL_CONFIG=/data/db
 
 # Run daemon, passing external config directory in as environment variable
+# shellcheck disable=SC2086
 exec zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json --disable-dns-sd

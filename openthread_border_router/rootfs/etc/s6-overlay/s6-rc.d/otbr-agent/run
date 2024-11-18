@@ -4,6 +4,7 @@
 # OpenThread BorderRouter start script
 # ==============================================================================
 
+# shellcheck disable=SC1091
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 declare backbone_if
@@ -62,11 +63,13 @@ case "${otbr_log_level}" in
         ;;
 esac
 
+# shellcheck disable=SC2086
 if [ -z ${backbone_if} ]; then
     bashio::log.warning "No primary network interface found! Using static eth0."
     backbone_if="eth0"
 fi
 
+# shellcheck disable=SC2015
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
 
 # We compile the OTBR with firewall support, so otbr-agent tries to update the
@@ -79,17 +82,27 @@ ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
 
 if bashio::config.true 'firewall'; then
     bashio::log.info "Setup OTBR firewall..."
+# shellcheck disable=SC2086,SC2154
     ip6tables -N $otbr_forward_ingress_chain
+# shellcheck disable=SC2086,SC2154
     ip6tables -I FORWARD 1 -o $thread_if -j $otbr_forward_ingress_chain
 
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -i ${thread_if} -j DROP
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-deny-src src -j DROP
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-allow-dst dst -j ACCEPT
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -j DROP
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -j ACCEPT
 
+    # shellcheck disable=SC2086,SC2154
     ip6tables -N $otbr_forward_egress_chain
+    # shellcheck disable=SC2086
     ip6tables -I FORWARD 2 -i $thread_if -j $otbr_forward_egress_chain
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_egress_chain -j ACCEPT
 else
     # Make sure ip6tables (as used by Docker) allow IP forwarding
@@ -99,9 +112,12 @@ else
 fi
 
 if bashio::config.true 'nat64'; then
+    # shellcheck disable=SC2086
     iptables -t mangle -A PREROUTING -i ${thread_if} -j MARK --set-mark 0x1001
     iptables -t nat -A POSTROUTING -m mark --mark 0x1001 -j MASQUERADE
+    # shellcheck disable=SC2086
     iptables -t filter -A FORWARD -o ${backbone_if} -j ACCEPT
+    # shellcheck disable=SC2086
     iptables -t filter -A FORWARD -i ${backbone_if} -j ACCEPT
 fi
 
@@ -122,6 +138,7 @@ echo "${otbr_rest_listen}" > /tmp/otbr-agent-rest-api
 echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 bashio::log.info "Starting otbr-agent..."
+# shellcheck disable=SC2086
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 stdbuf -oL \
     "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
         --rest-listen-address "${otbr_rest_listen}" \

@@ -32,7 +32,7 @@ fi
 # Assume to run on Yellow if UART4 is mapped to ttyAMA1
 if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
     bashio::log.info "Detected Home Assistant Yellow"
-    firmware="yellow_ot-rcp_2.4.0.0_GitHub-7074a43e4_gsdk_4.4.3.gbl"
+    firmware="yellow_openthread_rcp_2.4.4.0_GitHub-7074a43e4_gsdk_4.4.4.gbl"
     gpio_reset_flag="--bootloader-reset yellow"
 else
     # Check device manufacturer/product information
@@ -52,9 +52,9 @@ else
 
     bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}."
     if [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "SkyConnect"* ]]; then
-        firmware="skyconnect_ot-rcp_2.4.0.0_GitHub-7074a43e4_gsdk_4.4.3.gbl"
+        firmware="skyconnect_openthread_rcp_2.4.4.0_GitHub-7074a43e4_gsdk_4.4.4.gbl"
     elif [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "Home Assistant Connect ZBT-1"* ]]; then
-        firmware="skyconnect_ot-rcp_2.4.0.0_GitHub-7074a43e4_gsdk_4.4.3.gbl"
+        firmware="skyconnect_openthread_rcp_2.4.4.0_GitHub-7074a43e4_gsdk_4.4.4.gbl"
     elif [[ "${usb_manufacturer}" == "ITEAD" && "${usb_product}" == "SONOFF Zigbee 3.0 USB Dongle Plus V2" ]]; then
         firmware="ot-rcp-v2.4.2.0-zbdonglee-460800.gbl"
         gpio_reset_flag="--bootloader-reset sonoff"

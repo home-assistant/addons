@@ -7,10 +7,12 @@
 set -e
 
 bashio::log.info "Merging options & variables for template"
+# shellcheck disable=SC2046
 JSON_CONF=$(jq --arg port $(bashio::core.port) \
     '({options: .}) + ({variables: {port: $port}})' \
     /data/options.json)
 bashio::log.info "Generating nginx.conf from template in /etc/nginx/nginx.conf.gtpl"
+# shellcheck disable=SC2086
 echo $JSON_CONF | tempio \
     -template /etc/nginx/nginx.conf.gtpl \
     -out /etc/nginx.conf

@@ -21,6 +21,7 @@ if bashio::config.true 'debug_logging'; then
     flags+=('--debug')
 fi
 
+# shellcheck disable=SC2068
 exec python3 -m wyoming_faster_whisper \
     --uri 'tcp://0.0.0.0:10300' \
     --model "${model}" \

@@ -1,10 +1,12 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Start universal-silabs-flasher
 # ==============================================================================
 
 set -e
 
+# shellcheck disable=SC2034
 declare autoflash_firmware
 declare device
 declare bootloader_baudrate
@@ -54,6 +56,7 @@ else
         firmware="yellow_ncp-uart-hw_7.4.3.0.gbl"
     else
         # Check device manufacturer/product information
+        # shellcheck disable=SC2046,SC2086
         usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}) | sed 's:/[^/]*tty[^/]*::g' )/../)
         if [ ! -f "${usb_device_path}/idProduct" ]; then
             bashio::log.info "The selected serial port is not a USB device."
@@ -86,6 +89,7 @@ if bashio::config.true 'verbose'; then
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
+# shellcheck disable=SC2086
 universal-silabs-flasher \
     ${verbose} \
     --device ${device} \

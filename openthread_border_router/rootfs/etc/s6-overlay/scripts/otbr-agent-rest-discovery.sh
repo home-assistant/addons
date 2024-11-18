@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Send OTBR discovery information to Home Assistant
 # ==============================================================================

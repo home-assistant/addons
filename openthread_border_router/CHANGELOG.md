@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.1
+- Fix possible race condition between otbr-agent-configure and otbr-agent-rest-discovery
+  services causing failed startup ([#3826](https://github.com/home-assistant/addons/issues/3826))
+
 ## 2.12.0
 - Bump universal-silabs-flasher to 0.0.23
 - Bump OTBR firmwares to latest versions

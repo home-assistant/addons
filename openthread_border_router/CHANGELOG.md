@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.12.1
+- Fix otbr-configure bug affecting startup on some systems
+
 ## 2.12.0
 - Bump universal-silabs-flasher to 0.0.23
 - Bump OTBR firmwares to latest versions

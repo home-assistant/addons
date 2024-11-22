@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+- Update firmwares to EmberZNet 7.4.4
+- Update universal-silabs-flasher to v0.0.25
+
 ## 0.3.0
 - Update firmwares to EmberZNet 7.4.3
 - Update universal-silabs-flasher to v0.0.22

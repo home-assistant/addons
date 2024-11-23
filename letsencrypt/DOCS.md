@@ -146,6 +146,7 @@ gandi_token: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+transip_global_key: ''
 inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
@@ -645,6 +646,8 @@ Example configuration:
   <summary>TransIP</summary>
 
 You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
+
+If you can't use IP whitelisting, use the `transip_global_key` and set it to yes. (https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing)
 
 The propagation limit will be automatically raised to 240 seconds.
 

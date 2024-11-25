@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.3.0
+## 5.2.4
 
 - Add Loopia DNS support
 

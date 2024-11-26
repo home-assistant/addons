@@ -75,7 +75,7 @@ schema:
     ionos_endpoint: str?
     linode_key: str?
     linode_version: str?
-    loopia_username: str?
+    loopia_user: str?
     loopia_password: str?
     luadns_email: email?
     luadns_token: str?

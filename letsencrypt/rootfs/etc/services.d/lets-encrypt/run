@@ -166,7 +166,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-joker" ]; then
 
 # Loopia
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-loopia" ]; then
-    bashio::config.require 'dns.loopia_username'
+    bashio::config.require 'dns.loopia_user'
     bashio::config.require 'dns.loopia_password'
     if (( PROPAGATION_SECONDS < 900 )); then
         bashio::log.info "Increasing DNS propagation limit for Loopia to at least 900 seconds due to caching issues."

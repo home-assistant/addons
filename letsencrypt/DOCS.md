@@ -119,7 +119,7 @@ joker_password: ''
 joker_domain: ''
 linode_key: ''
 linode_version: ''
-loopia_username: ''
+loopia_user: ''
 loopia_password: ''
 luadns_email: ''
 luadns_token: ''
@@ -591,7 +591,7 @@ keyfile: privkey.pem
 challenge: dns
 dns:
   provider: dns-loopia
-  loopia_username: example@loopiaapi
+  loopia_user: example@loopiaapi
   loopia_password: supersecretpasswordhere
 ```
 

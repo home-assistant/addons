@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.6
+
+- Fix dns-loopia username error
+
 ## 5.2.5
 
 - Update certbot-dns-directadmin to 1.0.12

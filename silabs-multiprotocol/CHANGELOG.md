@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.6
+- Disable automatic firmware flashing.
+- Formally deprecate the addon. It will continue running as usual but you should find an alternative way to run both Zigbee and Thread if you use both with the same adapter.
+
 ## 2.4.5
 - Support Home Assistant Connect ZBT-1.
 

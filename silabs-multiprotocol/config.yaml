@@ -50,5 +50,5 @@ schema:
   otbr_enable: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   otbr_firewall: bool
-stage: experimental
+stage: deprecated
 startup: services

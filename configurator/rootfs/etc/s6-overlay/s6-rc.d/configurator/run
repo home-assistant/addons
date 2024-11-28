@@ -7,6 +7,7 @@ export HC_ENFORCE_BASEPATH
 export HC_GIT
 export HC_HASS_API_PASSWORD
 export HC_IGNORE_PATTERN
+export HC_LOGLEVEL
 
 # If any SSH key files are defined in the configuration options, add them for use by git
 if bashio::config.has_value "ssh_keys"; then
@@ -31,5 +32,6 @@ HC_ENFORCE_BASEPATH=$(bashio::config 'enforce_basepath')
 HC_GIT=$(bashio::config 'git')
 HC_HASS_API_PASSWORD="${SUPERVISOR_TOKEN}"
 HC_IGNORE_PATTERN="$(bashio::config 'ignore_pattern | join(",")')"
+HC_LOGLEVEL=$(bashio::config 'loglevel')
 
 exec hass-configurator /etc/configurator.conf

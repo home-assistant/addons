@@ -32,6 +32,7 @@ HC_ENFORCE_BASEPATH=$(bashio::config 'enforce_basepath')
 HC_GIT=$(bashio::config 'git')
 HC_HASS_API_PASSWORD="${SUPERVISOR_TOKEN}"
 HC_IGNORE_PATTERN="$(bashio::config 'ignore_pattern | join(",")')"
-HC_LOGLEVEL=$(bashio::config 'loglevel')
+bashio::config.has_value 'loglevel' \
+    && HC_LOGLEVEL="$(bashio::config 'loglevel')" || HC_LOGLEVEL=info
 
 exec hass-configurator /etc/configurator.conf

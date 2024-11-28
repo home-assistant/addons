@@ -33,6 +33,7 @@ options:
     - .storage
     - deps
   ssh_keys: []
+  loglevel: info
 panel_icon: mdi:wrench
 schema:
   dirsfirst: bool
@@ -42,3 +43,4 @@ schema:
     - str
   ssh_keys:
     - str
+  loglevel: list(debug|info|warning|error|critical)

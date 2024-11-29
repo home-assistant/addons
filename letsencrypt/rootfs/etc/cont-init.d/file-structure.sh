@@ -4,6 +4,7 @@
 # ==============================================================================
 mkdir -p /data/workdir
 mkdir -p /data/letsencrypt
+mkdir -p /ssl/letsencrypt-logs
 
 # Setup Let's encrypt config
 echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \

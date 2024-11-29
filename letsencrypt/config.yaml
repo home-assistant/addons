@@ -24,6 +24,7 @@ options:
   certfile: fullchain.pem
   challenge: http
   dns: {}
+  max_logs_backup: 100
 ports:
   80/tcp: 80
 schema:
@@ -39,6 +40,7 @@ schema:
   eab_hmac_key: str?
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
+  max_logs_backup: int
   dns:
     aws_access_key_id: str?
     aws_secret_access_key: str?

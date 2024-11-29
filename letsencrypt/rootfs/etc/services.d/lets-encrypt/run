@@ -4,6 +4,7 @@
 # ==============================================================================
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
+LOGS_DIR=/ssl/letsencrypt-logs
 PROVIDER_ARGUMENTS=()
 ACME_CUSTOM_SERVER_ARGUMENTS=()
 KEY_ARGUMENTS=()
@@ -19,6 +20,7 @@ ACME_SERVER=$(bashio::config 'acme_server')
 ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
 EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
+MAX_LOGS_BACKUP=$(bashio::config 'max_logs_backup')
 
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
@@ -302,7 +304,7 @@ if bashio::config.exists 'key_type'; then
     fi
 else
     bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
-    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR") 
+    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" --logs-dir "$LOGS_DIR" --max-log-backups "$MAX_LOGS_BACKUP" )
     for output in "${CBCERTS[@]}"; do
         if [[ $output =~ "No certificates found." ]]; then
             bashio::log.info "No certificate found - using 'ecdsa' key type."
@@ -335,6 +337,7 @@ if [ "$CHALLENGE" == "dns" ]; then
         "${KEY_ARGUMENTS[@]}" \
         --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+        --logs-dir "$LOGS_DIR" --max-log-backups "$MAX_LOGS_BACKUP" \
         --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1" \
         "${EAB_ARGUMENTS[@]}"
@@ -344,6 +347,7 @@ else
         "${KEY_ARGUMENTS[@]}" \
         --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+        --logs-dir "$LOGS_DIR" --max-log-backups "$MAX_LOGS_BACKUP" \
         --preferred-challenges "$CHALLENGE" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
         --preferred-chain "ISRG Root X1" \
         "${EAB_ARGUMENTS[@]}"

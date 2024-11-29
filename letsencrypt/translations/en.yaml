@@ -42,5 +42,12 @@ configuration:
     description: >-
       Elliptic curve for ECDSA keys. This option must be used with Key Type
       set to ECDSA. If unset the Certbot default will be used.
+  max_logs_backup:
+    name: Max Logs Backup
+    description: >-
+      Specifies the maximum number of backup logs that
+      should be kept by Certbot's built in log rotation.
+      Setting this flag to 0 disables log rotation entirely,
+      causing Certbot to always append to the same log file.
 network:
   80/tcp: Only needed for http challenge

@@ -27,7 +27,7 @@ RUN apt-get update \
     #
     # DLWS_WITHOUT_TESTAPPS is just a workaround, see
     # https://github.com/warmcat/libwebsockets/issues/2790 for more
-    && git clone --depth 1 -b "${LIBWEBSOCKET_VERSION}" \
+    && git clone --depth 1 -b "v${LIBWEBSOCKET_VERSION}" \
        https://libwebsockets.org/repo/libwebsockets \
     \
     && cd libwebsockets \
@@ -38,7 +38,7 @@ RUN apt-get update \
     && ldconfig \
     && cd ../.. \
     # Compile and install mosquitto
-    && git clone --depth 1 -b "${MOSQUITTO_VERSION}" \
+    && git clone --depth 1 -b "v${MOSQUITTO_VERSION}" \
        https://github.com/eclipse/mosquitto \
     \
     && cd mosquitto \

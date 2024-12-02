@@ -24,13 +24,16 @@ RUN apt-get update \
         golang-go \
     \
     # Compile and install libwebsocket
+    #
+    # DLWS_WITHOUT_TESTAPPS is just a workaround, see
+    # https://github.com/warmcat/libwebsockets/issues/2790 for more
     && git clone --depth 1 -b "${LIBWEBSOCKET_VERSION}" \
        https://libwebsockets.org/repo/libwebsockets \
     \
     && cd libwebsockets \
     && mkdir build \
     && cd build \
-    && cmake -DLWS_WITH_EXTERNAL_POLL=ON .. \
+    && cmake -DLWS_WITH_EXTERNAL_POLL=ON -DLWS_WITHOUT_TESTAPPS=ON .. \
     && make install \
     && ldconfig \
     && cd ../.. \

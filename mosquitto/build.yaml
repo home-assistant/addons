@@ -9,6 +9,6 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  LIBWEBSOCKET_VERSION: v4.3.2
-  MOSQUITTO_VERSION: v2.0.18
-  MOSQUITTO_AUTH_VERSION: 1.8.2
+  LIBWEBSOCKET_VERSION: v4.3.3
+  MOSQUITTO_VERSION: v2.0.20
+  MOSQUITTO_AUTH_VERSION: 2.1.0

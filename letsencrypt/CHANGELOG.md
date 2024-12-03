@@ -2,7 +2,7 @@
 
 ## 5.2.8
 
-- Add transip global_key parameter
+- Add transip global_key parameter to support authentication without IP whitelist requirements
 
 ## 5.2.7
 

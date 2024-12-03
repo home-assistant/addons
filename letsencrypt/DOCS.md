@@ -679,7 +679,7 @@ Example configuration:
 
 You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
 
-If you can't use IP whitelisting, use the `transip_global_key` and set it to yes. (https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing)
+If you can't use IP whitelisting, set the `transip_global_key` parameter to `'yes'`. See [Certbot TransIP DNS plugin documentation](https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing) for more details.
 
 The propagation limit will be automatically raised to 240 seconds.
 

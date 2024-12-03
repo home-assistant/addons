@@ -1,9 +1,20 @@
 # Changelog
 
+## 5.2.7
+
+- Add mijn.host DNS support
+
+## 5.2.6
+
+- Fix dns-loopia username error
+
+## 5.2.5
+
+- Update certbot-dns-directadmin to 1.0.12
 
 ## 5.2.4
 
-- Add mijn.host DNS support
+- Add Loopia DNS support
 
 ## 5.2.3
 

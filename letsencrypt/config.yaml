@@ -1,5 +1,5 @@
 ---
-version: 5.2.3
+version: 5.2.5
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
@@ -75,6 +75,8 @@ schema:
     ionos_endpoint: str?
     linode_key: str?
     linode_version: str?
+    loopia_user: str?
+    loopia_password: str?
     luadns_email: email?
     luadns_token: str?
     mijn_host_api_key: str?
@@ -104,10 +106,11 @@ schema:
     provider: "list(dns-azure|dns-cloudflare|dns-cloudns|dns-desec|\
       dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|\
       dns-duckdns|dns-dynu|dns-gehirn|dns-godaddy|dns-google|\
-      dns-hetzner|dns-infomaniak|dns-ionos|dns-joker|dns-linode|dns-luadns|dns-mijn-host|dns-njalla|dns-nsone|\
-      dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|dns-sakuracloud|\
-      dns-namecheap|dns-netcup|dns-simply|dns-gandi|dns-transip|dns-inwx|dns-dreamhost|\
-      dns-he|dns-easydns|dns-domainoffensive|dns-websupport|dns-noris|dns-plesk)?"
+      dns-hetzner|dns-infomaniak|dns-ionos|dns-joker|dns-linode|dns-loopia|dns-luadns|\
+      dns-mijn-host|dns-njalla|dns-nsone|dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|\
+      dns-sakuracloud|dns-namecheap|dns-netcup|dns-simply|dns-gandi|dns-transip|dns-inwx|\
+      dns-dreamhost|dns-he|dns-easydns|dns-domainoffensive|dns-websupport|dns-noris|\
+      dns-plesk)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?

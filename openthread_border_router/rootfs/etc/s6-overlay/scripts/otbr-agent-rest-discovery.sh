@@ -7,6 +7,8 @@ declare config
 config=$(bashio::var.json \
     host "$(bashio::addon.hostname)" \
     port "^8081" \
+    device "$(bashio::config 'device')" \
+    firmware "$(ot-ctl rcp version | head -n 1)" \
 )
 
 # Send discovery info

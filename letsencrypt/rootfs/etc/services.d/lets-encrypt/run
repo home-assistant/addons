@@ -170,6 +170,16 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-joker" ]; then
     bashio::config.require 'dns.joker_password'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Loopia
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-loopia" ]; then
+    bashio::config.require 'dns.loopia_user'
+    bashio::config.require 'dns.loopia_password'
+    if (( PROPAGATION_SECONDS < 900 )); then
+        bashio::log.info "Increasing DNS propagation limit for Loopia to at least 900 seconds due to caching issues."
+        PROPAGATION_SECONDS=900
+    fi
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Plesk
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-plesk" ]; then
     bashio::config.require 'dns.plesk_username'

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.8.1
+
+- Expose configurable log level
+
 ## 5.8.0
 
 - Update base image to Alpine 3.19

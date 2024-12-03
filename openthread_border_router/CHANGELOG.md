@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.2
+
+- Update flasher script to work with Home Assistant Yellow with CM5
+
 ## 2.12.1
 - Fix possible race condition between otbr-agent-configure and otbr-agent-rest-discovery
   services causing failed startup ([#3826](https://github.com/home-assistant/addons/issues/3826))

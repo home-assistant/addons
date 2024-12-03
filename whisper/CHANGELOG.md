@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+- Bump `wyoming-whisper` to 2.3.0 (`faster-whisper` to 1.1.0)
+- Supports model `turbo` for faster processing
+
 ## 2.2.0
 
 - Bump `wyoming-whisper` to 2.2.0 (`faster-whisper` to 1.0.3)

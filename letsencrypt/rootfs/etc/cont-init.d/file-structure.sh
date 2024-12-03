@@ -37,6 +37,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_loopia_password = $(bashio::config 'dns.loopia_password')\n" \
       "dns_luadns_email = $(bashio::config 'dns.luadns_email')\n" \
       "dns_luadns_token = $(bashio::config 'dns.luadns_token')\n" \
+      "dns_mijn_host_api_key = $(bashio::config 'dns.mijn_host_api_key')\n" \
       "dns_namecheap_username = $(bashio::config 'dns.namecheap_username')\n" \
       "dns_namecheap_api_key = $(bashio::config 'dns.namecheap_api_key')\n" \
       "dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \

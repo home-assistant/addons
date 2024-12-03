@@ -59,7 +59,9 @@ dns-infomaniak
 dns-ionos
 dns-joker
 dns-linode
+dns-loopia
 dns-luadns
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-simply
@@ -118,8 +120,11 @@ joker_password: ''
 joker_domain: ''
 linode_key: ''
 linode_version: ''
+loopia_user: ''
+loopia_password: ''
 luadns_email: ''
 luadns_token: ''
+mijn_host_api_key: ''
 njalla_token: ''
 noris_token: ''
 nsone_api_key: ''
@@ -565,6 +570,33 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
     linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
     linode_version: '4'
   ```
+
+</details>
+
+<details>
+  <summary>Loopia</summary>
+
+To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
+
+- `addZoneRecord` - Required to create DNS records
+- `getZoneRecords` - Required to verify DNS records
+- `removeZoneRecord` - Required to clean up DNS records
+- `removeSubdomain` - Required for complete cleanup
+
+Example configuration in YAML edit mode:
+
+```yaml
+email: you@mailprovider.com
+domains:
+  - ha.yourdomain.com
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-loopia
+  loopia_user: example@loopiaapi
+  loopia_password: supersecretpasswordhere
+```
 
 </details>
 
@@ -1051,6 +1083,28 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 </details>
 
 
+<details>
+  <summary>mijn.host DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-mijn-host
+    mijn_host_api_key: XXXXXX
+    propagation_seconds: 60
+  ```
+
+The `mijn_host_api_key` is the account's API key.
+The API key assigned to your mijn.host account can be found in your mijn.host Control panel.
+
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -1078,7 +1132,9 @@ dns-hetzner
 dns-infomaniak
 dns-ionos
 dns-linode
+dns-loopia
 dns-luadns
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-plesk

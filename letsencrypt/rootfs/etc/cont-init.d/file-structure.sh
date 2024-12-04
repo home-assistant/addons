@@ -64,6 +64,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
       "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
       "dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
+      "dns_transip_global_key = $(bashio::config 'dns.transip_global_key')\n" \
       "dns_transip_key_file = /data/transip-rsa.key\n" \
       "dns_inwx_url = https://api.domrobot.com/xmlrpc/\n" \
       "dns_inwx_username = $(bashio::config 'dns.inwx_username')\n" \

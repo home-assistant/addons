@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Send MQTT discovery information to Home Assistant and service information
 # to the Supervisor (for other add-ons).

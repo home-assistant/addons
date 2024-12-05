@@ -3,6 +3,7 @@
 # ==============================================================================
 # Take down the S6 supervision tree when nmbd fails
 # ==============================================================================
+# shellcheck disable=SC2155
 readonly exit_code_container=$(</run/s6-linux-init-container-results/exitcode)
 readonly exit_code_service="${1}"
 readonly exit_code_signal="${2}"
@@ -14,7 +15,7 @@ bashio::log.info \
 
 if [[ "${exit_code_service}" -eq 256 ]]; then
   if [[ "${exit_code_container}" -eq 0 ]]; then
-    echo $((128 + $exit_code_signal)) > /run/s6-linux-init-container-results/exitcode
+    echo $((128 + exit_code_signal)) > /run/s6-linux-init-container-results/exitcode
   fi
   [[ "${exit_code_signal}" -eq 15 ]] && exec /run/s6/basedir/bin/halt
 elif [[ "${exit_code_service}" -ne 0 ]]; then

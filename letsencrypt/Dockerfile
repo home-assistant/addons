@@ -15,7 +15,7 @@ ARG \
     CERTBOT_DNS_DUCKDNS_VERSION \
     CERTBOT_DNS_DYNU_VERSION \
     CERTBOT_DNS_EASYDNS_VERSION \
-    CERTBOT_DNS_HE_VERSION \
+    CERTBOT_DNS_HURRICANE_ELECTRIC_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
     CERTBOT_DNS_INWX_VERSION \
@@ -90,7 +90,7 @@ RUN \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
         certbot-dns-dreamhost==${CERTBOT_DNS_DREAMHOST_VERSION} \
-        certbot-dns-he==${CERTBOT_DNS_HE_VERSION} \
+        certbot-dns-hurrricane-electric==${CERTBOT_DNS_HURRICANE_ELECTRRIC_VERSION} \
         certbot-dns-easydns==${CERTBOT_DNS_EASYDNS_VERSION} \
         certbot-dns-domainoffensive==${CERTBOT_DNS_DOMAINOFFENSIVE_VERSION} \
         certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \

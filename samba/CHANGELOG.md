@@ -1,4 +1,9 @@
 # Changelog
+## 12.4.0
+
+- Add the ability to enable and disable specific shares, improving user control over folder access
+- Add optional logging of samba configuration at startup
+
 ## 12.3.2
 
 - Suppress benign idmap logged error

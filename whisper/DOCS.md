@@ -41,7 +41,6 @@ Compressed models (`int8`) are slightly less accurate than their counterparts, b
 
 Available models:
 
-- `turbo` (faster than `large-v3`)
 - `tiny-int8` (compressed)
 - `tiny`
 - `tiny.en` (English only)
@@ -62,6 +61,7 @@ Available models:
 - `large-v2`
 - `distil-large-v3` (distilled, English only)
 - `large-v3`
+- `turbo` (faster than `large-v3`)
 
 ### Option: `custom_model`
 

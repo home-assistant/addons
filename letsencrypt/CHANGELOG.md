@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.9
+
+- Use a newer, maintained Hurricane Electric plugin
+
 ## 5.2.8
 
 - Add transip global_key parameter to support authentication without IP whitelist requirements

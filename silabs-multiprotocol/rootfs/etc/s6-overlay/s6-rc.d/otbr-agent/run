@@ -1,13 +1,18 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # OpenThread BorderRouter start script
 # ==============================================================================
 
+# shellcheck disable=SC1091
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 declare backbone_if
+# shellcheck disable=SC2034
 declare device
+# shellcheck disable=SC2034
 declare baudrate
+# shellcheck disable=SC2034
 declare flow_control
 declare otbr_log_level
 declare otbr_log_level_int
@@ -47,11 +52,13 @@ case "${otbr_log_level}" in
         ;;
 esac
 
+# shellcheck disable=SC2086
 if [ -z ${backbone_if} ]; then
     bashio::log.warning "No primary network interface found! Using static eth0."
     backbone_if="eth0"
 fi
 
+# shellcheck disable=SC2015
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
 
 if bashio::config.true 'otbr_firewall'; then
@@ -61,17 +68,27 @@ if bashio::config.true 'otbr_firewall'; then
     ipset create -exist otbr-ingress-allow-dst hash:net family inet6
     ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
 
+    # shellcheck disable=SC2086,SC2154
     ip6tables -N $otbr_forward_ingress_chain
+    # shellcheck disable=SC2086,SC2154
     ip6tables -I FORWARD 1 -o $thread_if -j $otbr_forward_ingress_chain
 
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -i ${thread_if} -j DROP
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-deny-src src -j DROP
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-allow-dst dst -j ACCEPT
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -j DROP
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_ingress_chain -j ACCEPT
 
+    # shellcheck disable=SC2086,SC2154
     ip6tables -N $otbr_forward_egress_chain
+    # shellcheck disable=SC2086
     ip6tables -I FORWARD 2 -i $thread_if -j $otbr_forward_egress_chain
+    # shellcheck disable=SC2086
     ip6tables -A $otbr_forward_egress_chain -j ACCEPT
 else
     # Make sure ip6tables (as used by Docker) allow IP forwarding
@@ -97,6 +114,7 @@ echo "${otbr_rest_listen}" > /tmp/otbr-agent-rest-api
 echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 bashio::log.info "Starting otbr-agent..."
+# shellcheck disable=SC2086
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
     "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" \
         --rest-listen-address "${otbr_rest_listen}" \

@@ -54,6 +54,10 @@ By default, it hides the `__pycache__` folders.
 
 A list of filenames containing SSH private keys. These can be used to allow for access to remote git repositories.
 
+### Option: `loglevel` (optional)
+
+The loglevel to pass to hass-configurator (default 'info').
+
 ## Known issues and limitations
 
 - This add-on can only be used via Ingress and has no direct access.

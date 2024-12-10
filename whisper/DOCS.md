@@ -61,6 +61,7 @@ Available models:
 - `large-v2`
 - `distil-large-v3` (distilled, English only)
 - `large-v3`
+- `turbo` (faster than `large-v3`)
 
 ### Option: `custom_model`
 

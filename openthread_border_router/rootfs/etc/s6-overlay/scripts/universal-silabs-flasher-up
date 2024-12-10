@@ -16,6 +16,26 @@ function exit_no_firmware {
     exit 0
 }
 
+# Function to check if the device is Home Assistant Yellow
+function is_home_assistant_yellow {
+    # First, ensure the device is /dev/ttyAMA1
+    if [ "${device}" != "/dev/ttyAMA1" ]; then
+        return 1
+    fi
+
+    # Check the known paths for Home Assistant Yellow
+    local paths=(
+        "/sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1"
+        "/sys/devices/platform/axi/1000120000.pcie/1f0003c000.serial/tty/ttyAMA1"
+    )
+    for path in "${paths[@]}"; do
+        if [ -d "${path}" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 device=$(bashio::config 'device')
 gpio_reset_flag=""
 
@@ -29,10 +49,9 @@ if bashio::config.has_value 'network_device'; then
     exit 0
 fi
 
-# Assume to run on Yellow if UART4 is mapped to ttyAMA1
-if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
+if is_home_assistant_yellow; then
     bashio::log.info "Detected Home Assistant Yellow"
-    firmware="yellow_ot-rcp_2.4.0.0_GitHub-7074a43e4_gsdk_4.4.3.gbl"
+    firmware="yellow_openthread_rcp_2.4.4.0_GitHub-7074a43e4_gsdk_4.4.4.gbl"
     gpio_reset_flag="--bootloader-reset yellow"
 else
     # Check device manufacturer/product information
@@ -52,9 +71,9 @@ else
 
     bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}."
     if [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "SkyConnect"* ]]; then
-        firmware="skyconnect_ot-rcp_2.4.0.0_GitHub-7074a43e4_gsdk_4.4.3.gbl"
+        firmware="skyconnect_openthread_rcp_2.4.4.0_GitHub-7074a43e4_gsdk_4.4.4.gbl"
     elif [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "Home Assistant Connect ZBT-1"* ]]; then
-        firmware="skyconnect_ot-rcp_2.4.0.0_GitHub-7074a43e4_gsdk_4.4.3.gbl"
+        firmware="skyconnect_openthread_rcp_2.4.4.0_GitHub-7074a43e4_gsdk_4.4.4.gbl"
     elif [[ "${usb_manufacturer}" == "ITEAD" && "${usb_product}" == "SONOFF Zigbee 3.0 USB Dongle Plus V2" ]]; then
         firmware="ot-rcp-v2.4.2.0-zbdonglee-460800.gbl"
         gpio_reset_flag="--bootloader-reset sonoff"

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.12.2
+
+- Update flasher script to work with Home Assistant Yellow with CM5
+
+## 2.12.1
+- Fix possible race condition between otbr-agent-configure and otbr-agent-rest-discovery
+  services causing failed startup ([#3826](https://github.com/home-assistant/addons/issues/3826))
+
+## 2.12.0
+- Bump universal-silabs-flasher to 0.0.23
+- Bump OTBR firmwares to latest versions
+- Bump to OTBR POSIX version b041fa52daa (2024-11-14 08:18:28 -0800)
+- Add radio firmware version to discovery information
+
 ## 2.11.1
 
 -  Fix issue with USB TI CC2652 based devices

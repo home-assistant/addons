@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
 
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir

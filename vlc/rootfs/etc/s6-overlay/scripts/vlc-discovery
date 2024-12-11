@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
 # ==============================================================================
 # Send vlc_telnet discovery information to Home Assistant
 # ==============================================================================

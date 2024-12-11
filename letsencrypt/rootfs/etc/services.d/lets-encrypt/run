@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
 # ==============================================================================
 # Start sshd service if enabled
 # ==============================================================================
@@ -310,6 +312,7 @@ else
     bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
     readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR") 
     for output in "${CBCERTS[@]}"; do
+        # shellcheck disable=SC2076
         if [[ $output =~ "No certificates found." ]]; then
             bashio::log.info "No certificate found - using 'ecdsa' key type."
             KEY_ARGUMENTS+=("--key-type" "ecdsa")

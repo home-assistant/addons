@@ -1,4 +1,5 @@
 #!/command/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Post-start initialization of MariaDB service
@@ -8,7 +9,9 @@ function execute_without_error_messages() {
     local current_log_level="${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}]}"
     bashio::log.level fatal
     local exit_code=0
+    # shellcheck disable=SC2068
     $@ || exit_code=$?
+    # shellcheck disable=SC2086
     bashio::log.level ${current_log_level}
     return ${exit_code}
 }

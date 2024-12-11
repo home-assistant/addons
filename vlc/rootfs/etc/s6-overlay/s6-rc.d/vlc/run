@@ -1,8 +1,10 @@
 #!/command/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Start VLC service
 # ==============================================================================
+# shellcheck disable=SC2155
 readonly PASSWORD="$(cat /data/secret)"
 
 # Send out discovery information to Home Assistant

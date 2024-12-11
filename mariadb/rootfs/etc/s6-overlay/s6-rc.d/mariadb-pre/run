@@ -11,8 +11,8 @@ if ! bashio::fs.directory_exists "${MARIADB_DATA}"; then
 fi
 
 # Save variables
-cat <<<"${MARIADB_DATA}" > /var/run/s6/container_environment/MARIADB_DATA
-cat <<<"${NEW_INSTALL}" > /var/run/s6/container_environment/NEW_INSTALL
+echo -n "${MARIADB_DATA}" > /var/run/s6/container_environment/MARIADB_DATA
+echo -n "${NEW_INSTALL}" > /var/run/s6/container_environment/NEW_INSTALL
 
 # Redirect log output
 mkdir -p "${MARIADB_DATA}"

@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # This script overrides the shutdown command to shutdown the host machine.

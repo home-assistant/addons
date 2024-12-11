@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Send deCONZ discovery information to Home Assistant

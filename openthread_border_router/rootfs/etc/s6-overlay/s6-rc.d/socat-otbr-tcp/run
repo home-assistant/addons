@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Start socat TCP client for OTBR agent daemon

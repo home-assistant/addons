@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Take down the container if cpcd exits

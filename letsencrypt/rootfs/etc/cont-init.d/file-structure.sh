@@ -105,6 +105,10 @@ if bashio::config.exists 'dns.transip_api_key'; then
       chmod 600 /data/transip-rsa.key
 fi
 
+if bashio::config.has_value 'dns.transip_global_key'; then
+    dns_transip_global_key=$(bashio::config 'dns.transip_global_key')
+fi
+
 # Cleanup removed add-on options
 if bashio::config.exists 'dns.cloudxns_api_key'; then
       bashio::addon.option 'dns.cloudxns_api_key'

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.11
+
+- Include the transip_global_key parameter only when it is set
+
 ## 5.2.10
 
 - Add transip global_key parameter to config.yaml

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.0
+
+- Add "auto" for model and beam size (0) to select values based on CPU
+
+## 2.3.1
+
+- Move `turbo` down the list closer to `large` to avoid confusion
+
 ## 2.3.0
 
 - Bump `wyoming-whisper` to 2.3.0 (`faster-whisper` to 1.1.0)

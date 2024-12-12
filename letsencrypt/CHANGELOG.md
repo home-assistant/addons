@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.10
+
+- Add transip global_key parameter to config.yaml
+
 ## 5.2.9
 
 - Update certbot-dns-infomaniak to 0.2.3

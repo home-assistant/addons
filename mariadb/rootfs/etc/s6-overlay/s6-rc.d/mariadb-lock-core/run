@@ -1,4 +1,5 @@
 #!/command/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Start MariaDB client (to lock tables for backups)

@@ -1,8 +1,9 @@
 # Changelog
 
-## 5.2.9
+## 5.2.11
 
-- Use a newer, maintained Hurricane Electric plugin
+- Use a newer, maintained Hurricane Electric plugin.
+- Note that this requires the provider name to be updated from dns-he to dns-hurricane_electric
 
 ## 5.2.8
 

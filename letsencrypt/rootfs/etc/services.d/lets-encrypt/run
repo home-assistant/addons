@@ -61,12 +61,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-namecheap" ]; th
     bashio::config.require 'dns.namecheap_username'
     bashio::config.require 'dns.namecheap_api_key'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
-    
+
 #mijn.host
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-mijn-host" ]; then
     bashio::config.require 'dns.mijn_host_api_key'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
-    
+
 #Netcup
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-netcup" ]; then
     bashio::config.require 'dns.netcup_customer_id'
@@ -243,7 +243,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dreamhost" ]; th
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--dns-dreamhost-credentials" "/data/dnsapikey")
 
 # Hurricane Electric
-elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-he" ]; then
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hurricane_electric" ]; then
     bashio::config.require 'dns.he_user'
     bashio::config.require 'dns.he_pass'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
@@ -308,7 +308,7 @@ if bashio::config.exists 'key_type'; then
     fi
 else
     bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
-    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR") 
+    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR")
     for output in "${CBCERTS[@]}"; do
         if [[ $output =~ "No certificates found." ]]; then
             bashio::log.info "No certificate found - using 'ecdsa' key type."

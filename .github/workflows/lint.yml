@@ -50,3 +50,21 @@ jobs:
 
       - name: Run linter
         uses: ludeeus/action-shellcheck@2.0.0
+        with:
+          # Names of scripts with custom shebangs that the action would not
+          # discover on its own:
+          additional_files: >-
+            check_certificate_renewal
+            cpcd-config-up
+            discovery
+            finish
+            lock-tables-for-backup
+            matter-server-discovery
+            reboot
+            run
+            shutdown
+            universal-silabs-flasher-up
+            unlock-tables-for-backup
+            vlc-discovery
+          ignore_paths: >-
+            google_assistant

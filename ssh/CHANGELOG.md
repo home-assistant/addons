@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.16.0
+
+- Upgrade ttyd to 1.7.7 (fixes copy to clipboard using shift and drag)
+
 ## 9.15.0
 
 - Upgrade Home Assistant CLI to 4.36.0

@@ -120,6 +120,7 @@ schema:
     sakuracloud_api_token: str?
     transip_api_key: str?
     transip_username: str?
+    transip_global_key: list(yes|no)?
     inwx_username: str?
     inwx_password: str?
     inwx_shared_secret: str?

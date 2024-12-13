@@ -1,3 +1,4 @@
 #!/usr/bin/env bashio
+# vim: ft=bash
 bashio::log.yellow "The 'hassio' command is deprecated, please use 'ha' instead!"
 ha "$@"

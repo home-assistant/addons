@@ -5,6 +5,14 @@
 - Use a newer, maintained Hurricane Electric plugin.
 - Note that this requires the provider name to be updated from dns-he to dns-hurricane_electric
 
+## 5.2.10
+
+- Add transip global_key parameter to config.yaml
+
+## 5.2.9
+
+- Update certbot-dns-infomaniak to 0.2.3
+
 ## 5.2.8
 
 - Add transip global_key parameter to support authentication without IP whitelist requirements

@@ -1,5 +1,5 @@
 ---
-version: 2.12.3
+version: 2.12.4
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -20,6 +20,8 @@ host_uts: true
 privileged:
   - IPC_LOCK
   - NET_ADMIN
+devices:
+  - /dev/net/tun
 image: homeassistant/{arch}-addon-otbr
 init: false
 options:

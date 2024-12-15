@@ -60,6 +60,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_rfc2136_name = $(bashio::config 'dns.rfc2136_name')\n" \
       "dns_rfc2136_secret = $(bashio::config 'dns.rfc2136_secret')\n" \
       "dns_rfc2136_algorithm = $(bashio::config 'dns.rfc2136_algorithm')\n" \
+      "dns_rfc2136_sign_query = $(bashio::config 'dns.rfc2136_sign_query')\n" \
       "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "aws_secret_access_key = $(bashio::config 'dns.aws_secret_access_key')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \

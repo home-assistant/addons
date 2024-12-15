@@ -783,6 +783,8 @@ An example configuration:
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
+    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
+    rfc2136_sign_query: true
   ```
 
 </details>

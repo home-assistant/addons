@@ -36,11 +36,12 @@ If you select "auto", the model will run **much** slower but will auto-detect th
 
 Whisper model that will be used for transcription. Choose `custom` to use the model name in `custom_model`, which may be a HuggingFace model ID like "Systran/faster-distil-whisper-small.en".
 
-The default model is `tiny-int8`, a compressed version of the smallest Whisper model which is able to run on a Raspberry Pi 4.
+The default model is `auto`, which selects `tiny-int8` for ARM devices like the Raspberry Pi 4 and `base-int8` otherwise.
 Compressed models (`int8`) are slightly less accurate than their counterparts, but smaller and faster. [Distilled](https://github.com/huggingface/distil-whisper) models are not compressed, but are faster and smaller than their non-distilled counterparts.
 
 Available models:
 
+- `auto` (select based on CPU)
 - `tiny-int8` (compressed)
 - `tiny`
 - `tiny.en` (English only)
@@ -70,6 +71,7 @@ Path to a converted model directory, or a CTranslate2-converted Whisper model ID
 ### Option: `beam_size`
 
 Number of candidates to consider simultaneously during transcription (see [beam search](https://en.wikipedia.org/wiki/Beam_search)).
+The default value of `0` will automatically select `1` of ARM devices like the Raspberry Pi 4 and `5` otherwise.
 
 Increasing the beam size will increase accuracy at the cost of performance.
 

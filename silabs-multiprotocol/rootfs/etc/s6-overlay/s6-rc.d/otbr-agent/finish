@@ -1,10 +1,13 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
 #==============================================================================
 # OpenThread BorderRouter Daemon finish script
 #==============================================================================
 bashio::log.info "otbr-agent ended with exit code ${1} (signal ${2})..."
 
 
+# shellcheck disable=SC1091
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 ipset_destroy_if_exist()
@@ -16,12 +19,17 @@ ipset_destroy_if_exist()
     done
 }
 
+# shellcheck disable=SC2086,SC2154
 while ip6tables -C FORWARD -o $thread_if -j $otbr_forward_ingress_chain 2> /dev/null; do
+    # shellcheck disable=SC2086
     ip6tables -D FORWARD -o $thread_if -j $otbr_forward_ingress_chain
 done
 
+# shellcheck disable=SC2086
 if ip6tables -L $otbr_forward_ingress_chain 2> /dev/null; then
+    # shellcheck disable=SC2086
     ip6tables -w -F $otbr_forward_ingress_chain
+    # shellcheck disable=SC2086
     ip6tables -w -X $otbr_forward_ingress_chain
 fi
 
@@ -30,12 +38,17 @@ ipset_destroy_if_exist otbr-ingress-deny-src-swap
 ipset_destroy_if_exist otbr-ingress-allow-dst
 ipset_destroy_if_exist otbr-ingress-allow-dst-swap
 
+# shellcheck disable=SC2086,SC2154
 while ip6tables -C FORWARD -i $thread_if -j $otbr_forward_egress_chain 2> /dev/null; do
+    # shellcheck disable=SC2086
     ip6tables -D FORWARD -i $thread_if -j $otbr_forward_egress_chain
 done
 
+# shellcheck disable=SC2086
 if ip6tables -L $otbr_forward_egress_chain 2> /dev/null; then
+    # shellcheck disable=SC2086
     ip6tables -w -F $otbr_forward_egress_chain
+    # shellcheck disable=SC2086
     ip6tables -w -X $otbr_forward_egress_chain
 fi
 bashio::log.info "OTBR firewall teardown completed."

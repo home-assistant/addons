@@ -1,4 +1,5 @@
 #!/command/with-contenv bashio
+# vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
 # Start openWakeWord service
@@ -9,6 +10,7 @@ if bashio::config.true 'debug_logging'; then
     flags+=('--debug')
 fi
 
+# shellcheck disable=SC2068
 exec python3 -m wyoming_openwakeword \
     --uri 'tcp://0.0.0.0:10400' \
     --preload-model 'ok_nabu' \

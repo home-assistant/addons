@@ -694,6 +694,7 @@ Example configuration:
   dns:
     provider: dns-transip
     transip_username: transip-user
+    transip_global_key: 'no'
     transip_api_key: |
       -----BEGIN PRIVATE KEY-----
       MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ

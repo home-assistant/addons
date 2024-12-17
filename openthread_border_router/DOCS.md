@@ -65,9 +65,24 @@ Add-on configuration:
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
 | nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |
-| network_device     | IP address and port to connect to a network-based RCP (1) |
+| network_device     | IP address and port to connect to a network-based RCP (see below) |
 
-(1) Note you still need to set a dummy device, e.g., `/dev/ttyS3`. Also, note that the RCP protocol is not designed to be transferred over an IP network: It is a timing-sensitive protocol. You might experience Thread issues if your network link has excessive latencies. As Thread is networking capable, running a Thread border router on the system the RCP radio is plugged in is recommended.
+> [!WARNING]
+> The OTBR expects the RCP connected radio to be on a reliable link such as
+> UART or SPI. Using TCP/IP to reach a remote RCP radio breaks this assumption.
+> If the TCP/IP connection fails, the OTBR will not shutdown cleanly and leave
+> stale routes in your network. This will lead to Thread devices to be
+> potentially unreachable for up to 30 minutes (route lifetime) even when other
+> routers are available.
+>
+> The RCP protocol is not designed to be transferred over an IP network: It is
+> a timing-sensitive protocol. You might experience Thread issues if your
+> network link has excessive latencies. As Thread is networking capable,
+> running a Thread border router on the system the RCP radio is plugged in is
+> recommended.
+
+> [!NOTE]
+> When using a network device, you still need to set a dummy serial port device, e.g. `/dev/ttyS3`.
 
 ## Support
 

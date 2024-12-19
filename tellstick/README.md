@@ -2,9 +2,9 @@
 
 > [!CAUTION]
 > **Deprecation notice**
-> The library this add-on depends on is abandoned. It's last activity was 5
-> years ago it it cannot be built on alpine >3.15. Currentlly users can continue
-> to use it but no issues or PRs will be accepted for it going forward.
+> The library this add-on depends on is abandoned. Its last activity was 5
+> years ago and it cannot be built on Alpine versions above 3.15. Users can continue
+> using the add-on, but no issues or pull requests will be accepted.
 
 TellStick and TellStick Duo service.
 

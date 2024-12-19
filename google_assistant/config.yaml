@@ -31,5 +31,5 @@ schema:
   feedback:
     enable: bool
     volume: int(0,100)
-stage: experimental
+stage: deprecated
 webui: http://[HOST]:[PORT:9324]

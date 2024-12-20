@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
 # ==============================================================================
 # Start sshd service if enabled
 # ==============================================================================
@@ -61,6 +63,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-namecheap" ]; th
     bashio::config.require 'dns.namecheap_username'
     bashio::config.require 'dns.namecheap_api_key'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    
+#mijn.host
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-mijn-host" ]; then
+    bashio::config.require 'dns.mijn_host_api_key'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    
 #Netcup
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-netcup" ]; then
     bashio::config.require 'dns.netcup_customer_id'
@@ -156,12 +164,22 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-ionos" ]; then
     bashio::config.require 'dns.ionos_prefix'
     bashio::config.require 'dns.ionos_secret'
     bashio::config.require 'dns.ionos_endpoint'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Joker
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-joker" ]; then
     bashio::config.require 'dns.joker_username'
     bashio::config.require 'dns.joker_password'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
+# Loopia
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-loopia" ]; then
+    bashio::config.require 'dns.loopia_user'
+    bashio::config.require 'dns.loopia_password'
+    if (( PROPAGATION_SECONDS < 900 )); then
+        bashio::log.info "Increasing DNS propagation limit for Loopia to at least 900 seconds due to caching issues."
+        PROPAGATION_SECONDS=900
+    fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Plesk
@@ -294,6 +312,7 @@ else
     bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
     readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR") 
     for output in "${CBCERTS[@]}"; do
+        # shellcheck disable=SC2076
         if [[ $output =~ "No certificates found." ]]; then
             bashio::log.info "No certificate found - using 'ecdsa' key type."
             KEY_ARGUMENTS+=("--key-type" "ecdsa")

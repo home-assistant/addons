@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Init folder & structures
 # ==============================================================================
@@ -33,8 +34,11 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_plesk_api_url = $(bashio::config 'dns.plesk_api_url')\n" \
       "dns_linode_key = $(bashio::config 'dns.linode_key')\n" \
       "dns_linode_version = $(bashio::config 'dns.linode_version')\n" \
+      "dns_loopia_user = $(bashio::config 'dns.loopia_user')\n" \
+      "dns_loopia_password = $(bashio::config 'dns.loopia_password')\n" \
       "dns_luadns_email = $(bashio::config 'dns.luadns_email')\n" \
       "dns_luadns_token = $(bashio::config 'dns.luadns_token')\n" \
+      "dns_mijn_host_api_key = $(bashio::config 'dns.mijn_host_api_key')\n" \
       "dns_namecheap_username = $(bashio::config 'dns.namecheap_username')\n" \
       "dns_namecheap_api_key = $(bashio::config 'dns.namecheap_api_key')\n" \
       "dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \
@@ -61,6 +65,7 @@ echo -e "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
       "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
       "dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
+      "dns_transip_global_key = $(bashio::config 'dns.transip_global_key')\n" \
       "dns_transip_key_file = /data/transip-rsa.key\n" \
       "dns_inwx_url = https://api.domrobot.com/xmlrpc/\n" \
       "dns_inwx_username = $(bashio::config 'dns.inwx_username')\n" \

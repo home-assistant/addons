@@ -59,7 +59,9 @@ dns-infomaniak
 dns-ionos
 dns-joker
 dns-linode
+dns-loopia
 dns-luadns
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-simply
@@ -118,8 +120,11 @@ joker_password: ''
 joker_domain: ''
 linode_key: ''
 linode_version: ''
+loopia_user: ''
+loopia_password: ''
 luadns_email: ''
 luadns_token: ''
+mijn_host_api_key: ''
 njalla_token: ''
 noris_token: ''
 nsone_api_key: ''
@@ -146,6 +151,7 @@ gandi_token: ''
 gandi_sharing_id: ''
 transip_username: ''
 transip_api_key: ''
+transip_global_key: ''
 inwx_username: ''
 inwx_password: ''
 inwx_shared_secret: ''
@@ -568,6 +574,33 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
 </details>
 
 <details>
+  <summary>Loopia</summary>
+
+To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
+
+- `addZoneRecord` - Required to create DNS records
+- `getZoneRecords` - Required to verify DNS records
+- `removeZoneRecord` - Required to clean up DNS records
+- `removeSubdomain` - Required for complete cleanup
+
+Example configuration in YAML edit mode:
+
+```yaml
+email: you@mailprovider.com
+domains:
+  - ha.yourdomain.com
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-loopia
+  loopia_user: example@loopiaapi
+  loopia_password: supersecretpasswordhere
+```
+
+</details>
+
+<details>
   <summary>DirectAdmin</summary>
 
 It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
@@ -646,6 +679,8 @@ Example configuration:
 
 You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
 
+If you can't use IP whitelisting, set the `transip_global_key` parameter to `'yes'`. See [Certbot TransIP DNS plugin documentation](https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing) for more details.
+
 The propagation limit will be automatically raised to 240 seconds.
 
 Example configuration:
@@ -659,6 +694,7 @@ Example configuration:
   dns:
     provider: dns-transip
     transip_username: transip-user
+    transip_global_key: 'no'
     transip_api_key: |
       -----BEGIN PRIVATE KEY-----
       MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -1048,6 +1084,28 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 </details>
 
 
+<details>
+  <summary>mijn.host DNS challenge</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-mijn-host
+    mijn_host_api_key: XXXXXX
+    propagation_seconds: 60
+  ```
+
+The `mijn_host_api_key` is the account's API key.
+The API key assigned to your mijn.host account can be found in your mijn.host Control panel.
+
+</details>
+
+
 ## Certificate files
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
@@ -1075,7 +1133,9 @@ dns-hetzner
 dns-infomaniak
 dns-ionos
 dns-linode
+dns-loopia
 dns-luadns
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-plesk

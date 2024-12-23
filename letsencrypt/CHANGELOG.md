@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.2.11
+
+- Use a newer, maintained Hurricane Electric plugin.
+- Note that this requires the provider name to be updated from dns-he to dns-hurricane_electric
+
 ## 5.2.10
 
 - Add transip global_key parameter to config.yaml

@@ -1,23 +1,23 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bashio
 
 #### config ####
 
 CONFIG_PATH=/data/options.json
 HOME=~
 
-DEPLOYMENT_KEY=$(jq --raw-output ".deployment_key[]" $CONFIG_PATH)
-DEPLOYMENT_KEY_PROTOCOL=$(jq --raw-output ".deployment_key_protocol" $CONFIG_PATH)
-DEPLOYMENT_USER=$(jq --raw-output ".deployment_user" $CONFIG_PATH)
-DEPLOYMENT_PASSWORD=$(jq --raw-output ".deployment_password" $CONFIG_PATH)
-GIT_BRANCH=$(jq --raw-output '.git_branch' $CONFIG_PATH)
-GIT_COMMAND=$(jq --raw-output '.git_command' $CONFIG_PATH)
-GIT_REMOTE=$(jq --raw-output '.git_remote' $CONFIG_PATH)
-GIT_PRUNE=$(jq --raw-output '.git_prune' $CONFIG_PATH)
-REPOSITORY=$(jq --raw-output '.repository' $CONFIG_PATH)
-AUTO_RESTART=$(jq --raw-output '.auto_restart' $CONFIG_PATH)
-RESTART_IGNORED_FILES=$(jq --raw-output '.restart_ignore | join(" ")' $CONFIG_PATH)
-REPEAT_ACTIVE=$(jq --raw-output '.repeat.active' $CONFIG_PATH)
-REPEAT_INTERVAL=$(jq --raw-output '.repeat.interval' $CONFIG_PATH)
+DEPLOYMENT_KEY=$(bashio::config 'deployment_key')
+DEPLOYMENT_KEY_PROTOCOL=$(bashio::config 'deployment_key_protocol')
+DEPLOYMENT_USER=$(bashio::config 'deployment_user')
+DEPLOYMENT_PASSWORD=$(bashio::config 'deployment_password')
+GIT_BRANCH=$(bashio::config 'git_branch')
+GIT_COMMAND=$(bashio::config 'git_command')
+GIT_REMOTE=$(bashio::config 'git_remote')
+GIT_PRUNE=$(bashio::config 'git_prune')
+REPOSITORY=$(bashio::config 'repository')
+AUTO_RESTART=$(bashio::config 'auto_restart')
+RESTART_IGNORED_FILES=$(bashio::config 'restart_ignore | join(" ")')
+REPEAT_ACTIVE=$(bashio::config 'repeat.active')
+REPEAT_INTERVAL=$(bashio::config 'repeat.interval')
 ################
 
 #### functions ####
@@ -179,7 +179,7 @@ function validate-config {
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" != "$OLD_COMMIT" ]; then
         echo "[Info] Something has changed, checking Home-Assistant config..."
-        if ha --no-progress core check; then
+        if bashio::core.check; then
             if [ "$AUTO_RESTART" == "true" ]; then
                 DO_RESTART="false"
                 CHANGED_FILES=$(git diff "$OLD_COMMIT" "$NEW_COMMIT" --name-only)
@@ -207,7 +207,7 @@ function validate-config {
                 fi
                 if [ "$DO_RESTART" == "true" ]; then
                     echo "[Info] Restart Home-Assistant"
-                    ha --no-progress core restart 2&> /dev/null
+                    bashio::core.restart
                 else
                     echo "[Info] No Restart Required, only ignored changes detected"
                 fi

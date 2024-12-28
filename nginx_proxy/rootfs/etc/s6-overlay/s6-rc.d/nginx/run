@@ -51,6 +51,14 @@ if bashio::config.true 'cloudflare'; then
     fi
 fi
 
+# Executes user configured/requested commands on startup
+if bashio::config.has_value 'init_commands'; then
+    while read -r cmd; do
+        eval "${cmd}" \
+            || bashio::exit.nok "Failed executing init command: ${cmd}"
+    done <<< "$(bashio::config 'init_commands')"
+fi
+
 # start server
 bashio::log.info "Running nginx..."
 stat "/ssl/$(bashio::config 'certfile')" -c %y > /tmp/certificate_timestamp

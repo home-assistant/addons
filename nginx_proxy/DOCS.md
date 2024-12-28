@@ -86,6 +86,8 @@ If specified, configures Nginx to use Proxy Protocol to get the Real Ip from an 
 ### Option `init_commands` (optional)
 
 If specified, executes the following commands after building `nginx.conf` but before actually starting `nginx`.
+Use with caution as these commands run with root privileges.
+Ensure commands are properly validated and come from trusted sources.
 
 ## Known issues and limitations
 

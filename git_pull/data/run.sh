@@ -1,7 +1,8 @@
 #!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
 
-#### config ####
-
+# shellcheck disable=SC2034
 CONFIG_PATH=/data/options.json
 HOME=~
 

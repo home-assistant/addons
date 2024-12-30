@@ -135,7 +135,7 @@ function git-synchronize {
 
     # Always do a fetch to update repos
     bashio::log.info "[Info] Start git fetch..."
-    git fetch "$GIT_REMOTE" || bashio::exit.nok "[Error] Git fetch failed";
+    git fetch "$GIT_REMOTE" "$GIT_BRANCH" || bashio::exit.nok "[Error] Git fetch failed";
 
     # Prune if configured
     if [ "$GIT_PRUNE" == "true" ]
@@ -192,7 +192,6 @@ function validate-config {
     bashio::log.info "Changed Files: $CHANGED_FILES"
     if [ -n "$RESTART_IGNORED_FILES" ]; then
         for changed_file in $CHANGED_FILES; do
-            bashio::log.info "[Info] Checking: $changed_file"
             restart_required_file=""
             for restart_ignored_file in $RESTART_IGNORED_FILES; do
                 bashio::log.info "[Info] Checking: $changed_file for $restart_ignored_file"
@@ -226,7 +225,6 @@ function validate-config {
     else
         bashio::log.info "[Info] No Restart Required, only ignored changes detected"
     fi
-    bashio::log.info "Finished validation of config"
 }
 
 ###################

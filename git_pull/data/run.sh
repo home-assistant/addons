@@ -49,7 +49,7 @@ function git-clone {
     cp -rf /config/* "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Copy files to backup directory failed"
 
     # remove config folder content
-    rm -rf /config/{,.[!.],..?}* || { bashio::exit.nok "[Error] Clearing /config failed"
+    rm -rf /config/{,.[!.],..?}* || bashio::exit.nok "[Error] Clearing /config failed"
 
     # git clone
     bashio::log.info "[Info] Start git clone"

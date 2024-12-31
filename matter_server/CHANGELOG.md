@@ -1,5 +1,15 @@
 # Changelog
 
+## 7.0.0
+
+- Bump Python Matter Server to [7.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/7.0.1)
+  - This updates Matter to 1.4
+- Update base image components to what is being used in Home Assistant Debian
+  base images:
+  - Update tempio to 2024.11.2
+  - Update s6-overlay to 3.1.6.2
+  - Update bashio to 0.16.2
+
 ## 6.6.1
 
 - Bump Python Matter Server to [6.6.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/6.6.1)

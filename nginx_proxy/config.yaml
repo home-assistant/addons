@@ -27,6 +27,7 @@ options:
     default: nginx_proxy_default*.conf
     servers: nginx_proxy/*.conf
   real_ip_from: []
+  init_commands: []
 ports:
   443/tcp: 443
   80/tcp: null
@@ -41,4 +42,6 @@ schema:
     default: str
     servers: str
   real_ip_from:
+    - str
+  init_commands:
     - str

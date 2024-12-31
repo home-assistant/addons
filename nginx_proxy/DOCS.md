@@ -83,6 +83,12 @@ This is so the `ip_ban_enabled` feature can be used and work correctly in /confi
 
 If specified, configures Nginx to use Proxy Protocol to get the Real Ip from an upstream load balancer; [for more information](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/).
 
+### Option `init_commands` (optional)
+
+If specified, executes the following commands after building `nginx.conf` but before actually starting `nginx`.
+Use with caution as these commands run with root privileges.
+Ensure commands are properly validated and come from trusted sources.
+
 ## Known issues and limitations
 
 - By default, port 80 is disabled in the add-on configuration in case the port is needed for other components or add-ons like `emulated_hue`.

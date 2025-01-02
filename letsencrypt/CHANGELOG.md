@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.11
+
+- Add rfc2136_sign_query parameter to config.yaml
+
 ## 5.2.10
 
 - Add transip global_key parameter to config.yaml

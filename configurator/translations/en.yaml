@@ -25,3 +25,7 @@ configuration:
     description: >-
       A list of filenames containing SSH private keys. These can be used to
       allow for access to remote git repositories.
+  loglevel:
+    name: Log level
+    description: >-
+      The log level to use (default `info`).

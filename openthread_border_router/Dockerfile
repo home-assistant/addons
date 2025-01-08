@@ -18,8 +18,8 @@ ENV DHCPV6_PD_REF 0
 ENV DOCKER 1
 
 COPY 0001-support-deleting-the-dataset.patch /usr/src
-COPY 0002-set-netif-route-metric-lower.patch /usr/src
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
+COPY openthread-core-ha-config-posix.h /usr/src
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
   libreadline-dev libncurses-dev libcpputest-dev libdbus-1-dev libavahi-common-dev \
@@ -55,10 +55,10 @@ RUN \
     && git submodule update --init \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-support-deleting-the-dataset.patch \
-    && patch -p1 < /usr/src/0002-set-netif-route-metric-lower.patch \
     && ( \
         cd third_party/openthread/repo \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \
+        && cp /usr/src/openthread-core-ha-config-posix.h . \
        ) \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \
@@ -90,6 +90,7 @@ RUN \
         -DOT_COAPS=OFF \
         -DOT_DNS_CLIENT_OVER_TCP=OFF \
         -DOT_THREAD_VERSION=1.3 \
+        -DOT_PROJECT_CONFIG="../openthread-core-ha-config-posix.h" \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

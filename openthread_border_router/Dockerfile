@@ -91,6 +91,7 @@ RUN \
         -DOT_DNS_CLIENT_OVER_TCP=OFF \
         -DOT_THREAD_VERSION=1.3 \
         -DOT_PROJECT_CONFIG="../openthread-core-ha-config-posix.h" \
+        -DOT_RCP_RESTORATION_MAX_COUNT=2 \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

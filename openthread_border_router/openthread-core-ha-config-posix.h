@@ -42,4 +42,11 @@
  */
 #define OPENTHREAD_POSIX_CONFIG_NETIF_PREFIX_ROUTE_METRIC 64
 
+/**
+ * Increase delay aware queue management entry list size from its default of
+ * 16 to 64. This is to avoid/decrease the number of "Failed to get forwarded
+ * frame priority" notice messages.
+ */
+#define OPENTHREAD_CONFIG_DELAY_AWARE_QUEUE_MANAGEMENT_FRAG_TAG_ENTRY_LIST_SIZE 64
+
 #endif /* OPENTHREAD_CORE_HA_CONFIG_POSIX_H_ */

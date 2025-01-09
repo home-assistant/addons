@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.12.3
+
+- Enable recovery mechanism from "radio tx timeout" errors
+- Increase the number of mesh header fragmentation tag entries to address
+  "Failed to get forwarded frame priority" notice messages in logs. Note that
+  these types of messages are non-critical (default priority will be applied in
+  that case).
+- Make some compile time configurations via project header file
+
 ## 2.12.2
 
 - Update flasher script to work with Home Assistant Yellow with CM5

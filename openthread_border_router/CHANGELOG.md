@@ -2,7 +2,7 @@
 
 ## 2.12.3
 
-- Attempt to recover from "radio tx timeout" errors
+- Enable recovery mechanism from "radio tx timeout" errors
 - Increase the number of mesh header fragmentation tag entries to address
   "Failed to get forwarded frame priority" notice messages in logs. Note that
   these type of messages are non-critical (default priority will be applied in

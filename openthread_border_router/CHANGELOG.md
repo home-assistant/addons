@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.4
+
+- Fix OTBR addon does not start after updating containerd.io to 1.7.24-1
+
 ## 2.12.3
 
 - Enable recovery mechanism from "radio tx timeout" errors

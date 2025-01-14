@@ -17,6 +17,8 @@ options:
   awake_wav: "/usr/src/sounds/awake.wav"
   done_wav: "/usr/src/sounds/done.wav"
   timer_wav: "/usr/src/sounds/timer.wav"
+  timer_repeat_count: 3
+  timer_repeat_delay: 0.5
   sound_enabled: true
   noise_suppression: 0
   auto_gain: 0
@@ -27,6 +29,8 @@ schema:
   awake_wav: str
   done_wav: str
   timer_wav: str
+  timer_repeat_count: int
+  timer_repeat_delay: float
   sound_enabled: bool
   noise_suppression: int
   auto_gain: int

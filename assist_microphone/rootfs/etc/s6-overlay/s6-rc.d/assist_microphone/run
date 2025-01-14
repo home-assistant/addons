@@ -20,6 +20,8 @@ exec python3 -m wyoming_satellite \
     --snd-command-rate 16000 \
     --awake-wav "$(bashio::config 'awake_wav')" \
     --done-wav "$(bashio::config 'done_wav')" \
+    --timer-finished-wav "$(bashio::config 'timer_wav')" \
+    --timer-finished-wav-repeat "$(bashio::config 'timer_repeat_count')" "$(bashio::config 'timer_repeat_delay')" \
     --mic-volume-multiplier "$(bashio::config 'mic_volume_multiplier')" \
     --snd-volume-multiplier "$(bashio::config 'sound_volume_multiplier')" \
     --mic-auto-gain "$(bashio::config 'auto_gain')" \

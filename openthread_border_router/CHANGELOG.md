@@ -3,6 +3,7 @@
 ## 2.13.0
 - Bump to OTBR POSIX version b067e5ac (2025-01-13 22:32:22 -0500)
 - Bump universal-silabs-flasher to 0.0.28
+- Remove dataset deletion REST API backwards compatibility patch. The minimum Core version for this add-on is now 2023.9.0
 
 ## 2.12.4
 

@@ -17,7 +17,6 @@ ENV REST_API 1
 ENV DHCPV6_PD_REF 0
 ENV DOCKER 1
 
-COPY 0001-support-deleting-the-dataset.patch /usr/src
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
 COPY openthread-core-ha-config-posix.h /usr/src
 # Required and installed (script/bootstrap) can be removed after build
@@ -54,7 +53,6 @@ RUN \
     && git checkout ${OTBR_VERSION} \
     && git submodule update --init \
     && ./script/bootstrap \
-    && patch -p1 < /usr/src/0001-support-deleting-the-dataset.patch \
     && ( \
         cd third_party/openthread/repo \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \

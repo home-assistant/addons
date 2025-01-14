@@ -1,4 +1,8 @@
 # Changelog
+## 12.3.3
+
+- Enable Apple related Samba config changes
+
 ## 12.3.2
 
 - Suppress benign idmap logged error

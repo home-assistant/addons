@@ -51,14 +51,14 @@ index 2ba2a4dd56f..2edc4af29ad 100644
 +      responses:
 +        "200":
 +          description: Successfully deleted the active operational dataset.
- components:
-   schemas:
-     LeaderData:
+   /node/commissioner/state:
+     get:
+       tags: 
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
 index ce154c2e5b3..1708faf6abc 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
-@@ -767,12 +767,47 @@ exit:
+@@ -779,12 +779,47 @@ exit:
      }
  }
  
@@ -110,14 +110,14 @@ diff --git a/src/rest/resource.hpp b/src/rest/resource.hpp
 index 0929dbcc50c..cbe1702f2fb 100644
 --- a/src/rest/resource.hpp
 +++ b/src/rest/resource.hpp
-@@ -150,6 +150,7 @@ private:
+@@ -145,6 +145,7 @@ private:
      void GetDataRloc(Response &aResponse) const;
      void GetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
      void SetDataset(DatasetType aDatasetType, const Request &aRequest, Response &aResponse) const;
 +    void DeleteDataset(DatasetType aDatasetType, Response &aResponse) const;
- 
-     void DeleteOutDatedDiagnostic(void);
-     void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
+     void GetCommissionerState(Response &aResponse) const;
+     void SetCommissionerState(const Request &aRequest, Response &aResponse) const;
+     void GetJoiners(Response &aResponse) const;
 -- 
 2.46.1
 

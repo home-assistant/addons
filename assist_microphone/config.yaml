@@ -16,7 +16,7 @@ map:
 options:
   awake_wav: "/usr/src/sounds/awake.wav"
   done_wav: "/usr/src/sounds/done.wav"
-  timer_wav: "/usr/src/sounds/timer.wav"
+  timer_wav: "/usr/src/sounds/timer_finished.wav"
   timer_repeat_count: 3
   timer_repeat_delay: 0.5
   sound_enabled: true

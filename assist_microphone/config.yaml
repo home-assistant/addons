@@ -28,7 +28,7 @@ options:
 schema:
   awake_wav: str
   done_wav: str
-  timer_wav: str
+  timer_finished_wav: str
   timer_repeat_count: int
   timer_repeat_delay: float
   sound_enabled: bool

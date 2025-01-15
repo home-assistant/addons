@@ -1,7 +1,7 @@
 # Changelog
 ## 12.3.3
 
-- Enable Apple related Samba config changes
+- Enable Samba configurations to improve interoperability with Apple devices
 
 ## 12.3.2
 

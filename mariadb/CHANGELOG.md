@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.2
+
+- Add option to configure MariaDB server parameters (see also [home-assistant/addons#3754](https://github.com/home-assistant/addons/issues/3754))
+
 ## 2.7.1
 
 **Note:** Restart the add-on before upgrade if the current version is lower

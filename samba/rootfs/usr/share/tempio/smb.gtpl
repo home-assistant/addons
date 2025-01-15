@@ -26,6 +26,8 @@
    dos charset = CP850
    unix charset = UTF-8
 
+   vfs objects = catia fruit streams_xattr
+
 [config]
    browseable = yes
    writeable = yes

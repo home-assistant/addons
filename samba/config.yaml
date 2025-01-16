@@ -60,5 +60,4 @@ schema:
     - str
   allow_hosts:
     - str
-  debug: bool?
 startup: services

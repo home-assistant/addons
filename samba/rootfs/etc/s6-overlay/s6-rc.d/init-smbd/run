@@ -14,7 +14,7 @@ if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password
     bashio::exit.nok "Setting a username and password is required!"
 fi
 
-bashio::config.require "enabled_shares" "Samba is a tool for sharing folders.  Starting it without sharing any folders defeats the purpose."
+bashio::config.require "enabled_shares" "Samba is a tool for sharing folders. Starting it without sharing any folders defeats the purpose."
 
 # Read hostname from API or setting default "hassio"
 HOSTNAME=$(bashio::info.hostname)
@@ -39,11 +39,6 @@ jq ".interfaces = $(jq -c -n '$ARGS.positional' --args -- "${interfaces[@]}") |
     | tempio \
       -template /usr/share/tempio/smb.gtpl \
       -out /etc/samba/smb.conf
-
-if bashio::config.true 'debug'; then
-    bashio::log.yellow "Resulting Samba config:"
-    bashio::log.yellow "$(cat /etc/samba/smb.conf)"
-fi
 
 # Init user
 username=$(bashio::config 'username')

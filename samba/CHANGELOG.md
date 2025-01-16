@@ -1,4 +1,8 @@
 # Changelog
+## 12.4.0
+
+- Add the ability to enable and disable specific shares, improving user control over folder access
+
 ## 12.3.3
 
 - Enable Samba configurations to improve interoperability with Apple devices

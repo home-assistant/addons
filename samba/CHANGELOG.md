@@ -1,4 +1,9 @@
 # Changelog
+## 12.4.1
+
+- Add the option to enable SAMBA to become local browsermaster
+- Add the option to enable SAMBA WINS Server
+
 ## 12.4.0
 
 - Add the ability to enable and disable specific shares, improving user control over folder access

@@ -3,6 +3,17 @@
    workgroup = {{ .workgroup }}
    server string = Samba Home Assistant
 
+   {{ if .winsserver_mode }}
+   wins support = yes
+   {{ end }}
+
+   {{ if .masterbrowser_mode }}
+   domain master = yes
+   preferred master = yes
+   local master = yes
+   os level = 255
+   {{ end }}
+
    security = user
    ntlm auth = yes
    idmap config * : backend = tdb

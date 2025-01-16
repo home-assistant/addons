@@ -58,6 +58,8 @@ veto_files:
   - ".DS_Store"
   - Thumbs.db
 compatibility_mode: false
+winsserver_mode: false
+masterbrowser_mode: true
 ```
 
 ### Option: `workgroup` (required)

@@ -24,6 +24,14 @@ configuration:
     name: Enable Compatibility Mode
     description: >-
       Enable this to use old legacy Samba protocols on the Samba add-on.
+  masterbrowser_mode:
+    name: Enable Master Browser mode
+    description: >-
+      Enable Master Browser mode for the workgroup on this Samba add-on.
+  winsserver_mode:
+    name: Enable WINS Server
+    description: >-
+      Enable this to use old legacy WINS protocols on this Samba add-on.
   veto_files:
     name: Veto Files
     description: List of files that are neither visible nor accessible.

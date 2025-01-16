@@ -36,6 +36,8 @@ options:
     - share
     - ssl
   compatibility_mode: false
+  winsserver_mode: false
+  masterbrowser_mode: true
   veto_files:
     - ._*
     - .DS_Store
@@ -56,6 +58,8 @@ schema:
   enabled_shares:
     - "match(^(?i:(addons|addon_configs|backup|config|media|share|ssl))$)"
   compatibility_mode: bool
+  winsserver_mode: bool
+  masterbrowser_mode: bool
   veto_files:
     - str
   allow_hosts:

@@ -31,7 +31,7 @@ configuration:
   winsserver_mode:
     name: Enable WINS Server
     description: >-
-      Enable this to use old legacy WINS protocols on this Samba add-on.
+      Enable this to use WINS (Windows Internet Name Service) for NetBIOS name resolution. This allows the Samba server to act as a WINS server for the network.
   veto_files:
     name: Veto Files
     description: List of files that are neither visible nor accessible.

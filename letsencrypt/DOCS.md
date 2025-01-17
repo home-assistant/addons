@@ -40,6 +40,7 @@ There are two options to obtain certificates.
   <summary>Supported DNS providers</summary>
 
 ```txt
+dns-acmedns
 dns-azure
 dns-cloudflare
 dns-cloudns
@@ -87,6 +88,8 @@ dns-websupport
 
 ```yaml
 propagation_seconds: 60
+acmedns_url: ''
+acmedns_credentials: ''
 azure_config: ''
 cloudflare_email: ''
 cloudflare_api_key: ''
@@ -250,7 +253,7 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 
 <details>
   <summary>Selecting the ECDSA Elliptic Curve</summary>
-  
+
   You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
 
   ```yaml
@@ -330,6 +333,54 @@ into the *DNS Provider configuration* field.
     cloudflare_api_key: 31242lk3j4ljlfdwsjf0
   ```
 
+</details>
+
+<details>
+  <summary>acme-dns challenge</summary>
+
+```yaml
+email: your.email@example.com
+domains:
+  - home-assistant.io
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-acmedns
+  acmedns_url: YOUR_ACMEDNS_API_BASE_URL
+  acmedns_credentials: acmedns.json
+```
+
+This plugin does not do ACME-DNS registration and you are responsible to make sure /share/acme-registration.json (in the example above) contains the registration data in the following format:
+
+```json
+{
+    "something.acme.com": {
+        "username": "eabcdb41-d89f-4580-826f-3e62e9755ef2",
+        "password": "pbAXVjlIOE01xbut7YnAbkhMQIkcwoHO0ek2j4Q0",
+        "fulldomain": "d420c923-bbd7-4056-ab64-c3ca54c9b3cf.auth.example.org",
+        "subdomain": "d420c923-bbd7-4056-ab64-c3ca54c9b3cf",
+        "allowfrom": []
+    },
+    "foo.bar.com": {
+        "username": "64570f82-d5ca-4839-8306-c4e392d8ae82",
+        "password": "bkhMQIkcwoHO0ek2j4Q0pbAXVjlIOE01xbut7YnA",
+        "fulldomain": "179adbde-4a06-4f47-af17-1c250106fb9f.auth.example.org",
+        "subdomain": "179adbde-4a06-4f47-af17-1c250106fb9f",
+        "allowfrom": []
+    }
+}
+```
+registration_file here is the JSON file containing as key the domain
+and as value the response returned during ACME-DNS registration
+
+To register an useraccount you need to call the register API directly at the acmedns server:
+```bash
+curl -X POST http://auth.example.com/register
+```
+read on the [acmedns github repository][acmedns].
+
+[acmedns]: https://github.com/joohoi/acme-dns
 </details>
 
 <details>
@@ -749,16 +800,16 @@ You will need to set up a server with RFC2136 (Dynamic Update) support with a TK
 
 You don't need to publish this; just copy the key data into your named.conf file:
   ```
-  
+
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
-  
+
   ```
 And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
   ```
-  
+
      update-policy {
         grant letsencrypt name _acme-challenge.home-assistant.io. txt;
      };
@@ -850,7 +901,7 @@ dns:
 </details>
 <details>
   <summary>ClouDNS</summary>
-In order to use a domain with this challenge, you first need to log into your control panel and create a 
+In order to use a domain with this challenge, you first need to log into your control panel and create a
 new HTTP API user from the "API & Resellers" page on top of your control panel.
 
   ```yaml
@@ -937,7 +988,7 @@ References:
 <details>
   <summary>easyDNS</summary>
 
-easyDNS REST API access must be requested and granted in order to use this module: https://cp.easydns.com/manage/security/api/signup.php after logging into your account. 
+easyDNS REST API access must be requested and granted in order to use this module: https://cp.easydns.com/manage/security/api/signup.php after logging into your account.
 
   ```yaml
   email: your.email@example.com
@@ -1075,7 +1126,7 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
   dns:
     provider: dns-simply
     simply_account_name: Sxxxxxx
-    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key.
   ```
 
 The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.

@@ -7,6 +7,7 @@ ARG \
     CLOUDFLARE_VERSION \
     CRYPTOGRAPHY_VERSION \
     CERTBOT_VERSION \
+    CERTBOT_DNS_ACMEDNS_VERSION \
     CERTBOT_DNS_AZURE_VERSION \
     CERTBOT_DNS_CLOUDNS_VERSION \
     CERTBOT_DNS_DESEC_VERSION \
@@ -54,6 +55,7 @@ RUN \
         cloudflare==${CLOUDFLARE_VERSION} \
         cryptography==${CRYPTOGRAPHY_VERSION} \
         certbot==${CERTBOT_VERSION} \
+        certbot-dns-acmedns==${CERTBOT_DNS_ACMEDNS_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudns==${CERTBOT_DNS_CLOUDNS_VERSION} \

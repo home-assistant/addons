@@ -40,6 +40,8 @@ schema:
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
   dns:
+    acmedns_url: str?
+    acmedns_credentials: str?
     aws_access_key_id: str?
     aws_secret_access_key: str?
     azure_config: str?
@@ -103,7 +105,7 @@ schema:
     ovh_consumer_key: str?
     ovh_endpoint: str?
     propagation_seconds: int(60,3600)?
-    provider: "list(dns-azure|dns-cloudflare|dns-cloudns|dns-desec|\
+    provider: "list(dns-acmedns|dns-azure|dns-cloudflare|dns-cloudns|dns-desec|\
       dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|\
       dns-duckdns|dns-dynu|dns-gehirn|dns-godaddy|dns-google|\
       dns-hetzner|dns-infomaniak|dns-ionos|dns-joker|dns-linode|dns-loopia|dns-luadns|\

@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.11
+
+- Add Synergy Wholesale DNS support
+
 ## 5.2.10
 
 - Add transip global_key parameter to config.yaml

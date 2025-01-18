@@ -40,7 +40,7 @@ schema:
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
   dns:
-    acmedns_url: str?
+    acmedns_url: url?
     acmedns_credentials: str?
     aws_access_key_id: str?
     aws_secret_access_key: str?

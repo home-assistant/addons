@@ -202,6 +202,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-rfc2136" ]; then
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+#Synergy Wholesale
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-synergy-wholesale" ]; then
+    bashio::config.require 'dns.synergy_wholesale_reseller_id'
+    bashio::config.require 'dns.synergy_wholesale_api_key'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Azure
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
     bashio::config.require 'dns.azure_config'

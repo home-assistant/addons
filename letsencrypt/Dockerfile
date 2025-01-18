@@ -26,6 +26,7 @@ ARG \
     CERTBOT_DNS_NAMECHEAP_VERSION \
     CERTBOT_DNS_NORISNETWORK_VERSION \
     CERTBOT_DNS_SIMPLY_VERSION \
+    CERTBOT_DNS_SYNERGY_WHOLESALE_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_DNS_PORKBUN_VERSION \
     CERTBOT_DNS_WEBSUPPORT_VERSION \
@@ -85,6 +86,7 @@ RUN \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
         certbot-dns-namecheap==${CERTBOT_DNS_NAMECHEAP_VERSION} \
         certbot-dns-simply==${CERTBOT_DNS_SIMPLY_VERSION} \
+        certbot-dns-synergy-wholesale==${CERTBOT_DNS_SYNERGY_WHOLESALE_VERSION} \
         certbot-dns-netcup==${CERTBOT_NETCUP_VERSION} \
         certbot-plugin-gandi==${CERTBOT_GANDI_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \

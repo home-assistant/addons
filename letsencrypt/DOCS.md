@@ -65,6 +65,7 @@ dns-mijn-host
 dns-njalla
 dns-noris
 dns-simply
+dns-synergy-wholesale
 dns-nsone
 dns-ovh
 dns-rfc2136
@@ -165,6 +166,8 @@ plesk_password: ''
 plesk_api_url: ''
 simply_account_name: ''
 simply_api_key: ''
+synergy_wholesale_reseller_id: ''
+synergy_wholesale_api_key: ''
 ```
 </details>
 
@@ -1083,6 +1086,26 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 
 </details>
 
+<details>
+  <summary>Synergy Wholesale</summary>
+
+In order to use a domain with this challenge, API access will need enabling on your account. In order to
+do this go to Account Functions -> select the API Information -> details and click the Enable API button.
+Note: You must whitelist the IP address from where the certbot will run.
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-synergy-wholesale
+  synergy_wholesale_reseller_id: 1234
+  synergy_wholesale_api_key: 0123456789abcdef0123456789abcdef01234
+```
+</details>
 
 <details>
   <summary>mijn.host DNS challenge</summary>

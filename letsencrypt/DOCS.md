@@ -1089,8 +1089,8 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 <details>
   <summary>Synergy Wholesale</summary>
 
-In order to use a domain with this challenge, API access will need enabling on your account. In order to
-do this go to Account Functions -> select the API Information -> details and click the Enable API button.
+To use a domain with this challenge, enable API access on your account. To
+do this, go to Account Functions -> select the API Information and click the Enable API button.
 Note: You must whitelist the IP address from where the certbot will run.
 
 ```yaml

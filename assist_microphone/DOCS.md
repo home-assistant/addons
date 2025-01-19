@@ -56,6 +56,51 @@ Enables or disables output audio.
 
 Multiply sound output volume by fixed value (1.0 = no change, 2.0 = twice as loud). 1.0 is the default.
 
+### Option: `synthesize_using_webhook`
+
+Send text-to-speech text to a Home Assistant webhook for further processing. You can achieve this by using the webhook platform as a trigger inside an automation for example. 
+
+<details>
+<summary>Example Automation</summary>
+
+```yaml
+alias: Satellite response
+description: ""
+trigger:
+  - platform: webhook
+    allowed_methods:
+      - POST
+      - PUT
+    local_only: true
+    webhook_id: "synthesize-assist-microphone-response" # This must match the webhook_id in the add-on configuration
+condition: []
+action:
+  - service: telegram_bot.send_message
+    metadata: {}
+    data:
+      message: "{{ trigger.json.response }}" # This is how you catch whatever the add-on sent
+      title: Mycroft said
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.name # Don't forget to change this to your own media player
+      cache: false
+      message: "{{ trigger.json.response }}" # This is how you catch whatever the add-on sent
+mode: single
+```
+</details>
+
+Read the HA webhook automation trigger [documentation](https://www.home-assistant.io/docs/automation/trigger/#webhook-trigger) for more information. 
+
+If you're using this feature, you will need to set `sound_enabled` to _true_ as well or nothing will happen.
+
+### Option: `webhook_id`
+
+The name of the webhook to use. This is only relevant if `synthesize_using_webhook` is _true_.
+
+### Option: `synthesize_script`
+
+The script that does the heavy lifting of sending the text you want to synthesize to the home assistant webhook. This is only relevant if `synthesize_using_webhook` is _true_.
+
 ### Option: `debug_logging`
 
 Enable debug logging.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Added configuration options so that sound can be played on any media player
+
 ## 1.3.0
 
 - Update to wyoming-satellite 1.3.0 to get support for timers

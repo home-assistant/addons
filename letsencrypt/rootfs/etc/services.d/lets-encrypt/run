@@ -221,7 +221,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-inwx" ]; then
     bashio::config.require 'dns.inwx_username'
     bashio::config.require 'dns.inwx_password'
     bashio::config.require 'dns.inwx_shared_secret'
-    PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-desec" ]; then
     bashio::config.require 'dns.desec_token'

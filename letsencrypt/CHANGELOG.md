@@ -5,6 +5,7 @@
 - Update certbot to 3.1.0
 - Update acme to 3.1.0
 - Update cryptography to 44.0.0
+- Update cloudflare to 4.0.0
 - Update certbot-dns-azure to 2.6.1
 - Update certbot-dns-directadmin to 10.0.13
 - Update certbot-dns-duckdns to 1.5

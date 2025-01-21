@@ -15,6 +15,7 @@
 - Update certbot-dns-porkbun to 0.9.1
 - Update certbot-dns-netcup to 1.4.4
 - Update certbot-dns-njalla to 2.0.2
+- Update the remaining dns challenges with DNS_PROVIDER placeholder
 
 ## 5.2.10
 

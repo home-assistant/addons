@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.3.0
+
+- Update certbot to 3.1.0
+- Update acme to 3.1.0
+- Update cryptography to 44.0.1
+- Update certbot-dns-azure to 2.6.1
+- Update certbot-dns-directadmin to 10.0.13
+- Update certbot-dns-duckdns to 1.5
+- Update certbot-dns-dynu to 0.0.6
+- Update certbot-dns-inwx to 3.0.1
+- Update certbot-dns-ionos to 2024.11.9
+- Update certbot-dns-norisnetwork to 0.3.0
+- Update certbot-dns-porkbun to 0.9.1
+- Update certbot-dns-netcup to 1.4.4
+- Update certbot-dns-njalla to 2.0.2
+
 ## 5.2.12
 
 - Add rfc2136_sign_query parameter to config.yaml

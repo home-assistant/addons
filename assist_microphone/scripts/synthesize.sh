@@ -31,16 +31,30 @@ if [ -z "$SUPERVISOR_TOKEN" ]; then
     exit 1
 fi
 
-# Get the IPv4 address from the first Home Assistant interface
-ha_ip=$(curl -s -X GET \
+# Fetch the network info JSON (adjust the URL or headers as needed).
+json=$(curl -s -X GET \
     -H "Authorization: Bearer $SUPERVISOR_TOKEN" \
-    http://supervisor/network/info \
-  | jq -r '.data.interfaces[0].ipv4.address[0]' \
-  | cut -d'/' -f1)
-if [ -z "$ha_ip" ]; then
-  bashio::log.error "Failed to get Home Assistant IPv4 address."
+    http://supervisor/network/info)
+
+# Use jq to extract all IPv4 addresses (including CIDR) from interfaces
+# that are enabled and connected.
+addresses=$(echo "$json" | jq -r '
+  .data.interfaces[]
+  | select(.enabled == true and .connected == true)
+  | .ipv4.address[]
+')
+
+# Count how many addresses we found.
+count=$(echo "$addresses" | wc -l)
+
+# If we don't find exactly one, print an error and exit.
+if [ "$count" -ne 1 ]; then
+  bashio::log.error "Error: Found $count IP addresses for enabled & connected interfaces (expected exactly 1)."
   exit 1
 fi
+
+# Strip off the CIDR netmask ("/24" etc.) and print just the IP.
+ha_ip=$(echo "$addresses" | cut -d'/' -f1)
 
 # Determine if the HA host has SSL enabled.
 ssl_enabled=$(curl -s -X GET \

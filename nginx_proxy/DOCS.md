@@ -74,6 +74,10 @@ The filename of the NGINX configuration for the default server, found in the `/s
 
 The filename(s) of the NGINX configuration for the additional servers, found in the `/share` directory.
 
+### Option `customize.root_location` (optional)
+
+The filename of the NGINX configuration for the default server `location /` statement, found in the `/share` directory.
+
 ### Option `cloudflare` (optional)
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
@@ -82,12 +86,6 @@ This is so the `ip_ban_enabled` feature can be used and work correctly in /confi
 ### Option `real_ip_from` (optional)
 
 If specified, configures Nginx to use Proxy Protocol to get the Real Ip from an upstream load balancer; [for more information](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/).
-
-### Option `init_commands` (optional)
-
-If specified, executes the following commands after building `nginx.conf` but before actually starting `nginx`.
-Use with caution as these commands run with root privileges.
-Ensure commands are properly validated and come from trusted sources.
 
 ## Known issues and limitations
 

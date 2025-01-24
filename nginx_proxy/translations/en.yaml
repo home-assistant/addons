@@ -29,11 +29,6 @@ configuration:
     description: >-
       Configures Nginx to use TCP Proxy Protocol,
       specifies what IP to trust TLS upstream requests from.
-  init_commands:
-    name: Init commands
-    description: >-
-      If specified, executes the following commands after building
-      `nginx.conf` but before actually starting `nginx`.
 network:
   443/tcp: HTTPS (SSL) Port
   80/tcp: HTTP (non-SSL) Port

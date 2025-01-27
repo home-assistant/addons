@@ -351,7 +351,7 @@ dns:
   acmedns_credentials: acmedns.json
 ```
 
-This plugin does not do ACME-DNS account registration and you are responsible to make sure /share/acmedns.json (as specified in the acmedns_credentials field) contains the registration data in the following format:
+This plugin does not do ACME-DNS account registration, and you are responsible to make sure /share/acmedns.json (as specified in the acmedns_credentials field) contains the registration data in the following format:
 
 ```json
 {
@@ -380,12 +380,12 @@ curl -X POST http://auth.example.com/register
 ```
 
 Response will contain the credentials in JSON format:
-```
+```json
 {
   "username": "...",
   "password": "...",
   "fulldomain": "...",
-  "subdomain": "...".
+  "subdomain": "...",
   "allowfrom": []
 }
 ```

@@ -351,7 +351,7 @@ dns:
   acmedns_credentials: acmedns.json
 ```
 
-This plugin does not do ACME-DNS registration and you are responsible to make sure /share/acme-registration.json (in the example above) contains the registration data in the following format:
+This plugin does not do ACME-DNS account registration and you are responsible to make sure /share/acmedns.json (as specified in the acmedns_credentials field) contains the registration data in the following format:
 
 ```json
 {
@@ -378,6 +378,24 @@ To register an useraccount you need to call the register API directly at the acm
 ```bash
 curl -X POST http://auth.example.com/register
 ```
+
+Response will contain the credentials in JSON format:
+```
+{
+  "username": "...",
+  "password": "...",
+  "fulldomain": "...",
+  "subdomain": "...".
+  "allowfrom": []
+}
+```
+
+After registration, you need to create a CNAME record for each domain you want to encrypt:
+- Create a CNAME record for `_acme-challenge.<your-domain>` pointing to the `fulldomain` value received during registration. Example: If your domain is `home-assistant.io` and the registration returned `d420c923-bbd7-4056-ab64-c3ca54c9b3cf.auth.example.org` as `fulldomain`, create a CNAME record: _acme-challenge.home-assistant.io -> d420c923-bbd7-4056-ab64-c3ca54c9b3cf.auth.example.org
+
+If you want to create a wildcard certificate, you need to create a CNAME record for the domain containing the wildcard. Example: If you want to create a wildcard certificate for `*.home-assistant.io`, create a CNAME record: _acme-challenge.home-assistant.io -> d420c923-bbd7-4056-ab64-c3ca54c9b3cf.auth.example.org.
+
+
 read on the [acmedns github repository][acmedns].
 
 [acmedns]: https://github.com/joohoi/acme-dns

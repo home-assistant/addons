@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.0.0
+- Refactor git_pull to use HA Api with bashio
+- Update base image to Alpine 3.21
+- Remove ha cli dependency
+
+
 ## 7.14.1
 - Fix error where $HOME is not defined
 

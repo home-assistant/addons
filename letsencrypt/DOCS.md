@@ -61,7 +61,7 @@ dns-joker
 dns-linode
 dns-loopia
 dns-luadns
-dns-mijn-host
+dns-mijn-host (currently disable - see changelog)
 dns-njalla
 dns-noris
 dns-simply
@@ -78,7 +78,7 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
-dns-websupport
+dns-websupport (currently disable - see changelog)
 ```
 </details>
 
@@ -978,7 +978,7 @@ dns:
 
 <details>
 
-  <summary>WebSupport</summary>
+  <summary>WebSupport (currently disable - see changelog)</summary>
 
 An identifier and secret key have to be obtained to use this module (see https://admin.websupport.sk/sk/auth/apiKey).
 
@@ -1088,7 +1088,7 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 
 
 <details>
-  <summary>mijn.host DNS challenge</summary>
+  <summary>mijn.host DNS challenge (currently disable - see changelog)</summary>
 
   ```yaml
   email: your.email@example.com
@@ -1138,7 +1138,7 @@ dns-ionos
 dns-linode
 dns-loopia
 dns-luadns
-dns-mijn-host
+dns-mijn-host (currently disable - see changelog)
 dns-njalla
 dns-noris
 dns-plesk
@@ -1156,7 +1156,7 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
-dns-websupport
+dns-websupport (currently disable - see changelog)
 ```
 
 ## Support

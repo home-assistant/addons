@@ -245,7 +245,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dreamhost" ]; th
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--dns-dreamhost-credentials" "/data/dnsapikey")
 
 # Hurricane Electric
-elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hurricane_electric" ]; then
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-he" ]; then
     bashio::config.require 'dns.he_user'
     bashio::config.require 'dns.he_pass'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")

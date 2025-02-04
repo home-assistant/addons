@@ -9,6 +9,19 @@ configuration:
     description: >-
       Path to WAV file to play when voice command is finished (empty to
       disable).
+  timer_finished_wav:
+    name: Timer Finished WAV
+    description: >-
+      Path to WAV file to play when timer is finished (empty to disable,
+      default is /usr/src/sounds/timer_finished.wav).
+  timer_repeat_count:
+    name: Timer Finished WAV Repetition Count
+    description: >-
+      Number of times to repeat timer_finished_wav (default is 3).
+  timer_repeat_delay:
+    name: Timer Repetition Delay
+    description: >-
+      Delay before repeating timer_finished_wav, in seconds (default is 0.75).
   noise_suppression:
     name: Noise suppression
     description: >-

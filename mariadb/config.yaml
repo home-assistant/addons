@@ -1,5 +1,5 @@
 ---
-version: 2.7.1
+version: 2.7.2
 slug: mariadb
 name: MariaDB
 description: A SQL database server
@@ -38,6 +38,8 @@ schema:
           CREATE VIEW|DELETE|DELETE HISTORY|DROP|EVENT|GRANT OPTION|INDEX|\
           INSERT|LOCK TABLES|SELECT|SHOW VIEW|TRIGGER|UPDATE)?"
       username: str
+  mariadb_server_args:
+    - str?
 services:
   - mysql:provide
 startup: system

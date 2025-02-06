@@ -137,7 +137,7 @@ rfc2136_port: ''
 rfc2136_name: ''
 rfc2136_secret: ''
 rfc2136_algorithm: ''
-rfc2136_sign_query: ''
+rfc2136_sign_query: false
 aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''

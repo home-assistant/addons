@@ -116,7 +116,7 @@ schema:
     rfc2136_port: str?
     rfc2136_secret: str?
     rfc2136_server: str?
-    rfc2136_sign_query: bool
+    rfc2136_sign_query: bool?
     sakuracloud_api_secret: str?
     sakuracloud_api_token: str?
     transip_api_key: str?

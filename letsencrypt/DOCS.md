@@ -137,6 +137,7 @@ rfc2136_port: ''
 rfc2136_name: ''
 rfc2136_secret: ''
 rfc2136_algorithm: ''
+rfc2136_sign_query: false
 aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
@@ -782,6 +783,8 @@ An example configuration:
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
+    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
+    rfc2136_sign_query: true
   ```
 
 </details>

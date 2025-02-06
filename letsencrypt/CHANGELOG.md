@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.12
+
+- Add rfc2136_sign_query parameter to config.yaml
+
 ## 5.2.11
 
 - Use a newer, maintained Hurricane Electric plugin.

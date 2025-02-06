@@ -72,7 +72,7 @@ if [ -n "$DEPLOYMENT_KEY" ]; then
     if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || { [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]; }; then
         bashio::log.info "[Info] Valid SSH connection for $DOMAIN"
     else
-        bashio::log.warn "[Warn] No valid SSH connection for $DOMAIN"
+        bashio::log.warning "[Warn] No valid SSH connection for $DOMAIN"
         add-ssh-key
     fi
 fi
@@ -118,7 +118,7 @@ fi
 function git-synchronize {
     # is /config a local git repo?
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-        bashio::log.warn "[Warn] Git repository doesn't exist"
+        bashio::log.warning "[Warn] Git repository doesn't exist"
         git-clone
         return
     fi

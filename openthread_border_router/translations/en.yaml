@@ -14,8 +14,8 @@ configuration:
     name: Network Device
     description: >-
       <host:port> when connecting to a device via sockets (takes precedence
-      over above configuration). Not suitable for WiFi or other high latency
-      connections.
+      over above configuration). Not recommended! See documentation for more
+      information.
   autoflash_firmware:
     name: Automatically flash firmware
     description: >-

@@ -1,5 +1,5 @@
 ---
-version: 1.2.0
+version: 1.3.0
 slug: assist_microphone
 name: Assist Microphone
 description: Use Assist with local microphone
@@ -16,6 +16,9 @@ map:
 options:
   awake_wav: "/usr/src/sounds/awake.wav"
   done_wav: "/usr/src/sounds/done.wav"
+  timer_finished_wav: "/usr/src/sounds/timer_finished.wav"
+  timer_repeat_count: 3
+  timer_repeat_delay: 0.75
   sound_enabled: true
   noise_suppression: 0
   auto_gain: 0
@@ -25,6 +28,9 @@ options:
 schema:
   awake_wav: str
   done_wav: str
+  timer_finished_wav: str
+  timer_repeat_count: int
+  timer_repeat_delay: float
   sound_enabled: bool
   noise_suppression: int
   auto_gain: int

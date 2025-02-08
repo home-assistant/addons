@@ -6,6 +6,8 @@
   - issue: [mijnhost/certbot-dns-mijn-host#8](https://github.com/mijnhost/certbot-dns-mijn-host/issues/8)
 - Disabled certbot-dns-websupport (Breaking change)
   - issue: [johnybx/certbot-dns-websupport#1](https://github.com/johnybx/certbot-dns-websupport/issues/1)
+- Update to Python 3.13
+- Update to Alpine 3.21
 - Update certbot to 3.1.0
 - Update acme to 3.1.0
 - Update cryptography to 44.0.1

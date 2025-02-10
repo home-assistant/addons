@@ -1,0 +1,9 @@
+---
+build_from:
+  amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
+  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
+codenotary:
+  signer: notary@home-assistant.io
+  base_image: notary@home-assistant.io
+args:
+  SPEECH_TO_PHRASE_VERSION: 1.0.0

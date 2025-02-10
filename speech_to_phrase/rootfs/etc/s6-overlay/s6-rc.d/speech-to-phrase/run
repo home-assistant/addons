@@ -3,7 +3,7 @@
 # ==============================================================================
 # Start speech-to-phrase service
 # ==============================================================================
-cd /usr/src
+cd /usr/src || exit 1
 
 flags=()
 
@@ -26,6 +26,7 @@ fi
 models_dir='/data/models'
 mkdir -p "${models_dir}"
 
+# shellcheck disable=SC2068
 exec .venv/bin/python3 -m speech_to_phrase \
     --uri 'tcp://0.0.0.0:10300' \
     --tools-dir /usr/src/tools \

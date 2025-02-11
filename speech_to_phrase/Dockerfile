@@ -16,7 +16,6 @@ RUN \
     && apt-get install -y --no-install-recommends \
         netcat-traditional \
         python3 \
-        python3-wheel \
         python3-pip \
         python3-dev \
         python3-venv \

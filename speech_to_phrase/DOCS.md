@@ -30,6 +30,17 @@ for more information.
 - [Spanish (Español)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/spanish.md)
 - [Italian (Italiano)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/italian.md)
 
+### Custom sentences
+
+You can add [custom sentences][] to `/share/speech-to-phrase/custom_sentences/<language>/sentences.yaml` where `<language>` is:
+
+* `en` - English
+* `fr` - French
+* `de` - German
+* `nl` - Dutch
+* `es` - Spanish
+* `it` - Italian
+
 ## Support
 
 Got questions?
@@ -50,3 +61,4 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 
 [sentence trigger]: https://www.home-assistant.io/docs/automation/trigger/#sentence-trigger
 [exposed]: https://www.home-assistant.io/voice_control/voice_remote_expose_devices/
+[custom sentences]: https://github.com/OHF-voice/speech-to-phrase?tab=readme-ov-file#custom-sentences

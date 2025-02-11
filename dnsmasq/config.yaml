@@ -23,6 +23,8 @@ options:
   cnames: []
   log_queries: false
   cache_size: 150
+  filter_a: false
+  filter_aaaa: false
 ports:
   53/tcp: 53
   53/udp: 53

@@ -46,4 +46,6 @@ schema:
       target: str
   log_queries: bool
   cache_size: int
+  filter_a: bool
+  filter_aaaa: bool
 startup: system

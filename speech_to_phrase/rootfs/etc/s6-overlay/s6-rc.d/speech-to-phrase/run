@@ -35,5 +35,6 @@ exec .venv/bin/python3 -m speech_to_phrase \
     --retrain-on-start \
     --retrain-on-connect \
     --retrain-seconds 300 \
+    --custom-sentences-dir /share/speech-to-phrase/custom_sentences \
     --hass-token "${hass_token}" \
     --hass-websocket-uri "${hass_websocket_uri}" ${flags[@]}

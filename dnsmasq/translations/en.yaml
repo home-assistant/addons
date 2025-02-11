@@ -21,6 +21,12 @@ configuration:
   log_queries:
     name: Log Queries
     description: Log all DNS requests.
+  filter_a:
+    name: Filter A records
+    description: Do not respond with A (IPv4) records obtained from upstream resolver(s).
+  filter_aaaa:
+    name: Filter AAAA records
+    description: Do not respond with AAAA (IPv6) records obtained from upstream resolver(s).
 network:
   53/tcp: TCP port for DNS requests.
   53/udp: UDP port for DNS requests.

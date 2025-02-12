@@ -1,5 +1,5 @@
 ---
-version: 7.0.0
+version: 7.1.0-beta
 slug: deconz
 name: deCONZ
 description: >-
@@ -40,6 +40,7 @@ schema:
   dbg_otau: int?
   dbg_zcl: int?
   dbg_zdp: int?
+stage: experimental
 startup: services
 udev: true
 usb: true

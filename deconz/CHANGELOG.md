@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.0-beta
+
+- Bump deCONZ to 2.29.1-beta
+
 ## 7.0.0
 
 - Bump deCONZ to 2.28.1

@@ -1,5 +1,67 @@
 # Changelog
 
+## 0.10.0
+
+### Features
+
+- Z-Wave JS Server: Forward driver ready event
+- Z-Wave JS Server: Support controller.cancelSecureBootstrapS2
+- Z-Wave JS Server: Support zwave-js v14
+- Z-Wave JS: Allow specifying RF region for OTA firmware updates if the region is unknown or cannot be queried
+- Z-Wave JS: Add tryUnzipFirmwareFile utility to support zipped OTA firmware files
+
+### Bug fixes
+
+- Z-Wave JS Server: Fix stringify Uint8Arrays like Buffers
+- Z-Wave JS: Fixed firmware updates fail to start on some devices with error "invalid hardware version"
+- Z-Wave JS: Fixed another issue where some CC API methods would incorrectly fail validation of their arguments, causing the node interview to fail
+- Z-Wave JS: Fixed an issue that prevented the nvmedit CI utility from starting
+- Z-Wave JS: Fixed an issue where some CC API methods would incorrectly fail validation of their arguments
+- Z-Wave JS: Fixed an issue where CC classes would have a different name when zwave-js was loaded as CommonJS, changing how those CCs were handled
+- Z-Wave JS: Fix parsing of some older 500 series NVM formats
+- Z-Wave JS: Fixed an issue where mock-server would not start due to an incorrect module format
+- Z-Wave JS: Fixed an issue where the auto-generated argument validation for CC API methods would not work correctly in some cases when zwave-js was bundled
+- Z-Wave JS: Fixed an issue where encoding a buffer as an ASCII string would throw an error on Node.js builds without full ICU
+- Z-Wave JS: Parse negative setback state consistently
+- Z-Wave JS: Ignore LR nodes when computing neighbor discovery timeout
+- Z-Wave JS: Automatically fall back to Europe when setting region to Default (EU)
+
+### Config file changes
+
+- Preserve all endpoints for Fibaro FGFS101, FW 26.26
+- Preserve all endpoints for Fibaro FGFS101, FW 25.25
+- Updates to AEON Labs Minimote
+- Auto-assign Lifeline for Trane XL624
+- Disable Supervision for Everspring SP817 Motion Sensor
+- Add wakeup instructions for ZSE43
+- Add wakeup instructions for ZSE42
+- Add wakeup instructions for ZSE41
+- Add Zooz ZSE70 800LR
+- Add new device config for Philips DDL240X-15HZW lock
+- Add Z-Wave.me Z-Station
+- Add HomeSys HomeMech-2001/2
+- Ignore setpoint range for Ecolink TBZ500
+- Add Aeotec TriSensor 8
+- Disable Supervision for Everspring SE813
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 1.40.3](https://github.com/zwave-js/zwave-js-server/releases/tag/1.40.3)
+- [Z-Wave JS Server 1.40.2](https://github.com/zwave-js/zwave-js-server/releases/tag/1.40.2)
+- [Z-Wave JS Server 1.40.0](https://github.com/zwave-js/zwave-js-server/releases/tag/1.40.0)
+- [Z-Wave JS 14.3.8](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.8)
+- [Z-Wave JS 14.3.7](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.7)
+- [Z-Wave JS 14.3.6](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.6)
+- [Z-Wave JS 14.3.5](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.5)
+- [Z-Wave JS 14.3.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.4)
+- [Z-Wave JS 14.3.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.3)
+- [Z-Wave JS 14.3.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.2)
+- [Z-Wave JS 14.3.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.1)
+- [Z-Wave JS 14.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.2.0)
+- [Z-Wave JS 14.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.1.0)
+- [Z-Wave JS 14.0.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.0.0)
+- [Z-Wave JS 13.10.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v13.10.3)
+
 ## 0.9.0
 
 ### Features

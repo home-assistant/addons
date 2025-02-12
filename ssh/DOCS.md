@@ -116,5 +116,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/addons/issues
 [keygen-windows]: https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps
-[keygen]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+[keygen]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 [reddit]: https://reddit.com/r/homeassistant

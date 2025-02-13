@@ -202,6 +202,27 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-rfc2136" ]; then
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+
+
+# AcmeDNS
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-acmedns" ]; then
+    bashio::config.require 'dns.acmedns_url'
+    bashio::config.require 'dns.acmedns_credentials'
+
+    echo -e "dns_acmedns_api_url = $(bashio::config 'dns.acmedns_url')\n" \
+            "dns_acmedns_registration_file = /data/dnsdomains\n" >> "/data/dnsconfig"
+
+    ACMEDNS_CREDENTIALS="$(bashio::config 'dns.acmedns_credentials')"
+    export ACMEDNS_CREDENTIALS
+    if [ -f "/share/${ACMEDNS_CREDENTIALS}" ]; then
+      cp -f "/share/${ACMEDNS_CREDENTIALS}" "/data/dnsdomains"
+      chmod 600 "/data/dnsdomains"
+    else
+      bashio::log.info "AcmeDNS domains file doesn't exist in folder share."
+    fi
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsconfig")
+
+
 # Azure
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
     bashio::config.require 'dns.azure_config'

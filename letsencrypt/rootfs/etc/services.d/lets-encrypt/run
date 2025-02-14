@@ -103,7 +103,7 @@ elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
             "dns_cloudflare_api_key = $(bashio::config 'dns.cloudflare_api_key')\n" >> "/data/dnsapikey"
     fi
 
-    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-cloudflare-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # DigitalOcean
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-digitalocean" ]; then
@@ -152,12 +152,12 @@ elif [ "${DNS_PROVIDER}" == "dns-godaddy" ]; then
 # Hetzner
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-hetzner" ]; then
     bashio::config.require 'dns.hetzner_api_token'
-    PROVIDER_ARGUMENTS+=("--authenticator" "dns-hetzner" "--dns-hetzner-credentials" "/data/dnsapikey" "--dns-hetzner-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Infomaniak
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-infomaniak" ]; then
     bashio::config.require 'dns.infomaniak_api_token'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" /data/dnsapikey "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # IONOS
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-ionos" ]; then
@@ -200,7 +200,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-njalla" ]; then
 
 # rfc2136
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-rfc2136" ]; then
-    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--dns-rfc2136-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 # Azure
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
@@ -221,7 +221,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-inwx" ]; then
     bashio::config.require 'dns.inwx_username'
     bashio::config.require 'dns.inwx_password'
     bashio::config.require 'dns.inwx_shared_secret'
-    PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--dns-inwx-credentials" "/data/dnsapikey" "--dns-inwx-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-desec" ]; then
     bashio::config.require 'dns.desec_token'
@@ -242,7 +242,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-cloudns" ]; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dreamhost" ]; then
     bashio::config.require 'dns.dreamhost_baseurl'
     bashio::config.require 'dns.dreamhost_api_key'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--dns-dreamhost-credentials" "/data/dnsapikey")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey")
 
 # Hurricane Electric
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-he" ]; then

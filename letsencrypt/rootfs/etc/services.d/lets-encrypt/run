@@ -127,6 +127,12 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dynu" ]; then
     bashio::config.require 'dns.dynu_auth_token'
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
+# Eurodns
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-eurodns" ]; then
+    bashio::config.require 'dns.eurodns_applicationId'
+    bashio::config.require 'dns.eurodns_apiKey'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # Gandi
 elif [ "${DNS_PROVIDER}" == "dns-gandi" ]; then
     if bashio::config.exists 'dns.gandi_sharing_id'; then

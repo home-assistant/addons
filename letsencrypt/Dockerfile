@@ -74,8 +74,7 @@ RUN \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-loopia==${CERTBOT_DNS_LOOPIA_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
-        # Disabled due to unresolved issues
-        # certbot-dns-mijn-host==${CERTBOT_DNS_MIJN_HOST_VERSION} \
+        certbot-dns-mijn-host==${CERTBOT_DNS_MIJN_HOST_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
         certbot-dns-norisnetwork==${CERTBOT_DNS_NORISNETWORK_VERSION} \
         certbot-dns-nsone==${CERTBOT_VERSION} \

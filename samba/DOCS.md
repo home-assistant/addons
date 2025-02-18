@@ -58,6 +58,8 @@ veto_files:
   - ".DS_Store"
   - Thumbs.db
 compatibility_mode: false
+winsserver_mode: false
+masterbrowser_mode: true
 ```
 
 ### Option: `workgroup` (required)
@@ -94,6 +96,18 @@ handle the newer protocols, however, it lowers security. Only use this
 when you absolutely need it and understand the possible consequences.
 
 Defaults to `false`.
+
+### Option: `winsserver_mode`
+
+Enable WINS server functionality in NMBD. When enabled, the Samba server will act as a WINS server for the network.
+
+Defaults to `false`.
+
+### Option: `masterbrowser_mode`
+
+Enable the Samba server to act as the master browser for the WORKGROUP. When enabled, the server will maintain and provide the list of available network shares.
+
+Defaults to `true`.
 
 ## Support
 

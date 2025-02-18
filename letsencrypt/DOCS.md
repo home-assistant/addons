@@ -62,7 +62,7 @@ dns-joker
 dns-linode
 dns-loopia
 dns-luadns
-dns-mijn-host (currently disable - see changelog)
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-simply
@@ -1111,7 +1111,7 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 
 
 <details>
-  <summary>mijn.host DNS challenge (currently disable - see changelog)</summary>
+  <summary>mijn.host DNS challenge</summary>
 
   ```yaml
   email: your.email@example.com
@@ -1162,7 +1162,7 @@ dns-ionos
 dns-linode
 dns-loopia
 dns-luadns
-dns-mijn-host (currently disable - see changelog)
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-plesk

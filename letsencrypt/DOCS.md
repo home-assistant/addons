@@ -51,6 +51,7 @@ dns-dnsmadeeasy
 dns-duckdns
 dns-dreamhost
 dns-dynu
+dns-eurodns
 dns-gehirn
 dns-godaddy
 dns-google
@@ -105,6 +106,8 @@ dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 duckdns_token: ''
 dynu_auth_token: ''
+eurodns_applicationId: ''
+eurodns_apiKey: ''
 google_creds: ''
 hetzner_api_token: ''
 gehirn_api_token: ''
@@ -977,6 +980,26 @@ dns:
 </details>
 
 <details>
+  <summary>Eurodns DNS challenge</summary>
+
+  You can configure the APP id and the API key in the API Users area of the Eurodns control panel: https://my.eurodns.com/apiusers
+
+```yaml
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-eurodns
+  eurodns_applicationId: X-APP-ID
+  eurodns_apiKey: X-API-KEY
+  propagation_seconds: 60
+```
+
+</details>
+
+<details>
 
   <summary>WebSupport (currently disable - see changelog)</summary>
 
@@ -1130,6 +1153,7 @@ dns-dnsmadeeasy
 dns-duckdns
 dns-dreamhost
 dns-dynu
+dns-eurodns
 dns-gehirn
 dns-google
 dns-hetzner

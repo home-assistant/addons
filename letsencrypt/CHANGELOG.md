@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.1
+
+- Add Eurodns DNS support
+
 ## 5.3.0
 
 - Disabled certbot-dns-mijn-host (Breaking change)

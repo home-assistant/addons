@@ -3,6 +3,7 @@
 ## 5.3.4
 
 - Improve documentation
+- Refactor configuration and align with documentation
 
 ## 5.3.3
 

@@ -36,6 +36,8 @@ There are two options to obtain certificates.
 
 ### DNS providers
 
+<!-- Developer note: please add a new plugin alphabetically into all lists -->
+
 <details>
   <summary>Supported DNS providers</summary>
 
@@ -91,87 +93,94 @@ dns-websupport (currently disable - see changelog)
 
 ```yaml
 propagation_seconds: 60
+aws_access_key_id: ''
+aws_secret_access_key: ''
 azure_config: ''
-cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
+cloudflare_email: ''
 cloudns_auth_id: ''
+cloudns_auth_password: ''
 cloudns_sub_auth_id: ''
 cloudns_sub_auth_user: ''
-cloudns_auth_password: ''
 desec_token: ''
 digitalocean_token: ''
+directadmin_password: ''
 directadmin_url: ''
 directadmin_username: ''
-directadmin_password: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
+domainoffensive_token: ''
+dreamhost_api_baseurl: ''
+dreamhost_api_key: ''
 duckdns_token: ''
 dynu_auth_token: ''
-eurodns_applicationId: ''
+easydns_endpoint: ''
+easydns_key: ''
+easydns_token: ''
 eurodns_apiKey: ''
-google_creds: ''
-hetzner_api_token: ''
-gehirn_api_token: ''
+eurodns_applicationId: ''
+gandi_api_key: ''
+gandi_sharing_id: ''
+gandi_token: ''
 gehirn_api_secret: ''
-godaddy_secret: ''
+gehirn_api_token: ''
 godaddy_key: ''
+godaddy_secret: ''
+google_creds: ''
+he_pass: ''
+he_user: ''
+hetzner_api_token: ''
 infomaniak_api_token: ''
+inwx_password: ''
+inwx_shared_secret: ''
+inwx_username: ''
+ionos_endpoint: ''
 ionos_prefix: ''
 ionos_secret: ''
-ionos_endpoint: ''
-joker_username: ''
-joker_password: ''
 joker_domain: ''
+joker_password: ''
+joker_username: ''
 linode_key: ''
 linode_version: ''
-loopia_user: ''
 loopia_password: ''
+loopia_user: ''
 luadns_email: ''
 luadns_token: ''
 mijn_host_api_key: ''
+namecheap_api_key: ''
+namecheap_username: ''
+netcup_api_key: ''
+netcup_api_password: ''
+netcup_customer_id: ''
 njalla_token: ''
 noris_token: ''
 nsone_api_key: ''
-ovh_endpoint: ''
 ovh_application_key: ''
 ovh_application_secret: ''
 ovh_consumer_key: ''
-rfc2136_server: ''
-rfc2136_port: ''
-rfc2136_name: ''
-rfc2136_secret: ''
-rfc2136_algorithm: ''
-rfc2136_sign_query: false
-aws_access_key_id: ''
-aws_secret_access_key: ''
-sakuracloud_api_token: ''
-sakuracloud_api_secret: ''
-namecheap_username: ''
-namecheap_api_key: ''
-netcup_customer_id: ''
-netcup_api_key: ''
-netcup_api_password: ''
-gandi_api_key: ''
-gandi_token: ''
-gandi_sharing_id: ''
-transip_username: ''
-transip_api_key: ''
-transip_global_key: ''
-inwx_username: ''
-inwx_password: ''
-inwx_shared_secret: ''
+ovh_endpoint: ''
+plesk_api_url: ''
+plesk_password: ''
+plesk_username: ''
 porkbun_key: ''
 porkbun_secret: ''
-dreamhost_api_baseurl: ''
-dreamhost_api_key: ''
-domainoffensive_token: ''
-plesk_username: ''
-plesk_password: ''
-plesk_api_url: ''
+rfc2136_algorithm: ''
+rfc2136_name: ''
+rfc2136_port: ''
+rfc2136_secret: ''
+rfc2136_server: ''
+rfc2136_sign_query: false
+sakuracloud_api_secret: ''
+sakuracloud_api_token: ''
 simply_account_name: ''
 simply_api_key: ''
+transip_api_key: ''
+transip_global_key: ''
+transip_username: ''
+websupport_identifier: ''
+websupport_secret_key: ''
 ```
 
 </details>
@@ -473,10 +482,21 @@ API Users have full account access.  It is recommended to create an API Sub-user
 <details>
   <summary>DigitalOcean</summary>
 
-Lorem ipsum
+Use of this plugin requires a configuration file containing DigitalOcean API credentials, obtained from your DigitalOcean account’s [Applications & API Tokens page](https://cloud.digitalocean.com/settings/api/tokens).
 
 ```yaml
+  email: mail@domain.tld
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-digitalocean
+    digitalocean_token: digitalocean-token
 ```
+
+[Full Documentation](https://certbot-dns-digitalocean.readthedocs.io/en/stable/)
 
 </details>
 
@@ -517,25 +537,50 @@ Example configuration:
 <details>
   <summary>dnsimple</summary>
 
-Lorem ipsum
+Use of this plugin requires a configuration file containing DNSimple API credentials, obtained from your DNSimple [account page](https://dnsimple.com/user).
 
 ```yaml
+  email: mail@domain.tld
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-simple
+    dnsimple_token: dnssimple-token
 ```
+
+[Full Documentation](https://certbot-dns-dnsimple.readthedocs.io/en/stable/)
 
 </details>
 
 <details>
   <summary>dnsmadeeasy</summary>
 
-Lorem ipsum
+Use of this plugin requires a configuration file containing DNS Made Easy API credentials, obtained from your DNS Made Easy [account page](https://cp.dnsmadeeasy.com/account/info).
 
 ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-dnsmadeeasy
+    dnsmadeeasy_api_key: dnsmadeeasy-api-key
+    dnsmadeeasy_secret_key: dnsmadeeasy-secret-key
 ```
+
+[Full Documentation](https://certbot-dns-dnsmadeeasy.readthedocs.io/en/stable/)
 
 </details>
 
 <details>
   <summary>domainoffensive</summary>
+
+Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   `Domains` -> `Settings` -> *Let's Encrypt API token`.
 
   ```yaml
   email: your.email@example.com
@@ -546,13 +591,17 @@ Lorem ipsum
   challenge: dns
   dns:
     provider: dns-domainoffensive
-    domainoffensive_token: *****
+    domainoffensive_token: domainoffensive-token
   ```
+
+[Full Documentation DE](https://www.do.de/wiki/freie-ssl-tls-zertifikate-ueber-acme/)
 
 </details>
 
 <details>
-  <summary>Dreamhost</summary>
+  <summary>DreamHost</summary>
+
+Use of this plugin an API key from DreamHost with `dns-*` permissions. You can get it [here](https://panel.dreamhost.com/?tree=home.api)
 
   ```yaml
   email: your.email@example.com
@@ -564,7 +613,7 @@ Lorem ipsum
   dns:
     provider: dns-dreamhost
     dreamhost_baseurl: https://api.dreamhost.com/
-    dreamhost_api_key: XXXXXX
+    dreamhost_api_key: dreamhost-api-key
   ```
 
 </details>
@@ -572,10 +621,22 @@ Lorem ipsum
 <details>
   <summary>DuckDNS</summary>
 
-Lorem ipsum
+Use of this plugin requires an API token, obtained from the DuckDNS account page.
 
 ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-duckdns
+    duckdns_token: duckdns-token
+
 ```
+
+[Full documentation](https://github.com/infinityofspace/certbot_dns_duckdns?tab=readme-ov-file#usage)
 
 </details>
 
@@ -620,7 +681,7 @@ easyDNS REST API access must be requested and granted in order to use this modul
 </details>
 
 <details>
-  <summary>Eurodns DNS challenge</summary>
+  <summary>EuroDNS</summary>
 
   You can configure the APP id and the API key in the API Users area of the Eurodns control panel: <https://my.eurodns.com/apiusers>
 
@@ -642,20 +703,45 @@ dns:
 <details>
   <summary>Gandi</summary>
 
-Lorem ipsum
+Use of this plugin requires an [PersonalAccessToken](https://helpdesk.gandi.net/hc/en-us/articles/14051397687324-Personal-Access-Tokens) for the [Gandi LiveDNS API](https://api.gandi.net/docs/livedns/) with `Domains` scope for the `domain.tld` you are going to request a certificate for.
+If you only have an Gandi LiveDNS `API key`, please refer to the [FAQ](https://github.com/obynio/certbot-plugin-gandi?tab=readme-ov-file#faq) on how to use this.
+Due to the wide scope of this `API key`, this is not the recommended setup.
 
 ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-gandi
+    gandi_token: gandi-personalaccesstoken 
 ```
+
+[Full Documentation](https://github.com/obynio/certbot-plugin-gandi?tab=readme-ov-file)
 
 </details>
 
 <details>
   <summary>gehirn</summary>
 
-Lorem ipsum
+Use of this plugin requires Gehirn Infrastructure Service DNS API credentials, obtained from your Gehirn Infrastructure Service [dashboard](https://gis.gehirn.jp/).
 
 ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-gehirn
+    gehirn_api_secret: gehirn-api-secret
+    gehirn_api_token:  gehirn-api-token
 ```
+
+[Full Documentation](https://certbot-dns-gehirn.readthedocs.io/en/stable/)
 
 </details>
 
@@ -711,6 +797,9 @@ You can find additional information regarding the required permissions in the "c
 <details>
   <summary>Hurricane Electric (HE)</summary>
 
+Use of this plugin requires your Hurricane Electric username and password.
+You will need to create the dynamic TXT record from within the dns.he.net interface before you will be able to make updates. You will not be able to dynamically create and delete these TXT records as doing so would subsequently remove your ddns key associated with the record.
+
   ```yaml
   email: your.email@example.com
   domains:
@@ -719,20 +808,34 @@ You can find additional information regarding the required permissions in the "c
   keyfile: privkey.pem
   challenge: dns
   dns:
+    propagation_seconds: 310
     provider: dns-he
     he_user: me
     he_pass: ******
   ```
+
+[Full Documentation](https://dns.he.net/)
 
 </details>
 
 <details>
   <summary>Hetzner</summary>
 
-Lorem ipsum
+Use of this plugin requires a Hetzner DNS API personal access token. You can create one on the Hetzner [DNS website](https://dns.hetzner.com/settings/api-token).
 
-```yaml
-```
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-hetzner
+    hetzner_api_token: hetzner-personal-access-token
+  ```
+
+[Full Documentation](https://github.com/ctrlaltcoop/certbot-dns-hetzner)
 
 </details>
 
@@ -879,12 +982,24 @@ dns:
 </details>
 
 <details>
-  <summary>luadns</summary>
+  <summary>LuaDNS</summary>
 
-Lorem ipsum
+Use of this plugin requires LuaDNS API credentials, obtained from your [account settings page](https://api.luadns.com/settings).
 
 ```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-loopia
+  luadns_email: your.email@example.com
+  luadns_token: luadns-token
 ```
+
+[Full Documentation](https://certbot-dns-luadns.readthedocs.io/en/stable/)
 
 </details>
 
@@ -1007,10 +1122,21 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use the 
 <details>
   <summary>nsone</summary>
 
-Lorem ipsum
+Use of this plugin requires NS1 API credentials, obtained from your NS1 [account page](https://my.nsone.net/#/account/settings).
 
 ```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-nsone
+  nsone_api_key: nsone-api-key
 ```
+
+[Full Documentation](https://certbot-dns-nsone.readthedocs.io/en/stable/)
 
 </details>
 
@@ -1201,10 +1327,22 @@ For security reasons, don't use your main account's credentials. Instead, add a 
 <details>
   <summary>SakuraCloud</summary>
 
-Lorem ipsum
+Use of this plugin requires Sakura Cloud DNS API credentials, obtained from your Sakura Cloud DNS [apikey page](https://secure.sakura.ad.jp/cloud/#!/apikey/top/).
 
 ```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-sakuracloud
+  sakuracloud_api_secret: ''
+  sakuracloud_api_token: ''
 ```
+
+[Full Documentation](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/)
 
 </details>
 

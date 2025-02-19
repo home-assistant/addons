@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.4
+
+- Improve documentation
+
 ## 5.3.3
 
 - Re-enabled certbot-dns-mijn-host

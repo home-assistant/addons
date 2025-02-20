@@ -74,6 +74,10 @@ The filename of the NGINX configuration for the default server, found in the `/s
 
 The filename(s) of the NGINX configuration for the additional servers, found in the `/share` directory.
 
+### Option `customize.root_location` (optional)
+
+The filename of the NGINX configuration for the default server `location /` statement, found in the `/share` directory.
+
 ### Option `cloudflare` (optional)
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.

@@ -14,7 +14,7 @@ on:
 
 jobs:
   init:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Initialize builds
     outputs:
       changed_files: ${{ steps.changed_files.outputs.all }}
@@ -64,7 +64,7 @@ jobs:
 
   build:
     needs: init
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: needs.init.outputs.changed == 'true'
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:

@@ -14,7 +14,7 @@ arch:
 auth_api: true
 discovery:
   - mqtt
-image: homeassistant/{arch}-addon-mosquitto
+image: 0lini/{arch}-addon-mosquitto
 map:
   - ssl
   - share

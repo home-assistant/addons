@@ -36,6 +36,7 @@ schema:
     - username: str
       password: password
       password_pre_hashed: "bool?"
+  anonymous: bool?
   require_certificate: bool
   certfile: str
   cafile: str?

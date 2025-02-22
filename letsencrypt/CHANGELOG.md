@@ -4,6 +4,7 @@
 
 - Improve documentation
 - Refactor configuration and align with documentation
+- Refactor scripts
 
 ## 5.3.3
 

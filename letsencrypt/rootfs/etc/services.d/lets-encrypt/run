@@ -21,6 +21,9 @@ ACME_SERVER=$(bashio::config 'acme_server')
 ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
 EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
+DRY_RUN=$(bashio::config 'dry_run')
+TEST_CERT=$(bashio::config 'test_cert')
+VERBOSE=$(bashio::config 'verbose')
 
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
@@ -346,11 +349,24 @@ if bashio::config.has_value 'eab_kid' ; then
     EAB_ARGUMENTS+=("--eab-kid" "${EAB_KID}" "--eab-hmac-key" "${EAB_HMAC_KEY}")
 fi
 
+# Define additional arguments based on configuration
+ADDITIONAL_ARGS=()
+if [ "${DRY_RUN}" = "true" ]; then
+    ADDITIONAL_ARGS+=("--dry-run")
+fi
+if [ "${TEST_CERT}" = "true" ]; then
+    ADDITIONAL_ARGS+=("--test-cert")
+fi
+if [ "${VERBOSE}" = "true" ]; then
+    ADDITIONAL_ARGS+=("-vvv")
+fi
+
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
 if [ "$CHALLENGE" == "dns" ]; then
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
+        "${ADDITIONAL_ARGS[@]}" \
         --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
@@ -360,6 +376,7 @@ else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
+        "${ADDITIONAL_ARGS[@]}" \
         --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \

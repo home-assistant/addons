@@ -6,6 +6,7 @@
 - Refactor configuration and align with documentation
 - Refactor scripts
 - Switch gandi-dns to a maintained version (certbot-plugin-gandi-modern)
+- Add additional arguments to certbot (dry-run, test-cert, verbose)
 
 ## 5.3.3
 

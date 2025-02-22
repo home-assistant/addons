@@ -40,6 +40,9 @@ schema:
   eab_hmac_key: str?
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
+  dry_run: bool?
+  test_cert: bool?
+  verbose: bool?
   dns:
     # Developer note: please add a new plugin alphabetically into all lists
     aws_access_key_id: str?

@@ -384,9 +384,7 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>Cloudflare</summary>
 
-Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
-
-Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
+To use this plugin a Cloudflare API Token, restricted to the specific domain and operations are the recommended authentication option.
 The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
 
 Example credentials file using restricted API Token (recommended):
@@ -397,7 +395,9 @@ Example credentials file using restricted API Token (recommended):
     cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
   ```
 
-Example credentials file using Global API Key (not recommended):
+Previously, Cloudflare’s “Global API Key” was used for authentication. However this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
+
+Example credentials file using Global API Key (NOT RECOMMENDED:
 
   ```yaml
   dns:
@@ -410,8 +410,9 @@ Example credentials file using Global API Key (not recommended):
 
 <details>
   <summary>ClouDNS</summary>
+
 In order to use a domain with this challenge, you first need to log into your control panel and
-create a new HTTP API user from the "API & Resellers" page on top of your control panel.
+create a new HTTP API user from the `API & Resellers` page on top of your control panel.
 
   ```yaml
   email: your.email@example.com
@@ -994,7 +995,7 @@ certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns
 dns:
-  provider: dns-loopia
+  provider: dns-luadns
   luadns_email: your.email@example.com
   luadns_token: luadns-token
 ```

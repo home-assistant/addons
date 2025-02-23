@@ -47,7 +47,8 @@ if [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
       cp -f "/share/${AZURE_CREDS}" "/data/azure_creds"
       chmod 600 "/data/azure_creds"
     else
-      bashio::log.info "Azure credentials file doesn't exist in folder share."
+      bashio::log.error "Azure credentials file '${AZURE_CREDS}' not found in /share directory"  
+      exit 1
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-config" "/data/azure_creds")
 
@@ -152,7 +153,8 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google" ]; then
       cp -f "/share/${GOOGLE_CREDS}" "/data/${GOOGLE_CREDS}"
       chmod 600 "/data/${GOOGLE_CREDS}"
     else
-      bashio::log.info "Google Credentials File doesn't exists in folder share."
+      bashio::log.error "Google credentials file '${GOOGLE_CREDS}' not found in /share directory"  
+      exit 1
     fi
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/${GOOGLE_CREDS}")
 

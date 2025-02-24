@@ -9,12 +9,6 @@ It requires you to own the domain you are requesting the certificate for.
 
 The generated certificate can be used within others addons. By default the path and file for the certificates within other addons will refer to the files generated within this addon.
 
-[discord]: https://discord.gg/c5DvZ4e
-[forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/hassio-addons/issues
-[certbot]: https://certbot.eff.org
-[reddit]: https://reddit.com/r/homeassistant
-
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg

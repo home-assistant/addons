@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.4.0
+
+- Add additional arguments to certbot (dry-run, test-cert, verbose)
+- Switch gandi-dns to a maintained version (certbot-plugin-gandi-modern)
+- Refactor scripts
+- Improve documentation
+- Refactor configuration and align with documentation
+
 ## 5.3.3
 
 - Re-enabled certbot-dns-mijn-host

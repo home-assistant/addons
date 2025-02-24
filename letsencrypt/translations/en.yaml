@@ -42,5 +42,17 @@ configuration:
     description: >-
       Elliptic curve for ECDSA keys. This option must be used with Key Type
       set to ECDSA. If unset the Certbot default will be used.
+  dry_run:
+    name: Dry Run
+    description: >-
+      Do a certbot dry-run for requesting the certificates.
+  test_cert:
+    name: Issue test certificates
+    description: >-
+      Obtain a test certificate from a staging server.
+  verbose:
+    name: Verbose Mode
+    description: >-
+      Run certbot in verbose mode.
 network:
   80/tcp: Only needed for http challenge

@@ -1,5 +1,5 @@
 ---
-version: 5.3.3
+version: 5.4.0
 breaking_versions: [5.3.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -40,7 +40,11 @@ schema:
   eab_hmac_key: str?
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
+  dry_run: bool?
+  test_cert: bool?
+  verbose: bool?
   dns:
+    # Developer note: please add a new plugin alphabetically into all lists
     aws_access_key_id: str?
     aws_secret_access_key: str?
     azure_config: str?
@@ -48,9 +52,9 @@ schema:
     cloudflare_api_token: str?
     cloudflare_email: email?
     cloudns_auth_id: int?
+    cloudns_auth_password: str?
     cloudns_sub_auth_id: int?
     cloudns_sub_auth_user: str?
-    cloudns_auth_password: str?
     desec_token: str?
     digitalocean_token: str?
     directadmin_password: str?
@@ -59,61 +63,105 @@ schema:
     dnsimple_token: str?
     dnsmadeeasy_api_key: str?
     dnsmadeeasy_secret_key: str?
+    domainoffensive_token: str?
+    dreamhost_api_key: str?
+    dreamhost_baseurl: str?
     duckdns_token: str?
     dynu_auth_token: str?
-    eurodns_applicationId: str?
+    easydns_endpoint: str?
+    easydns_key: str?
+    easydns_token: str?
     eurodns_apiKey: str?
+    eurodns_applicationId: str?
     gandi_api_key: str?
-    gandi_token: str?
     gandi_sharing_id: str?
+    gandi_token: str?
     gehirn_api_secret: str?
     gehirn_api_token: str?
-    godaddy_secret: str?
     godaddy_key: str?
+    godaddy_secret: str?
     google_creds: str?
+    he_pass: str?
+    he_user: str?
     hetzner_api_token: str?
     infomaniak_api_token: str?
+    inwx_password: str?
+    inwx_shared_secret: str?
+    inwx_username: str?
+    ionos_endpoint: str?
     ionos_prefix: str?
     ionos_secret: str?
-    ionos_endpoint: str?
+    joker_domain: str?
+    joker_password: str?
+    joker_username: str?
     linode_key: str?
     linode_version: str?
-    loopia_user: str?
     loopia_password: str?
+    loopia_user: str?
     luadns_email: email?
     luadns_token: str?
     mijn_host_api_key: str?
-    joker_username: str?
-    joker_password: str?
-    joker_domain: str?
-    plesk_username: str?
-    plesk_password: str?
-    plesk_api_url: str?
-    namecheap_username: str?
     namecheap_api_key: str?
+    namecheap_username: str?
     netcup_api_key: str?
     netcup_api_password: str?
     netcup_customer_id: str?
-    simply_api_key: str?
-    simply_account_name: str?
     njalla_token: str?
     noris_token: str?
     nsone_api_key: str?
-    porkbun_key: str?
-    porkbun_secret: str?
     ovh_application_key: str?
     ovh_application_secret: str?
     ovh_consumer_key: str?
     ovh_endpoint: str?
+    plesk_api_url: str?
+    plesk_password: str?
+    plesk_username: str?
+    porkbun_key: str?
+    porkbun_secret: str?
     propagation_seconds: int(60,3600)?
-    provider: "list(dns-azure|dns-cloudflare|dns-cloudns|dns-desec|\
-      dns-digitalocean|dns-directadmin|dns-dnsimple|dns-dnsmadeeasy|\
-      dns-duckdns|dns-dynu|dns-eurodns|dns-gehirn|dns-godaddy|dns-google|\
-      dns-hetzner|dns-infomaniak|dns-ionos|dns-joker|dns-linode|dns-loopia|dns-luadns|\
-      dns-mijn-host|dns-njalla|dns-nsone|dns-porkbun|dns-ovh|dns-rfc2136|dns-route53|\
-      dns-sakuracloud|dns-namecheap|dns-netcup|dns-simply|dns-gandi|dns-transip|dns-inwx|\
-      dns-dreamhost|dns-he|dns-easydns|dns-domainoffensive|dns-websupport|dns-noris|\
-      dns-plesk)?"
+    provider: "list(\
+        dns-azure|\
+        dns-cloudflare|\
+        dns-cloudns|\
+        dns-desec|\
+        dns-digitalocean|\
+        dns-directadmin|\
+        dns-dnsimple|\
+        dns-dnsmadeeasy|\
+        dns-domainoffensive|\
+        dns-dreamhost|\
+        dns-duckdns|\
+        dns-dynu|\
+        dns-easydns|\
+        dns-eurodns|\
+        dns-gandi|\
+        dns-gehirn|\
+        dns-godaddy|\
+        dns-google|\
+        dns-he|\
+        dns-hetzner|\
+        dns-infomaniak|\
+        dns-inwx|\
+        dns-ionos|\
+        dns-joker|\
+        dns-linode|\
+        dns-loopia|\
+        dns-luadns|\
+        dns-mijn-host|\
+        dns-namecheap|\
+        dns-netcup|\
+        dns-njalla|\
+        dns-noris|\
+        dns-nsone|\
+        dns-ovh|\
+        dns-plesk|\
+        dns-porkbun|\
+        dns-rfc2136|\
+        dns-route53|\
+        dns-sakuracloud|\
+        dns-simply|\
+        dns-transip|\
+        dns-websupport)?"
     rfc2136_algorithm: str?
     rfc2136_name: str?
     rfc2136_port: str?
@@ -122,20 +170,11 @@ schema:
     rfc2136_sign_query: bool?
     sakuracloud_api_secret: str?
     sakuracloud_api_token: str?
+    simply_account_name: str?
+    simply_api_key: str?
     transip_api_key: str?
-    transip_username: str?
     transip_global_key: list(yes|no)?
-    inwx_username: str?
-    inwx_password: str?
-    inwx_shared_secret: str?
-    dreamhost_api_key: str?
-    dreamhost_baseurl: str?
-    he_user: str?
-    he_pass: str?
-    easydns_endpoint: str?
-    easydns_key: str?
-    easydns_token: str?
-    domainoffensive_token: str?
+    transip_username: str?
     websupport_identifier: str?
     websupport_secret_key: str?
 startup: once

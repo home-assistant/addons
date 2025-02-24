@@ -26,15 +26,17 @@ There are two options to obtain certificates.
 ### 1. HTTP challenge
 
 - Requires Port 80 to be available from the internet and your domain assigned to the externally assigned IP address
-- Doesn’t allow wildcard certificates (*.yourdomain.com).
+- Doesn’t allow wildcard certificates (*.domain.tld).
 
 ### 2. DNS challenge
 
 - Requires you to use one of the supported DNS providers (See "Supported DNS providers" below)
-- Allows to request wildcard certificates (*.yourdomain.com)
+- Allows to request wildcard certificates (*.domain.tld)
 - Doesn’t need you to open a port to your Home Assistant host on your router.
 
 ### DNS providers
+
+<!-- Developer note: please add a new plugin alphabetically into all lists -->
 
 <details>
   <summary>Supported DNS providers</summary>
@@ -48,39 +50,42 @@ dns-digitalocean
 dns-directadmin
 dns-dnsimple
 dns-dnsmadeeasy
-dns-duckdns
+dns-domainoffensive
 dns-dreamhost
+dns-duckdns
 dns-dynu
+dns-easydns
 dns-eurodns
+dns-gandi
 dns-gehirn
 dns-godaddy
 dns-google
+dns-he
 dns-hetzner
 dns-infomaniak
+dns-inwx
 dns-ionos
 dns-joker
 dns-linode
 dns-loopia
 dns-luadns
 dns-mijn-host
+dns-namecheap
+dns-netcup
 dns-njalla
 dns-noris
-dns-simply
 dns-nsone
 dns-ovh
+dns-plesk
+dns-porkbun
 dns-rfc2136
 dns-route53
 dns-sakuracloud
-dns-namecheap
-dns-netcup
-dns-gandi
+dns-simply
 dns-transip
-dns-inwx
-dns-porkbun
-dns-easydns
-dns-domainoffensive
 dns-websupport (currently disable - see changelog)
 ```
+
 </details>
 
 <details>
@@ -88,88 +93,96 @@ dns-websupport (currently disable - see changelog)
 
 ```yaml
 propagation_seconds: 60
+aws_access_key_id: ''
+aws_secret_access_key: ''
 azure_config: ''
-cloudflare_email: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
+cloudflare_email: ''
 cloudns_auth_id: ''
+cloudns_auth_password: ''
 cloudns_sub_auth_id: ''
 cloudns_sub_auth_user: ''
-cloudns_auth_password: ''
 desec_token: ''
 digitalocean_token: ''
+directadmin_password: ''
 directadmin_url: ''
 directadmin_username: ''
-directadmin_password: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
+domainoffensive_token: ''
+dreamhost_api_baseurl: ''
+dreamhost_api_key: ''
 duckdns_token: ''
 dynu_auth_token: ''
-eurodns_applicationId: ''
+easydns_endpoint: ''
+easydns_key: ''
+easydns_token: ''
 eurodns_apiKey: ''
-google_creds: ''
-hetzner_api_token: ''
-gehirn_api_token: ''
+eurodns_applicationId: ''
+gandi_api_key: ''
+gandi_sharing_id: ''
+gandi_token: ''
 gehirn_api_secret: ''
-godaddy_secret: ''
+gehirn_api_token: ''
 godaddy_key: ''
+godaddy_secret: ''
+google_creds: ''
+he_pass: ''
+he_user: ''
+hetzner_api_token: ''
 infomaniak_api_token: ''
+inwx_password: ''
+inwx_shared_secret: ''
+inwx_username: ''
+ionos_endpoint: ''
 ionos_prefix: ''
 ionos_secret: ''
-ionos_endpoint: ''
-joker_username: ''
-joker_password: ''
 joker_domain: ''
+joker_password: ''
+joker_username: ''
 linode_key: ''
 linode_version: ''
-loopia_user: ''
 loopia_password: ''
+loopia_user: ''
 luadns_email: ''
 luadns_token: ''
 mijn_host_api_key: ''
+namecheap_api_key: ''
+namecheap_username: ''
+netcup_api_key: ''
+netcup_api_password: ''
+netcup_customer_id: ''
 njalla_token: ''
 noris_token: ''
 nsone_api_key: ''
-ovh_endpoint: ''
 ovh_application_key: ''
 ovh_application_secret: ''
 ovh_consumer_key: ''
-rfc2136_server: ''
-rfc2136_port: ''
-rfc2136_name: ''
-rfc2136_secret: ''
-rfc2136_algorithm: ''
-rfc2136_sign_query: false
-aws_access_key_id: ''
-aws_secret_access_key: ''
-sakuracloud_api_token: ''
-sakuracloud_api_secret: ''
-namecheap_username: ''
-namecheap_api_key: ''
-netcup_customer_id: ''
-netcup_api_key: ''
-netcup_api_password: ''
-gandi_api_key: ''
-gandi_token: ''
-gandi_sharing_id: ''
-transip_username: ''
-transip_api_key: ''
-transip_global_key: ''
-inwx_username: ''
-inwx_password: ''
-inwx_shared_secret: ''
+ovh_endpoint: ''
+plesk_api_url: ''
+plesk_password: ''
+plesk_username: ''
 porkbun_key: ''
 porkbun_secret: ''
-dreamhost_api_baseurl: ''
-dreamhost_api_key: ''
-domainoffensive_token: ''
-plesk_username: ''
-plesk_password: ''
-plesk_api_url: ''
+rfc2136_algorithm: ''
+rfc2136_name: ''
+rfc2136_port: ''
+rfc2136_secret: ''
+rfc2136_server: ''
+rfc2136_sign_query: false
+sakuracloud_api_secret: ''
+sakuracloud_api_token: ''
 simply_account_name: ''
 simply_api_key: ''
+transip_api_key: ''
+transip_global_key: ''
+transip_username: ''
+websupport_identifier: ''
+websupport_secret_key: ''
 ```
+
 </details>
 
 ### Configure certificate files
@@ -222,13 +235,14 @@ if a renewal is due, and will request it if needed.
 <details>
   <summary>Changing the ACME Server</summary>
 
-By default, The addon uses Let’s Encrypt’s default server at https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+By default, The addon uses Let’s Encrypt’s default server at <https://acme-v02.api.letsencrypt.org/>. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
 
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
   ```
 
 If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
+
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
   acme_root_ca_cert: |
@@ -290,7 +304,7 @@ into the *DNS Provider configuration* field.
   ```yaml
   email: your.email@example.com
   domains:
-    - home-assistant.io
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: http
@@ -305,7 +319,7 @@ into the *DNS Provider configuration* field.
   ```yaml
   email: your.email@example.com
   domains:
-    - home-assistant.io
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -323,7 +337,7 @@ into the *DNS Provider configuration* field.
   ```yaml
   email: your.email@example.com
   domains:
-    - home-assistant.io
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   key_type: rsa
@@ -337,12 +351,12 @@ into the *DNS Provider configuration* field.
 </details>
 
 <details>
-  <summary>Azure DNS challenge</summary>
+  <summary>Azure</summary>
 
 ```yaml
 email: your.email@example.com
 domains:
-  - home-assistant.io
+  - your.domain.tld
 certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns
@@ -368,12 +382,377 @@ on the DNS zone to be used for authentication.
 </details>
 
 <details>
-  <summary>GoDaddy DNS challenge</summary>
+  <summary>Cloudflare</summary>
+
+To use this plugin a Cloudflare API Token, restricted to the specific domain and operations are the recommended authentication option.
+The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
+
+Example credentials file using restricted API Token (recommended):
+
+  ```yaml
+  dns:
+    provider: dns-cloudflare
+    cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
+  ```
+
+Previously, Cloudflare’s “Global API Key” was used for authentication. However this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
+
+Example credentials file using Global API Key (NOT RECOMMENDED:
+
+  ```yaml
+  dns:
+    provider: dns-cloudflare
+    cloudflare_email: cloudflare@example.com
+    cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
+  ```
+
+</details>
+
+<details>
+  <summary>ClouDNS</summary>
+
+In order to use a domain with this challenge, you first need to log into your control panel and
+create a new HTTP API user from the `API & Resellers` page on top of your control panel.
 
   ```yaml
   email: your.email@example.com
   domains:
-    - subdomain.home-assistant.io
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudns
+    cloudns_auth_id: 12345
+    cloudns_auth_password: ******
+  ```
+
+API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope.  You can use either the `sub-auth-id` or the `sub-auth-user` as follows:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudns
+    cloudns_sub_auth_id: 12345
+    cloudns_auth_password: ******
+  ```
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-cloudns
+    cloudns_sub_auth_user: alice
+    cloudns_auth_password: ******
+  ```
+
+</details>
+
+<details>
+  <summary>deSEC.io</summary>
+
+  You need a deSEC API token with sufficient permission for performing the required DNS changes on your domain.
+  If you don't have a token yet, an easy way to obtain one is by logging into your account at deSEC.io.
+  Navigate to "Token Management" and create a new one.
+  It's good practice to restrict the token permissions as much as possible, e.g. by setting the maximum unused period to four months.
+  This way, the token will expire if it is not continuously used to renew your certificate.
+  
+  ```yaml
+  email: your.email@example.com
+  domains:
+   - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-desec
+    desec_token: your-desec-access-token
+  ```
+
+</details>
+
+<details>
+  <summary>DigitalOcean</summary>
+
+Use of this plugin requires a configuration file containing DigitalOcean API credentials, obtained from your DigitalOcean account’s [Applications & API Tokens page](https://cloud.digitalocean.com/settings/api/tokens).
+
+```yaml
+  email: mail@domain.tld
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-digitalocean
+    digitalocean_token: digitalocean-token
+```
+
+[Full Documentation](https://certbot-dns-digitalocean.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>DirectAdmin</summary>
+
+It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
+Instructions on how to create such key can be found at <https://help.directadmin.com/item.php?id=523>.
+
+Make sure to grant the following permissions:
+
+- `CMD_API_LOGIN_TEST`
+- `CMD_API_DNS_CONTROL`
+- `CMD_API_SHOW_DOMAINS`
+- `CMD_API_DOMAIN_POINTER`
+
+Username and password can also be used in case your DirectAdmin instance has no support for login keys.
+
+Example configuration:
+
+  ```yaml
+  email: mail@domain.tld
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    propagation_seconds: 60
+    provider: dns-directadmin
+    directadmin_url: 'https://domain.tld:2222/'
+    directadmin_username: da_user
+    directadmin_password: da_password_or_key
+  ```
+
+</details>
+
+<details>
+  <summary>dnsimple</summary>
+
+Use of this plugin requires a configuration file containing DNSimple API credentials, obtained from your DNSimple [account page](https://dnsimple.com/user).
+
+```yaml
+  email: mail@domain.tld
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-simple
+    dnsimple_token: dnssimple-token
+```
+
+[Full Documentation](https://certbot-dns-dnsimple.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>dnsmadeeasy</summary>
+
+Use of this plugin requires a configuration file containing DNS Made Easy API credentials, obtained from your DNS Made Easy [account page](https://cp.dnsmadeeasy.com/account/info).
+
+```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-dnsmadeeasy
+    dnsmadeeasy_api_key: dnsmadeeasy-api-key
+    dnsmadeeasy_secret_key: dnsmadeeasy-secret-key
+```
+
+[Full Documentation](https://certbot-dns-dnsmadeeasy.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>domainoffensive</summary>
+
+Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   `Domains` -> `Settings` -> *Let's Encrypt API token`.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-domainoffensive
+    domainoffensive_token: domainoffensive-token
+  ```
+
+[Full Documentation DE](https://www.do.de/wiki/freie-ssl-tls-zertifikate-ueber-acme/)
+
+</details>
+
+<details>
+  <summary>DreamHost</summary>
+
+Use of this plugin an API key from DreamHost with `dns-*` permissions. You can get it [here](https://panel.dreamhost.com/?tree=home.api)
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-dreamhost
+    dreamhost_baseurl: https://api.dreamhost.com/
+    dreamhost_api_key: dreamhost-api-key
+  ```
+
+</details>
+
+<details>
+  <summary>DuckDNS</summary>
+
+Use of this plugin requires an API token, obtained from the DuckDNS account page.
+
+```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-duckdns
+    duckdns_token: duckdns-token
+
+```
+
+[Full documentation](https://github.com/infinityofspace/certbot_dns_duckdns?tab=readme-ov-file#usage)
+
+</details>
+
+<details>
+  <summary>Dynu</summary>
+
+You can get the API key in the API Credentials area of the Dynu control panel: <https://www.dynu.com/ControlPanel/APICredentials>
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-dynu
+  dynu_auth_token: 0123456789abcdef
+```
+
+</details>
+
+<details>
+  <summary>easyDNS</summary>
+
+easyDNS REST API access must be requested and granted in order to use this module: <https://cp.easydns.com/manage/security/api/signup.php> after logging into your account.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-easydns
+    easydns_token: 0123456789abcdef
+    easydns_key: ****
+    easydns_endpoint: https://rest.easydns.net
+  ```
+
+</details>
+
+<details>
+  <summary>EuroDNS</summary>
+
+  You can configure the APP id and the API key in the API Users area of the Eurodns control panel: <https://my.eurodns.com/apiusers>
+
+```yaml
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-eurodns
+  eurodns_applicationId: X-APP-ID
+  eurodns_apiKey: X-API-KEY
+  propagation_seconds: 60
+```
+
+</details>
+
+<details>
+  <summary>Gandi</summary>
+
+Use of this plugin requires an [PersonalAccessToken](https://helpdesk.gandi.net/hc/en-us/articles/14051397687324-Personal-Access-Tokens) for the [Gandi LiveDNS API](https://api.gandi.net/docs/livedns/) with `Domains` scope for the `domain.tld` you are going to request a certificate for.
+If you only have an Gandi LiveDNS `API key`, please refer to the [FAQ](https://github.com/obynio/certbot-plugin-gandi?tab=readme-ov-file#faq) on how to use this.
+Due to the wide scope of this `API key`, this is not the recommended setup.
+
+```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-gandi
+    gandi_token: gandi-personalaccesstoken 
+```
+
+[Full Documentation](https://github.com/obynio/certbot-plugin-gandi?tab=readme-ov-file)
+
+</details>
+
+<details>
+  <summary>gehirn</summary>
+
+Use of this plugin requires Gehirn Infrastructure Service DNS API credentials, obtained from your Gehirn Infrastructure Service [dashboard](https://gis.gehirn.jp/).
+
+```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-gehirn
+    gehirn_api_secret: gehirn-api-secret
+    gehirn_api_token:  gehirn-api-token
+```
+
+[Full Documentation](https://certbot-dns-gehirn.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>GoDaddy</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -391,12 +770,12 @@ To obtain the ACME DNS API Key and Secret, follow the instructions here:
 </details>
 
 <details>
-  <summary>Google Cloud DNS challenge</summary>
+  <summary>Google Cloud</summary>
 
   ```yaml
   email: your.email@example.com
   domains:
-    - home-assistant.io
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -417,12 +796,57 @@ You can find additional information regarding the required permissions in the "c
 </details>
 
 <details>
-  <summary>Infomaniak DNS challenge</summary>
+  <summary>Hurricane Electric (HE)</summary>
+
+Use of this plugin requires your Hurricane Electric username and password.
+You will need to create the dynamic TXT record from within the dns.he.net interface before you will be able to make updates. You will not be able to dynamically create and delete these TXT records as doing so would subsequently remove your ddns key associated with the record.
 
   ```yaml
   email: your.email@example.com
   domains:
-    - subdomain.home-assistant.io
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    propagation_seconds: 310
+    provider: dns-he
+    he_user: me
+    he_pass: ******
+  ```
+
+[Full Documentation](https://dns.he.net/)
+
+</details>
+
+<details>
+  <summary>Hetzner</summary>
+
+Use of this plugin requires a Hetzner DNS API personal access token. You can create one on the Hetzner [DNS website](https://dns.hetzner.com/settings/api-token).
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-hetzner
+    hetzner_api_token: hetzner-personal-access-token
+  ```
+
+[Full Documentation](https://github.com/ctrlaltcoop/certbot-dns-hetzner)
+
+</details>
+
+<details>
+  <summary>Infomaniak</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -440,12 +864,38 @@ Choose "Domain" as the scope.
 </details>
 
 <details>
-  <summary>IONOS DNS challenge</summary>
+  <summary>INWX</summary>
+
+Use the user for the dyndns service, not the normal user.
+The shared secret is the 2FA code, it must be the same length as the example.
+To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
+Without 2FA leave the example key.
+
+Example configuration:
 
   ```yaml
   email: your.email@example.com
   domains:
-    - subdomain.home-assistant.io
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-inwx
+    inwx_username: user
+    inwx_password: password
+    inwx_shared_secret: ABCDEFGHIJKLMNOPQRSTUVWXYZ012345
+  ```
+
+</details>
+
+<details>
+  <summary>IONOS</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -461,14 +911,13 @@ To obtain the DNS API Key Information, follow the instructions here:
 
 </details>
 
-
 <details>
-  <summary>Joker DNS challenge</summary>
+  <summary>Joker</summary>
 
   ```yaml
   email: your.email@example.com
   domains:
-    - subdomain.example.com
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -487,12 +936,356 @@ You can find further detailed information here:
 </details>
 
 <details>
-  <summary>route53 DNS challenge</summary>
+  <summary>Linode</summary>
+
+To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+
+  ```yaml
+  email: you@mailprovider.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-linode
+    linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
+    linode_version: '4'
+  ```
+
+</details>
+
+<details>
+  <summary>Loopia</summary>
+
+To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
+
+- `addZoneRecord` - Required to create DNS records
+- `getZoneRecords` - Required to verify DNS records
+- `removeZoneRecord` - Required to clean up DNS records
+- `removeSubdomain` - Required for complete cleanup
+
+Example configuration in YAML edit mode:
+
+```yaml
+email: you@mailprovider.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-loopia
+  loopia_user: example@loopiaapi
+  loopia_password: supersecretpasswordhere
+```
+
+</details>
+
+<details>
+  <summary>LuaDNS</summary>
+
+Use of this plugin requires LuaDNS API credentials, obtained from your [account settings page](https://api.luadns.com/settings).
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-luadns
+  luadns_email: your.email@example.com
+  luadns_token: luadns-token
+```
+
+[Full Documentation](https://certbot-dns-luadns.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>mijn.host</summary>
 
   ```yaml
   email: your.email@example.com
   domains:
-    - home-assistant.io
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-mijn-host
+    mijn_host_api_key: XXXXXX
+    propagation_seconds: 60
+  ```
+
+The `mijn_host_api_key` is the account's API key.
+The API key assigned to your mijn.host account can be found in your mijn.host Control panel.
+
+</details>
+
+<details>
+  <summary>Namecheap</summary>
+
+To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
+
+Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-namecheap
+    namecheap_username: your-namecheap-username
+    namecheap_api_key: 0123456789abcdef0123456789abcdef01234567
+  ```
+
+</details>
+
+<details>
+  <summary>Netcup</summary>
+
+Both the API password and key can be obtained via the following page: <https://www.customercontrolpanel.de/daten_aendern.php?sprung=api>
+It is important to set the `propagation_seconds` to >= 630 seconds due to the slow DNS update of Netcup.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-netcup
+    netcup_customer_id: "userid"
+    netcup_api_key: ****
+    netcup_api_password: ****
+    propagation_seconds: "900"
+  ```
+
+References:
+
+- <https://helpcenter.netcup.com/de/wiki/general/unsere-api#authentifizierung>
+- <https://github.com/coldfix/certbot-dns-netcup/issues/28>
+
+</details>
+
+<details>
+  <summary>Njalla</summary>
+
+You need to generate an API token inside Settings > API Access or directly at <https://njal.la/settings/api/>. If you have a static IP-address restrict the access to your IP. I you are not sure, you probably don't have a static IP-address.
+
+Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-njalla
+    njalla_token: 0123456789abcdef0123456789abcdef01234567
+  ```
+
+</details>
+
+<details>
+  <summary>noris network</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-noris
+    noris_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    propagation_seconds: 240
+  ```
+
+To obtain the `noris_token` follow the instructions as described in our [GitHub repository][GitHub repo].
+
+You can define the `propagation_seconds` explicitly. Otherwise, it will use the default value (currently set to `60` seconds).
+
+[GitHub repo]: <https://github.com/noris-network/certbot-dns-norisnetwork#get-your-api-token>
+
+</details>
+
+<details>
+  <summary>nsone</summary>
+
+Use of this plugin requires NS1 API credentials, obtained from your NS1 [account page](https://my.nsone.net/#/account/settings).
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-nsone
+  nsone_api_key: nsone-api-key
+```
+
+[Full Documentation](https://certbot-dns-nsone.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>OVH</summary>
+
+You will need to generate an OVH API Key first at <https://eu.api.ovh.com/createToken/> (for Europe) or <https://ca.api.ovh.com/createToken/> (for North America).
+Further documentation is [here](https://certbot-dns-ovh.readthedocs.io/en/stable/).
+
+When creating the API Key, you must ensure that the following rights are granted:
+
+- ``GET /domain/zone/*``
+- ``PUT /domain/zone/*``
+- ``POST /domain/zone/*``
+- ``DELETE /domain/zone/*``
+
+Example configuration
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-ovh
+    ovh_endpoint: ovh-eu
+    ovh_application_key: 0123456789abcdef0123456789abcdef01234
+    ovh_application_secret: 0123456789abcdef0123456789abcdef01234
+    ovh_consumer_key: 0123456789abcdef0123456789abcdef01234
+  ```
+
+Use `ovh_endpoint: ovh-ca` for North America region.
+
+</details>
+
+<details>
+  <summary>Plesk Hosting</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-plesk
+    plesk_username: your-username
+    plesk_password: your-password
+    plesk_api_url: https://plesk.example.com
+    propagation_seconds: 120
+  ```
+
+The `plesk_username` and `plesk_password` are the same as those you use on the login page of your admin panel.
+
+The `plesk_api_url` is the base URL of your Plesk admin panel.
+
+You can define the `propagation_seconds` explicitly. Otherwise, it will use a custom default value (currently set to `120` seconds).
+If the provided value is less than `120`, then the value is forced to a minimum of `120` seconds.
+
+</details>
+
+<details>
+  <summary>Porkbun</summary>
+
+In order to use a domain with this challenge, API access will need enabling on the domain. In order to
+do this go to domain management -> select the domain -> details and click the API access toggle.
+Then go to the menu in the top right select API access and then create a new api key.
+The title does not matter and is not used by certbot, make note of the key and the secret as both are required.
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-porkbun
+  porkbun_key: 0123456789abcdef0123456789abcdef01234
+  porkbun_secret: 0123456789abcdef0123456789abcdef01234
+```
+
+</details>
+
+<details>
+  <summary>RFC2136</summary>
+
+You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
+
+  ```shell
+  $ tsig-keygen -a hmac-sha512 letsencrypt
+  key "letsencrypt" {
+    algorithm hmac-sha512;
+    secret "xxxxxxxxxxxxxxxxxx==";
+  };
+  ```
+
+You don't need to publish this; just copy the key data into your named.conf file:
+
+  ```shell  
+  key "letsencrypt" {
+    algorithm hmac-sha512;
+    secret "xxxxxxxxxxxxxxxxxx==";
+  };
+  ```
+
+And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
+  
+  ```shell
+     update-policy {
+        grant letsencrypt name _acme-challenge.your.domain.tld. txt;
+     };
+  ```
+
+For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
+
+An example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-rfc2136
+    rfc2136_server: dns-server.dom.ain
+    rfc2136_port: '53'
+    rfc2136_name: letsencrypt
+    rfc2136_secret: "secret-key"
+    rfc2136_algorithm: HMAC-SHA512
+    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
+    rfc2136_sign_query: true
+  ```
+
+</details>
+
+<details>
+  <summary>route53</summary>
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
@@ -533,161 +1326,59 @@ For security reasons, don't use your main account's credentials. Instead, add a 
 </details>
 
 <details>
-  <summary>CloudFlare</summary>
+  <summary>SakuraCloud</summary>
 
-Previously, Cloudflare’s “Global API Key” was used for authentication, however this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
-
-Cloudflare’s newer API Tokens can be restricted to specific domains and operations, and are therefore now the recommended authentication option.
-The API Token used for Certbot requires only the `Zone:DNS:Edit` permission for the zone in which you want a certificate.
-
-Example credentials file using restricted API Token (recommended):
-  ```yaml
-  dns:
-    provider: dns-cloudflare
-    cloudflare_api_token: 0123456789abcdef0123456789abcdef01234
-  ```
-
-Example credentials file using Global API Key (not recommended):
-  ```yaml
-  dns:
-    provider: dns-cloudflare
-    cloudflare_email: cloudflare@example.com
-    cloudflare_api_key: 0123456789abcdef0123456789abcdef01234
-  ```
-
-</details>
-
-<details>
-  <summary>Linode</summary>
-
-To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
-
-  ```yaml
-  email: you@mailprovider.com
-  domains:
-    - ha.yourdomain.com
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-linode
-    linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
-    linode_version: '4'
-  ```
-
-</details>
-
-<details>
-  <summary>Loopia</summary>
-
-To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
-
-- `addZoneRecord` - Required to create DNS records
-- `getZoneRecords` - Required to verify DNS records
-- `removeZoneRecord` - Required to clean up DNS records
-- `removeSubdomain` - Required for complete cleanup
-
-Example configuration in YAML edit mode:
+Use of this plugin requires Sakura Cloud DNS API credentials, obtained from your Sakura Cloud DNS [apikey page](https://secure.sakura.ad.jp/cloud/#!/apikey/top/).
 
 ```yaml
-email: you@mailprovider.com
+email: your.email@example.com
 domains:
-  - ha.yourdomain.com
+  - your.domain.tld
 certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns
 dns:
-  provider: dns-loopia
-  loopia_user: example@loopiaapi
-  loopia_password: supersecretpasswordhere
+  provider: dns-sakuracloud
+  sakuracloud_api_secret: ''
+  sakuracloud_api_token: ''
 ```
+
+[Full Documentation](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/)
 
 </details>
 
 <details>
-  <summary>DirectAdmin</summary>
+  <summary>Simply.com</summary>
 
-It is recommended to create a login key in the DirectAdmin control panel to be used as value for directadmin_password.
-Instructions on how to create such key can be found at https://help.directadmin.com/item.php?id=523.
-
-Make sure to grant the following permissions:
-- `CMD_API_LOGIN_TEST`
-- `CMD_API_DNS_CONTROL`
-- `CMD_API_SHOW_DOMAINS`
-
-Username and password can also be used in case your DirectAdmin instance has no support for login keys.
-
-Example configuration:
   ```yaml
-  email: mail@domain.tld
+  email: your.email@example.com
   domains:
     - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
   challenge: dns
   dns:
-    propagation_seconds: 60
-    provider: dns-directadmin
-    directadmin_url: 'https://domain.tld:2222/'
-    directadmin_username: da_user
-    directadmin_password: da_password_or_key
+    provider: dns-simply
+    simply_account_name: Sxxxxxx
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
   ```
 
-</details>
-
-<details>
-  <summary>Namecheap</summary>
-
-To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
-
-Example configuration:
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - ha.yourdomain.com
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-namecheap
-    namecheap_username: your-namecheap-username
-    namecheap_api_key: 0123456789abcdef0123456789abcdef01234567
-  ```
-
-</details>
-
-<details>
-  <summary>Njalla</summary>
-
-You need to generate an API token inside Settings > API Access or directly at https://njal.la/settings/api/. If you have a static IP-address restrict the access to your IP. I you are not sure, you probably don't have a static IP-address.
-
-Example configuration:
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - home-assistant.io
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-njalla
-    njalla_token: 0123456789abcdef0123456789abcdef01234567
-  ```
+The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.
+The API key assigned to your Simply.com account can be found in your Simply.com Control panel.
 
 </details>
 
 <details>
   <summary>TransIP</summary>
 
-You will need to generate an API key from the TransIP Control Panel at https://www.transip.nl/cp/account/api/.
+You will need to generate an API key from the TransIP Control Panel at <https://www.transip.nl/cp/account/api/>.
 
 If you can't use IP whitelisting, set the `transip_global_key` parameter to `'yes'`. See [Certbot TransIP DNS plugin documentation](https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing) for more details.
 
 The propagation limit will be automatically raised to 240 seconds.
 
 Example configuration:
+
   ```yaml
   email: your.email@example.com
   domains:
@@ -709,301 +1400,9 @@ Example configuration:
 </details>
 
 <details>
-  <summary>OVH</summary>
-
-You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America).
-
-When creating the API Key, you must ensure that the following rights are granted:
-* ``GET /domain/zone/*``
-* ``PUT /domain/zone/*``
-* ``POST /domain/zone/*``
-* ``DELETE /domain/zone/*``
-
-Example configuration
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - home-assistant.io
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-ovh
-    ovh_endpoint: ovh-eu
-    ovh_application_key: 0123456789abcdef0123456789abcdef01234
-    ovh_application_secret: 0123456789abcdef0123456789abcdef01234
-    ovh_consumer_key: 0123456789abcdef0123456789abcdef01234
-  ```
-Use `ovh_endpoint: ovh-ca` for north America region.
-
-</details>
-
-<details>
-  <summary>RFC2136</summary>
-
-You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
-
-  ```
-  $ tsig-keygen -a hmac-sha512 letsencrypt
-  key "letsencrypt" {
-	  algorithm hmac-sha512;
-  	secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
-  };
-  ```
-
-You don't need to publish this; just copy the key data into your named.conf file:
-  ```
-  
-  key "letsencrypt" {
-    algorithm hmac-sha512;
-    secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
-  };
-  
-  ```
-And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
-  ```
-  
-     update-policy {
-        grant letsencrypt name _acme-challenge.home-assistant.io. txt;
-     };
-  ```
-
-For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
-
-An example configuration:
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - home-assistant.io
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-rfc2136
-    rfc2136_server: dns-server.dom.ain
-    rfc2136_port: '53'
-    rfc2136_name: letsencrypt
-    rfc2136_secret: "secret-key"
-    rfc2136_algorithm: HMAC-SHA512
-    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
-    rfc2136_sign_query: true
-  ```
-
-</details>
-
-<details>
-  <summary>INWX</summary>
-
-Use the user for the dyndns service, not the normal user.
-The shared secret is the 2FA code, it must be the same length as the example.
-To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
-Without 2FA leave the example key.
-
-Example configuration:
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-inwx
-    inwx_username: user
-    inwx_password: password
-    inwx_shared_secret: ABCDEFGHIJKLMNOPQRSTUVWXYZ012345
-  ```
-
-</details>
-
-<details>
-  <summary>Porkbun</summary>
-
-In order to use a domain with this challenge, API access will need enabling on the domain. In order to
-do this go to domain management -> select the domain -> details and click the API access toggle.
-Then go to the menu in the top right select API access and then create a new api key.
-The title does not matter and is not used by certbot, make note of the key and the secret as both are required.
-
-```yaml
-email: your.email@example.com
-domains:
-  - your.domain.tld
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-porkbun
-  porkbun_key: 0123456789abcdef0123456789abcdef01234
-  porkbun_secret: 0123456789abcdef0123456789abcdef01234
-```
-</details>
-<details>
-  <summary>Dreamhost</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-dreamhost
-    dreamhost_baseurl: https://api.dreamhost.com/
-    dreamhost_api_key: XXXXXX
-  ```
-</details>
-<details>
-  <summary>ClouDNS</summary>
-In order to use a domain with this challenge, you first need to log into your control panel and create a 
-new HTTP API user from the "API & Resellers" page on top of your control panel.
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-cloudns
-    cloudns_auth_id: 12345
-    cloudns_auth_password: ******
-  ```
-API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope.  You can use either the `sub-auth-id` or the `sub-auth-user` as follows:
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-cloudns
-    cloudns_sub_auth_id: 12345
-    cloudns_auth_password: ******
-  ```
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-cloudns
-    cloudns_sub_auth_user: alice
-    cloudns_auth_password: ******
-  ```
-</details>
-<details>
-  <summary>Hurricane Electric (HE)</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-he
-    he_user: me
-    he_pass: ******
-  ```
-</details>
-
-<details>
-  <summary>Netcup</summary>
-
-Both the API password and key can be obtained via the following page: https://www.customercontrolpanel.de/daten_aendern.php?sprung=api
-It is important to set the propagation_seconds to >= 630 seconds due to the slow DNS update of Netcup.
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-netcup
-    netcup_customer_id: "userid"
-    netcup_api_key: ****
-    netcup_api_password: ****
-    propagation_seconds: "900"
-  ```
-References:
-* https://helpcenter.netcup.com/de/wiki/general/unsere-api#authentifizierung
-* https://github.com/coldfix/certbot-dns-netcup/issues/28
-</details>
-
-<details>
-  <summary>easyDNS</summary>
-
-easyDNS REST API access must be requested and granted in order to use this module: https://cp.easydns.com/manage/security/api/signup.php after logging into your account. 
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-easydns
-    easydns_token: 0123456789abcdef
-    easydns_key: ****
-    easydns_endpoint: https://rest.easydns.net
-  ```
-</details>
-
-<details>
-  <summary>Dynu</summary>
-
-You can get the API key in the API Credentials area of the Dynu control panel: https://www.dynu.com/ControlPanel/APICredentials
-
-```yaml
-email: your.email@example.com
-domains:
-  - your.domain.tld
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-dynu
-  dynu_auth_token: 0123456789abcdef
-```
-
-</details>
-
-<details>
-  <summary>Eurodns DNS challenge</summary>
-
-  You can configure the APP id and the API key in the API Users area of the Eurodns control panel: https://my.eurodns.com/apiusers
-
-```yaml
-domains:
-  - your.domain.tld
-certfile: fullchain.pem
-keyfile: privkey.pem
-challenge: dns
-dns:
-  provider: dns-eurodns
-  eurodns_applicationId: X-APP-ID
-  eurodns_apiKey: X-API-KEY
-  propagation_seconds: 60
-```
-
-</details>
-
-<details>
-
   <summary>WebSupport (currently disable - see changelog)</summary>
 
-An identifier and secret key have to be obtained to use this module (see https://admin.websupport.sk/sk/auth/apiKey).
+An identifier and secret key have to be obtained to use this module (see <https://admin.websupport.sk/sk/auth/apiKey>).
 
   ```yaml
   email: your.email@example.com
@@ -1017,120 +1416,8 @@ An identifier and secret key have to be obtained to use this module (see https:/
     websupport_identifier: <identifier>
     websupport_secret_key: <secret_key>
   ```
-</details>
-
-<details>
-  <summary>domainoffensive</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-domainoffensive
-    domainoffensive_token: *****
-  ```
-</details>
-
-
-<details>
-  <summary>noris network DNS challenge</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-noris
-    noris_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    propagation_seconds: 240
-  ```
-
-To obtain the `noris_token` follow the instructions as described in our [GitHub repository][GitHub repo].
-
-You can define the `propagation_seconds` explicitly. Otherwise, it will use the default value (currently set to `60` seconds).
-
-[GitHub repo]: https://github.com/noris-network/certbot-dns-norisnetwork#get-your-api-token
 
 </details>
-
-
-<details>
-  <summary>Plesk Hosting DNS challenge</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-plesk
-    plesk_username: your-username
-    plesk_password: your-password
-    plesk_api_url: https://plesk.example.com
-    propagation_seconds: 120
-  ```
-
-The `plesk_username` and `plesk_password` are the same as those you use on the login page of your admin panel.
-
-The `plesk_api_url` is the base URL of your Plesk admin panel.
-
-You can define the `propagation_seconds` explicitly. Otherwise, it will use a custom default value (currently set to `120` seconds). If the provided value is less than `120`, then the value is forced to a minimum of `120` seconds.
-
-</details>
-
-
-<details>
-  <summary>Simply.com DNS challenge</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-simply
-    simply_account_name: Sxxxxxx
-    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
-  ```
-
-The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.
-The API key assigned to your Simply.com account can be found in your Simply.com Control panel.
-
-</details>
-
-
-<details>
-  <summary>mijn.host DNS challenge</summary>
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-mijn-host
-    mijn_host_api_key: XXXXXX
-    propagation_seconds: 60
-  ```
-
-The `mijn_host_api_key` is the account's API key.
-The API key assigned to your mijn.host account can be found in your mijn.host Control panel.
-
-</details>
-
 
 ## Certificate files
 
@@ -1143,43 +1430,46 @@ You can in addition find the files via the "samba" addon within the "ssl" share.
 
 ```txt
 dns-azure
-dns-cloudns
 dns-cloudflare
+dns-cloudns
 dns-desec
 dns-digitalocean
 dns-directadmin
 dns-dnsimple
 dns-dnsmadeeasy
-dns-duckdns
+dns-domainoffensive
 dns-dreamhost
+dns-duckdns
 dns-dynu
+dns-easydns
 dns-eurodns
+dns-gandi
 dns-gehirn
+dns-godaddy
 dns-google
+dns-he
 dns-hetzner
 dns-infomaniak
+dns-inwx
 dns-ionos
+dns-joker
 dns-linode
 dns-loopia
 dns-luadns
 dns-mijn-host
+dns-namecheap
+dns-netcup
 dns-njalla
 dns-noris
-dns-plesk
-dns-simply
 dns-nsone
 dns-ovh
+dns-plesk
+dns-porkbun
 dns-rfc2136
 dns-route53
 dns-sakuracloud
-dns-namecheap
-dns-netcup
-dns-gandi
+dns-simply
 dns-transip
-dns-inwx
-dns-porkbun
-dns-easydns
-dns-domainoffensive
 dns-websupport (currently disable - see changelog)
 ```
 

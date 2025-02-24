@@ -11,6 +11,9 @@ configuration:
   workgroup:
     name: Workgroup
     description: Change WORKGROUP to reflect your network needs.
+  local_master:
+    name: Local master
+    description: Enable to try and become a local master browser on a subnet.
   enabled_shares:
     name: >-
       Enabled Shares - allowed values are:

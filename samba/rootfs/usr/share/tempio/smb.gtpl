@@ -2,6 +2,7 @@
    netbios name = {{ env "HOSTNAME" }}
    workgroup = {{ .workgroup }}
    server string = Samba Home Assistant
+   local master = {{ .local_master | ternary "yes" "no" }}
 
    security = user
    ntlm auth = yes

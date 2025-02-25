@@ -11,6 +11,7 @@ codenotary:
 args:
   # Developer note: please add a new plugin alphabetically into all lists
   ACME_VERSION: 3.2.0
+  CERTBOT_BEGET_PLUGIN_VERSION: 1.0.0.dev9
   CERTBOT_DNS_AZURE_VERSION: 2.6.1
   CERTBOT_DNS_CLOUDNS_VERSION: 0.7.0
   CERTBOT_DNS_DESEC_VERSION: 1.2.1

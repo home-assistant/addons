@@ -13,6 +13,7 @@ arch:
   - i386
 image: homeassistant/{arch}-addon-dnsmasq
 init: false
+host_network: true
 options:
   defaults:
     - 8.8.8.8

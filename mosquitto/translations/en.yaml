@@ -8,6 +8,13 @@ configuration:
       without any configuration. You can also specify
       `password_pre_hashed: true` to utilize a pre-hashed password from the
       output of the `pw` command (which is present inside the container).
+  anonymous:
+    name: Anonymous
+    description: >-
+      If enabled, allows clients to connect without authentication.
+      This may be necessary in some cases, but can be a security risk.
+      Ensure proper network restrictions are in place when using this option.
+      WARNING: This option is not recommended!
   require_certificate:
     name: Require Client Certificate
     description: >-

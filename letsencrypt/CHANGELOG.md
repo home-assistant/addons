@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.1
+
+- Fix TransIP global_key handling
+
 ## 5.4.0
 
 - Add additional arguments to certbot (dry-run, test-cert, verbose)

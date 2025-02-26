@@ -44,6 +44,19 @@ configuration:
     description: >-
       Multiply sound output volume by fixed value (1.0 = no change, 2.0 = twice
       as loud). 1.0 is the default.
+  synthesize_using_webhook:
+    name: Use webhook
+    description: >-
+      When text-to-speech text is returned send it to a webhook.
+  webhook_id:
+    name: Webhook ID
+    description: >-
+      The ID of the webhook to use.
+  synthesize_script:
+    name: Synthesize script
+    description: >-
+      Path to the script that will doing the heavy lifting of sending the text
+      to the webhook for further automation.
   debug_logging:
     name: Debug logging
     description: >-

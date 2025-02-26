@@ -275,11 +275,8 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-simply" ]; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
     bashio::config.require 'dns.transip_username'
     bashio::config.require 'dns.transip_api_key'
-    if bashio::config.has_value 'dns.transip_global_key'; then
-    "dns_transip_global_key=$(bashio::config 'dns.transip_global_key')"
-    fi
     if (( PROPAGATION_SECONDS < 240 )); then
-        bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
+        bashio::log.info "Increasing DNS propagation time for TransIP to at least 240 seconds."
         PROPAGATION_SECONDS=240
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")

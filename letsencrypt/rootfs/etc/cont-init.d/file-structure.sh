@@ -80,7 +80,6 @@ echo -e "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
       "dns_simply_account_name = $(bashio::config 'dns.simply_account_name')\n" \
       "dns_simply_api_key = $(bashio::config 'dns.simply_api_key')\n" \
-      "dns_transip_global_key = $(bashio::config 'dns.transip_global_key')\n" \
       "dns_transip_key_file = /data/transip-rsa.key\n" \
       "dns_transip_username = $(bashio::config 'dns.transip_username')\n" \
       "dns_websupport_identifier = $(bashio::config 'dns.websupport_identifier')\n" \
@@ -107,6 +106,11 @@ if bashio::config.exists 'dns.transip_api_key'; then
       TRANSIP_API_KEY=$(bashio::config 'dns.transip_api_key')
       echo "${TRANSIP_API_KEY}" | openssl rsa -out /data/transip-rsa.key
       chmod 600 /data/transip-rsa.key
+fi
+
+# TransIP global_key conditional write out to config 
+if bashio::config.exists 'dns.transip_global_key'; then
+      echo -e "dns_transip_global_key = $(bashio::config 'dns.transip_global_key')\n" >> "/data/dnsapikey"
 fi
 
 # Cleanup removed add-on options

@@ -68,7 +68,7 @@ RUN \
         certbot-dns-dynu-dev==${CERTBOT_DNS_DYNU_VERSION} \
         certbot-dns-easydns==${CERTBOT_DNS_EASYDNS_VERSION} \
         certbot-dns-eurodns==${CERTBOT_DNS_EURODNS_VERSION} \
-        certbot-plugin-gandi-modern==${CERTBOT_DNS_GANDI_VERSION} \
+        certbot-dns-gandi==${CERTBOT_DNS_GANDI_VERSION} \
         certbot-dns-gehirn==${CERTBOT_VERSION} \
         certbot-dns-godaddy==${CERTBOT_DNS_GODADDY_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \

@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.4.2
+
+- Update certbot-dns-dynu to 0.0.8
+- Update certbot-dns-gandi to 1.6.1
+  (incl. switch back to a renamed updated original version)
+
 ## 5.4.1
 
 - Fix TransIP global_key handling

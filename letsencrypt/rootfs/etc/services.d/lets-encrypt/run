@@ -52,6 +52,12 @@ if [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-config" "/data/azure_creds")
 
+# Beget
+elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "beget-plugin" ]; then
+    bashio::config.require 'dns.beget_username'
+    bashio::config.require 'dns.beget_password'
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+
 # CloudFlare
 elif [ "${DNS_PROVIDER}" == "dns-cloudflare" ]; then
     if bashio::config.exists 'dns.cloudflare_api_token'; then

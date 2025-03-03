@@ -27,6 +27,7 @@ RUN \
     && rm -rf /var/lib/apt/lists/*
 
 COPY sounds/ ./sounds/
+COPY scripts/ ./scripts/
 
 WORKDIR /
 COPY rootfs /

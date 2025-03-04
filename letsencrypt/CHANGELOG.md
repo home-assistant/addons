@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.4.3
+
+- Update certbot-dns-websupport to 3.0.0
+- Re-enable certbot-dns-websupport
+
 ## 5.4.2
 
 - Update certbot-dns-dynu to 0.0.8

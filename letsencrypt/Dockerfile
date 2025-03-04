@@ -95,8 +95,7 @@ RUN \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
         certbot-dns-simply==${CERTBOT_DNS_SIMPLY_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
-        # Disabled due to unresolved issues
-        # certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \
+        certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \
         certbot==${CERTBOT_VERSION} \
         cloudflare==${CLOUDFLARE_VERSION} \
         cryptography==${CRYPTOGRAPHY_VERSION} \

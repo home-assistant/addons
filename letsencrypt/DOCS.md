@@ -83,7 +83,7 @@ dns-route53
 dns-sakuracloud
 dns-simply
 dns-transip
-dns-websupport (currently disable - see changelog)
+dns-websupport
 ```
 
 </details>
@@ -1400,7 +1400,7 @@ Example configuration:
 </details>
 
 <details>
-  <summary>WebSupport (currently disable - see changelog)</summary>
+  <summary>WebSupport</summary>
 
 An identifier and secret key have to be obtained to use this module (see <https://admin.websupport.sk/sk/auth/apiKey>).
 
@@ -1470,7 +1470,7 @@ dns-route53
 dns-sakuracloud
 dns-simply
 dns-transip
-dns-websupport (currently disable - see changelog)
+dns-websupport
 ```
 
 ## Support

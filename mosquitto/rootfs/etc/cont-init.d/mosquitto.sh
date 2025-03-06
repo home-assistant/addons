@@ -80,6 +80,7 @@ fi
 bashio::var.json \
   cafile "${cafile}" \
   certfile "${certfile}" \
+  anonymous "^$(bashio::config 'anonymous')" \
   customize "^$(bashio::config 'customize.active')" \
   customize_folder "$(bashio::config 'customize.folder')" \
   keyfile "${keyfile}" \

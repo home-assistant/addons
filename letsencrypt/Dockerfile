@@ -6,6 +6,7 @@ FROM $BUILD_FROM
 ARG \
     BUILD_ARCH \
     ACME_VERSION \
+    CERTBOT_BEGET_PLUGIN_VERSION \
     CERTBOT_DNS_AZURE_VERSION \
     CERTBOT_DNS_CLOUDNS_VERSION \
     CERTBOT_DNS_DESEC_VERSION \
@@ -54,6 +55,7 @@ RUN \
     && pip3 install --no-cache-dir --find-links \
         "https://wheels.home-assistant.io/alpine-$(cut -d '.' -f 1-2 < /etc/alpine-release)/${BUILD_ARCH}/" \
         acme==${ACME_VERSION} \
+        certbot-beget-plugin==${CERTBOT_BEGET_PLUGIN_VERSION} \
         certbot-dns-azure==${CERTBOT_DNS_AZURE_VERSION} \
         certbot-dns-cloudflare==${CERTBOT_VERSION} \
         certbot-dns-cloudns==${CERTBOT_DNS_CLOUDNS_VERSION} \

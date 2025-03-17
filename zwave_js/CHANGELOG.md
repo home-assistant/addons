@@ -2,6 +2,10 @@
 
 ## 0.11.0
 
+### Breaking changes
+
+- Version 0.11.0 of the add-on requires version 2021.3.0 or higher of Home Assistant Core.
+
 ### Features
 
 - Z-Wave JS / Z-Wave JS Server: Add API to query supported notification events of a device

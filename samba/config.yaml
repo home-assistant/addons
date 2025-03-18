@@ -59,7 +59,7 @@ schema:
   enabled_shares:
     - "match(^(?i:(addons|addon_configs|backup|config|media|share|ssl))$)"
   compatibility_mode: bool
-  apple_compatability_mode: bool
+  apple_compatibility_mode: bool
   veto_files:
     - str
   allow_hosts:

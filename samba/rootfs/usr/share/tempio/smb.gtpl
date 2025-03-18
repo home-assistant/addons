@@ -27,7 +27,7 @@
    dos charset = CP850
    unix charset = UTF-8
    
-   {{ if .apple_compatability_mode }}
+   {{ if .apple_compatibility_mode }}
    vfs objects = catia fruit streams_xattr
    {{ end }}
 

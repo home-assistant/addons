@@ -37,7 +37,7 @@ options:
     - share
     - ssl
   compatibility_mode: false
-  apple_compatability_mode: true
+  apple_compatibility_mode: true
   veto_files:
     - ._*
     - .DS_Store

@@ -9,6 +9,8 @@ mkdir -p /data/letsencrypt
 # Setup Let's encrypt config
 echo -e "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "aws_secret_access_key = $(bashio::config 'dns.aws_secret_access_key')\n" \
+      "beget_plugin_username = $(bashio::config 'dns.beget_username')\n" \
+      "beget_plugin_password = $(bashio::config 'dns.beget_password')\n" \
       "dns_cloudns_auth_password = $(bashio::config 'dns.cloudns_auth_password')\n" \
       "dns_desec_token = $(bashio::config 'dns.desec_token')\n" \
       "dns_digitalocean_token = $(bashio::config 'dns.digitalocean_token')\n" \

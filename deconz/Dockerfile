@@ -11,7 +11,7 @@ RUN \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
-        dwm \
+        openbox \
         iproute2 \
         iputils-ping \
         kmod \

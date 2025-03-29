@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.5
+
+- Expose the certbot `--force-renewal` option to the configuration
+
 ## 5.4.4
 
 - Update certbot to 3.3.0

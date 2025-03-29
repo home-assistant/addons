@@ -46,6 +46,10 @@ configuration:
     name: Dry Run
     description: >-
       Do a certbot dry-run for requesting the certificates.
+  force_renewal:
+    name: Force Renewal
+    description: >-
+      Do a certbot force-renewal for requesting the certificates.
   test_cert:
     name: Issue test certificates
     description: >-

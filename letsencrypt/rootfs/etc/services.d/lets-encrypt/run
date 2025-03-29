@@ -22,6 +22,7 @@ ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
 EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 DRY_RUN=$(bashio::config 'dry_run')
+FORCE_RENEWAL=$(bashio::config 'force_renewal')
 TEST_CERT=$(bashio::config 'test_cert')
 VERBOSE=$(bashio::config 'verbose')
 
@@ -356,6 +357,11 @@ ADDITIONAL_ARGS=()
 if [ "${DRY_RUN}" = "true" ]; then
     ADDITIONAL_ARGS+=("--dry-run")
 fi
+if [ "${FORCE_RENEWAL}" = "true" ]; then
+    ADDITIONAL_ARGS+=("--force-renewal")
+else
+    ADDITIONAL_ARGS+=("--keep-until-expiring")
+fi
 if [ "${TEST_CERT}" = "true" ]; then
     ADDITIONAL_ARGS+=("--test-cert")
 fi
@@ -363,9 +369,10 @@ if [ "${VERBOSE}" = "true" ]; then
     ADDITIONAL_ARGS+=("-vvv")
 fi
 
+
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
 if [ "$CHALLENGE" == "dns" ]; then
-    certbot certonly --non-interactive --keep-until-expiring --expand \
+    certbot certonly --non-interactive --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
         "${ADDITIONAL_ARGS[@]}" \
@@ -375,7 +382,7 @@ if [ "$CHALLENGE" == "dns" ]; then
         --preferred-chain "ISRG Root X1" \
         "${EAB_ARGUMENTS[@]}"
 else
-    certbot certonly --non-interactive --keep-until-expiring --expand \
+    certbot certonly --non-interactive --expand \
         --email "$EMAIL" --agree-tos \
         "${KEY_ARGUMENTS[@]}" \
         "${ADDITIONAL_ARGS[@]}" \

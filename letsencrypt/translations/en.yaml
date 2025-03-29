@@ -49,11 +49,11 @@ configuration:
   force_renewal:
     name: Force Renewal
     description: >-
-      Do a certbot force-renewal for requesting the certificates.
+      Do a certbot force-renewal when requesting the certificates.
   test_cert:
     name: Issue test certificates
     description: >-
-      Obtain a test certificate from a staging server.
+      Obtain a test certificate from the Let's Encrypt staging server.
   verbose:
     name: Verbose Mode
     description: >-

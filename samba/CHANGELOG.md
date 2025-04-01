@@ -2,8 +2,8 @@
 
 ## 12.5.1
 
-Add the ability to enable or disable the configurations that improve interoperability with Apple devices.
-Disabling this setting can fix issues with file systems that do not support xattr such as exFAT.
+- Add the ability to enable or disable the configurations that improve interoperability with Apple devices.
+  Disabling this setting can fix issues with file systems that do not support xattr such as exFAT.
 
 ## 12.5.0
 

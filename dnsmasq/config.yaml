@@ -23,6 +23,8 @@ options:
   cnames: []
   log_queries: false
   cache_size: 150
+  filter_a: false
+  filter_aaaa: false
 ports:
   53/tcp: 53
   53/udp: 53
@@ -46,4 +48,6 @@ schema:
       target: str
   log_queries: bool
   cache_size: int
+  filter_a: bool
+  filter_aaaa: bool
 startup: system

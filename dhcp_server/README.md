@@ -2,9 +2,9 @@
 
 > [!CAUTION]
 > **Deprecation notice**
-> The maintenance of the ISC DHCP Server has been ended in 2022 already. Alpine
-> Linux dropped the package in Alpine 3.21. Hence the add-on is deprecated as
-> well. Consider using the DHCP functionality of your router instead.
+> The maintenance of the ISC DHCP Server ended in 2022 already. Alpine Linux
+> dropped the package in Alpine 3.21. Hence, the add-on is deprecated as well.
+> Consider using the DHCP functionality of your router instead.
 
 A simple DHCP server.
 

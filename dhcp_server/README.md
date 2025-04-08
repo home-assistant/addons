@@ -1,5 +1,11 @@
 # Home Assistant Add-on: DHCP server
 
+> [!CAUTION]
+> **Deprecation notice**
+> The maintenance of the ISC DHCP Server has been ended in 2022 already. Alpine
+> Linux dropped the package in Alpine 3.21. Hence the add-on is deprecated as
+> well. Consider using the DHCP functionality of your router instead.
+
 A simple DHCP server.
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]

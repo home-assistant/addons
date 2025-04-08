@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+
+**Deprecation notice**
+This will be the final update for this add-on. The maintenance of the ISC DHCP
+Server has been ended in 2022 already.
+
+- Update base image to alpine 3.20
+
 ## 1.4.0
 
 - Update base image to alpine 3.19

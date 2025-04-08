@@ -1,5 +1,5 @@
 ---
-version: 1.4.0
+version: 1.5.0
 slug: dhcp_server
 name: DHCP server
 description: A simple DHCP server
@@ -53,3 +53,4 @@ schema:
       subnet: str
 startup: system
 init: false
+stage: deprecated

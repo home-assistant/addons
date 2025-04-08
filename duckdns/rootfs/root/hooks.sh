@@ -32,7 +32,11 @@ deploy_challenge() {
     #   be found in the $TOKEN_FILENAME file.
 
     curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=$TOKEN_VALUE"
-    timeout 60s bash -c -- "while ! dig -t txt _acme-challenge.$ALIAS | grep $TOKEN_VALUE > /dev/null; do sleep 5; done"
+    timeout 60s bash -c -- "
+        while ! dig -t txt _acme-challenge.$ALIAS | grep $TOKEN_VALUE > /dev/null; do
+            sleep 5;
+        done
+    "
 }
 
 clean_challenge() {

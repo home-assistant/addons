@@ -83,6 +83,9 @@ http {
         {{- end }}
         
         location / {
+            {{- if .options.customize.active and .options.customize.root_location }}
+            include /share/{{ .options.customize.root_location }};
+            {{- end }}
             proxy_pass http://homeassistant.local.hass.io:{{ .variables.port }};
             proxy_set_header Host $http_host;
             proxy_redirect http:// https://;

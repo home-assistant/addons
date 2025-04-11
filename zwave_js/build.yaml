@@ -1,13 +1,13 @@
 ---
 build_from:
-  aarch64: ghcr.io/home-assistant/aarch64-base:3.18
-  amd64: ghcr.io/home-assistant/amd64-base:3.18
-  armhf: ghcr.io/home-assistant/armhf-base:3.18
-  armv7: ghcr.io/home-assistant/armv7-base:3.18
-  i386: ghcr.io/home-assistant/i386-base:3.18
+  aarch64: ghcr.io/home-assistant/aarch64-base:3.21
+  amd64: ghcr.io/home-assistant/amd64-base:3.21
+  armhf: ghcr.io/home-assistant/armhf-base:3.21
+  armv7: ghcr.io/home-assistant/armv7-base:3.21
+  i386: ghcr.io/home-assistant/i386-base:3.21
 codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  ZWAVEJS_SERVER_VERSION: 1.40.3
-  ZWAVEJS_VERSION: 14.3.8
+  ZWAVEJS_SERVER_VERSION: 3.0.0
+  ZWAVEJS_VERSION: 15.0.5

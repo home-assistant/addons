@@ -1,5 +1,5 @@
 ---
-version: 5.4.4
+version: 5.4.5
 breaking_versions: [5.3.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -41,6 +41,7 @@ schema:
   key_type: list(ecdsa|rsa)?
   elliptic_curve: list(secp256r1|secp384r1)?
   dry_run: bool?
+  force_renewal: bool?
   test_cert: bool?
   verbose: bool?
   dns:

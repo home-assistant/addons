@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.0.0
+
+- Use openbox instead of dwm as window manager
+
 ## 7.0.0
 
 - Bump deCONZ to 2.28.1

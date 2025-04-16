@@ -1,5 +1,5 @@
 ---
-version: 0.10.0
+version: 0.11.0
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
@@ -14,7 +14,7 @@ codenotary: notary@home-assistant.io
 discovery:
   - zwave_js
 hassio_api: true
-homeassistant: 2021.2.0b0
+homeassistant: 2021.3.0
 image: homeassistant/{arch}-addon-zwave_js
 init: false
 map:

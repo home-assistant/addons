@@ -1,5 +1,68 @@
 # Changelog
 
+## 0.11.0
+
+### Breaking changes
+
+- Version 0.11.0 of the add-on requires version 2021.3.0 or higher of Home Assistant Core.
+
+### Features
+
+- Z-Wave JS / Z-Wave JS Server: Add API to query supported notification events of a device
+- Z-Wave JS Server: Support for zwave-js v15
+
+### Bug fixes
+
+- Z-Wave JS: Improved spec compliance
+- Z-Wave JS: Fixed an issue where multi-stage firmware updates would fail after the first stage
+- Z-Wave JS: Fixes an issue where no firmware updates would show as available when the controller region is set to EU_LR
+
+### Config file changes
+
+- Add alarmType 132 mapping for Yale YRD4x0 locks
+- Add fingerprint for ZVIDAR Z-TRV-V01
+- Add missing parameters to Qubino Smart Plug 16A
+- Add missing parameters for the MCO MH-C221 shutter
+- Correct Fibaro FGMS001 association groups
+- Add multi-click detection parameter to Zooz ZEN51/52
+- Add Shelly Door/Window Sensor, Wave Plug S, Wave PRO Dimmer 1PM/2PM
+- Add SmartWings WB04V
+- Add new parameters for Zooz ZEN72 firmware 3.40 and 3.50
+- Add new Zooz ZEN32 parameter 27
+- Update New One N4002 to correct parameters and other information
+- Update Zooz ZSE44 based on latest docs
+- Add SmartWings WM25L Smart Motor
+- Update Zooz ZEN04 to firmware 2.30
+- Update Zooz ZEN30 to Firmware v4.20
+- Update Zooz ZEN20 to firmware 4.20
+- Update Zooz ZEN17 800LR to firmware 2.0
+- Update to TKB Home TZ88
+- Add missing and new parameters for Zooz ZEN15
+- Add fingerprint to Yale YRL210
+- Add Springs Window Fashions CRBZ motorized blinds
+- Add Jasco ZWN4015 In-Wall Smart Switch
+- Add config parameters to Schlage PIR Motion Sensor
+- Add Lockly Secure Plus
+- Update Zooz ZEN74 to firmware 2.10
+- Preserve endpoints for Namron 16A thermostats
+- Allow setting arbitrary Motion Sensitivity for ZSE70
+- Update config file for 500 series controllers
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.0.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.0.0)
+- [Z-Wave JS 15.0.5](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.5)
+- [Z-Wave JS 15.0.4](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.4)
+- [Z-Wave JS 15.0.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.3)
+- [Z-Wave JS 15.0.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.2)
+- [Z-Wave JS 15.0.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.1)
+- [Z-Wave JS 15.0.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.0)
+- [Z-Wave JS 14.3.13](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.13)
+- [Z-Wave JS 14.3.12](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.12)
+- [Z-Wave JS 14.3.11](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.11)
+- [Z-Wave JS 14.3.10](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.10)
+- [Z-Wave JS 14.3.9](https://github.com/zwave-js/node-zwave-js/releases/tag/v14.3.9)
+
 ## 0.10.0
 
 ### Features

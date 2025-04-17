@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.19.0
+
+- Wait for up to 60 seconds for TXT record to propagate when deploying challenges
+
 ## 1.18.0
 
 - Update to use s6-overlay to manage service

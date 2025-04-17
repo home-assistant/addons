@@ -1,7 +1,7 @@
 ---
 version: 2.2.0
 slug: tellstick
-name: TellStick
+name: TellStick [deprecated]
 description: TellStick and TellStick Duo service
 url: https://github.com/home-assistant/addons/tree/master/tellstick
 arch:

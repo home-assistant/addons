@@ -1,8 +1,0 @@
----
-configuration:
-  debug_logging:
-    name: Debug logging
-    description: >-
-      Enable debug logging.
-network:
-  10300/tcp: speech-to-phrase Wyoming Protocol

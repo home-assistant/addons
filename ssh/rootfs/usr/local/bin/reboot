@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# vim: ft=bash
-# shellcheck shell=bash
-# ==============================================================================
-# This script overrides the reboot command to reboot the host machine.
-# ==============================================================================
-bashio::host.reboot

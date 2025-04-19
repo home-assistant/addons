@@ -1,7 +1,7 @@
 ---
 version: 2.5.0
 slug: google_assistant
-name: Google Assistant SDK
+name: Google Assistant SDK [deprecated]
 description: A virtual personal assistant developed by Google
 url: >-
   https://github.com/home-assistant/addons/tree/master/google_assistant

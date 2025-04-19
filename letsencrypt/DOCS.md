@@ -292,6 +292,37 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
 
 </details>
 
+<details>
+  <summary>Using Certbot CLI options</summary>
+
+  The configuration supports different Certbot command line options, as detailed below.
+
+  Dry Run: Do a dry-run when requesting a certificate.
+  
+  ```yaml
+  dry_run: true
+  ```
+
+  Force Renewal: Force renew pre-existing certificates.
+
+  ```yaml
+  force_renewal: true
+  ```
+
+  Test certificates: Obtain a test certificate from the Let's Encrypt staging server.
+
+  ```yaml
+  test_cert: true
+  ```
+
+  Verbose Mode: Enable verbose mode for the certbot log output.
+
+  ```yaml
+  verbose: true
+  ```
+
+</details>
+
 ## Example Configurations
 
 Note: These configuration examples are raw YAML configs. When you use UI edit

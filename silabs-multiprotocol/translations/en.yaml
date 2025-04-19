@@ -34,6 +34,11 @@ configuration:
     name: OTBR firewall
     description: >-
       Use OpenThread Border Router firewall to block unnecessary traffic.
+  otbr_nat64:
+    name: OTBR NAT64
+    description: >-
+      Enable OpenThread Border Router IPv6 to IPv4 network address translation.
+      This allows Thread devices to communicate with devices on the Internet.
 network:
   9999/tcp: EmberZNet EZSP/ASH port
   8080/tcp: OpenThread Web port

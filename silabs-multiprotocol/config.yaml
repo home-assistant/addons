@@ -32,6 +32,7 @@ options:
   otbr_enable: true
   otbr_log_level: notice
   otbr_firewall: true
+  otbr_nat64: false
 ports:
   9999/tcp: null
   8080/tcp: null
@@ -50,5 +51,6 @@ schema:
   otbr_enable: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   otbr_firewall: bool
+  otbr_nat64: bool
 stage: experimental
 startup: services

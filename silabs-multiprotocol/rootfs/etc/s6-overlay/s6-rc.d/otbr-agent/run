@@ -98,6 +98,13 @@ else
     ip6tables-legacy -P FORWARD ACCEPT
 fi
 
+if bashio::config.true 'otbr_nat64'; then
+    iptables -t mangle -A PREROUTING -i "${thread_if}" -j MARK --set-mark 0x1001
+    iptables -t nat -A POSTROUTING -m mark --mark 0x1001 -j MASQUERADE
+    iptables -t filter -A FORWARD -o "${backbone_if}" -j ACCEPT
+    iptables -t filter -A FORWARD -i "${backbone_if}" -j ACCEPT
+fi
+
 otbr_rest_listen="::"
 otbr_rest_listen_port="$(bashio::addon.port 8081)"
 

@@ -102,7 +102,7 @@ RUN \
     && curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
     && unzip slc_cli_linux.zip \
     && cd slc_cli/ && chmod +x slc
- 
+
 ENV PATH="/usr/src/slc_cli/:$PATH"
 
 RUN \
@@ -235,6 +235,9 @@ RUN \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
+        -DOTBR_NAT64=ON \
+        -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
+        -DOTBR_DNS_UPSTREAM_QUERY=ON \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

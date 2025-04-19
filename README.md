@@ -47,7 +47,7 @@ systems that have installed Home Assistant.
 
 - **[Let's Encrypt](/letsencrypt/README.md)**
 
-    Manage an create certificates from Let's Encrypt.
+    Manage and create certificates from Let's Encrypt.
 
 - **[MariaDB](/mariadb/README.md)**
 

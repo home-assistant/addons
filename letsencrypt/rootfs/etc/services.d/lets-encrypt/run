@@ -7,7 +7,7 @@
 CERT_DIR=/data/letsencrypt
 WORK_DIR=/data/workdir
 PROVIDER_ARGUMENTS=()
-ACME_CUSTOM_SERVER_ARGUMENTS=()
+ACME_ARGUMENTS=()
 KEY_ARGUMENTS=()
 EAB_ARGUMENTS=()
 
@@ -325,13 +325,16 @@ else
 fi
 
 if bashio::config.has_value 'acme_server' ; then
-    ACME_CUSTOM_SERVER_ARGUMENTS+=("--server" "${ACME_SERVER}")
+    ACME_ARGUMENTS+=("--server" "${ACME_SERVER}")
 
     if bashio::config.has_value 'acme_root_ca_cert'; then
-      echo "${ACME_ROOT_CA}" > /tmp/root-ca-cert.crt
-      # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
-      export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
+        echo "${ACME_ROOT_CA}" > /tmp/root-ca-cert.crt
+        # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
+        export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
     fi
+else
+    # Relevant only for default Let's Encrypt servers.
+    ACME_ARGUMENTS+=(--preferred-chain 'ISRG Root X1')
 fi
 
 # Gather all domains into a plaintext file
@@ -396,27 +399,18 @@ if [ "${VERBOSE}" = "true" ]; then
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
-if [ "$CHALLENGE" == "dns" ]; then
-    certbot certonly --non-interactive --keep-until-expiring --expand \
-        --email "$EMAIL" --agree-tos \
-        "${KEY_ARGUMENTS[@]}" \
-        "${ADDITIONAL_ARGS[@]}" \
-        --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
-        --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
-        --preferred-chain "ISRG Root X1" \
-        "${EAB_ARGUMENTS[@]}"
-else
-    certbot certonly --non-interactive --keep-until-expiring --expand \
-        --email "$EMAIL" --agree-tos \
-        "${KEY_ARGUMENTS[@]}" \
-        "${ADDITIONAL_ARGS[@]}" \
-        --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
-        --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-        --preferred-challenges "$CHALLENGE" "${ACME_CUSTOM_SERVER_ARGUMENTS[@]}" --standalone \
-        --preferred-chain "ISRG Root X1" \
-        "${EAB_ARGUMENTS[@]}"
-fi
+# Provider specific arguments for a DNS challenge or
+# run a standalone webserver for an HTTP challenge.
+certbot certonly --non-interactive --keep-until-expiring --expand \
+    --email "$EMAIL" --agree-tos \
+    "${KEY_ARGUMENTS[@]}" \
+    "${ADDITIONAL_ARGS[@]}" \
+    --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
+    --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+    --preferred-challenges "$CHALLENGE" \
+    "${PROVIDER_ARGUMENTS[@]:-'--standalone'}" \
+    "${ACME_ARGUMENTS[@]}" \
+    "${EAB_ARGUMENTS[@]}"
 
 # Get the last modified cert directory and copy the cert and private key to store
 # shellcheck disable=SC2012

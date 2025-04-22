@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.17.0
+
+- Upgrade Home Assistant CLI to 4.38.0
+- Upgrade libwebsockets to 4.3.5
+
 ## 9.16.0
 
 - Upgrade ttyd to 1.7.7 (fixes copy to clipboard using shift and drag)

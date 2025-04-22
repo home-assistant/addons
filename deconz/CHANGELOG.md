@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.1.0
+
+- Bump deCONZ to 2.29.5 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.29.5)]
+
 ## 8.0.0
 
 - Use openbox instead of dwm as window manager

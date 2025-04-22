@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.5
+
+- Update certbot-dns-directadmin to 1.0.15
+
 ## 5.4.4
 
 - Update certbot to 3.3.0

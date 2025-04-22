@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## 2.5.0
 
 - Added configuration mapping to access local models.
 - Updated documentation about `custom_model` usage.

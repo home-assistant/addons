@@ -399,8 +399,6 @@ if [ "${VERBOSE}" = "true" ]; then
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
-# Provider specific arguments for a DNS challenge or
-# run a standalone webserver for an HTTP challenge.
 certbot certonly --non-interactive --keep-until-expiring --expand \
     --email "$EMAIL" --agree-tos \
     "${KEY_ARGUMENTS[@]}" \

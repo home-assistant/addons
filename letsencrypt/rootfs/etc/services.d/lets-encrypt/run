@@ -329,7 +329,9 @@ if bashio::config.has_value 'acme_server' ; then
     ACME_ARGUMENTS+=("--server" "${ACME_SERVER}")
 
     if bashio::config.has_value 'acme_root_ca_cert'; then
-        echo "${ACME_ROOT_CA}" > /tmp/root-ca-cert.crt
+        # The value comes as a continuous string, but lines breaks around PEM
+        # headers and footers are required for the certificates to be parsed.
+        echo "${ACME_ROOT_CA}" | sed 's/----- /-----\n/g'  | sed 's/ -----/\n-----/g'  > /tmp/root-ca-cert.crt
         # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
         export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
     fi

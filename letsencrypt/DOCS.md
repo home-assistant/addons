@@ -235,7 +235,7 @@ if a renewal is due, and will request it if needed.
 <details>
   <summary>Changing the ACME Server</summary>
 
-By default, The addon uses Let’s Encrypt’s default server at <https://acme-v02.api.letsencrypt.org/>. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+By default, the addon uses Let’s Encrypt’s default server at <https://acme-v02.api.letsencrypt.org/>. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
 
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
@@ -250,6 +250,8 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
     MccBfTCCASugAwIBAgIRAPPIPTKNBXkBozsoE46UPZcwCGYIKoZIzj0EAwIwHTEb...kg==
     -----END CERTIFICATE-----
   ```
+
+When you specify a custom ACME server, the *Dry Run* and *Issue test certificates* options, which are intended [for use with the Let's Encrypt staging server](https://eff-certbot.readthedocs.io/en/stable/using.html#changing-the-acme-server), are automatically disregarded.
 
 </details>
 

@@ -9,6 +9,7 @@ WORK_DIR=/data/workdir
 ACME_ARGUMENTS=()
 KEY_ARGUMENTS=()
 EAB_ARGUMENTS=()
+ADDITIONAL_ARGS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
@@ -335,6 +336,16 @@ if bashio::config.has_value 'acme_server' ; then
 else
     # Relevant only for default Let's Encrypt servers.
     ACME_ARGUMENTS+=(--preferred-chain 'ISRG Root X1')
+    if [ "${DRY_RUN}" = "true" ]; then
+        ADDITIONAL_ARGS+=("--dry-run")
+    fi
+    if [ "${TEST_CERT}" = "true" ]; then
+        ADDITIONAL_ARGS+=("--test-cert")
+    fi
+fi
+
+if [ "${VERBOSE}" = "true" ]; then
+    ADDITIONAL_ARGS+=("-vvv")
 fi
 
 # Gather all domains into a plaintext file
@@ -384,18 +395,6 @@ fi
 if bashio::config.has_value 'eab_kid' ; then
     bashio::config.require 'eab_hmac_key'
     EAB_ARGUMENTS+=("--eab-kid" "${EAB_KID}" "--eab-hmac-key" "${EAB_HMAC_KEY}")
-fi
-
-# Define additional arguments based on configuration
-ADDITIONAL_ARGS=()
-if [ "${DRY_RUN}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--dry-run")
-fi
-if [ "${TEST_CERT}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--test-cert")
-fi
-if [ "${VERBOSE}" = "true" ]; then
-    ADDITIONAL_ARGS+=("-vvv")
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed

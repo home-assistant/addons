@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.7
+
+- Fix root certificate format when using custom ACME server
+
 ## 5.4.6
 
 - Fix custom ACME server for DNS challenge (fixes #1769)

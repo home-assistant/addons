@@ -9,6 +9,7 @@ WORK_DIR=/data/workdir
 ACME_ARGUMENTS=()
 KEY_ARGUMENTS=()
 EAB_ARGUMENTS=()
+ADDITIONAL_ARGS=()
 
 EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
@@ -328,13 +329,25 @@ if bashio::config.has_value 'acme_server' ; then
     ACME_ARGUMENTS+=("--server" "${ACME_SERVER}")
 
     if bashio::config.has_value 'acme_root_ca_cert'; then
-        echo "${ACME_ROOT_CA}" > /tmp/root-ca-cert.crt
+        # The value comes as a continuous string, but lines breaks around PEM
+        # headers and footers are required for the certificates to be parsed.
+        echo "${ACME_ROOT_CA}" | sed 's/----- /-----\n/g'  | sed 's/ -----/\n-----/g'  > /tmp/root-ca-cert.crt
         # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
         export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
     fi
 else
     # Relevant only for default Let's Encrypt servers.
     ACME_ARGUMENTS+=(--preferred-chain 'ISRG Root X1')
+    if [ "${DRY_RUN}" = "true" ]; then
+        ADDITIONAL_ARGS+=("--dry-run")
+    fi
+    if [ "${TEST_CERT}" = "true" ]; then
+        ADDITIONAL_ARGS+=("--test-cert")
+    fi
+fi
+
+if [ "${VERBOSE}" = "true" ]; then
+    ADDITIONAL_ARGS+=("-vvv")
 fi
 
 # Gather all domains into a plaintext file
@@ -384,18 +397,6 @@ fi
 if bashio::config.has_value 'eab_kid' ; then
     bashio::config.require 'eab_hmac_key'
     EAB_ARGUMENTS+=("--eab-kid" "${EAB_KID}" "--eab-hmac-key" "${EAB_HMAC_KEY}")
-fi
-
-# Define additional arguments based on configuration
-ADDITIONAL_ARGS=()
-if [ "${DRY_RUN}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--dry-run")
-fi
-if [ "${TEST_CERT}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--test-cert")
-fi
-if [ "${VERBOSE}" = "true" ]; then
-    ADDITIONAL_ARGS+=("-vvv")
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed

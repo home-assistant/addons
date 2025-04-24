@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.12.0
+
+### Features
+
+- Z-Wave JS: Add support for proprietary controller functionality
+
+### Bug fixes
+
+- Z-Wave JS: Fixed two issues that could cause commands to fail with "transmit queue full" errors
+
+### Config file changes
+
+- Add ZWA-2
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.1.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.0)
+- [Z-Wave JS 15.0.6](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.0.6)
+
 ## 0.11.0
 
 ### Breaking changes

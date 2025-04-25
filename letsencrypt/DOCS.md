@@ -235,7 +235,7 @@ if a renewal is due, and will request it if needed.
 <details>
   <summary>Changing the ACME Server</summary>
 
-By default, the addon uses Let’s Encrypt’s default server at <https://acme-v02.api.letsencrypt.org/>. You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+By default, the addon uses [Let’s Encrypt’s default servers](https://letsencrypt.org/getting-started/). You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
 
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
@@ -251,7 +251,7 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
     -----END CERTIFICATE-----
   ```
 
-When you specify a custom ACME server, the *Dry Run* and *Issue test certificates* options, which are intended [for use with the Let's Encrypt staging server](https://eff-certbot.readthedocs.io/en/stable/using.html#changing-the-acme-server), are automatically disregarded.
+When you specify a custom ACME server, the *Dry Run* and *Issue test certificates* options, which are intended for use with the [Let's Encrypt staging server](https://letsencrypt.org/docs/staging-environment/), are automatically disregarded.
 
 </details>
 
@@ -270,7 +270,7 @@ When you specify a custom ACME server, the *Dry Run* and *Issue test certificate
 
 <details>
   <summary>Selecting the ECDSA Elliptic Curve</summary>
-  
+
   You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
 
   ```yaml
@@ -467,7 +467,7 @@ API Users have full account access.  It is recommended to create an API Sub-user
   Navigate to "Token Management" and create a new one.
   It's good practice to restrict the token permissions as much as possible, e.g. by setting the maximum unused period to four months.
   This way, the token will expire if it is not continuously used to renew your certificate.
-  
+
   ```yaml
   email: your.email@example.com
   domains:

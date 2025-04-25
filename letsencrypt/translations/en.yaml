@@ -27,7 +27,7 @@ configuration:
     description: >-
       Only relevant with a custom ACME server using a certificate signed by an
       untrusted certificate authority (CA) that requires addition to the trust
-      store. Leave as is otherwise.
+      store.
   dns:
     name: DNS
     description: DNS Provider configuration

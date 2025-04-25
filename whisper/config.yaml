@@ -12,9 +12,9 @@ discovery:
   - wyoming
 backup_exclude:
   - "models*"
+  - "/data/addon_configs/*"
 map:
-  - type: addon_config
-    read_only: false
+  - addon_config:rw
 options:
   model: auto
   language: en

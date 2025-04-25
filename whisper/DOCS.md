@@ -86,7 +86,8 @@ See [this discussion](https://github.com/openai/whisper/discussions/963) for an 
 
 ## Backups
 
-Whisper model files can be quite large, so they are automatically excluded from backups. The models will be re-downloaded when the backup is restored.
+Whisper model files can be quite large, so they are automatically excluded from backups. The models will be re-downloaded when the backup is restored for a remote model.
+If you're using a local custom Whisper model, you will need to manually copy the model directory again after restoring a backup.
 
 ## Support
 

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.12.1
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where some controllers could lock up when retrying a command to an unresponsive node
+- Z-Wave JS: Several fixes for legacy Multi Channel devices
+
+### Config file changes
+
+- Add fingerprint for FortrezZ LLC SSA1/SSA2
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.1.3](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.3)
+- [Z-Wave JS 15.1.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.2)
+- [Z-Wave JS 15.1.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.1.1)
+
 ## 0.12.0
 
 ### Features

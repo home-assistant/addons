@@ -1,5 +1,5 @@
 ---
-version: 5.4.7
+version: 5.4.8
 breaking_versions: [5.3.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -18,9 +18,6 @@ map:
   - ssl:rw
   - share
 options:
-  domains:
-    - null
-  email: null
   keyfile: privkey.pem
   certfile: fullchain.pem
   challenge: http
@@ -34,15 +31,6 @@ schema:
   keyfile: str
   certfile: str
   challenge: list(dns|http)
-  acme_root_ca_cert: str?
-  acme_server: url?
-  eab_kid: str?
-  eab_hmac_key: str?
-  key_type: list(ecdsa|rsa)?
-  elliptic_curve: list(secp256r1|secp384r1)?
-  dry_run: bool?
-  test_cert: bool?
-  verbose: bool?
   dns:
     # Developer note: please add a new plugin alphabetically into all lists
     aws_access_key_id: str?
@@ -177,4 +165,13 @@ schema:
     transip_username: str?
     websupport_identifier: str?
     websupport_secret_key: str?
+  key_type: list(ecdsa|rsa)?
+  elliptic_curve: list(secp256r1|secp384r1)?
+  acme_server: url?
+  acme_root_ca_cert: str?
+  verbose: bool?
+  dry_run: bool?
+  test_cert: bool?
+  eab_kid: str?
+  eab_hmac_key: str?
 startup: once

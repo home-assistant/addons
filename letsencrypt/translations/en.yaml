@@ -17,18 +17,17 @@ configuration:
   challenge:
     name: Challenge
     description: The type of challenge used to validate the domain.
+  acme_server:
+    name: Custom ACME Server
+    description: >-
+      By default, this add-on uses Let's Encrypt's servers. However, you can
+      specify a different ACME server.
   acme_root_ca_cert:
     name: ACME Root CA Certificate
     description: >-
-      If your custom ACME server uses a certificate signed by an untrusted
-      certificate authority (CA), you can add the root certificate to the trust
-      store by setting its content.
-  acme_server:
-    name: ACME Server
-    description: >-
-      By default, The addon uses Let's Encrypt's default server at
-      https://acme-v02.api.letsencrypt.org/. You can instruct the addon to use a
-      different ACME server.
+      Only relevant with a custom ACME server using a certificate signed by an
+      untrusted certificate authority (CA) that requires addition to the trust
+      store.
   dns:
     name: DNS
     description: DNS Provider configuration
@@ -45,11 +44,13 @@ configuration:
   dry_run:
     name: Dry Run
     description: >-
-      Do a certbot dry-run for requesting the certificates.
+      Do a certbot dry-run for requesting the certificates from Let's Encrypt.
+      This is ignored if a custom server is used.
   test_cert:
     name: Issue test certificates
     description: >-
-      Obtain a test certificate from a staging server.
+      Obtain a test certificate from Let's Encrypt staging server.
+      This is ignored if a custom server is used.
   verbose:
     name: Verbose Mode
     description: >-

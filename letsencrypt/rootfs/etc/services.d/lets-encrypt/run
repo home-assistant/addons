@@ -18,7 +18,7 @@ CERTFILE=$(bashio::config 'certfile')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 ACME_SERVER=$(bashio::config 'acme_server')
-ACME_ROOT_CA=$(bashio::config 'acme_root_ca_cert')
+ACME_ROOT_CA_CERT=$(bashio::config 'acme_root_ca_cert')
 EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 DRY_RUN=$(bashio::config 'dry_run')
@@ -325,15 +325,16 @@ else
     ACME_ARGUMENTS+=("--standalone")
 fi
 
-if bashio::config.has_value 'acme_server' ; then
+if bashio::config.has_value 'acme_server'; then
     ACME_ARGUMENTS+=("--server" "${ACME_SERVER}")
-
     if bashio::config.has_value 'acme_root_ca_cert'; then
-        # The value comes as a continuous string, but lines breaks around PEM
-        # headers and footers are required for the certificates to be parsed.
-        echo "${ACME_ROOT_CA}" | sed 's/----- /-----\n/g'  | sed 's/ -----/\n-----/g'  > /tmp/root-ca-cert.crt
-        # Certbot will automatically open the filepath contained in REQUESTS_CA_BUNDLE for extra CA cert
-        export REQUESTS_CA_BUNDLE=/tmp/root-ca-cert.crt
+        bashio::log.info "Updating the trust store by adding the provided custom root certificate"
+        # Address potential header and footer errors from YAML mutiline configuration.
+        # Check the certificate and import it in the local trust store.
+        echo "${ACME_ROOT_CA_CERT}" \
+          | sed 's/----- /-----\n/g' | sed 's/ -----/\n-----/g' \
+          | openssl x509  > /usr/local/share/ca-certificates/acme_root_ca.crt \
+          && update-ca-certificates --fresh
     fi
 else
     # Relevant only for default Let's Encrypt servers.

@@ -30,8 +30,9 @@ configuration:
   apple_compatibility_mode:
     name: Enable Compatibility Settings for Apple Devices
     description: >-
-      Enable Samba configurations to improve interoperability with Apple devices.
-      May cause issues with file systems that do not support xattr such as exFAT.
+      Enable Samba configurations to improve interoperability with Apple
+      devices. May cause issues with file systems that do not support xattr
+      such as exFAT.
   veto_files:
     name: Veto Files
     description: List of files that are neither visible nor accessible.

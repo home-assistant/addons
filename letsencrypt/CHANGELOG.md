@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.9
+
+- Fix pending issue in 5.4.8 with trust store when using a custom ACME server
+
 ## 5.4.8
 
 - Further improve root certificate handling when using a custom ACME server

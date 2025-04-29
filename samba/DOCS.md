@@ -100,6 +100,13 @@ when you absolutely need it and understand the possible consequences.
 
 Defaults to `false`.
 
+### Option: `apple_compatibility_mode`
+
+Enable Samba configurations to improve interoperability with Apple devices.
+This can cause issues with file systems that do not support xattr such as exFAT.
+
+Defaults to `true`.
+
 ## Support
 
 Got questions?

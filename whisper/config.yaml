@@ -12,7 +12,6 @@ discovery:
   - wyoming
 backup_exclude:
   - "models*"
-  - "/data/addon_configs/*"
 map:
   - addon_config:rw
 options:

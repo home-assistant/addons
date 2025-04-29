@@ -67,10 +67,10 @@ Available models:
 ### Option: `custom_model`
 
 Path to a converted model directory, or a CTranslate2-converted Whisper model ID from the HuggingFace Hub like "Systran/faster-distil-whisper-small.en". 
-To use a local custom Whisper model, copy your model directory into the add-on's configuration directory on your Home Assistant instance:
-`/addon_configs/core_whisper/<your-model-dir>`.
+To use a local custom Whisper model, first create a `models` subdirectory in the add-on's configuration directory if it does not already exist. Then copy your model directory into:
+`/addon_configs/core_whisper/models/<your-model-dir>`.
 Then, set the `custom_model` path to:
-`/config/<your-model-dir>`. For a local model, the path must start with `/config/`, as this is how the add-on accesses your Home Assistant configuration directory through the container's mounted volume.
+`/config/models/<your-model-dir>`. For a local model, the path must start with `/config/models/`, as this is how the add-on accesses your Home Assistant configuration directory through the container's mounted volume.
 
 ### Option: `beam_size`
 

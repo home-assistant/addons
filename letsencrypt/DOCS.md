@@ -251,6 +251,9 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
     -----END CERTIFICATE-----
   ```
 
+When you use the UI config flow, the "ACME Root CA Certificate" must be formatted as:   
+-----BEGIN CERTIFICATE-----(SPACE)(KEY value all on one line)(space)-----END CERTIFICATE-----
+
 When you specify a custom ACME server, the *Dry Run* and *Issue test certificates* options, which are intended for use with the [Let's Encrypt staging server](https://letsencrypt.org/docs/staging-environment/), are automatically disregarded.
 
 </details>

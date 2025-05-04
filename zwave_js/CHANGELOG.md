@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.0
+
+### Features
+
+- Add radio frequency region option to the add-on.
+
 ## 0.13.1
 
 ### Bug fixes

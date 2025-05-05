@@ -39,7 +39,21 @@ schema:
   log_level: list(silly|debug|verbose|http|info|warn|error)?
   log_to_file: bool?
   log_max_files: int(1,)?
-  rf_region: list(Automatic|Australia/New Zealand|China|Default (EU)|Europe|Europe (Long Range)|Hong Kong|India|Israel|Japan|Korea|Russia|USA|USA (Long Range))?
+  rf_region: "list(\
+    Automatic|\
+    Australia/New Zealand|\
+    China|\
+    Default (EU)|\
+    Europe|\
+    Europe (Long Range)|\
+    Hong Kong|\
+    India|\
+    Israel|\
+    Japan|\
+    Korea|\
+    Russia|\
+    USA|\
+    USA (Long Range))?"
   soft_reset: list(Automatic|Enabled|Disabled)?
   s0_legacy_key: match(|[0-9a-fA-F]{32,32})?
   s2_access_control_key: match(|[0-9a-fA-F]{32,32})?

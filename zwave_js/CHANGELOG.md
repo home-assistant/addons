@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.13.0
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where incorrect device info for the controller was exposed until restarting after migration from different hardware
+- Z-Wave JS Server: Support omitting optional data while restoring NVM backups
+
+### Config file changes
+
+- Add Ness Smart Plug ZA-216001
+- Add fingerprint for FortrezZ LLC SSA1/SSA2
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.0.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.0.1)
+- [Z-Wave JS 15.3.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.3.0)
+- [Z-Wave JS 15.2.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.2.1)
+- [Z-Wave JS 15.2.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.2.0)
+
 ## 0.12.1
 
 ### Bug fixes

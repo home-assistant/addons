@@ -15,6 +15,7 @@ declare flush_to_disk
 declare host_chassis
 declare rf_region
 declare rf_region_integer
+declare rf_region_json
 declare soft_reset
 declare presets_array
 declare presets
@@ -380,12 +381,19 @@ fi
 
 if bashio::config.equals 'rf_region' 'Automatic'; then
     rf_region=${country_rf_region_map[$(bashio::supervisor.country)]}
-    bashio::log.info "Region set to Automatic"
-    bashio::log.info "Setting rf_region to (${rf_region})"
+    bashio::log.info "rf region set to Automatic"
 else
     rf_region=$(bashio::config 'rf_region')
 fi
 rf_region_integer=${rf_region_integer_map["${rf_region}"]}
+
+if [[ "${rf_region_integer}" -eq 255 ]]; then
+    rf_region_json="{}"
+    bashio::log.info "Using default rf region settings"
+else
+    rf_region_json=$(jq -n --argjson region "${rf_region_integer}" '{ region: $region }')
+    bashio::log.info "Setting rf region to (${rf_region})"
+fi
 
 host_chassis=$(bashio::host.chassis)
 
@@ -450,7 +458,7 @@ bashio::var.json \
     log_level "${log_level}" \
     log_to_file "${log_to_file}" \
     log_max_files "${log_max_files}" \
-    rf_region "${rf_region_integer}" \
+    rf_region "${rf_region_json}" \
     soft_reset "^${soft_reset}" \
     presets "${presets}" |
     tempio \

@@ -171,7 +171,6 @@ Valid options are:
 - Automatic
 - Australia/New Zealand
 - China
-- Default (EU)
 - Europe
 - Europe (Long Range)
 - Hong Kong

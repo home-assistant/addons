@@ -292,7 +292,6 @@ declare -A rf_region_integer_map=(
     ["Europe (Long Range)"]=11
     ["Japan"]=32
     ["Korea"]=33
-    ["Unknown"]=254
     ["Default (EU)"]=255
 )
 
@@ -381,7 +380,7 @@ fi
 
 if bashio::config.equals 'rf_region' 'Automatic'; then
     rf_region=${country_rf_region_map[$(bashio::supervisor.country)]}
-    bashio::log.info "rf region set to Automatic"
+    bashio::log.info "RF region set to Automatic"
 else
     rf_region=$(bashio::config 'rf_region')
 fi
@@ -389,10 +388,10 @@ rf_region_integer=${rf_region_integer_map["${rf_region}"]}
 
 if [[ "${rf_region_integer}" -eq 255 ]]; then
     rf_region_json="{}"
-    bashio::log.info "Using default rf region settings"
+    bashio::log.info "Using default RF region settings"
 else
     rf_region_json=$(jq -n --argjson region "${rf_region_integer}" '{ region: $region }')
-    bashio::log.info "Setting rf region to (${rf_region})"
+    bashio::log.info "Setting RF region to (${rf_region})"
 fi
 
 host_chassis=$(bashio::host.chassis)

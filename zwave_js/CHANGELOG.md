@@ -2,6 +2,9 @@
 
 ## 0.14.0
 
+### Breaking changes
+- Version 0.14.0 of the add-on requires version 2025.5.0 or higher of Home Assistant Core.
+
 ### Features
 
 - Add radio frequency region option to the add-on.

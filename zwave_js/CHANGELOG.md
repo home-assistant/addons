@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.13.1
+
+### Bug fixes
+
+- Z-Wave JS Server: Fix to reuse the driver's ConfigManager instance instead of creating a new one
+- Z-Wave JS: Fixed a regression from v15 where command delivery verification wouldn't work on S2-capable devices without Supervision
+- Z-Wave JS: Fixed an issue where some CCs could be missing when Z-Wave JS was bundled
+
+### Config file changes
+
+- Disallow manual entry for param 3 on Zooz ZSE70
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.0.2](https://github.com/zwave-js/zwave-js-server/releases/tag/3.0.2)
+- [Z-Wave JS 15.3.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.3.2)
+- [Z-Wave JS 15.3.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.3.1)
+
 ## 0.13.0
 
 ### Bug fixes

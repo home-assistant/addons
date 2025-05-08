@@ -1,5 +1,8 @@
 # Changelog
 
+## 12.5.2
+- Add an option to choose which icon appears for server on macOS Finder.
+
 ## 12.5.1
 
 - Add configurations option to disable Apple devices interoperability. Disabling this setting might be required for file systems that do not support extended attributes such as exFAT.

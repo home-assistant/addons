@@ -13,7 +13,6 @@ RUN \
     && pip3 install \
         --no-cache-dir \
         --prefer-binary \
-        --find-links "https://wheels.home-assistant.io/musllinux/${BUILD_ARCH}/" \
         universal-silabs-flasher=="${UNIVERSAL_SILABS_FLASHER}"
 
 COPY rootfs /

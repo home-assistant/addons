@@ -29,6 +29,8 @@
    
    {{ if .apple_compatibility_mode }}
    vfs objects = catia fruit streams_xattr
+   fruit:aapl = yes
+   fruit:model = {{ .apple_model }}
    {{ end }}
 
 {{ if (has "config" .enabled_shares) }}

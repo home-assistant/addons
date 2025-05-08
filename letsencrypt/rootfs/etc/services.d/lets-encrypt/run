@@ -331,10 +331,13 @@ if bashio::config.has_value 'acme_server'; then
         bashio::log.info "Updating the trust store by adding the provided custom root certificate"
         # Address potential header and footer errors from YAML mutiline configuration.
         # Check the certificate and import it in the local trust store.
+        # Certbot relies on the Requests Python library, which uses a built-in
+        # trust store. This is replaced by the updated local trust store.
         echo "${ACME_ROOT_CA_CERT}" \
           | sed 's/----- /-----\n/g' | sed 's/ -----/\n-----/g' \
           | openssl x509  > /usr/local/share/ca-certificates/acme_root_ca.crt \
-          && update-ca-certificates --fresh
+          && update-ca-certificates --fresh \
+          && export REQUESTS_CA_BUNDLE=/etc/ssl/cert.pem
     fi
 else
     # Relevant only for default Let's Encrypt servers.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.5.1
+
+- Update mosquitto to version 2.0.21
+
 ## 6.5.0
 
 - Update base image to Debian 12 (bookworm)
@@ -25,7 +29,7 @@
 
 ## 6.2.1
 
-- Add explicit dependencies for dynamic security plugin and asynchronous name resolver 
+- Add explicit dependencies for dynamic security plugin and asynchronous name resolver
 
 ## 6.2.0
 
@@ -52,7 +56,7 @@
 
 Note: Mosquitto 2.0.0 did contain some breaking changes. We don't anticipate
 most users to be affected by them but if you have a heavily customized mosquitto
-config we would advise reviewing [their changelog](https://mosquitto.org/ChangeLog.txt). 
+config we would advise reviewing [their changelog](https://mosquitto.org/ChangeLog.txt).
 
 ## 6.0.2
 

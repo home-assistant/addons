@@ -11,9 +11,6 @@ set -e
 declare device
 declare bootloader_baudrate
 declare verbose
-declare usb_device_path
-declare usb_manufacturer
-declare usb_product
 declare gpio_reset_flag
 declare exit_status
 

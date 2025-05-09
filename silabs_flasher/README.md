@@ -1,13 +1,17 @@
 # Home Assistant Add-on: Silicon Labs Flasher Add-on
 
-Silicon Labs Flasher add-on to flash Silicon Labs based radios.
+> [!NOTE]
+> Firmware updates for the on-board radio of Home Assistant Yellow and Home
+> Assistant ZBT-1 are handled by Home Assistant Core itself. There is no need
+> for this add-on for regular firmware updates.
 
-By default this add-on flashes the firmware to use Zigbee (Silicon
-Labs EmberZNet Zigbee stack).
+Silicon Labs Flasher add-on to flash Silicon Labs based radios from a provided
+firmware URL.
 
-**NOTE:** Make sure no other add-on or integration is using the radio. In
-particular disable the Zigbee Home Automation integration and the Silicon Labs
-Multiprotocol add-on.
+> [!CAUTION]
+> Make sure no other add-on or integration is using the radio. In
+> particular disable the Zigbee Home Automation integration and the Silicon Labs
+> Multiprotocol add-on.
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]

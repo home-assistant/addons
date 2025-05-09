@@ -8,10 +8,8 @@
 set -e
 
 # shellcheck disable=SC2034
-declare autoflash_firmware
 declare device
 declare bootloader_baudrate
-declare firmware
 declare verbose
 declare usb_device_path
 declare usb_manufacturer
@@ -27,11 +25,6 @@ function cleanup() {
     /run/s6/basedir/bin/halt
 }
 trap cleanup EXIT
-
-function exit_no_firmware {
-    bashio::log.warning "No firmware found for the selected device, assuming firmware is installed."
-    exit 0
-}
 
 # Function to check if the device is Home Assistant Yellow
 function is_home_assistant_yellow {
@@ -63,45 +56,15 @@ else
     gpio_reset_flag=""
 fi
 
-if bashio::config.has_value 'firmware_url'; then
-    curl --silent -L -o "/root/firmware.gbl" "$(bashio::config 'firmware_url')"
-    if [ ! -f "/root/firmware.gbl" ]; then
-        bashio::log.warning "Downloading firmware failed"
-        exit 0
-    fi
+if ! bashio::config.has_value 'firmware_url'; then
+    bashio::log.warning "No firmware URL passed."
+    exit 0
+fi
 
-    firmware="firmware.gbl"
-else
-    # Assume to run on Yellow if UART4 is mapped to ttyAMA1
-    if is_home_assistant_yellow; then
-        firmware="yellow_zigbee_ncp_7.4.4.0.gbl"
-    else
-        # Check device manufacturer/product information
-        # shellcheck disable=SC2046,SC2086
-        usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}) | sed 's:/[^/]*tty[^/]*::g' )/../)
-        if [ ! -f "${usb_device_path}/idProduct" ]; then
-            bashio::log.info "The selected serial port is not a USB device."
-            exit_no_firmware
-        fi
-
-        if [ ! -f "${usb_device_path}/manufacturer" ] || [ ! -f "${usb_device_path}/product" ]; then
-            bashio::log.info "USB device is missing manufacturer or product name."
-            exit_no_firmware
-        fi
-
-        usb_manufacturer=$(cat "${usb_device_path}/manufacturer")
-        usb_product=$(cat "${usb_device_path}/product")
-
-        bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}."
-        if [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "SkyConnect"* ]]; then
-            firmware="skyconnect_zigbee_ncp_7.4.4.0.gbl"
-        elif [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "Home Assistant Connect ZBT-1"* ]]; then
-            firmware="skyconnect_zigbee_ncp_7.4.4.0.gbl"
-        else
-            exit_no_firmware
-        fi
-        gpio_reset_flag=""
-    fi
+curl --silent -L -o "/root/firmware.gbl" "$(bashio::config 'firmware_url')"
+if [ ! -f "/root/firmware.gbl" ]; then
+    bashio::log.warning "Downloading firmware failed"
+    exit 0
 fi
 
 verbose=""
@@ -116,6 +79,6 @@ universal-silabs-flasher \
     --device ${device} \
     --bootloader-baudrate "${bootloader_baudrate}" \
     ${gpio_reset_flag} \
-    flash --force --firmware "/root/${firmware}"
+    flash --force --firmware "/root/firmware.gbl"
 
 

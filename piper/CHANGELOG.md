@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.4
+
+- Add voices for Dutch: ronnie, pim
+- Add voice for English: sam
+- Add voice for Persian/English: reza_ibrahim
+- Add voice for Persian: ganji
+- Add voices for Portuguese (Brazilian): cadu, jeff
+
 ## 1.5.2
 
 - Add missing voices supported by Piper (gwryw_gogleddol, bryce, john, norman and paola)

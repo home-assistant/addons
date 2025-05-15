@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.0.0
+
+- Bump Python Matter Server to [8.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/8.0.0)
+
 ## 7.0.0
 
 - Bump Python Matter Server to [7.0.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/7.0.1)

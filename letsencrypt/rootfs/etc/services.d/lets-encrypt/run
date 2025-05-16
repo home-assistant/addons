@@ -356,12 +356,11 @@ if [ "${VERBOSE}" = "true" ]; then
     ADDITIONAL_ARGS+=("-vvv")
 fi
 
-# Gather all domains into a plaintext file
 DOMAIN_ARR=()
 for line in $DOMAINS; do
+    [ -z "$line" ] && continue
     DOMAIN_ARR+=(-d "$line")
 done
-echo "$DOMAINS" > /data/domains.gen
 
 # Key detection or manual ECDSA/RSA selection
 if bashio::config.exists 'key_type'; then
@@ -406,7 +405,7 @@ if bashio::config.has_value 'eab_kid' ; then
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
-certbot certonly --non-interactive --keep-until-expiring --expand \
+certbot certonly --non-interactive --keep-until-expiring \
     --email "$EMAIL" --agree-tos \
     "${KEY_ARGUMENTS[@]}" \
     "${ADDITIONAL_ARGS[@]}" \

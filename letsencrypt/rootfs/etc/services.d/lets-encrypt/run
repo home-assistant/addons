@@ -326,7 +326,9 @@ else
     ACME_ARGUMENTS+=("--standalone")
 fi
 
+ACME_SERVER=${ACME_SERVER:+https://acme-v02.api.letsencrypt.org/directory}
 if bashio::config.has_value 'acme_server'; then
+    DRY_RUN="false"
     ACME_ARGUMENTS+=("--server" "${ACME_SERVER}")
     if bashio::config.has_value 'acme_root_ca_cert'; then
         bashio::log.info "Updating the trust store by adding the provided custom root certificate"
@@ -345,11 +347,14 @@ if bashio::config.has_value 'acme_server'; then
 else
     # Relevant only for default Let's Encrypt servers.
     ACME_ARGUMENTS+=(--preferred-chain 'ISRG Root X1')
-    if [ "${DRY_RUN}" = "true" ]; then
-        ADDITIONAL_ARGS+=("--dry-run")
-    fi
-    if [ "${TEST_CERT}" = "true" ]; then
-        ADDITIONAL_ARGS+=("--test-cert")
+    if [ "${DRY_RUN}" = "true" ] || [ "${TEST_CERT}" = "true" ]; then
+        ACME_SERVER='https://acme-staging-v02.api.letsencrypt.org/directory'
+        ADDITIONAL_ARGS+=("--break-my-certs")
+        if [ "${DRY_RUN}" = "true" ]; then
+            ADDITIONAL_ARGS+=("--dry-run")
+        else
+            ADDITIONAL_ARGS+=("--test-cert")
+        fi
     fi
 fi
 
@@ -362,6 +367,18 @@ for line in $DOMAINS; do
     [ -z "$line" ] && continue
     DOMAIN_ARR+=(-d "$line")
 done
+
+renewal_policy='--keep-until-expiring'
+domain_config="$CERT_DIR"/renewal/$(certbot certificates --config-dir "$CERT_DIR" \
+    --work-dir "$WORK_DIR" --cert-name "${DOMAIN_ARR[1]}" \
+    | grep "Private Key Path" | cut -d'/' -f5).conf
+if [ -f "$domain_config" ]; then
+    previous_server=$(grep server "$domain_config" | cut -d' ' -f 3)
+    if [ "$ACME_SERVER" != "$previous_server" ]; then
+        renewal_policy='--force-renewal'
+    fi
+fi
+ADDITIONAL_ARGS+=("$renewal_policy")
 
 # Use key type set in configuration
 if [ "${KEY_TYPE%%-*}" == "rsa" ]; then
@@ -378,18 +395,24 @@ if bashio::config.has_value 'eab_kid' ; then
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
-certbot certonly --non-interactive --keep-until-expiring \
-    --email "$EMAIL" --agree-tos \
-    "${KEY_ARGUMENTS[@]}" \
-    "${ADDITIONAL_ARGS[@]}" \
-    --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
-    --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-    --preferred-challenges "$CHALLENGE" \
-    "${ACME_ARGUMENTS[@]}" \
-    "${EAB_ARGUMENTS[@]}"
-
-# Get the last modified cert directory and copy the cert and private key to store
-# shellcheck disable=SC2012
-CERT_DIR_LATEST="$(ls -td $CERT_DIR/live/*/ | head -1)"
-cp "${CERT_DIR_LATEST}privkey.pem" "/ssl/$KEYFILE"
-cp "${CERT_DIR_LATEST}fullchain.pem" "/ssl/$CERTFILE"
+if certbot certonly --non-interactive \
+      --email "$EMAIL" --agree-tos \
+      "${KEY_ARGUMENTS[@]}" \
+      "${ADDITIONAL_ARGS[@]}" \
+      --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
+      --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+      --preferred-challenges "$CHALLENGE" \
+      "${ACME_ARGUMENTS[@]}" \
+      "${EAB_ARGUMENTS[@]}" \
+      && [ "${DRY_RUN}" != "true" ]; then
+    certificate_path=$(certbot certificates --config-dir "$CERT_DIR" \
+        --work-dir "$WORK_DIR" --cert-name "${DOMAIN_ARR[1]}" \
+        | grep 'Certificate Path' | cut -d':' -f2)
+    private_key_path=$(certbot certificates --config-dir "$CERT_DIR" \
+        --work-dir "$WORK_DIR" --cert-name "${DOMAIN_ARR[1]}" \
+        | grep 'Private Key Path' | cut -d':' -f2)
+    if [ -f "$certificate_path" ] && [ -f "$private_key_path" ]; then
+        cp "$certificate_path" "/ssl/$CERTFILE"
+        cp "$private_key_path" "/ssl/$KEYFILE"
+    fi
+fi

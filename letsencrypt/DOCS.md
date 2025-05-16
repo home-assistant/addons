@@ -251,6 +251,8 @@ If your custom ACME server uses a certificate signed by an untrusted certificate
     -----END CERTIFICATE-----
   ```
 
+The certificate is expected to be in PEM format. This format includes a header and footer on separate lines, enclosing a base64-encoded content block, where each line is 64 characters long. However, to improve usability, whitespace characters and line length are normalised before processing. This addresses difficulties in viewing the certificate in the user interface and avoids issues with automatic line wrapping in the YAML multiline configuration.
+
 When you specify a custom ACME server, the *Dry Run* and *Issue test certificates* options, which are intended for use with the [Let's Encrypt staging server](https://letsencrypt.org/docs/staging-environment/), are automatically disregarded.
 
 </details>

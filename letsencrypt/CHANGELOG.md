@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.5.0
+
+- Enable seamless Staging and Production environment transitions (#3781)
+- Expose all key algorithms supported by Let's Encrypt (Breaking Change)
+  - Configuration of `key_type` (new enum) and `elliptic_curve` (deleted)
+    must be updated.
+- Consolidated domain list handling for Certbot (#4021)
+- Generalize whitespace normalization of root certificate (#4007)
+
 ## 5.4.9
 
 - Fix pending issue in 5.4.8 with trust store when using a custom ACME server

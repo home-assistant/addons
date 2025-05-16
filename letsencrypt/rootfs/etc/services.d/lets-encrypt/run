@@ -15,6 +15,7 @@ EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
+KEY_TYPE=$(bashio::config 'key_type')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 ACME_SERVER=$(bashio::config 'acme_server')
@@ -362,41 +363,13 @@ for line in $DOMAINS; do
     DOMAIN_ARR+=(-d "$line")
 done
 
-# Key detection or manual ECDSA/RSA selection
-if bashio::config.exists 'key_type'; then
-    # Use key type set in configuration
-    KEY_TYPE=$(bashio::config 'key_type')
-    KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
-    if [ "${KEY_TYPE}" == "ecdsa" ]; then
-        if bashio::config.exists 'elliptic_curve'; then
-            ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
-            KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
-        else
-            KEY_ARGUMENTS+=("--elliptic-curve" "secp384r1")
-        fi
-    fi
+# Use key type set in configuration
+if [ "${KEY_TYPE%%-*}" == "rsa" ]; then
+    KEY_ARGUMENTS+=("--rsa-key-size")
 else
-    bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
-    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR")
-    for output in "${CBCERTS[@]}"; do
-        # shellcheck disable=SC2076
-        if [[ $output =~ "No certificates found." ]]; then
-            bashio::log.info "No certificate found - using 'ecdsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "ecdsa")
-            break
-        fi
-        if [[ $output =~ "Key Type: RSA" ]]; then
-            bashio::log.info "Existing certificate using 'rsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "rsa")
-            break
-        fi
-        if [[ $output =~ "Key Type: ECDSA" ]]; then
-            bashio::log.info "Existing certificate using 'ecdsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "ecdsa")
-            break
-        fi
-    done
+    KEY_ARGUMENTS+=("--elliptic-curve")
 fi
+KEY_ARGUMENTS+=("${KEY_TYPE##*-}")
 
 # Set External Account Binding
 if bashio::config.has_value 'eab_kid' ; then

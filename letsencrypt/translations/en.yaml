@@ -14,6 +14,10 @@ configuration:
   certfile:
     name: Certificate File
     description: Path to where the Certificate File will be placed.
+  key_type:
+    name: Key Type
+    description: >-
+      Select the certificate key type.
   challenge:
     name: Challenge
     description: The type of challenge used to validate the domain.
@@ -31,16 +35,6 @@ configuration:
   dns:
     name: DNS
     description: DNS Provider configuration
-  key_type:
-    name: Key Type
-    description: >-
-      Select the certificate key type. If unset, will auto-detect based on
-      the key type of the existing certificate or default to ecdsa.
-  elliptic_curve:
-    name: Elliptic Curve
-    description: >-
-      Elliptic curve for ECDSA keys. This option must be used with Key Type
-      set to ECDSA. If unset the Certbot default will be used.
   dry_run:
     name: Dry Run
     description: >-

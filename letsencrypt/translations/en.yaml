@@ -35,19 +35,20 @@ configuration:
   dns:
     name: DNS
     description: DNS Provider configuration
-  dry_run:
-    name: Dry Run
-    description: >-
-      Do a certbot dry-run for requesting the certificates from Let's Encrypt.
-      This is ignored if a custom server is used.
   test_cert:
     name: Issue test certificates
     description: >-
       Obtain a test certificate from Let's Encrypt staging server.
       This is ignored if a custom server is used.
+  dry_run:
+    name: Dry Run
+    description: >-
+      Obtain a test certificate from Let's Encrypt staging server, but not
+      saving them.
+      This is ignored if a custom server is used.
   verbose:
     name: Verbose Mode
     description: >-
-      Run certbot in verbose mode.
+      Run Certbot in verbose mode.
 network:
   80/tcp: Only needed for http challenge

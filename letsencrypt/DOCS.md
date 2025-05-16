@@ -260,27 +260,11 @@ When you specify a custom ACME server, the *Dry Run* and *Issue test certificate
 <details>
   <summary>Selecting the Key Type</summary>
 
-  By default the ECDSA key type is used. You can choose to use an RSA key for compatibility with systems where ECDSA keys are not supported. ECDSA is widely supported in modern software with security and performance benefits.
+Let's Encrypt [issues certificates using either RSA or ECDSA keys](https://letsencrypt.org/docs/integration-guide/#supported-key-algorithms). For RSA, they support key lengths of 2048, 3072, and 4096 bits. When using ECDSA, the supported elliptic curves are P-256 and P-384. By default, Let's Encrypt uses ECDSA with the P-256 curve. You can specify a different key type or curve using the following options: `ecdsa-secp256r1`, `ecdsa-secp384r1`, `rsa-2048`, `rsa-3072`, or `rsa-4096`.
 
   ```yaml
-  key_type: 'rsa'
+  key_type: 'rsa-2048'
   ```
-
-  When the `key_type` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
-
-</details>
-
-<details>
-  <summary>Selecting the ECDSA Elliptic Curve</summary>
-
-  You can choose from the following ECDSA elliptic curves: `secp256r1`, `secp384r1`
-
-  ```yaml
-  key_type: 'ecdsa'
-  elliptic_curve: 'secp384r1'
-  ```
-
-  When the `elliptic_curve` parameter is not set, ECDSA keys will be generated using the Certbot default. This option must be used with `key_type` set to `'ecdsa'`.
 
 </details>
 
@@ -344,7 +328,7 @@ into the *DNS Provider configuration* field.
     - your.domain.tld
   certfile: fullchain.pem
   keyfile: privkey.pem
-  key_type: rsa
+  key_type: 'rsa-2048'
   challenge: dns
   dns:
     provider: dns-cloudflare

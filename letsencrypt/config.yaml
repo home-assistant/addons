@@ -20,6 +20,7 @@ map:
 options:
   keyfile: privkey.pem
   certfile: fullchain.pem
+  key_type: 'ecdsa-secp256r1'
   challenge: http
   dns: {}
 ports:
@@ -165,8 +166,7 @@ schema:
     transip_username: str?
     websupport_identifier: str?
     websupport_secret_key: str?
-  key_type: list(ecdsa|rsa)?
-  elliptic_curve: list(secp256r1|secp384r1)?
+  key_type: list(ecdsa-secp256r1|ecdsa-secp384r1|rsa-2048|rsa-3072|rsa-4096)
   acme_server: url?
   acme_root_ca_cert: str?
   verbose: bool?

@@ -356,12 +356,10 @@ if [ "${VERBOSE}" = "true" ]; then
     ADDITIONAL_ARGS+=("-vvv")
 fi
 
-# Gather all domains into a plaintext file
 DOMAIN_ARR=()
 for line in $DOMAINS; do
     DOMAIN_ARR+=(-d "$line")
 done
-echo "$DOMAINS" > /data/domains.gen
 
 # Key detection or manual ECDSA/RSA selection
 if bashio::config.exists 'key_type'; then
@@ -377,8 +375,8 @@ if bashio::config.exists 'key_type'; then
         fi
     fi
 else
-    bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
-    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR")
+    bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[0]}"
+    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[0]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR")
     for output in "${CBCERTS[@]}"; do
         # shellcheck disable=SC2076
         if [[ $output =~ "No certificates found." ]]; then
@@ -406,11 +404,12 @@ if bashio::config.has_value 'eab_kid' ; then
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
-certbot certonly --non-interactive --keep-until-expiring --expand \
+DOMAIN_STR=${DOMAIN_ARR[*]}
+certbot certonly --non-interactive --keep-until-expiring \
     --email "$EMAIL" --agree-tos \
     "${KEY_ARGUMENTS[@]}" \
     "${ADDITIONAL_ARGS[@]}" \
-    --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
+    --cert-name "${DOMAIN_ARR[0]}" --domains "${DOMAIN_STR//${IFS:0:1}/,}" \
     --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
     --preferred-challenges "$CHALLENGE" \
     "${ACME_ARGUMENTS[@]}" \

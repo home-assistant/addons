@@ -15,6 +15,7 @@ EMAIL=$(bashio::config 'email')
 DOMAINS=$(bashio::config 'domains')
 KEYFILE=$(bashio::config 'keyfile')
 CERTFILE=$(bashio::config 'certfile')
+KEY_TYPE=$(bashio::config 'key_type')
 CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 ACME_SERVER=$(bashio::config 'acme_server')
@@ -325,16 +326,20 @@ else
     ACME_ARGUMENTS+=("--standalone")
 fi
 
+ACME_SERVER=${ACME_SERVER:-https://acme-v02.api.letsencrypt.org/directory}
 if bashio::config.has_value 'acme_server'; then
+    DRY_RUN="false"
     ACME_ARGUMENTS+=("--server" "${ACME_SERVER}")
     if bashio::config.has_value 'acme_root_ca_cert'; then
         bashio::log.info "Updating the trust store by adding the provided custom root certificate"
-        # Address potential header and footer errors from YAML mutiline configuration.
+        # Address potential header and footer spacing errors from the UI or YAML configuration.
         # Check the certificate and import it in the local trust store.
         # Certbot relies on the Requests Python library, which uses a built-in
         # trust store. This is replaced by the updated local trust store.
         echo "${ACME_ROOT_CA_CERT}" \
-          | sed 's/----- /-----\n/g' | sed 's/ -----/\n-----/g' \
+          | tr -d '[:space:]' \
+          | sed 's/-----BEGINCERTIFICATE-----/-----BEGIN CERTIFICATE-----\n/' \
+          | sed 's/-----ENDCERTIFICATE-----/\n-----END CERTIFICATE-----/' \
           | openssl x509  > /usr/local/share/ca-certificates/acme_root_ca.crt \
           && update-ca-certificates --fresh \
           && export REQUESTS_CA_BUNDLE=/etc/ssl/cert.pem
@@ -342,60 +347,46 @@ if bashio::config.has_value 'acme_server'; then
 else
     # Relevant only for default Let's Encrypt servers.
     ACME_ARGUMENTS+=(--preferred-chain 'ISRG Root X1')
-    if [ "${DRY_RUN}" = "true" ]; then
-        ADDITIONAL_ARGS+=("--dry-run")
-    fi
-    if [ "${TEST_CERT}" = "true" ]; then
-        ADDITIONAL_ARGS+=("--test-cert")
+    if [ "${DRY_RUN}" = "true" ] || [ "${TEST_CERT}" = "true" ]; then
+        ACME_SERVER='https://acme-staging-v02.api.letsencrypt.org/directory'
+        ADDITIONAL_ARGS+=("--break-my-certs")
+        if [ "${TEST_CERT}" = "true" ]; then
+            ADDITIONAL_ARGS+=("--test-cert")
+        else
+            ADDITIONAL_ARGS+=("--dry-run")
+        fi
     fi
 fi
+
+DOMAIN_ARR=()
+for line in $DOMAINS; do
+    DOMAIN_ARR+=(-d "$line")
+done
+
+renewal_policy='--keep-until-expiring'
+domain_config="$CERT_DIR"/renewal/$(certbot certificates --config-dir "$CERT_DIR" \
+    --work-dir "$WORK_DIR" --cert-name "${DOMAIN_ARR[0]}" \
+    | grep "Private Key Path" | cut -d'/' -f5).conf
+if [ -f "$domain_config" ]; then
+    previous_server=$(grep server "$domain_config" | cut -d' ' -f 3)
+    if [ "$ACME_SERVER" != "$previous_server" ]; then
+      renewal_policy='--force-renewal'
+    fi
+fi
+ADDITIONAL_ARGS+=("$renewal_policy")
 
 if [ "${VERBOSE}" = "true" ]; then
     ADDITIONAL_ARGS+=("-vvv")
 fi
 
-# Gather all domains into a plaintext file
-DOMAIN_ARR=()
-for line in $DOMAINS; do
-    DOMAIN_ARR+=(-d "$line")
-done
-echo "$DOMAINS" > /data/domains.gen
-
-# Key detection or manual ECDSA/RSA selection
-if bashio::config.exists 'key_type'; then
-    # Use key type set in configuration
-    KEY_TYPE=$(bashio::config 'key_type')
-    KEY_ARGUMENTS+=("--key-type" "${KEY_TYPE}")
-    if [ "${KEY_TYPE}" == "ecdsa" ]; then
-        if bashio::config.exists 'elliptic_curve'; then
-            ELLIPTIC_CURVE=$(bashio::config 'elliptic_curve')
-            KEY_ARGUMENTS+=("--elliptic-curve" "${ELLIPTIC_CURVE}")
-        else
-            KEY_ARGUMENTS+=("--elliptic-curve" "secp384r1")
-        fi
-    fi
+# Use key type set in configuration
+KEY_TYPE_ARRAY=("${KEY_TYPE//-/ }")
+if [ "${KEY_TYPE_ARRAY[0]}" == "rsa" ]; then
+    KEY_ARGUMENTS+=("--rsa-key-size")
 else
-    bashio::log.info "Detecting existing certificate type for ${DOMAIN_ARR[1]}"
-    readarray -t CBCERTS < <(certbot certificates --non-interactive --cert-name "${DOMAIN_ARR[1]}" --config-dir "$CERT_DIR" --work-dir "$WORK_DIR")
-    for output in "${CBCERTS[@]}"; do
-        # shellcheck disable=SC2076
-        if [[ $output =~ "No certificates found." ]]; then
-            bashio::log.info "No certificate found - using 'ecdsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "ecdsa")
-            break
-        fi
-        if [[ $output =~ "Key Type: RSA" ]]; then
-            bashio::log.info "Existing certificate using 'rsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "rsa")
-            break
-        fi
-        if [[ $output =~ "Key Type: ECDSA" ]]; then
-            bashio::log.info "Existing certificate using 'ecdsa' key type."
-            KEY_ARGUMENTS+=("--key-type" "ecdsa")
-            break
-        fi
-    done
+    KEY_ARGUMENTS+=("--elliptic-curve")
 fi
+KEY_ARGUMENTS+=("${KEY_TYPE_ARRAY[1]}" '--key-type' "${KEY_TYPE_ARRAY[0]}")
 
 # Set External Account Binding
 if bashio::config.has_value 'eab_kid' ; then
@@ -404,18 +395,25 @@ if bashio::config.has_value 'eab_kid' ; then
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
-certbot certonly --non-interactive --keep-until-expiring --expand \
-    --email "$EMAIL" --agree-tos \
-    "${KEY_ARGUMENTS[@]}" \
-    "${ADDITIONAL_ARGS[@]}" \
-    --cert-name "${DOMAIN_ARR[1]}" "${DOMAIN_ARR[@]}" \
-    --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
-    --preferred-challenges "$CHALLENGE" \
-    "${ACME_ARGUMENTS[@]}" \
-    "${EAB_ARGUMENTS[@]}"
-
-# Get the last modified cert directory and copy the cert and private key to store
-# shellcheck disable=SC2012
-CERT_DIR_LATEST="$(ls -td $CERT_DIR/live/*/ | head -1)"
-cp "${CERT_DIR_LATEST}privkey.pem" "/ssl/$KEYFILE"
-cp "${CERT_DIR_LATEST}fullchain.pem" "/ssl/$CERTFILE"
+DOMAIN_STR=${DOMAIN_ARR[*]}
+if certbot certonly --non-interactive \
+      --email "$EMAIL" --agree-tos \
+      "${KEY_ARGUMENTS[@]}" \
+      "${ADDITIONAL_ARGS[@]}" \
+      --cert-name "${DOMAIN_ARR[0]}" --domains "${DOMAIN_STR//${IFS:0:1}/,}" \
+      --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
+      --preferred-challenges "$CHALLENGE" \
+      "${ACME_ARGUMENTS[@]}" \
+      "${EAB_ARGUMENTS[@]}" \
+      && [ "${DRY_RUN}" != "true" ]; then
+    certificate_path=$(certbot certificates --config-dir "$CERT_DIR" \
+        --work-dir "$WORK_DIR" --cert-name "${DOMAIN_ARR[0]}" \
+        | grep 'Certificate Path' | cut -d':' -f2)
+    private_key_path=$(certbot certificates --config-dir "$CERT_DIR" \
+        --work-dir "$WORK_DIR" --cert-name "${DOMAIN_ARR[0]}" \
+        | grep 'Private Key Path' | cut -d':' -f2)
+    if [ -f "$certificate_path" ] && [ -f "$private_key_path" ]; then
+        cp "$certificate_path" "/ssl/$CERTFILE"
+        cp "$private_key_path" "/ssl/$KEYFILE"
+    fi
+fi

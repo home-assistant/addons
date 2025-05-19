@@ -19,7 +19,7 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
    http:
      use_x_forwarded_for: true
      trusted_proxies:
-       - 172.30.33.0/24
+       - 172.30.32.0/23
    ```
 3. In the nginx addon configuration, change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
 4. Leave all other options as-is.

@@ -163,6 +163,27 @@ When `log_to_file` is true, Z-Wave JS will create a log file for each
 day. This option allows you to control the maximum number of files that
 Z-Wave JS will keep.
 
+### Option `rf_region` (optional)
+
+This setting tells the add-on what radio frequency region the controller should use.
+Valid options are:
+
+- Automatic
+- Australia/New Zealand
+- China
+- Europe
+- Europe (Long Range)
+- Hong Kong
+- India
+- Israel
+- Japan
+- Korea
+- Russia
+- USA
+- USA (Long Range)
+
+The default is Automatic which will try to set the correct region based on the country set in Home Assistant.
+
 ### Option `soft_reset` (optional)
 
 This setting tells the add-on how to handle soft-resets for 500 series controllers:

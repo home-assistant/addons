@@ -379,8 +379,8 @@ fi
 
 if bashio::config.equals 'rf_region' 'Automatic'; then
     country=$(bashio::supervisor.country)
-    rf_region=${country_rf_region_map[$country]:-"Default (EU)"}
-    bashio::log.info "RF region set to Automatic"
+    rf_region="${country_rf_region_map[$country]:-"Default (EU)"}"
+    bashio::log.info "RF region set to Automatic: ${rf_region}"
 else
     rf_region=$(bashio::config 'rf_region')
 fi

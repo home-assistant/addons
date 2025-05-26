@@ -210,7 +210,6 @@ declare -A country_rf_region_map=(
     ["PM"]="Default (EU)"
     ["PN"]="Europe"
     ["PR"]="USA"
-    ["RS"]="Europe"
     ["PT"]="Europe"
     ["PW"]="Australia/New Zealand"
     ["PY"]="Australia/New Zealand"

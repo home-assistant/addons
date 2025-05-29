@@ -1052,10 +1052,10 @@ Example configuration:
 </details>
 
 <details>
-  <summary>Namesilo</summary>
+  <summary>NameSilo</summary>
 
-To use this addon with Namesilo, you must first generate an API key via the [API manager](https://www.namesilo.com/account/api-manager).
-Optionally you may restrict access to explicit IP addresses there.
+To use this addon with NameSilo, first generate an API key via the [API manager](https://www.namesilo.com/account/api-manager).
+Optionally restrict access to explicit IP addresses.
 
 Example configuration:
 
@@ -1068,7 +1068,7 @@ Example configuration:
   challenge: dns
   dns:
     provider: dns-namesilo
-    namesilo_token: 0123456789abcdef0123456789abcdef01234567
+    namesilo_token: '<YOUR_NAMESILO_API_KEY>'
   ```
 
 </details>

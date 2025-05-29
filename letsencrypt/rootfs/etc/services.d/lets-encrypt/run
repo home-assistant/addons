@@ -235,6 +235,12 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ACME_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
             ;;
 
+        # Namesilo
+        'dns-namesilo')
+            bashio::config.require 'dns.namesilo_token'
+            ACME_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+            ;;
+
         # Netcup
         'dns-netcup')
             bashio::config.require 'dns.netcup_customer_id'

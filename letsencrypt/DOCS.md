@@ -71,6 +71,7 @@ dns-loopia
 dns-luadns
 dns-mijn-host
 dns-namecheap
+dns-namesilo
 dns-netcup
 dns-njalla
 dns-noris
@@ -151,6 +152,7 @@ luadns_token: ''
 mijn_host_api_key: ''
 namecheap_api_key: ''
 namecheap_username: ''
+namesilo_token: ''
 netcup_api_key: ''
 netcup_api_password: ''
 netcup_customer_id: ''
@@ -1045,6 +1047,28 @@ Example configuration:
     provider: dns-namecheap
     namecheap_username: your-namecheap-username
     namecheap_api_key: 0123456789abcdef0123456789abcdef01234567
+  ```
+
+</details>
+
+<details>
+  <summary>Namesilo</summary>
+
+To use this addon with Namesilo, you must first generate an API key via the [API manager](https://www.namesilo.com/account/api-manager).
+Optionally you may restrict access to explicit IP addresses there.
+
+Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-namesilo
+    namesilo_token: 0123456789abcdef0123456789abcdef01234567
   ```
 
 </details>

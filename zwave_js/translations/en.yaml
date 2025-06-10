@@ -28,6 +28,9 @@ configuration:
       In previous versions of the addon, this was the only key that was needed.
       With the introduction of S2 security inclusion in zwave-js, this option
       has been deprecated.
+  rf_region:
+    name: Radio Frequency Region
+    description: The radio frequency region that the controller should use.
   s0_legacy_key:
     name: S0 Legacy Key
     description: >-

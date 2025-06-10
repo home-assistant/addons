@@ -4,6 +4,7 @@
 # ==============================================================================
 # Start Whisper service
 # ==============================================================================
+flags=()
 
 if [ "$(uname -m)" == "x86_64" ] && ! grep -qw 'avx' /proc/cpuinfo; then
     bashio::log.warning "Your CPU does not support Advanced Vector Extensions (AVX). Whisper will run slower than normal."
@@ -15,6 +16,10 @@ if [ "${model}" = 'custom' ]; then
     model="$(bashio::config 'custom_model')"
     if [ -z "${model}" ]; then
       bashio::exit.nok "Custom model is not set"
+    fi
+    custom_model_type="$(bashio::config 'custom_model_type')"
+    if [ "${custom_model_type}" = 'transformers' ]; then
+      flags+=('--use-transformers')
     fi
 fi
 

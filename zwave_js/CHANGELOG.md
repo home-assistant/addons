@@ -1,5 +1,50 @@
 # Changelog
 
+## 0.15.0
+
+### Features
+
+- Z-Wave JS: Add options to set powerlevel within legal limits on region change during startup
+- Z-Wave JS: Allow the application to disable support for specific CCs
+- Z-Wave JS: Support OTW updates for the controller via the firmware update service
+- Z-Wave JS: Update Notification definitions to 2024B-3 specs
+- Z-Wave JS: Add static methods to query Door Lock CC capabilities
+- Z-Wave JS: The hardware watchdog no longer gets enabled by default, since this is now handled by recent firmwares. The corresponding driver option and preset have been deprecated.
+
+### Bug fixes
+
+- Z-Wave JS: When the serialport closes unexpectedly, try to reopen it first before throwing an error
+- Z-Wave JS: Work around missing protocol version file in NVM backed up from SDK 7.23.0 and .1
+- Z-Wave JS: The default region is no longer considered to be Europe for firmware updates
+- Z-Wave JS: Make the device ID check during OTA updates actually do something
+- Z-Wave JS: Fixed a regression from v15 where Z-Wave JS would immediately soft-reset the controller instead of retrying after an ACK timeout
+- Z-Wave JS: Fixed a type error after OTW firmware upgrade
+- Z-Wave JS: Prevent the interview of battery-powered devices to stop after the first stage when re-interviewing after a firmware update
+- Z-Wave JS: Omit empty fields from TX reports, ignore missing RSSI in routing statistics
+- Z-Wave JS: Use local time for logging to file
+
+### Config file changes
+
+- Add/update several Simon iO devices
+- Add Enbrighten (Jasco) 58446 / ZWA4013 Fan Control
+- Add Aeotec ZWA046 Home Energy Meter 8
+- Add PE653 endpoints for VSP speeds and P5043ME pool/spa mode
+- Add ZVIDAR WM25C
+- Add MCO Home MH-S314-7102
+- Add McoHome thermostats MH4936, MH5-2D and MH5-4A
+- Update Inovelli VZW31-SN to FW 1.04
+- Add param 29 (load sense) to HomePro ZDP100
+- Add Yale YDM3109A Smart Lock
+
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.6.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.6.0)
+- [Z-Wave JS 15.5.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.5.0)
+- [Z-Wave JS 15.4.2](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.4.2)
+- [Z-Wave JS 15.4.1](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.4.1)
+- [Z-Wave JS 15.4.0](https://github.com/zwave-js/node-zwave-js/releases/tag/v15.4.0)
+
 ## 0.14.0
 
 ### Breaking changes

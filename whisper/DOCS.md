@@ -67,10 +67,22 @@ Available models:
 ### Option: `custom_model`
 
 Path to a converted model directory, or a CTranslate2-converted Whisper model ID from the HuggingFace Hub like "Systran/faster-distil-whisper-small.en". 
+
+If `custom_model_type` is set to `transformers`, a HuggingFace transformers Whisper model ID from HuggingFace like "openai/whisper-tiny.en" must be used.
+
 To use a local custom Whisper model, first create a `models` subdirectory in the add-on's configuration directory if it does not already exist. Then copy your model directory into:
 `/addon_configs/core_whisper/models/<your-model-dir>`.
 Then, set the `custom_model` path to:
 `/config/models/<your-model-dir>`. For a local model, the path must start with `/config/models/`, as this is how the add-on accesses your Home Assistant configuration directory through the container's mounted volume.
+
+### Option: `custom_model_type`
+
+Either `faster-whisper` (the default) or `transformers`.
+
+When set to `transformers`, the `custom_model` option must be a HuggingFace transformers-based Whisper model like "openai/whisper-tiny.en".
+
+**Note:** Initial prompt is currently not supported for transformers-based models.
+
 
 ### Option: `beam_size`
 

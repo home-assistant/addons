@@ -387,10 +387,10 @@ fi
 rf_region_integer=${rf_region_integer_map["${rf_region}"]}
 
 if [[ "${rf_region_integer}" -eq 255 ]]; then
-    rf_region_json="{}"
+    rf_json='{txPower: {powerlevel: "auto"}, maxLongRangePowerlevel: "auto"}'
     bashio::log.info "Using default RF region settings"
 else
-    rf_region_json=$(jq -n --argjson region "${rf_region_integer}" '{ region: $region }')
+    rf_json=$(jq -n --argjson region "${rf_region_integer}" '{region: $region, txPower: {powerlevel: "auto"}, maxLongRangePowerlevel: "auto"}')
     bashio::log.info "Setting RF region to (${rf_region})"
 fi
 
@@ -457,7 +457,7 @@ bashio::var.json \
     log_level "${log_level}" \
     log_to_file "${log_to_file}" \
     log_max_files "${log_max_files}" \
-    rf_region "${rf_region_json}" \
+    rf_json "${rf_json}" \
     soft_reset "^${soft_reset}" \
     presets "${presets}" |
     tempio \

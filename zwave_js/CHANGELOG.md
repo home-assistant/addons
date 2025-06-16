@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.0
+
+### Features
+
+- Add radio frequency power level driver configuration.
+
 ## 0.15.0
 
 ### Features

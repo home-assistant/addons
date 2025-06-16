@@ -15,7 +15,7 @@ declare flush_to_disk
 declare host_chassis
 declare rf_region
 declare rf_region_integer
-declare rf_region_json
+declare rf_json
 declare soft_reset
 declare presets_array
 declare presets

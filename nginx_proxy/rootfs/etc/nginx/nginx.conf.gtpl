@@ -84,7 +84,7 @@ http {
 
         location / {
             proxy_pass http://homeassistant.local.hass.io:{{ .variables.port }};
-            proxy_set_header origin "$scheme://$http_host";
+            proxy_set_header origin "$http_origin";
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;
             proxy_redirect http:// https://;

@@ -550,7 +550,7 @@ Use of this plugin requires a configuration file containing DNSimple API credent
   keyfile: privkey.pem
   challenge: dns
   dns:
-    provider: dns-simple
+    provider: dns-dnsimple
     dnsimple_token: dnssimple-token
 ```
 

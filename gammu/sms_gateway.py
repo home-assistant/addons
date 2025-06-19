@@ -11,16 +11,12 @@ Environment variables:
   • HASS_TOKEN – (Optional) long‑lived access token for Home Assistant API.
   • GSM_DEVICE – Path to your GSM modem device (default: "/dev/ttyUSB0")
   • GSM_CONNECTION – Connection string (default: "at115200")
-  • POLL_INTERVAL – (Optional) Polling interval in seconds (default: 10)
-
-Incoming messages with SMS_STATE "UnRead" are forwarded via an HTTP POST to:
-      HASS_URL/api/webhook/sms
-
-Additionally, the script exposes the following REST endpoints on port 3000:
-  • POST /api/sms/send – Send an SMS message.
-       JSON payload must include "number" and "text".
-  • POST /api/sms/receive – Manually trigger a poll for incoming SMS messages.
-  • GET  /api/sms/info – Retrieve modem properties (manufacturer, model, firmware, etc.).
+  • POLL_INTERVAL – (Optional) Polling interval in seconds (default: "10")
+  
+Endpoints:
+  • POST /api/sms/send    – Send an SMS message.
+  • POST /api/sms/receive – Manually trigger a pull for incoming SMS (optional override).
+  • GET  /api/sms/info    – Retrieve real‑time modem properties (manufacturer, model, firmware, etc.)
 """
 
 import asyncio
@@ -50,30 +46,30 @@ GSM_CONFIG = {
 # Poll interval (in seconds)
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "10"))
 
-
 class Gateway:
-    """SMS gateway to interact with a GSM modem."""
+    """SMS gateway to interact with a GSM modem via Gammu."""
 
     def __init__(self, config):
-        _LOGGER.debug("Initializing Gateway using connection mode: %s", config["Connection"])
+        _LOGGER.debug("Initializing Gateway with connection: %s", config["Connection"])
+        # The GammuAsyncWorker will automatically call self.sms_pull for polling.
         self._worker = GammuAsyncWorker(self.sms_pull)
         self._worker.configure(config)
         self._first_pull = True
 
     async def init_async(self):
-        """Initialize the SMS gateway asynchronously."""
+        """Initialize the modem connection asynchronously."""
         await self._worker.init_async()
         _LOGGER.debug("Gateway initialized")
 
     def sms_pull(self, state_machine):
-        """Poll the modem and process incoming messages."""
+        """Called by the async worker to poll the modem and process messages."""
         state_machine.ReadDevice()
         _LOGGER.debug("Polling modem for SMS...")
         self.sms_read_messages(state_machine, self._first_pull)
         self._first_pull = False
 
     def sms_read_messages(self, state_machine, force=False):
-        """Process all received SMS messages from the modem."""
+        """Decode and process all received SMS messages from the modem."""
         entries = self.get_and_delete_all_sms(state_machine, force)
         _LOGGER.debug("Found SMS entries: %s", entries)
         for entry in entries:
@@ -81,12 +77,12 @@ class Gateway:
             message = entry[0]
             _LOGGER.debug("Processing SMS: %s, decoded: %s", message, decoded_entry)
             if message["State"] == SMS_STATE_UNREAD:
+                text = ""
                 if decoded_entry is None:
                     text = message.get("Text", "")
                 else:
-                    text = ""
                     for inner_entry in decoded_entry["Entries"]:
-                        if inner_entry["Buffer"] is not None:
+                        if inner_entry["Buffer"]:
                             text += inner_entry["Buffer"]
                 event_data = {
                     "phone": message["Number"],
@@ -94,46 +90,36 @@ class Gateway:
                     "message": text,
                 }
                 _LOGGER.debug("Forwarding event data: %s", event_data)
-                # Forward each SMS message via the Home Assistant webhook.
+                # Forward the SMS message to Home Assistant via its webhook.
                 asyncio.create_task(self._notify_incoming_webhook(event_data))
 
     def get_and_delete_all_sms(self, state_machine, force=False):
         """Read and delete all SMS messages from the modem."""
         memory = state_machine.GetSMSStatus()
         remaining = memory["SIMUsed"] + memory["PhoneUsed"]
-        start_remaining = remaining
         entries = []
         start = True
-        all_parts = -1
-        _LOGGER.debug("Starting SMS read; remaining messages: %i", start_remaining)
         try:
             while remaining > 0:
                 if start:
                     entry = state_machine.GetNextSMS(Folder=0, Start=True)
-                    all_parts = entry[0]["UDH"]["AllParts"]
-                    part_number = entry[0]["UDH"]["PartNumber"]
-                    part_is_missing = all_parts > start_remaining
-                    _LOGGER.debug("All parts: %i, Part number: %i, Remaining: %i, Part missing: %s",
-                                  all_parts, part_number, remaining, part_is_missing)
+                    # Use UDH parts if available; default to assuming one part.
+                    _ = entry[0].get("UDH", {}).get("AllParts", 1)
                     start = False
                 else:
                     entry = state_machine.GetNextSMS(Folder=0, Location=entry[0]["Location"])
-                if part_is_missing and not force:
-                    _LOGGER.debug("Not all parts arrived; aborting read")
-                    break
                 remaining -= 1
                 entries.append(entry)
-                _LOGGER.debug("Deleting SMS at location: %s", entry[0]["Location"])
                 try:
                     state_machine.DeleteSMS(Folder=0, Location=entry[0]["Location"])
                 except gammu.ERR_MEMORY_NOT_AVAILABLE:
-                    _LOGGER.error("Error deleting SMS, memory not available")
+                    _LOGGER.error("Failed to delete SMS at location %s", entry[0]["Location"])
         except gammu.ERR_EMPTY:
-            _LOGGER.warning("No SMS messages found")
+            _LOGGER.warning("No SMS messages found.")
         return gammu.LinkSMS(entries)
 
     async def _notify_incoming_webhook(self, message):
-        """Forward the incoming SMS message to Home Assistant via its webhook."""
+        """Forward an incoming SMS to Home Assistant via the webhook."""
         webhook_url = f"{HASS_URL}/api/webhook/{WEBHOOK_ID}"
         headers = {"Content-Type": "application/json"}
         if HASS_TOKEN:
@@ -147,30 +133,30 @@ class Gateway:
             _LOGGER.error("Failed to notify incoming SMS webhook: %s", e)
 
     async def send_sms_async(self, message):
-        """Send an SMS message via the asynchronous worker."""
+        """Send an SMS message using the async worker."""
         return await self._worker.send_sms_async(message)
 
     async def get_imei_async(self):
-        """Get the IMEI of the device."""
+        """Retrieve the modem's IMEI."""
         return await self._worker.get_imei_async()
 
     async def get_signal_quality_async(self):
-        """Get the current signal level of the modem."""
+        """Retrieve the modem's signal quality."""
         return await self._worker.get_signal_quality_async()
 
     async def get_network_info_async(self):
-        """Get the current network info of the modem."""
+        """Retrieve the network info from the modem."""
         network_info = await self._worker.get_network_info_async()
         if not network_info["NetworkName"]:
             network_info["NetworkName"] = gammu.GSMNetworks.get(network_info["NetworkCode"])
         return network_info
 
     async def get_manufacturer_async(self):
-        """Retrieve the manufacturer of the modem."""
+        """Retrieve the modem's manufacturer."""
         return await self._worker.get_manufacturer_async()
 
     async def get_model_async(self):
-        """Retrieve the model of the modem."""
+        """Retrieve the modem's model."""
         model = await self._worker.get_model_async()
         if not model or not model[0]:
             return None
@@ -180,7 +166,7 @@ class Gateway:
         return display
 
     async def get_firmware_async(self):
-        """Retrieve the firmware information of the modem."""
+        """Retrieve the modem's firmware."""
         firmware = await self._worker.get_firmware_async()
         if not firmware or not firmware[0]:
             return None
@@ -190,14 +176,13 @@ class Gateway:
         return display
 
     async def terminate_async(self):
-        """Terminate modem connection."""
+        """Terminate the modem connection."""
         return await self._worker.terminate_async()
 
 
-# ---------------- REST API using aiohttp ----------------
-
-# Create the global Gateway instance.
-gateway = Gateway(GSM_CONFIG)
+# ---------------------------------------------------------------------
+# REST API Endpoints that retrieve the Gateway from the app context.
+# ---------------------------------------------------------------------
 
 async def send_sms(request):
     """
@@ -208,6 +193,7 @@ async def send_sms(request):
         "text": "Hello from the gateway!"
       }
     """
+    gateway = request.app["gateway"]
     try:
         payload = await request.json()
         sms_data = {
@@ -221,11 +207,15 @@ async def send_sms(request):
         _LOGGER.error("Failed to send SMS: %s", e)
         return web.json_response({"error": str(e)}, status=500)
 
+
 async def trigger_receive(request):
     """
     POST /api/sms/receive
-    Manually trigger a poll for incoming SMS messages.
+    Manually trigger a pull for incoming SMS messages.
+    This endpoint is optional since the async worker automatically
+    polls for messages.
     """
+    gateway = request.app["gateway"]
     try:
         gateway.sms_pull(gateway._worker.state_machine)
         return web.json_response({"status": "Polled for SMS messages"})
@@ -233,11 +223,15 @@ async def trigger_receive(request):
         _LOGGER.error("Failed to poll SMS messages: %s", e)
         return web.json_response({"error": str(e)}, status=500)
 
+
 async def get_info(request):
     """
     GET /api/sms/info
-    Retrieve modem properties (manufacturer, model, firmware, etc.)
+    Retrieve real‑time modem properties (manufacturer, model, firmware, IMEI,
+    signal quality, network info, etc.)
     """
+    _LOGGER.info("get_info")
+    gateway = request.app["gateway"]
     try:
         manufacturer = await gateway.get_manufacturer_async()
         model = await gateway.get_model_async()
@@ -245,21 +239,21 @@ async def get_info(request):
         imei = await gateway.get_imei_async()
         signal_quality = await gateway.get_signal_quality_async()
         network_info = await gateway.get_network_info_async()
-        return web.json_response(
-            {
-                "manufacturer": manufacturer,
-                "model": model,
-                "firmware": firmware,
-                "imei": imei,
-                "signal_quality": signal_quality,
-                "network_info": network_info,
-            }
-        )
+        return web.json_response({
+            "manufacturer": manufacturer,
+            "model": model,
+            "firmware": firmware,
+            "imei": imei,
+            "signal_quality": signal_quality,
+            "network_info": network_info,
+        })
     except Exception as e:
         _LOGGER.error("Failed to get modem info: %s", e)
         return web.json_response({"error": str(e)}, status=500)
 
+
 def create_app():
+    """Create the aiohttp web application and register routes."""
     app = web.Application()
     app.add_routes([
         web.post("/api/sms/send", send_sms),
@@ -268,32 +262,27 @@ def create_app():
     ])
     return app
 
-async def polling_loop():
-    """Continuously poll the GSM modem every POLL_INTERVAL seconds."""
-    while True:
-        try:
-            gateway.sms_pull(gateway._worker.state_machine)
-        except Exception as e:
-            _LOGGER.error("Error while polling: %s", e)
-        await asyncio.sleep(POLL_INTERVAL)
 
-async def init_gateway():
-    """Initialize the gateway asynchronously."""
+async def init_app():
+    """
+    Initialize the application by creating the Gateway instance,
+    initializing the modem connection, and storing the instance in the app context.
+    """
+    app = create_app()
+    gateway = Gateway(GSM_CONFIG)
+    app["gateway"] = gateway
     try:
         await gateway.init_async()
-        _LOGGER.info("Gateway is ready")
     except Exception as e:
-        _LOGGER.error("Gateway initialization error: %s", e)
+        _LOGGER.error("Failed to initialize gateway: %s", e)
+    _LOGGER.info("Gateway is ready")
+    return app
 
-# ---------------- Main Entry Point ----------------
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    # First, initialize the gateway.
-    loop.run_until_complete(init_gateway())
-    # Start the background polling loop.
-    asyncio.ensure_future(polling_loop())
-    # Create and run the aiohttp web server.
-    app = create_app()
     _LOGGER.info("Starting REST API server on port 3000")
-    web.run_app(app, port=3000)
+    web.run_app(init_app(), port=3000)
+    #loop = asyncio.get_event_loop()
+    #app = loop.run_until_complete(init_app())
+    #_LOGGER.info("Starting REST API server on port 3000")
+    #web.run_app(app, port=3000)

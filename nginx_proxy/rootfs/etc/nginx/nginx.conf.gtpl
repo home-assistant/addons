@@ -1,6 +1,6 @@
-{{/* 
+{{/*
     Options saved in the addon UI are available in .options
-    Some variables are available in .variables, these are added in nginx/run 
+    Some variables are available in .variables, these are added in nginx/run
 */}}
 daemon off;
 error_log stderr;
@@ -21,7 +21,7 @@ http {
     server_tokens off;
 
     server_names_hash_bucket_size 128;
-    
+
     # intermediate configuration
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
@@ -59,7 +59,7 @@ http {
 
         # dhparams file
         ssl_dhparam /data/dhparams.pem;
-        
+
         {{- if not .options.real_ip_from  }}
         listen 443 ssl;
         http2 on;
@@ -81,9 +81,11 @@ http {
         {{- if .options.customize.active }}
         include /share/{{ .options.customize.default }};
         {{- end }}
-        
+
         location / {
             proxy_pass http://homeassistant.local.hass.io:{{ .variables.port }};
+            proxy_set_header Origin $http_origin;
+            proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;
             proxy_redirect http:// https://;
             proxy_http_version 1.1;

@@ -1,0 +1,8 @@
+#!/command/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+
+export GSM_DEVICE="$(bashio::config 'gsm_device')"
+
+# shellcheck disable=SC2068
+exec python3 -m wyoming_piper

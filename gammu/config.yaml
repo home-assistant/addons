@@ -1,0 +1,22 @@
+---
+version: 1.8.1
+slug: gammmu
+name: gammmu
+description: GSM modem communication via Gammu
+url: https://github.com/home-assistant/addons/tree/master/gammu
+advanced: true
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+image: homeassistant/{arch}-addon-gammu
+init: false
+options:
+ports:
+  3050/tcp: 3050
+schema:
+  device: str
+  baudspeed: str
+startup: system

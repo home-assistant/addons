@@ -193,6 +193,7 @@ async def send_sms(request):
         "text": "Hello from the gateway!"
       }
     """
+    _LOGGER.info("send_sms")
     gateway = request.app["gateway"]
     try:
         payload = await request.json()
@@ -206,23 +207,6 @@ async def send_sms(request):
     except Exception as e:
         _LOGGER.error("Failed to send SMS: %s", e)
         return web.json_response({"error": str(e)}, status=500)
-
-
-async def trigger_receive(request):
-    """
-    POST /api/sms/receive
-    Manually trigger a pull for incoming SMS messages.
-    This endpoint is optional since the async worker automatically
-    polls for messages.
-    """
-    gateway = request.app["gateway"]
-    try:
-        gateway.sms_pull(gateway._worker.state_machine)
-        return web.json_response({"status": "Polled for SMS messages"})
-    except Exception as e:
-        _LOGGER.error("Failed to poll SMS messages: %s", e)
-        return web.json_response({"error": str(e)}, status=500)
-
 
 async def get_info(request):
     """
@@ -257,7 +241,6 @@ def create_app():
     app = web.Application()
     app.add_routes([
         web.post("/api/sms/send", send_sms),
-        web.post("/api/sms/receive", trigger_receive),
         web.get("/api/sms/info", get_info),
     ])
     return app

@@ -5,4 +5,4 @@
 export GSM_DEVICE="$(bashio::config 'gsm_device')"
 
 # shellcheck disable=SC2068
-exec python3 -m wyoming_piper
+exec python3 -m pysmsgateway

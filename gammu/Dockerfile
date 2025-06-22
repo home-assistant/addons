@@ -15,8 +15,7 @@ RUN \
         setuptools \
         wheel \
     && pip3 install --no-cache-dir \
-        python-gammu \
-        aiohttp
+        py-smsgateway-async
 
 # Copy data
 COPY rootfs /

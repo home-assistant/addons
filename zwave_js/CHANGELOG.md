@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.0
+
+### Features
+
+- Z-Wave JS Server: Add command to enable/disable the radio
+
 ## 0.16.0
 
 ### Features

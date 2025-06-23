@@ -21,14 +21,10 @@ options:
   device: "/dev/ttyUSB0"
   baudspeed: "at115200"
   poll_interval: 10
-  webhook_url: ""
-  webhook_token: ""
 ports:
   3050/tcp: 3050
 schema:
-  device: device(subsystem=tty)
+  device: str
   baudspeed: str
   poll_interval: int
-  webhook_url: str
-  webhook_token: str
 

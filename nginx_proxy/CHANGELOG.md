@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.12.0
+
+- Add origin and X-Forwarded-Proto headers to fix origin issues affecting Portainer and other addons
+
 ## 3.11.1
 
 - Update to new nginx http2 directive. This also suppress a deprecation warning.

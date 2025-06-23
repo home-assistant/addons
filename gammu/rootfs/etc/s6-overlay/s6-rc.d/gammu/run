@@ -1,8 +1,36 @@
-#!/command/with-contenv bashio
+#! /command/with-contenv bashio
 # vim: ft=bash
 # shellcheck shell=bash
 
-export GSM_DEVICE="$(bashio::config 'gsm_device')"
+# =======================================
+# Gammu SMS Gateway Add-on startup script
+# =======================================
 
-# shellcheck disable=SC2068
+# Load configuration from add-on options
+export GSM_DEVICE="$(bashio::config 'device')"
+export GSM_CONNECTION="$(bashio::config 'baudspeed')"
+export POLL_INTERVAL="$(bashio::config 'poll_interval')"
+
+# If user sets webhook_url, use it; else default to built-in Home Assistant 'sms' webhook
+if bashio::config.has_value 'webhook_url'; then
+  export WEBHOOK_URL="$(bashio::config 'webhook_url')"
+else
+  export WEBHOOK_URL="http://homeassistant.local:8123/api/webhook/sms"
+fi
+
+# Webhook token is optional; used for extra validation if configured
+export WEBHOOK_TOKEN="$(bashio::config 'webhook_token')"
+
+# Apply defaults for robustness
+: "${GSM_CONNECTION:=at115200}"
+: "${POLL_INTERVAL:=10}"
+
+bashio::log.info "🟢 Starting Gammu SMS Gateway"
+bashio::log.info "Device: $GSM_DEVICE"
+bashio::log.info "Baud: $GSM_CONNECTION"
+bashio::log.info "Poll interval: ${POLL_INTERVAL}s"
+bashio::log.info "Webhook: $WEBHOOK_URL"
+
+# Start the SMS gateway server
 exec python3 -m pysmsgateway
+

@@ -1,7 +1,7 @@
 name: "Gammu SMS Gateway"
 slug: "gammu"
 description: "A Home Assistant add-on for GSM SMS messaging via Gammu and py-smsgateway-async."
-url: "https://github.com/YOUR-USERNAME/homeassistant-addons/tree/main/gammu"
+url: "https://github.com/home-assistant/addons/tree/main/gammu"
 maintainer: "Oscar Calvo <oscar@calvonet.com>"
 version: "0.1.0"
 stage: "stable"

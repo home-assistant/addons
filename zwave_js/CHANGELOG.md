@@ -6,6 +6,10 @@
 
 - Z-Wave JS Server: Add command to enable/disable the radio
 
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.1.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.1.0)
+
 ## 0.16.0
 
 ### Features

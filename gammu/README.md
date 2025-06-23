@@ -1,82 +1,78 @@
-# 📲 Home Assistant Add-on: Gammu SMS Gateway
+# Home Assistant Add-on: Gammu SMS Gateway
 
-A lightweight Home Assistant add-on that enables GSM modem-based SMS communication using [Gammu](https://wammu.eu/gammu/). Useful for receiving alerts, sending automations via SMS, or integrating with non-internet-connected systems.
+![Supports aarch64](https://img.shields.io/badge/aarch64-yes-green.svg)  
+![Supports amd64](https://img.shields.io/badge/amd64-yes-green.svg)  
+![Supports armhf](https://img.shields.io/badge/armhf-yes-green.svg)  
+![Supports armv7](https://img.shields.io/badge/armv7-yes-green.svg)  
+![Supports i386](https://img.shields.io/badge/i386-yes-green.svg)
 
-![Supports aarch64 Architecture][aarch64-shield]
-![Supports amd64 Architecture][amd64-shield]
-![Supports armhf Architecture][armhf-shield]
-![Supports armv7 Architecture][armv7-shield]
-![Supports i386 Architecture][i386-shield]
+## 📦 Features
 
----
+- Send SMS using HTTP POST requests
+- Polls GSM modem for inbound messages
+- Webhook forwarding (default: `/api/webhook/sms`) for automation
+- REST endpoints for modem diagnostics
+- Powered by [py-smsgateway-async](https://pypi.org/project/py-smsgateway-async/)
 
-## 🚀 Features
+## 🧰 Description
 
-- 📤 Send SMS using REST API
-- 📥 Receive and decode incoming SMS messages
-- 🔁 Periodically polls the modem for new messages
-- 📶 Report device IMEI, signal strength, firmware, and operator info
-- 🌐 Optional webhook forwarding of inbound messages
-- 🐳 Fully containerized Home Assistant add-on
-
----
-
-## 🧰 Installation
-
-1. Navigate to **Settings → Add-ons → Add-on Store** in Home Assistant.
-2. Click on **“Repositories”** and add this GitHub repo:
-   ```
-   https://github.com/YOUR-USERNAME/homeassistant-addons
-   ```
-3. Find and install **“Gammu SMS Gateway”** from the newly added repo.
-4. Plug in your USB GSM modem (e.g., `/dev/ttyUSB0`).
-5. Start the add-on and monitor the logs for success.
-
----
+This add-on integrates a USB GSM modem into Home Assistant using Gammu and [py-smsgateway-async](https://pypi.org/project/py-smsgateway-async/), an asynchronous Python microservice that provides a REST API and webhook delivery for SMS communication.
 
 ## ⚙️ Configuration
 
-Example `configuration.yaml` for the add-on:
+Example config:
 
 ```yaml
 device: "/dev/ttyUSB0"
 baudspeed: "at115200"
+poll_interval: 10
+webhook_url: ""
+webhook_token: ""
 ```
 
-| Key         | Required | Example       | Description                          |
-|-------------|----------|---------------|--------------------------------------|
-| `device`    | ✅       | `/dev/ttyUSB0`| Path to your GSM modem serial port   |
-| `baudspeed` | ✅       | `at115200`    | Baudrate/connection string for modem |
+| Option          | Required | Description                                               |
+|-----------------|----------|-----------------------------------------------------------|
+| `device`        | ✅       | Serial path to your GSM modem (e.g. `/dev/ttyUSB0`)       |
+| `baudspeed`     | ✅       | Connection string for Gammu (e.g. `at115200`)             |
+| `poll_interval` | ❌       | Frequency (in seconds) to check modem for new messages    |
+| `webhook_url`   | ❌       | URL to post incoming SMS to (defaults to Home Assistant)  |
+| `webhook_token` | ❌       | Optional bearer token used in outbound webhook requests   |
 
----
+## 🔁 Webhook Behavior
 
-## 🌐 API Access
-
-Once the add-on is running, it exposes a REST API on port `3050` inside the container.
-
-### `POST /api/sms/send`
-
-Sends an SMS using the connected modem.
-
-```json
-{
-  "number": "+15551234567",
-  "text": "Hello from Home Assistant!"
-}
-```
-
-### `GET /api/sms/info`
-
-Retrieves modem and network details.
-
----
-
-## 🔁 Incoming Webhooks
-
-If `WEBHOOK_URL` is configured, incoming SMS messages will be forwarded like this:
+When an SMS is received, it will be forwarded as a POST request to the configured `webhook_url` (or to Home Assistant's default webhook if not set):
 
 ```json
 {
   "phone": "+15559876543",
-  "date": "2025-06-22 11:30:00",
+  "date": "2025-06-22T19:42:00",
+  "message": "Hello from Gammu!"
+}
+```
 
+## 🧪 API Endpoints
+
+By default, the add-on exposes the following API on port `3050` inside the container:
+
+| Method | Endpoint        | Description             |
+|--------|-----------------|-------------------------|
+| POST   | `/api/sms/send` | Send a new SMS message  |
+| GET    | `/api/sms/info` | Query modem diagnostics |
+
+You can use these endpoints locally from Home Assistant, or externally via port mapping or reverse proxy.
+
+## 🛠 Troubleshooting
+
+- Run `dmesg | grep tty` to determine which device your modem is on.
+- Check add-on logs for errors related to connection, polling, or delivery.
+- If using webhook forwarding, ensure that Home Assistant's webhook handler (`/api/webhook/sms`) is properly configured with an automation.
+
+## 📄 License
+
+MIT License
+
+## 🙋 Support
+
+- [GitHub Issues](https://github.com/YOUR-USERNAME/homeassistant-addons/issues)
+- [Home Assistant Forum](https://community.home-assistant.io)
+- [py-smsgateway-async on PyPI](https://pypi.org/project/py-smsgateway-async/)

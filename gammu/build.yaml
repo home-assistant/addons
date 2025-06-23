@@ -1,48 +1,10 @@
-name: "Gammu SMS Gateway"
-slug: "gammu"
-description: "A Home Assistant add-on for GSM SMS messaging via Gammu and py-smsgateway-async."
-url: "https://github.com/home-assistant/addons/tree/main/gammu"
-maintainer: "Oscar Calvo <oscar@calvonet.com>"
-version: "0.1.0"
-stage: "stable"
-keywords:
-  - sms
-  - gammu
-  - modem
-  - notifications
-  - gateway
-  - sms-gateway
-arch:
-  - amd64
-  - aarch64
-  - armv7
-  - armhf
-  - i386
-hassio_api: true
-homeassistant_api: false
-docker_api: false
-host_network: false
-host_ipc: false
-host_dbus: false
-auth_api: false
-privileged:
-  - sys_rawio
-  - sys_time
-map:
-  - config:rw
-  - ssl
-  - usb
-options:
-  device: "/dev/ttyUSB0"
-  baudspeed: "at115200"
-  poll_interval: 10
-schema:
-  device: str
-  baudspeed: str
-  poll_interval: int
-startup: services
-init: false
-boot: auto
-ports:
-  3050/tcp: 3050
-
+---
+build_from:
+  aarch64: ghcr.io/home-assistant/aarch64-base:3.19
+  amd64: ghcr.io/home-assistant/amd64-base:3.19
+  armhf: ghcr.io/home-assistant/armhf-base:3.19
+  armv7: ghcr.io/home-assistant/armv7-base:3.19
+  i386: ghcr.io/home-assistant/i386-base:3.19
+codenotary:
+  signer: notary@home-assistant.io
+  base_image: notary@home-assistant.io

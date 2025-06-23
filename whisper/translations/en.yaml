@@ -26,6 +26,18 @@ configuration:
       Path to a converted model directory, or a CTranslate2-converted Whisper
       model ID from the HuggingFace Hub like
       "Systran/faster-distil-whisper-small.en".
+
+      If custom_model_type is set to 'transformers', a HuggingFace transformers
+      Whisper model ID from HuggingFace like 'openai/whisper-tiny.en' may be
+      used.
+  custom_model_type:
+    name: Custom model type
+    description: |
+      Type of Whisper model expected from custom model.
+
+      The default is 'faster-whisper' which requires a CTranslate2-converted
+      Whisper model. If set to 'transformers', a HuggingFace transformers-based
+      Whisper model may be used.
   initial_prompt:
     name: Initial prompt
     description: >-

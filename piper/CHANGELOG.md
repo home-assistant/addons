@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0
+
+- Add support for streaming audio on sentence boundaries
+
 ## 1.5.4
 
 - Add voices for Dutch: ronnie, pim

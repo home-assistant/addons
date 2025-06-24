@@ -73,6 +73,10 @@ Increase `max_piper_procs` if you need to quickly switch between multiple voices
 
 Download the list of new voices automatically every time the add-on starts. You must also reload the Wyoming integration for Piper in Home Assistant to see new voices.
 
+### Option: `update_voices`
+
+Enable support for streaming audio. This breaks apart text at sentence boundaries and streams the audio as its being produced. Requires at least HA 2025.7.
+
 ### Option: `debug_logging`
 
 Print DEBUG level messages to the add-on's log.

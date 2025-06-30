@@ -23,23 +23,33 @@ for more information.
 
 ### Voice commands
 
-- [English](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/english.md)
-- [Français (French)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/french.md)
-- [Deutsch (German)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/german.md)
-- [Nederlands (Dutch)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/dutch.md)
-- [Spanish (Español)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/spanish.md)
-- [Italian (Italiano)](https://github.com/OHF-Voice/speech-to-phrase/blob/main/docs/italian.md)
+See [available voice commands](https://github.com/OHF-Voice/speech-to-phrase/blob/main/SENTENCES.md)
 
 ### Custom sentences
 
 You can add [custom sentences][] to `/share/speech-to-phrase/custom_sentences/<language>/sentences.yaml` where `<language>` is:
 
-* `en` - English
-* `fr` - French
+* `ca` - Catalan
+* `cs` - Czech
 * `de` - German
-* `nl` - Dutch
+* `el` - Greek
+* `en` - English
 * `es` - Spanish
+* `eu` - Basque
+* `fa` - Persian/Farsi
+* `fi` - Finnish
+* `fr` - French
+* `hi` - Hindi
 * `it` - Italian
+* `mn` - Mongolian
+* `nl` - Dutch
+* `pl` - Polish
+* `pt_PT` - Portuguese
+* `ro` - Romanian
+* `ru` - Russian
+* `sl` - Slovenian
+* `sw` - Swahili
+* `tr` - Turkish
 
 ## Support
 

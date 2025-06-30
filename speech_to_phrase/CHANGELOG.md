@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0
+
+- Load answers from `assist_satellite.ask_question` in automations and scripts
+- Initial support for Catalan, Czech, Greek, Basque, Romanian, Portuguese, Russian, Polish, Hindi, Persian, Finnish, Mongolian, Slovenian, Swahili, and Turkish
+- Rebalance sentence probabilities to reduce number confusion
+- Timer minutes step by 5 instead of 10 after 20
+
 ## 1.3.0
 
 - Add Coqui STT

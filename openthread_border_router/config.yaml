@@ -28,7 +28,6 @@ options:
   device: null
   baudrate: "460800"
   flow_control: true
-  autoflash_firmware: true
   otbr_log_level: notice
   firewall: true
   nat64: false
@@ -43,7 +42,6 @@ schema:
   baudrate: list(57600|115200|230400|460800|921600)
   flow_control: bool
   network_device: str?
-  autoflash_firmware: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
   nat64: bool

@@ -26,7 +26,10 @@ bashio::log.info "Hostname: ${HOSTNAME}"
 
 # Get supported interfaces
 for interface in $(bashio::network.interfaces); do
-    interfaces+=("${interface}")
+    interface_enabled=$(bashio::network.enabled "${interface}")
+    if bashio::var.true "${interface_enabled}"; then
+        interfaces+=("${interface}")
+    fi
 done
 if [ ${#interfaces[@]} -eq 0 ]; then
     bashio::exit.nok 'No supported interfaces found to bind on.'

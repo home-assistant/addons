@@ -9,6 +9,10 @@ if bashio::config.true 'update_voices'; then
     flags+=('--update-voices')
 fi
 
+if bashio::config.true 'streaming'; then
+    flags+=('--streaming')
+fi
+
 if bashio::config.true 'debug_logging'; then
     flags+=('--debug')
 fi

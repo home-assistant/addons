@@ -227,7 +227,7 @@ renewal via [Home Assistant automation][haauto], and then restarting this
 automation every night via the [Supervisor Addon restart action][supervisorrestart].
 
 [haauto]: https://www.home-assistant.io/docs/automation/editor/
-[supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#service-hassioaddon_restart
+[supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#action-hassioaddon_restart
 
 In this example, the automation will run every day at the chosen time, checking
 if a renewal is due, and will request it if needed.
@@ -552,7 +552,7 @@ Use of this plugin requires a configuration file containing DNSimple API credent
   keyfile: privkey.pem
   challenge: dns
   dns:
-    provider: dns-simple
+    provider: dns-dnsimple
     dnsimple_token: dnssimple-token
 ```
 

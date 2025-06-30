@@ -15,7 +15,7 @@
    log level = 1
 
    bind interfaces only = yes
-   interfaces = 127.0.0.1 {{ .interfaces | join " " }}
+   interfaces = lo {{ .interfaces | join " " }}
    hosts allow = 127.0.0.1 {{ .allow_hosts | join " " }}
 
    {{ if .compatibility_mode }}

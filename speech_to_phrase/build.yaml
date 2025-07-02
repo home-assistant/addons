@@ -6,4 +6,4 @@ codenotary:
   signer: notary@home-assistant.io
   base_image: notary@home-assistant.io
 args:
-  SPEECH_TO_PHRASE_VERSION: 1.4.0
+  SPEECH_TO_PHRASE_VERSION: 1.4.1

@@ -1,5 +1,5 @@
 ---
-version: 2.4.6
+version: 2.4.5
 slug: silabs_multiprotocol
 name: "Silicon Labs Multiprotocol [deprecated]"
 description: Zigbee and OpenThread multiprotocol add-on

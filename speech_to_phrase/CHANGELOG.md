@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.1
+
+- More robust parsing of `ask_question` answers from Home Assistant
+- Remove intent probability normalization
+- Revert to Kneser-Ney smoothing instead of Witten-Bell
+- Re-add German timer sentences
+
 ## 1.4.0
 
 - Load answers from `assist_satellite.ask_question` in automations and scripts

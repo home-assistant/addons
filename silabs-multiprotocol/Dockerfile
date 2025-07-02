@@ -141,6 +141,8 @@ RUN \
 
 FROM $BUILD_FROM
 
+ARG UNIVERSAL_SILABS_FLASHER
+
 RUN \
     set -x \
     && apt-get update \
@@ -237,6 +239,7 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
+    && pip install universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        build-essential \
        patch \

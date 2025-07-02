@@ -1,0 +1,68 @@
+#!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+# ==============================================================================
+# Start universal-silabs-flasher if requested
+# ==============================================================================
+
+# shellcheck disable=SC2034
+declare autoflash_firmware
+declare device
+declare firmware
+declare usb_device_path
+declare usb_manufacturer
+declare usb_product
+declare gpio_reset_flag
+
+function exit_no_firmware {
+    bashio::log.warning "No firmware found for the selected device, assuming firmware is installed."
+    exit 0
+}
+
+device=$(bashio::config 'device')
+
+if bashio::config.false 'autoflash_firmware'; then
+    bashio::log.info "Flashing firmware is disabled"
+    exit 0
+fi
+
+# Assume to run on Yellow if UART4 is mapped to ttyAMA1
+if [ -d /sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1 ] && [ "${device}" == "/dev/ttyAMA1" ]; then
+    bashio::log.info "Detected Home Assistant Yellow"
+    firmware="NabuCasa_Yellow_RCP_v4.3.1_rcp-uart-hw-802154_460800.gbl"
+    gpio_reset_flag="--yellow-gpio-reset"
+else
+    # Check device manufacturer/product information
+    # shellcheck disable=SC2046,SC2086
+    usb_device_path=$(realpath /sys/class/tty/$(readlink /sys/class/tty/$(basename ${device}))/../../../../)
+    if [ ! -f "${usb_device_path}/idProduct" ]; then
+        bashio::log.info "The selected serial port is not a USB device."
+        exit_no_firmware
+    fi
+
+    if [ ! -f "${usb_device_path}/manufacturer" ] || [ ! -f "${usb_device_path}/product" ]; then
+        bashio::log.info "USB device is missing manufacturer or product name."
+        exit_no_firmware
+    fi
+
+    usb_manufacturer=$(cat "${usb_device_path}/manufacturer")
+    usb_product=$(cat "${usb_device_path}/product")
+
+    bashio::log.info "Checking ${device} identifying ${usb_product} from ${usb_manufacturer}."
+    if [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "SkyConnect"* ]]; then
+        firmware="NabuCasa_SkyConnect_RCP_v4.3.1_rcp-uart-hw-802154_460800.gbl"
+    elif [[ "${usb_manufacturer}" == "Nabu Casa" && "${usb_product}" == "Home Assistant Connect ZBT-1"* ]]; then
+        firmware="NabuCasa_SkyConnect_RCP_v4.3.1_rcp-uart-hw-802154_460800.gbl"
+    else
+        exit_no_firmware
+    fi
+    gpio_reset_flag=""
+fi
+
+# All firmware we flash have a known baudrate of 460800, let cpcd know.
+echo 460800 > /tmp/known-baudrate
+
+bashio::log.info "Starting universal-silabs-flasher with ${device}"
+# shellcheck disable=SC2086
+exec universal-silabs-flasher --device ${device} \
+     flash ${gpio_reset_flag} --ensure-exact-version --allow-cross-flashing --firmware "/root/${firmware}"

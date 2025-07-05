@@ -121,14 +121,13 @@ RUN \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-SDK.patch \
     && GECKO_SDK=$(pwd) \
     && slc signature trust --sdk=${GECKO_SDK} \
-    && cd protocol/zigbee \
     && slc generate \
        --sdk=${GECKO_SDK} \
        --with="${SLC_ARCH}" \
-       --project-file=$(pwd)/app/zigbeed/zigbeed.slcp \
-       --export-destination=$(pwd)/app/zigbeed/output \
+       --project-file=$(pwd)/protocol/zigbee/app/zigbeed/zigbeed.slcp \
+       --export-destination=$(pwd)/zigbeed-export \
        --copy-proj-sources \
-    && cd app/zigbeed/output \
+    && cd zigbeed-export \
     && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port-main-app.patch \
     && make -f zigbeed.Makefile \
         AR="${DEBIAN_CROSS_PREFIX}-ar" \
@@ -165,11 +164,7 @@ ENV BACKBONE_ROUTER=1
 ENV WEB_GUI=1
 ENV DOCKER 1
 
-COPY otbr-patches/0001-Avoid-writing-to-system-console.patch /usr/src
-COPY otbr-patches/0001-rest-support-erasing-all-persistent-info-1908.patch /usr/src
-COPY otbr-patches/0002-rest-support-deleting-the-dataset.patch /usr/src
-COPY otbr-patches/0003-mdns-update-mDNSResponder-to-1790.80.10.patch /usr/src
-COPY otbr-patches/0004-mdns-add-Linux-specific-patches.patch /usr/src
+COPY otbr-patches/0001-PATCH-rest-Support-deleting-the-dataset.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -198,14 +193,10 @@ RUN \
        netcat \
        sudo \
     && cd ot-br-posix \
-    && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && patch -p1 < /usr/src/0001-rest-support-erasing-all-persistent-info-1908.patch \
-    && patch -p1 < /usr/src/0002-rest-support-deleting-the-dataset.patch \
-    && patch -p1 < /usr/src/0003-mdns-update-mDNSResponder-to-1790.80.10.patch \
-    && patch -p1 < /usr/src/0004-mdns-add-Linux-specific-patches.patch \
-    && ln -s ../../../openthread/ third_party/openthread/repo \
+    && patch -p1 < /usr/src/0001-PATCH-rest-Support-deleting-the-dataset.patch \
+    && ln -s /usr/src/openthread/ third_party/openthread/repo \
     && (cd third_party/openthread/repo \
-        && ln -s ../../../../silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \
+        && ln -s /usr/src/silabs-vendor-interface/openthread-core-silabs-posix-config.h src/posix/platform/openthread-core-silabs-posix-config.h) \
     && chmod +x ./script/* \
     && ./script/bootstrap \
     # Mimic rt_tables_install \
@@ -224,10 +215,10 @@ RUN \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
         -DOT_MULTIPAN_RCP=ON \
-        -DOT_POSIX_CONFIG_RCP_BUS=VENDOR \
-        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=SilabsRcpDeps \
+        -DOT_POSIX_RCP_VENDOR_BUS=ON \
+        -DOT_POSIX_CONFIG_RCP_VENDOR_DEPS_PACKAGE=/usr/src/silabs-vendor-interface/posix_vendor_rcp.cmake \
         -DOT_POSIX_CONFIG_RCP_VENDOR_INTERFACE=/usr/src/silabs-vendor-interface/cpc_interface.cpp \
-        -DOT_CONFIG="openthread-core-silabs-posix-config.h" \
+        -DOT_PLATFORM_CONFIG="openthread-core-silabs-posix-config.h" \
         -DOT_LINK_RAW=1 \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="Silicon Labs Multiprotocol" \
@@ -235,6 +226,7 @@ RUN \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \

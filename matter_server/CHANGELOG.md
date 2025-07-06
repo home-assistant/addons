@@ -2,7 +2,7 @@
 
 ## 8.0.1
 
-- Allow to configure primary_device
+- Allow to configure primary_interface
 
 ## 8.0.0
 

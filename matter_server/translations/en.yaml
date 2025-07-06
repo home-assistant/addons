@@ -42,5 +42,10 @@ configuration:
     description: >-
       Install custom Matter SDK wheels version. NOTE: The API might not be
       compatible with the Python Matter server.
+  primary_interface:
+    name: Primary network interface
+    description: >-
+      Override the default system primary interface. This should be the interface
+      used for provisioning new Matter devices.
 network:
   5580/tcp: Matter Server WebSocket server port.

@@ -53,7 +53,11 @@ if bashio::config.true "enable_test_net_dcl"; then
     extra_args+=('--enable-test-net-dcl')
 fi
 
-primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+if bashio::config.has_value "primary_interface"; then
+  primary_interface=$(bashio::config 'primary_interface')
+else
+  primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+fi
 
 # Try fallback method (e.g. in case NetworkManager is not available)
 # shellcheck disable=SC2086

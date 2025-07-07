@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.13.0
+
+- Update Alpine Linux to 3.22 (nginx 1.28.x)
+- Update to current Mozilla intermediate SSL config
+
 ## 3.12.0
 
 - Add origin and X-Forwarded-Proto headers to fix origin issues affecting Portainer and other addons

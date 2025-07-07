@@ -31,12 +31,14 @@ deploy_challenge() {
     #   TXT record. For HTTP validation it is the value that is expected
     #   be found in the $TOKEN_FILENAME file.
 
-    curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=$TOKEN_VALUE"
-    timeout 60s bash -c -- "
-        while ! dig -t txt \"_acme-challenge.$ALIAS\" | grep -F \"$TOKEN_VALUE\" > /dev/null; do
-            sleep 5;
-        done
-    "
+    if [ "$DOMAIN" = "$ALIAS" ]; then
+        curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=$TOKEN_VALUE"
+        timeout 60s bash -c -- "
+            while ! dig -t txt \"_acme-challenge.$ALIAS\" | grep -F \"$TOKEN_VALUE\" > /dev/null; do
+                sleep 5;
+            done
+        "
+    fi
 }
 
 clean_challenge() {
@@ -49,7 +51,9 @@ clean_challenge() {
     #
     # The parameters are the same as for deploy_challenge.
 
-    curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=removed&clear=true"
+    if [ "$DOMAIN" = "$ALIAS" ]; then
+        curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=removed&clear=true"
+    fi
 }
 
 deploy_cert() {

@@ -1,3 +1,4 @@
+---
 name: Restrict task creation
 
 # yamllint disable-line rule:truthy
@@ -26,7 +27,9 @@ jobs:
               console.log(`✅ ${issueAuthor} is an organization member`);
               return; // Authorized
             } catch (error) {
-              console.log(`❌ ${issueAuthor} is not authorized to create Task issues`);
+              console.log(
+                `❌ ${issueAuthor} is not authorized to create Task issues`
+              );
             }
 
             // Close the issue with a comment
@@ -35,11 +38,15 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body: `Hi @${issueAuthor}, thank you for your contribution!\n\n` +
-                    `Task issues are restricted to Open Home Foundation staff and authorized contributors.\n\n` +
+                    `Task issues are restricted to Open Home Foundation ` +
+                    `staff and authorized contributors.\n\n` +
                     `If you would like to:\n` +
-                    `- Report a bug: Please use the [bug report form](https://github.com/home-assistant/addons/issues/new?template=bug_report.yml)\n` +
-                    `- Request a feature: Please submit to [Feature Requests](https://github.com/orgs/home-assistant/discussions)\n\n` +
-                    `If you believe you should have access to create Task issues, please contact the maintainers.`
+                    `- Report a bug: Please use the ` +
+                    `[bug report form](https://github.com/home-assistant/addons/issues/new?template=bug_report.yml)\n` +
+                    `- Request a feature: Please submit to ` +
+                    `[Feature Requests](https://github.com/orgs/home-assistant/discussions)\n\n` +
+                    `If you believe you should have access to create ` +
+                    `Task issues, please contact the maintainers.`
             });
 
             await github.rest.issues.update({

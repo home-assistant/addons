@@ -8,9 +8,9 @@ body:
       value: |
         This issue form is for reporting bugs with **supported** setups only!
 
-        If you have a feature or enhancement request, please use the [feature request][fr] section of our [Community Forum][fr].
+        If you have a feature or enhancement request, please use our [Feature Requests][fr].
 
-        [fr]: https://community.home-assistant.io/c/feature-requests
+        [fr]: https://github.com/orgs/home-assistant/discussions
 
   - type: textarea
     validations:

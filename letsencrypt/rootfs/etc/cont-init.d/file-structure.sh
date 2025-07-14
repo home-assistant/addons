@@ -55,6 +55,7 @@ echo -e "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "dns_mijn_host_api_key = $(bashio::config 'dns.mijn_host_api_key')\n" \
       "dns_namecheap_api_key = $(bashio::config 'dns.namecheap_api_key')\n" \
       "dns_namecheap_username = $(bashio::config 'dns.namecheap_username')\n" \
+      "dns_namesilo_token = $(bashio::config 'dns.namesilo_token')\n" \
       "dns_netcup_api_key = $(bashio::config 'dns.netcup_api_key')\n" \
       "dns_netcup_api_password = $(bashio::config 'dns.netcup_api_password')\n" \
       "dns_netcup_customer_id = $(bashio::config 'dns.netcup_customer_id')\n" \

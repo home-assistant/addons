@@ -32,6 +32,9 @@ schema:
   certfile: str
   challenge: list(dns|http)
   dns:
+    # Note: When configuring DNS in the UI, only copy the attributes below this line
+    # (e.g., 'provider: dns-cloudflare', 'cloudflare_email: ...') into the
+    # "DNS Provider configuration" field. Do NOT include the 'dns:' key itself.
     # Developer note: please add a new plugin alphabetically into all lists
     aws_access_key_id: str?
     aws_secret_access_key: str?

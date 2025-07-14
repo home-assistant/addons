@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.18.0
+
+### Features
+
+- Z-Wave JS: Automatically correct the transmit power of adapters set to the SDK default powerlevels
+- Z-Wave JS: Reduced the need to re-interview devices after a configuration file update
+- Z-Wave JS: Avoid multi-second communication delays when pinging unreachable devices
+
+### Bug fixes
+
+- Z-Wave JS: The progress for rebuilding routes ignores Long Range devices
+- Z-Wave JS: Improved reliability of inclusion, exclusion, removing and replacing failed devices
+
+### Config file changes
+
+- Add First Alert Smart Smoke & CO Alarm
+- Add Inovelli VZW32-SN mmWave Switch
+- Update and correct Leviton device metadata
+- Add params for Enbrighten (Jasco) 59337 and 59338
+- Add fingerprint `0x8101:0x4a36` to McoHome MH4936
+- Improve accuracy of N4002/N4012 rate parameter labels
+- Add Aeotec Z-Stick 10 Pro
+- Fixed an issue with Yale YRD226 and similar locks where the number of user codes was not stored during the interview
+- Add Shelly Wave Dimmer, Motion and H&T
+- Clean up inclusion/exclusion/reset instructions in many config files
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.9.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.9.0)
+- [Z-Wave JS 15.8.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.8.0)
+- [Z-Wave JS 15.7.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.7.0)
+
 ## 0.17.0
 
 ### Features

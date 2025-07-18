@@ -107,8 +107,9 @@ ENV PATH="/usr/src/slc_cli/:$PATH"
 
 RUN \
     set -x \
-    && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
-       https://github.com/SiliconLabs/gecko_sdk.git
+    && curl -o gecko_sdk.zip -L https://github.com/SiliconLabs/gecko_sdk/releases/download/${GECKO_SDK_VERSION}/gecko-sdk.zip \
+    && unzip -q -d gecko_sdk gecko_sdk.zip \
+    && rm gecko_sdk.zip
 
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/

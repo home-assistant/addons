@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.19.0
+
+### Features
+
+- Z-Wave JS: Convert Battery CC `isLow` value to a notification
+- Z-Wave JS: Removed several unnecessary Indicator CC values and fixed several remaining ones
+
+### Bug fixes
+
+- Z-Wave JS: Use configured RF region as fallback for firmware update checks on older controllers
+- Z-Wave JS: When turning on a Multilevel Switch with supervision, the actual value is now queried immediately instead of 5s later
+
+### Config file changes
+
+- Add fingerprint to FireAngel ZHT-630, add FireAngel ZST-630
+- Remove unlock mapping for Schlage lock FE599
+- Add Fantem FT117 range extender
+- Add Zooz ZEN35
+- Remove proprietary RGB functionality for ZWA-2
+- Update label and description for ZWA-2
+- Add missing parameter 117 (Reboot) on Shelly Wave Plug S EU (QNPL-0A112)
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.10.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.10.0)
+
 ## 0.18.0
 
 ### Features

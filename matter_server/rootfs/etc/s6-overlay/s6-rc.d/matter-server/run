@@ -59,7 +59,7 @@ if bashio::config.has_value "matter_server_args"; then
 fi
 
 # Only determine primary_interface if not already specified in matter_server_args (from config)
-primary_interface_pattern=" --primary-interface (.*) "
+primary_interface_pattern=" --primary-interface ([^\s]*) "
 if [[ " ${extra_args[*]} " =~ $primary_interface_pattern ]]; then
   bashio::log.info "Using primary interface from config: ${BASH_REMATCH[1]}."
 else

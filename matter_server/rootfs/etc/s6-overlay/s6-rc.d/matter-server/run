@@ -53,31 +53,35 @@ if bashio::config.true "enable_test_net_dcl"; then
     extra_args+=('--enable-test-net-dcl')
 fi
 
-primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
-
-# Try fallback method (e.g. in case NetworkManager is not available)
-# shellcheck disable=SC2086
-if [ -z ${primary_interface} ]; then
-  bashio::log.warning 'Trying fallback method to determine primary interface'
-  primary_interface="$(ip --json route show default | jq --raw-output '.[0].dev')"
+if bashio::config.has_value "matter_server_args"; then
+  # shellcheck disable=SC2207
+  extra_args+=($(bashio::config 'matter_server_args'))
 fi
 
-# shellcheck disable=SC2086
-if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
-    bashio::exit.nok "No primary network interface found!"
+# Only determine primary_interface if not already specified in matter_server_args (from config)
+primary_interface_pattern=" --primary-interface (.*) "
+if [[ " ${extra_args[*]} " =~ $primary_interface_pattern ]]; then
+  bashio::log.info "Using primary interface from config: ${BASH_REMATCH[1]}."
+else
+  primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+  # Try fallback method (e.g. in case NetworkManager is not available)
+  # shellcheck disable=SC2086
+  if [ -z ${primary_interface} ]; then
+    bashio::log.warning 'Trying fallback method to determine primary interface'
+    primary_interface="$(ip --json route show default | jq --raw-output '.[0].dev')"
+  fi
+  # shellcheck disable=SC2086
+  if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
+      bashio::exit.nok "No primary network interface found!"
+  fi
+  extra_args+=('--primary-interface' "${primary_interface}")
+  bashio::log.info "Using '${primary_interface}' as primary network interface."
 fi
 
 if bashio::config.has_value "bluetooth_adapter_id"; then
   # shellcheck disable=SC2207
   extra_args+=('--bluetooth-adapter' $(bashio::config 'bluetooth_adapter_id'))
 fi
-
-if bashio::config.has_value "matter_server_args"; then
-  # shellcheck disable=SC2207
-  extra_args+=($(bashio::config 'matter_server_args'))
-fi
-
-bashio::log.info "Using '${primary_interface}' as primary network interface."
 
 # Send out discovery information to Home Assistant
 /etc/s6-overlay/scripts/matter-server-discovery &
@@ -91,7 +95,6 @@ matter_server_args+=(
   '--port' "${server_port}"
   '--log-level' "${log_level}"
   '--log-level-sdk' "${log_level_sdk}"
-  '--primary-interface' "${primary_interface}"
   '--paa-root-cert-dir' "/data/credentials"
   '--ota-provider-dir' "/config/updates"
   '--fabricid' 2

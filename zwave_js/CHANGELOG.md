@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.20.0
+
+### Features
+
+- Z-Wave JS Server: Bump schema to 44
+- Z-Wave JS Server: Support OTW updates through the FW update service
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.2.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.2.1)
+- [Z-Wave JS Server 3.2.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.2.0)
+
 ## 0.19.0
 
 ### Features

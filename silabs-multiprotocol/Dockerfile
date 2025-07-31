@@ -90,18 +90,25 @@ FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
 ARG GECKO_SDK_VERSION
 
+# Install and sanity check SLC CLI binary
 RUN \
     set -x \
     && apt-get install -y --no-install-recommends \
        python3 \
        python3-jinja2 \
        python3-pip \
-       openjdk-17-jre \
        git-lfs \
+       gnupg \
        unzip \
+    && curl -s https://repos.azul.com/azul-repo.key | gpg --dearmor -o /usr/share/keyrings/azul.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" > /etc/apt/sources.list.d/zulu.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       zulu21-jre \
     && curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
     && unzip slc_cli_linux.zip \
-    && cd slc_cli/ && chmod +x slc
+    && cd slc_cli/ && chmod +x slc \
+    && ./slc --version
  
 ENV PATH="/usr/src/slc_cli/:$PATH"
 

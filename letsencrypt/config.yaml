@@ -1,5 +1,5 @@
 ---
-version: 5.4.9
+version: 5.4.10
 breaking_versions: [5.3.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -91,6 +91,7 @@ schema:
     mijn_host_api_key: str?
     namecheap_api_key: str?
     namecheap_username: str?
+    namesilo_token: str?
     netcup_api_key: str?
     netcup_api_password: str?
     netcup_customer_id: str?
@@ -137,6 +138,7 @@ schema:
         dns-luadns|\
         dns-mijn-host|\
         dns-namecheap|\
+        dns-namesilo|\
         dns-netcup|\
         dns-njalla|\
         dns-noris|\

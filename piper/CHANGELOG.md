@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.3
+
+- Bump wyoming to 1.7.2 to fix event data error
+
 ## 1.6.2
 
 - Split sentences on numbered lists and remove asterisks surrounding words

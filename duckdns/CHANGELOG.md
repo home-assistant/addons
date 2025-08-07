@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.20.0
+
+- Only deploy challenge for the main domain, aliases are handled through CNAME records
+
 ## 1.19.0
 
 - Wait for up to 60 seconds for TXT record to propagate when deploying challenges

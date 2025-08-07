@@ -19,6 +19,7 @@ PrintMotd no
 
 {{ if .authorized_keys }}
 PasswordAuthentication no
+KbdInteractiveAuthentication no
 {{ else if .password }}
 PasswordAuthentication yes
 PermitEmptyPasswords no

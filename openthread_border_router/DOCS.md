@@ -12,9 +12,10 @@ Follow these steps to get the add-on installed on your system:
 
 ## How to use
 
-You will need a 802.15.4 capable radio supported by OpenThread. Home Assistant
-Yellow as well as Home Assistant SkyConnect/Connect ZBT-1 are both capable to run
-OpenThread. This add-on automatically installs the necessary firmware on these systems.
+You will need a 802.15.4 capable radio supported by OpenThread flashed with OpenThread
+RCP firmware. Home Assistant Yellow as well as Home Assistant SkyConnect/Connect ZBT-1
+are both able to run OpenThread and will be flashed with the correct firmware by Home
+Assistant Core.
 
 If you are using Home Assistant Yellow, choose `/dev/ttyAMA1` as device.
 
@@ -61,7 +62,6 @@ Add-on configuration:
 | device (mandatory) | Serial port where the OpenThread RCP Radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
-| autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
 | nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |

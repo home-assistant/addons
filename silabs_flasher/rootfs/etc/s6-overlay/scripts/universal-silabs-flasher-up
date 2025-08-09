@@ -11,6 +11,7 @@ set -e
 declare autoflash_firmware
 declare device
 declare bootloader_baudrate
+declare ezsp_baudrate
 declare firmware
 declare verbose
 declare usb_device_path
@@ -55,6 +56,7 @@ function is_home_assistant_yellow {
 
 device=$(bashio::config 'device')
 bootloader_baudrate=$(bashio::config 'bootloader_baudrate')
+ezsp_baudrate=$(bashio::config 'ezsp_baudrate')
 
 if is_home_assistant_yellow; then
     bashio::log.info "Detected Home Assistant Yellow"
@@ -109,12 +111,13 @@ if bashio::config.true 'verbose'; then
     verbose="-v"
 fi
 
-bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
+bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate}) (ezsp baudrate ${ezsp_baudrate})"
 # shellcheck disable=SC2086
 universal-silabs-flasher \
     ${verbose} \
     --device ${device} \
     --bootloader-baudrate "${bootloader_baudrate}" \
+    --ezsp-baudrate "${ezsp_baudrate}" \
     ${gpio_reset_flag} \
     flash --force --firmware "/root/${firmware}"
 

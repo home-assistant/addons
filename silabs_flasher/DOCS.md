@@ -21,12 +21,13 @@ SkyConnect/ZBT-1 or other USB based wireless adapters).
 
 Add-on configuration:
 
-| Configuration      | Description                                            |
-|--------------------|--------------------------------------------------------|
-| device (mandatory) | Serial service where the Silicon Labs radio is attached |
-| baudrate           | Serial port baudrate (depends on firmware)   |
-| flow_control       | If hardware flow control should be enabled (depends on firmware) |
-| firmware_url       | Custom URL to flash firmware from                      |
+| Configuration       | Description                                            |
+|---------------------|--------------------------------------------------------|
+| device (mandatory)  | Serial service where the Silicon Labs radio is attached |
+| bootloader_baudrate | Serial port baudrate for gecko bootloader (depends on firmware)   |
+| ezsp_baudrate       | Serial port baudrate for ezsp (depends on firmware)   |
+| flow_control        | If hardware flow control should be enabled (depends on firmware) |
+| firmware_url        | Custom URL to flash firmware from                      |
 
 ## Support
 

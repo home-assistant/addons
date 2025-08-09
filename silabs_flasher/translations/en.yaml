@@ -8,6 +8,11 @@ configuration:
     description: >-
       The serial port baudrate used to communicate with the Silicon Labs radio
       in bootloader mode.
+  ezsp_baudrate:
+    name: EZSP Baudrate
+    description: >-
+      The serial port baudrate used to communicate with the Silicon Labs radio
+      in ezsp mode.
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.

@@ -121,9 +121,7 @@ bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader b
 universal-silabs-flasher \
     ${verbose} \
     --device ${device} \
-    --bootloader-baudrate ${bootloader_baudrate}" \
+    --bootloader-baudrate "${bootloader_baudrate}" \
     ${ezsp_baudrate_arg} \
     ${gpio_reset_flag} \
     flash --force --firmware "/root/${firmware}"
-
-

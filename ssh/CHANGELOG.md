@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.19.0
+
+- Disable keyboard interactive authentication method if keys are used
+
 ## 9.18.0
 
 - Upgrade Home Assistant CLI to 4.39.0

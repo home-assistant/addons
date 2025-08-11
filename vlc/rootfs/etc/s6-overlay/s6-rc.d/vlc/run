@@ -7,6 +7,8 @@
 # shellcheck disable=SC2155
 readonly PASSWORD="$(cat /data/secret)"
 
+bashio::log.info "Waiting for Pulse socket to become available..."
+
 while [ ! -S "/run/audio/pulse.sock" ]
 do
     sleep 1

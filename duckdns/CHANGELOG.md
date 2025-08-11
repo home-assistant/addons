@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.21.0
+
+- Call Dehydrator per-domain or alias due to limitation in DuckDNS which can only handle a single TXT record at a time
+- Log the domain or alias being processed
+- Remove filtering of the domain = alias, otherwise, aliases are not getting renewed
+- Increase DuckDNS name server timeout to 120s
+
 ## 1.20.0
 
 - Only deploy challenge for the main domain, aliases are handled through CNAME records

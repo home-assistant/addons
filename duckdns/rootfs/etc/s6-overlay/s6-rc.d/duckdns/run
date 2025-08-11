@@ -18,7 +18,6 @@ ALGO=$(bashio::config 'lets_encrypt.algo')
 
 # Function that performs a renew
 function le_renew() {
-    local domain_args=()
     local domains=''
     local aliases=''
 
@@ -36,10 +35,10 @@ function le_renew() {
     bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
 
     for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
-        domain_args+=("--domain" "${domain}")
+		# DuckDNS does not support more than a single TXT record, so, you need to process echo domain or alias separately
+		dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     done
 
-    dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     LE_UPDATE="$(date +%s)"
 }
 

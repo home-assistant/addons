@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Restart VLC on Audio plug-in restart
+
 ## 0.3.0
 
 - Prevent race condition reading secrets on startup

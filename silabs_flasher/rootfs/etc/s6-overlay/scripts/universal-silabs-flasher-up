@@ -111,7 +111,7 @@ fi
 
 ezsp_baudrate_arg=()
 if bashio::config.has_value 'ezsp_baudrate'; then
-    ezsp_baudrate_arg=("--ezsp-baudrate", $(bashio::config 'ezsp_baudrate'))
+    ezsp_baudrate_arg=("--ezsp-baudrate" $(bashio::config 'ezsp_baudrate'))
 fi
 
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"

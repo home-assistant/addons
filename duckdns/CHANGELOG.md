@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.22.0
+
+- Fix bashio logger issue
+
 ## 1.21.0
 
 - Call Dehydrator per-domain or alias due to limitation in DuckDNS which can only handle a single TXT record at a time

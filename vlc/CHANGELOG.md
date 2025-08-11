@@ -3,6 +3,7 @@
 ## 0.3.1
 
 - Restart VLC on Audio plug-in restart
+- Update to Alpine 3.22
 
 ## 0.3.0
 

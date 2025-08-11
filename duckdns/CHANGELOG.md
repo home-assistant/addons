@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.23.0
+
+- Improve GREP syntax for better stability for tokens with dashes
+
 ## 1.22.0
 
 - Fix bashio logger issue

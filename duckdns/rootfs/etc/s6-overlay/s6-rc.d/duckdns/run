@@ -18,7 +18,6 @@ ALGO=$(bashio::config 'lets_encrypt.algo')
 
 # Function that performs a renew
 function le_renew() {
-    local domain_args=()
     local domains=''
     local aliases=''
 

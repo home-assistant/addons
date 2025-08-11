@@ -6,6 +6,7 @@ WORKDIR /usr/src
 RUN \
     set -x \
     && apk add --no-cache \
+        inotify-tools \
         nginx \
         pwgen \
         vlc \

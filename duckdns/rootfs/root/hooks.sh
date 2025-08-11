@@ -36,7 +36,7 @@ deploy_challenge() {
 
 	curl -s "https://www.duckdns.org/update?domains=$ALIAS&token=$SYS_TOKEN&txt=$TOKEN_VALUE"
 	timeout 120s bash -c -- "
-		while ! dig -t txt \"_acme-challenge.$ALIAS\" | grep -F \"$TOKEN_VALUE\" > /dev/null; do
+		while ! dig -t txt \"_acme-challenge.$ALIAS\" | grep -F -- \"$TOKEN_VALUE\" > /dev/null; do
 			sleep 5;
 		done
 	"

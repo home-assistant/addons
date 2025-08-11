@@ -2,7 +2,7 @@
 
 ## 9.19.0
 
-Disable keyboard interactive authentication method if keys are used
+- Disable keyboard interactive authentication method if keys are used
 
 ## 9.18.0
 

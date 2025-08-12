@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+- Allow to start universal-silabs-flasher with custom ezsp baudrate
+
 ## 0.3.2
 
 - Update flasher script to work with Home Assistant Yellow with CM5

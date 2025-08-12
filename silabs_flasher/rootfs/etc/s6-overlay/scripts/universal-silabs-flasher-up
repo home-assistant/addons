@@ -109,13 +109,18 @@ if bashio::config.true 'verbose'; then
     verbose="-v"
 fi
 
+declare -a ezsp_baudrate_arg=()
+if bashio::config.has_value 'ezsp_baudrate'; then
+    baud="$(bashio::config 'ezsp_baudrate')"
+    ezsp_baudrate_arg=(--ezsp-baudrate "$baud")
+fi
+
 bashio::log.info "Starting universal-silabs-flasher with ${device} (bootloader baudrate ${bootloader_baudrate})"
 # shellcheck disable=SC2086
 universal-silabs-flasher \
     ${verbose} \
     --device ${device} \
     --bootloader-baudrate "${bootloader_baudrate}" \
+    "${ezsp_baudrate_arg[@]}" \
     ${gpio_reset_flag} \
     flash --force --firmware "/root/${firmware}"
-
-

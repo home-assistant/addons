@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.0
+
+- Add a pass to combine individual domains into a single certificate
+
 ## 1.23.0
 
 - Improve GREP syntax for better stability for tokens with dashes

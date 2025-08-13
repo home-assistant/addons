@@ -23,22 +23,22 @@ function le_renew() {
     local aliases=''
 
     domains=$(bashio::config 'domains')
-
+	
     # Prepare domain for Let's Encrypt
     for domain in ${domains}; do
         for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
-            aliases="${aliases} ${alias}"
+            aliases="${aliases}"$'\n'"${alias}"
         done
     done
 
-    aliases="$(echo "${aliases}" | tr ' ' '\n' | sort | uniq)"
+    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}" | awk NF) and aliases: $(echo -n "${aliases}" | awk NF)"
 
-    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
-
-    for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
+	IFS=$'\n'
+    for domain in $(echo "${domains}"$'\n'"${aliases}" | awk NF | sort | uniq); do
+		unset IFS
 		domain_args+=("--domain" "${domain}")
 		
-		# DuckDNS does not support more than a single TXT record, so, you need to process echo domain or alias separately
+		# DuckDNS does not support more than a single TXT record, so, process each domain or alias separately and combine later
 		dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     done
 	

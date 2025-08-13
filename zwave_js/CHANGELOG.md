@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.21.0
+
+### Features
+
+- Z-Wave JS: Add support for defining Scene labels in config files
+- Z-Wave JS: Disable SmartStart provisioning entries after 5 failed inclusion attempts
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where Aeotec Z-Stick 5 would become unresponsive during NVM backup
+- Z-Wave JS: Fixed firmware update progress jumping back and forth
+- Z-Wave JS: Fixed incorrect long-term averaging of RSSI values
+- Z-Wave JS: Ensure failures during NVM migration are surfaced to the application
+
+### Config file changes
+
+- Prepare Inovelli VZW31-SN for future firmware upgrade
+- Add productID `0x0111` to Fakro AMZ Solar awning
+- Add ECO-DIM.07 800 series version
+- Update Aeotec Trisensor 8 to firmware 2.8.4
+- Remove non-existent parameter 107 for Shelly Wave Plus S
+- Fix typo in Shelly dimmer output label
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.11.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.11.0)
+
 ## 0.20.0
 
 ### Features

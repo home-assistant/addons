@@ -23,7 +23,7 @@ function le_renew() {
     local aliases=''
 
     domains=$(bashio::config 'domains')
-	
+
     # Prepare domain for Let's Encrypt
     for domain in ${domains}; do
         for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do

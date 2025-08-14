@@ -33,14 +33,17 @@ function le_renew() {
 
     bashio::log.info "Renew certificate for domains: $(echo -n "${domains}" | awk NF) and aliases: $(echo -n "${aliases}" | awk NF)"
 
+	OLD_IFS="${IFS}"
 	IFS=$'\n'
     for domain in $(echo "${domains}"$'\n'"${aliases}" | awk NF | sort | uniq); do
-		unset IFS
+		IFS="${OLD_IFS}"
 		domain_args+=("--domain" "${domain}")
 		
 		# DuckDNS does not support more than a single TXT record, so, process each domain or alias separately and combine later
 		dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
+		IFS=$'\n'
     done
+	OLD_IFS="${IFS}"
 	
 	# This final stage will combine everything into a single cert with SANs for the aliases
 	bashio::log.info "Final pass to combine individual certificates"

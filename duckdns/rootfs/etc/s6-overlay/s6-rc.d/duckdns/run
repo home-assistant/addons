@@ -37,23 +37,14 @@ function le_renew() {
 	readarray -t domainsarray <<< "$domains" # line-separated list of domains into an array
     bashio::log.info "Renew certificate for domains: $(echo -n "${domainsarray[@]}") and aliases: $(echo -n "${aliases[@]}")"
 	
-	# Combine domains and aliases into one array
-	domainsAndAliases=("${domainsarray[@]}" "${aliases[@]}")
-	
-	# Associative Array is used to filter the combined array to unique values
-	declare -A unique_map
-	for element in "${domainsAndAliases[@]}"; do
-		unique_map["$element"]=""
+	# Combine domains and aliases into one array, skipping duplicates
+	declare -A seen
+	for element in "${domainsarray[@]}" "${aliases[@]}"; do
+		if [[ -n "${element}" && -z "${seen["$element"]+x}" ]]; then
+			seen["$element"]=1
+			domainsAndAliases+=("${element}")
+		fi
 	done
-	domainsAndAliases=("${!unique_map[@]}")
-	
-	# The Associative Array reverses the ordering. Un-reverse it (mostly for display purposes, domains will be renewed in this order)
-	reversed_array=()
-	for (( i=${#domainsAndAliases[@]}-1; i>=0; i-- )); do
-		reversed_array+=("${domainsAndAliases[i]}")
-	done
-	domainsAndAliases=("${reversed_array[@]}")
-	unset reversed_array
 	
 	# Actually do the renewals below
 

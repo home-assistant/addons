@@ -21,7 +21,7 @@ function le_renew() {
     local domain_args=()
     local domains=''
     local aliases=()
-	local domainsAndAliases=()
+    local domainsAndAliases=()
 
     domains=$(bashio::config 'domains')
 

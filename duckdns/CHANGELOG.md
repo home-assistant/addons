@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.26.0
+
+- Workaround for potential rate-limit for some people
+- Fallback to similar renewal behaviour to 1.19 while still supporting wildcards and other fixes
+
 ## 1.25.0
 
 - Wildcard support when using domains as "*.yourDomain.duckdns.org > yourDomain.duckdns.org"

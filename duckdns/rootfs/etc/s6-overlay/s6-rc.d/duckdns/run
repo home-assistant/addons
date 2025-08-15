@@ -51,12 +51,16 @@ function le_renew() {
     for domain in "${domainsAndAliases[@]}"; do
 		domain_args+=("--domain" "${domain}")
 		
+		# Note, the below is commented out for now as dehydrated force-renews each domain when domain input is different from the previous run
+		# This is causing rate-limiting from Let's Encrypt
+		# Need to resolve issue with dehydrated first to properly support single TXT records
+		
 		# DuckDNS does not support more than a single TXT record, so, process each domain or alias separately and combine later
-		dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
+		#dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     done
 	
 	# This final stage will combine everything into a single cert with SANs for the aliases
-	bashio::log.info "Final pass to combine individual certificates"
+	#bashio::log.info "Final pass to combine individual certificates"
 	dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
 
     LE_UPDATE="$(date +%s)"

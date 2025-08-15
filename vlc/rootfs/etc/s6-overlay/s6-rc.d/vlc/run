@@ -7,6 +7,15 @@
 # shellcheck disable=SC2155
 readonly PASSWORD="$(cat /data/secret)"
 
+bashio::log.info "Waiting for PulseAudio socket to become available..."
+
+while [ ! -S "/run/audio/pulse.sock" ]
+do
+    sleep 1
+done
+
+bashio::log.info "PulseAudio socket available, starting VLC"
+
 # Send out discovery information to Home Assistant
 /etc/s6-overlay/scripts/vlc-discovery &
 

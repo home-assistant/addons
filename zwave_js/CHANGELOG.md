@@ -1,5 +1,70 @@
 # Changelog
 
+## 0.21.0
+
+### Features
+
+- Z-Wave JS: Add support for defining Scene labels in config files
+- Z-Wave JS: Disable SmartStart provisioning entries after 5 failed inclusion attempts
+
+### Bug fixes
+
+- Z-Wave JS: Fixed an issue where Aeotec Z-Stick 5 would become unresponsive during NVM backup
+- Z-Wave JS: Fixed firmware update progress jumping back and forth
+- Z-Wave JS: Fixed incorrect long-term averaging of RSSI values
+- Z-Wave JS: Ensure failures during NVM migration are surfaced to the application
+
+### Config file changes
+
+- Prepare Inovelli VZW31-SN for future firmware upgrade
+- Add productID `0x0111` to Fakro AMZ Solar awning
+- Add ECO-DIM.07 800 series version
+- Update Aeotec Trisensor 8 to firmware 2.8.4
+- Remove non-existent parameter 107 for Shelly Wave Plus S
+- Fix typo in Shelly dimmer output label
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.11.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.11.0)
+
+## 0.20.0
+
+### Features
+
+- Z-Wave JS Server: Bump schema to 44
+- Z-Wave JS Server: Support OTW updates through the FW update service
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.2.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.2.1)
+- [Z-Wave JS Server 3.2.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.2.0)
+
+## 0.19.0
+
+### Features
+
+- Z-Wave JS: Convert Battery CC `isLow` value to a notification
+- Z-Wave JS: Removed several unnecessary Indicator CC values and fixed several remaining ones
+
+### Bug fixes
+
+- Z-Wave JS: Use configured RF region as fallback for firmware update checks on older controllers
+- Z-Wave JS: When turning on a Multilevel Switch with supervision, the actual value is now queried immediately instead of 5s later
+
+### Config file changes
+
+- Add fingerprint to FireAngel ZHT-630, add FireAngel ZST-630
+- Remove unlock mapping for Schlage lock FE599
+- Add Fantem FT117 range extender
+- Add Zooz ZEN35
+- Remove proprietary RGB functionality for ZWA-2
+- Update label and description for ZWA-2
+- Add missing parameter 117 (Reboot) on Shelly Wave Plug S EU (QNPL-0A112)
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.10.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.10.0)
+
 ## 0.18.0
 
 ### Features

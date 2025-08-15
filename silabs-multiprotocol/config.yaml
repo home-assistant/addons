@@ -1,7 +1,7 @@
 ---
 version: 2.4.5
 slug: silabs_multiprotocol
-name: Silicon Labs Multiprotocol
+name: "Silicon Labs Multiprotocol [deprecated]"
 description: Zigbee and OpenThread multiprotocol add-on
 url: >
   https://github.com/home-assistant/addons/tree/master/silabs-multiprotocol
@@ -50,5 +50,5 @@ schema:
   otbr_enable: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   otbr_firewall: bool
-stage: experimental
+stage: deprecated
 startup: services

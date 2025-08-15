@@ -36,10 +36,16 @@ function le_renew() {
     bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
 
     for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
-        domain_args+=("--domain" "${domain}")
+		domain_args+=("--domain" "${domain}")
+		
+		# DuckDNS does not support more than a single TXT record, so, you need to process echo domain or alias separately
+		dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     done
+	
+	# This final stage will combine everything into a single cert with SANs for the aliases
+	bashio::log.info "Final pass to combine individual certificates"
+	dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
 
-    dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 "${domain_args[@]}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     LE_UPDATE="$(date +%s)"
 }
 

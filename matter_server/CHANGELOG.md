@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.1.0
+
+- Bump Python Matter Server to [8.1.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/8.1.0)
+- Update bashio to 0.17.1
+
 ## 8.0.0
 
 - Bump Python Matter Server to [8.0.0](https://github.com/home-assistant-libs/python-matter-server/releases/tag/8.0.0)

@@ -29,7 +29,7 @@ function le_renew() {
 	# Get a list of aliases against domains first from the options file
     for domain in ${domains}; do
         for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
-            aliases+=(${alias})
+            aliases+=("${alias}")
         done
     done
 

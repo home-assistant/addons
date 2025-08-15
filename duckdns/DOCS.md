@@ -98,12 +98,14 @@ The DuckDNS authentication token found at the top of the DuckDNS account landing
 ### Option: `domains`
 
 A list of DuckDNS subdomains registered under your account. An acceptable naming convention is `my-domain.duckdns.org`.
+Wildcard certificates can also be issued by using the syntax `*.my-domain.duckdns.org > my-domain.duckdns.org`.
 
 ### Option: `aliases` (optional)
 
 A list aliases of domains configured on the `domains` option.
 This is useful in cases where you would like to use your own domain.
 Create a CNAME record to point at the DuckDNS subdomain and set this value accordingly.
+It is recommended to set the TTL value on your CNAME to a low value, typically under 60.
 
 For example:
 

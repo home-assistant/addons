@@ -20,25 +20,38 @@ ALGO=$(bashio::config 'lets_encrypt.algo')
 function le_renew() {
     local domain_args=()
     local domains=''
-    local aliases=''
+    local aliases=()
+    local domainsAndAliases=()
 
     domains=$(bashio::config 'domains')
 
     # Prepare domain for Let's Encrypt
+	
+	# Get a list of aliases against domains first from the options file
     for domain in ${domains}; do
         for alias in $(jq --raw-output --exit-status "[.aliases[]|{(.alias):.domain}]|add.\"${domain}\" | select(. != null)" /data/options.json) ; do
-            aliases="${aliases} ${alias}"
+            aliases+=("${alias}")
         done
     done
 
-    aliases="$(echo "${aliases}" | tr ' ' '\n' | sort | uniq)"
+	readarray -t domainsarray <<< "$domains" # line-separated list of domains into an array
+    bashio::log.info "Renew certificate for domains: $(echo -n "${domainsarray[@]}") and aliases: $(echo -n "${aliases[@]}")"
+	
+	# Combine domains and aliases into one array, skipping duplicates
+	declare -A seen
+	for element in "${domainsarray[@]}" "${aliases[@]}"; do
+		if [[ -n "${element}" && -z "${seen["$element"]+x}" ]]; then
+			seen["$element"]=1
+			domainsAndAliases+=("${element}")
+		fi
+	done
+	
+	# Actually do the renewals below
 
-    bashio::log.info "Renew certificate for domains: $(echo -n "${domains}") and aliases: $(echo -n "${aliases}")"
-
-    for domain in $(echo "${domains}" "${aliases}" | tr ' ' '\n' | sort | uniq); do
+    for domain in "${domainsAndAliases[@]}"; do
 		domain_args+=("--domain" "${domain}")
 		
-		# DuckDNS does not support more than a single TXT record, so, you need to process echo domain or alias separately
+		# DuckDNS does not support more than a single TXT record, so, process each domain or alias separately and combine later
 		dehydrated --cron --algo "${ALGO}" --hook /root/hooks.sh --challenge dns-01 --domain "${domain}" --out "${CERT_DIR}" --config "${WORK_DIR}/config" || true
     done
 	
@@ -73,7 +86,6 @@ fi
 # Run duckdns
 bashio::log.info "Starting DuckDNS..."
 while true; do
-
     [[ ${IPV4} != *:/* ]] && ipv4=${IPV4} || ipv4=$(curl -s -m 10 "${IPV4}")
     [[ ${IPV6} != *:/* ]] && ipv6=${IPV6} || ipv6=$(curl -s -m 10 "${IPV6}")
 
@@ -89,9 +101,12 @@ while true; do
             fi
         done
     fi
+	
+	# Sanitise the DOMAINS, filtering out duplicates, subdomains and wildcard aliases and retaining just the instances of my-domain.duckdns.org	
+	duckdnsDomains=$(echo "$DOMAINS" | grep -Eo '[^ .>,]+\.duckdns\.org' | sort -u | paste -sd,)
 
     if [[ ${ipv6} == *:* ]]; then
-        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+        if answer="$(curl -s "https://www.duckdns.org/update?domains=${duckdnsDomains}&token=${TOKEN}&ipv6=${ipv6}&verbose=true")" && [ "${answer}" != 'KO' ]; then
             if [[ "${answer}" == *NOCHANGE* ]]; then
    		bashio::log.debug "${answer}"
 	    else
@@ -103,7 +118,7 @@ while true; do
     fi
 
     if [[ -z ${ipv4} || ${ipv4} == *.* ]]; then
-        if answer="$(curl -s "https://www.duckdns.org/update?domains=${DOMAINS}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
+        if answer="$(curl -s "https://www.duckdns.org/update?domains=${duckdnsDomains}&token=${TOKEN}&ip=${ipv4}&verbose=true")" && [ "${answer}" != 'KO' ]; then
             if [[ "${answer}" == *NOCHANGE* ]]; then
    		bashio::log.debug "${answer}"
 	    else

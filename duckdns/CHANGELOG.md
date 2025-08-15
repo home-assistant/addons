@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.25.0
+
+- Wildcard support when using domains as "*.yourDomain.duckdns.org > yourDomain.duckdns.org"
+
 ## 1.24.0
 
 - Add a pass to combine individual domains into a single certificate

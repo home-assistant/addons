@@ -21,6 +21,7 @@ function le_renew() {
     local domain_args=()
     local domains=''
     local aliases=()
+	local domainsAndAliases=()
 
     domains=$(bashio::config 'domains')
 
@@ -46,12 +47,13 @@ function le_renew() {
 	done
 	domainsAndAliases=("${!unique_map[@]}")
 	
-	# The Associative Array reverses the ordering. Un-reverse it
+	# The Associative Array reverses the ordering. Un-reverse it (mostly for display purposes, domains will be renewed in this order)
 	reversed_array=()
 	for (( i=${#domainsAndAliases[@]}-1; i>=0; i-- )); do
 		reversed_array+=("${domainsAndAliases[i]}")
 	done
 	domainsAndAliases=("${reversed_array[@]}")
+	unset reversed_array
 	
 	# Actually do the renewals below
 

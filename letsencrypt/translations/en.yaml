@@ -14,6 +14,10 @@ configuration:
   certfile:
     name: Certificate File
     description: Path to where the Certificate File will be placed.
+  key_type:
+    name: Key Type
+    description: >-
+      Select the certificate key type.
   challenge:
     name: Challenge
     description: The type of challenge used to validate the domain.
@@ -31,29 +35,20 @@ configuration:
   dns:
     name: DNS
     description: DNS Provider configuration
-  key_type:
-    name: Key Type
-    description: >-
-      Select the certificate key type. If unset, will auto-detect based on
-      the key type of the existing certificate or default to ecdsa.
-  elliptic_curve:
-    name: Elliptic Curve
-    description: >-
-      Elliptic curve for ECDSA keys. This option must be used with Key Type
-      set to ECDSA. If unset the Certbot default will be used.
-  dry_run:
-    name: Dry Run
-    description: >-
-      Do a certbot dry-run for requesting the certificates from Let's Encrypt.
-      This is ignored if a custom server is used.
   test_cert:
     name: Issue test certificates
     description: >-
       Obtain a test certificate from Let's Encrypt staging server.
       This is ignored if a custom server is used.
+  dry_run:
+    name: Dry Run
+    description: >-
+      Obtain a test certificate from Let's Encrypt staging server, but not
+      saving them.
+      This is ignored if a custom server is used.
   verbose:
     name: Verbose Mode
     description: >-
-      Run certbot in verbose mode.
+      Run Certbot in verbose mode.
 network:
   80/tcp: Only needed for http challenge

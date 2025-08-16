@@ -10,6 +10,11 @@ Sets up an SSL proxy with NGINX web server. It is typically used to forward SSL 
 
 Make sure you have generated a certificate before you start this add-on. The [Duck DNS](https://github.com/home-assistant/hassio-addons/tree/master/duckdns) add-on can generate a Let's Encrypt certificate that can be used by this add-on.
 
+## Installation & Configuration
+
+Read the [docs](DOCS.md).
+
+
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.26.0
+
+- Updated dehydrated fork with support for single-txt domains
+- Use the new dehydrated script parameters which handles individual domain processing now
+
 ## 1.25.0
 
 - Wildcard support when using domains as "*.yourDomain.duckdns.org > yourDomain.duckdns.org"

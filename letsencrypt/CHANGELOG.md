@@ -2,7 +2,7 @@
 
 ## 5.4.10
 
-- Update certbot-dns-desec to 1.3.0
+- Update certbot-dns-desec to 1.3.1
 
 ## 5.4.9
 

@@ -1,5 +1,5 @@
 ---
-version: 0.3.3
+version: 0.3.4
 slug: silabs_flasher
 name: Silicon Labs Flasher
 description: Silicon Labs firmware flasher add-on
@@ -18,7 +18,6 @@ init: false
 options:
   device: null
   bootloader_baudrate: "115200"
-  ezsp_baudrate: null
   flow_control: true
   verbose: false
 schema:

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.4
+
+- Add missing voice for Argentinian Spanish (daniela)
+
 ## 1.6.3
 
 - Bump wyoming to 1.7.2 to fix event data error

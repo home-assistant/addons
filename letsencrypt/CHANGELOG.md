@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.10
+
+- Update certbot-dns-desec to 1.3.0
+
 ## 5.4.9
 
 - Fix pending issue in 5.4.8 with trust store when using a custom ACME server

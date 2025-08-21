@@ -272,6 +272,8 @@ Setting field `user_agent_comment` will add value to CertBot User-Agent header:
   user_agent_comment: "HomeAssistant"
   ```
 
+Note `user_agent_comment` will be ignored if `user_agent` is set.
+
 </details>
 
 <details>

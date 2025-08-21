@@ -19,6 +19,8 @@ CHALLENGE=$(bashio::config 'challenge')
 DNS_PROVIDER=$(bashio::config 'dns.provider')
 ACME_SERVER=$(bashio::config 'acme_server')
 ACME_ROOT_CA_CERT=$(bashio::config 'acme_root_ca_cert')
+USER_AGENT=$(bashio::config 'user_agent')
+USER_AGENT_COMMENT=$(bashio::config 'user_agent_comment')
 EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 DRY_RUN=$(bashio::config 'dry_run')
@@ -352,6 +354,14 @@ fi
 
 if [ "${VERBOSE}" = "true" ]; then
     ADDITIONAL_ARGS+=("-vvv")
+fi
+
+# Add user agent if set
+if [ -n "${USER_AGENT}" ]; then
+    ADDITIONAL_ARGS+=("--user-agent" "${USER_AGENT}")
+fi
+if [ -n "${USER_AGENT_COMMENT}" ]; then
+    ADDITIONAL_ARGS+=("--user-agent-comment" "${USER_AGENT_COMMENT}") 
 fi
 
 # Gather all domains into a plaintext file

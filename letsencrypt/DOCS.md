@@ -256,6 +256,27 @@ When you specify a custom ACME server, the *Dry Run* and *Issue test certificate
 </details>
 
 <details>
+  <summary>Change User-Agent</summary>
+
+For auditing purposes it might be useful to override User-Agent HTTP header that addon and its providers send when making requests.
+
+Setting field `user_agent` will completely override value of User-Agent:
+
+  ```yaml
+  user_agent: "HomeAssistant"
+  ```
+
+Setting field `user_agent_comment` will add value to CertBot User-Agent header:
+
+  ```yaml
+  user_agent_comment: "HomeAssistant"
+  ```
+
+Note `user_agent_comment` will be ignored if `user_agent` is set.
+
+</details>
+
+<details>
   <summary>Selecting the Key Type</summary>
 
   By default the ECDSA key type is used. You can choose to use an RSA key for compatibility with systems where ECDSA keys are not supported. ECDSA is widely supported in modern software with security and performance benefits.

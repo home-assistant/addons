@@ -169,6 +169,8 @@ schema:
   elliptic_curve: list(secp256r1|secp384r1)?
   acme_server: url?
   acme_root_ca_cert: str?
+  user_agent: str?
+  user_agent_comment: str?
   verbose: bool?
   dry_run: bool?
   test_cert: bool?

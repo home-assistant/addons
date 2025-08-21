@@ -1354,7 +1354,7 @@ dns:
 <details>
   <summary>Scaleway</summary>
 
-Scaleway API key can be obtained from Scaleway Console [IAM page](https://console.scaleway.com/iam/api-keys). For security reasons it is not recommended to use your account as principal and instead create an application with DomainsDNSFullAccess permission for project that contains the domain.
+Scaleway API key can be obtained from the Scaleway Console [IAM page](https://console.scaleway.com/iam/api-keys). For security reasons, it is not recommended to use your account as the principal; instead create an application with **DomainsDNSFullAccess** permission for the project(s) that contain the domain(s).
 
 ```yaml
 email: your.email@example.com

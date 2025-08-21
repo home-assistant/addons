@@ -147,6 +147,7 @@ schema:
         dns-rfc2136|\
         dns-route53|\
         dns-sakuracloud|\
+        dns-scaleway|\
         dns-simply|\
         dns-transip|\
         dns-websupport)?"
@@ -158,6 +159,7 @@ schema:
     rfc2136_sign_query: bool?
     sakuracloud_api_secret: str?
     sakuracloud_api_token: str?
+    scaleway_api_key: str?
     simply_account_name: str?
     simply_api_key: str?
     transip_api_key: str?

@@ -290,6 +290,12 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ACME_ARGUMENTS+=("--${DNS_PROVIDER}")
             ;;
 
+	# Scaleway
+        'dns-scaleway')
+	    bashio::config.require 'dns.scaleway_api_key'
+            ACME_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+            ;;
+
         # Simply
         'dns-simply')
             bashio::config.require 'dns.simply_account_name'

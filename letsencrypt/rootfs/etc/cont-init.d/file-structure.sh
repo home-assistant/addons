@@ -78,6 +78,7 @@ echo -e "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "dns_rfc2136_sign_query = $(bashio::config 'dns.rfc2136_sign_query')\n" \
       "dns_sakuracloud_api_secret = $(bashio::config 'dns.sakuracloud_api_secret')\n" \
       "dns_sakuracloud_api_token = $(bashio::config 'dns.sakuracloud_api_token')\n" \
+      "dns_scaleway_application_token = $(bashio::config 'dns.scaleway_api_key')\n" \
       "dns_simply_account_name = $(bashio::config 'dns.simply_account_name')\n" \
       "dns_simply_api_key = $(bashio::config 'dns.simply_api_key')\n" \
       "dns_transip_key_file = /data/transip-rsa.key\n" \

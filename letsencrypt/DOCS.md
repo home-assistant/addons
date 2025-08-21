@@ -81,6 +81,7 @@ dns-porkbun
 dns-rfc2136
 dns-route53
 dns-sakuracloud
+dns-scaleway
 dns-simply
 dns-transip
 dns-websupport
@@ -174,6 +175,7 @@ rfc2136_server: ''
 rfc2136_sign_query: false
 sakuracloud_api_secret: ''
 sakuracloud_api_token: ''
+scaleway_api_key: ''
 simply_account_name: ''
 simply_api_key: ''
 transip_api_key: ''
@@ -1346,6 +1348,25 @@ dns:
 ```
 
 [Full Documentation](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/)
+
+</details>
+
+<details>
+  <summary>Scaleway</summary>
+
+Scaleway API key can be obtained from the Scaleway Console [IAM page](https://console.scaleway.com/iam/api-keys). For security reasons, it is not recommended to use your account as the principal; instead create an application with **DomainsDNSFullAccess** permission for the project(s) that contain the domain(s).
+
+```yaml
+email: your.email@example.com
+domains:
+  - your.domain.tld
+certfile: fullchain.pem
+keyfile: privkey.pem
+challenge: dns
+dns:
+  provider: dns-scaleway
+  scaleway_api_key: ''
+```
 
 </details>
 

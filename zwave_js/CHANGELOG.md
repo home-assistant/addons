@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.22.0
+
+### Features
+
+- Firmware updates that fail due to an XMODEM communication error are now retried automatically, reducing the risk to get stuck in bootloader until a new firmware is flashed (#8086)
+
+### Bugfixes
+
+- Fixes an issue where the controller would indefinitely be considered as recovering from a jammed state, preventing commands from being re-transmitted (#8052)
+- Fixed an issue where the key up event would be force-emitted too early on legacy devices that incorrectly report not to support the "slow refresh" capability (#8087)
+- Canceling a "replace failed node" operation no longer prevents other inclusion/exclusion operations from being started (#8084)
+
+### Config file changes
+
+- Add HomeSeer WS300 (#8074)
+
 ## 0.21.0
 
 ### Features

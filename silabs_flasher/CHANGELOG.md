@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4
+
+- Make custom ezsp baudrate a truly optional configuration
+
 ## 0.3.3
 
 - Allow to start universal-silabs-flasher with custom ezsp baudrate

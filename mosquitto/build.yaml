@@ -10,5 +10,5 @@ codenotary:
   base_image: notary@home-assistant.io
 args:
   LIBWEBSOCKET_VERSION: 4.3.3
-  MOSQUITTO_VERSION: 2.0.21
+  MOSQUITTO_VERSION: 2.0.22
   MOSQUITTO_AUTH_VERSION: 2.1.0

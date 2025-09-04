@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.5.2
+
+- Update mosquitto to version 2.0.22
+
 ## 6.5.1
 
 - Update mosquitto to version 2.0.21

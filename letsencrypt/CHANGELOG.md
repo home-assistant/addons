@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.4.11
+
+- Add Scaleway DNS support
+
 ## 5.4.10
 
 - Update certbot-dns-desec to 1.3.1

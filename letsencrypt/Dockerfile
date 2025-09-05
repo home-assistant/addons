@@ -32,6 +32,7 @@ ARG \
     CERTBOT_DNS_NORISNETWORK_VERSION \
     CERTBOT_DNS_PLESK_VERSION \
     CERTBOT_DNS_PORKBUN_VERSION \
+    CERTBOT_DNS_SCALEWAY_VERSION \
     CERTBOT_DNS_SIMPLY_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_DNS_WEBSUPPORT_VERSION \
@@ -92,6 +93,7 @@ RUN \
         certbot-dns-rfc2136==${CERTBOT_VERSION} \
         certbot-dns-route53==${CERTBOT_VERSION} \
         certbot-dns-sakuracloud==${CERTBOT_VERSION} \
+        certbot-dns-scaleway==${CERTBOT_DNS_SCALEWAY_VERSION} \
         certbot-dns-simply==${CERTBOT_DNS_SIMPLY_VERSION} \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \

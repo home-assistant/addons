@@ -296,9 +296,10 @@ When you specify a custom ACME server, the *Dry Run* and *Issue test certificate
 
 ## Example Configurations
 
-Note: These configuration examples are raw YAML configs. When you use UI edit
-mode (default), and configure DNS, simply copy the attributes underneath *dns*
-into the *DNS Provider configuration* field.
+**Important Note for UI Edit Mode:** These configuration examples are raw YAML configs.
+When using the UI edit mode (which is the default), and configuring DNS, you **must**
+only copy the attributes *underneath* the `dns:` key into the "DNS Provider configuration" field.
+Do NOT include the `dns:` key itself when pasting into the UI field, as this will cause parsing errors.
 
 <details>
   <summary>HTTP challenge</summary>

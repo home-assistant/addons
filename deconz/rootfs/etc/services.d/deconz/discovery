@@ -6,7 +6,6 @@
 # ==============================================================================
 declare api_key
 declare config
-declare query
 declare retries
 declare serial
 
@@ -23,13 +22,19 @@ API_PORT="40850"
 
 # Wait until deCONZ API is reachable
 bashio::log.info "Waiting for deCONZ API to be available..."
+ready=0
 for i in $(seq 1 30); do
-    if curl -s "http://${TARGET_IP}:${API_PORT}/api" > /dev/null; then
+    if curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null "http://${TARGET_IP}:${API_PORT}/api"; then
         bashio::log.info "deCONZ API is reachable."
+        ready=1
         break
     fi
     sleep 1
 done
+if [ "$ready" -ne 1 ]; then
+    bashio::log.error "deCONZ API is not reachable after 30 seconds – stopping discovery."
+    exit 0
+fi
 
 # Locate database
 DATA_STORE="/data/.local/share/deCONZ/zll.db"
@@ -69,7 +74,7 @@ if ! bashio::var.has_value "${api_key}"; then
             "http://${TARGET_IP}:${API_PORT}/api")"; then
             api_key="$(bashio::jq "${result}" '.[0].success.username')"
             if bashio::var.has_value "${api_key}"; then
-                bashio::log.info "API key successfully created after ${i} seconds: ${api_key}"
+                bashio::log.info "API key successfully created after ${i} seconds."
                 break
             fi
         fi

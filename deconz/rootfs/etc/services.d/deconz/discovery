@@ -55,13 +55,18 @@ fi
 
 # Test API key immediately, if available
 if [ -n "$api_key" ]; then
-    http_code=$(curl -s --connect-timeout 1 --max-time 2 -o /dev/null -w "%{http_code}" \
-        "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")
-    if [[ "$http_code" != "200" ]]; then
-        bashio::log.warning "Existing API key invalid (HTTP $http_code), will try to create a new one..."
-        api_key=""
+    if result="$(curl -sS --connect-timeout 2 --max-time 5 \
+        "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")"; then
+        candidate="$(bashio::jq "${result}" '.bridgeid')"
+        if [[ "$candidate" =~ ^[0-9A-Fa-f]{16}$ ]]; then
+            bashio::log.info "Existing API key is valid."
+        else
+            bashio::log.warning "Existing API key appears invalid; will try to create a new one..."
+            api_key=""
+        fi
     else
-        bashio::log.info "Existing API key is valid."
+        bashio::log.warning "Failed to validate existing API key (HTTP error); will try to create a new one..."
+        api_key=""
     fi
 fi
 

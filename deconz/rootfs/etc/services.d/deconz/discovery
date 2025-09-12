@@ -22,18 +22,18 @@ API_PORT="40850"
 
 # Wait until deCONZ API is reachable
 bashio::log.info "Waiting for deCONZ API to be available..."
-ready=0
 for i in $(seq 1 30); do
-    if curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null "http://${TARGET_IP}:${API_PORT}/api"; then
+    if curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null \
+       "http://${TARGET_IP}:${API_PORT}/api"; then
         bashio::log.info "deCONZ API is reachable."
-        ready=1
         break
     fi
     sleep 1
 done
-if [ "$ready" -ne 1 ]; then
+
+if [ "$i" -eq 30 ]; then
     bashio::log.error "deCONZ API is not reachable after 30 seconds – stopping discovery."
-    exit 0
+    exit 1
 fi
 
 # Locate database
@@ -55,7 +55,7 @@ fi
 
 # Test API key immediately, if available
 if [ -n "$api_key" ]; then
-    http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+    http_code=$(curl -s --connect-timeout 1 --max-time 2 -o /dev/null -w "%{http_code}" \
         "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")
     if [[ "$http_code" != "200" ]]; then
         bashio::log.warning "Existing API key invalid (HTTP $http_code), will try to create a new one..."
@@ -69,7 +69,8 @@ fi
 if ! bashio::var.has_value "${api_key}"; then
     bashio::log.warning "No API key found – trying to create a new one..."
     for i in $(seq 1 60); do
-        if result="$(curl --silent --show-error --request POST \
+        if result="$(curl --silent --show-error --connect-timeout 2 --max-time 5 \
+            -H 'Content-Type: application/json' --request POST \
             -d '{"devicetype": "Home Assistant"}' \
             "http://${TARGET_IP}:${API_PORT}/api")"; then
             api_key="$(bashio::jq "${result}" '.[0].success.username')"
@@ -91,12 +92,18 @@ retries=25
 serial="0000000000000000"
 while [[ "${serial}" = "0000000000000000" && "${retries}" -gt 0 ]]; do
     sleep 5
-    if result="$(curl --silent --show-error \
+    if result="$(curl --silent --show-error --connect-timeout 2 --max-time 5 \
         --request GET "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")"; then
-        serial="$(bashio::jq "${result}" '.bridgeid')"
+        candidate="$(bashio::jq "${result}" '.bridgeid')"
+        if [[ "$candidate" =~ ^[0-9A-Fa-f]{16}$ ]]; then
+            serial="$candidate"
+        else
+            serial="0000000000000000"
+        fi
     fi
     ((retries--))
 done
+
 if [[ "${serial}" = "0000000000000000" ]]; then
     bashio::log.error "Failed to get a valid bridge ID – continuing without discovery."
     exit 0

@@ -17,6 +17,7 @@ network:
   40850/tcp: >-
     deCONZ API-Backend (Zugang für Phoscon und REST-API außerhalb des Add-ons)
   5900/tcp: >-
-    deCONZ über VNC (Zugriff auf die GUI mit externer VNC-Software. Nicht gesichert!)
+    deCONZ über VNC (Zugriff auf die GUI mit externer 
+    VNC-Software. Nicht gesichert!)
   8081/tcp: >-
     deCONZ WebSocket (Verbindung zu anderen Anwendungen z.B. Node-RED)

@@ -1,7 +1,7 @@
 ---
 configuration:
   device:
-    name: Device
+    name: Devices
     description: The device address of your ConBee/RaspBee.
   dbg_aps:
     name: Debug aps
@@ -14,6 +14,6 @@ configuration:
   dbg_zdp:
     name: Debug zdp
 network:
-  40850/tcp: deCONZ API backend (Not required for Ingress)
-  5900/tcp: deCONZ via VNC (Not required for Ingress. Not secure!)
-  8081/tcp: deCONZ WebSocket (Not required for Ingress)
+  40850/tcp: deCONZ API backend (Access for Phoscon and REST API outside the add-on)
+  5900/tcp: deCONZ via VNC (Accessing the GUI with external VNC software. Not secured!)
+  8081/tcp: deCONZ WebSocket (Connection to other applications e.g. Node-RED)

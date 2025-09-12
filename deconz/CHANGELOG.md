@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.3.0
+
+- Ingress entry page revised (e.g. light/dark mode)
+- Add de translation and en translation expanded
+- Update DOCS.md and a few corrections
+- Use clean cache in Dockerfile
+- Discovery script adapted
+
 ## 8.2.0
 
 - Bump deCONZ to 2.30.2 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.30.2)]

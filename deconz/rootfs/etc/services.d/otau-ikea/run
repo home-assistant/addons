@@ -12,7 +12,7 @@ mkdir -p "/data/otau"
 bashio::log.info "Running the IKEA OTA updater..."
 
 if ! IKEA_DATA="$(curl -sL ${URL_IKEA})"; then
-    bashio::log.info "Can't fetch data from ikea!"
+    bashio::log.info "Can't fetch data from IKEA!"
     exec sleep 18000
 fi
 

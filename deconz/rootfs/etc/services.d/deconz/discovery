@@ -4,15 +4,13 @@
 # ==============================================================================
 # Send deCONZ discovery information to Home Assistant
 # ==============================================================================
-readonly DATA_STORE="/data/.local/share/dresden-elektronik/deCONZ/zll.db"
 declare api_key
 declare config
 declare query
 declare retries
 declare serial
 
-# Wait for deCONZ to start before continuing
-bashio::net.wait_for 40850
+bashio::log.info "Starting discovery script ..."
 
 # Remove old discovery data storage (cleanup)
 # We now query the deCONZ database for it directly.
@@ -20,53 +18,96 @@ if bashio::fs.file_exists /data/hassio.json; then
     rm /data/hassio.json
 fi
 
-# Try to get API key from deCONZ database
-query='SELECT apikey FROM auth WHERE devicetype="Home Assistant" ORDER BY createdate DESC LIMIT 1'
-api_key=$(sqlite3 "${DATA_STORE}" "${query}" .exit)
-if ! bashio::var.has_value "${api_key}"; then
-    # Register an API key for Home Assistant
-    if ! result="$(curl --silent --show-error --request POST -d '{"devicetype": "Home Assistant"}' "http://127.0.0.1:40850/api")";
-    then
-        bashio::log.debug "${result}"
-        bashio::exit.nok "Can't get API key from deCONZ gateway"
+TARGET_IP="127.0.0.1"
+API_PORT="40850"
+
+# Wait until deCONZ API is reachable
+bashio::log.info "Waiting for deCONZ API to be available..."
+for i in $(seq 1 30); do
+    if curl -s "http://${TARGET_IP}:${API_PORT}/api" > /dev/null; then
+        bashio::log.info "deCONZ API is reachable."
+        break
     fi
-    api_key="$(bashio::jq "${result}" '.[0].success.username')"
+    sleep 1
+done
+
+# Locate database
+DATA_STORE="/data/.local/share/deCONZ/zll.db"
+if [ ! -f "$DATA_STORE" ]; then
+    bashio::log.warning "Database not found at $DATA_STORE, trying alternative path..."
+    DATA_STORE="/data/.local/share/dresden-elektronik/deCONZ/zll.db"
+    if [ ! -f "$DATA_STORE" ]; then
+        bashio::log.error "No database found in either path! Proceeding without serial."
+        DATA_STORE=""
+    fi
 fi
 
-# Try to get the bridge ID/serial, try to avoid using 0000000000000000
+# Read API key from database
+if [ -n "$DATA_STORE" ]; then
+    api_key=$(sqlite3 "${DATA_STORE}" \
+        'SELECT apikey FROM auth WHERE devicetype="Home Assistant" ORDER BY createdate DESC LIMIT 1' 2>/dev/null)
+fi
+
+# Test API key immediately, if available
+if [ -n "$api_key" ]; then
+    http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+        "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")
+    if [[ "$http_code" != "200" ]]; then
+        bashio::log.warning "Existing API key invalid (HTTP $http_code), will try to create a new one..."
+        api_key=""
+    else
+        bashio::log.info "Existing API key is valid."
+    fi
+fi
+
+# Try to create API key if none exists
+if ! bashio::var.has_value "${api_key}"; then
+    bashio::log.warning "No API key found – trying to create a new one..."
+    for i in $(seq 1 60); do
+        if result="$(curl --silent --show-error --request POST \
+            -d '{"devicetype": "Home Assistant"}' \
+            "http://${TARGET_IP}:${API_PORT}/api")"; then
+            api_key="$(bashio::jq "${result}" '.[0].success.username')"
+            if bashio::var.has_value "${api_key}"; then
+                bashio::log.info "API key successfully created after ${i} seconds: ${api_key}"
+                break
+            fi
+        fi
+        sleep 1
+    done
+    if ! bashio::var.has_value "${api_key}"; then
+        bashio::log.error "Failed to get an API key from deCONZ – continuing without discovery."
+        exit 0
+    fi
+fi
+
+# Get serial/bridge ID
 retries=25
 serial="0000000000000000"
-while [[ "${serial}" = "0000000000000000" ]]; do
-    bashio::log.debug "Waiting for bridge ID..."
-    sleep 10
-
-    # If we tried 25 times, just abort.
-    if [[ "${retries}" -eq 0 ]]; then
-        bashio::exit.nok "Failed to get a valid bridge ID. Discovery aborted."
+while [[ "${serial}" = "0000000000000000" && "${retries}" -gt 0 ]]; do
+    sleep 5
+    if result="$(curl --silent --show-error \
+        --request GET "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")"; then
+        serial="$(bashio::jq "${result}" '.bridgeid')"
     fi
-
-    # Get bridge ID from API
-    if ! result="$(curl --silent --show-error --request GET "http://127.0.0.1:40850/api/${api_key}/config")";
-    then
-        bashio::log.debug "${result}"
-        bashio::exit.nok "Can't get data from deCONZ gateway"
-    fi
-    serial="$(bashio::jq "${result}" '.bridgeid')"
-
     ((retries--))
 done
+if [[ "${serial}" = "0000000000000000" ]]; then
+    bashio::log.error "Failed to get a valid bridge ID – continuing without discovery."
+    exit 0
+fi
 
 # Create config payload for Home Assistant
 config=$(bashio::var.json \
     host "$(hostname)" \
-    port "^40850" \
+    port "^${API_PORT}" \
     api_key "${api_key}" \
     serial "${serial}" \
 )
 
 # Send discovery info
 if bashio::discovery "deconz" "${config}" > /dev/null; then
-    bashio::log.info "Successfully send discovery information to Home Assistant."
+    bashio::log.info "Successfully sent discovery information to Home Assistant."
 else
-    bashio::log.error "Discovery message to Home Assistant failed!"
+    bashio::log.error "Failed to send discovery message to Home Assistant!"
 fi

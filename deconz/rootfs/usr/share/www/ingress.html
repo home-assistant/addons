@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <title>deCONZ | dresden elektronik</title>
     <style>
       :root {
@@ -143,6 +144,11 @@
         outline: none;
         text-decoration: none;
       }
+      .mdc-button:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(3,169,244,0.35);
+      }
       .mdc-button:hover {
         background-color: #006787;
         color: var(--button-text-color);
@@ -215,8 +221,11 @@
           const rect = button.getBoundingClientRect();
           const size = Math.max(rect.width, rect.height);
           ripple.style.width = ripple.style.height = size + 'px';
-          ripple.style.left = e.clientX - rect.left - size / 2 + 'px';
-          ripple.style.top = e.clientY - rect.top - size / 2 + 'px';
+          const isKeyboard = (e.detail === 0 && e.clientX === 0 && e.clientY === 0);
+          const x = isKeyboard ? rect.width / 2 : (e.clientX - rect.left);
+          const y = isKeyboard ? rect.height / 2 : (e.clientY - rect.top);
+          ripple.style.left = (x - size / 2) + 'px';
+          ripple.style.top = (y - size / 2) + 'px';
           button.appendChild(ripple);
           setTimeout(() => ripple.remove(), 600);
         });

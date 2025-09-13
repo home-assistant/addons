@@ -12,7 +12,7 @@ mkdir -p "/data/otau"
 bashio::log.info "Running the OSRAM LEDVANCE OTA updater..."
 
 # fetch data
-if ! OSRAM_DATA="$(curl -fsSL --retry 3 --retry-delay 2 --max-time 30 "${URL_OSRAM}")"; then
+if ! OSRAM_DATA="$(curl -fsSL --retry 3 --retry-all-errors --retry-delay 2 --connect-timeout 10 --max-time 30 "${URL_OSRAM}")"; then
     bashio::log.warning "Can't fetch data from OSRAM (HTTP/network error). Retrying in 5h."
     exec sleep 18000
 fi
@@ -66,7 +66,7 @@ for (( i=0; i < OSRAM_DATA_SIZE; i++ )); do
         continue
     fi
 
-    if [ "$((DL_DONE % 10))" == "0" ]; then
+    if (( DL_DONE > 0 && DL_DONE % 10 == 0 )); then
         # LEDVANCE/OSRAM API RateLimits : The rate limit 10 calls per 60 seconds or quota 100 MB per month.
         DL_DONE=0
         sleep 65

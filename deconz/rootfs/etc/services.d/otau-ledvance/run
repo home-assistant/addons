@@ -17,13 +17,19 @@ if ! OSRAM_DATA="$(curl -fsSL --retry 3 --retry-delay 2 --max-time 30 "${URL_OSR
     exec sleep 18000
 fi
 
-OSRAM_DATA_SIZE="$(echo "${OSRAM_DATA}" | jq --raw-output '.firmwares | length')"
+if ! OSRAM_DATA_SIZE="$(echo "${OSRAM_DATA}" | jq -er '.firmwares | length')"; then
+    bashio::log.warning "LEDVANCE payload invalid or missing '.firmwares'; retrying in 5h."
+    exec sleep 18000
+fi
 DL_DONE=0
-for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
+for (( i=0; i < OSRAM_DATA_SIZE; i++ )); do
     OSRAM_COMPANY=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.company  // empty" 2>/dev/null)
     OSRAM_PRODUCT=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.product  // empty" 2>/dev/null)
     OTAU_FILENAME=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].name  // empty" 2>/dev/null)
-    OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"
+    # Encode path segments for safety
+    OSRAM_COMPANY_ESC="$(jq -rn --arg s "${OSRAM_COMPANY}" '$s|@uri')"
+    OSRAM_PRODUCT_ESC="$(jq -rn --arg s "${OSRAM_PRODUCT}" '$s|@uri')"
+    OTAU_URL="${URL_OSRAM}/download/${OSRAM_COMPANY_ESC}/${OSRAM_PRODUCT_ESC}/latest"
 
     # Skip if any required field is missing
     if [ -z "${OSRAM_COMPANY}" ] || [ -z "${OSRAM_PRODUCT}" ] || [ -z "${OTAU_FILENAME}" ]; then
@@ -37,7 +43,9 @@ for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
         ''|*'..'*|.*) bashio::log.warning "Unsafe firmware name '${OTAU_FILENAME}', skipping."; continue;;
     esac
     OTAU_BASENAME="${OTAU_BASENAME//[^A-Za-z0-9._-]/_}"
-    OTAU_FILE="/data/otau/${OTAU_BASENAME}"
+    CO_SAN="${OSRAM_COMPANY//[^A-Za-z0-9._-]/_}"
+    PRD_SAN="${OSRAM_PRODUCT//[^A-Za-z0-9._-]/_}"
+    OTAU_FILE="/data/otau/${CO_SAN}-${PRD_SAN}-${OTAU_BASENAME}"
 
     if [ -e "${OTAU_FILE}" ]; then
         continue

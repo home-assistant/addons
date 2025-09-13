@@ -149,6 +149,15 @@
         outline-offset: 2px;
         box-shadow: 0 0 0 3px rgba(3,169,244,0.35);
       }
+      .mdc-button:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(3,169,244,0.35);
+      }
+      .mdc-button:focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      }
       .mdc-button:hover {
         background-color: #006787;
         color: var(--button-text-color);
@@ -169,8 +178,24 @@
         }
       }
       @media (prefers-reduced-motion: reduce) {
-        * { animation: none !important; transition: none !important; }
         .ripple { display: none !important; }
+        .mdc-button { transition: none !important; }
+      }
+      @media (forced-colors: active) {
+        .mdc-button {
+          forced-color-adjust: none;
+          background: ButtonFace;
+          color: ButtonText;
+          border: 1px solid CanvasText;
+        }
+        .mdc-button:hover {
+          background: Highlight; 
+          color: HighlightText; 
+        }
+        .mdc-button:focus {
+          outline: 2px solid Highlight; 
+          outline-offset: 2px; 
+        }  
       }
       @media (max-width: 480px) {
         .card {
@@ -222,8 +247,11 @@
           const size = Math.max(rect.width, rect.height);
           ripple.style.width = ripple.style.height = size + 'px';
           const isKeyboard = (e.detail === 0 && e.clientX === 0 && e.clientY === 0);
-          const x = isKeyboard ? rect.width / 2 : (e.clientX - rect.left);
-          const y = isKeyboard ? rect.height / 2 : (e.clientY - rect.top);
+          const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+          const xRel = isKeyboard ? rect.width / 2 : (e.clientX - rect.left);
+          const yRel = isKeyboard ? rect.height / 2 : (e.clientY - rect.top);
+          const x = clamp(xRel, 0, rect.width);
+          const y = clamp(yRel, 0, rect.height);
           ripple.style.left = (x - size / 2) + 'px';
           ripple.style.top = (y - size / 2) + 'px';
           button.appendChild(ripple);

@@ -162,22 +162,9 @@
           opacity: 0;
         }
       }
-      .mdc-button::after {
-        content: "";
-        position: absolute;
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        transform: scale(0);
-        background: rgba(255,255,255,0.4);
-        opacity: 0;
-        transition: transform 0.5s, opacity 1s;
-        pointer-events: none;
-      }
-      .mdc-button:active::after {
-        transform: scale(1.8);
-        opacity: 0.6;
-        transition: 0s;
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; transition: none !important; }
+        .ripple { display: none !important; }
       }
       @media (max-width: 480px) {
         .card {
@@ -220,7 +207,6 @@
         </div>
       </div>
     </div>
-
     <script>
       document.querySelectorAll('.mdc-button').forEach(button => {
         button.addEventListener('click', function (e) {

@@ -1,6 +1,6 @@
 ---
 configuration:
-  device:
+  devices:
     name: Devices
     description: The device address of your ConBee/RaspBee.
   dbg_aps:

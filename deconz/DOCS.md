@@ -28,7 +28,7 @@ The add-on needs to know where your ConBee/RaspBee can be found, and therefore,
 you'll need to configure the add-on to point to the right device.
 
 If you're using Home Assistant you may find the correct value for this on the
-`Settings -> System -> Hardware -> All hardware` page. It is recommended
+**Settings** -> **System** -> **Hardware** -> **All hardware** page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
 
@@ -40,8 +40,8 @@ change if other devices are added to the system.
 3. Toggle the "Show in sidebar" to add it to your Home Assistant side bar.
 4. Start the add-on.
 
-After installing and starting this add-on, you can use the “deCONZ” button to access the
-deCONZ GUI via VNC or the “Phoscon” button to configure further settings in the Phoscon App.
+After installing and starting this add-on, select **deCONZ** to access the deCONZ GUI via VNC,
+or select **Phoscon** to configure settings in the Phoscon App.
 
 ## Configuring the Home Assistant deCONZ integration
 
@@ -91,7 +91,7 @@ settings.
 
 This add-on allows you to upgrade your firmware straight from the Phoscon App with ease.
 
-Go to `Settings -> Gateway` and click the upgrade button.
+In the Phoscon App, go to **Settings** -> **Gateway**, then select the upgrade button.
 
 However, some USB sticks (like the Aeotec Z-Wave sticks), can interfere with
 the upgrade process, causing the firmware upgrade to fail silently. If you end
@@ -106,8 +106,7 @@ Some add-ons are capable of consuming the deCONZ API directly. Node-RED is
 one of those applications, that is available as an add-on, that can
 consume the deCONZ API using the `node-red-contrib-deconz` node.
 
-**WARNING:** Do not use the following settings to set up a integration manually
-from within Home Assistant!
+**WARNING:** Do not use these settings to set up an integration in Home Assistant.
 
 To allow these add-ons to connect to deCONZ, use the following settings:
 
@@ -153,7 +152,7 @@ device: /dev/ttyAMA0
 The device address of your ConBee/RaspBee.
 
 If you're using Home Assistant you may find the correct value for this on the
-`Settings -> Hardware -> All hardware` page. It is recommended
+**Settings** -> **System** -> **Hardware** -> **All hardware** page. It is recommended
 to use a "by-id" path to the device if one exists, as it is not subject to
 change if other devices are added to the system.
 
@@ -180,7 +179,7 @@ fails to communicate new settings to Home Assistant.
 This can be solved by the following steps:
 
 1. Backup your deCONZ/Phoscon data, by going into the Phoscon App, from the menu choose:
-  **Settings** -> **Gateway** -> **Backup options** button, next create
+  **Settings** -> **Gateway** -> **Backup options**, then create
   a new backup and download it onto your computer.
 2. Uninstall the add-on.
 3. In Home Assistant, remove the current integration you have for deCONZ.

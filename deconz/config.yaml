@@ -25,7 +25,7 @@ ingress_entry: ingress.html
 init: false
 kernel_modules: true
 options:
-  device: null
+  devices: null
 panel_icon: mdi:zigbee
 ports:
   40850/tcp: null
@@ -34,7 +34,7 @@ ports:
 privileged:
   - SYS_RAWIO
 schema:
-  device: device(subsystem=tty)
+  devices: device(subsystem=tty)
   dbg_aps: int?
   dbg_info: int?
   dbg_otau: int?

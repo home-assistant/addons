@@ -33,7 +33,7 @@ done
 
 if [ "$i" -eq 30 ]; then
     bashio::log.error "deCONZ API is not reachable after 30 seconds – stopping discovery."
-    exit 1
+    exit 0
 fi
 
 # Locate database

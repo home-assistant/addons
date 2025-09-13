@@ -2,8 +2,8 @@
 
 ## 8.3.0
 
-- Ingress entry page revised (e.g. light/dark mode)
-- Add de translation and en translation expanded
+- Ingress entry page revised (for example, light and dark mode)
+- Add German translation and expand English translation
 - Update DOCS.md and a few corrections
 - Use clean cache in Dockerfile
 - Discovery script adapted

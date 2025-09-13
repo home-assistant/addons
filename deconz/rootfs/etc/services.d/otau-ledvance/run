@@ -12,8 +12,8 @@ mkdir -p "/data/otau"
 bashio::log.info "Running the OSRAM LEDVANCE OTA updater..."
 
 # fetch data
-if ! OSRAM_DATA="$(curl -sL ${URL_OSRAM})"; then
-    bashio::log.info "Can't fetch data from OSRAM!"
+if ! OSRAM_DATA="$(curl -fsSL --retry 3 --retry-delay 2 --max-time 30 "${URL_OSRAM}")"; then
+    bashio::log.warning "Can't fetch data from OSRAM (HTTP/network error). Retrying in 5h."
     exec sleep 18000
 fi
 
@@ -23,13 +23,21 @@ for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
     OSRAM_COMPANY=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.company  // empty" 2>/dev/null)
     OSRAM_PRODUCT=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.product  // empty" 2>/dev/null)
     OTAU_FILENAME=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].name  // empty" 2>/dev/null)
-    OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"    
-            
+    OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"
+
+    # Skip if any required field is missing
+    if [ -z "${OSRAM_COMPANY}" ] || [ -z "${OSRAM_PRODUCT}" ] || [ -z "${OTAU_FILENAME}" ]; then
+        continue
+    fi
+
     OTAU_FILE="/data/otau/${OTAU_FILENAME}"
     if [ -e "${OTAU_FILE}" ]; then
         continue
     fi
-    curl -s -L -o "${OTAU_FILE}" "${OTAU_URL}" || true
+
+   # Download atomically; only move into place on success
+    curl -fsSL --retry 3 --retry-delay 2 --max-time 60 -o "${OTAU_FILE}.tmp" "${OTAU_URL}" && \
+      mv -f "${OTAU_FILE}.tmp" "${OTAU_FILE}" || true
     ((DL_DONE+=1))
     if [ "$((DL_DONE % 10))" == "0" ]; then
         # LEDVANCE/OSRAM API RateLimits : The rate limit 10 calls per 60 seconds or quota 100 MB per month.

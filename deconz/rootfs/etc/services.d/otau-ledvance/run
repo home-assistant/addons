@@ -30,15 +30,29 @@ for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
         continue
     fi
 
-    OTAU_FILE="/data/otau/${OTAU_FILENAME}"
+    # Sanitize filename to last path segment and safe chars
+    OTAU_BASENAME="${OTAU_FILENAME##*/}"
+    OTAU_BASENAME="${OTAU_BASENAME##*/}"  # collapse nested components
+    case "${OTAU_BASENAME}" in
+        ''|*'..'*|.*) bashio::log.warning "Unsafe firmware name '${OTAU_FILENAME}', skipping."; continue;;
+    esac
+    OTAU_BASENAME="${OTAU_BASENAME//[^A-Za-z0-9._-]/_}"
+    OTAU_FILE="/data/otau/${OTAU_BASENAME}"
+
     if [ -e "${OTAU_FILE}" ]; then
         continue
     fi
 
    # Download atomically; only move into place on success
-    curl -fsSL --retry 3 --retry-delay 2 --max-time 60 -o "${OTAU_FILE}.tmp" "${OTAU_URL}" && \
-      mv -f "${OTAU_FILE}.tmp" "${OTAU_FILE}" || true
-    ((DL_DONE+=1))
+    if curl -fsSL --retry 3 --retry-delay 2 --max-time 60 -o "${OTAU_FILE}.tmp" "${OTAU_URL}"; then
+        mv -f "${OTAU_FILE}.tmp" "${OTAU_FILE}"
+        ((DL_DONE+=1))
+    else
+        bashio::log.warning "Download failed for ${OTAU_URL}; will retry on next cycle."
+        rm -f "${OTAU_FILE}.tmp"
+        continue
+    fi
+
     if [ "$((DL_DONE % 10))" == "0" ]; then
         # LEDVANCE/OSRAM API RateLimits : The rate limit 10 calls per 60 seconds or quota 100 MB per month.
         DL_DONE=0

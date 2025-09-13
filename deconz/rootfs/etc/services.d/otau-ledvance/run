@@ -53,8 +53,13 @@ for (( i=0; i < OSRAM_DATA_SIZE; i++ )); do
 
    # Download atomically; only move into place on success
     if curl -fsSL --retry 3 --retry-delay 2 --max-time 60 -o "${OTAU_FILE}.tmp" "${OTAU_URL}"; then
-        mv -f "${OTAU_FILE}.tmp" "${OTAU_FILE}"
-        ((DL_DONE+=1))
+        if mv -f "${OTAU_FILE}.tmp" "${OTAU_FILE}"; then
+            ((DL_DONE+=1))
+        else
+            bashio::log.warning "Move failed for ${OTAU_FILE}.tmp -> ${OTAU_FILE}; cleaning up and retrying next cycle."
+            rm -f "${OTAU_FILE}.tmp"
+            continue
+        fi
     else
         bashio::log.warning "Download failed for ${OTAU_URL}; will retry on next cycle."
         rm -f "${OTAU_FILE}.tmp"

@@ -2,7 +2,7 @@
 
 ## 3.13.1
 
-- Start the addon earlier so HA is accessible earlier.
+- Start the add-on earlier (startup: services) and wait for Home Assistant to be reachable before starting nginx to avoid 504 errors.
 
 ## 3.13.0
 

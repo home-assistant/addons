@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.13.1
+
+- Start the addon earlier so HA is accessible earlier.
+
 ## 3.13.0
 
 - Update Alpine Linux to 3.22 (nginx 1.28.x)

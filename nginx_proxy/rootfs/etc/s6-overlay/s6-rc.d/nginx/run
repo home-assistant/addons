@@ -51,6 +51,19 @@ if bashio::config.true 'cloudflare'; then
     fi
 fi
 
+bashio::log.info "Waiting for core to be ready..."
+port=$(bashio::core.port)
+until curl \
+   --output /dev/null \
+   --silent \
+   --fail \
+   "http://homeassistant.local.hass.io:$port";
+do
+    printf '.'
+    sleep 0.1
+done
+
+
 # start server
 bashio::log.info "Running nginx..."
 stat "/ssl/$(bashio::config 'certfile')" -c %y > /tmp/certificate_timestamp

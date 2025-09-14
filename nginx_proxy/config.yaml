@@ -13,6 +13,7 @@ arch:
   - i386
 image: homeassistant/{arch}-addon-nginx_proxy
 init: false
+startup: services
 map:
   - ssl
   - share

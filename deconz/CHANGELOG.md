@@ -5,7 +5,6 @@
 - Ingress entry page revised (for example, light and dark mode)
 - Add German translation and expand English translation
 - Update DOCS.md and a few corrections
-- Use clean cache in Dockerfile
 - Discovery script adapted
 
 ## 8.2.0

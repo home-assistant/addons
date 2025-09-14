@@ -35,7 +35,6 @@ RUN \
         wget \
         xfonts-base \
         xfonts-scalable \
-    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install deCONZ

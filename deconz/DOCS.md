@@ -35,13 +35,13 @@ change if other devices are added to the system.
 1. Replace `null` in the `device` option in the add-on configuration and specify
    the device name in quotes: e.g. something like <br>
    `"/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_XXXXXXXX-if00"`,
-   `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"` or `"/dev/ttyACM0"`.
+   `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
 2. Click on "SAVE" to save the add-on configuration.
 3. Toggle the "Show in sidebar" to add it to your Home Assistant side bar.
 4. Start the add-on.
 
-After installing and starting this add-on, select **deCONZ** to access the deCONZ GUI via VNC,
-or select **Phoscon** to configure settings in the Phoscon App.
+After installing and launching this add-on, you can select **deCONZ** under web UI to access 
+the deCONZ GUI via VNC, or select **Phoscon** to configure the settings in the Phoscon app.
 
 ## Configuring the Home Assistant deCONZ integration
 

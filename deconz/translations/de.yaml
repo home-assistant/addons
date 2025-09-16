@@ -1,7 +1,7 @@
 ---
 configuration:
-  devices:
-    name: Geräte
+  device:
+    name: Gerät
     description: Die Geräteadresse Ihres ConBee/RaspBee.
   dbg_aps:
     name: Debug APS

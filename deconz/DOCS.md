@@ -147,7 +147,7 @@ Add-on configuration:
 device: /dev/ttyAMA0
 ```
 
-### Option: `devices` (required)
+### Option: `device` (required)
 
 The device address of your ConBee/RaspBee.
 

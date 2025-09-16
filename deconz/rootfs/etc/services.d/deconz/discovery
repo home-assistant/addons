@@ -17,14 +17,11 @@ if bashio::fs.file_exists /data/hassio.json; then
     rm /data/hassio.json
 fi
 
-TARGET_IP="127.0.0.1"
-API_PORT="40850"
-
 # Wait until deCONZ API is reachable
 bashio::log.info "Waiting for deCONZ API to be available..."
 for i in $(seq 1 30); do
     if curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null \
-       "http://${TARGET_IP}:${API_PORT}/api"; then
+       "http://127.0.0.1:40850/api"; then
         bashio::log.info "deCONZ API is reachable."
         break
     fi
@@ -56,7 +53,7 @@ fi
 # Test API key immediately, if available
 if [ -n "$api_key" ]; then
     if result="$(curl -sS --connect-timeout 2 --max-time 5 \
-        "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")"; then
+        "http://127.0.0.1:40850/api/${api_key}/config")"; then
         candidate="$(bashio::jq "${result}" '.bridgeid')"
         if [[ "$candidate" =~ ^[0-9A-Fa-f]{16}$ ]]; then
             bashio::log.info "Existing API key is valid."
@@ -77,7 +74,7 @@ if ! bashio::var.has_value "${api_key}"; then
         if result="$(curl --silent --show-error --connect-timeout 2 --max-time 5 \
             -H 'Content-Type: application/json' --request POST \
             -d '{"devicetype": "Home Assistant"}' \
-            "http://${TARGET_IP}:${API_PORT}/api")"; then
+            "http://127.0.0.1:40850/api")"; then
             api_key="$(bashio::jq "${result}" '.[0].success.username')"
             if bashio::var.has_value "${api_key}"; then
                 bashio::log.info "API key successfully created after ${i} seconds."
@@ -98,7 +95,7 @@ serial="0000000000000000"
 while [[ "${serial}" = "0000000000000000" && "${retries}" -gt 0 ]]; do
     sleep 5
     if result="$(curl --silent --show-error --connect-timeout 2 --max-time 5 \
-        --request GET "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")"; then
+        --request GET "http://127.0.0.1:40850/api/${api_key}/config")"; then
         candidate="$(bashio::jq "${result}" '.bridgeid')"
         if [[ "$candidate" =~ ^[0-9A-Fa-f]{16}$ ]]; then
             serial="$candidate"
@@ -117,7 +114,7 @@ fi
 # Create config payload for Home Assistant
 config=$(bashio::var.json \
     host "$(hostname)" \
-    port "^${API_PORT}" \
+    port "^40850" \
     api_key "${api_key}" \
     serial "${serial}" \
 )

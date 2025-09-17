@@ -26,6 +26,8 @@
         --link-color: var(--primary-color);
         --link-hover-color: #007aa3;
 
+        --focus-color: #989898;
+
         --border-radius: 12px;
         --shadow: 0 1px 4px rgba(0,0,0,0.06);
       }
@@ -49,6 +51,8 @@
 
           --link-color: var(--primary-color);
           --link-hover-color: #007aa3;
+
+          --focus-color: #989898;
 
           --border-radius: 12px;
           --shadow: 0 1px 4px rgba(0,0,0,0.18);
@@ -116,6 +120,11 @@
         color: var(--link-hover-color);
         text-decoration: none;
       }
+      a:focus-visible {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
       .button-row {
         display: flex;
         gap: 16px;
@@ -145,12 +154,7 @@
         text-decoration: none;
       }
       .mdc-button:focus-visible {
-        outline: 2px solid var(--primary-color);
-        outline-offset: 2px;
-        box-shadow: 0 0 0 3px rgba(3,169,244,0.35);
-      }
-      .mdc-button:focus {
-        outline: 2px solid var(--primary-color);
+        outline: 2px solid var(--focus-color);
         outline-offset: 2px;
         box-shadow: 0 0 0 3px rgba(3,169,244,0.35);
       }
@@ -183,7 +187,6 @@
       }
       @media (forced-colors: active) {
         .mdc-button {
-          forced-color-adjust: none;
           background: ButtonFace;
           color: ButtonText;
           border: 1px solid CanvasText;
@@ -255,7 +258,7 @@
           ripple.style.left = (x - size / 2) + 'px';
           ripple.style.top = (y - size / 2) + 'px';
           button.appendChild(ripple);
-          setTimeout(() => ripple.remove(), 600);
+          ripple.addEventListener('animationend', () => ripple.remove());
         });
       });
     </script>

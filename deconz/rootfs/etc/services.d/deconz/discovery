@@ -11,26 +11,13 @@ declare serial
 
 bashio::log.info "Starting discovery script ..."
 
+# Wait for deCONZ to start before continuing
+bashio::net.wait_for 40850
+
 # Remove old discovery data storage (cleanup)
 # We now query the deCONZ database for it directly.
 if bashio::fs.file_exists /data/hassio.json; then
     rm /data/hassio.json
-fi
-
-# Wait until deCONZ API is reachable
-bashio::log.info "Waiting for deCONZ API to be available..."
-for i in $(seq 1 30); do
-    if curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null \
-       "http://127.0.0.1:40850/api"; then
-        bashio::log.info "deCONZ API is reachable."
-        break
-    fi
-    sleep 1
-done
-
-if [ "$i" -eq 30 ]; then
-    bashio::log.error "deCONZ API is not reachable after 30 seconds – stopping discovery."
-    exit 0
 fi
 
 # Locate database

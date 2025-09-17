@@ -258,7 +258,7 @@
           ripple.style.left = (x - size / 2) + 'px';
           ripple.style.top = (y - size / 2) + 'px';
           button.appendChild(ripple);
-          ripple.addEventListener('animationend', () => ripple.remove());
+          setTimeout(() => ripple.remove(), 600);
         });
       });
     </script>

@@ -22,6 +22,7 @@
 
         --button-bg: #009AC7;
         --button-text-color: #fff;
+        --button-hover-color: #006787;
 
         --link-color: var(--primary-color);
         --link-hover-color: #007aa3;
@@ -48,6 +49,7 @@
 
           --button-bg: #009AC7;
           --button-text-color: #fff;
+          --button-hover-color: #006787;
 
           --link-color: var(--primary-color);
           --link-hover-color: #007aa3;
@@ -85,7 +87,7 @@
       .toolbar h1 {
         margin: 0 0 0 60px;
         font-size: 20px;
-        font-weight: 500;
+        font-weight: 400;
       }
       .content {
         flex-grow: 1;
@@ -153,6 +155,10 @@
         outline: none;
         text-decoration: none;
       }
+      .mdc-button:focus {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 2px;
+      }
       .mdc-button:focus-visible {
         outline: 2px solid var(--focus-color);
         outline-offset: 2px;
@@ -163,7 +169,7 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.08);
       }
       .mdc-button:hover {
-        background-color: #006787;
+        background-color: var(--button-hover-color);
         color: var(--button-text-color);
         box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       }

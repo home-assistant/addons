@@ -41,7 +41,7 @@ change if other devices are added to the system.
 4. Start the add-on.
 
 After installing and launching this add-on, you can select **deCONZ** under web UI to access 
-the deCONZ GUI via VNC, or select **Phoscon** to configure the settings in the Phoscon app.
+the deCONZ GUI via VNC, or select **Phoscon** to configure the settings in the Phoscon App.
 
 ## Configuring the Home Assistant deCONZ integration
 

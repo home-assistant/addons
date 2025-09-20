@@ -20,8 +20,8 @@ init: false
 map:
   - addon_config:rw
 options:
-  device: null
-  socket: null
+  device: ""
+  socket: ""
   log_level: info
   log_to_file: false
   log_max_files: 7

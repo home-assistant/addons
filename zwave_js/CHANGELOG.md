@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.24.0
+
+- Allow specifying a socket instead of device
+
 ## 0.23.0
 
 ### Features

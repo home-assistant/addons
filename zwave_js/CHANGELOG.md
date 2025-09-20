@@ -2,7 +2,7 @@
 
 ## 0.24.0
 
-- Allow specifying a socket instead of device
+- Allow specifying a socket as alternative to a device
 
 ## 0.23.0
 

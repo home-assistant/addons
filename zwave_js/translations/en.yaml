@@ -6,7 +6,8 @@ configuration:
   socket:
     name: Socket
     description: >-
-      Instead of using a serial device, you can connect to a Z-Wave controller on the network.
+      Instead of using a serial device, you can connect to a Z-Wave controller
+      on the network.
   emulate_hardware:
     name: Enable Emulated Hardware
     description: >-

@@ -20,7 +20,6 @@ init: false
 map:
   - addon_config:rw
 options:
-  device: null
   log_level: info
   log_to_file: false
   log_max_files: 7
@@ -35,7 +34,8 @@ options:
 ports:
   3000/tcp: null
 schema:
-  device: str?
+  device: device(subsystem=tty)?
+  socket: str?
   log_level: list(silly|debug|verbose|http|info|warn|error)?
   log_to_file: bool?
   log_max_files: int(1,)?

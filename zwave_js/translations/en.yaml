@@ -3,6 +3,11 @@ configuration:
   device:
     name: Device
     description: The Z-Wave controller device.
+  socket:
+    name: Socket
+    description: >-
+      Instead of using a physical device, you can connect to a Z-Wave adapter
+      via a socket.
   emulate_hardware:
     name: Enable Emulated Hardware
     description: >-

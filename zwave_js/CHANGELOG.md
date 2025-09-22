@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.24.0
+
+### Features
+
+- Allow configuring a socket as an alternative to a device
+
+### Bugfixes
+
+- Fixed an issue where converting NVMs with unknown objects would fail due to unknown NVM section
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.14.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.14.0)
+
 ## 0.23.0
 
 ### Features

@@ -4,8 +4,7 @@
 
 ### Features
 
-- Allow configuring an ESPHome socket as alternative to a device
-- Support proxying Z-Wave traffic over the ESPHome protocol
+- Allow configuring a socket as an alternative to a device
 
 ### Bugfixes
 

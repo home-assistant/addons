@@ -4,7 +4,7 @@
 # ==============================================================================
 # Start Z-Wave JS service for Z-Wave radio
 # ==============================================================================
-SERIAL_DEVICE=$(bashio::config 'device' || bashio::config 'socket')
+SERIAL_DEVICE=$(bashio::config 'device')
 
 # Emulate serial Hardware for test & development
 if bashio::config.true 'emulate_hardware'; then

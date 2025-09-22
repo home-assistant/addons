@@ -2,7 +2,18 @@
 
 ## 0.24.0
 
-- Allow specifying a socket as alternative to a device
+### Features
+
+- Allow configuring an ESPHome socket as alternative to a device
+- Support proxying Z-Wave traffic over the ESPHome protocol
+
+### Bugfixes
+
+- Fixed an issue where converting NVMs with unknown objects would fail due to unknown NVM section
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.14.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.14.0)
 
 ## 0.23.0
 

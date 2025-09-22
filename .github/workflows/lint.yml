@@ -51,6 +51,7 @@ jobs:
       - name: Run linter
         uses: ludeeus/action-shellcheck@2.0.0
         with:
+          version: v0.10.0
           # Names of scripts with custom shebangs that the action would not
           # discover on its own:
           additional_files: >-

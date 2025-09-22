@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.20.1
+
+- Fix default shell
+
 ## 9.20.0
 
 - Upgrade Home Assistant CLI to 4.41.0

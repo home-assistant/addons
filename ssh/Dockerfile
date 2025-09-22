@@ -30,7 +30,7 @@ RUN \
         openssl-dev \
         zlib-dev \
     \
-    && sed -i "s/ash/bash/" /etc/passwd \
+    && sed -i "s|/bin/sh|/bin/bash|" /etc/passwd \
     \
     && git clone --branch "v${LIBWEBSOCKETS_VERSION}" --depth=1 \
         https://github.com/warmcat/libwebsockets.git /tmp/libwebsockets \

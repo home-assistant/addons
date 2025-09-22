@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.23.0
+
+### Features
+
+- Support checking for all firmware updates at once, and support detecting devices unknown to the firmware update service
+
+### Bugfixes
+
+- Fixed an edge case preventing the migration of some controllers
+- Clean up Battery "isLow" values that are no longer updated by the Z-Wave JS driver
+
+### Config file changes
+
+- Added support for Zooz ZEN75
+- Updated Inovelli VZW32-SN device support to match latest firmware
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.13.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.13.0)
+
 ## 0.22.0
 
 ### Features
@@ -15,6 +35,10 @@
 ### Config file changes
 
 - Add HomeSeer WS300 (#8074)
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.12.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.12.0)
 
 ## 0.21.0
 

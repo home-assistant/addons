@@ -56,14 +56,14 @@ follow these instructions to configure the deCONZ integration:
 
 <https://www.home-assistant.io/integrations/deconz/>
 
-## Migrating to this Add-on
+## Migrating to this add-on
 
 To migrate deCONZ to Home Assistant and this add-on, back up your configuration via
 the Phoscon App and restore it after installation/reinstallation.
 
 **_You must perform these steps or your Light, Group names and other data will be lost!_**
 
-However, your Zigbee devices will still paired to your ConBee or RaspBee hardware.
+However, your Zigbee devices will still be paired to your ConBee or RaspBee hardware.
 
 ## Accessing the deCONZ application and viewing the mesh via VNC
 
@@ -114,8 +114,7 @@ To allow these add-ons to connect to deCONZ, use the following settings:
 - **(API) Port**: `40850`
 - **WebSocket Port**: `8081`
 
-_Please note: the above settings are likely to change in a future update
-of this add-on._
+_Note: The above settings are likely to change in a future update of this add-on._
 
 ## Advanced debug output control
 
@@ -233,5 +232,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/addons/issues
 [manual-upgrade]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually
 [reddit]: https://reddit.com/r/homeassistant
-[vnc-viewer]: https://bintray.com/tigervnc/stable/tigervnc/
+[vnc-viewer]: https://www.realvnc.com/en/connect/download/realvnc-viewer/
 [vnc-service-url]: vnc://homeassistant.local:5900

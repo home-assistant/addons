@@ -1,7 +1,7 @@
 ---
 build_from:
-  aarch64: ghcr.io/home-assistant-libs/python-matter-server:8.1.1
-  amd64: ghcr.io/home-assistant-libs/python-matter-server:8.1.1
+  aarch64: ghcr.io/matter-js/python-matter-server:8.1.1
+  amd64: ghcr.io/matter-js/python-matter-server:8.1.1
 args:
   BASHIO_VERSION: 0.17.1
   TEMPIO_VERSION: 2024.11.2

@@ -2,7 +2,7 @@
 
 ## 8.1.1
 
-- Bump Python Matter Server to [8.1.1](https://github.com/home-assistant-libs/python-matter-server/releases/tag/8.1.1)
+- Bump Python Matter Server to [8.1.1](https://github.com/matter-js/python-matter-server/releases/tag/8.1.1)
 
 ## 8.1.0
 

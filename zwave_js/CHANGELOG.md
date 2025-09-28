@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.25.0
+
+### Features
+
+- Try re-establishing connection when communication with adapter is lost
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.3.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.3.0)
+
 ## 0.24.0
 
 ### Features

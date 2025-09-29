@@ -40,7 +40,7 @@ fi
 # Test API key immediately, if available
 if [ -n "$api_key" ]; then
     http_code=$(curl -s -o /dev/null -w "%{http_code}" \
-        "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")
+        "http://127.0.0.1:40850/api/${api_key}/config")
     if [[ "$http_code" != "200" ]]; then
         bashio::log.warning "Existing API key invalid (HTTP $http_code), will try to create a new one..."
         api_key=""
@@ -89,7 +89,7 @@ done
 
 if [[ "${serial}" = "0000000000000000" ]]; then
     bashio::log.error "Failed to get a valid bridge ID – continuing without discovery."
-    exit 0
+    exit 1
 fi
 
 # Create config payload for Home Assistant

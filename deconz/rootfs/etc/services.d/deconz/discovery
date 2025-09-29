@@ -39,18 +39,13 @@ fi
 
 # Test API key immediately, if available
 if [ -n "$api_key" ]; then
-    if result="$(curl -sS --connect-timeout 2 --max-time 5 \
-        "http://127.0.0.1:40850/api/${api_key}/config")"; then
-        candidate="$(bashio::jq "${result}" '.bridgeid')"
-        if [[ "$candidate" =~ ^[0-9A-Fa-f]{16}$ ]]; then
-            bashio::log.info "Existing API key is valid."
-        else
-            bashio::log.warning "Existing API key appears invalid; will try to create a new one..."
-            api_key=""
-        fi
-    else
-        bashio::log.warning "Failed to validate existing API key (HTTP error); will try to create a new one..."
+    http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+        "http://${TARGET_IP}:${API_PORT}/api/${api_key}/config")
+    if [[ "$http_code" != "200" ]]; then
+        bashio::log.warning "Existing API key invalid (HTTP $http_code), will try to create a new one..."
         api_key=""
+    else
+        bashio::log.info "Existing API key is valid."
     fi
 fi
 
@@ -58,8 +53,7 @@ fi
 if ! bashio::var.has_value "${api_key}"; then
     bashio::log.warning "No API key found – trying to create a new one..."
     for i in $(seq 1 60); do
-        if result="$(curl --silent --show-error --connect-timeout 2 --max-time 5 \
-            -H 'Content-Type: application/json' --request POST \
+        if result="$(curl --silent --show-error --request POST \
             -d '{"devicetype": "Home Assistant"}' \
             "http://127.0.0.1:40850/api")"; then
             api_key="$(bashio::jq "${result}" '.[0].success.username')"
@@ -81,7 +75,7 @@ retries=25
 serial="0000000000000000"
 while [[ "${serial}" = "0000000000000000" && "${retries}" -gt 0 ]]; do
     sleep 5
-    if result="$(curl --silent --show-error --connect-timeout 2 --max-time 5 \
+    if result="$(curl --silent --show-error \
         --request GET "http://127.0.0.1:40850/api/${api_key}/config")"; then
         candidate="$(bashio::jq "${result}" '.bridgeid')"
         if [[ "$candidate" =~ ^[0-9A-Fa-f]{16}$ ]]; then

@@ -12,61 +12,26 @@ mkdir -p "/data/otau"
 bashio::log.info "Running the OSRAM LEDVANCE OTA updater..."
 
 # fetch data
-if ! OSRAM_DATA="$(curl -fsSL --retry 3 --retry-all-errors --retry-delay 2 --connect-timeout 10 --max-time 30 "${URL_OSRAM}")"; then
-    bashio::log.warning "Can't fetch data from OSRAM (HTTP/network error). Retrying in 5h."
+if ! OSRAM_DATA="$(curl -sL ${URL_OSRAM})"; then
+    bashio::log.info "Can't fetch data from osram!"
     exec sleep 18000
 fi
 
-if ! OSRAM_DATA_SIZE="$(echo "${OSRAM_DATA}" | jq -er '.firmwares | length')"; then
-    bashio::log.warning "LEDVANCE payload invalid or missing '.firmwares'; retrying in 5h."
-    exec sleep 18000
-fi
+OSRAM_DATA_SIZE="$(echo "${OSRAM_DATA}" | jq --raw-output '.firmwares | length')"
 DL_DONE=0
-for (( i=0; i < OSRAM_DATA_SIZE; i++ )); do
+for (( i=0; i < "${OSRAM_DATA_SIZE}"; i++ )); do
     OSRAM_COMPANY=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.company  // empty" 2>/dev/null)
     OSRAM_PRODUCT=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].identity.product  // empty" 2>/dev/null)
     OTAU_FILENAME=$( echo "${OSRAM_DATA}" | jq --raw-output ".firmwares[$i].name  // empty" 2>/dev/null)
-    # Encode path segments for safety
-    OSRAM_COMPANY_ESC="$(jq -rn --arg s "${OSRAM_COMPANY}" '$s|@uri')"
-    OSRAM_PRODUCT_ESC="$(jq -rn --arg s "${OSRAM_PRODUCT}" '$s|@uri')"
-    OTAU_URL="${URL_OSRAM}/download/${OSRAM_COMPANY_ESC}/${OSRAM_PRODUCT_ESC}/latest"
-
-    # Skip if any required field is missing
-    if [ -z "${OSRAM_COMPANY}" ] || [ -z "${OSRAM_PRODUCT}" ] || [ -z "${OTAU_FILENAME}" ]; then
-        continue
-    fi
-
-    # Sanitize filename to last path segment and safe chars
-    OTAU_BASENAME="${OTAU_FILENAME##*/}"
-    OTAU_BASENAME="${OTAU_BASENAME##*/}"  # collapse nested components
-    case "${OTAU_BASENAME}" in
-        ''|*'..'*|.*) bashio::log.warning "Unsafe firmware name '${OTAU_FILENAME}', skipping."; continue;;
-    esac
-    OTAU_BASENAME="${OTAU_BASENAME//[^A-Za-z0-9._-]/_}"
-    CO_SAN="${OSRAM_COMPANY//[^A-Za-z0-9._-]/_}"
-    PRD_SAN="${OSRAM_PRODUCT//[^A-Za-z0-9._-]/_}"
-    OTAU_FILE="/data/otau/${CO_SAN}-${PRD_SAN}-${OTAU_BASENAME}"
-
+    OTAU_URL="$URL_OSRAM/download/${OSRAM_COMPANY}/${OSRAM_PRODUCT}/latest"    
+            
+    OTAU_FILE="/data/otau/${OTAU_FILENAME}"
     if [ -e "${OTAU_FILE}" ]; then
         continue
     fi
-
-   # Download atomically; only move into place on success
-    if curl -fsSL --retry 3 --retry-delay 2 --max-time 60 -o "${OTAU_FILE}.tmp" "${OTAU_URL}"; then
-        if mv -f "${OTAU_FILE}.tmp" "${OTAU_FILE}"; then
-            ((DL_DONE+=1))
-        else
-            bashio::log.warning "Move failed for ${OTAU_FILE}.tmp -> ${OTAU_FILE}; cleaning up and retrying next cycle."
-            rm -f "${OTAU_FILE}.tmp"
-            continue
-        fi
-    else
-        bashio::log.warning "Download failed for ${OTAU_URL}; will retry on next cycle."
-        rm -f "${OTAU_FILE}.tmp"
-        continue
-    fi
-
-    if (( DL_DONE > 0 && DL_DONE % 10 == 0 )); then
+    curl -s -L -o "${OTAU_FILE}" "${OTAU_URL}" || true
+    ((DL_DONE+1))
+    if [ "$((DL_DONE % 10))" == "0" ]; then
         # LEDVANCE/OSRAM API RateLimits : The rate limit 10 calls per 60 seconds or quota 100 MB per month.
         DL_DONE=0
         sleep 65

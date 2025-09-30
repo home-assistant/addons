@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.26.0
+
+### Features
+
+- Support creating mixed LR and non-LR "multicast" groups
+
+### Bugfixes
+
+- IP based connections no longer block the process for several minutes on connection failures/timeouts
+- Disable optimistic value updates for slow device classes, like shades and gates
+- Fixed an edge case where support for EU Long Range is not inferred correctly
+- During route rebuilds, invalid and non-existing association targets are now skipped instead of failing the whole process
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.15.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.15.0)
+
 ## 0.25.0
 
 ### Features

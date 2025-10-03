@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.27.0
+
+### Changes
+
+- Revert automatic reconnection when communication with adapter is lost. Home Assistant already handles this.
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.4.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.4.0)
+
 ## 0.26.0
 
 ### Features

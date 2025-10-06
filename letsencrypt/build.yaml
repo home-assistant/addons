@@ -5,9 +5,6 @@ build_from:
   armhf: ghcr.io/home-assistant/armhf-base-python:3.13-alpine3.21
   armv7: ghcr.io/home-assistant/armv7-base-python:3.13-alpine3.21
   i386: ghcr.io/home-assistant/i386-base-python:3.13-alpine3.21
-codenotary:
-  signer: notary@home-assistant.io
-  base_image: notary@home-assistant.io
 args:
   # Developer note: please add a new plugin alphabetically into all lists
   ACME_VERSION: 3.3.0

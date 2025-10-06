@@ -5,8 +5,5 @@ build_from:
   armhf: ghcr.io/home-assistant/armhf-base:3.14
   armv7: ghcr.io/home-assistant/armv7-base:3.14
   i386: ghcr.io/home-assistant/i386-base:3.14
-codenotary:
-  signer: notary@home-assistant.io
-  base_image: notary@home-assistant.io
 args:
   LIBCEC_VERSION: 6.0.2

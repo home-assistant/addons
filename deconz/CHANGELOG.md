@@ -6,7 +6,6 @@
 - Ingress entry page revised (for example, light and dark mode)
 - Update DOCS.md and a few corrections
 - Expand English translation
-- Discovery script adapted
 
 ## 8.2.0
 

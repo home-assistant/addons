@@ -2,7 +2,6 @@
 
 ## 8.3.0
 
-- Bump deCONZ to 2.31.2 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.31.2)]
 - Ingress entry page revised (for example, light and dark mode)
 - Update DOCS.md and a few corrections
 - Expand English translation

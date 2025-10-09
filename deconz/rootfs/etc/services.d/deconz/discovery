@@ -89,7 +89,7 @@ done
 
 if [[ "${serial}" = "0000000000000000" ]]; then
     bashio::log.error "Failed to get a valid bridge ID – continuing without discovery."
-    exit 1
+    exit 0
 fi
 
 # Create config payload for Home Assistant

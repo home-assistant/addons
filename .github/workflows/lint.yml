@@ -66,5 +66,3 @@ jobs:
             universal-silabs-flasher-up
             unlock-tables-for-backup
             vlc-discovery
-          ignore_paths: >-
-            google_assistant

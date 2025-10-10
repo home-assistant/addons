@@ -28,6 +28,12 @@ configuration:
       Only relevant with a custom ACME server using a certificate signed by an
       untrusted certificate authority (CA) that requires addition to the trust
       store.
+  user_agent:
+    name: User Agent
+    description: User-Agent HTTP header sent by addon.
+  user_agent_comment:
+    name: User Agent Comment
+    description: Comment added to addon User-Agent HTTP header.
   dns:
     name: DNS
     description: DNS Provider configuration

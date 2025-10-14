@@ -5,8 +5,5 @@ build_from:
   armhf: ghcr.io/home-assistant/armhf-base:3.20
   armv7: ghcr.io/home-assistant/armv7-base:3.20
   i386: ghcr.io/home-assistant/i386-base:3.20
-codenotary:
-  signer: notary@home-assistant.io
-  base_image: notary@home-assistant.io
 args:
   DEHYDRATED_VERSION: 0.8.0

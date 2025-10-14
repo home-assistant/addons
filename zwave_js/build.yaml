@@ -5,9 +5,6 @@ build_from:
   armhf: ghcr.io/home-assistant/armhf-base:3.21
   armv7: ghcr.io/home-assistant/armv7-base:3.21
   i386: ghcr.io/home-assistant/i386-base:3.21
-codenotary:
-  signer: notary@home-assistant.io
-  base_image: notary@home-assistant.io
 args:
-  ZWAVEJS_SERVER_VERSION: 3.2.1
-  ZWAVEJS_VERSION: 15.13.0
+  ZWAVEJS_SERVER_VERSION: 3.4.0
+  ZWAVEJS_VERSION: 15.15.0

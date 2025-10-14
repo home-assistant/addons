@@ -16,11 +16,6 @@ configuration:
       <host:port> when connecting to a device via sockets (takes precedence
       over above configuration). Not recommended! See documentation for more
       information.
-  autoflash_firmware:
-    name: Automatically flash firmware
-    description: >-
-      Automatically flash OpenThread RCP firmware on Home Assistant Yellow and
-      SkyConnect/Connect ZBT-1.
   otbr_log_level:
     name: OpenThread Border Router agent log level
     description: >-

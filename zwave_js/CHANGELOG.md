@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.27.0
+
+### Changes
+
+- Revert automatic reconnection when communication with adapter is lost. Home Assistant already handles this.
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.4.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.4.0)
+
+## 0.26.0
+
+### Features
+
+- Support creating mixed LR and non-LR "multicast" groups
+
+### Bugfixes
+
+- IP based connections no longer block the process for several minutes on connection failures/timeouts
+- Disable optimistic value updates for slow device classes, like shades and gates
+- Fixed an edge case where support for EU Long Range is not inferred correctly
+- During route rebuilds, invalid and non-existing association targets are now skipped instead of failing the whole process
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.15.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.15.0)
+
+## 0.25.0
+
+### Features
+
+- Try re-establishing connection when communication with adapter is lost
+
+### Detailed changelogs
+
+- [Z-Wave JS Server 3.3.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.3.0)
+
+## 0.24.0
+
+### Features
+
+- Allow configuring a socket as an alternative to a device
+
+### Bugfixes
+
+- Fixed an issue where converting NVMs with unknown objects would fail due to unknown NVM section
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.14.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.14.0)
+
 ## 0.23.0
 
 ### Features

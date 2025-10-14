@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.14.0
+- Remove firmware flashing from the addon, this is now handled by Core 2025.7.0.
+
 ## 2.13.0
 - Bump to OTBR POSIX version b067e5ac (2025-01-13 22:32:22 -0500)
 - Bump universal-silabs-flasher to 0.0.28

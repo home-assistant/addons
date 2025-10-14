@@ -4,12 +4,34 @@
 # ==============================================================================
 # Start Z-Wave JS service for Z-Wave radio
 # ==============================================================================
-SERIAL_DEVICE=$(bashio::config 'device')
 
-# Emulate serial Hardware for test & development
-if bashio::config.true 'emulate_hardware'; then
-    SERIAL_DEVICE="--mock-driver"
+# Get config values
+DEVICE=$(bashio::config 'device')
+SOCKET=$(bashio::config 'socket')
+
+# Filter out null values
+if [[ "${DEVICE}" == "null" ]]; then
+    DEVICE=""
 fi
+if [[ "${SOCKET}" == "null" ]]; then
+    SOCKET=""
+fi
+
+# Determine which to use
+if bashio::var.has_value "${DEVICE}"; then
+    CONNECTION_TYPE="device"
+    SERIAL_DEVICE="${DEVICE}"
+elif bashio::var.has_value "${SOCKET}"; then
+    CONNECTION_TYPE="socket"
+    SERIAL_DEVICE="${SOCKET}"
+elif bashio::config.true 'emulate_hardware'; then
+    CONNECTION_TYPE="mock"
+    SERIAL_DEVICE="--mock-driver"
+else
+    bashio::exit.nok "Either 'device' or 'socket' must be configured"
+fi
+
+bashio::log.info "Using ${CONNECTION_TYPE}: ${SERIAL_DEVICE}"
 
 # Send out discovery information to Home Assistant
 ./discovery &

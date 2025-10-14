@@ -41,10 +41,6 @@ systems that have installed Home Assistant.
 
     Load and update configuration files for Home Assistant from a Git repository.
 
-- **[Google Assistant SDK](/google_assistant/README.md)**
-
-    A virtual personal assistant developed by Google.
-
 - **[Let's Encrypt](/letsencrypt/README.md)**
 
     Manage and create certificates from Let's Encrypt.

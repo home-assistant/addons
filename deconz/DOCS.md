@@ -232,5 +232,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/addons/issues
 [manual-upgrade]: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Update-deCONZ-manually
 [reddit]: https://reddit.com/r/homeassistant
-[vnc-viewer]: https://www.realvnc.com/en/connect/download/realvnc-viewer/
+[vnc-viewer]: https://tigervnc.org
 [vnc-service-url]: vnc://homeassistant.local:5900

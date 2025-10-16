@@ -3,6 +3,7 @@ FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 ARG OTBR_VERSION
+ARG UNIVERSAL_SILABS_FLASHER
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -92,6 +93,8 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
+    && pip install --break-system-packages \
+       universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
     && apt-get purge -y --auto-remove \
        git \
        nodejs \

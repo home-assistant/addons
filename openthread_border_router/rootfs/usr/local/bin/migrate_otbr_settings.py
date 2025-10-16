@@ -1,0 +1,158 @@
+import asyncio
+import argparse
+import zigpy.serial
+from pathlib import Path
+
+from enum import Enum
+from universal_silabs_flasher.spinel import SpinelProtocol, CommandID, PropertyID
+
+CONNECT_TIMEOUT = 10
+
+
+class OtbrSettingsKey(Enum):
+    ACTIVE_DATASET = 0x0001
+    PENDING_DATASET = 0x0002
+    NETWORK_INFO = 0x0003
+    PARENT_INFO = 0x0004
+    CHILD_INFO = 0x0005
+    SLAAC_IID_SECRET_KEY = 0x0007
+    DAD_INFO = 0x0008
+    SRP_ECDSA_KEY = 0x000B
+    SRP_CLIENT_INFO = 0x000C
+    SRP_SERVER_INFO = 0x000D
+    BR_ULA_PREFIX = 0x000F
+    BR_ON_LINK_PREFIXES = 0x0010
+    BORDER_AGENT_ID = 0x0011
+
+
+def parse_otbr_settings(data: bytes) -> dict[OtbrSettingsKey, bytes]:
+    """Parses an OTBR binary settings file."""
+    settings = {}
+
+    while data:
+        key_bytes = data[:2]
+        if not key_bytes:
+            break
+
+        assert len(key_bytes) == 2
+        key = int.from_bytes(key_bytes, "little")
+
+        length_bytes = data[2:4]
+        assert len(length_bytes) == 2
+
+        length = int.from_bytes(length_bytes, "little")
+        value = data[4 : 4 + length]
+        assert len(value) == length
+
+        settings[OtbrSettingsKey(key)] = value
+        data = data[4 + length :]
+
+    return settings
+
+
+def serialize_otbr_settings(settings: dict[OtbrSettingsKey, bytes]) -> bytes:
+    """Serialize OTBR binary settings."""
+    data = b""
+
+    for key, value in settings.items():
+        key_bytes = key.value.to_bytes(2, "little")
+        length_bytes = len(value).to_bytes(2, "little")
+        data += key_bytes + length_bytes + value
+
+    return data
+
+
+async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
+    loop = asyncio.get_running_loop()
+
+    async with asyncio.timeout(CONNECT_TIMEOUT):
+        _, protocol = await zigpy.serial.create_serial_connection(
+            loop=loop,
+            protocol_factory=SpinelProtocol,
+            url=port,
+            baudrate=baudrate,
+        )
+        await protocol.wait_until_connected()
+
+    try:
+        rsp = await protocol.send_command(
+            CommandID.PROP_VALUE_GET,
+            PropertyID.HWADDR.serialize(),
+        )
+    finally:
+        await protocol.disconnect()
+
+    prop_id, hwaddr = PropertyID.deserialize(rsp.data)
+    assert prop_id == PropertyID.HWADDR
+
+    return hwaddr.hex()
+
+
+def hwaddr_to_filename(hwaddr: str) -> str:
+    port_offset = 0
+    node_id = int(hwaddr, 16)
+
+    return f"{port_offset}_{node_id:x}.data"
+
+
+async def main() -> None:
+    parser = argparse.ArgumentParser(description="Migrate OTBR settings to new adapter")
+    parser.add_argument(
+        "--data-dir", type=Path, help="Path to OTBR data directory", required=True
+    )
+    parser.add_argument(
+        "--adapter", type=str, help="Serial port of the new adapter", required=True
+    )
+    parser.add_argument(
+        "--baudrate", type=int, default=460800, help="Baudrate of the new adapter"
+    )
+
+    args = parser.parse_args()
+
+    # First, read the hardware address of the new adapter
+    hwaddr = await get_adapter_hardware_addr(args.adapter, args.baudrate)
+    expected_settings_path = args.data_dir / hwaddr_to_filename(hwaddr)
+
+    # If we don't need to migrate, abort
+    if expected_settings_path.exists():
+        print(f"Settings for adapter {hwaddr} already exist, skipping")
+        return
+
+    # Otherwise, find the most recently used settings file and parse it
+    all_settings = []
+
+    for settings_path in args.data_dir.glob("*.data"):
+        mod_time = settings_path.stat().st_mtime
+        otbr_settings = parse_otbr_settings(settings_path.read_bytes())
+
+        # Ensure our parsing is valid
+        assert serialize_otbr_settings(otbr_settings) == settings_path.read_bytes()
+
+        all_settings.append((mod_time, settings_path, otbr_settings))
+
+    if not all_settings:
+        print("No existing settings files found, skipping")
+        return
+
+    most_recent_settings_info = sorted(all_settings, reverse=True)[0]
+    most_recent_settings = most_recent_settings_info[2]
+
+    # Write back a new settings file that keeps only the active and pending datasets
+    new_settings = {}
+
+    if OtbrSettingsKey.ACTIVE_DATASET in most_recent_settings:
+        new_settings[OtbrSettingsKey.ACTIVE_DATASET] = most_recent_settings[
+            OtbrSettingsKey.ACTIVE_DATASET
+        ]
+
+    if OtbrSettingsKey.PENDING_DATASET in most_recent_settings:
+        new_settings[OtbrSettingsKey.PENDING_DATASET] = most_recent_settings[
+            OtbrSettingsKey.PENDING_DATASET
+        ]
+
+    expected_settings_path.write_bytes(serialize_otbr_settings(new_settings))
+    print(f"Wrote new settings file to {expected_settings_path}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

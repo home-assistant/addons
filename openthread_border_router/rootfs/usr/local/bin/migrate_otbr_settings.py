@@ -1,5 +1,6 @@
 import asyncio
 import argparse
+import datetime
 import zigpy.serial
 from pathlib import Path
 
@@ -95,6 +96,13 @@ def hwaddr_to_filename(hwaddr: str) -> str:
     return f"{port_offset}_{node_id:x}.data"
 
 
+def backup_file(path: Path) -> Path:
+    suffix = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    backup_path = path.with_suffix(path.suffix + f".backup-{suffix}")
+    path.rename(backup_path)
+    return backup_path
+
+
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Migrate OTBR settings to new adapter")
     parser.add_argument(
@@ -111,14 +119,8 @@ async def main() -> None:
 
     # First, read the hardware address of the new adapter
     hwaddr = await get_adapter_hardware_addr(args.adapter, args.baudrate)
-    expected_settings_path = args.data_dir / hwaddr_to_filename(hwaddr)
 
-    # If we don't need to migrate, abort
-    if expected_settings_path.exists():
-        print(f"Settings for adapter {hwaddr} already exist, skipping")
-        return
-
-    # Otherwise, find the most recently used settings file and parse it
+    # Then, look at existing settings
     all_settings = []
 
     for settings_path in args.data_dir.glob("*.data"):
@@ -135,7 +137,23 @@ async def main() -> None:
         return
 
     most_recent_settings_info = sorted(all_settings, reverse=True)[0]
+    most_recent_settings_path = most_recent_settings_info[1]
     most_recent_settings = most_recent_settings_info[2]
+
+    expected_settings_path = args.data_dir / hwaddr_to_filename(hwaddr)
+
+    if expected_settings_path.exists():
+        if most_recent_settings_path == expected_settings_path:
+            print(
+                f"Adapter settings file {expected_settings_path} is the most recently used, skipping"
+            )
+            return
+
+        # If the settings file is old, we should "delete" it
+        print(
+            f"Settings file for adapter {hwaddr} already exists at {expected_settings_path} but appears to be old, archiving"
+        )
+        backup_file(expected_settings_path)
 
     # Write back a new settings file that keeps only the active and pending datasets
     new_settings = {}

@@ -109,8 +109,8 @@ Defaults to `true`.
 
 ### Option: `server_signing`
 
-Enable Samba Server Signing option to improve security.
-Refer the man page for smb.conf for more info.
+Configure the SMB server signing requirement. This option can improve security by requiring message signing, which helps prevent man-in-the-middle attacks.
+Refer to the man page for smb.conf for detailed information about the values: **default**, **auto**, **mandatory**, and **disabled**.
 
 Defaults to `default`.
 

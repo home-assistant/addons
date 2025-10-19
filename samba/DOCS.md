@@ -107,6 +107,13 @@ This can cause issues with file systems that do not support xattr such as exFAT.
 
 Defaults to `true`.
 
+### Option: `server_signing`
+
+Enable Samba Server Signing option to improve security.
+Refer the man page for smb.conf for more info.
+
+Defaults to `default`.
+
 ## Support
 
 Got questions?

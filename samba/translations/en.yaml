@@ -34,9 +34,10 @@ configuration:
       devices. May cause issues with file systems that do not support xattr
       such as exFAT.
   server_signing:
-    name: Change server signing option for better security
+    name: Server signing
     description: >-
-      Refer to smb.conf manpage for more information.
+      Configure SMB server message signing requirements.
+      Refer to the smb.conf man page for more information.
       Only change this if you know your SMB clients can support it.
   veto_files:
     name: Veto Files

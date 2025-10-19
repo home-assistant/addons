@@ -31,6 +31,8 @@
    vfs objects = catia fruit streams_xattr
    {{ end }}
 
+   server signing = {{ .server_signing }}
+
 {{ if (has "config" .enabled_shares) }}
 [config]
    browseable = yes

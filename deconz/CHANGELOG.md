@@ -3,7 +3,7 @@
 ## 8.4.0
 
 - Ingress entry page revised (for example, light and dark mode)
-- Update DOCS.md and a few corrections
+- Update DOCS.md and a few naming corrections
 - Expand English translation
 
 ## 8.3.0

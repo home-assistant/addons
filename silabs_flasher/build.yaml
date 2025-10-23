@@ -6,4 +6,4 @@ build_from:
   armv7: ghcr.io/home-assistant/armv7-base-python:3.13-alpine3.22
   i386: ghcr.io/home-assistant/i386-base-python:3.13-alpine3.22
 args:
-  UNIVERSAL_SILABS_FLASHER: 0.0.35
+  UNIVERSAL_SILABS_FLASHER: 0.0.36

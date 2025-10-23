@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.3.0
+
+- Bump deCONZ to 2.31.2 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.31.2)]
+
 ## 8.2.0
 
 - Bump deCONZ to 2.30.2 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.30.2)]

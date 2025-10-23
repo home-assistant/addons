@@ -4,4 +4,4 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
   armhf: ghcr.io/home-assistant/armhf-base-raspbian:bookworm
 args:
-  DECONZ_VERSION: 2.30.2
+  DECONZ_VERSION: 2.31.2

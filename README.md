@@ -19,7 +19,7 @@ systems that have installed Home Assistant.
 
 - **[deCONZ](/deconz/README.md)**
 
-    Control a Zigbee network using ConBee or RaspBee hardware by Dresden Elektronik.
+    Control a Zigbee network using ConBee or RaspBee hardware by dresden elektronik.
 
 - **[DHCP server](/dhcp_server/README.md)**
 

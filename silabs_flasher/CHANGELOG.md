@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+- Upgrade to Alpine 3.22
+- Update universal-silabs-flasher to v0.0.36
+
 ## 0.3.4
 
 - Make custom ezsp baudrate a truly optional configuration

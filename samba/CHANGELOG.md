@@ -2,7 +2,7 @@
 
 ## 12.5.4
 
-- Remove invalid inverted commas in server signing parameter
+- Fix invalid inverted commas in server signing parameter
 
 ## 12.5.3
 

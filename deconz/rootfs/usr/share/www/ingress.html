@@ -1,306 +1,272 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>deCONZ | dresden elektronik</title>
     <style>
-      html {
-        height: 100%;
+      :root {
+        /* Home Assistant Light Theme */
+        --primary-color: #03a9f4;
+        --primary-text-color: rgba(0, 0, 0, 0.87);
+        --secondary-text-color: rgba(0, 0, 0, 0.6);
+        --disabled-text-color: rgba(0, 0, 0, 0.38);
+
+        --background-color: #fafafa;
+        --card-background-color: #ffffff;
+        --divider-color: rgba(0, 0, 0, 0.12);
+
+        --toolbar-background: #009AC7;
+        --toolbar-text-color: #fff;
+
+        --button-bg: #009AC7;
+        --button-text-color: #fff;
+        --button-hover-color: #006787;
+
+        --link-color: var(--primary-color);
+        --link-hover-color: #007aa3;
+
+        --focus-color: #989898;
+
+        --border-radius: 12px;
+        --shadow: 0 1px 4px rgba(0,0,0,0.06);
       }
-      body {
+      @media (prefers-color-scheme: dark) {
+        :root {
+          /* Home Assistant Dark Theme */
+          --primary-color: #03a9f4;
+          --primary-text-color: #e1e1e1;
+          --secondary-text-color: #9c9c9c;
+          --disabled-text-color: rgba(255, 255, 255, 0.3);
+
+          --background-color: #111111;
+          --card-background-color: #1C1C1C;
+          --divider-color: rgba(255, 255, 255, 0.12);
+
+          --toolbar-background: #101E24;
+          --toolbar-text-color: var(--primary-text-color);
+
+          --button-bg: #009AC7;
+          --button-text-color: #fff;
+          --button-hover-color: #006787;
+
+          --link-color: var(--primary-color);
+          --link-hover-color: #007aa3;
+
+          --focus-color: #989898;
+
+          --border-radius: 12px;
+          --shadow: 0 1px 4px rgba(0,0,0,0.18);
+        }
+      }
+      html, body {
         height: 100%;
         margin: 0;
         font-family: Roboto, sans-serif;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        font-size: 1rem;
-        line-height: 1.375rem;
-        font-weight: 500;
-        letter-spacing: 0.0071428571em;
-        text-decoration: inherit;
-        text-transform: inherit;
-        color: #212121;
-        font-weight: 400;
-        line-height: 2;
-        background: #fafafa;
+        background: var(--background-color);
+        color: var(--primary-text-color);
+        transition: background 0.3s, color 0.3s;
       }
-      a {
-        text-decoration: none;
-        color: #03a9f4;
+      .flex {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
       }
       .toolbar {
         display: flex;
         align-items: center;
         font-size: 20px;
-        height: 65px;
-        background-color: #03a9f4;
+        height: 55px;
+        background-color: var(--toolbar-background);
+        color: var(--toolbar-text-color);
+        padding: 0 24px;
         font-weight: 400;
-        color: #fff;
-        box-sizing: border-box;
-        padding: 0px 16px;
+        box-shadow: var(--shadow);
       }
-      .flex {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-      .content {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        align-items: center;
-        justify-content: center;
-        padding: 16px;
-      }
-      h1 {
-        font-family: Roboto, sans-serif;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
+      .toolbar h1 {
+        margin: 0 0 0 60px;
         font-size: 20px;
         font-weight: 400;
-        letter-spacing: 0;
-        margin: 0 0 0 72px;
       }
-      .mdc-button {
-        font-family: Roboto, sans-serif;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        font-size: 0.875rem;
-        line-height: 2.25rem;
-        font-weight: 500;
-        letter-spacing: 0.0892857143em;
-        text-decoration: none;
-        padding: 0 8px 0 8px;
-        display: inline-flex;
-        position: relative;
+      .content {
+        flex-grow: 1;
+        display: flex;
         align-items: center;
         justify-content: center;
-        box-sizing: border-box;
-        min-width: 64px;
-        border: none;
-        outline: none;
-        line-height: inherit;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-appearance: none;
-        overflow: visible;
-        vertical-align: middle;
+        padding: 24px;
+      }
+      .card {
+        background: var(--card-background-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--divider-color);
+        padding: 32px 24px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
+      .card p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 10px 0;
+        color: var(--primary-text-color);
+      }
+      a {
+        text-decoration: none;
+        color: var(--link-color);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      a:hover {
+        color: var(--link-hover-color);
+        text-decoration: none;
+      }
+      a:focus-visible {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 2px;
         border-radius: 4px;
       }
-
-      .mdc-button::-moz-focus-inner {
-        padding: 0;
-        border: 0;
+      .button-row {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        margin-top: 16px;
       }
-
-      .mdc-button:active {
-        outline: none;
-      }
-
-      .mdc-button:hover {
-        cursor: pointer;
-      }
-
-      .mdc-button .mdc-button__ripple {
-        border-radius: 4px;
-      }
-
-      .mdc-button--raised .mdc-button__icon,
-      .mdc-button--unelevated .mdc-button__icon,
-      .mdc-button--outlined .mdc-button__icon {
-        margin-left: -4px;
-        margin-right: 8px;
-      }
-
-      [dir="rtl"] .mdc-button--raised .mdc-button__icon,
-      .mdc-button--raised .mdc-button__icon[dir="rtl"],
-      [dir="rtl"] .mdc-button--unelevated .mdc-button__icon,
-      .mdc-button--unelevated .mdc-button__icon[dir="rtl"],
-      [dir="rtl"] .mdc-button--outlined .mdc-button__icon,
-      .mdc-button--outlined .mdc-button__icon[dir="rtl"] {
-        margin-left: 8px;
-        margin-right: -4px;
-      }
-
-      .mdc-button--raised .mdc-button__label + .mdc-button__icon,
-      .mdc-button--unelevated .mdc-button__label + .mdc-button__icon,
-      .mdc-button--outlined .mdc-button__label + .mdc-button__icon {
-        margin-left: 8px;
-        margin-right: -4px;
-      }
-
-      [dir="rtl"] .mdc-button--raised .mdc-button__label + .mdc-button__icon,
-      .mdc-button--raised .mdc-button__label + .mdc-button__icon[dir="rtl"],
-      [dir="rtl"]
-        .mdc-button--unelevated
-        .mdc-button__label
-        + .mdc-button__icon,
-      .mdc-button--unelevated .mdc-button__label + .mdc-button__icon[dir="rtl"],
-      [dir="rtl"] .mdc-button--outlined .mdc-button__label + .mdc-button__icon,
-      .mdc-button--outlined .mdc-button__label + .mdc-button__icon[dir="rtl"] {
-        margin-left: -4px;
-        margin-right: 8px;
-      }
-
-      .mdc-button--raised,
-      .mdc-button--unelevated {
-        padding: 0 16px 0 16px;
-      }
-
-      .mdc-button--raised {
-        background-color: #03a9f4;
-        color: #fff;
-        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-          0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-          0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-        transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .mdc-button--raised:hover,
-      .mdc-button--raised:focus {
-        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-          0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-          0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-      }
-
-      .mdc-button--raised:active {
-        box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
-          0px 8px 10px 1px rgba(0, 0, 0, 0.14),
-          0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-      }
-
       .mdc-button {
-        --mdc-ripple-fg-size: 0;
-        --mdc-ripple-left: 0;
-        --mdc-ripple-top: 0;
-        --mdc-ripple-fg-scale: 1;
-        --mdc-ripple-fg-translate-end: 0;
-        --mdc-ripple-fg-translate-start: 0;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        will-change: transform, opacity;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        font-family: Roboto, sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0 20px;
+        min-width: 80px;
+        height: 40px;
+        border-radius: 8px;
+        border: none;
+        background-color: var(--button-bg);
+        color: var(--button-text-color);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        transition: background 0.3s, color 0.3s, box-shadow 0.2s;
+        cursor: pointer;
+        outline: none;
+        text-decoration: none;
       }
-
-      .mdc-button .mdc-button__ripple::before,
-      .mdc-button .mdc-button__ripple::after {
+      .mdc-button:focus {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 2px;
+      }
+      .mdc-button:focus-visible {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(3,169,244,0.35);
+      }
+      .mdc-button:focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .mdc-button:hover {
+        background-color: var(--button-hover-color);
+        color: var(--button-text-color);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      }
+      .ripple {
         position: absolute;
         border-radius: 50%;
-        opacity: 0;
+        transform: scale(0);
+        animation: ripple 600ms linear;
+        background-color: rgba(255, 255, 255, 0.6);
         pointer-events: none;
-        content: "";
       }
-
-      .mdc-button .mdc-button__ripple::before {
-        transition: opacity 15ms linear, background-color 15ms linear;
-        z-index: 1;
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
       }
-
-      .mdc-button .mdc-button__ripple::before,
-      .mdc-button .mdc-button__ripple::after {
-        top: calc(50% - 100%);
-        left: calc(50% - 100%);
-        width: 200%;
-        height: 200%;
+      @media (prefers-reduced-motion: reduce) {
+        .ripple { display: none !important; }
+        .mdc-button { transition: none !important; }
       }
-
-      .mdc-button.mdc-ripple-upgraded .mdc-button__ripple::after {
-        width: var(--mdc-ripple-fg-size, 100%);
-        height: var(--mdc-ripple-fg-size, 100%);
+      @media (forced-colors: active) {
+        .mdc-button {
+          background: ButtonFace;
+          color: ButtonText;
+          border: 1px solid CanvasText;
+        }
+        .mdc-button:hover {
+          background: Highlight; 
+          color: HighlightText; 
+        }
+        .mdc-button:focus {
+          outline: 2px solid Highlight; 
+          outline-offset: 2px; 
+        }  
       }
-
-      .mdc-button .mdc-button__ripple::before,
-      .mdc-button .mdc-button__ripple::after {
-        background-color: #03a9f4;
+      @media (max-width: 480px) {
+        .card {
+          padding: 20px 16px;
+          max-width: 90%;
+        }
+        .mdc-button {
+          min-width: 100px;
+          height: 38px;
+          font-size: 0.9rem;
+        }
       }
-
-      .mdc-button .mdc-button__ripple::before,
-      .mdc-button .mdc-button__ripple::after {
-        background-color: var(--mdc-theme-primary, #03a9f4);
-      }
-
-      .mdc-button:hover .mdc-button__ripple::before {
-        opacity: 0.04;
-      }
-
-      .mdc-button .mdc-button__ripple {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-
-      .mdc-button .mdc-button__ripple {
-        top: 0;
-        left: 0;
-      }
-
-      .mdc-button--raised .mdc-button__ripple::before {
-        background-color: #fff;
-      }
-
-      .mdc-button--raised .mdc-button__ripple::before {
-        background-color: var(--mdc-theme-on-primary, #fff);
-      }
-
-      .mdc-button--raised:hover .mdc-button__ripple::before {
-        opacity: 0.08;
-      }
-
-      .mdc-button--raised .mdc-button__ripple::after {
-        transition: opacity 150ms linear;
-      }
-
-      .mdc-button--raised:active .mdc-button__ripple::after {
-        transition-duration: 75ms;
-        opacity: 0.24;
-      }
-
-      .mdc-button {
-        height: 36px;
-      }
-
-      .mdc-button__ripple {
-        box-sizing: content-box;
+      @media (max-width: 320px) {
+        .button-row {
+          flex-direction: column;
+          gap: 12px;
+        }
+        .mdc-button {
+          width: 82%;
+        }
       }
     </style>
   </head>
   <body>
     <div class="flex">
-      <div class="toolbar"><h1>Zigbee network by Dresden Elektronik</h1></div>
+      <div class="toolbar"><h1>Zigbee network by dresden elektronik</h1></div>
       <div class="content">
-        <p>
-          You can use the
-          <a
-            href="https://phoscon.de/en/conbee/software#phoscon-app"
-            target="_blank"
-            rel="noreferrer"
-            >Phoscon Web App</a
-          >
-          or the
-          <a
-            href="https://phoscon.de/en/conbee/software#deconz"
-            target="_blank"
-            rel="noreferrer"
-            >deCONZ application</a
-          >
-          through VNC
-        </p>
-
-        <div>
-          <a href="pwa/index.html">
-            <button class="mdc-button mdc-button--raised">
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">Phoscon</span>
-            </button>
-          </a>
-          <a href="novnc/vnc_lite.html?scale=yes">
-            <button class="mdc-button mdc-button--raised">
-              <div class="mdc-button__ripple"></div>
-
-              <span class="mdc-button__label">deCONZ</span>
-            </button>
-          </a>
+        <div class="card">
+          <p>
+            You can use the
+            <a href="https://phoscon.de/en/conbee/software#phoscon-app" target="_blank" rel="noopener noreferrer">Phoscon App</a>
+            or the
+            <a href="https://phoscon.de/en/conbee/software#deconz" target="_blank" rel="noopener noreferrer">deCONZ GUI</a>
+            through VNC.
+          </p>
+          <div class="button-row">
+            <a href="pwa/index.html" class="mdc-button">Phoscon</a>
+            <a href="novnc/vnc_lite.html?scale=yes" class="mdc-button">deCONZ</a>
+          </div>
         </div>
       </div>
     </div>
+    <script>
+      document.querySelectorAll('.mdc-button').forEach(button => {
+        button.addEventListener('click', function (e) {
+          const ripple = document.createElement('span');
+          ripple.classList.add('ripple');
+          const rect = button.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          ripple.style.width = ripple.style.height = size + 'px';
+          const isKeyboard = (e.detail === 0 && e.clientX === 0 && e.clientY === 0);
+          const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+          const xRel = isKeyboard ? rect.width / 2 : (e.clientX - rect.left);
+          const yRel = isKeyboard ? rect.height / 2 : (e.clientY - rect.top);
+          const x = clamp(xRel, 0, rect.width);
+          const y = clamp(yRel, 0, rect.height);
+          ripple.style.left = (x - size / 2) + 'px';
+          ripple.style.top = (y - size / 2) + 'px';
+          button.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.5.0
+
+- Fix discovery script
+
 ## 8.4.0
 
 - Ingress entry page revised (for example, light and dark mode)

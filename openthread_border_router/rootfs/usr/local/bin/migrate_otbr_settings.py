@@ -26,9 +26,9 @@ class OtbrSettingsKey(Enum):
     BORDER_AGENT_ID = 0x0011
 
 
-def parse_otbr_settings(data: bytes) -> dict[OtbrSettingsKey, bytes]:
+def parse_otbr_settings(data: bytes) -> list[tuple[OtbrSettingsKey, bytes]]:
     """Parses an OTBR binary settings file."""
-    settings = {}
+    settings = []
 
     while data:
         key_bytes = data[:2]
@@ -45,17 +45,17 @@ def parse_otbr_settings(data: bytes) -> dict[OtbrSettingsKey, bytes]:
         value = data[4 : 4 + length]
         assert len(value) == length
 
-        settings[OtbrSettingsKey(key)] = value
+        settings.append(OtbrSettingsKey(key), value)
         data = data[4 + length :]
 
     return settings
 
 
-def serialize_otbr_settings(settings: dict[OtbrSettingsKey, bytes]) -> bytes:
+def serialize_otbr_settings(settings: list[tuple[OtbrSettingsKey, bytes]]) -> bytes:
     """Serialize OTBR binary settings."""
     data = b""
 
-    for key, value in settings.items():
+    for key, value in settings:
         key_bytes = key.value.to_bytes(2, "little")
         length_bytes = len(value).to_bytes(2, "little")
         data += key_bytes + length_bytes + value
@@ -156,17 +156,29 @@ async def main() -> None:
         backup_file(expected_settings_path)
 
     # Write back a new settings file that keeps only the active and pending datasets
-    new_settings = {}
+    new_settings = []
 
-    if OtbrSettingsKey.ACTIVE_DATASET in most_recent_settings:
-        new_settings[OtbrSettingsKey.ACTIVE_DATASET] = most_recent_settings[
-            OtbrSettingsKey.ACTIVE_DATASET
-        ]
+    try:
+        active_dataset = next(
+            value
+            for key, value in most_recent_settings
+            if key == OtbrSettingsKey.ACTIVE_DATASET
+        )
+    except StopIteration:
+        pass
+    else:
+        new_settings.append((OtbrSettingsKey.ACTIVE_DATASET, active_dataset))
 
-    if OtbrSettingsKey.PENDING_DATASET in most_recent_settings:
-        new_settings[OtbrSettingsKey.PENDING_DATASET] = most_recent_settings[
-            OtbrSettingsKey.PENDING_DATASET
-        ]
+    try:
+        pending_dataset = next(
+            value
+            for key, value in most_recent_settings
+            if key == OtbrSettingsKey.PENDING_DATASET
+        )
+    except StopIteration:
+        pass
+    else:
+        new_settings.append((OtbrSettingsKey.PENDING_DATASET, pending_dataset))
 
     expected_settings_path.write_bytes(serialize_otbr_settings(new_settings))
     print(f"Wrote new settings file to {expected_settings_path}")

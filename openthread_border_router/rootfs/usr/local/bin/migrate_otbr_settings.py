@@ -63,6 +63,11 @@ def serialize_otbr_settings(settings: list[tuple[OtbrSettingsKey, bytes]]) -> by
     return data
 
 
+def is_valid_otbr_settings_file(settings: list[tuple[OtbrSettingsKey, bytes]]) -> bool:
+    """Check if parsed settings represent a valid OTBR settings file."""
+    return {OtbrSettingsKey.ACTIVE_DATASET} <= {key for key, _ in settings}
+
+
 async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
     loop = asyncio.get_running_loop()
 
@@ -130,6 +135,12 @@ async def main() -> None:
         # Ensure our parsing is valid
         assert serialize_otbr_settings(otbr_settings) == settings_path.read_bytes()
 
+        if not is_valid_otbr_settings_file(otbr_settings):
+            print(
+                f"Settings file {settings_path} is not a valid OTBR settings file, skipping"
+            )
+            continue
+
         all_settings.append((mod_time, settings_path, otbr_settings))
 
     if not all_settings:
@@ -155,30 +166,16 @@ async def main() -> None:
         )
         backup_file(expected_settings_path)
 
-    # Write back a new settings file that keeps only the active and pending datasets
-    new_settings = []
-
-    try:
-        active_dataset = next(
-            value
-            for key, value in most_recent_settings
-            if key == OtbrSettingsKey.ACTIVE_DATASET
+    # Write back a new settings file that keeps only a few keys
+    new_settings = [
+        (key, value)
+        for key, value in most_recent_settings
+        if key
+        in (
+            OtbrSettingsKey.ACTIVE_DATASET,
+            OtbrSettingsKey.PENDING_DATASET,
         )
-    except StopIteration:
-        pass
-    else:
-        new_settings.append((OtbrSettingsKey.ACTIVE_DATASET, active_dataset))
-
-    try:
-        pending_dataset = next(
-            value
-            for key, value in most_recent_settings
-            if key == OtbrSettingsKey.PENDING_DATASET
-        )
-    except StopIteration:
-        pass
-    else:
-        new_settings.append((OtbrSettingsKey.PENDING_DATASET, pending_dataset))
+    ]
 
     expected_settings_path.write_bytes(serialize_otbr_settings(new_settings))
     print(f"Wrote new settings file to {expected_settings_path}")
@@ -186,5 +183,6 @@ async def main() -> None:
 
 if __name__ == "__main__":
     import coloredlogs
+
     coloredlogs.install(level="DEBUG")
     asyncio.run(main())

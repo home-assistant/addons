@@ -174,6 +174,7 @@ async def main() -> None:
         in (
             OtbrSettingsKey.ACTIVE_DATASET,
             OtbrSettingsKey.PENDING_DATASET,
+            OtbrSettingsKey.CHILD_INFO,
         )
     ]
 

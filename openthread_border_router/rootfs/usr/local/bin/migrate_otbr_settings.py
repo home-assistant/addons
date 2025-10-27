@@ -185,4 +185,6 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
+    import coloredlogs
+    coloredlogs.install(level="DEBUG")
     asyncio.run(main())

@@ -10,7 +10,6 @@ arch:
   - armhf
   - armv7
   - aarch64
-codenotary: notary@home-assistant.io
 discovery:
   - zwave_js
 hassio_api: true

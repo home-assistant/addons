@@ -4,7 +4,6 @@ slug: mosquitto
 name: Mosquitto broker
 description: An Open Source MQTT broker
 url: https://github.com/home-assistant/addons/tree/master/mosquitto
-codenotary: notary@home-assistant.io
 arch:
   - armhf
   - armv7

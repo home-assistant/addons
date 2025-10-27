@@ -4,7 +4,6 @@ slug: dhcp_server
 name: "DHCP server [deprecated]"
 description: A simple DHCP server
 url: https://home-assistant.io/addons/dhcp_server/
-codenotary: notary@home-assistant.io
 advanced: true
 arch:
   - armhf

@@ -45,7 +45,7 @@ def parse_otbr_settings(data: bytes) -> list[tuple[OtbrSettingsKey, bytes]]:
         value = data[4 : 4 + length]
         assert len(value) == length
 
-        settings.append(OtbrSettingsKey(key), value)
+        settings.append((OtbrSettingsKey(key), value))
         data = data[4 + length :]
 
     return settings

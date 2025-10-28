@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.15.0
+- Automatically migrate the active dataset to a new adapter when changing the addon serial port path.
+
 ## 2.14.0
 - Remove firmware flashing from the addon, this is now handled by Core 2025.7.0.
 

@@ -1,5 +1,5 @@
 ---
-version: 8.5.0
+version: 8.5.1
 slug: deconz
 name: deCONZ
 description: >-
@@ -34,11 +34,15 @@ privileged:
   - SYS_RAWIO
 schema:
   device: device(subsystem=tty)
-  dbg_aps: int?
   dbg_info: int?
-  dbg_otau: int?
+  dbg_aps: int?
   dbg_zcl: int?
   dbg_zdp: int?
+  dbg_ddf: int?
+  dbg_dev: int?
+  dbg_ota: int?
+  dbg_error: int?
+  dbg_http: int?
 startup: services
 udev: true
 usb: true

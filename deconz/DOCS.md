@@ -124,9 +124,13 @@ the add-on configuration:
 
 - `dbg_info`
 - `dbg_aps`
-- `dbg_otau`
 - `dbg_zcl`
 - `dbg_zdp`
+- `dbg_ddf`
+- `dbg_dev`
+- `dbg_ota`
+- `dbg_error`
+- `dbg_http`
 
 These options require a number that represents the log level.
 

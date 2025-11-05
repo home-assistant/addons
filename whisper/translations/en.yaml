@@ -48,7 +48,8 @@ configuration:
     description: >-
       Speech-to-text backend library to use.
 
-      The default `auto` will select the best backend/model based on language/hardware.
+      The default `auto` will select the best backend/model based on
+      language/hardware.
   debug_logging:
     name: Debug logging
     description: >-

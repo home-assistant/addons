@@ -59,23 +59,9 @@ Controls the variability of audio by adding noise during audio generation. The e
 
 Controls the variability of speaking cadence (phoneme widths). The effect highly depends on the voice itself, but in general a value of 0 removes variability and values above 1 produce extreme stutters and pauses.
 
-### Option: `max_piper_procs`
-
-Number of Piper processes to run simultaneously (default is 1). Each Piper process loads a single voice model into RAM, so using multiple voices at the same time requires:
-
-- Starting/stopping Piper processes as voices are used, or
-- Running more Piper processes
-
-This add-on will start a Piper process for each requested voice up to `max_piper_procs`. After that, the least recently used voice will be stopped.
-Increase `max_piper_procs` if you need to quickly switch between multiple voices, but beware that this will increase RAM usage by the add-on.
-
 ### Option: `update_voices`
 
 Download the list of new voices automatically every time the add-on starts. You must also reload the Wyoming integration for Piper in Home Assistant to see new voices.
-
-### Option: `streaming`
-
-Enable support for streaming audio. This breaks apart text at sentence boundaries and streams the audio as its being produced. Requires at least HA 2025.7.
 
 ### Option: `debug_logging`
 

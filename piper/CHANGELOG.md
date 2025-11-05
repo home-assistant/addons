@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.1
+
+- Upgrade to `wyoming-piper` 2.1.1
+- Streaming is enabled by default (remove `streaming` option)
+- Remove `max_piper_procs` option (no longer applicable)
+- Drop support for `armv7`
+- Fix zeroconf discovery
+
 ## 1.6.4
 
 - Add missing voice for Argentinian Spanish (daniela)

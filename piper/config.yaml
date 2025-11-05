@@ -34,4 +34,4 @@ schema:
 ports:
   "10200/tcp": null
 homeassistant: 2023.8.0.dev20230718
-# image: homeassistant/{arch}-addon-piper
+image: homeassistant/{arch}-addon-piper

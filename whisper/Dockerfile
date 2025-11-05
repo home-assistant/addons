@@ -19,7 +19,8 @@ RUN \
         setuptools \
         wheel \
     && pip3 install --no-cache-dir \
-        "wyoming-faster-whisper @ https://github.com/rhasspy/wyoming-faster-whisper/archive/refs/tags/v${WYOMING_WHISPER_VERSION}.tar.gz" \
+        "wyoming[zeroconf]==1.8.0" \
+        "wyoming-faster-whisper[sherpa] @ https://github.com/rhasspy/wyoming-faster-whisper/archive/refs/tags/v${WYOMING_WHISPER_VERSION}.tar.gz" \
         'transformers==4.52.4' \
     \
     && pip3 install --no-cache-dir \

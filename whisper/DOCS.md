@@ -96,6 +96,15 @@ Increasing the beam size will increase accuracy at the cost of performance.
 Description of audio that can help Whisper transcribe unusual words better.
 See [this discussion](https://github.com/openai/whisper/discussions/963) for an example.
 
+### Option: `stt_library`
+
+Speech-to-text backend library to use:
+
+- `auto` - select the best backend based on language/hardware
+- `faster-whisper` - force faster whisper backend
+- `sherpa` - force sherpa onnx backend (parakeet model only)
+- `transformers` - force HuggingFace transformers backend
+
 ## Backups
 
 Whisper model files can be large, so they are automatically excluded from backups and re-downloaded on restore for remote models.

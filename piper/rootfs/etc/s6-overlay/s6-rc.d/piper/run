@@ -13,6 +13,11 @@ if bashio::config.true 'debug_logging'; then
     flags+=('--debug')
 fi
 
+# Delete old options
+for old_key in 'max_piper_procs' 'streaming'; do
+    bashio::addon.option "${old_key}"
+done
+
 # shellcheck disable=SC2068
 exec python3 -m wyoming_piper \
     --uri 'tcp://0.0.0.0:10200' \

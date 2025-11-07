@@ -26,7 +26,7 @@ configuration:
   enable_ledvance_otau:
     name: Enable LEDVANCE OTA updates
     description: >-
-      Automatically downloads available OSRAM/LEDVANCE Zigbee firmware 
+      Automatically downloads available OSRAM/LEDVANCE Zigbee firmware
       updates when enabled.
 network:
   40850/tcp: >-

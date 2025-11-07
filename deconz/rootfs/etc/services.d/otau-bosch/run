@@ -19,25 +19,29 @@ mkdir -p "/data/otau"
 bashio::log.info "Running the Bosch Smart Home OTA updater..."
 
 # Fetch GitHub firmware data
-if ! GITHUB_DATA="$(curl -fsL "${API_BASE}")"; then
+if ! curl -fsL "${API_BASE}" >/dev/null; then
     bashio::log.warning "⚠️ Can't fetch data from GitHub — retry in 5 hours."
     exec sleep 18000
 fi
 
 fetch_fw_files() {
-    local api_url="$1"
-    local data=$(curl -s "$api_url")
+    local api_url
+    api_url="$1"
+
+    local data
+    data=$(curl -s "$api_url")
 
     # Some GitHub responses return a single object instead of an array
     [[ $(echo "$data" | jq -r 'type') == "object" ]] && data="[$data]"
 
     echo "$data" | jq -r '.[] | @base64' | while read -r entry; do
+        local type name path download_url encoded_path target
         _jq() { echo "$entry" | base64 --decode | jq -r "$1"; }
 
-        local type=$(_jq '.type')
-        local name=$(_jq '.name')
-        local path=$(_jq '.path')
-        local download_url=$(_jq '.download_url')
+        type=$(_jq '.type')
+        name=$(_jq '.name')
+        path=$(_jq '.path')
+        download_url=$(_jq '.download_url')
 
         if [[ "$type" == "dir" ]]; then
             # Recursive call for subfolders

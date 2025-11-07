@@ -19,10 +19,7 @@ if [ "${model}" = 'custom' ]; then
     if [ -z "${model}" ]; then
         bashio::exit.nok "Custom model is not set"
     fi
-    if [ "${stt_library}" = 'auto' ]; then
-        # Use existing option
-        stt_library="$(bashio::config 'custom_model_type')"
-    fi
+    stt_library="$(bashio::config 'custom_model_type')"
 elif [ "${model}" != 'auto' ]; then
     if [ "${stt_library}" = 'auto' ]; then
         # Default to faster whisper if model is selected

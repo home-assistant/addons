@@ -105,6 +105,8 @@ Speech-to-text backend library to use:
 - `sherpa` - force sherpa onnx backend (parakeet model only)
 - `transformers` - force HuggingFace transformers backend
 
+**Note**: When `custom_model` is set, then `custom_model_type` will override `stt_library`.
+
 ## Backups
 
 Whisper model files can be large, so they are automatically excluded from backups and re-downloaded on restore for remote models.

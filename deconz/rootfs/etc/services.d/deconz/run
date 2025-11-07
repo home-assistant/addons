@@ -50,6 +50,11 @@ tigervncserver \
 bashio::log.info "deCONZ waiting for VNC to start"
 bashio::net.wait_for 5900
 
+# Delete unused key
+if bashio::config.exists 'dbg_otau'; then
+    bashio::addon.option 'dbg_otau'
+fi
+
 # Load debug values
 bashio::config.has_value 'dbg_info' \
     && DBG_INFO="$(bashio::config 'dbg_info')" || DBG_INFO=1

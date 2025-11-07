@@ -45,7 +45,8 @@ fetch_fw_files() {
 
         if [[ "$type" == "dir" ]]; then
             # Recursive call for subfolders
-            local encoded_path=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''${path}''', safe=''))")
+            local encoded_path
+            encoded_path=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''${path}''', safe=''))")
             fetch_fw_files "https://api.github.com/repos/${REPO}/contents/${encoded_path}?ref=main"
         elif [[ "$name" == *.fw && -n "$download_url" ]]; then
             local target="/data/otau/${name}"

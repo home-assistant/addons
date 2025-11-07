@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.5.2
+
+- Add configurable OTA update toggles for Bosch, IKEA and LEDVANCE
+- Add Bosch Smart Home OTA update script (Official repo)
+
 ## 8.5.0
 
 - Fix discovery script

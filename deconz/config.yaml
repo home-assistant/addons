@@ -1,5 +1,5 @@
 ---
-version: 8.5.0
+version: 8.5.2
 slug: deconz
 name: deCONZ
 description: >-
@@ -25,6 +25,9 @@ init: false
 kernel_modules: true
 options:
   device: null
+  enable_bosch_otau: false
+  enable_ikea_otau: false
+  enable_ledvance_otau: false
 panel_icon: mdi:zigbee
 ports:
   40850/tcp: null
@@ -34,6 +37,9 @@ privileged:
   - SYS_RAWIO
 schema:
   device: device(subsystem=tty)
+  enable_bosch_otau: bool
+  enable_ikea_otau: bool
+  enable_ledvance_otau: bool
   dbg_aps: int?
   dbg_info: int?
   dbg_otau: int?

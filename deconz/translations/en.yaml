@@ -13,6 +13,15 @@ configuration:
     name: Debug zcl
   dbg_zdp:
     name: Debug zdp
+  enable_bosch_otau:
+    name: Enable Bosch OTA updates
+    description: Automatically downloads available Bosch Zigbee firmware updates when enabled.
+  enable_ikea_otau:
+    name: Enable IKEA OTA updates
+    description: Automatically downloads available IKEA Zigbee firmware updates when enabled.
+  enable_ledvance_otau:
+    name: Enable LEDVANCE OTA updates
+    description: Automatically downloads available OSRAM/LEDVANCE Zigbee firmware updates when enabled.
 network:
   40850/tcp: >-
     deCONZ API backend (Access for Phoscon and REST API outside the add-on)

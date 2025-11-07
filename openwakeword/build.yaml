@@ -2,6 +2,5 @@
 build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
-  armv7: ghcr.io/home-assistant/armv7-base-debian:bookworm
 args:
-  WYOMING_OPENWAKEWORD_VERSION: 1.10.0
+  WYOMING_OPENWAKEWORD_VERSION: 2.1.0

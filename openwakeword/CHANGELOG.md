@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+- Upgrade to wyoming-openwakeword 2.1.0
+- Fix zeroconf discovery
+- Drop support for `armv7`
+
 ## 1.10.0
 
 - Upgrade to wyoming 1.5.3

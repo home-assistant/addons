@@ -43,7 +43,6 @@ customize:
   default: "nginx_proxy_default*.conf"
   servers: "nginx_proxy/*.conf"
 cloudflare: false
-listen_ipv6: false
 real_ip_from: []
 ```
 
@@ -79,10 +78,6 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
-
-### Option `listen_ipv6` (optional)
-
-If enabled, configure Nginx to also listen over IPv6, in addition to IPv4.
 
 ### Option `real_ip_from` (optional)
 

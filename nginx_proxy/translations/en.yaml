@@ -20,10 +20,6 @@ configuration:
       If enabled, configure Nginx with a list of IP addresses directly from
       Cloudflare that will be used for `set_real_ip_from` directive Nginx
       config.
-  listen_ipv6:
-    name: Listen IPv6
-    description: >-
-      If enabled, configure Nginx to also listen over IPv6, in addition to IPv4.
   customize:
     name: Customize
     description: >-

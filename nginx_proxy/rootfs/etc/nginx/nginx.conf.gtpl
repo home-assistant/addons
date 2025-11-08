@@ -37,10 +37,8 @@ http {
         server_name _;
         listen 80 default_server;
         listen 443 ssl default_server;
-        {{- if .options.listen_ipv6 }}
         listen [::]:80 default_server;
         listen [::]:443 ssl default_server;
-        {{- end }}
         http2 on;
         ssl_reject_handshake on;
         return 444;
@@ -51,9 +49,7 @@ http {
 
         # These shouldn't need to be changed
         listen 80;
-        {{- if .options.listen_ipv6 }}
         listen [::]:80;
-        {{- end }}
         return 301 https://$host$request_uri;
     }
 
@@ -69,12 +65,14 @@ http {
         # dhparams file
         ssl_dhparam /data/dhparams.pem;
 
-        listen 443 ssl{{ if .options.real_ip_from }} proxy_protocol{{ end }};
-        {{- if .options.listen_ipv6 }}
-        listen [::]:443 ssl{{ if .options.real_ip_from }} proxy_protocol{{ end }};
-        {{- end }}
+        {{- if not .options.real_ip_from  }}
+        listen 443 ssl;
+        listen [::]:443 ssl;
         http2 on;
-        {{- if .options.real_ip_from }}
+        {{- else }}
+        listen 443 ssl proxy_protocol;
+        listen [::]:443 ssl proxy_protocol;
+        http2 on;
         {{- range .options.real_ip_from }}
         set_real_ip_from {{.}};
         {{- end  }}

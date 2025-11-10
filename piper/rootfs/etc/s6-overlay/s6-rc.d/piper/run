@@ -14,8 +14,12 @@ if bashio::config.true 'debug_logging'; then
 fi
 
 # Delete old options
+options=$(bashio::addon.options)
 for old_key in 'max_piper_procs' 'streaming'; do
-    bashio::addon.option "${old_key}"
+    if bashio::jq.exists "${options}" ".${old_key}"; then
+        bashio::log.info "Removing ${old_key}"
+        bashio::addon.option '${old_key}'
+    fi
 done
 
 # shellcheck disable=SC2068

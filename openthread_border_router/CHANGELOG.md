@@ -1,7 +1,7 @@
 # Changelog
 
 ## 2.15.1
-- Make radio spinel recovery more reliable by claring source match tables before restoring
+- Make radio spinel recovery more reliable by clearing source match tables before restoring
 
 ## 2.15.0
 - Automatically migrate the active dataset to a new adapter when changing the addon serial port path.

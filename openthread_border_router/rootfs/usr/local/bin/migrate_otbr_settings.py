@@ -5,7 +5,12 @@ import zigpy.serial
 from pathlib import Path
 
 from enum import Enum
-from universal_silabs_flasher.spinel import SpinelProtocol, CommandID, PropertyID
+from universal_silabs_flasher.spinel import (
+    SpinelProtocol,
+    CommandID,
+    PropertyID,
+    ResetReason,
+)
 
 CONNECT_TIMEOUT = 10
 
@@ -80,7 +85,7 @@ async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
         )
         await protocol.wait_until_connected()
 
-    await protocol.reset()
+    await protocol.reset(ResetReason.STACK)
 
     try:
         rsp = await protocol.send_command(

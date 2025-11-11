@@ -1,5 +1,5 @@
 ---
-version: 2.6.0
+version: 3.0.1
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper
@@ -19,10 +19,13 @@ options:
   language: en
   beam_size: 0
   custom_model_type: "faster-whisper"
+  stt_library: "auto"
   debug_logging: false
 schema:
   model: |
     list(auto|tiny-int8|tiny|tiny.en|base-int8|base|base.en|small-int8|distil-small.en|small|small.en|distil-medium.en|medium-int8|medium|medium.en|large|large-v1|distil-large-v2|large-v2|distil-large-v3|large-v3|turbo|custom)
+  stt_library: |
+    list(auto|faster-whisper|sherpa|transformers)
   custom_model: str?
   custom_model_type: |
     list(faster-whisper|transformers)

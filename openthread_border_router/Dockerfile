@@ -18,6 +18,7 @@ ENV DHCPV6_PD_REF 0
 ENV DOCKER 1
 
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
+COPY 0002-spinel-Clear-tables-before-restoring-Spinel-communic.patch /usr/src
 COPY openthread-core-ha-config-posix.h /usr/src
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -56,6 +57,7 @@ RUN \
     && ( \
         cd third_party/openthread/repo \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \
+        && patch -p1 < /usr/src/0002-spinel-Clear-tables-before-restoring-Spinel-communic.patch \
         && cp /usr/src/openthread-core-ha-config-posix.h . \
        ) \
     # Mimic rt_tables_install \

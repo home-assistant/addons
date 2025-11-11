@@ -1,0 +1,32 @@
+From 85723fd8b62b79233f7bfb15378cd9d37ba5ab1d Mon Sep 17 00:00:00 2001
+Message-ID: <85723fd8b62b79233f7bfb15378cd9d37ba5ab1d.1762536886.git.stefan@agner.ch>
+In-Reply-To: <5d539271f0a5eed0319684d2e8d293d5e37b4aaf.1762536886.git.stefan@agner.ch>
+References: <5d539271f0a5eed0319684d2e8d293d5e37b4aaf.1762536886.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 7 Nov 2025 18:32:54 +0100
+Subject: [PATCH] [spinel] Clear tables before restoring Spinel communication
+
+---
+ src/lib/spinel/radio_spinel.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/lib/spinel/radio_spinel.cpp b/src/lib/spinel/radio_spinel.cpp
+index f467c1f28..4a1dc954c 100644
+--- a/src/lib/spinel/radio_spinel.cpp
++++ b/src/lib/spinel/radio_spinel.cpp
+@@ -2207,6 +2207,12 @@ void RadioSpinel::RestoreProperties(void)
+                          otLinkGetFrameCounter(mInstance) + kFrameCounterGuard));
+     }
+ 
++    // Clear source match tables before restoring to ensure there's room for entries.
++    // This is especially important when RCP is not fully reset (e.g., in multipan mode)
++    // where stale entries may remain and fill up the limited hardware table.
++    IgnoreError(Set(SPINEL_PROP_MAC_SRC_MATCH_SHORT_ADDRESSES, nullptr));
++    IgnoreError(Set(SPINEL_PROP_MAC_SRC_MATCH_EXTENDED_ADDRESSES, nullptr));
++
+     for (int i = 0; i < mSrcMatchShortEntryCount; ++i)
+     {
+         SuccessOrDie(
+-- 
+2.51.2
+

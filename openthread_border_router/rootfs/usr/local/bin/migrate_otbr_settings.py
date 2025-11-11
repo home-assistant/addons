@@ -80,6 +80,8 @@ async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
         )
         await protocol.wait_until_connected()
 
+    await protocol.reset()
+
     try:
         rsp = await protocol.send_command(
             CommandID.PROP_VALUE_GET,

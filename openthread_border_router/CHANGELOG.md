@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.15.2
+- Bump universal-silabs-flasher to 0.1.0 and reset OpenThread RCP firmware on startup, addressing addon startup issues with some adapters.
+
 ## 2.15.0
 - Automatically migrate the active dataset to a new adapter when changing the addon serial port path.
 

@@ -3,16 +3,24 @@ configuration:
   device:
     name: Device
     description: The device address of your ConBee/RaspBee.
-  dbg_aps:
-    name: Debug aps
   dbg_info:
-    name: Debug info
-  dbg_otau:
-    name: Debug otau
+    name: Debug Info
+  dbg_aps:
+    name: Debug APS
   dbg_zcl:
-    name: Debug zcl
+    name: Debug ZCL
   dbg_zdp:
-    name: Debug zdp
+    name: Debug ZDP
+  dbg_ddf:
+    name: Debug DDF
+  dbg_dev:
+    name: Debug DEV
+  dbg_ota:
+    name: Debug OTA
+  dbg_error:
+    name: Debug Error
+  dbg_http:
+    name: Debug HTTP
   enable_bosch_otau:
     name: Enable Bosch OTA updates
     description: >-

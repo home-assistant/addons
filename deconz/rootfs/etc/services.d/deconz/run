@@ -35,7 +35,7 @@ fi
 export XDG_RUNTIME_DIR="${TMP_FOLDER}"
 export DISPLAY=":0"
 
-bashio::log.info "Starting VNC server (local/${LOCAL_ONLY})..."
+bashio::log.info "Starting VNC server (local - ${LOCAL_ONLY})..."
 tigervncserver \
     -name "Home Assistant - deCONZ" \
     -geometry 1920x1080 \
@@ -50,17 +50,32 @@ tigervncserver \
 bashio::log.info "deCONZ waiting for VNC to start"
 bashio::net.wait_for 5900
 
+# Delete unused key
+options=$(bashio::addon.options)
+if bashio::jq.exists "${options}" ".dbg_otau"; then
+    bashio::log.info "Removing dbg_otau"
+    bashio::addon.option "dbg_otau"
+fi
+
 # Load debug values
 bashio::config.has_value 'dbg_info' \
     && DBG_INFO="$(bashio::config 'dbg_info')" || DBG_INFO=1
 bashio::config.has_value 'dbg_aps' \
     && DBG_APS="$(bashio::config 'dbg_aps')" || DBG_APS=0
-bashio::config.has_value 'dbg_otau' \
-    && DBG_OTAU="$(bashio::config 'dbg_otau')" || DBG_OTAU=0
 bashio::config.has_value 'dbg_zcl' \
     && DBG_ZCL="$(bashio::config 'dbg_zcl')" || DBG_ZCL=0
 bashio::config.has_value 'dbg_zdp' \
     && DBG_ZDP="$(bashio::config 'dbg_zdp')" || DBG_ZDP=0
+bashio::config.has_value 'dbg_ddf' \
+    && DBG_DDF="$(bashio::config 'dbg_ddf')" || DBG_DDF=0
+bashio::config.has_value 'dbg_dev' \
+    && DBG_DEV="$(bashio::config 'dbg_dev')" || DBG_DEV=0
+bashio::config.has_value 'dbg_ota' \
+    && DBG_OTA="$(bashio::config 'dbg_ota')" || DBG_OTA=0
+bashio::config.has_value 'dbg_error' \
+    && DBG_ERROR="$(bashio::config 'dbg_error')" || DBG_ERROR=0
+bashio::config.has_value 'dbg_http' \
+    && DBG_HTTP="$(bashio::config 'dbg_http')" || DBG_HTTP=0
 
 # Send out discovery information to Home Assistant
 ./discovery &
@@ -72,9 +87,13 @@ exec deCONZ \
     --auto-connect=1 \
     --dbg-info="${DBG_INFO}" \
     --dbg-aps="${DBG_APS}" \
-    --dbg-otau="${DBG_OTAU}" \
     --dbg-zcl="${DBG_ZCL}" \
     --dbg-zdp="${DBG_ZDP}" \
+    --dbg-ddf="${DBG_DDF}" \
+    --dbg-dev="${DBG_DEV}" \
+    --dbg-ota="${DBG_OTA}" \
+    --dbg-error="${DBG_ERROR}" \
+    --dbg-http="${DBG_HTTP}" \
     --upnp=0 \
     --http-port=40850 \
     --ws-port=8081 \

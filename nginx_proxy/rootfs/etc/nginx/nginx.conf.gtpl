@@ -37,6 +37,8 @@ http {
         server_name _;
         listen 80 default_server;
         listen 443 ssl default_server;
+        listen [::]:80 default_server;
+        listen [::]:443 ssl default_server;
         http2 on;
         ssl_reject_handshake on;
         return 444;
@@ -47,6 +49,7 @@ http {
 
         # These shouldn't need to be changed
         listen 80;
+        listen [::]:80;
         return 301 https://$host$request_uri;
     }
 
@@ -64,9 +67,11 @@ http {
 
         {{- if not .options.real_ip_from  }}
         listen 443 ssl;
+        listen [::]:443 ssl;
         http2 on;
         {{- else }}
         listen 443 ssl proxy_protocol;
+        listen [::]:443 ssl proxy_protocol;
         http2 on;
         {{- range .options.real_ip_from }}
         set_real_ip_from {{.}};

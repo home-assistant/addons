@@ -9,7 +9,7 @@ declare config
 declare retries
 declare serial
 
-bashio::log.info "Starting discovery script ..."
+bashio::log.info "Starting discovery script..."
 
 # Wait for deCONZ to start before continuing
 bashio::net.wait_for 40850

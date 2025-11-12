@@ -38,11 +38,22 @@ configuration:
       The default is 'faster-whisper' which requires a CTranslate2-converted
       Whisper model. If set to 'transformers', a HuggingFace transformers-based
       Whisper model may be used.
+
+      Overrides `stt_library` when `custom_model` is set.
   initial_prompt:
     name: Initial prompt
     description: >-
       Description of audio that can help Whisper transcribe unusual words
       better.
+  stt_library:
+    name: Speech-to-text library
+    description: >-
+      Speech-to-text backend library to use.
+
+      The default `auto` will select the best backend/model based on
+      language/hardware.
+
+      Overridden by `custom_model_type` when `custom_model` is set.
   debug_logging:
     name: Debug logging
     description: >-

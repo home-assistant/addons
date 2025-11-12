@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.1
+
+- Add support for `sherpa-onnx` and Nvidia's parakeet model
+- Prefer parakeet model in `auto`
+- Add support for GigaAM for Russian
+- Add `stt_library` option to choose backend
+
 ## 2.6.0
 
 - Upgrade to Debian bookworm

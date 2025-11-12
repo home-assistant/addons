@@ -132,13 +132,14 @@ the add-on configuration:
 - `dbg_error`
 - `dbg_http`
 
-These options require a number that represents the log level.
+These options require a number that represents the log level. The default value
+of `dbg_info` is 1 and all other debug options are 0.
 
-Example add-on config with `dbg_aps` enabled on log level 1:
+Example add-on config with `dbg_aps` enabled on log level L2:
 
 ```yaml
 device: /dev/ttyUSB0
-dbg_aps: 1
+dbg_aps: 2
 
 ```
 

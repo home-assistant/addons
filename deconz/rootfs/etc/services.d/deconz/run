@@ -51,8 +51,10 @@ bashio::log.info "deCONZ waiting for VNC to start"
 bashio::net.wait_for 5900
 
 # Delete unused key
-if bashio::config.exists 'dbg_otau'; then
-    bashio::addon.option 'dbg_otau'
+options=$(bashio::addon.options)
+if bashio::jq.exists "${options}" ".dbg_otau"; then
+    bashio::log.info "Removing dbg_otau"
+    bashio::addon.option "dbg_otau"
 fi
 
 # Load debug values

@@ -2,7 +2,7 @@
 # vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
-# Download available firmware update for OSRAM LEDVANCE
+# Download available firmware update for OSRAM/LEDVANCE
 # ==============================================================================
 readonly URL_OSRAM="https://api.update.ledvance.com/v1/zigbee/firmwares"
 
@@ -11,7 +11,7 @@ mkdir -p "/data/otau"
 
 bashio::log.info "Running the OSRAM LEDVANCE OTA updater..."
 
-# Fetch OSRAM LEDVANCE firmware data
+# Fetch OSRAM/LEDVANCE firmware data
 if ! OSRAM_DATA="$(curl -sL ${URL_OSRAM})"; then
     bashio::log.warning "⚠️ Can't fetch data from OSRAM — retry in 5 hours."
     exec sleep 18000
@@ -33,7 +33,7 @@ for (( i=0; i < OSRAM_DATA_SIZE; i++ )); do
 
     # Download firmware
     curl -s -L -o "${OTAU_FILE}" "${OTAU_URL}" || true
-    sleep 5 # OSRAM/LEDVANCE API RateLimits : The rate limit 30 calls per minutes
+    sleep 5 # OSRAM/LEDVANCE API rate limits: The limit is 30 requests per minute.
 done
 
 exec sleep 273600 # Sleep for 3 days 4 hours before next check

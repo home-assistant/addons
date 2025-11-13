@@ -32,7 +32,7 @@ configuration:
       ikea:
         name: IKEA
       ledvance:
-        name: LEDVANCE
+        name: OSRAM/LEDVANCE
 network:
   40850/tcp: >-
     deCONZ API backend (Access for Phoscon and REST API outside the add-on)

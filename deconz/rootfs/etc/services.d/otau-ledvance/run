@@ -4,11 +4,6 @@
 # ==============================================================================
 # Download available firmware update for OSRAM LEDVANCE
 # ==============================================================================
-# Check if OSRAM LEDVANCE OTA is activated
-if ! bashio::config.true 'ota_update.ledvance'; then
-    bashio::log.info "OSRAM LEDVANCE OTA updates are disabled — skipping script."
-    exec sleep infinity
-fi
 
 readonly URL_OSRAM="https://api.update.ledvance.com/v1/zigbee/firmwares"
 

@@ -4,11 +4,6 @@
 # ==============================================================================
 # Download available firmware update for IKEA
 # ==============================================================================
-# Check if IKEA OTA is activated
-if ! bashio::config.true 'ota_update.ikea'; then
-    bashio::log.info "IKEA OTA updates are disabled — skipping script."
-    exec sleep infinity
-fi
 
 readonly URL_IKEA="http://fw.ota.homesmart.ikea.net/feed/version_info.json"
 

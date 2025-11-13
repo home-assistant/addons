@@ -4,11 +4,6 @@
 # ==============================================================================
 # Download available firmware update for Bosch Smart Home (*.fw)
 # ==============================================================================
-# Check if Bosch OTA is activated
-if ! bashio::config.true 'ota_update.bosch'; then
-    bashio::log.info "Bosch OTA updates are disabled — skipping script."
-    exec sleep infinity
-fi
 
 readonly REPO="BoschSmartHome/bosch-smart-home-files"
 readonly API_BASE="https://api.github.com/repos/${REPO}/contents/firmware-otau-files"

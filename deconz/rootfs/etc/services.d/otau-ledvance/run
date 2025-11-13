@@ -5,7 +5,7 @@
 # Download available firmware update for OSRAM LEDVANCE
 # ==============================================================================
 # Check if OSRAM LEDVANCE OTA is activated
-if ! bashio::config.true 'enable_ledvance_otau'; then
+if ! bashio::config.true 'ota_update.ledvance'; then
     bashio::log.info "OSRAM LEDVANCE OTA updates are disabled — skipping script."
     exec sleep infinity
 fi

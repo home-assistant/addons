@@ -25,9 +25,10 @@ init: false
 kernel_modules: true
 options:
   device: null
-  enable_bosch_otau: false
-  enable_ikea_otau: false
-  enable_ledvance_otau: false
+  ota_update:
+    bosch: false
+    ikea: false
+    ledvance: false
 panel_icon: mdi:zigbee
 ports:
   40850/tcp: null
@@ -37,9 +38,10 @@ privileged:
   - SYS_RAWIO
 schema:
   device: device(subsystem=tty)
-  enable_bosch_otau: bool
-  enable_ikea_otau: bool
-  enable_ledvance_otau: bool
+  ota_update:
+    bosch: bool
+    ikea: bool
+    ledvance: bool
   dbg_info: int(0,2)?
   dbg_aps: int(0,2)?
   dbg_zcl: int(0,1)?

@@ -4,7 +4,6 @@
 # ==============================================================================
 # Download available firmware update for IKEA
 # ==============================================================================
-
 readonly URL_IKEA="http://fw.ota.homesmart.ikea.net/feed/version_info.json"
 
 # Ensure OTAU folder exists

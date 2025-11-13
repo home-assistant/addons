@@ -4,7 +4,6 @@
 # ==============================================================================
 # Download available firmware update for OSRAM LEDVANCE
 # ==============================================================================
-
 readonly URL_OSRAM="https://api.update.ledvance.com/v1/zigbee/firmwares"
 
 # Ensure OTAU folder exists

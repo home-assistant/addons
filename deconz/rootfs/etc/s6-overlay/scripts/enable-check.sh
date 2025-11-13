@@ -3,22 +3,17 @@
 # ==============================================================================
 # Custom S6 stage2 hook — runs before services.d start
 # ==============================================================================
-
-bashio::log.info "Running enable-check hook..."
-
 if ! bashio::config.true 'ota_update.bosch'; then
-    bashio::log.info "Bosch OTA updates disabled — removing otau-bosch service"
+    bashio::log.info "Bosch OTA update is disabled."
     rm -rf /etc/services.d/otau-bosch
 fi
 
 if ! bashio::config.true 'ota_update.ikea'; then
-    bashio::log.info "IKEA OTA updates disabled — removing otau-ikea service"
+    bashio::log.info "IKEA OTA update is disabled."
     rm -rf /etc/services.d/otau-ikea
 fi
 
 if ! bashio::config.true 'ota_update.ledvance'; then
-    bashio::log.info "LEDVANCE OTA updates disabled — removing otau-ledvance service"
+    bashio::log.info "LEDVANCE OTA update is disabled."
     rm -rf /etc/services.d/otau-ledvance
 fi
-
-bashio::log.info "Enable-check hook finished."

@@ -4,7 +4,6 @@
 # ==============================================================================
 # Download available firmware update for Bosch Smart Home (*.fw)
 # ==============================================================================
-
 readonly REPO="BoschSmartHome/bosch-smart-home-files"
 readonly API_BASE="https://api.github.com/repos/${REPO}/contents/firmware-otau-files"
 

@@ -9,11 +9,11 @@ readonly URL_OSRAM="https://api.update.ledvance.com/v1/zigbee/firmwares"
 # Ensure OTAU folder exists
 mkdir -p "/data/otau"
 
-bashio::log.info "Running the OSRAM LEDVANCE OTA updater..."
+bashio::log.info "Running the OSRAM/LEDVANCE OTA updater..."
 
 # Fetch OSRAM/LEDVANCE firmware data
 if ! OSRAM_DATA="$(curl -sL ${URL_OSRAM})"; then
-    bashio::log.warning "⚠️ Can't fetch data from OSRAM — retry in 5 hours."
+    bashio::log.warning "⚠️ Can't fetch data from OSRAM/LEDVANCE — retry in 5 hours."
     exec sleep 18000
 fi
 

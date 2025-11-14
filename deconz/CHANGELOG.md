@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.5.2
+
+- Add configurable OTA update switches for Bosch, IKEA and OSRAM/LEDVANCE (default is off)
+- Add Bosch Smart Home OTA update script (Official repo)
+
 ## 8.5.1
 
 - Add more debug options

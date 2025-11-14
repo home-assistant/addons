@@ -56,3 +56,5 @@ RUN \
     && sed -i 's/\/root/\/data/' /etc/passwd
 
 COPY rootfs /
+
+ENV S6_STAGE2_HOOK=/etc/s6-overlay/scripts/enable-check.sh

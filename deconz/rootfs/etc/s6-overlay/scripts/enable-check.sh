@@ -5,15 +5,15 @@
 # ==============================================================================
 if ! bashio::config.true 'ota_update.bosch'; then
     bashio::log.info "Bosch OTA update is disabled."
-    rm /etc/services.d/otau-bosch/run
+    rm -rf /etc/services.d/otau-bosch
 fi
 
 if ! bashio::config.true 'ota_update.ikea'; then
     bashio::log.info "IKEA OTA update is disabled."
-    rm /etc/services.d/otau-ikea/run
+    rm -rf /etc/services.d/otau-ikea
 fi
 
 if ! bashio::config.true 'ota_update.ledvance'; then
     bashio::log.info "OSRAM/LEDVANCE OTA update is disabled."
-    rm /etc/services.d/otau-ledvance/run
+    rm -rf /etc/services.d/otau-ledvance
 fi

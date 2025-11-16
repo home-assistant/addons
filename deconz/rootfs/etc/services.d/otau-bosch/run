@@ -10,7 +10,7 @@ readonly API_BASE="https://api.github.com/repos/${REPO}/contents/firmware-otau-f
 # Ensure OTAU folder exists
 mkdir -p "/data/otau"
 
-bashio::log.info "Running the Bosch Smart Home OTA updater..."
+bashio::log.info "Running the Bosch OTA updater..."
 
 # Fetch GitHub firmware data
 if ! curl -fsL "${API_BASE}" >/dev/null; then

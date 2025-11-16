@@ -1,5 +1,5 @@
 ---
-version: 3.14.0
+version: 3.15.0
 hassio_api: true
 slug: nginx_proxy
 name: NGINX Home Assistant SSL proxy
@@ -22,6 +22,9 @@ options:
   certfile: fullchain.pem
   keyfile: privkey.pem
   cloudflare: false
+  http3:
+    active: false
+    port: 443
   customize:
     active: false
     default: nginx_proxy_default*.conf
@@ -29,6 +32,7 @@ options:
   real_ip_from: []
 ports:
   443/tcp: 443
+  443/udp: 443
   80/tcp: null
 schema:
   domain: str
@@ -36,6 +40,9 @@ schema:
   certfile: str
   keyfile: str
   cloudflare: bool
+  http3:
+    active: bool
+    port: int
   customize:
     active: bool
     default: str

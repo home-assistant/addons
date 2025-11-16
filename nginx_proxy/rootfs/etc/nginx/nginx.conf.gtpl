@@ -40,6 +40,11 @@ http {
         listen [::]:80 default_server;
         listen [::]:443 ssl default_server;
         http2 on;
+        {{- if .options.http3.active }}
+        listen 443 quic default_server;
+        listen [::]:443 quic default_server;
+        http3 on;
+        {{- end }}
         ssl_reject_handshake on;
         return 444;
     }
@@ -69,14 +74,28 @@ http {
         listen 443 ssl;
         listen [::]:443 ssl;
         http2 on;
+        {{- if .options.http3.active }}
+        listen 443 quic reuseport;
+        listen [::]:443 quic reuseport;
+        http3 on;
+        {{- end }}
         {{- else }}
         listen 443 ssl proxy_protocol;
         listen [::]:443 ssl proxy_protocol;
         http2 on;
+        {{- if .options.http3.active }}
+        listen 443 quic reuseport proxy_protocol;
+        listen [::]:443 quic reuseport proxy_protocol;
+        http3 on;
+        {{- end }}
         {{- range .options.real_ip_from }}
         set_real_ip_from {{.}};
         {{- end  }}
         real_ip_header proxy_protocol;
+        {{- end }}
+
+        {{- if .options.http3.active }}
+        add_header Alt-Svc 'h3=":{{ .options.http3.port }}"; ma=86400';
         {{- end }}
 
         {{- if .options.hsts }}

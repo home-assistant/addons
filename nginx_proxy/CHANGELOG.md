@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.15.0
+
+- Support HTTP/3 (QUIC)
+
 ## 3.14.0
 
 - Listen over IPv6, since true IPv6 support for add-ons is now available

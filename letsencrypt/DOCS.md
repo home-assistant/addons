@@ -941,7 +941,7 @@ You can find further detailed information here:
 <details>
   <summary>Linode</summary>
 
-To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4.' **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4'. **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
 
   ```yaml
   email: you@mailprovider.com

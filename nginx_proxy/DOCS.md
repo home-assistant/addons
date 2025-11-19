@@ -38,6 +38,9 @@ domain: home.example.com
 certfile: fullchain.pem
 keyfile: privkey.pem
 hsts: "max-age=31536000; includeSubDomains"
+http3:
+  active: false
+  port: 443
 customize:
   active: false
   default: "nginx_proxy_default*.conf"
@@ -78,6 +81,15 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
+### Option `http3.active` (optional)
+
+If enabled, configures Nginx to use HTTP/3 with QUIC/UDP in addition to HTTP/2 and HTTP/1.1; [for more information](https://nginx.org/en/docs/http/ngx_http_v3_module.html).
+Make sure to enable UDP in your port forward or firewall in addition to TCP.
+
+### Option `http3.port` (optional)
+
+Port to advertize with the `Alt-Svc 'h3=":443";` header. Must match the specified network `HTTP/3 (QUIC) Port` value.
 
 ### Option `real_ip_from` (optional)
 

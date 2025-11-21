@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.15.2
+- Add baudrate list option 1000000 (Nordic Semiconductor nRF Connect SDK firmware)
+
 ## 2.15.1
 - Make radio spinel recovery more reliable by clearing source match tables before restoring
 

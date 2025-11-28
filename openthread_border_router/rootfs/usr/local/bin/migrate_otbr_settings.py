@@ -8,6 +8,7 @@ from enum import Enum
 from universal_silabs_flasher.spinel import SpinelProtocol, CommandID, PropertyID
 
 CONNECT_TIMEOUT = 10
+AFTER_DISCONNECT_DELAY = 1
 
 
 class OtbrSettingsKey(Enum):
@@ -198,6 +199,8 @@ async def main() -> None:
 
     expected_settings_path.write_bytes(serialize_otbr_settings(new_settings))
     print(f"Wrote new settings file to {expected_settings_path}")
+
+    await asyncio.sleep(AFTER_DISCONNECT_DELAY)
 
 
 if __name__ == "__main__":

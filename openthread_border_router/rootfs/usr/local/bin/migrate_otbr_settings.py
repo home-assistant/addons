@@ -68,7 +68,9 @@ def is_valid_otbr_settings_file(settings: list[tuple[OtbrSettingsKey, bytes]]) -
     return {OtbrSettingsKey.ACTIVE_DATASET} <= {key for key, _ in settings}
 
 
-async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
+async def get_adapter_hardware_addr(
+    port: str, baudrate: int = 460800, flow_control: str | None = None
+) -> str:
     loop = asyncio.get_running_loop()
 
     async with asyncio.timeout(CONNECT_TIMEOUT):
@@ -77,6 +79,7 @@ async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
             protocol_factory=SpinelProtocol,
             url=port,
             baudrate=baudrate,
+            flow_control=flow_control,
         )
         await protocol.wait_until_connected()
 
@@ -119,11 +122,26 @@ async def main() -> None:
     parser.add_argument(
         "--baudrate", type=int, default=460800, help="Baudrate of the new adapter"
     )
+    parser.add_argument(
+        "--flow-control",
+        type=str,
+        default="none",
+        help="Flow control for the serial connection (hardware, software, or none)",
+    )
 
     args = parser.parse_args()
 
+    flow_control = args.flow_control
+
+    if flow_control == "none":
+        flow_control = None
+
     # First, read the hardware address of the new adapter
-    hwaddr = await get_adapter_hardware_addr(args.adapter, args.baudrate)
+    hwaddr = await get_adapter_hardware_addr(
+        port=args.adapter,
+        baudrate=args.baudrate,
+        flow_control=flow_control,
+    )
 
     # Then, look at existing settings
     all_settings = []

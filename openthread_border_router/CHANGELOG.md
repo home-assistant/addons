@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.15.3
+- Fix inconsistent startup for adapters that remap hardware flow control pins for firmware flashing.
+
 ## 2.15.2
 - Add baudrate list option 1000000 (Nordic Semiconductor nRF Connect SDK firmware)
 

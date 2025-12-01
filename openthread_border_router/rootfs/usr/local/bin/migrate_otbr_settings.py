@@ -3,6 +3,7 @@ import argparse
 import datetime
 import zigpy.serial
 from pathlib import Path
+from serialx import PinState
 
 from enum import Enum
 from universal_silabs_flasher.spinel import SpinelProtocol, CommandID, PropertyID
@@ -81,6 +82,11 @@ async def get_adapter_hardware_addr(
             url=port,
             baudrate=baudrate,
             flow_control=flow_control,
+            # OTBR uses `uart-init-deassert` when flow control is disabled
+            rtsdtr_on_open=(
+                PinState.HIGH if flow_control == "hardware" else PinState.LOW
+            ),
+            rtsdtr_on_close=PinState.LOW,
         )
         await protocol.wait_until_connected()
 

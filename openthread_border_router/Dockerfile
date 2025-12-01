@@ -97,7 +97,7 @@ RUN \
         && ninja install) \
     && pip install --break-system-packages \
        universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER} \
-       serialx \
+       serialx==${SERIALX} \
     && apt-get purge -y --auto-remove \
        git \
        nodejs \

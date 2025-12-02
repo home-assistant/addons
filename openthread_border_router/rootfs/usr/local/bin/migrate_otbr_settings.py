@@ -85,6 +85,9 @@ async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
             CommandID.PROP_VALUE_GET,
             PropertyID.HWADDR.serialize(),
         )
+    except asyncio.TimeoutError:
+        print("Failed to connect to device. Migration cancelled.")
+        exit(0)
     finally:
         await protocol.disconnect()
 

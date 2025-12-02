@@ -55,7 +55,6 @@ body:
         - CEC Scanner
         - File editor
         - deCONZ
-        - DHCP Server
         - Dnsmasq
         - Duck DNS
         - Git pull
@@ -72,7 +71,6 @@ body:
         - Silicon Labs Flasher
         - Silicon Labs Multiprotocol
         - Terminal & SSH
-        - TellStick
         - VLC
         - Whisper
         - Z-Wave JS

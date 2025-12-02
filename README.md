@@ -21,10 +21,6 @@ systems that have installed Home Assistant.
 
     Control a Zigbee network using ConBee or RaspBee hardware by dresden elektronik.
 
-- **[DHCP server](/dhcp_server/README.md)**
-
-    A simple DHCP server.
-
 - **[Dnsmasq](/dnsmasq/README.md)**
 
     A simple DNS server.
@@ -68,10 +64,6 @@ systems that have installed Home Assistant.
 - **[SSH server](/ssh/README.md)**
 
     Allow logging in remotely to Home Assistant using SSH or just the web terminal with Ingress.
-
-- **[TellStick](/tellstick/README.md)**
-
-    TellStick and TellStick Duo service.
 
 - **[Z-Wave JS](/zwave_js/README.md)**
 

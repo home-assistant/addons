@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.15.3
+- Fix deassert of RTS/DTR in migration scripts for USB TI CC2652 based devices
+
 ## 2.15.2
 - Add baudrate list option 1000000 (Nordic Semiconductor nRF Connect SDK firmware)
 

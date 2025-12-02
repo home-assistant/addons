@@ -31,11 +31,13 @@ fi
 
 baudrate=$(bashio::config 'baudrate')
 flow_control=""
+deassert_arg=""
 
 if bashio::config.true 'flow_control'; then
     flow_control="&uart-flow-control"
 else
     flow_control="&uart-init-deassert"
+    deassert_arg="--deassert"
 fi
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
@@ -145,7 +147,7 @@ echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 # Migrate OTBR settings to new adapter if needed
 bashio::log.info "Migrating OTBR settings if needed..."
-python3 /usr/local/bin/migrate_otbr_settings.py --adapter "${device}" --baudrate "${baudrate}" --data-dir /data/thread/
+python3 /usr/local/bin/migrate_otbr_settings.py --adapter "${device}" --baudrate "${baudrate}" ${deassert_arg} --data-dir /data/thread/
 
 bashio::log.info "Starting otbr-agent..."
 # shellcheck disable=SC2086

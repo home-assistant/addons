@@ -1,6 +1,7 @@
 import asyncio
 import argparse
 import datetime
+import urllib
 import zigpy.serial
 from pathlib import Path
 
@@ -68,16 +69,44 @@ def is_valid_otbr_settings_file(settings: list[tuple[OtbrSettingsKey, bytes]]) -
     return {OtbrSettingsKey.ACTIVE_DATASET} <= {key for key, _ in settings}
 
 
-async def get_adapter_hardware_addr(port: str, baudrate: int = 460800) -> str:
+async def get_adapter_hardware_addr(
+    port: str, baudrate: int = 460800, deassert: bool = False
+) -> str:
     loop = asyncio.get_running_loop()
+    parsed_url = urllib.parse.urlparse(port)
 
     async with asyncio.timeout(CONNECT_TIMEOUT):
-        _, protocol = await zigpy.serial.create_serial_connection(
-            loop=loop,
-            protocol_factory=SpinelProtocol,
-            url=port,
-            baudrate=baudrate,
-        )
+        if deassert and parsed_url.scheme not in ("socket", "tcp"):
+            # Manual setup to ensure RTS/DTR are deasserted
+            serial_instance = zigpy.serial.pyserial.serial_for_url(
+                port,
+                baudrate=baudrate,
+                do_not_open=True,
+                exclusive=True,
+            )
+
+            serial_instance.rts = False
+            serial_instance.dtr = False
+            await asyncio.sleep(0.2)
+            serial_instance.open()
+
+            try:
+                _, protocol = await zigpy.serial.pyserial_asyncio.connection_for_serial(
+                    loop,
+                    SpinelProtocol,
+                    serial_instance,
+                )
+            except Exception:
+                serial_instance.close()
+                raise
+        else:
+            _, protocol = await zigpy.serial.create_serial_connection(
+                loop=loop,
+                protocol_factory=SpinelProtocol,
+                url=port,
+                baudrate=baudrate,
+            )
+
         await protocol.wait_until_connected()
 
     try:
@@ -122,11 +151,14 @@ async def main() -> None:
     parser.add_argument(
         "--baudrate", type=int, default=460800, help="Baudrate of the new adapter"
     )
+    parser.add_argument(
+        "--deassert", action="store_true", help="Deassert RTS/DTR lines"
+    )
 
     args = parser.parse_args()
 
     # First, read the hardware address of the new adapter
-    hwaddr = await get_adapter_hardware_addr(args.adapter, args.baudrate)
+    hwaddr = await get_adapter_hardware_addr(args.adapter, args.baudrate, args.deassert)
 
     # Then, look at existing settings
     all_settings = []

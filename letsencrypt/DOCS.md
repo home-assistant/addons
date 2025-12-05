@@ -62,6 +62,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-hetzner-cloud
 dns-infomaniak
 dns-inwx
 dns-ionos
@@ -132,6 +133,7 @@ google_creds: ''
 he_pass: ''
 he_user: ''
 hetzner_api_token: ''
+hetzner_cloud_api_token: ''
 infomaniak_api_token: ''
 inwx_password: ''
 inwx_shared_secret: ''

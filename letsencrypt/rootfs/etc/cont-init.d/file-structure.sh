@@ -33,6 +33,7 @@ echo -e "aws_access_key_id = $(bashio::config 'dns.aws_access_key_id')\n" \
       "dns_godaddy_key = $(bashio::config 'dns.godaddy_key')\n" \
       "dns_godaddy_secret = $(bashio::config 'dns.godaddy_secret')\n" \
       "dns_hetzner_api_token = $(bashio::config 'dns.hetzner_api_token')\n" \
+      "dns_hetzner_cloud_api_token = $(bashio::config 'dns.hetzner_cloud_api_token')\n" \
       "dns_hurricane_electric_pass = $(bashio::config 'dns.he_pass')\n" \
       "dns_hurricane_electric_user = $(bashio::config 'dns.he_user')\n" \
       "dns_infomaniak_token = $(bashio::config 'dns.infomaniak_api_token')\n" \

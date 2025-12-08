@@ -846,6 +846,28 @@ Use of this plugin requires a Hetzner DNS API personal access token. You can cre
 </details>
 
 <details>
+  <summary>Hetzner-Cloud</summary>
+
+Use of this plugin requires a Hetzner Cloud API personal access token. You can create one on the Hetzner [Cloud website](https://docs.hetzner.com/cloud/api/getting-started/generating-api-token/).
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-hetzner-cloud
+    hetzner_cloud_api_token: hetzner-personal-access-token
+  ```
+
+[Full Documentation](https://github.com/rolschewsky/certbot-dns-hetzner-cloud)
+
+</details>
+
+
+<details>
   <summary>Infomaniak</summary>
 
   ```yaml
@@ -1454,6 +1476,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-hetzner-cloud
 dns-infomaniak
 dns-inwx
 dns-ionos

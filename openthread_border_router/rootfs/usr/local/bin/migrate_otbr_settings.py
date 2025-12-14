@@ -6,7 +6,12 @@ from pathlib import Path
 from serialx import PinState
 
 from enum import Enum
-from universal_silabs_flasher.spinel import SpinelProtocol, CommandID, PropertyID
+from universal_silabs_flasher.spinel import (
+    SpinelProtocol,
+    CommandID,
+    PropertyID,
+    ResetReason,
+)
 
 CONNECT_TIMEOUT = 10
 AFTER_DISCONNECT_DELAY = 1
@@ -89,6 +94,8 @@ async def get_adapter_hardware_addr(
             rtsdtr_on_close=PinState.LOW,
         )
         await protocol.wait_until_connected()
+
+    await protocol.reset(ResetReason.STACK)
 
     try:
         rsp = await protocol.send_command(

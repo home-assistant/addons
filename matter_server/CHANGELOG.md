@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.1.2
+
+- Bump Python Matter Server to [8.1.2](https://github.com/matter-js/python-matter-server/releases/tag/8.1.2)
+
 ## 8.1.1
 
 - Bump Python Matter Server to [8.1.1](https://github.com/matter-js/python-matter-server/releases/tag/8.1.1)

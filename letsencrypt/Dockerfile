@@ -19,6 +19,7 @@ ARG \
     CERTBOT_DNS_GANDI_VERSION \
     CERTBOT_DNS_GODADDY_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
+    CERTBOT_DNS_HETZNER_CLOUD_VERSION \
     CERTBOT_DNS_HURRICANE_ELECTRIC_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
     CERTBOT_DNS_INWX_VERSION \
@@ -72,6 +73,7 @@ RUN \
         certbot-dns-godaddy==${CERTBOT_DNS_GODADDY_VERSION} \
         certbot-dns-google==${CERTBOT_VERSION} \
         certbot-dns-hetzner==${CERTBOT_DNS_HETZNER_VERSION} \
+        certbot-dns-hetzner-cloud==${CERTBOT_DNS_HETZNER_CLOUD_VERSION} \
         certbot-dns-hurricane-electric==${CERTBOT_DNS_HURRICANE_ELECTRIC_VERSION} \
         certbot-dns-infomaniak==${CERTBOT_DNS_INFOMANIAK_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \

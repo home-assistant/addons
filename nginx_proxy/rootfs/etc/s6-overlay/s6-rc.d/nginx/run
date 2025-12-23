@@ -14,7 +14,7 @@ fi
 
 bashio::log.info "Merging options & variables for template"
 # shellcheck disable=SC2046
-JSON_CONF=$(jq --argjson port $(bashio::core.port) --argjson quic_port $QUIC_PORT \
+JSON_CONF=$(jq --argjson port "$(bashio::core.port)" --argjson quic_port "$QUIC_PORT" \
     '({options: .}) + ({variables: {port: $port, quic_port: $quic_port}})' \
     /data/options.json)
 bashio::log.info "Generating nginx.conf from template in /etc/nginx/nginx.conf.gtpl"

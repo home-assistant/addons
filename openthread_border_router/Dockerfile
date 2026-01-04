@@ -16,6 +16,7 @@ ENV RELEASE 1
 ENV WEB_GUI 1
 ENV REST_API 1
 ENV DHCPV6_PD_REF 0
+ENV THREAD_VERSION 1.4
 ENV DOCKER 1
 
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src
@@ -90,7 +91,7 @@ RUN \
         -DOT_COAP=OFF \
         -DOT_COAPS=OFF \
         -DOT_DNS_CLIENT_OVER_TCP=OFF \
-        -DOT_THREAD_VERSION=1.3 \
+        -DOT_THREAD_VERSION=${THREAD_VERSION} \
         -DOT_PROJECT_CONFIG="../openthread-core-ha-config-posix.h" \
         -DOT_RCP_RESTORATION_MAX_COUNT=2 \
         && cd build/otbr/ \

@@ -62,6 +62,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-hetzner-cloud
 dns-infomaniak
 dns-inwx
 dns-ionos
@@ -132,6 +133,7 @@ google_creds: ''
 he_pass: ''
 he_user: ''
 hetzner_api_token: ''
+hetzner_cloud_api_token: ''
 infomaniak_api_token: ''
 inwx_password: ''
 inwx_shared_secret: ''
@@ -823,7 +825,7 @@ You will need to create the dynamic TXT record from within the dns.he.net interf
 </details>
 
 <details>
-  <summary>Hetzner</summary>
+  <summary>Hetzner DNS (Deprecated)</summary>
 
 Use of this plugin requires a Hetzner DNS API personal access token. You can create one on the Hetzner [DNS website](https://dns.hetzner.com/settings/api-token).
 
@@ -840,6 +842,27 @@ Use of this plugin requires a Hetzner DNS API personal access token. You can cre
   ```
 
 [Full Documentation](https://github.com/ctrlaltcoop/certbot-dns-hetzner)
+
+</details>
+
+<details>
+  <summary>Hetzner Cloud</summary>
+
+Use of this plugin requires a Hetzner Cloud API token for the project your domain lives in. You can create one on the Hetzner [Console](https://console.hetzner.com/) on your projects "Security" page.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-hetzner-cloud
+    hetzner_cloud_api_token: hetzner-cloud-project-api-token
+  ```
+
+[Full Documentation](https://github.com/rolschewsky/certbot-dns-hetzner-cloud)
 
 </details>
 

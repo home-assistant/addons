@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.15.0
+
+- add use_ssl_backend option to support cases where  the http section is using the ssl_certificate, ssl_key options
+
 ## 3.14.0
 
 - Listen over IPv6, since true IPv6 support for add-ons is now available

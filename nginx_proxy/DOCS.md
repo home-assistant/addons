@@ -81,7 +81,7 @@ This is so the `ip_ban_enabled` feature can be used and work correctly in /confi
 
 ### Option `use_ssl_backend` (optional)
 
-If enabled, configure Nginx to connect with SSL to the backend, needed if the `http` section is using the `ssl_certificate`, `ssl_key` options
+Enable this option to configure Nginx to connect with SSL to the backend when your `http` section uses the `ssl_certificate` or `ssl_key` options.
 
 ### Option `real_ip_from` (optional)
 

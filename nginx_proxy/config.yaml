@@ -22,6 +22,7 @@ options:
   certfile: fullchain.pem
   keyfile: privkey.pem
   cloudflare: false
+  use_ssl_backend: false
   customize:
     active: false
     default: nginx_proxy_default*.conf
@@ -36,6 +37,7 @@ schema:
   certfile: str
   keyfile: str
   cloudflare: bool
+  use_ssl_backend: bool
   customize:
     active: bool
     default: str

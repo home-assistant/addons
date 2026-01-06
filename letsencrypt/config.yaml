@@ -74,7 +74,7 @@ schema:
     google_creds: str?
     he_pass: str?
     he_user: str?
-    hetzner_api_token: str?
+    hetzner_cloud_api_token: str?
     infomaniak_api_token: str?
     inwx_password: str?
     inwx_shared_secret: str?
@@ -130,7 +130,7 @@ schema:
         dns-godaddy|\
         dns-google|\
         dns-he|\
-        dns-hetzner|\
+        dns-hetzner-cloud|\
         dns-infomaniak|\
         dns-inwx|\
         dns-ionos|\

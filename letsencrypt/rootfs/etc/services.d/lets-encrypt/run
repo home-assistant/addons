@@ -176,9 +176,9 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ACME_ARGUMENTS+=("--authenticator" "dns-hurricane_electric" "--dns-hurricane_electric-credentials" "/data/dnsapikey" "--dns-hurricane_electric-propagation-seconds" "${PROPAGATION_SECONDS}")
             ;;
 
-        # Hetzner
-        'dns-hetzner')
-            bashio::config.require 'dns.hetzner_api_token'
+        # Hetzner Cloud
+        'dns-hetzner-cloud')
+            bashio::config.require 'dns.hetzner_cloud_api_token'
             ACME_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
             ;;
 

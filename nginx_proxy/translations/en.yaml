@@ -23,7 +23,7 @@ configuration:
   use_ssl_backend:
     name: Use SSL Backend
     description: >-
-      If enabled, configure Nginx to use SSL to connect to Backend. 
+      If enabled, configure Nginx to use SSL to connect to Backend.
   customize:
     name: Customize
     description: >-

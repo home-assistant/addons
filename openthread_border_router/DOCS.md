@@ -13,9 +13,13 @@ Follow these steps to get the add-on installed on your system:
 ## How to use
 
 You will need a 802.15.4 capable radio supported by OpenThread flashed with OpenThread
-RCP firmware. Home Assistant Yellow as well as Home Assistant SkyConnect/Connect ZBT-1
-are both able to run OpenThread and will be flashed with the correct firmware by Home
-Assistant Core.
+RCP firmware:
+- Home Assistant Yellow
+- Home Assistant SkyConnect/Connect ZBT-1
+- Home Assistant Connect ZBT-2
+
+These devices are all capable to run OpenThread and will be flashed with the correct 
+firmware by Home Assistant Core.
 
 If you are using Home Assistant Yellow, choose `/dev/ttyAMA1` as device.
 

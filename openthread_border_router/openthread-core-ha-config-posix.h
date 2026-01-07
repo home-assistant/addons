@@ -49,4 +49,10 @@
  */
 #define OPENTHREAD_CONFIG_DELAY_AWARE_QUEUE_MANAGEMENT_FRAG_TAG_ENTRY_LIST_SIZE 64
 
+/**
+ * Disable automatic start of channel monitor when Thread network interface
+ * is brought up. This replaces the previous patch that removed the code.
+ */
+#define OPENTHREAD_CONFIG_CHANNEL_MONITOR_AUTO_START_ENABLE 0
+
 #endif /* OPENTHREAD_CORE_HA_CONFIG_POSIX_H_ */

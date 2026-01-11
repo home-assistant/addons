@@ -1285,7 +1285,7 @@ An example configuration:
 <details>
   <summary>route53</summary>
 
-  ### Option 1: Using AWS profile (recommended for IAM Roles Anywhere)
+### Option 1: Using AWS profile (recommended for IAM Roles Anywhere)
 
   ```yaml
   email: your.email@example.com
@@ -1301,7 +1301,7 @@ An example configuration:
 
   If present, the AWS config file at `/share/.aws/config` will be used to support `credential_process` for IAM Roles Anywhere.
 
-  ### Option 2: Using access keys
+### Option 2: Using access keys
 
   ```yaml
   email: your.email@example.com

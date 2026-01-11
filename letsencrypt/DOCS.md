@@ -1299,7 +1299,7 @@ An example configuration:
     aws_profile: letsencrypt
   ```
 
-  This uses the AWS credentials file at `/root/.aws/config` with a `credential_process` for IAM Roles Anywhere.
+  This uses the AWS credentials file at `/share/.aws/config` with a `credential_process` for IAM Roles Anywhere.
 
   **Option 2: Using Access Keys**
 
@@ -1316,14 +1316,7 @@ An example configuration:
     aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
   ```
 
-  **Option 3: Default Credential Chain**
-
-  If you don't provide any AWS credentials, boto3 will use the default AWS credential chain:
-  - EC2 instance profiles
-  - IAM Roles Anywhere
-  - Environment variables
-  - AWS credentials file
-  - IAM roles for tasks (ECS/Fargate)
+  **Note:** You must provide either `aws_profile` OR both `aws_access_key_id` and `aws_secret_access_key`.
 
 For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
 

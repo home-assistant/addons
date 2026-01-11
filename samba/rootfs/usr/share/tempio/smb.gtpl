@@ -24,7 +24,7 @@
    client max protocol = SMB3
    server min protocol = SMB3
    server max protocol = SMB3
-   server signing = auto
+   server signing = mandatory
    {{ else }}
    server signing = {{ .server_signing }}
    {{ if .compatibility_mode }}

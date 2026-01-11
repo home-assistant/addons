@@ -1299,7 +1299,7 @@ An example configuration:
     aws_profile: letsencrypt
   ```
 
-  This uses the AWS credentials file at `/share/.aws/config` with a `credential_process` for IAM Roles Anywhere.
+  If present, the AWS config file at `/share/.aws/config` will be used to support `credential_process` for IAM Roles Anywhere.
 
   ### Option 2: Using access keys
 
@@ -1316,7 +1316,7 @@ An example configuration:
     aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
   ```
 
-  **Note:** You must provide either `aws_profile` OR both `aws_access_key_id` and `aws_secret_access_key`.
+  **Note:** You must provide either `aws_profile` OR both `aws_access_key_id` and `aws_secret_access_key`. If both are configured, `aws_profile` takes precedence.
 
 For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
 

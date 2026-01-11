@@ -107,6 +107,13 @@ This can cause issues with file systems that do not support xattr such as exFAT.
 
 Defaults to `true`.
 
+### Option: `encryption`
+
+Configure the SMB encryption requirement. This option encrypts all traffic between client and server and prevents guest access if set to required.
+Refer to the man page for smb.conf for detailed information about the values: **off**, **desired** and **required**.
+
+Defaults to `desired`.
+
 ### Option: `server_signing`
 
 Configure the SMB server signing requirement. This option can improve security by requiring message signing, which helps prevent man-in-the-middle attacks.

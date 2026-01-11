@@ -281,13 +281,20 @@ if [ "${CHALLENGE}" == "dns" ]; then
 
         # route53 - AWS
         'dns-route53')
-            if bashio::config.has_value 'dns.aws_access_key_id'; then
+            if bashio::config.has_value 'dns.aws_profile'; then
+                AWS_PROFILE="$(bashio::config 'dns.aws_profile')"
+                export AWS_PROFILE
+                bashio::log.info "Using AWS profile: ${AWS_PROFILE}"
+            elif bashio::config.has_value 'dns.aws_access_key_id'; then
                 AWS_ACCESS_KEY_ID="$(bashio::config 'dns.aws_access_key_id')"
                 export AWS_ACCESS_KEY_ID
-            fi
-            if bashio::config.has_value 'dns.aws_secret_access_key'; then
-                AWS_SECRET_ACCESS_KEY="$(bashio::config 'dns.aws_secret_access_key')"
-                export AWS_SECRET_ACCESS_KEY
+                if bashio::config.has_value 'dns.aws_secret_access_key'; then
+                    AWS_SECRET_ACCESS_KEY="$(bashio::config 'dns.aws_secret_access_key')"
+                    export AWS_SECRET_ACCESS_KEY
+                fi
+                bashio::log.info "Using AWS access key credentials"
+            else
+                bashio::log.info "Using default AWS credential chain"
             fi
             ACME_ARGUMENTS+=("--${DNS_PROVIDER}")
             ;;

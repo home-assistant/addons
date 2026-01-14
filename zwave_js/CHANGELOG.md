@@ -39,7 +39,7 @@
 
 - Remove overly strict ASCII event data padding validation in Entry Control CC
 - Fixed an issue where an (unexpected) "Node ID added" notification during an ongoing inclusion would cause security bootstrapping to be skipped
-- The `lastSeen` field is now restored when initalizing node statistics
+- The `lastSeen` field is now restored when initializing node statistics
 - Spec compliance: use `Extended User Code Set` to control V2+ devices
 
 #### Config file changes

@@ -121,7 +121,7 @@
 - Update parameters for HomeSeer WS300
 - Add Zooz ZEN78 High Power Relay
 
-#### Detailed changelogs
+### Detailed changelogs
 
 - [Z-Wave JS 15.15.0...15.19.0](https://github.com/zwave-js/zwave-js/compare/v15.15.0...v15.19.0)
 

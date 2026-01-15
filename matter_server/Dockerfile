@@ -69,6 +69,23 @@ RUN \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
+# Install Node.js 22.x for JavaScript Matter Server (beta mode)
+RUN \
+    set -x \
+    && ARCH=$(dpkg --print-architecture) \
+    && cd /tmp \
+    && curl -fsSL "https://nodejs.org/dist/latest-v22.x/" \
+        | grep -oE "node-v[0-9.]+-linux-${ARCH}.tar.xz" | head -1 \
+        | xargs -I{} curl -fsSLO "https://nodejs.org/dist/latest-v22.x/{}" \
+    && tar -xJf node-v*-linux-${ARCH}.tar.xz -C /usr/local --strip-components=1 --no-same-owner \
+    && rm -f node-v*-linux-${ARCH}.tar.xz \
+    && node --version \
+    && npm --version \
+    && rm -rf /tmp/*
+
+# Create directory for JavaScript Matter Server
+RUN mkdir -p /opt/matterjs
+
 # S6-Overlay
 WORKDIR /root
 ENTRYPOINT ["/init"]

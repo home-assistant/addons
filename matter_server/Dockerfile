@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/matter-js/python-matter-server:8.1.2
+ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 # Default ENV
@@ -70,6 +70,8 @@ RUN \
     && rm -rf /usr/src/*
 
 # Install Node.js 22.x for JavaScript Matter Server (beta mode)
+# We download from nodejs.org instead of using OS packages to ensure
+# we have up-to-date Node.js versions with latest features and fixes
 ARG NODE_VERSION=22.21.1
 RUN \
     set -x \

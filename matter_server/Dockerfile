@@ -79,7 +79,6 @@ RUN \
     && case "${DPKG_ARCH}" in \
          amd64) NODE_ARCH="x64" ;; \
          arm64) NODE_ARCH="arm64" ;; \
-         armhf) NODE_ARCH="armv7l" ;; \
          *) NODE_ARCH="${DPKG_ARCH}" ;; \
        esac \
     && curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \

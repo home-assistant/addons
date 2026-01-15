@@ -31,6 +31,7 @@ if [[ "${use_js_server}" == "true" ]]; then
   # Beta mode: Use JavaScript Matter Server
   bashio::log.info "Using JavaScript Matter Server (beta mode)"
   bashio::log.info "Installing latest matter-server from npm..."
+  # shellcheck disable=SC2164
   cd /opt/matterjs
   npm install matter-server@latest
   # Clean up to save disk space

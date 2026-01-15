@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/matter-js/python-matter-server:8.1.2
 FROM ${BUILD_FROM}
 
 # Default ENV

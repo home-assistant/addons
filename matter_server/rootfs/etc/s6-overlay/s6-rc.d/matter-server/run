@@ -25,7 +25,7 @@ log_level=$(bashio::string.lower "$(bashio::config log_level info)")
 log_level_sdk=$(bashio::string.lower "$(bashio::config log_level_sdk error)")
 
 # Determine server type based on beta flag
-use_js_server=$(bashio::config.true "beta" && echo "true" || echo "false")
+use_js_server=$(bashio::config "beta")
 
 if [[ "${use_js_server}" == "true" ]]; then
   # Beta mode: Use JavaScript Matter Server

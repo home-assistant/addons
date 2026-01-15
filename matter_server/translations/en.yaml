@@ -36,7 +36,7 @@ configuration:
   matter_server_version:
     name: Matter Server version
     description: >-
-      Install custom Python Matter Server version (does not affect when you use
+      Install custom Python Matter Server version (not applicable when using
       Beta flag). WARNING: An older version might have an incompatible storage
       format! Use this feature with caution! Make sure you have a recent backup
       of the add-on!

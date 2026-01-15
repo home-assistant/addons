@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.29.0
+
+### Z-Wave JS 15.20.0
+
+#### Features
+
+- Sound Switch CC: Reset the current tone back to none when done playing
+- Support connecting to ESPHome Z-Wave proxies with API encryption
+- Try to find Z-Wave QR code strings in longer strings
+
+#### Bugfixes
+
+- Avoid false positive detections for changed device configs after upgrading from a version before 15.19.0
+
+#### Config file changes
+
+- Update Zooz ZEN16 to support 800 series version
+
 ## 0.28.0
 
 ### Z-Wave JS 15.19.0

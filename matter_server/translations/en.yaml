@@ -5,16 +5,16 @@ configuration:
     description: Logging level of the Matter Server component.
   log_level_sdk:
     name: Matter SDK Log Level
-    description: Logging level of the Matter SDK.
+    description: Logging level of the Matter SDK (Python only).
   beta:
     name: Use the latest beta version
     description: >-
-      Installs the latest beta of the Python Matter Server. It is recommended
+      Installs the latest beta of the Matter Server (matter.js based). It is recommended
       to create a backup before starting the add-on with this flag enabled!
   enable_test_net_dcl:
     name: Enable test-net DCL usage.
     description: >-
-      Enable PAA root certificates and other device information from test-net
+      Enable PAA root certificates, software updates and other device information from test-net
       DCL. This is meant for development and testing purposes.
   bluetooth_adapter_id:
     name: Bluetooth Adapter ID
@@ -34,13 +34,15 @@ configuration:
   matter_server_version:
     name: Matter Server version
     description: >-
-      Install custom Matter Server version. WARNING: An older version might have
-      an incompatible storage format! Use this feature with caution! Make sure
-      you have a recent backup of the add-on!
+      Install custom Python Matter Server version (does not affect when you use
+      Beta flag). WARNING: An older version might have an incompatible storage
+      format! Use this feature with caution! Make sure you have a recent backup
+      of the add-on!
   matter_sdk_wheels_version:
     name: Matter SDK wheels version
     description: >-
-      Install custom Matter SDK wheels version. NOTE: The API might not be
-      compatible with the Python Matter server.
+      Install custom Python Matter SDK wheels version (does not affect when you 
+      use Beta flag). NOTE: The API might not be compatible with the Python Matter 
+      server.
 network:
   5580/tcp: Matter Server WebSocket server port.

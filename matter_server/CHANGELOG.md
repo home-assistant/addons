@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.2.0
+
+- Added Node.js to the container
+- Use the new [matter.js-based Matter-Server](https://github.com/matter-js/matterjs-server) when using "Beta"
+
 ## 8.1.2
 
 - Bump Python Matter Server to [8.1.2](https://github.com/matter-js/python-matter-server/releases/tag/8.1.2)

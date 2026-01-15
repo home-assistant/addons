@@ -9,28 +9,30 @@ configuration:
   beta:
     name: Use the latest beta version
     description: >-
-      Installs the latest beta of the Matter Server (matter.js based). It is recommended
-      to create a backup before starting the add-on with this flag enabled!
+      Installs the latest beta of the Matter Server (matter.js based). It is 
+      recommended to create a backup before starting the add-on with this flag
+      enabled!
   enable_test_net_dcl:
     name: Enable test-net DCL usage.
     description: >-
-      Enable PAA root certificates, software updates and other device information from test-net
-      DCL. This is meant for development and testing purposes.
+      Enable PAA root certificates, software updates and other device
+      information from test-net DCL. This is meant for development and testing
+      purposes.
   bluetooth_adapter_id:
     name: Bluetooth Adapter ID
     description: >-
       BlueZ Bluetooth Adapter Controller ID used by the Matter Server. This is
       required if local commissioning via Bluetooth is used. Note: Using the
       Home Assistant Companion app commissioning method is recommended as it is
-      better tested and allows to commission directly in proximity of the device
-      itself.
+      better tested and allows to commission directly in proximity of the
+      device itself.
   matter_server_args:
     name: Extra Matter Server arguments
     description: >-
-      This allows to pass additional command line arguments to the Python Matter
-      Server. Use `--help` to get a list of possible arguments. Note that
-      arguments are also added by the startup script controlled by other add-on
-      options.
+      This allows to pass additional command line arguments to the Python
+      Matter Server. Use `--help` to get a list of possible arguments. Note
+      that arguments are also added by the startup script controlled by other
+      add-on options.
   matter_server_version:
     name: Matter Server version
     description: >-
@@ -41,8 +43,8 @@ configuration:
   matter_sdk_wheels_version:
     name: Matter SDK wheels version
     description: >-
-      Install custom Python Matter SDK wheels version (does not affect when you 
-      use Beta flag). NOTE: The API might not be compatible with the Python Matter 
-      server.
+      Install custom Python Matter SDK wheels version (does not affect when you
+      use Beta flag). NOTE: The API might not be compatible with the Python 
+      Matter server.
 network:
   5580/tcp: Matter Server WebSocket server port.

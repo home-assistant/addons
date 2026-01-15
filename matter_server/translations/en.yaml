@@ -43,8 +43,8 @@ configuration:
   matter_sdk_wheels_version:
     name: Matter SDK wheels version
     description: >-
-      Install custom Python Matter SDK wheels version (does not affect when you
-      use Beta flag). NOTE: The API might not be compatible with the Python
+      Install custom Python Matter SDK wheels version (not applicable when
+      using Beta flag). NOTE: The API might not be compatible with the Python
       Matter server.
 network:
   5580/tcp: Matter Server WebSocket server port.

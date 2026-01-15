@@ -9,7 +9,7 @@ configuration:
   beta:
     name: Use the latest beta version
     description: >-
-      Installs the latest beta of the Matter Server (matter.js based). It is 
+      Installs the latest beta of the Matter Server (matter.js based). It is
       recommended to create a backup before starting the add-on with this flag
       enabled!
   enable_test_net_dcl:
@@ -44,7 +44,7 @@ configuration:
     name: Matter SDK wheels version
     description: >-
       Install custom Python Matter SDK wheels version (does not affect when you
-      use Beta flag). NOTE: The API might not be compatible with the Python 
+      use Beta flag). NOTE: The API might not be compatible with the Python
       Matter server.
 network:
   5580/tcp: Matter Server WebSocket server port.

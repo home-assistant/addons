@@ -18,6 +18,10 @@
 
 - Update Zooz ZEN16 to support 800 series version
 
+### Detailed changelogs
+
+- [Z-Wave JS 15.19.0...15.20.0](https://github.com/zwave-js/zwave-js/compare/v15.19.0...v15.20.0)
+
 ## 0.28.0
 
 ### Z-Wave JS 15.19.0

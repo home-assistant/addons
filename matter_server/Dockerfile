@@ -73,8 +73,14 @@ RUN \
 ARG NODE_VERSION=22.21.1
 RUN \
     set -x \
-    && ARCH=$(dpkg --print-architecture) \
-    && curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" -o /tmp/node.tar.xz \
+    && DPKG_ARCH=$(dpkg --print-architecture) \
+    && case "${DPKG_ARCH}" in \
+         amd64) NODE_ARCH="x64" ;; \
+         arm64) NODE_ARCH="arm64" ;; \
+         armhf) NODE_ARCH="armv7l" ;; \
+         *) NODE_ARCH="${DPKG_ARCH}" ;; \
+       esac \
+    && curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \
     && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 --no-same-owner \
     && rm -f /tmp/node.tar.xz \
     && node --version \

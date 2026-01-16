@@ -34,7 +34,10 @@ if [[ "${use_js_server}" == "true" ]]; then
   mkdir -p /opt/matterjs
   # shellcheck disable=SC2164
   cd /opt/matterjs
-  npm install matter-server@latest
+  if ! npm install matter-server@latest; then
+    bashio::log.error "Failed to install Matter Server from npm. Aborting startup."
+    exit 1
+  fi
   # Clean up to save disk space
   npm cache clean --force
   find ./node_modules -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true

@@ -69,6 +69,23 @@ RUN \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
+# Install Node.js 22.x for JavaScript Matter Server (beta mode)
+# We download from nodejs.org instead of using OS packages to ensure
+# we have up-to-date Node.js versions with latest features and fixes
+ARG NODE_VERSION
+RUN \
+    set -x \
+    && DPKG_ARCH=$(dpkg --print-architecture) \
+    && case "${DPKG_ARCH}" in \
+         amd64) NODE_ARCH="x64" ;; \
+         *) NODE_ARCH="${DPKG_ARCH}" ;; \
+       esac \
+    && curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \
+    && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 --no-same-owner \
+    && rm -f /tmp/node.tar.xz \
+    && node --version \
+    && npm --version
+
 # S6-Overlay
 WORKDIR /root
 ENTRYPOINT ["/init"]

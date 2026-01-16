@@ -10,7 +10,7 @@ configuration:
     name: Use the latest beta version
     description: >-
       Installs the latest beta of the Matter Server (matter.js based). It is
-      highly recommended to create a backup before starting the add-on with 
+      highly recommended to create a backup before starting the add-on with
       this flag enabled!
   enable_test_net_dcl:
     name: Enable test-net DCL usage.
@@ -29,8 +29,8 @@ configuration:
   matter_server_args:
     name: Extra Matter Server arguments
     description: >-
-      This allows to pass additional command line arguments to the Matter 
-      Server. Use `--help` to get a list of possible arguments. Note that 
+      This allows to pass additional command line arguments to the Matter
+      Server. Use `--help` to get a list of possible arguments. Note that
       arguments are also added by the startup script controlled by other
       add-on options.
   matter_server_version:

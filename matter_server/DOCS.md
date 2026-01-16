@@ -26,7 +26,7 @@ Matter Server WebSocket server port field.
 
 ## Server variants
 
-This server is running the Python Matter Server implementation from the
+This add-on runs the Python Matter Server implementation from the
 [home-assistant-libs/python-matter-server][matter_server_repo] repository by default.
 
 Starting with version 8.2.0 and choosing the "Beta" flag (see below) the new OHF

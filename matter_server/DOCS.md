@@ -40,7 +40,7 @@ Add-on configuration:
 |----------------------|---------------------------------------------------------------------------------------------------------|
 | log_level            | Logging level of the Matter Server component.                                                           |
 | log_level_sdk        | Logging level for Matter SDK logs (Python only).                                                        |
-| beta                 | Whether to install the latest beta version on startup (runs matter.js based Server starting with 8.2.0) |
+| beta                 | Whether to install the latest beta version on startup (runs matter.js-based Matter Server starting with 8.2.0) |
 | enable_test_net_dcl  | Enable test-net DCL for PAA root certificates, OTA updates and other device information.                |
 | bluetooth_adapter_id | Set BlueZ Bluetooth Controller ID (for local commissioning)                                             |
 

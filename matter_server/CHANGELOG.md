@@ -2,9 +2,10 @@
 
 ## 8.2.0
 
-- Added Node.js to the container
-- Use the new [matter.js-based Matter-Server](https://github.com/matter-js/matterjs-server) when using "Beta"
-  - Data are automatically migrated without any necessary user action and allows switching back to Python anytime
+- Switch to the new [matter.js-based Matter Server](https://github.com/matter-js/matterjs-server) when enabling the **Beta** option
+  - Existing data is migrated automatically with no user action required
+  - Users can switch back to the Python-based Matter Server at any time
+- Add Node.js to the add-on container
 
 ## 8.1.2
 

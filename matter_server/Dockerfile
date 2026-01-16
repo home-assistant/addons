@@ -72,7 +72,7 @@ RUN \
 # Install Node.js 22.x for JavaScript Matter Server (beta mode)
 # We download from nodejs.org instead of using OS packages to ensure
 # we have up-to-date Node.js versions with latest features and fixes
-ARG NODE_VERSION=22.21.1
+ARG NODE_VERSION
 RUN \
     set -x \
     && DPKG_ARCH=$(dpkg --print-architecture) \
@@ -85,9 +85,6 @@ RUN \
     && rm -f /tmp/node.tar.xz \
     && node --version \
     && npm --version
-
-# Create directory for JavaScript Matter Server
-RUN mkdir -p /opt/matterjs
 
 # S6-Overlay
 WORKDIR /root

@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.5.5
+
+- Add option for setting smb encrypted parameter
+
 ## 12.5.4
 
 - Fix invalid inverted commas in server signing parameter

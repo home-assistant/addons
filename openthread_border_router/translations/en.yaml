@@ -10,6 +10,11 @@ configuration:
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.
+  backbone_interface:
+    name: Backbone Network Interface
+    description: >-
+      The network interface used for the backbone network.
+      If not specified, it falls back to the primary interface.
   network_device:
     name: Network Device
     description: >-

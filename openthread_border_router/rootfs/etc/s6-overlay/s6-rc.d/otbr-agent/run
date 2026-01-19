@@ -23,7 +23,20 @@ if bashio::config.exists 'autoflash_firmware'; then
     bashio::addon.option 'autoflash_firmware'
 fi
 
-backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+backbone_if=""
+
+# Backbone network interface can be configured by user or auto-detected by looking for the primary network interface in the system.
+# If no primary network interface is found, the app will exit with an error and ask the user to configure a backbone network interface in the app configuration.
+if bashio::config.has_value 'backbone_interface'; then
+    backbone_if="$(bashio::config 'backbone_interface')"
+else
+    backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface // empty')"
+    if [ -z "${backbone_if}" ]; then
+        # If no backbone interface is found, exit with error
+        bashio::exit.nok "No primary network interface found. Please configure a backbone network interface in the apps configuration."
+    fi
+fi
+
 device=$(bashio::config 'device')
 
 if bashio::config.has_value 'network_device'; then
@@ -71,12 +84,6 @@ case "${otbr_log_level}" in
         bashio::exit.nok "Unknown otbr_log_level: ${otbr_log_level}"
         ;;
 esac
-
-# shellcheck disable=SC2086
-if [ -z ${backbone_if} ]; then
-    bashio::log.warning "No primary network interface found! Using static eth0."
-    backbone_if="eth0"
-fi
 
 # shellcheck disable=SC2015
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."

@@ -52,7 +52,7 @@ RUN \
        https://github.com/openthread/ot-br-posix.git \
     && cd ot-br-posix \
     && git fetch origin ${OTBR_VERSION} \
-    && git checkout ${OTBR_VERSION} \
+    && git checkout FETCH_HEAD \
     && git submodule update --init \
     && ./script/bootstrap \
     && ( \

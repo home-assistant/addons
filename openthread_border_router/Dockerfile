@@ -63,13 +63,15 @@ RUN \
     # Mimic rt_tables_install \
     && echo "88 openthread" >> /etc/iproute2/rt_tables \
     # Mimic otbr_install \
+    # Note: Using default build options for mDNS configuration: \
+    #   - OTBR_MDNS=openthread (native OT mDNS implementation) \
+    #   - OTBR_DNSSD_DISCOVERY_PROXY=OFF (handled by native mDNS) \
+    #   - OTBR_SRP_ADVERTISING_PROXY=OFF (handled by native mDNS) \
+    # This enables CLI commands: ot-ctl srp server service/host, ot-ctl mdns services/hosts \
     && (./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DOTBR_FEATURE_FLAGS=ON \
-        -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
-        -DOTBR_SRP_ADVERTISING_PROXY=ON \
-        -DOTBR_MDNS=mDNSResponder \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \

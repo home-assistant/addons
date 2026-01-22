@@ -2,7 +2,7 @@
 
 ## 8.5.3
 
-- Alignment ingress colors
+- Align ingress colors with Homo Assistant
 
 ## 8.5.2
 

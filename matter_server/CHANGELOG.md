@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.2.1
+
+- Install necessary packages to allow BLE to work
+
 ## 8.2.0
 
 - Switch to the new [matter.js-based Matter Server](https://github.com/matter-js/matterjs-server) when enabling the **Beta** option

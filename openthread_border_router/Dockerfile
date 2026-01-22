@@ -86,7 +86,8 @@ RUN \
         -DOTBR_TREL=ON \
         -DOTBR_NAT64=ON \
         -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
-        -DOTBR_DNS_UPSTREAM_QUERY=ON \
+        # DNS upstream query is not needed with native OpenThread mDNS module \
+        -DOTBR_DNS_UPSTREAM_QUERY=OFF \
         -DOT_CHANNEL_MONITOR=ON \
         -DOT_COAP=OFF \
         -DOT_COAPS=OFF \

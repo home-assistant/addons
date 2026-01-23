@@ -2,7 +2,7 @@
 
 ## 8.5.3
 
-- Align ingress colors with Homo Assistant
+- Align ingress colors with Home Assistant
 
 ## 8.5.2
 

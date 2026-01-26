@@ -2,7 +2,7 @@
 # vim: ft=bash
 # shellcheck shell=bash
 # ==============================================================================
-# Home Assistant Community Add-on: chrony
+# Home Assistant Community App: chrony
 # Take down the S6 supervision tree when chrony fails
 # ==============================================================================
 # shellcheck disable=SC2155

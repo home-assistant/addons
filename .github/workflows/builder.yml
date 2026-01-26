@@ -1,6 +1,6 @@
 ---
 # yamllint disable rule:line-length rule:truthy
-name: Build add-on
+name: Build app
 
 env:
   BUILD_ARGS: "--test"
@@ -28,7 +28,7 @@ jobs:
         id: changed_files
         uses: masesgroup/retrieve-changed-files@v3.0.0
 
-      - name: Get add-ons
+      - name: Get apps
         id: addons
         run: |
           declare -a addons
@@ -37,7 +37,7 @@ jobs:
           done
           echo "addons=${addons[@]}" >> "$GITHUB_OUTPUT"
 
-      - name: Get changed add-ons
+      - name: Get changed apps
         id: changed_addons
         run: |
           declare -a changed_addons
@@ -55,18 +55,18 @@ jobs:
 
           changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
           if [[ -n ${changed} ]]; then
-            echo "Changed add-ons: $changed";
+            echo "Changed apps: $changed";
             echo "changed=true" >> "$GITHUB_OUTPUT";
             echo "addons=[$changed]" >> "$GITHUB_OUTPUT";
           else
-            echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
+            echo "No app had any monitored files changed (${{ env.MONITORED_FILES }})";
           fi
 
   build:
     needs: init
     runs-on: ${{ matrix.runs-on }}
     if: needs.init.outputs.changed == 'true'
-    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
+    name: Build ${{ matrix.arch }} ${{ matrix.addon }} app
     strategy:
       matrix:
         addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
@@ -86,7 +86,7 @@ jobs:
         with:
           path: "./${{ matrix.addon }}"
 
-      - name: Check add-on
+      - name: Check app
         id: check
         run: |
           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
@@ -109,7 +109,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build ${{ matrix.addon }} add-on
+      - name: Build ${{ matrix.addon }} app
         if: steps.check.outputs.build_arch == 'true'
         uses: home-assistant/builder@2025.11.0
         with:

@@ -23,8 +23,8 @@
 
 ## 2.1
 
-- Added README into the app repository
-- Reduced size of app image for armhf & aarch64
+- Added README into the add-on repository
+- Reduced size of add-on image for armhf & aarch64
 - Improved support for armv7
 
 ## 2.0

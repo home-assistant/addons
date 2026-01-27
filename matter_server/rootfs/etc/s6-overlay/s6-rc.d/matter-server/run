@@ -12,6 +12,7 @@ declare log_level_sdk
 declare primary_interface
 declare matter_server_version
 declare chip_version
+declare use_js_server
 matter_server_args=()
 extra_args=()
 
@@ -23,23 +24,43 @@ log_level=$(bashio::string.lower "$(bashio::config log_level info)")
 # Make Matter SDK log level currently default to error
 log_level_sdk=$(bashio::string.lower "$(bashio::config log_level_sdk error)")
 
-if bashio::config.has_value "matter_server_version"; then
-  matter_server_version=$(bashio::config 'matter_server_version')
-  bashio::log.info "Installing Python Matter Server ${matter_server_version}"
-  # shellcheck disable=SC2102
-  pip3 install --pre python-matter-server[server]=="${matter_server_version}"
-elif bashio::config.true "beta"; then
-  bashio::log.info 'Upgrading Python Matter Server to latest pre-release'
-  # shellcheck disable=SC2102
-  pip3 install --upgrade --pre python-matter-server[server]
-fi
+# Determine server type based on beta flag
+use_js_server=$(bashio::config "beta")
 
-if bashio::config.has_value "matter_sdk_wheels_version"; then
-  chip_version=$(bashio::config 'matter_sdk_wheels_version')
-  bashio::log.info "Installing Matter SDK ${chip_version}"
-  pip3 install --pre --no-dependencies \
-    home-assistant-chip-clusters=="${chip_version}" \
-    home-assistant-chip-core=="${chip_version}"
+if [[ "${use_js_server}" == "true" ]]; then
+  # Beta mode: Use JavaScript Matter Server
+  bashio::log.info "Using JavaScript Matter Server (beta mode)"
+  bashio::log.info "Installing latest matter-server from npm..."
+  mkdir -p /opt/matterjs
+  # shellcheck disable=SC2164
+  cd /opt/matterjs
+  if ! npm install matter-server@latest; then
+    bashio::log.error "Failed to install Matter Server from npm. Aborting startup."
+    exit 1
+  fi
+  # Clean up to save disk space
+  npm cache clean --force
+  find ./node_modules -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true
+  find ./node_modules -type d -name "cjs" -path "*/@project-chip/*" -exec rm -rf {} + 2>/dev/null || true
+  rm -rf /tmp/* /var/tmp/* /root/.npm /root/.cache 2>/dev/null || true
+else
+  # Non-beta mode: Use Python Matter Server
+  bashio::log.info "Using Python Matter Server"
+
+  if bashio::config.has_value "matter_server_version"; then
+    matter_server_version=$(bashio::config 'matter_server_version')
+    bashio::log.info "Installing Python Matter Server ${matter_server_version}"
+    # shellcheck disable=SC2102
+    pip3 install --pre python-matter-server[server]=="${matter_server_version}"
+  fi
+
+  if bashio::config.has_value "matter_sdk_wheels_version"; then
+    chip_version=$(bashio::config 'matter_sdk_wheels_version')
+    bashio::log.info "Installing Matter SDK ${chip_version}"
+    pip3 install --pre --no-dependencies \
+      home-assistant-chip-clusters=="${chip_version}" \
+      home-assistant-chip-core=="${chip_version}"
+  fi
 fi
 
 # Bind to internal hassio network only unless user requests to expose
@@ -99,9 +120,10 @@ matter_server_args+=(
   ${extra_args[@]}
 )
 
-if bashio::config.true "beta"; then
-    exec /usr/bin/gdb --quiet -ex="set confirm off" -ex run -ex backtrace -ex "quit \$_exitcode" --args /usr/local/bin/python \
-         /usr/local/bin/matter-server "${matter_server_args[@]}"
+if [[ "${use_js_server}" == "true" ]]; then
+    # Start JavaScript Matter Server
+    exec node --enable-source-maps /opt/matterjs/node_modules/matter-server/dist/esm/MatterServer.js "${matter_server_args[@]}"
 else
+    # Start Python Matter Server
     exec /usr/local/bin/matter-server "${matter_server_args[@]}"
 fi

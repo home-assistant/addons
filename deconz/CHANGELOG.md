@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.5.3
+
+- Align ingress colors with Home Assistant
+
 ## 8.5.2
 
 - Add configurable OTA update switches for Bosch, IKEA and OSRAM/LEDVANCE (default is off)

@@ -1,26 +1,26 @@
-# Home Assistant Add-on: MariaDB
+# Home Assistant App: MariaDB
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "MariaDB" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. Find the "MariaDB" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
 1. Set the `logins` -> `password` field to something strong and unique.
-2. Start the add-on.
-3. Check the add-on log output to see the result.
+2. Start the app.
+3. Check the app log output to see the result.
 4. Add the `recorder` integration to your Home Assistant configuration.
 
-## Add-on Configuration
+## App configuration
 
-The MariaDB server add-on can be tweaked to your likings. This section
-describes each of the add-on configuration options.
+The MariaDB server app can be tweaked to your likings. This section
+describes each of the app configuration options.
 
-Example add-on configuration:
+Example app configuration:
 
 ```yaml
 databases:

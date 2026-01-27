@@ -23,7 +23,8 @@ RUN \
         linux-headers \
         python3 \
     \
-    && npm install -g "zwave-js-ui@${ZWAVEJS_UI_VERSION}" \
+    # && npm install -g "zwave-js-ui@${ZWAVEJS_UI_VERSION}" \
+    && npm install -g "https://github.com/zwave-js/zwave-js-ui/raw/refs/heads/external-port-setting/zwave-js-ui-11.10.2-alpha.0.tgz" \
     \
     && apk del --no-cache \
         .build-dependencies

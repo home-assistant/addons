@@ -1,4 +1,4 @@
-# Home Assistant Add-on: RPC Shutdown
+# Home Assistant App: RPC Shutdown
 
 Shutdown Windows machines remotely.
 

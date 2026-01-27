@@ -222,7 +222,7 @@ new certificates will be created.
 There are multiple ways how the app can be started to check/renew the
 certificates. One way to automate the certificate renewal it to configure a
 renewal via [Home Assistant automation][haauto], and then restarting this
-automation every night via the [Supervisor Addon restart action][supervisorrestart].
+automation every night via the [Supervisor app restart action][supervisorrestart].
 
 [haauto]: https://www.home-assistant.io/docs/automation/editor/
 [supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#action-hassioaddon_restart
@@ -370,7 +370,7 @@ dns:
 
 Please copy your credentials file "azure.txt" into the "share" shared folder
 on the Home Assistant host before starting the service. One way is to use the
-"Samba" add on to make the folder available via network or SSH App. You
+**Samba** app to make the folder available via network or SSH App. You
 can find information on the required file format in the [documentation][certbot-dns-azure-conf]
 for the Certbot Azure plugin.
 
@@ -584,7 +584,7 @@ Use of this plugin requires a configuration file containing DNS Made Easy API cr
 <details>
   <summary>domainoffensive</summary>
 
-Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   `Domains` > `Settings` > *Let's Encrypt API token`.
+Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   **Domains** > **Settings** > **Let's Encrypt API token**.
 
   ```yaml
   email: your.email@example.com
@@ -789,7 +789,7 @@ To obtain the ACME DNS API Key and Secret, follow the instructions here:
 
 Please copy your credentials file "google.json" into the "share" shared folder on the Home Assistant host before starting the service.
 
-One way is to use the "Samba" add on to make the folder available via network or SSH App.
+One way is to use the **Samba** app to make the folder available via network or SSH App.
 
 The credential file can be created and downloaded when creating the service user within the Google cloud.
 You can find additional information regarding the required permissions in the "credentials" section here:
@@ -941,7 +941,7 @@ You can find further detailed information here:
 <details>
   <summary>Linode</summary>
 
-To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4'. **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+To use this app with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4'. **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the app expects a string, not an integer).
 
   ```yaml
   email: you@mailprovider.com
@@ -961,7 +961,7 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
 <details>
   <summary>Loopia</summary>
 
-To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
+To use this app with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
 
 - `addZoneRecord` - Required to create DNS records
 - `getZoneRecords` - Required to verify DNS records
@@ -1031,7 +1031,7 @@ The API key assigned to your mijn.host account can be found in your mijn.host Co
 <details>
   <summary>Namecheap</summary>
 
-To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
+To use this app with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
 
 Example configuration:
 
@@ -1426,8 +1426,8 @@ An identifier and secret key have to be obtained to use this module (see <https:
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
 
-By default other addons are referring to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share.
+By default other apps are referring to the correct path of the certificates.
+You can in addition find the files via the **Samba** app within the "ssl" share.
 
 ## Supported DNS providers
 

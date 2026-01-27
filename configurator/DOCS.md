@@ -39,7 +39,7 @@ Set it to `true` to list directories first, `false` otherwise.
 ### Option: `enforce_basepath` (required)
 
 If set to `true`, access is limited to files within the `/homeassistant` directory
-(also known as the `/config` folder inside Home Assisant itself).
+(also known as the `/config` folder inside Home Assistant itself).
 
 ### Option: `git` (required)
 

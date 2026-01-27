@@ -2,7 +2,7 @@
 
 ## 8.2.2
 
-- Install also make and gcc
+- Install make and gcc as well
 
 ## 8.2.1
 

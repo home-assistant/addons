@@ -33,7 +33,6 @@ RUN \
         curl \
         ca-certificates \
         xz-utils \
-        bluetooth \
         bluez \
         libbluetooth-dev \
         libudev-dev \

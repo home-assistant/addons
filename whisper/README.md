@@ -1,8 +1,8 @@
-# Home Assistant Add-on: Whisper
+# Home Assistant App: Whisper
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
-Home Assistant add-on that uses multiple speech-to-text backends:
+Home Assistant app (formerly known as add-on) that uses multiple speech-to-text backends:
 
 - [faster-whisper](https://github.com/guillaumekln/faster-whisper/)
 - [HuggingFace transformers](https://huggingface.co/docs/transformers/index)

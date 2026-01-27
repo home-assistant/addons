@@ -1,16 +1,16 @@
-# Home Assistant Add-on: Whisper
+# Home Assistant App: Whisper
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "Whisper" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. Find the "Whisper" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-After this add-on is installed and running, it will be automatically discovered
+After this app is installed and running, it will be automatically discovered
 by the Wyoming integration in Home Assistant. To finish the setup,
 click the following my button:
 
@@ -24,7 +24,7 @@ for more information.
 
 ### Option: `language`
 
-Default language for the add-on. In Home Assist 2023.8+, multiple languages can be used simultaneously by different [Assist pipelines](https://www.home-assistant.io/voice_control/voice_remote_local_assistant/).
+Default language for the app. In Home Assist 2023.8+, multiple languages can be used simultaneously by different [Assist pipelines](https://www.home-assistant.io/voice_control/voice_remote_local_assistant/).
 
 If you select "auto", the model will run **much** slower but will auto-detect the spoken language.
 
@@ -66,11 +66,11 @@ Available models:
 
 ### Option: `custom_model`
 
-Path to a converted model directory, or a CTranslate2-converted Whisper model ID from the HuggingFace Hub like "Systran/faster-distil-whisper-small.en". 
+Path to a converted model directory, or a CTranslate2-converted Whisper model ID from the HuggingFace Hub like "Systran/faster-distil-whisper-small.en".
 
 If `custom_model_type` is set to `transformers`, a HuggingFace transformers Whisper model ID from HuggingFace like "openai/whisper-tiny.en" must be used.
 
-To use a local custom Whisper model, first create a `models` subdirectory in the add-on's configuration directory if it does not already exist. Then copy your model directory into:
+To use a local custom Whisper model, first create a `models` subdirectory in the app's configuration directory if it does not already exist. Then copy your model directory into:
 `/addon_configs/core_whisper/models/<your-model-dir>`.
 Then, set the `custom_model` path to:
 `/config/models/<your-model-dir>`. For a local model, the path must start with `/config/models/`, as this is how the add-on accesses your Home Assistant configuration directory through the container's mounted volume.

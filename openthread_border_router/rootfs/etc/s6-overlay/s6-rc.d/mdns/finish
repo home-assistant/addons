@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+#==============================================================================
+# mDNSResponder finish script
+#==============================================================================
+bashio::log.info "mDNS ended with exit code ${1} (signal ${2})..."

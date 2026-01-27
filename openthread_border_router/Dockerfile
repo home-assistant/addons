@@ -37,7 +37,7 @@ RUN \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
-        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_PREFIX=/opt/otbr-beta \
         -DOTBR_FEATURE_FLAGS=ON \
         -DOTBR_MDNS=openthread \
         -DOTBR_VERSION= \
@@ -61,7 +61,7 @@ RUN \
         -DOT_THREAD_VERSION=1.4 \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
     && cd /usr/src/ot-br-posix/build/otbr \
-    && DESTDIR=/opt/otbr-install ninja install
+    && ninja install
 
 
 # OTBR builder stage (stable)
@@ -109,7 +109,7 @@ RUN \
     ) \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
-        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_PREFIX=/opt/otbr-stable \
         -DOTBR_FEATURE_FLAGS=ON \
         -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
         -DOTBR_SRP_ADVERTISING_PROXY=ON \
@@ -137,7 +137,7 @@ RUN \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
         -DOT_RCP_RESTORATION_MAX_COUNT=2 \
     && cd /usr/src/ot-br-posix/build/otbr \
-    && DESTDIR=/opt/otbr-install ninja install
+    && ninja install
 
 # Runtime image
 FROM ${BUILD_FROM}
@@ -174,8 +174,11 @@ RUN \
     && echo "88 openthread" >> /etc/iproute2/rt_tables
 
 
-COPY --from=otbr-beta-builder /opt/otbr-install/usr /opt/otbr-beta
-COPY --from=otbr-stable-builder /opt/otbr-install/usr /opt/otbr-stable
+COPY --from=otbr-beta-builder /opt/otbr-beta /opt/otbr-beta
+COPY --from=otbr-stable-builder /opt/otbr-stable /opt/otbr-stable
+COPY --from=otbr-stable-builder /usr/sbin/mdnsd /opt/otbr-stable/sbin/mdnsd
+COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so /usr/lib/libdns_sd.so
+COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so.1 /usr/lib/libdns_sd.so.1
 COPY rootfs /
 
 ENV \

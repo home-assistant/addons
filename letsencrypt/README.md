@@ -7,7 +7,7 @@ Let's Encrypt is a certificate authority that provides free X.509 certificates f
 Setting up Letsencrypt allows you to use validated certificates for your webpages and web-interfaces.
 It requires you to own the domain you are requesting the certificate for.
 
-The generated certificate can be used within others addons. By default the path and file for the certificates within other addons will refer to the files generated within this addon.
+The generated certificate can be used within other addons. By default the path and file for the certificates within other addons will refer to the files generated within this addon.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

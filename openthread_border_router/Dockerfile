@@ -29,7 +29,9 @@ RUN \
     && git checkout ${OTBR_BETA_VERSION} \
     && git submodule update --init \
     # Bootstrap downloads a few more repos
-    && ./script/bootstrap
+    && ./script/bootstrap \
+    # Remove libsystemd-dev to avoid unnecessary linkage
+    && apt-get purge -y libsystemd-dev
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
@@ -96,7 +98,9 @@ RUN \
     && git checkout ${OTBR_VERSION} \
     && git submodule update --init \
     # Bootstrap downloads a few more repos
-    && ./script/bootstrap
+    && ./script/bootstrap \
+    # Remove libsystemd-dev to avoid unnecessary linkage
+    && apt-get purge -y libsystemd-dev
 
 WORKDIR /usr/src/ot-br-posix
 RUN \

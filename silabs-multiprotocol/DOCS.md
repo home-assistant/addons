@@ -1,25 +1,25 @@
-# Home Assistant Add-on: Silicon Labs Multiprotocol
+# Home Assistant App: Silicon Labs Multiprotocol
 
-**NOTE**: This add-on has the option to automatically install the right firmware for Home Assistant Yellow, SkyConnect, and Connect ZBT-1. Follow [this guide](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually) to change back to a firmware that is compatible with other Zigbee software.
+**NOTE**: This app (formerly known as app) has the option to automatically install the right firmware for Home Assistant Yellow, SkyConnect, and Connect ZBT-1. Follow [this guide](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually) to change back to a firmware that is compatible with other Zigbee software.
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons, Backup & Supervisor** -> **Add-on Store**.
-2. Find the "Silicon Labs Multiprotocol" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. Find the "Silicon Labs Multiprotocol" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The add-on needs a Silicon Labs based wireless module accessible through a
+The app needs a Silicon Labs based wireless module accessible through a
 serial port (like the module on Yellow or most USB based wireless adapters).
 
 Once the firmware is loaded follow the following steps:
 
-1. Select the correct `device` in the add-on configuration tab and press `Save`.
+1. Select the correct `device` in the app configuration tab and press `Save`.
    On Home Assistant Yellow use `/dev/ttyAMA1`.
-2. Start the add-on.
+2. Start the app.
 
 **NOTE:** the Web frontend is only accessible when OpenThread is enabled (see below).
 
@@ -27,7 +27,7 @@ Once the firmware is loaded follow the following steps:
 
 To use Zigbee with ZHA configure the Integration as follows:
 
-1. Remember/copy the hostname of the add-on (e.g. `c8f00288-silabs-multiprotocol`).
+1. Remember/copy the hostname of the app (e.g. `c8f00288-silabs-multiprotocol`).
 2. Add the Zigbee Home Automation (ZHA) integration to Home Assistant Core
 3. When asked for the Serial Device Path, choose `Enter Manually`.
 4. Choose `EZSP` as Radio type.
@@ -38,11 +38,11 @@ To use Zigbee with ZHA configure the Integration as follows:
 
 ### OpenThread
 
-At this point OpenThread support is experimental. This add-on makes your Home
+At this point OpenThread support is experimental. This app makes your Home
 Assistant installation an OpenThread Border Router (OTBR). A basic integration
 for Home Assistant Core named `otbr` is currently in the making.
 
-To use the OTBR enable it in the Configuration tab and restart the add-on. Home
+To use the OTBR enable it in the Configuration tab and restart the app. Home
 Assistant should discover the OpenThread border router automatically and
 configure it as necessary.
 
@@ -50,7 +50,7 @@ configure it as necessary.
 
 There is also a web interface provided by the OTBR. However, the web
 interface has caveats (e.g. forming a network does not generate an off-mesh
-routable IPv6 prefix which causes changing IPv6 addressing on first add-on
+routable IPv6 prefix which causes changing IPv6 addressing on first app
 restart). It is still possible to enable the web interface for debugging
 purpose. Make sure to expose both the Web UI port and REST API port (the
 latter needs to be on port 8081) on the host interface. To do so, click on
@@ -59,7 +59,7 @@ and 8081 in the OpenThread REST API port field).
 
 ### Automatic firmware upgrade
 
-If the `autoflash_firmware` configuration is set, the add-on will automatically
+If the `autoflash_firmware` configuration is set, the app will automatically
 install or update to the RCP Multi-PAN firmware if a Home Assistant Connect ZBT-1/
 SkyConnect or Home Assistant Yellow is detected.
 
@@ -70,7 +70,7 @@ manually](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-ra
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 | Configuration      | Description                                            |
 |--------------------|--------------------------------------------------------|
@@ -86,10 +86,10 @@ Add-on configuration:
 
 ## Architecture
 
-The add-on runs several service internally. This architecture diagram shows what
-the add-on currently implements.
+The app runs several service internally. This architecture diagram shows what
+the app currently implements.
 
-![Silicon Labs Multiprotocol Add-on Architecture](https://raw.githubusercontent.com/home-assistant/addons/master/silabs-multiprotocol/images/architecture.png)
+![Silicon Labs Multiprotocol App Architecture](https://raw.githubusercontent.com/home-assistant/addons/master/silabs-multiprotocol/images/architecture.png)
 
 ## Support
 

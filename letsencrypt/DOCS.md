@@ -1,20 +1,20 @@
-# Home Assistant Add-on: Letsencrypt
+# Home Assistant App: Letsencrypt
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "letsencrypt" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. Find the "letsencrypt" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The Letsencrypt add-on can be configured via the add-on interface.
+The Letsencrypt app can be configured via the app interface.
 The configuration via YAML is also possible, see the examples below.
 
-Navigate in your Home Assistant frontend to the add-ons overview page at
-**Settings** -> **Add-ons**, and pick the **Let's Encrypt** add-on. On the top,
+Navigate in your Home Assistant frontend to the apps overview page at
+**Settings** > **Apps**, and pick the **Let's Encrypt** app. On the top,
 pick the **Configuration** page.
 
 Provide the domain names to issue certificates for. Additionally, provide the
@@ -193,12 +193,12 @@ request of the certificates.
 By default other addons are referring to the correct path of the certificates.
 You can in addition find the files via the "samba" addon within the "ssl" share.
 
-For example, to use the certificates provided by this add-on to enable TLS on
+For example, to use the certificates provided by this app to enable TLS on
 Home Assistant in the default paths, add the following lines to Home
 Assistant's main configuration file, `configuration.yaml`:
 
 ```yaml
-# TLS with letsencrypt add-on
+# TLS with letsencrypt app
 http:
   server_port: 443
   ssl_certificate: /ssl/fullchain.pem
@@ -207,19 +207,19 @@ http:
 
 ### Create & renew certificates
 
-The letsencrypt add-on creates the certificates once it is started: navigate
-to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the
-**START** button on the bottom. The add-on stops once the certificates are
+The letsencrypt app creates the certificates once it is started: navigate
+to **Settings** > **Apps**, pick the **Let's Encrypt** app, click the
+**START** button on the bottom. The app stops once the certificates are
 created.
 
-Certificates are not renewed automatically by the plugin. The add-on has to be
-started again to renew certificates. If the add-on is started again, it checks
+Certificates are not renewed automatically by the plugin. The app has to be
+started again to renew certificates. If the app is started again, it checks
 if the certificates are due for renewal. This is usually the case 30 days
 before the certificates' due date. If the certificates are not due for renewal,
-the add-on terminates without changes. If the certificates are due for renewal,
+the app terminates without changes. If the certificates are due for renewal,
 new certificates will be created.
 
-There are multiple ways how the add-on can be started to check/renew the
+There are multiple ways how the app can be started to check/renew the
 certificates. One way to automate the certificate renewal it to configure a
 renewal via [Home Assistant automation][haauto], and then restarting this
 automation every night via the [Supervisor Addon restart action][supervisorrestart].
@@ -264,7 +264,7 @@ When you specify a custom ACME server, the *Dry Run* and *Issue test certificate
   key_type: 'rsa'
   ```
 
-  When the `key_type` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
+  When the `key_type` parameter is not set, the app will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
 
 </details>
 
@@ -370,7 +370,7 @@ dns:
 
 Please copy your credentials file "azure.txt" into the "share" shared folder
 on the Home Assistant host before starting the service. One way is to use the
-"Samba" add on to make the folder available via network or SSH Add-on. You
+"Samba" add on to make the folder available via network or SSH App. You
 can find information on the required file format in the [documentation][certbot-dns-azure-conf]
 for the Certbot Azure plugin.
 
@@ -584,7 +584,7 @@ Use of this plugin requires a configuration file containing DNS Made Easy API cr
 <details>
   <summary>domainoffensive</summary>
 
-Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   `Domains` -> `Settings` -> *Let's Encrypt API token`.
+Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   `Domains` > `Settings` > *Let's Encrypt API token`.
 
   ```yaml
   email: your.email@example.com
@@ -720,7 +720,7 @@ Due to the wide scope of this `API key`, this is not the recommended setup.
   challenge: dns
   dns:
     provider: dns-gandi
-    gandi_token: gandi-personalaccesstoken 
+    gandi_token: gandi-personalaccesstoken
 ```
 
 [Full Documentation](https://github.com/obynio/certbot-plugin-gandi?tab=readme-ov-file)
@@ -789,7 +789,7 @@ To obtain the ACME DNS API Key and Secret, follow the instructions here:
 
 Please copy your credentials file "google.json" into the "share" shared folder on the Home Assistant host before starting the service.
 
-One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
+One way is to use the "Samba" add on to make the folder available via network or SSH App.
 
 The credential file can be created and downloaded when creating the service user within the Google cloud.
 You can find additional information regarding the required permissions in the "credentials" section here:
@@ -1243,7 +1243,7 @@ You will need to set up a server with RFC2136 (Dynamic Update) support with a TK
 
 You don't need to publish this; just copy the key data into your named.conf file:
 
-  ```shell  
+  ```shell
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "xxxxxxxxxxxxxxxxxx==";
@@ -1251,14 +1251,14 @@ You don't need to publish this; just copy the key data into your named.conf file
   ```
 
 And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
-  
+
   ```shell
      update-policy {
         grant letsencrypt name _acme-challenge.your.domain.tld. txt;
      };
   ```
 
-For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
+For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the app) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
 
 An example configuration:
 
@@ -1363,7 +1363,7 @@ dns:
   dns:
     provider: dns-simply
     simply_account_name: Sxxxxxx
-    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key.
   ```
 
 The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.

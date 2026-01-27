@@ -36,6 +36,8 @@ RUN \
         bluez \
         libbluetooth-dev \
         libudev-dev \
+        make \
+        gcc \
     && mkdir -p /usr/share/man/man1 \
     \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then \

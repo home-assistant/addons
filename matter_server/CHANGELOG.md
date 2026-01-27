@@ -1,8 +1,12 @@
 # Changelog
 
+## 8.2.2
+
+- Install also make and gcc
+
 ## 8.2.1
 
-- Install necessary packages to allow BLE to work
+- Install the necessary packages to allow BLE to work
 
 ## 8.2.0
 

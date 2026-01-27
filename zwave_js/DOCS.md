@@ -1,24 +1,24 @@
-# Home Assistant Add-on: Z-Wave JS
+# Home Assistant App: Z-Wave JS
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on Store**.
-2. Find the "Z-Wave JS" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App Store**.
+2. Find the "Z-Wave JS" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The add-on needs to know where your Z-Wave stick can be found, and therefore,
-you'll need to configure the add-on to point to the right device.
+The app needs to know where your Z-Wave stick can be found, and therefore,
+you'll need to configure the app to point to the right device.
 
 If you're using Home Assistant you may find the correct value for this by going to
 `Settings -> System -> Hardware` and then clicking the three dots menu and selecting
 `All Hardware`. It is recommended to use a "by-id" path to the device if one exists,
 as it is not subject to change if other devices are added to the system.
 
-1. Replace `null` in the `device` option in the add-on configuration and specify
+1. Replace `null` in the `device` option in the app configuration and specify
    the device name in quotes: e.g., something like
    `"/dev/serial/by-id/usb-0658_0200-if00"`,
    `"/dev/ttyUSB0"`, `"/dev/ttyAMA0"`, or `"/dev/ttyACM0"`.
@@ -28,14 +28,14 @@ as it is not subject to change if other devices are added to the system.
    may not function correctly if they are not added securely.
    - As a note, it is not recommended to securely connect _all_ devices unless they support S2 security
      as the S0 security triples the amount of messages sent on the mesh.
-3. Click on "SAVE" to save the add-on configuration.
-4. Start the add-on.
+3. Click on "SAVE" to save the app configuration.
+4. Start the app.
 5. Add the Z-Wave JS integration to Home Assistant, see documentation:
    <https://www.home-assistant.io/integrations/zwave_js>
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 ```yaml
 device: /dev/ttyUSB0
@@ -77,7 +77,7 @@ will ensure that your S0 secured devices will continue to function.
 
 If any of these keys are missing on startup, the addon will autogenerate one for
 you. To generate a network key manually, you can use the following script in,
-e.g., the SSH add-on:
+e.g., the SSH app:
 
 ```bash
 hexdump -n 16 -e '4/4 "%08X" 1 "\n"' /dev/random
@@ -165,7 +165,7 @@ Z-Wave JS will keep.
 
 ### Option `rf_region` (optional)
 
-This setting tells the add-on what radio frequency region the controller should use.
+This setting tells the app what radio frequency region the controller should use.
 Valid options are:
 
 - Automatic
@@ -186,8 +186,8 @@ The default is Automatic which will try to set the correct region based on the c
 
 ### Option `soft_reset` (optional)
 
-This setting tells the add-on how to handle soft-resets for 500 series controllers:
-1. Automatic - the add-on will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
+This setting tells the app how to handle soft-resets for 500 series controllers:
+1. Automatic - the app will decide whether soft-reset should be enabled or disabled for 500 series controllers. This is the default option and should work for most people.
 2. Enabled - Soft-reset will be explicitly enabled for 500 series controllers.
 3. Disabled - Soft-reset will be explicitly disabled for 500 series controllers.
 
@@ -203,7 +203,7 @@ controller appears to be unresponsive and will instead let the controller
 recover on its own if it's capable of doing so. While the controller is
 unresponsive, commands will start to fail and nodes may randomly get
 marked as dead. If a controller is not able to recover on its own, you
-will need to restart the add-on to attempt recovery. In most cases, users
+will need to restart the app to attempt recovery. In most cases, users
 will never need to use this feature, so only change this setting if you
 know what you are doing and/or you are asked to.
 
@@ -231,11 +231,11 @@ migrated to `s0_legacy_key` on first startup.
 
 ### Troubleshooting network issues
 
-There are several features available in the add-on that can help you in troubleshooting network issues and/or providing data to either the Home Assistant or Z-Wave JS team to help in tracing an issue:
+There are several features available in the app that can help you in troubleshooting network issues and/or providing data to either the Home Assistant or Z-Wave JS team to help in tracing an issue:
 
 1. **Update the log level:** It is extremely helpful when opening a GitHub issue to set the `log_level` configuration option to `debug` and capture when the issue occurs.
-2. **Log to file:** The `log_to_file` and `log_max_files` configuration options allow you to enable and configure that. Note that in order to access the log files, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh add-ons among others.
-3. **Access Z-Wave JS cache:** Z-Wave JS stores information it discovers about your network in cache files so that your devices don't have to be reinterviewed on every startup. In some cases, when opening a GitHub issue, you may be asked to provide the cache files. You can access them in `/addon_configs/core_zwave_js/cache`. Note that in order to access the cache, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh add-ons among others.
+2. **Log to file:** The `log_to_file` and `log_max_files` configuration options allow you to enable and configure that. Note that in order to access the log files, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh apps among others.
+3. **Access Z-Wave JS cache:** Z-Wave JS stores information it discovers about your network in cache files so that your devices don't have to be reinterviewed on every startup. In some cases, when opening a GitHub issue, you may be asked to provide the cache files. You can access them in `/addon_configs/core_zwave_js/cache`. Note that in order to access the cache, you will need to be able to access the filesystem of your HA instance, which you can do with the file editor, samba, or ssh apps among others.
 4. **Change soft reset behavior:** By default, the addon will choose whether or not to soft reset the controller at startup automatically. In most cases that shouldn't be changed, but if asked to make a change when troubleshooting an issue, you can do so using the `soft_reset` configuration option.
 5. **Disable controller recovery:** By default, if the network controller appears to be jammed, Z-Wave JS will automatically try to restore the controller to a healthy state. In most cases that shouldn't be changed, but if asked to make a change when troubleshooting an issue, you can do so using the `disable_controller_recovery` configuration option.
 6. **Enable safe mode:** When Z-Wave JS is having trouble starting up, it can sometimes be hard to get useful logs to troubleshoot the issue. By setting `safe_mode` to true, Z-Wave JS may be able to start up in cases where it wouldn't with the `safe_mode` set to false. Note that enabling `safe_mode` will have a negative impact on the performance of your network and should be used sparingly.

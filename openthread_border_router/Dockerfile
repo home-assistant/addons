@@ -86,6 +86,7 @@ RUN \
        libreadline8 \
        libncurses6 \
        libprotobuf-lite32 \
+       libjsoncpp26 \
     && pip install --break-system-packages --no-cache-dir \
        universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER_VERSION} \
        serialx==${SERIALX_VERSION} \

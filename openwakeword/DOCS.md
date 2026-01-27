@@ -1,16 +1,16 @@
-# Home Assistant Add-on: openWakeWord
+# Home Assistant App: openWakeWord
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "openWakeWord" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. Find the "openWakeWord" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-After this add-on is installed and running, it will be automatically discovered
+After this app is installed and running, it will be automatically discovered
 by the Wyoming integration in Home Assistant. To finish the setup,
 click the following my button:
 
@@ -38,7 +38,7 @@ Enable debug logging. Useful for seeing satellite connections and each wake word
 
 ## Custom Wake Word Models
 
-The add-on will automatically load custom wake word models from the `/share/openwakeword` directory. [Install the Samba add-on](https://www.home-assistant.io/common-tasks/supervised/#installing-and-using-the-samba-add-on) to copy wake word model files (`*.tflite`) to this directory.
+The app will automatically load custom wake word models from the `/share/openwakeword` directory. [Install the Samba app](https://www.home-assistant.io/common-tasks/supervised/#installing-and-using-the-samba-app) to copy wake word model files (`*.tflite`) to this directory.
 
 After adding new models to `/share/openwakeword`, make sure to reload any Wyoming integrations for openWakeWord. Once reloaded, the new wake words will be available to select in the Voice Assistants settings page.
 

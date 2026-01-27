@@ -49,4 +49,11 @@
  */
 #define OPENTHREAD_CONFIG_DELAY_AWARE_QUEUE_MANAGEMENT_FRAG_TAG_ENTRY_LIST_SIZE 64
 
+/**
+ * The impact on production systems is not entirly clear. The channel scan could lead to
+ * missed packets. Disabling by default allows to enable the feature at compile time so
+ * developers and users can enable it at runtime for testing.
+ */
+#define OPENTHREAD_CONFIG_CHANNEL_MONITOR_AUTO_START_ENABLE 0
+
 #endif /* OPENTHREAD_CORE_HA_CONFIG_POSIX_H_ */

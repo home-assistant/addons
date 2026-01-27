@@ -90,7 +90,11 @@ http {
         {{- end }}
 
         location / {
+            {{- if .options.use_ssl_backend }}
+            proxy_pass https://homeassistant.local.hass.io:{{ .variables.port }};
+            {{- else }}
             proxy_pass http://homeassistant.local.hass.io:{{ .variables.port }};
+            {{- end }}
             proxy_set_header Origin $http_origin;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;

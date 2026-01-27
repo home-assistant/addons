@@ -1,11 +1,11 @@
-# Home Assistant Add-on: Samba share
+# Home Assistant App: Samba share
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "Samba share" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. Find the "Samba share" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
@@ -22,17 +22,17 @@ This addon exposes the following directories over smb (samba):
 
 Directory | Description
 -- | --
-`addons` | This is for your local add-ons.
-`addon_configs` | This is for the configuration files of your add-ons.
+`addons` | This is for your local apps.
+`addon_configs` | This is for the configuration files of your apps.
 `backup` | This is for your backups.
 `config` | This is for your Home Assistant configuration.
 `media` | This is for local media files.
-`share` | This is for your data that is shared between add-ons and Home Assistant.
+`share` | This is for your data that is shared between apps and Home Assistant.
 `ssl` | This is for your SSL certificates.
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 ```yaml
 workgroup: WORKGROUP
@@ -94,7 +94,7 @@ from littering the share with temporary hidden files
 ### Option: `compatibility_mode`
 
 Setting this option to `true` will enable old legacy Samba protocols
-on the Samba add-on. This might solve issues with some clients that cannot
+on the Samba app. This might solve issues with some clients that cannot
 handle the newer protocols, however, it lowers security. Only use this
 when you absolutely need it and understand the possible consequences.
 

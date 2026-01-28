@@ -5,7 +5,7 @@
 Follow these steps to get the app installed on your system:
 
 1. This app is only visible to "Advanced Mode" users. To enable advanced mode, go to **Profile** -> and turn on **Advanced Mode**.
-2. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App store**.
+2. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
 3. Find the "Terminal & SSH" app and click it.
 4. Click on the "INSTALL" button.
 

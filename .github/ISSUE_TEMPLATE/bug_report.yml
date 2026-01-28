@@ -126,7 +126,7 @@ body:
     attributes:
       label: Anything in the app logs that might be useful for us?
       description: >
-        App Logs can be found in [Settings -> System -> Logs](https://my.home-assistant.io/redirect/logs/)
+        App Logs can be found in [Settings > System > Logs](https://my.home-assistant.io/redirect/logs/)
         then choose the app in the top right.
 
         [![Open your Home Assistant instance and show your Home Assistant logs.](https://my.home-assistant.io/badges/logs.svg)](https://my.home-assistant.io/redirect/logs/)

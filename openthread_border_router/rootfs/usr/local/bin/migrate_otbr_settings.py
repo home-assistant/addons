@@ -242,16 +242,28 @@ async def main() -> None:
 
     if expected_settings_path.exists():
         if most_recent_settings_path == expected_settings_path:
-            print(
-                f"Adapter settings file {expected_settings_path} is the most recently used, skipping"
-            )
-            return
+            # Check if thread version needs updating
+            current_version = None
+            for key, value in most_recent_settings:
+                if key == OtbrSettingsKey.NETWORK_INFO:
+                    current_version = NetworkInfo.from_bytes(value).version
+                    break
 
-        # If the settings file is old, we should "delete" it
-        print(
-            f"Settings file for adapter {hwaddr} already exists at {expected_settings_path} but appears to be old, archiving"
-        )
-        backup_file(expected_settings_path)
+            if args.thread_version is None or current_version == args.thread_version:
+                print(
+                    f"Adapter settings file {expected_settings_path} is the most recently used, skipping"
+                )
+                return
+
+            print(
+                f"Updating thread version from {current_version} to {args.thread_version}"
+            )
+        else:
+            # If the settings file is old, we should "delete" it
+            print(
+                f"Settings file for adapter {hwaddr} already exists at {expected_settings_path} but appears to be old, archiving"
+            )
+            backup_file(expected_settings_path)
 
     # Write back a new settings file that keeps only a few keys
     new_settings = []

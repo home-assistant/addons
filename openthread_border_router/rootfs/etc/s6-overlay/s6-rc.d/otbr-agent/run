@@ -148,10 +148,18 @@ echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 # Migrate OTBR settings to new adapter if needed
 bashio::log.info "Migrating OTBR settings if needed..."
+
+if bashio::config.true 'beta'; then
+    thread_version=5
+else
+    thread_version=4
+fi
+
 python3 /usr/local/bin/migrate_otbr_settings.py \
     --adapter "${device}" \
     --baudrate "${baudrate}" \
     --flow-control "${migrate_flow_control}" \
+    --thread-version "${thread_version}" \
     --data-dir /data/thread/
 
 bashio::log.info "Starting otbr-agent..."

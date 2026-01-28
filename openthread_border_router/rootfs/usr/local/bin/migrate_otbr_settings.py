@@ -1,6 +1,8 @@
 import asyncio
 import argparse
+import dataclasses
 import datetime
+from typing import Self
 import serialx
 from pathlib import Path
 
@@ -74,6 +76,51 @@ def is_valid_otbr_settings_file(settings: list[tuple[OtbrSettingsKey, bytes]]) -
     return {OtbrSettingsKey.ACTIVE_DATASET} <= {key for key, _ in settings}
 
 
+@dataclasses.dataclass
+class NetworkInfo:
+    """OpenThread NetworkInfo settings structure."""
+
+    role: int
+    device_mode: int
+    rloc16: int
+    key_sequence: int
+    mle_frame_counter: int
+    mac_frame_counter: int
+    previous_partition_id: int
+    ext_address: bytes
+    ml_iid: bytes
+    version: int
+
+    @classmethod
+    def from_bytes(cls, data: bytes) -> Self:
+        return cls(
+            role=data[0],
+            device_mode=data[1],
+            rloc16=int.from_bytes(data[2:4], "little"),
+            key_sequence=int.from_bytes(data[4:8], "little"),
+            mle_frame_counter=int.from_bytes(data[8:12], "little"),
+            mac_frame_counter=int.from_bytes(data[12:16], "little"),
+            previous_partition_id=int.from_bytes(data[16:20], "little"),
+            ext_address=data[20:28],
+            ml_iid=data[28:36],
+            version=int.from_bytes(data[36:38], "little"),
+        )
+
+    def to_bytes(self) -> bytes:
+        return (
+            self.role.to_bytes(1, "little")
+            + self.device_mode.to_bytes(1, "little")
+            + self.rloc16.to_bytes(2, "little")
+            + self.key_sequence.to_bytes(4, "little")
+            + self.mle_frame_counter.to_bytes(4, "little")
+            + self.mac_frame_counter.to_bytes(4, "little")
+            + self.previous_partition_id.to_bytes(4, "little")
+            + self.ext_address
+            + self.ml_iid
+            + self.version.to_bytes(2, "little")
+        )
+
+
 async def get_adapter_hardware_addr(
     port: str, baudrate: int = 460800, flow_control: str | None = None
 ) -> str:
@@ -89,7 +136,9 @@ async def get_adapter_hardware_addr(
             rtscts=(flow_control == "hardware"),
             # OTBR uses `uart-init-deassert` when flow control is disabled
             rtsdtr_on_open=(
-                serialx.PinState.HIGH if flow_control == "hardware" else serialx.PinState.LOW
+                serialx.PinState.HIGH
+                if flow_control == "hardware"
+                else serialx.PinState.LOW
             ),
             rtsdtr_on_close=serialx.PinState.LOW,
         )
@@ -141,6 +190,12 @@ async def main() -> None:
         type=str,
         default="none",
         help="Flow control for the serial connection (hardware, software, or none)",
+    )
+    parser.add_argument(
+        "--thread-version",
+        type=int,
+        default=None,
+        help="Thread version to set in NETWORK_INFO (4=1.3, 5=1.4)",
     )
 
     args = parser.parse_args()
@@ -199,16 +254,25 @@ async def main() -> None:
         backup_file(expected_settings_path)
 
     # Write back a new settings file that keeps only a few keys
-    new_settings = [
-        (key, value)
-        for key, value in most_recent_settings
-        if key
-        in (
+    new_settings = []
+
+    for key, value in most_recent_settings:
+        if key == OtbrSettingsKey.NETWORK_INFO and args.thread_version is not None:
+            network_info = NetworkInfo.from_bytes(value)
+            assert network_info.to_bytes() == value
+
+            # To support transparent upgrades, we modify the Thread version
+            network_info = dataclasses.replace(
+                network_info, version=args.thread_version
+            )
+            new_settings.append((key, network_info.to_bytes()))
+        elif key in (
             OtbrSettingsKey.ACTIVE_DATASET,
             OtbrSettingsKey.PENDING_DATASET,
             OtbrSettingsKey.CHILD_INFO,
-        )
-    ]
+            OtbrSettingsKey.NETWORK_INFO,
+        ):
+            new_settings.append((key, value))
 
     expected_settings_path.write_bytes(serialize_otbr_settings(new_settings))
     print(f"Wrote new settings file to {expected_settings_path}")

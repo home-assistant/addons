@@ -1,4 +1,4 @@
-# Home Assistant app: Assist Microphone
+# Home Assistant App: Assist Microphone
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 

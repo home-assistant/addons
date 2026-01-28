@@ -1,9 +1,8 @@
 import asyncio
 import argparse
 import datetime
-import zigpy.serial
+import serialx
 from pathlib import Path
-from serialx import PinState
 
 from enum import Enum
 from universal_silabs_flasher.spinel import (
@@ -81,17 +80,18 @@ async def get_adapter_hardware_addr(
     loop = asyncio.get_running_loop()
 
     async with asyncio.timeout(CONNECT_TIMEOUT):
-        _, protocol = await zigpy.serial.create_serial_connection(
-            loop=loop,
-            protocol_factory=SpinelProtocol,
+        _, protocol = await serialx.create_serial_connection(
+            loop,
+            SpinelProtocol,
             url=port,
             baudrate=baudrate,
-            flow_control=flow_control,
+            xonxoff=(flow_control == "software"),
+            rtscts=(flow_control == "hardware"),
             # OTBR uses `uart-init-deassert` when flow control is disabled
             rtsdtr_on_open=(
-                PinState.HIGH if flow_control == "hardware" else PinState.LOW
+                serialx.PinState.HIGH if flow_control == "hardware" else serialx.PinState.LOW
             ),
-            rtsdtr_on_close=PinState.LOW,
+            rtsdtr_on_close=serialx.PinState.LOW,
         )
         await protocol.wait_until_connected()
 

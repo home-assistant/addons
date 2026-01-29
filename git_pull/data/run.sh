@@ -65,15 +65,34 @@ function git-clone {
 
 function check-ssh-key {
 if [ -n "$DEPLOYMENT_KEY" ]; then
-    bashio::log.info "Check SSH connection"
+    # Check if this is an HTTPS URL - SSH keys don't apply
+    if [[ "$REPOSITORY" =~ ^https?:// ]]; then
+        bashio::log.warning "[Warn] deployment_key is set but repository is HTTPS. SSH key will be ignored."
+        bashio::log.warning "[Warn] Use an SSH URL (git@host:path) or remove deployment_key and use deployment_user instead."
+        return
+    fi
+
+    # Always set up SSH key first
+    add-ssh-key
+
+    # Extract domain from SSH URL (format: git@github.com:user/repo.git)
     IFS=':' read -ra GIT_URL_PARTS <<< "$REPOSITORY"
     # shellcheck disable=SC2029
     DOMAIN="${GIT_URL_PARTS[0]}"
-    if OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" "$DOMAIN" 2>&1) || { [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"You've successfully authenticated"* ]]; }; then
-        bashio::log.info "[Info] Valid SSH connection for $DOMAIN"
+
+    # Verify SSH connection works
+    bashio::log.info "[Info] Verifying SSH connection to $DOMAIN"
+    OUTPUT_CHECK=$(ssh -T -o "StrictHostKeyChecking=no" -o "BatchMode=yes" -o "ConnectTimeout=30" "$DOMAIN" 2>&1) || true
+
+    # GitHub returns exit code 1 even on success, check output message
+    if [[ $DOMAIN = *"@github.com"* ]] && [[ $OUTPUT_CHECK = *"successfully authenticated"* ]]; then
+        bashio::log.info "[Info] SSH authentication successful for GitHub"
+    elif [[ $OUTPUT_CHECK = *"Welcome"* ]] || [[ $OUTPUT_CHECK = *"authenticated"* ]]; then
+        bashio::log.info "[Info] SSH authentication successful for $DOMAIN"
     else
-        bashio::log.warning "[Warn] No valid SSH connection for $DOMAIN"
-        add-ssh-key
+        bashio::log.error "[Error] SSH authentication failed for $DOMAIN"
+        bashio::log.error "[Error] SSH output: ${OUTPUT_CHECK:0:200}"
+        bashio::exit.nok "[Error] Cannot authenticate via SSH. Check your deployment key."
     fi
 fi
 }

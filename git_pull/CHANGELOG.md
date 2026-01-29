@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.2
+- Make SSH validation fail-fast instead of continuing on auth failure
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

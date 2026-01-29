@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.0.2
+- Add automatic backup restoration on clone failure (trap-based)
+- Move backups to persistent /data/backups/
+- Fix broken extglob pattern for non-YAML file restoration
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

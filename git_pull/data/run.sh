@@ -41,23 +41,45 @@ function add-ssh-key {
     chmod 600 "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
 }
 
+function restore-backup {
+    # Restore /config from backup if it exists
+    if [ -n "$BACKUP_LOCATION" ] && [ -d "$BACKUP_LOCATION" ]; then
+        bashio::log.warning "[Warn] Restoring /config from backup at $BACKUP_LOCATION"
+        rm -rf /config/{,.[!.],..?}* 2>/dev/null || true
+        cp -rf "$BACKUP_LOCATION"/* /config/ 2>/dev/null || true
+        bashio::log.info "[Info] Backup restored"
+    fi
+}
+
 function git-clone {
-    # create backup
-    BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
+    # create backup in persistent storage
+    BACKUP_DIR="/data/backups"
+    mkdir -p "$BACKUP_DIR"
+    BACKUP_LOCATION="${BACKUP_DIR}/config-$(date +%Y-%m-%d_%H-%M-%S)"
     bashio::log.info "[Info] Backup configuration to $BACKUP_LOCATION"
 
     mkdir "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Creation of backup directory failed"
     cp -rf /config/* "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Copy files to backup directory failed"
 
     # remove config folder content
-    rm -rf /config/{,.[!.],..?}* || bashio::exit.nok "[Error] Clearing /config failed"
+    if ! rm -rf /config/{,.[!.],..?}*; then
+        bashio::log.error "[Error] Clearing /config failed"
+        restore-backup
+        bashio::exit.nok "[Error] Clearing /config failed, backup restored"
+    fi
 
     # git clone
     bashio::log.info "[Info] Start git clone"
-    git clone "$REPOSITORY" /config || bashio::exit.nok "[Error] Git clone failed"
+    if ! git clone "$REPOSITORY" /config; then
+        bashio::log.error "[Error] Git clone failed"
+        restore-backup
+        bashio::exit.nok "[Error] Git clone failed, backup restored"
+    fi
 
-    # try to copy non yml files back
-    cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
+    # try to copy non-yaml files back (extglob pattern matches all except *.yaml)
+    shopt -s extglob
+    cp "${BACKUP_LOCATION}"/!(*.yaml) /config 2>/dev/null || true
+    shopt -u extglob
 
     # try to copy secrets file back
     cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null

@@ -41,7 +41,17 @@ function add-ssh-key {
     chmod 600 "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
 }
 
+function validate-repository {
+    bashio::log.info "[Info] Validating repository access..."
+    if ! git ls-remote --exit-code "$REPOSITORY" HEAD &>/dev/null; then
+        bashio::exit.nok "[Error] Cannot access repository: $REPOSITORY. Check URL and credentials."
+    fi
+    bashio::log.info "[Info] Repository access validated"
+}
+
 function git-clone {
+    # Validate we can access the repo before doing anything destructive
+    validate-repository
     # create backup
     BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
     bashio::log.info "[Info] Backup configuration to $BACKUP_LOCATION"

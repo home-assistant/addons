@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.2
+- Add pre-flight repository validation to catch auth failures before destructive operations
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

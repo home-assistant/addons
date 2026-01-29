@@ -2,7 +2,7 @@
 version: 0.4.0
 slug: silabs_flasher
 name: Silicon Labs Flasher
-description: Silicon Labs firmware flasher add-on
+description: Silicon Labs firmware flasher app
 url: >
   https://github.com/home-assistant/addons/tree/master/silabs_flasher
 arch:

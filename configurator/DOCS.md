@@ -43,7 +43,7 @@ If set to `true`, access is limited to files within the `/homeassistant` directo
 
 ### Option: `git` (required)
 
-If set to `true`, app will initialize git for directories which support it.
+If set to `true`, the app will initialize git for directories that support it.
 
 ### Option: `ignore_pattern` (required)
 

@@ -75,7 +75,7 @@ stored in the `network_key` configuration option. When the addon is first
 started, the key will be migrated from `network_key` to `s0_legacy_key` which
 will ensure that your S0 secured devices will continue to function.
 
-If any of these keys are missing on startup, the addon will autogenerate one for
+If any of these keys are missing on startup, the app will autogenerate one for
 you. To generate a network key manually, you can use the following script in,
 e.g., the SSH app:
 

@@ -18,7 +18,7 @@ Follow these steps to get the app (formerly known as add-on) installed on your s
 
 If you are on Windows you use `\\<IP_ADDRESS>\`, if you are on MacOS you use `smb://<IP_ADDRESS>` to connect to the shares.
 
-This addon exposes the following directories over smb (samba):
+This app exposes the following directories over smb (samba):
 
 Directory | Description
 -- | --

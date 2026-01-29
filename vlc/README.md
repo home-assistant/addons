@@ -1,4 +1,4 @@
-# Home Assistant Add-on: VLC
+# Home Assistant App: VLC
 
 Allow Home Assistant to use your local device as Media Player.
 

@@ -42,8 +42,10 @@ function add-ssh-key {
 }
 
 function git-clone {
-    # create backup
-    BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
+    # create backup in persistent storage (survives add-on restarts)
+    BACKUP_DIR="/data/backups"
+    mkdir -p "$BACKUP_DIR"
+    BACKUP_LOCATION="${BACKUP_DIR}/config-$(date +%Y-%m-%d_%H-%M-%S)"
     bashio::log.info "[Info] Backup configuration to $BACKUP_LOCATION"
 
     mkdir "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Creation of backup directory failed"

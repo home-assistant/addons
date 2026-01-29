@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.2
+- Move backups from volatile /tmp to persistent /data/backups/
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

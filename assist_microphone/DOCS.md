@@ -4,7 +4,7 @@ Use [Assist](https://www.home-assistant.io/voice_control/) voice assistant with 
 
 ## How to use
 
-After this add-on is installed and running, it will be automatically discovered
+After this app (formerly known as add-on) is installed and running, it will be automatically discovered
 by the Wyoming integration in Home Assistant. To finish the setup,
 click the following my button:
 

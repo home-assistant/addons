@@ -33,6 +33,12 @@ RUN \
         curl \
         ca-certificates \
         xz-utils \
+        bluez \
+        libbluetooth-dev \
+        libudev-dev \
+        make \
+        gcc \
+        g++ \
     && mkdir -p /usr/share/man/man1 \
     \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then \

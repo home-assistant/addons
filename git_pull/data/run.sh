@@ -116,6 +116,9 @@ fi
 }
 
 function git-synchronize {
+    # Initialize OLD_COMMIT (will remain empty if this is a fresh clone)
+    OLD_COMMIT=""
+
     # is /config a local git repo?
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
         bashio::log.warning "[Warn] Git repository doesn't exist"
@@ -173,6 +176,19 @@ function git-synchronize {
 
 function validate-config {
     bashio::log.info "[Info] Checking if something has changed..."
+
+    # Handle fresh clone case where OLD_COMMIT was never set
+    if [ -z "$OLD_COMMIT" ]; then
+        bashio::log.info "[Info] Fresh clone detected, validating configuration..."
+        if ! bashio::core.check; then
+            bashio::log.error "[Error] Fresh clone configuration does not pass validation!"
+        else
+            bashio::log.info "[Info] Fresh clone configuration is valid"
+        fi
+        # Skip restart logic on fresh clone (no previous state to compare)
+        return
+    fi
+
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" == "$OLD_COMMIT" ]; then

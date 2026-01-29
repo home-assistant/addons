@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.2
+- Fix undefined OLD_COMMIT variable after fresh clone
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

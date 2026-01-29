@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.2
+- Fix broken extglob pattern for restoring non-YAML files after clone
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

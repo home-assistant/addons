@@ -27,7 +27,7 @@ configuration:
   git_prune:
     name: Git Prune
     description: >-
-      If enabled, the add-on will clean-up branches that are deleted on the
+      If enabled, the app will clean-up branches that are deleted on the
       remote repository, but still have cached entries on the local machine.
       Leave this as `false` if you are unsure.
   deployment_key:
@@ -51,5 +51,5 @@ configuration:
   repeat:
     name: Polling
     description: >-
-      Configure the Git pull add-on to poll the repository for updates
+      Configure the Git pull app to poll the repository for updates
       periodically automatically.

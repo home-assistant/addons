@@ -1,16 +1,16 @@
-# Home Assistant Add-on: Git pull
+# Home Assistant App: Git pull
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "Git pull" add-on and click it.
+1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
+2. Find the "Git pull" app and click it.
 3. Click on the "INSTALL" button.
 
 ## WARNING
 
-The risk of complete loss is possible. Prior to starting this add-on, ensure a copy
+The risk of complete loss is possible. Prior to starting this app, ensure a copy
 of your Home Assistant configuration files exists in the Github repository. Otherwise, 
 your local machine configuration folder will be overwritten with an empty configuration 
 folder and you will need to restore from a backup.
@@ -21,22 +21,22 @@ In the configuration section, set the repository field to your repository's
 clone URL and check if any other fields need to be customized to work with
 your repository. Next,
 
-1. Start the add-on.
-2. Check the add-on log output to see the result.
+1. Start the app.
+2. Check the app log output to see the result.
 
-If the log doesn't end with an error, the add-on has successfully
+If the log doesn't end with an error, the app has successfully
 accessed your git repository. Examples of logs you might see if
 there were no errors are: `[Info] Nothing has changed.`,
 `[Info] Something has changed, checking Home-Assistant config...`,
 or `[Info] Local configuration has changed. Restart required.`.
 
-If you made it this far, you might want to let the add-on automatically
+If you made it this far, you might want to let the app automatically
 check for updates by setting the `active` field (a subfield of `repeat`)
 to `true` and turning on "Start on boot."
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 ```yaml
 git_branch: master
@@ -71,7 +71,7 @@ Name of the tracked repository. Leave this as `origin` if you are unsure.
 
 ### Option: `git_prune` (required)
 
-`true`/`false`: If set to true, the add-on will clean-up branches that are deleted on the remote repository, but still have cached entries on the local machine. Leave this as `false` if you are unsure.
+`true`/`false`: If set to true, the app will clean-up branches that are deleted on the remote repository, but still have cached entries on the local machine. Leave this as `false` if you are unsure.
 
 ### Option: `git_branch` (required)
 
@@ -103,7 +103,7 @@ When `auto_restart` is enabled, changes to these files will not make HA restart.
 
 ### Option group: `repeat`
 
-The following options are for the option group: `repeat` and configure the Git pull add-on to poll the repository for updates periodically automatically.
+The following options are for the option group: `repeat` and configure the Git pull app to poll the repository for updates periodically automatically.
 
 #### Option: `repeat.active` (required)
 

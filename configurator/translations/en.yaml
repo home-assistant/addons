@@ -13,7 +13,7 @@ configuration:
   git:
     name: Git
     description: >-
-      If set to `true`, the app will initialize git for directories which
+      If set to `true`, the app will initialize git for directories that
       support it.
   ignore_pattern:
     name: Ignore Pattern

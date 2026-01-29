@@ -30,7 +30,7 @@ configuration:
   network_key:
     name: Network Key
     description: >-
-      In previous versions of the addon, this was the only key that was needed.
+      In previous versions of the app, this was the only key that was needed.
       With the introduction of S2 security inclusion in zwave-js, this option
       has been deprecated.
   rf_region:

@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+# ==============================================================================
+# Start nginx reverse proxy for OTBR web interface
+# ==============================================================================
+bashio::log.info "Starting nginx..."
+
+# REST API listens on addon IP, so we need to know it for proxying
+addon_ip="$(bashio::addon.ip_address)"
+sed "s/ADDON_IP/${addon_ip}/g" /etc/nginx/nginx.conf > /tmp/nginx.conf
+
+exec nginx -g "daemon off;" -c /tmp/nginx.conf

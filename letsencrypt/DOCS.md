@@ -191,7 +191,7 @@ The certificate files will be available within the "ssl" share after successful
 request of the certificates.
 
 By default, other apps are referring to the correct path of the certificates.
-You can in addition find the files via the **Samba** app within the ssl" share.
+You can in addition find the files via the **Samba** app within the "ssl" share.
 
 For example, to use the certificates provided by this app to enable TLS on
 Home Assistant in the default paths, add the following lines to Home

@@ -20,7 +20,7 @@ configuration:
   acme_server:
     name: Custom ACME Server
     description: >-
-      By default, this add-on uses Let's Encrypt's servers. However, you can
+      By default, this app uses Let's Encrypt's servers. However, you can
       specify a different ACME server.
   acme_root_ca_cert:
     name: ACME Root CA Certificate

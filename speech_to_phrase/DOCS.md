@@ -1,19 +1,19 @@
-# Home Assistant Add-on: Speech to phrase
+# Home Assistant App: Speech to phrase
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "Speech to phrase" add-on and click it.
+1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
+2. Find the "Speech to phrase" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-After this add-on is installed and running, it should automatically train itself based on your [exposed][] entities, areas, floors, and [sentence triggers][sentence trigger].
-The add-on will automatically re-train if necessary.
+After this app is installed and running, it should automatically train itself based on your [exposed][] entities, areas, floors, and [sentence triggers][sentence trigger].
+The app will automatically re-train if necessary.
 
-The add-on will be automatically discovered by the Wyoming integration in Home Assistant. To finish the setup, click the following my button:
+The app will be automatically discovered by the Wyoming integration in Home Assistant. To finish the setup, click the following my button:
 
 [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=wyoming)
 

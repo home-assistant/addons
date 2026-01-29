@@ -71,7 +71,7 @@ different inclusion methods that Z-Wave JS supports: `s0_legacy_key`,
 `s2_access_control_key`, `s2_authenticated_key`, `s2_unauthenticated_key`, `lr_s2_access_control_key`, and `lr_s2_authenticated_key`.
 
 If you are coming from a previous version of `zwave-js`, you likely have a key
-stored in the `network_key` configuration option. When the addon is first
+stored in the `network_key` configuration option. When the app is first
 started, the key will be migrated from `network_key` to `s0_legacy_key` which
 will ensure that your S0 secured devices will continue to function.
 
@@ -99,7 +99,7 @@ those devices and your controller, before rebuilding your Z-Wave network.
 #### Option `s0_legacy_key`
 
 S0 Security Z-Wave devices require a network key before being added to the network.
-This configuration option is required, but if it is unset the addon will generate
+This configuration option is required, but if it is unset the app will generate
 a new one automatically on startup.
 
 #### Option `s2_access_control_key`
@@ -107,14 +107,14 @@ a new one automatically on startup.
 The `s2_access_control_key` must be provided in order to include devices with the
 S2 Access Control security class. This security class is needed by devices such
 as door locks and garage door openers. This configuration option is required,
-but if it is unset the addon will generate a new one automatically on startup.
+but if it is unset the app will generate a new one automatically on startup.
 
 #### Option `s2_authenticated_key`
 
 The `s2_authenticated_key` must be provided in order to include devices with
 the S2 Authenticated security class. Devices such as security systems, sensors,
 lighting, etc. can request this security class. This configuration option is
-required, but if it is unset the addon will generate a new one automatically
+required, but if it is unset the app will generate a new one automatically
 on startup.
 
 ### Option `s2_unauthenticated_key`
@@ -122,20 +122,20 @@ on startup.
 The `s2_unauthenticated_key` must be provided in order to include devices with
 the S2 Unauthenticated security class. This is similar to S2 Authenticated, but
 without verification that the correct device was included. This configuration
-option is required, but if it is unset the addon will generate a new one
+option is required, but if it is unset the app will generate a new one
 automatically on startup.
 
 #### Option `lr_s2_access_control_key`
 
 The `lr_s2_access_control_key` must be provided in order to include devices using
 Z-Wave Long Range. This configuration option is required, but if it is unset
-the addon will generate a new one automatically on startup.
+the app will generate a new one automatically on startup.
 
 #### Option `lr_s2_authenticated_key`
 
 The `lr_s2_authenticated_key` must be provided in order to include devices using
 Z-Wave Long Range. This configuration option is required, but if it is unset
-the addon will generate a new one automatically on startup.
+the app will generate a new one automatically on startup.
 
 ### Option `log_level` (optional)
 
@@ -224,7 +224,7 @@ are doing and/or you are asked to.
 
 ### Option `network_key` (deprecated)
 
-In previous versions of the addon, this was the only key that was needed. With
+In previous versions of the app, this was the only key that was needed. With
 the introduction of S2 security inclusion in zwave-js, this option has been
 deprecated in favor of `s0_legacy_key`. If still set, the `network_key` value will be
 migrated to `s0_legacy_key` on first startup.

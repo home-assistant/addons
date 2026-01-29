@@ -26,7 +26,7 @@ configuration:
   compatibility_mode:
     name: Enable Compatibility Mode
     description: >-
-      Enable this to use old legacy Samba protocols on the Samba add-on.
+      Enable this to use old legacy Samba protocols on the Samba app.
   apple_compatibility_mode:
     name: Enable Compatibility Settings for Apple Devices
     description: >-

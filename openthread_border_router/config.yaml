@@ -2,7 +2,7 @@
 version: 2.15.3
 slug: openthread_border_router
 name: OpenThread Border Router
-description: OpenThread Border Router app
+description: OpenThread Border Router add-on
 url: >-
   https://github.com/home-assistant/addons/tree/master/openthread_border_router
 arch:
@@ -13,7 +13,7 @@ gpio: true
 hassio_api: true
 discovery:
   - otbr
-# IPC is only used within the app
+# IPC is only used within the Add-on
 host_ipc: false
 host_network: true
 host_uts: true

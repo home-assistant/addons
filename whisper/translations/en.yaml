@@ -9,7 +9,7 @@ configuration:
   language:
     name: Language
     description: >-
-      Language that you will speak to the add-on. If you select "auto",
+      Language that you will speak to the app. If you select "auto",
       the model will run much slower but will auto-detect the spoken language.
   model:
     name: Model
@@ -57,6 +57,6 @@ configuration:
   debug_logging:
     name: Debug logging
     description: >-
-      Print DEBUG level messages to the add-on's log.
+      Print DEBUG level messages to the app's log.
 network:
   10300/tcp: Whisper Wyoming Protocol

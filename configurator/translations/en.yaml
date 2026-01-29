@@ -13,7 +13,7 @@ configuration:
   git:
     name: Git
     description: >-
-      If set to `true`, add-on will initialize git for directories which support
+      If set to `true`, the app will initialize git for directories which support
       it.
   ignore_pattern:
     name: Ignore Pattern

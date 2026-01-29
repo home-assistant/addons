@@ -3,7 +3,7 @@
 # shellcheck shell=bash
 # ==============================================================================
 # Send MQTT discovery information to Home Assistant and service information
-# to the Supervisor (for other apps).
+# to the Supervisor (for other add-ons).
 # ==============================================================================
 readonly SYSTEM_USER="/data/system_user.json"
 declare config
@@ -34,7 +34,7 @@ else
     bashio::log.error "Discovery message to Home Assistant failed!"
 fi
 
-# Create service config payload for other apps
+# Create service config payload for other add-ons
 config=$(bashio::var.json \
     host "$(hostname)" \
     port "^1883" \

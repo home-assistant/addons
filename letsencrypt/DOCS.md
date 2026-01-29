@@ -190,8 +190,8 @@ websupport_secret_key: ''
 The certificate files will be available within the "ssl" share after successful
 request of the certificates.
 
-By default other addons are referring to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share.
+By default, other apps are referring to the correct path of the certificates.
+You can in addition find the files via the **Samba** app within the ssl" share.
 
 For example, to use the certificates provided by this app to enable TLS on
 Home Assistant in the default paths, add the following lines to Home
@@ -235,7 +235,7 @@ if a renewal is due, and will request it if needed.
 <details>
   <summary>Changing the ACME Server</summary>
 
-By default, the addon uses [Let’s Encrypt’s default servers](https://letsencrypt.org/getting-started/). You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+By default, the app uses [Let’s Encrypt’s default servers](https://letsencrypt.org/getting-started/). You can instruct the app to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
 
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'

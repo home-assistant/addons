@@ -167,6 +167,7 @@ RUN \
        libncurses6 \
        libprotobuf-lite32 \
        libjsoncpp26 \
+       nginx \
     && pip install --break-system-packages --no-cache-dir \
        universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER_VERSION} \
        serialx==${SERIALX_VERSION} \
@@ -183,6 +184,19 @@ COPY --from=otbr-stable-builder /opt/otbr-stable /opt/otbr-stable
 COPY --from=otbr-stable-builder /usr/sbin/mdnsd /opt/otbr-stable/sbin/mdnsd
 COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so /usr/lib/libdns_sd.so
 COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so.1 /usr/lib/libdns_sd.so.1
+
+# Patch app.js to use relative URLs for ingress compatibility
+RUN echo "angular.module('StarterApp').config(['\$httpProvider', function(\$httpProvider) { \
+    \$httpProvider.interceptors.push(function() { \
+        return { \
+            request: function(config) { \
+                config.url = config.url.replace(/^http:\\/\\/[^/]+\\//, ''); \
+                return config; \
+            } \
+        }; \
+    }); \
+}]);" | tee -a /opt/otbr-{stable,beta}/share/otbr-web/frontend/res/js/app.js
+
 COPY rootfs /
 
 ENV \

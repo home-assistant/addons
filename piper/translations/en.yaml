@@ -30,12 +30,12 @@ configuration:
   update_voices:
     name: Update voices
     description: >-
-      Download the list of new voices automatically every time the add-on
+      Download the list of new voices automatically every time the app
       starts.  You must also reload the Wyoming integration for Piper in Home
       Assistant to see new voices.
   debug_logging:
     name: Debug logging
     description: >-
-      Print DEBUG level messages to the add-on's log.
+      Print DEBUG level messages to the app's log.
 network:
   10200/tcp: Piper Wyoming Protocol

@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Configure OTBR depending on app settings
+# Configure OTBR depending on add-on settings
 # ==============================================================================
 
 if bashio::config.true 'nat64'; then

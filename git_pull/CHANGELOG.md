@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.2
+- Add HTTPS credential validation before clone operations
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

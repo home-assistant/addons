@@ -112,6 +112,13 @@ password=${DEPLOYMENT_PASSWORD}
     bashio::log.info "[Info] Saving git credentials to /tmp/git-credentials"
     # shellcheck disable=SC2259
     git credential fill | git credential approve <<< "$cred_data"
+
+    # Verify credentials work by testing repository access
+    bashio::log.info "[Info] Verifying HTTPS credentials..."
+    if ! git ls-remote --exit-code "$REPOSITORY" HEAD &>/dev/null; then
+        bashio::exit.nok "[Error] HTTPS authentication failed for $REPOSITORY. Check username and password."
+    fi
+    bashio::log.info "[Info] HTTPS authentication successful"
 fi
 }
 

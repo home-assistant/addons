@@ -12,7 +12,7 @@ discovery:
   - matter
 hassio_api: true
 homeassistant: 2024.6.0
-# IPC is only used within the App
+# IPC is only used within the Add-on
 host_ipc: false
 host_network: true
 host_dbus: true

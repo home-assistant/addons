@@ -32,6 +32,9 @@ options:
   deployment_user: ""
   deployment_password: ""
   deployment_key_protocol: rsa
+  config_folder: "."
+  sync_exclude:
+    - secrets.yaml
   repeat:
     active: false
     interval: 300
@@ -49,6 +52,9 @@ schema:
   deployment_user: str
   deployment_password: password
   deployment_key_protocol: match(rsa|dsa|ecdsa|ed25519|rsa)
+  config_folder: str
+  sync_exclude:
+    - str
   repeat:
     active: bool
     interval: int

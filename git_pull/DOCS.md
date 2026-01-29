@@ -8,12 +8,20 @@ Follow these steps to get the add-on installed on your system:
 2. Find the "Git pull" add-on and click it.
 3. Click on the "INSTALL" button.
 
-## WARNING
+## How It Works
 
-The risk of complete loss is possible. Prior to starting this add-on, ensure a copy
-of your Home Assistant configuration files exists in the Github repository. Otherwise, 
-your local machine configuration folder will be overwritten with an empty configuration 
-folder and you will need to restore from a backup.
+The add-on clones your repository to a persistent location (`/data/repo`) and then
+syncs the appropriate folder to `/config`. This architecture provides several safety
+benefits:
+
+- **Clone failures don't destroy your config**: The repository is cloned to isolated
+  storage first, so network or authentication failures won't affect your existing config.
+- **Protected files**: Files listed in `sync_exclude` (like `secrets.yaml`) are never
+  overwritten during sync.
+- **Persistent backups**: Before each sync, your config is backed up to `/data/backups/`
+  for manual recovery if needed.
+- **Subfolder support**: Use `config_folder` to sync only a specific folder from your
+  repository to `/config`.
 
 ## How to use
 
@@ -49,6 +57,9 @@ restart_ignore:
   - ui-lovelace.yaml
   - ".gitignore"
   - exampledirectory/
+config_folder: "."
+sync_exclude:
+  - secrets.yaml
 repeat:
   active: false
   interval: 300
@@ -100,6 +111,31 @@ Git URL to your repository (make sure to use double quotes).
 ### Option: `restart_ignore` (optional)
 
 When `auto_restart` is enabled, changes to these files will not make HA restart. Full directories to ignore can be specified.
+
+### Option: `config_folder` (optional)
+
+The folder within your repository that contains the Home Assistant configuration files. This folder will be synced to `/config`. Default is `.` (repository root).
+
+Example use cases:
+- Your HA config is in a `homeassistant/` subfolder: set `config_folder: homeassistant`
+- Your repo has multiple configs for different environments: set `config_folder: production`
+
+### Option: `sync_exclude` (optional)
+
+List of files and folders that should never be overwritten when syncing from the repository. Default is `["secrets.yaml"]`.
+
+This is useful for:
+- Protecting `secrets.yaml` from being overwritten (default behavior)
+- Protecting local-only configuration files
+- Excluding the `.storage/` directory if you don't want to sync Home Assistant's internal state
+
+Example:
+```yaml
+sync_exclude:
+  - secrets.yaml
+  - .storage/
+  - local_config.yaml
+```
 
 ### Option group: `repeat`
 

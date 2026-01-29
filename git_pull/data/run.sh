@@ -19,6 +19,12 @@ AUTO_RESTART=$(bashio::config 'auto_restart')
 RESTART_IGNORED_FILES=$(bashio::config 'restart_ignore | join(" ")')
 REPEAT_ACTIVE=$(bashio::config 'repeat.active')
 REPEAT_INTERVAL=$(bashio::config 'repeat.interval')
+CONFIG_FOLDER=$(bashio::config 'config_folder')
+# Note: SYNC_EXCLUDE is read directly in sync-to-config using jq for proper array handling
+
+# Repository is cloned/pulled to this persistent directory (not /config)
+REPO_DIR="/data/repo"
+BACKUP_DIR="/data/backups"
 ################
 
 #### functions ####
@@ -41,26 +47,54 @@ function add-ssh-key {
     chmod 600 "${HOME}/.ssh/id_${DEPLOYMENT_KEY_PROTOCOL}"
 }
 
+function sync-to-config {
+    # Sync from repository subfolder to /config
+    SOURCE_DIR="$REPO_DIR/$CONFIG_FOLDER"
+
+    # Validate config_folder is within repo (prevent path traversal)
+    REAL_SOURCE=$(cd "$REPO_DIR" && realpath -m "$CONFIG_FOLDER" 2>/dev/null || echo "")
+    REAL_REPO=$(realpath "$REPO_DIR")
+    if [[ ! "$REAL_SOURCE" =~ ^"$REAL_REPO" ]]; then
+        bashio::exit.nok "[Error] config_folder '$CONFIG_FOLDER' escapes repository directory"
+    fi
+
+    if [ ! -d "$SOURCE_DIR" ]; then
+        bashio::exit.nok "[Error] config_folder '$CONFIG_FOLDER' not found in repository"
+    fi
+
+    # Create backup in persistent storage
+    mkdir -p "$BACKUP_DIR"
+    BACKUP_LOCATION="${BACKUP_DIR}/config-$(date +%Y-%m-%d_%H-%M-%S)"
+    bashio::log.info "[Info] Backing up /config to $BACKUP_LOCATION"
+    mkdir -p "$BACKUP_LOCATION"
+    cp -rf /config/. "$BACKUP_LOCATION/" 2>/dev/null || true
+
+    # Build rsync exclude arguments from config using jq for proper array handling
+    RSYNC_EXCLUDES=""
+    while IFS= read -r item; do
+        [ -n "$item" ] && RSYNC_EXCLUDES="$RSYNC_EXCLUDES --exclude=$item"
+    done < <(bashio::config 'sync_exclude' | jq -r '.[]' 2>/dev/null)
+
+    # Sync with user-configured exclusions
+    # --delete removes files from /config that aren't in repo (except excluded)
+    bashio::log.info "[Info] Syncing $SOURCE_DIR to /config"
+    # shellcheck disable=SC2086
+    rsync -av --delete $RSYNC_EXCLUDES "$SOURCE_DIR/" /config/ || bashio::exit.nok "[Error] Sync to /config failed"
+    bashio::log.info "[Info] Sync complete"
+}
+
 function git-clone {
-    # create backup
-    BACKUP_LOCATION="/tmp/config-$(date +%Y-%m-%d_%H-%M-%S)"
-    bashio::log.info "[Info] Backup configuration to $BACKUP_LOCATION"
+    # Clone repository to persistent /data/repo directory (not /config)
+    bashio::log.info "[Info] Cloning repository to $REPO_DIR"
 
-    mkdir "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Creation of backup directory failed"
-    cp -rf /config/* "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Copy files to backup directory failed"
+    # Remove any existing repo directory
+    rm -rf "$REPO_DIR"
 
-    # remove config folder content
-    rm -rf /config/{,.[!.],..?}* || bashio::exit.nok "[Error] Clearing /config failed"
+    # Clone - this is safe because we're not touching /config yet
+    git clone "$REPOSITORY" "$REPO_DIR" || bashio::exit.nok "[Error] Git clone failed"
 
-    # git clone
-    bashio::log.info "[Info] Start git clone"
-    git clone "$REPOSITORY" /config || bashio::exit.nok "[Error] Git clone failed"
-
-    # try to copy non yml files back
-    cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
-
-    # try to copy secrets file back
-    cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null
+    # Now sync the appropriate folder to /config
+    sync-to-config
 }
 
 function check-ssh-key {
@@ -80,7 +114,6 @@ fi
 
 function setup-user-password {
 if [ -n "$DEPLOYMENT_USER" ]; then
-    cd /config || return
     bashio::log.info "[Info] setting up credential.helper for user: ${DEPLOYMENT_USER}"
     git config --system credential.helper 'store --file=/tmp/git-credentials'
 
@@ -116,14 +149,21 @@ fi
 }
 
 function git-synchronize {
-    # is /config a local git repo?
-    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-        bashio::log.warning "[Warn] Git repository doesn't exist"
+    # Initialize OLD_COMMIT (will remain empty if this is a fresh clone)
+    OLD_COMMIT=""
+
+    # Check if repository exists in persistent storage
+    if [ ! -d "$REPO_DIR/.git" ]; then
+        bashio::log.warning "[Warn] Git repository doesn't exist in $REPO_DIR"
         git-clone
         return
     fi
 
-    bashio::log.info "[Info] Local git repository exists"
+    # Change to repo directory for git operations
+    cd "$REPO_DIR" || bashio::exit.nok "[Error] Failed to cd into $REPO_DIR"
+
+    bashio::log.info "[Info] Local git repository exists in $REPO_DIR"
+
     # Is the local repo set to the correct origin?
     CURRENTGITREMOTEURL=$(git remote get-url --all "$GIT_REMOTE" | head -n 1)
     if [ "$CURRENTGITREMOTEURL" != "$REPOSITORY" ]; then
@@ -169,10 +209,23 @@ function git-synchronize {
             bashio::exit.nok "[Error] Git command is not set correctly. Should be either 'reset' or 'pull'"
             ;;
     esac
+
+    # Sync changes to /config
+    sync-to-config
 }
 
 function validate-config {
     bashio::log.info "[Info] Checking if something has changed..."
+
+    # Handle fresh clone case where OLD_COMMIT was never set
+    if [ -z "$OLD_COMMIT" ]; then
+        bashio::log.info "[Info] Fresh clone detected, skipping diff-based restart check"
+        return
+    fi
+
+    # Ensure we're in the repo directory for git operations
+    cd "$REPO_DIR" || bashio::exit.nok "[Error] Failed to cd into $REPO_DIR"
+
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" == "$OLD_COMMIT" ]; then
@@ -231,7 +284,8 @@ function validate-config {
 ###################
 
 #### Main program ####
-cd /config || bashio::exit.nok "[Error] Failed to cd into /config";
+# Ensure persistent directories exist
+mkdir -p "$REPO_DIR" "$BACKUP_DIR"
 
 while true; do
     check-ssh-key
@@ -239,7 +293,7 @@ while true; do
     if git-synchronize ; then
         validate-config
     fi
-     # do we repeat?
+    # do we repeat?
     if [ ! "$REPEAT_ACTIVE" == "true" ]; then
         exit 0
     fi

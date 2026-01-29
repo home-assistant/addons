@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.1.0
+- **BREAKING**: Repository is now cloned to `/data/repo` instead of `/config`
+- Add `config_folder` option to specify which repo subfolder syncs to `/config`
+- Add `sync_exclude` option to protect files from being overwritten (default: `secrets.yaml`)
+- Backups are now stored persistently in `/data/backups/`
+- Clone failures no longer destroy existing configuration
+- Add rsync for efficient file synchronization
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

@@ -463,3 +463,23 @@ bashio::var.json \
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json
+
+# Create default settings.json in addon config directory if it doesn't exist
+if ! bashio::fs.file_exists "/config/settings.json"; then
+    bashio::log.info "Creating default settings.json..."
+    # Disable MQTT by default
+    mqtt=$(bashio::var.json \
+        disabled "^true" \
+        )
+    # Disable Z-Wave JS UI logs by default
+    gateway=$(bashio::var.json \
+        logEnabled "^false" \
+        logLevel info \
+        logToFile "^false" \
+        )
+
+    bashio::var.json \
+        gateway "^${gateway}"
+        mqtt "^${mqtt}" \
+        > /config/settings.json
+fi

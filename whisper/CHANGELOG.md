@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2
+
+- Fix model selection for language
+- Add missing `onnx_asr` dependency
+
 ## 3.0.1
 
 - Add support for `sherpa-onnx` and Nvidia's parakeet model

@@ -3,18 +3,17 @@ configuration:
   beam_size:
     name: Beam size
     description: >-
-      Number of candidates to consider simultaneously during transcription.
-      Increasing the beam size will increase accuracy at the cost of
+      Number of candidates to consider simultaneously during transcription (0 =
+      auto).  Increasing the beam size will increase accuracy at the cost of
       performance.
   language:
     name: Language
     description: >-
-      Language that you will speak to the app. If you select "auto",
-      the model will run much slower but will auto-detect the spoken language.
+      Language to pre-load model for during start-up.
   model:
     name: Model
     description: |
-      Whisper model that will be used for transcription.
+      Whisper model that will be used for transcription (faster-whisper only).
 
       The default model is `tiny-int8`, a compressed version of the smallest
       Whisper model which is able to run on a Raspberry Pi 4. Compressed models

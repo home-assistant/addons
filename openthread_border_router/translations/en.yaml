@@ -29,6 +29,10 @@ configuration:
     description: >-
       Enable IPv6 to IPv4 network address translation. This allows Thread
       devices to communicate with devices on the Internet.
+  beta:
+    name: Beta
+    description: >-
+      Enable beta mode with Thread 1.4 and native OpenThread mDNS.
 network:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

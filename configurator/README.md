@@ -1,4 +1,4 @@
-# Home Assistant Add-on: File editor
+# Home Assistant App: File editor
 
 Browser-based configuration file editor for Home Assistant.
 
@@ -26,7 +26,7 @@ configuration files) will be automatically checked for syntax errors while editi
 - Restart Home Assistant directly with the click of a button. Reloading groups,
   automations, etc. can be done as well. An API password is required.
 - Direct links to Home Assistant documentation and icons.
-- Execute shell commands within the add-on container.
+- Execute shell commands within the app container.
 - Editor settings are saved in your browser.
 - And much more…
 

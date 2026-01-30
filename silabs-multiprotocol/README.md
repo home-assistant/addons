@@ -2,7 +2,7 @@
 > Multiprotocol is no longer supported and will be removed in the near future!
 > [Disable multiprotocol support](https://connectzbt1.home-assistant.io/procedures/disable-multiprotocol/) by migrating your radio back to Zigbee or Thread firmware.
 
-# \[DEPRECATED\] Home Assistant Add-on: SiliconLabs Zigbee/OpenThread Multiprotocol Add-on
+# \[DEPRECATED\] Home Assistant App: SiliconLabs Zigbee/OpenThread Multiprotocol App
 
 Zigbee/OpenThread Multiprotocol container for Silicon Labs based radios such as
 Home Assistant Yellow, Home Assistant SkyConnect, and Home Assistant Connect ZBT-1.
@@ -13,7 +13,7 @@ Home Assistant Yellow, Home Assistant SkyConnect, and Home Assistant Connect ZBT
 
 ## About
 
-This add-on allows you to use Zigbee and OpenThread protocol simultaneous on a
+This app (formerly known as add-on) allows you to use Zigbee and OpenThread protocol simultaneous on a
 single Silicon Labs based radio. The radio needs the RCP Multi-PAN firmware
 installed to support multiple IEEE 802.15.4 Personal Area Networks (PAN). The
 addon has been tested with EFR32 Series 2 based radios.

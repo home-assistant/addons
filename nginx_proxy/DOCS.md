@@ -1,16 +1,16 @@
-# Home Assistant Add-on: NGINX Home Assistant SSL proxy
+# Home Assistant App: NGINX Home Assistant SSL proxy
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "NGINX Home Assistant SSL proxy" add-on and click it.
+1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
+2. Find the "NGINX Home Assistant SSL proxy" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) and/or the [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) add-on to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
+The NGINX Proxy app is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) and/or the [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) app to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
 
 1. The certificate to your registered domain should already be created via [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns), [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) or another method. Make sure that the certificate files exist in the `/ssl` directory.
 2. You must add the following section to your [Home Assistant configuration.yaml](https://www.home-assistant.io/docs/configuration/). If the `http` section is using the `ssl_certificate`, `ssl_key` or `server_port` keys, make sure to remove them.
@@ -21,17 +21,17 @@ The NGINX Proxy add-on is commonly used in conjunction with the [Duck DNS](https
      trusted_proxies:
        - 172.30.33.0/24
    ```
-3. In the nginx addon configuration, change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
+3. In the nginx app configuration, change the `domain` option to the domain name you registered (from DuckDNS or any other domain you control).
 4. Leave all other options as-is.
 5. Save configuration.
-6. Start the add-on.
+6. Start the app.
 7. Have some patience and wait a couple of minutes.
-8. Check the add-on log output to see the result.
+8. Check the app log output to see the result.
 
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 ```yaml
 domain: home.example.com
@@ -52,7 +52,7 @@ The server's fully qualified domain name to use for the proxy.
 
 ### Option: `certfile` (required)
 
-The certificate file to use in the `/ssl` directory. Keep filename as-is if you used default settings to create the certificate with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) add-on.
+The certificate file to use in the `/ssl` directory. Keep filename as-is if you used default settings to create the certificate with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) app.
 
 ### Option: `keyfile` (required)
 
@@ -85,7 +85,7 @@ If specified, configures Nginx to use Proxy Protocol to get the Real Ip from an 
 
 ## Known issues and limitations
 
-- By default, port 80 is disabled in the add-on configuration in case the port is needed for other components or add-ons like `emulated_hue`.
+- By default, port 80 is disabled in the app configuration in case the port is needed for other components or apps like `emulated_hue`.
 
 ## Troubleshooting
 

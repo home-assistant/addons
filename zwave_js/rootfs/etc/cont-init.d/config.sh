@@ -306,7 +306,7 @@ if bashio::config.has_value 'network_key'; then
         else
             bashio::log.fatal "Both 'network_key' and 's0_legacy_key' are set to different values "
             bashio::log.fatal "so we are unsure which one to use. One needs to be removed from the "
-            bashio::log.fatal "configuration in order to start the addon."
+            bashio::log.fatal "configuration in order to start the app."
             bashio::exit.nok
         fi
     # If we get here, 'network_key' is set and 's0_legacy_key' is not set so we need
@@ -326,18 +326,18 @@ for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_un
     network_key_upper=$(bashio::string.upper "${network_key}")
     if [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_1}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_2}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_3}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_4}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_5}" ] || [ "${network_key_upper}" == "${DOCS_EXAMPLE_KEY_6}" ]; then
         bashio::log.fatal
-        bashio::log.fatal "The add-on detected that the Z-Wave network key used"
+        bashio::log.fatal "The app detected that the Z-Wave network key used"
         bashio::log.fatal "is from the documented example."
         bashio::log.fatal
         bashio::log.fatal "Using this key is insecure, because it is publicly"
         bashio::log.fatal "listed in the documentation."
         bashio::log.fatal
-        bashio::log.fatal "Please check the add-on documentation on how to"
+        bashio::log.fatal "Please check the app documentation on how to"
         bashio::log.fatal "create your own, secret, \"${key}\" and replace"
         bashio::log.fatal "the one you have configured."
         bashio::log.fatal
         bashio::log.fatal "Click on the \"Documentation\" tab in the Z-Wave JS"
-        bashio::log.fatal "add-on panel for more information."
+        bashio::log.fatal "app panel for more information."
         bashio::log.fatal
         bashio::exit.nok
     elif ! bashio::var.has_value "${network_key}"; then
@@ -425,7 +425,7 @@ fi
 
 if bashio::config.true 'disable_controller_recovery'; then
     bashio::log.info "Automatic controller recovery disabled"
-    bashio::log.warning "WARNING: If your controller becomes unresponsive, commands may start to fail and nodes may start to get marked as dead until the controller is able to recover on its own. If it doesn't recover on its own, you will need to restart the add-on manually to try to recover yourself."
+    bashio::log.warning "WARNING: If your controller becomes unresponsive, commands may start to fail and nodes may start to get marked as dead until the controller is able to recover on its own. If it doesn't recover on its own, you will need to restart the app manually to try to recover yourself."
     # Add NO_CONTROLLER_RECOVERY to presets array
     presets_array+=("NO_CONTROLLER_RECOVERY")
 fi

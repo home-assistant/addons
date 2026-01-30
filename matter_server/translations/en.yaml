@@ -10,7 +10,7 @@ configuration:
     name: Use the latest beta version
     description: >-
       Installs the latest beta of the Matter Server (matter.js based). It is
-      highly recommended to create a backup before starting the add-on with
+      highly recommended to create a backup before starting the app with
       this flag enabled!
   enable_test_net_dcl:
     name: Enable test-net DCL usage.
@@ -32,14 +32,14 @@ configuration:
       This allows to pass additional command line arguments to the Matter
       Server. Use `--help` to get a list of possible arguments. Note that
       arguments are also added by the startup script controlled by other
-      add-on options.
+      app options.
   matter_server_version:
     name: Matter Server version
     description: >-
       Install custom Python Matter Server version (not applicable when using
       Beta flag). WARNING: An older version might have an incompatible storage
       format! Use this feature with caution! Make sure you have a recent backup
-      of the add-on!
+      of the app!
   matter_sdk_wheels_version:
     name: Matter SDK wheels version
     description: >-

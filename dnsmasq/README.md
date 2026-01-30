@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Dnsmasq
+# Home Assistant App: Dnsmasq
 
 A simple DNS server.
 

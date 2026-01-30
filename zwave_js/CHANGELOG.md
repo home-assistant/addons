@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.29.1
+
+### Z-Wave JS 15.20.1
+
+#### Bugfixes
+
+- Clean up unnecessary "device config changed" repairs that could appear after updating to Z-Wave JS 15.20.0 / addon version 0.29.0 without skipping Z-Wave JS 15.20.0 / addon version 0.28.0.
+
+#### Config file changes
+
+- Add Zooz Zen57 240V XS Relay
+- Add MCO Home MH-5900 thermostat
+- Update Zooz ZEN35 configuration for firmware 1.10 and later
+- Update Zooz ZEN14 configuration for firmware 2.20
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.20.0...15.20.1](https://github.com/zwave-js/zwave-js/compare/v15.20.0...v15.20.1)
+
 ## 0.29.0
 
 ### Z-Wave JS 15.20.0

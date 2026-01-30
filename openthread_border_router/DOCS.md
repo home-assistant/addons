@@ -1,14 +1,14 @@
-# Home Assistant Add-on: OpenThread Border Router
+# Home Assistant App: OpenThread Border Router
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly knowon as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons, Backup & Supervisor** -> **Add-on Store**.
-2. Click on the top right menu and "Repository"
-3. Add "https://github.com/home-assistant/addons" to add the "Home Assistant Add-on Repository for Development" repository.
-4. Find the "OpenThread Border Router" add-on and click it.
-5. Click on the "INSTALL" button.
+1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
+2. Select the top right menu and **Repository**.
+3. Add "https://github.com/home-assistant/addons" to add the **Home Assistant App Repository for Development** repository.
+4. Find the **OpenThread Border Router** app and select it.
+5. Select the **Install** button.
 
 ## How to use
 
@@ -18,7 +18,7 @@ RCP firmware:
 - Home Assistant SkyConnect/Connect ZBT-1
 - Home Assistant Connect ZBT-2
 
-These devices are all capable to run OpenThread and will be flashed with the correct 
+These devices are all capable to run OpenThread and will be flashed with the correct
 firmware by Home Assistant Core.
 
 If you are using Home Assistant Yellow, choose `/dev/ttyAMA1` as device.
@@ -34,14 +34,14 @@ RCP firmware for the nRF52840 Dongle.
 
 Once the firmware is loaded follow the following steps:
 
-1. Select the correct `device` in the add-on configuration tab and press `Save`.
-2. Start the add-on.
+1. Select the correct `device` in the app configuration tab and press `Save`.
+2. Start the app.
 
 ### OpenThread Border Router
 
-This add-on makes your Home Assistant installation an OpenThread Border Router
+This app makes your Home Assistant installation an OpenThread Border Router
 (OTBR). The border router can be used to comission Matter devices which connect
-through Thread. Home Assistant Core will automatically detect this add-on and
+through Thread. Home Assistant Core will automatically detect this app and
 create a new integration named "Open Thread Border Router". With Home Assistant
 Core 2023.3 and newer the OTBR will get configured automatically. The Thread
 integration allows to inspect the network configuration.
@@ -50,7 +50,7 @@ integration allows to inspect the network configuration.
 
 There is also a web interface provided by the OTBR. However, the web
 interface has caveats (e.g. forming a network does not generate an off-mesh
-routable IPv6 prefix which causes changing IPv6 addressing on first add-on
+routable IPv6 prefix which causes changing IPv6 addressing on first app
 restart). It is still possible to enable the web interface for debugging
 purpose. Make sure to expose both the Web UI port and REST API port (the
 latter needs to be on port 8081) on the host interface. To do so, click on
@@ -59,7 +59,7 @@ and 8081 in the OpenThread REST API port field).
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 | Configuration      | Description                                            |
 |--------------------|--------------------------------------------------------|
@@ -70,6 +70,7 @@ Add-on configuration:
 | firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
 | nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |
 | network_device     | IP address and port to connect to a network-based RCP (see below) |
+| beta               | Enable beta mode with Thread 1.4 and native OpenThread mDNS |
 
 > [!WARNING]
 > The OTBR expects the RCP connected radio to be on a reliable link such as

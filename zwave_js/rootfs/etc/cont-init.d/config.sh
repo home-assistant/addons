@@ -387,10 +387,10 @@ fi
 rf_region_integer=${rf_region_integer_map["${rf_region}"]}
 
 if [[ "${rf_region_integer}" -eq 255 ]]; then
-    rf_json=$(jq -n '{txPower: {powerlevel: "auto"}, maxLongRangePowerlevel: "auto"}')
+    rf_json=$(jq -n '{autoPowerlevels: true}')
     bashio::log.info "Using default RF region settings"
 else
-    rf_json=$(jq -n --argjson region "${rf_region_integer}" '{region: $region, txPower: {powerlevel: "auto"}, maxLongRangePowerlevel: "auto"}')
+    rf_json=$(jq -n --argjson region "${rf_region_integer}" '{region: $region, autoPowerlevels: true}')
     bashio::log.info "Setting RF region to (${rf_region})"
 fi
 

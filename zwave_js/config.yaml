@@ -1,5 +1,5 @@
 ---
-version: 0.29.1
+version: 0.30.0
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
@@ -19,6 +19,8 @@ init: false
 ingress: true
 ingress_port: 8091
 ingress_stream: true
+panel_icon: mdi:z-wave
+panel_title: Z-Wave
 map:
   - addon_config:rw
 options:

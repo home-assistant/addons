@@ -1,8 +1,9 @@
 # Changelog
 
-## 3.0.2
+## 3.1.0
 
 - Fix model selection for language
+- Prefer Parakeet only for English (detection fails for other languages)
 - Add missing `onnx_asr` dependency
 
 ## 3.0.1

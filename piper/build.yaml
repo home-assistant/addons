@@ -3,4 +3,4 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
 args:
-  WYOMING_PIPER_VERSION: 2.1.1
+  WYOMING_PIPER_VERSION: 2.2.1

@@ -16,6 +16,7 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
+COPY 0003-ha-web-ui-customizations.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -37,6 +38,7 @@ WORKDIR /usr/src/ot-br-posix
 RUN \
     set -x \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
+    && patch -p1 < /usr/src/0003-ha-web-ui-customizations.patch \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-beta \
@@ -85,6 +87,7 @@ ENV DOCKER=1
 COPY openthread-core-ha-config-posix.h /usr/src/
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src/
 COPY 0002-spinel-Clear-source-match-tables-before-restoring.patch /usr/src/
+COPY 0003-ha-web-ui-customizations.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -111,6 +114,7 @@ RUN \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \
         && patch -p1 < /usr/src/0002-spinel-Clear-source-match-tables-before-restoring.patch \
     ) \
+    && patch -p1 < /usr/src/0003-ha-web-ui-customizations.patch \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-stable \
@@ -184,18 +188,6 @@ COPY --from=otbr-stable-builder /opt/otbr-stable /opt/otbr-stable
 COPY --from=otbr-stable-builder /usr/sbin/mdnsd /opt/otbr-stable/sbin/mdnsd
 COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so /usr/lib/libdns_sd.so
 COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so.1 /usr/lib/libdns_sd.so.1
-
-# Patch app.js to use relative URLs for ingress compatibility
-RUN echo "angular.module('StarterApp').config(['\$httpProvider', function(\$httpProvider) { \
-    \$httpProvider.interceptors.push(function() { \
-        return { \
-            request: function(config) { \
-                config.url = config.url.replace(/^http:\\/\\/[^/]+\\//, ''); \
-                return config; \
-            } \
-        }; \
-    }); \
-}]);" | tee -a /opt/otbr-{stable,beta}/share/otbr-web/frontend/res/js/app.js
 
 COPY rootfs /
 

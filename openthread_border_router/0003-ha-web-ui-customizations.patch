@@ -1,0 +1,77 @@
+diff --git a/src/web/web-service/frontend/index.html b/src/web/web-service/frontend/index.html
+index cb052f26..992f03d6 100644
+--- a/src/web/web-service/frontend/index.html
++++ b/src/web/web-service/frontend/index.html
+@@ -89,7 +89,7 @@
+       </header>
+       <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+         <md-list flex>
+-          <md-list-item md-ink-ripple class="mdl-navigation__link" ng-repeat="item in menu" ng-click="showPanels($index)" layout="row">
++          <md-list-item md-ink-ripple class="mdl-navigation__link" ng-repeat="item in menu" ng-click="showPanels($index)" ng-if="!item.hidden" layout="row">
+             <div><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">{{item.icon}}</i>{{item.title}}
+             </div>
+           </md-list-item>
+@@ -130,7 +130,6 @@
+                   <th>PAN ID</th>
+                   <th>channel</th>
+                   <th>Hardware Address</th>
+-                  <th>Action</th>
+ 
+                 </tr>
+               </thead>
+@@ -142,9 +141,6 @@
+                   <td>{{item.pi}}</td>
+                   <td>{{item.ch}}</td>
+                   <td>{{item.ha}}</td>
+-                  <td>
+-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-button show-modal" ng-click="showJoinDialog($event, $index, item)">Join</button>
+-                  </td>
+                 </tr>
+               </tbody>
+             </table>
+diff --git a/src/web/web-service/frontend/res/js/app.js b/src/web/web-service/frontend/res/js/app.js
+index e8453f6c..e0645f83 100644
+--- a/src/web/web-service/frontend/res/js/app.js
++++ b/src/web/web-service/frontend/res/js/app.js
+@@ -57,7 +57,7 @@
+                 show: true,
+             },
+             {
+-                title: 'Join',
++                title: 'Scan',
+                 icon: 'add_circle_outline',
+                 show: false,
+             },
+@@ -65,6 +65,7 @@
+                 title: 'Form',
+                 icon: 'open_in_new',
+                 show: false,
++                hidden: true,
+             },
+             {
+                 title: 'Status',
+@@ -124,7 +125,7 @@
+         };
+         $scope.showPanels = async function(index) {
+             $scope.headerTitle = $scope.menu[index].title;
+-            for (var i = 0; i < 7; i++) {
++            for (var i = 0; i < $scope.menu.length; i++) {
+                 $scope.menu[i].show = false;
+             }
+             $scope.menu[index].show = true;
+@@ -1226,3 +1227,15 @@
+         }
+     };
+ })();
++
++// Use relative URLs for ingress compatibility
++angular.module('StarterApp').config(['$httpProvider', function($httpProvider) {
++    $httpProvider.interceptors.push(function() {
++        return {
++            request: function(config) {
++                config.url = config.url.replace(/^http:\/\/[^/]+\//, '');
++                return config;
++            }
++        };
++    });
++}]);

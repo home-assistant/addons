@@ -6,7 +6,7 @@
 # ==============================================================================
 bashio::log.info "Starting nginx..."
 
-# REST API listens on addon IP, so we need to know it for proxying
+# REST API listens on app IP, so we need to know it for proxying
 addon_ip="$(bashio::addon.ip_address)"
 sed "s/ADDON_IP/${addon_ip}/g" /etc/nginx/nginx.conf > /tmp/nginx.conf
 

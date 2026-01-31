@@ -83,6 +83,10 @@ This is so the `ip_ban_enabled` feature can be used and work correctly in /confi
 
 If specified, configures Nginx to use Proxy Protocol to get the Real Ip from an upstream load balancer; [for more information](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/).
 
+### Port `HTTP/3 (QUIC)` (optional)
+
+If specified, configures Nginx to use HTTP/3 with QUIC/UDP on this UDP port in addition to HTTP/2 and HTTP/1.1 on the TCP port; [for more information](https://nginx.org/en/docs/http/ngx_http_v3_module.html).
+
 ## Known issues and limitations
 
 - By default, port 80 is disabled in the app configuration in case the port is needed for other components or apps like `emulated_hue`.
@@ -90,6 +94,7 @@ If specified, configures Nginx to use Proxy Protocol to get the Real Ip from an 
 ## Troubleshooting
 
 - `400 Bad Request` response for requests over this proxy mean you are probably missing the `trusted_proxies` configuration option, see above.
+- HTTP/3 (QUIC) enabled, but not working. Check for the `Alt-Svc 'h3=":443"; ma=86400'` header in your web browser's development tools. Make sure the UDP QUIC port is forwarded or allowed in your firewall, in addition to the TCP HTTPS port.
 
 ## Support
 

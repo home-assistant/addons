@@ -17,6 +17,7 @@ ENV DOCKER=1
 
 COPY openthread-core-ha-config-posix.h /usr/src/
 COPY 0003-ha-web-ui-customizations.patch /usr/src/
+COPY 0004-socket-reuseport.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -39,6 +40,7 @@ RUN \
     set -x \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
     && patch -p1 < /usr/src/0003-ha-web-ui-customizations.patch \
+    && patch -p1 < /usr/src/0004-socket-reuseport.patch \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-beta \

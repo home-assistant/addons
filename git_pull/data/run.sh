@@ -56,11 +56,13 @@ function git-clone {
     bashio::log.info "[Info] Start git clone"
     git clone "$REPOSITORY" /config || bashio::exit.nok "[Error] Git clone failed"
 
-    # try to copy non yml files back
-    cp "${BACKUP_LOCATION}" "!(*.yaml)" /config 2>/dev/null
+    # try to copy non-yaml files back (use eval to avoid parse-time extglob error)
+    shopt -s extglob nullglob dotglob
+    eval 'cp -r "${BACKUP_LOCATION}"/!(*.yaml|*.yml) /config 2>/dev/null' || true
+    shopt -u extglob nullglob dotglob
 
     # try to copy secrets file back
-    cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null
+    cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null || true
 }
 
 function check-ssh-key {
@@ -116,6 +118,9 @@ fi
 }
 
 function git-synchronize {
+    # Initialize OLD_COMMIT (will remain empty if this is a fresh clone)
+    OLD_COMMIT=""
+
     # is /config a local git repo?
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
         bashio::log.warning "[Warn] Git repository doesn't exist"
@@ -173,6 +178,19 @@ function git-synchronize {
 
 function validate-config {
     bashio::log.info "[Info] Checking if something has changed..."
+
+    # Handle fresh clone case where OLD_COMMIT was never set
+    if [ -z "$OLD_COMMIT" ]; then
+        bashio::log.info "[Info] Fresh clone detected, validating configuration..."
+        if ! bashio::core.check; then
+            bashio::log.error "[Error] Fresh clone configuration does not pass validation!"
+        else
+            bashio::log.info "[Info] Fresh clone configuration is valid"
+        fi
+        # Skip restart logic on fresh clone (no previous state to compare)
+        return
+    fi
+
     # Compare commit ids & check config
     NEW_COMMIT=$(git rev-parse HEAD)
     if [ "$NEW_COMMIT" == "$OLD_COMMIT" ]; then

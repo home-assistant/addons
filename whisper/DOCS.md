@@ -73,7 +73,7 @@ If `custom_model_type` is set to `transformers`, a HuggingFace transformers Whis
 To use a local custom Whisper model, first create a `models` subdirectory in the app's configuration directory if it does not already exist. Then copy your model directory into:
 `/addon_configs/core_whisper/models/<your-model-dir>`.
 Then, set the `custom_model` path to:
-`/config/models/<your-model-dir>`. For a local model, the path must start with `/config/models/`, as this is how the add-on accesses your Home Assistant configuration directory through the container's mounted volume.
+`/config/models/<your-model-dir>`. For a local model, the path must start with `/config/models/`, as this is how the Home Assistant app accesses your Home Assistant configuration directory through the container's mounted volume.
 
 ### Option: `custom_model_type`
 

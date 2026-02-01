@@ -9,7 +9,7 @@ configuration:
   apks:
     name: Packages
     description: >-
-      Additional software packages to install in the add-on container.
+      Additional software packages to install in the Home Assistant app.
   server:
     name: Server
     description: SSH Server configuration

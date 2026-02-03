@@ -1,5 +1,5 @@
 {{/*
-    Options saved in the addon UI are available in .options
+    Options saved in the Home Assistant UI are available in .options
     Some variables are available in .variables, these are added in nginx/run
 */}}
 daemon off;

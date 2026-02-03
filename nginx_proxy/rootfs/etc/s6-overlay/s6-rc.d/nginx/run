@@ -13,7 +13,6 @@ if [[ -z "$QUIC_PORT" ]]; then
 fi
 
 bashio::log.info "Merging options & variables for template"
-# shellcheck disable=SC2046
 JSON_CONF=$(jq --argjson port "$(bashio::core.port)" --argjson quic_port "$QUIC_PORT" \
     '({options: .}) + ({variables: {port: $port, quic_port: $quic_port}})' \
     /data/options.json)

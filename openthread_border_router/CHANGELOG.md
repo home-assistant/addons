@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.16.1
+- Fix listen address of OTBR Web UI
+
 ## 2.16.0
 - Add beta toggle to switch between Thread 1.3 (stable) and Thread 1.4 (beta)
 - Beta mode uses OpenThread's built-in mDNS instead of mDNSResponder

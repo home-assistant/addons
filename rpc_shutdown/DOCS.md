@@ -1,23 +1,23 @@
-# Home Assistant Add-on: RPC Shutdown
+# Home Assistant App: RPC Shutdown
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "RPC Shutdown" add-on and click it.
+1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
+2. Find the "RPC Shutdown" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
 In the configuration section, define alias, address and credentials and save the configuration.
 
-1. Start the add-on.
-2. Check the add-on log output to see the result.
+1. Start the app.
+2. Check the app log output to see the result.
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 ```yaml
 computers:
@@ -71,9 +71,9 @@ data:
 
 Each line explained:
 
-`service: hassio.addon_stdin`: Use hassio.addon_stdin service to send data over STDIN to an add-on.
-`data.addon: core_rpc_shutdown`: Tells the service to send the command to this add-on.
-`data.input: test-pc`: Alias name created for the computer in the add-on configuration, and shuts that one down.
+`service: hassio.app_stdin`: Use hassio.addon_stdin service to send data over STDIN to an app.
+`data.app: core_rpc_shutdown`: Tells the service to send the command to this app.
+`data.input: test-pc`: Alias name created for the computer in the app configuration, and shuts that one down.
 
 ## Support
 

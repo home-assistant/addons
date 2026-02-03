@@ -1,5 +1,171 @@
 # Changelog
 
+## 0.29.1
+
+### Z-Wave JS 15.20.1
+
+#### Bugfixes
+
+- Clean up unnecessary "device config changed" repairs that could appear after updating to Z-Wave JS 15.20.0 / addon version 0.29.0 without skipping Z-Wave JS 15.20.0 / addon version 0.28.0.
+
+#### Config file changes
+
+- Add Zooz Zen57 240V XS Relay
+- Add MCO Home MH-5900 thermostat
+- Update Zooz ZEN35 configuration for firmware 1.10 and later
+- Update Zooz ZEN14 configuration for firmware 2.20
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.20.0...15.20.1](https://github.com/zwave-js/zwave-js/compare/v15.20.0...v15.20.1)
+
+## 0.29.0
+
+### Z-Wave JS 15.20.0
+
+#### Features
+
+- Sound Switch CC: Reset the current tone back to none when done playing
+- Support connecting to ESPHome Z-Wave proxies with API encryption
+- Try to find Z-Wave QR code strings in longer strings
+
+#### Bugfixes
+
+- Avoid false positive detections for changed device configs after upgrading from a version before 15.19.0
+
+#### Config file changes
+
+- Update Zooz ZEN16 to support 800 series version
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.19.0...15.20.0](https://github.com/zwave-js/zwave-js/compare/v15.19.0...v15.20.0)
+
+## 0.28.0
+
+### Z-Wave JS 15.19.0
+
+#### Features
+
+- Add option to force associations without checking if they are valid/allowed
+- Devices that failed to include with Security S2 are no longer interviewed
+
+#### Bugfixes
+
+- During the initial interview after inclusion, user codes are now cleared unless `queryAllUserCodes` driver option is set
+- The `ConfigurationCCDefaultReset` command now uses Supervision if supported
+- Correct log messages for `SoundSwitchCCConfigurationSet`
+- Fixed an issue where `setValue` calls with `disableOptimisticValueUpdate` would cause the next `value updated` event to have an incorrect previous value
+- Fixed an issue where some 500 series controllers could hang during an NVM backup
+
+#### Config file changes
+
+- Add missing parameter for latest VZW31-SN firmware
+- Correct manual link metadata for Inovelli VZW31-SN and VZW32-SN
+- Label endpoints of Shelly Wave Shutter
+- Remove unnecessary firmware version check from Zooz ZEN35
+- Add fingerprint for Kwikset HC620
+- Add Zooz Zen58 Low Voltage XS Relay
+- Hide VZW32-SN test parameter from production use
+- Add Aeotec ZWA050 SmokeShield for Ei Smoke Detectors
+
+### Z-Wave JS 15.18.0
+
+#### Features
+
+- Device configuration parameters can now be marked as hidden
+- Allow setting either `defaultToneId` or `defaultVolume` in Sound Switch CC
+
+#### Bugfixes
+
+- Remove overly strict ASCII event data padding validation in Entry Control CC
+- Fixed an issue where an (unexpected) "Node ID added" notification during an ongoing inclusion would cause security bootstrapping to be skipped
+- The `lastSeen` field is now restored when initializing node statistics
+- Spec compliance: use `Extended User Code Set` to control V2+ devices
+
+#### Config file changes
+
+- Omit `dimmingDuration` field for TKBHome Dimmer
+- Add Heatit Z-TRM6 DC Thermostat
+
+### Z-Wave JS 15.17.1
+
+#### Bugfixes
+
+- Fixed an error that could happen when receiving an S0 Nonce Report before the request acknowledgement
+
+### Z-Wave JS 15.17.0
+
+#### Features
+
+- Add rudimentary support for Application Status Command Class
+- Implement `refreshValues` for Window Covering CC
+
+#### Bugfixes
+
+- Add missing "Panic alert" event to "Emergency Alarm" notification
+- Fixed an issue where Basic CC values were incorrectly exposed after including a device
+- Fixed an error that could happen when receiving an S2 Nonce Report before the request acknowledgement
+- Cached user codes are now cleared when an "All user codes deleted" notification is received
+- For notification sensors operating in push mode, the notification state is now queried during the interview
+- Fixed a regression where value changes were not verified on slow devices after immediately successful supervised commands
+
+#### Config file changes
+
+- Add Shelly Wave Shutter, update Wave 1, Wave 1PM, Wave 2PM, Wave Plug S
+- Add product id `0x03b9` to Kwikset 918
+- Update documentation link for Eurotronic Comet Z
+- Add Philips DDL240X Touchscreen Deadbolt
+- Add US variant to Shelly Wave 2PM
+
+### Z-Wave JS 15.16.0
+
+#### Features
+
+- Config parameter values can now be marked as recommended and automatically be set during the interview
+- Config parameters can now be marked as destructive, allowing applications to confirm before setting them
+- Add API to enable more frequent background RSSI measurements
+
+#### Bugfixes
+
+- Battery CC reports with invalid levels are now discarded
+
+#### Config file changes
+
+- Add fingerprint to Kwikset HC-620
+- Add Zooz ZSE11 800LR
+- Add version conditionals and correct parameters for Enbrighten 55258
+- Replace wrong troubleshooting link in 700 series firmware warning template
+- Add Kwikset 918
+- Correct user code slot bit field for BE468ZP/BE469/BE469ZP
+- Add parameters 3, 40 and 84 for Enbrighten 55258, firmware version 5.51
+
+### Z-Wave JS 15.15.2
+
+#### Bugfixes
+
+- Fixes a rare issue with the cache serialization of certain values that could lead to out-of-memory crashes, often immediately or shortly after startup
+
+#### Config file changes
+
+- Add Namron 4512774 Remote Controller
+
+### Z-Wave JS 15.15.1
+
+#### Bugfixes
+
+- Fixed a warning in bundlers about an unexpected `node:net` import
+- Fixed an issue where the device class of newly joined devices would not be persisted, causing legacy secure devices not to be automatically included with encryption
+
+#### Config file changes
+
+- Update parameters for HomeSeer WS300
+- Add Zooz ZEN78 High Power Relay
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.15.0...15.19.0](https://github.com/zwave-js/zwave-js/compare/v15.15.0...v15.19.0)
+
 ## 0.27.0
 
 ### Changes

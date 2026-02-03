@@ -21,9 +21,21 @@ configuration:
     name: Debug Error
   dbg_http:
     name: Debug HTTP
+  ota_update:
+    name: Zigbee OTA updates
+    description: >-
+      Automatically downloads available Zigbee firmware updates when
+      enabled.
+    fields:
+      bosch:
+        name: Bosch
+      ikea:
+        name: IKEA
+      ledvance:
+        name: OSRAM/LEDVANCE
 network:
   40850/tcp: >-
-    deCONZ API backend (Access for Phoscon and REST API outside the add-on)
+    deCONZ API backend (Access for Phoscon and REST API outside the app)
   5900/tcp: >-
     deCONZ via VNC (Accessing the GUI with external VNC software. Not secured!)
   8081/tcp: >-

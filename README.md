@@ -1,17 +1,17 @@
-# Home Assistant Add-ons: The official repository
+# Home Assistant Apps: The official repository
 
-Add-ons for Home Assistant allow you to extend the functionality
-around your Home Assistant setup. These add-ons can consist of an application
+Apps (formerly known as add-ons) for Home Assistant allow you to extend the functionality
+around your Home Assistant setup. These apps can consist of an application
 that Home Assistant can integrate with (e.g., a [MQTT broker](/mosquitto/README.md) or [database server](/mariadb/README.md))
 or allow access to your Home Assistant configuration (e.g., via [Samba](/samba/README.md) or using
 the [File Editor](/configurator/README.md)).
 
-Add-ons can be installed and configured via the Home Assistant frontend on
+Apps can be installed and configured via the Home Assistant frontend on
 systems that have installed Home Assistant.
 
 [![Home Assistant - A project from the Open Home Foundation](https://www.openhomefoundation.org/badges/home-assistant.png)](https://www.openhomefoundation.org/)
 
-## Add-ons provided by this repository
+## Apps provided by this repository
 
 - **[CEC Scanner](/cec_scan/README.md)**
 
@@ -20,10 +20,6 @@ systems that have installed Home Assistant.
 - **[deCONZ](/deconz/README.md)**
 
     Control a Zigbee network using ConBee or RaspBee hardware by dresden elektronik.
-
-- **[DHCP server](/dhcp_server/README.md)**
-
-    A simple DHCP server.
 
 - **[Dnsmasq](/dnsmasq/README.md)**
 
@@ -69,10 +65,6 @@ systems that have installed Home Assistant.
 
     Allow logging in remotely to Home Assistant using SSH or just the web terminal with Ingress.
 
-- **[TellStick](/tellstick/README.md)**
-
-    TellStick and TellStick Duo service.
-
 - **[Z-Wave JS](/zwave_js/README.md)**
 
     Allow Home Assistant to talk to a Z-Wave Network via a USB Controller.
@@ -89,11 +81,11 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-## Developing your own add-ons
+## Developing your own apps
 
-In case you are interested in developing your own add-on, this
+In case you are interested in developing your own app, this
 repository can be a great source of inspiration. For more information
-about developing an add-on, please see our
+about developing an app, please see our
 [documentation for developers][dev-docs].
 
 [discord]: https://discord.gg/c5DvZ4e

@@ -1,6 +1,6 @@
 ---
 # yamllint disable rule:line-length rule:truthy
-name: Build add-on
+name: Build app
 
 env:
   BUILD_ARGS: "--test"
@@ -14,7 +14,7 @@ on:
 
 jobs:
   init:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Initialize builds
     outputs:
       changed_files: ${{ steps.changed_files.outputs.all }}
@@ -22,13 +22,13 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
 
       - name: Get changed files
         id: changed_files
         uses: masesgroup/retrieve-changed-files@v3.0.0
 
-      - name: Get add-ons
+      - name: Get apps
         id: addons
         run: |
           declare -a addons
@@ -37,7 +37,7 @@ jobs:
           done
           echo "addons=${addons[@]}" >> "$GITHUB_OUTPUT"
 
-      - name: Get changed add-ons
+      - name: Get changed apps
         id: changed_addons
         run: |
           declare -a changed_addons
@@ -55,26 +55,30 @@ jobs:
 
           changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
           if [[ -n ${changed} ]]; then
-            echo "Changed add-ons: $changed";
+            echo "Changed apps: $changed";
             echo "changed=true" >> "$GITHUB_OUTPUT";
             echo "addons=[$changed]" >> "$GITHUB_OUTPUT";
           else
-            echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
+            echo "No app had any monitored files changed (${{ env.MONITORED_FILES }})";
           fi
 
   build:
     needs: init
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.runs-on }}
     if: needs.init.outputs.changed == 'true'
-    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
+    name: Build ${{ matrix.arch }} ${{ matrix.addon }} app
     strategy:
       matrix:
         addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
-        arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
+        arch: ["aarch64", "amd64"]
+        include:
+          - runs-on: ubuntu-24.04
+          - runs-on: ubuntu-24.04-arm
+            arch: aarch64
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
 
       - name: Get information
         id: info
@@ -82,7 +86,7 @@ jobs:
         with:
           path: "./${{ matrix.addon }}"
 
-      - name: Check add-on
+      - name: Check app
         id: check
         run: |
           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
@@ -100,15 +104,16 @@ jobs:
 
       - name: Login to DockerHub
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v3.6.0
+        uses: docker/login-action@v3.7.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build ${{ matrix.addon }} add-on
+      - name: Build ${{ matrix.addon }} app
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2025.09.0
+        uses: home-assistant/builder@2025.11.0
         with:
+          image: ${{ matrix.arch }}
           args: |
             ${{ env.BUILD_ARGS }} \
             --${{ matrix.arch }} \

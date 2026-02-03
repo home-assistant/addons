@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.16.0
+- Add beta toggle to switch between Thread 1.3 (stable) and Thread 1.4 (beta)
+- Beta mode uses OpenThread's built-in mDNS instead of mDNSResponder
+
+## 2.15.3
+- Fix inconsistent startup for adapters that remap hardware flow control pins for firmware flashing.
+
+## 2.15.2
+- Add baudrate list option 1000000 (Nordic Semiconductor nRF Connect SDK firmware)
+
 ## 2.15.1
 - Make radio spinel recovery more reliable by clearing source match tables before restoring
 

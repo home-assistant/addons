@@ -1,5 +1,5 @@
 ---
-version: 8.5.1
+version: 8.5.3
 slug: deconz
 name: deCONZ
 description: >-
@@ -25,6 +25,10 @@ init: false
 kernel_modules: true
 options:
   device: null
+  ota_update:
+    bosch: false
+    ikea: false
+    ledvance: false
 panel_icon: mdi:zigbee
 ports:
   40850/tcp: null
@@ -34,6 +38,10 @@ privileged:
   - SYS_RAWIO
 schema:
   device: device(subsystem=tty)
+  ota_update:
+    bosch: bool
+    ikea: bool
+    ledvance: bool
   dbg_info: int(0,2)?
   dbg_aps: int(0,2)?
   dbg_zcl: int(0,1)?

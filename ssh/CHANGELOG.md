@@ -1,5 +1,14 @@
 # Changelog
 
+## 9.22.0
+
+- Upgrade Home Assistant CLI to 4.45.0
+
+## 9.21.0
+
+- Remove support for armhf, armv7, and i386 architectures
+- Upgrade Home Assistant CLI to 4.44.0
+
 ## 9.20.1
 
 - Fix default shell

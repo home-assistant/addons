@@ -12,6 +12,7 @@ declare backbone_if
 declare device
 declare baudrate
 declare flow_control
+declare migrate_flow_control
 declare otbr_log_level
 declare otbr_log_level_int
 declare otbr_rest_listen
@@ -34,8 +35,10 @@ flow_control=""
 
 if bashio::config.true 'flow_control'; then
     flow_control="&uart-flow-control"
+    migrate_flow_control="hardware"
 else
     flow_control="&uart-init-deassert"
+    migrate_flow_control="none"
 fi
 
 otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
@@ -145,7 +148,11 @@ echo "${otbr_rest_listen_port}" >> /tmp/otbr-agent-rest-api
 
 # Migrate OTBR settings to new adapter if needed
 bashio::log.info "Migrating OTBR settings if needed..."
-python3 /usr/local/bin/migrate_otbr_settings.py --adapter "${device}" --baudrate "${baudrate}" --data-dir /data/thread/
+python3 /usr/local/bin/migrate_otbr_settings.py \
+    --adapter "${device}" \
+    --baudrate "${baudrate}" \
+    --flow-control "${migrate_flow_control}" \
+    --data-dir /data/thread/
 
 bashio::log.info "Starting otbr-agent..."
 # shellcheck disable=SC2086

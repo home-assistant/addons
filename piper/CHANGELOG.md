@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.2
+
+- Upgrade to `wyoming-piper` 2.2.2 (wheel fix)
+
 ## 2.2.1
 
 - Upgrade to `wyoming-piper` 2.2.1

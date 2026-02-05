@@ -23,7 +23,11 @@ if bashio::config.exists 'autoflash_firmware'; then
     bashio::addon.option 'autoflash_firmware'
 fi
 
-backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+backbone_if=""
+if bashio::config.has_value 'backbone_interface'; then
+    backbone_if="$(bashio::config 'backbone_interface')"
+fi
+
 device=$(bashio::config 'device')
 
 if bashio::config.has_value 'network_device'; then
@@ -72,10 +76,22 @@ case "${otbr_log_level}" in
         ;;
 esac
 
-# shellcheck disable=SC2086
-if [ -z ${backbone_if} ]; then
-    bashio::log.warning "No primary network interface found! Using static eth0."
-    backbone_if="eth0"
+# Fallback to primary supervisor network interface
+if [ -z "${backbone_if}" ]; then
+    backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+    if [ -n "${backbone_if}" ]; then
+        bashio::log.warning "No network interface configured! Using primary interface instead (${backbone_if})."
+    fi
+fi
+
+# Fallback to first available enabled interface if backbone_if is still empty
+if [ -z "${backbone_if}" ]; then
+    backbone_if="$(ip -br link show up | awk '$1 != "lo" {print $1; exit}')"
+    if [ -z "${backbone_if}" ]; then
+        bashio::exit.nok "No enabled network interface found."
+    fi
+
+    bashio::log.warning "Using fallback interface: ${backbone_if}"
 fi
 
 # shellcheck disable=SC2015

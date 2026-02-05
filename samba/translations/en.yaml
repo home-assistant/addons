@@ -33,6 +33,12 @@ configuration:
       Enable Samba configurations to improve interoperability with Apple
       devices. May cause issues with file systems that do not support xattr
       such as exFAT.
+  encryption:
+    name: Encryption
+    description: >-
+      Configure SMB encryption.
+      SMB3 protocol is used if set to required.
+      Compatibility mode option will be ignored in this case.
   server_signing:
     name: Server signing
     description: >-

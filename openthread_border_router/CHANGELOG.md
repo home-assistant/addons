@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.16.2
+- Fix TREL being disabled by default in beta mode
+
 ## 2.16.1
 - Fix listen address of OTBR Web UI
 

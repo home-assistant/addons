@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.6.0
+
+- Bump deCONZ to 2.32.5 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.32.5)]
+- Renaming from add-on to app complete
+- HTTPS disabled
+
 ## 8.5.3
 
 - Align ingress colors with Home Assistant

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.1
+
+- Upgrade to `wyoming-piper` 2.2.1
+- Add support for new Chinese voices
+
 ## 2.1.1
 
 - Upgrade to `wyoming-piper` 2.1.1

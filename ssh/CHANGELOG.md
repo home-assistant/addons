@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.1
+
+- Fix default shell
+
 ## 10.0.0
 
 - Upgrade to Alpine 3.23

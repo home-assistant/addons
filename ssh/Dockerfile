@@ -23,6 +23,9 @@ RUN \
 ADD https://raw.githubusercontent.com/scopatz/nanorc/master/yaml.nanorc /usr/share/nano/yaml.nanorc
 RUN sed -i 's/^#[[:space:]]*\(include "\/usr\/share\/nano\/\*\.nanorc".*\)/\1/' /etc/nanorc
 
+# Use bash as default shell
+RUN sed -i "s|/bin/sh|/bin/bash|" /etc/passwd
+
 # Home Assistant CLI
 ARG BUILD_ARCH
 ARG CLI_VERSION

@@ -33,3 +33,6 @@ network:
   443/tcp: HTTPS (SSL) Port
   443/udp: HTTP/3 (QUIC) Port, set to same as HTTPS (SSL) port to enable HTTP/3
   80/tcp: HTTP (non-SSL) Port
+  8443/tcp: Port that can be used for custom servers
+  8444/tcp: Port that can be used for custom servers
+  8445/tcp: Port that can be used for custom servers

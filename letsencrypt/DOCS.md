@@ -102,7 +102,6 @@ cloudflare_email: ''
 cloudns_auth_id: ''
 cloudns_auth_password: ''
 cloudns_sub_auth_id: ''
-cloudns_sub_auth_user: ''
 desec_token: ''
 digitalocean_token: ''
 directadmin_password: ''
@@ -112,7 +111,6 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 domainoffensive_token: ''
-dreamhost_api_baseurl: ''
 dreamhost_api_key: ''
 duckdns_token: ''
 dynu_auth_token: ''
@@ -122,7 +120,6 @@ easydns_token: ''
 eurodns_apiKey: ''
 eurodns_applicationId: ''
 gandi_api_key: ''
-gandi_sharing_id: ''
 gandi_token: ''
 gehirn_api_secret: ''
 gehirn_api_token: ''
@@ -136,10 +133,8 @@ infomaniak_api_token: ''
 inwx_password: ''
 inwx_shared_secret: ''
 inwx_username: ''
-ionos_endpoint: ''
 ionos_prefix: ''
 ionos_secret: ''
-joker_domain: ''
 joker_password: ''
 joker_username: ''
 linode_key: ''
@@ -177,7 +172,6 @@ sakuracloud_api_token: ''
 simply_account_name: ''
 simply_api_key: ''
 transip_api_key: ''
-transip_global_key: ''
 transip_username: ''
 websupport_identifier: ''
 websupport_secret_key: ''
@@ -400,7 +394,7 @@ Example credentials file using restricted API Token (recommended):
 
 Previously, Cloudflare’s “Global API Key” was used for authentication. However this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
 
-Example credentials file using Global API Key (NOT RECOMMENDED:
+Example credentials file using Global API Key (NOT RECOMMENDED):
 
   ```yaml
   dns:
@@ -430,7 +424,7 @@ create a new HTTP API user from the `API & Resellers` page on top of your contro
     cloudns_auth_password: ******
   ```
 
-API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope.  You can use either the `sub-auth-id` or the `sub-auth-user` as follows:
+API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope, use `sub-auth-user` as follows:
 
   ```yaml
   email: your.email@example.com
@@ -442,19 +436,6 @@ API Users have full account access.  It is recommended to create an API Sub-user
   dns:
     provider: dns-cloudns
     cloudns_sub_auth_id: 12345
-    cloudns_auth_password: ******
-  ```
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-cloudns
-    cloudns_sub_auth_user: alice
     cloudns_auth_password: ******
   ```
 
@@ -616,9 +597,10 @@ Use of this plugin an API key from DreamHost with `dns-*` permissions. You can g
   challenge: dns
   dns:
     provider: dns-dreamhost
-    dreamhost_baseurl: https://api.dreamhost.com/
     dreamhost_api_key: dreamhost-api-key
   ```
+
+`dreamhost_baseurl` is no longer supported since v6.0.0 and defaults to `https://api.dreamhost.com/`
 
 </details>
 
@@ -906,7 +888,6 @@ Example configuration:
     provider: dns-ionos
     ionos_prefix: YOUR_IONOS_API_KEY_PREFIX
     ionos_secret: YOUR_IONOS_API_KEY_SECRET
-    ionos_endpoint: https://api.hosting.ionos.com
   ```
 
 To obtain the DNS API Key Information, follow the instructions here:
@@ -928,7 +909,6 @@ To obtain the DNS API Key Information, follow the instructions here:
     provider: dns-joker
     joker_username: username
     joker_password: password
-    joker_domain: example.com
   ```
 
 You can find further detailed information here:
@@ -941,7 +921,7 @@ You can find further detailed information here:
 <details>
   <summary>Linode</summary>
 
-To use this app with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4'. **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the app expects a string, not an integer).
+To use this app with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed.
 
   ```yaml
   email: you@mailprovider.com
@@ -953,7 +933,6 @@ To use this app with Linode DNS, first [create a new API/access key](https://www
   dns:
     provider: dns-linode
     linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
-    linode_version: '4'
   ```
 
 </details>
@@ -1276,8 +1255,6 @@ An example configuration:
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
-    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
-    rfc2136_sign_query: true
   ```
 
 </details>
@@ -1376,8 +1353,6 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 
 You will need to generate an API key from the TransIP Control Panel at <https://www.transip.nl/cp/account/api/>.
 
-If you can't use IP whitelisting, set the `transip_global_key` parameter to `'yes'`. See [Certbot TransIP DNS plugin documentation](https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing) for more details.
-
 The propagation limit will be automatically raised to 240 seconds.
 
 Example configuration:
@@ -1392,7 +1367,6 @@ Example configuration:
   dns:
     provider: dns-transip
     transip_username: transip-user
-    transip_global_key: 'no'
     transip_api_key: |
       -----BEGIN PRIVATE KEY-----
       MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ

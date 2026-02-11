@@ -6,6 +6,10 @@ NOTE: It is strongly recommended to make a backup before updating to this versio
 
 This release includes [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) as an optional management UI to support advanced use-cases.
 
+### Other changes
+
+- Update base image to Alpine 3.23
+
 ## 0.29.1
 
 ### Z-Wave JS 15.20.1

@@ -4,7 +4,10 @@
 # Configure OTBR depending on add-on settings
 # ==============================================================================
 
-ot-ctl trel enable
+if bashio::config.true 'beta'; then
+    bashio::log.info "Enabling TREL."
+    ot-ctl trel enable
+fi
 
 if bashio::config.true 'nat64'; then
     bashio::log.info "Enabling NAT64."

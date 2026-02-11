@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.30.0
+## 1.0.0
 
-NOTE: It is strongly recommended to make a backup before updating to this version.
+**NOTE: It is strongly recommended to make a backup before updating to this version.**
 
 This release includes [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) as an optional management UI to support advanced use-cases.
 

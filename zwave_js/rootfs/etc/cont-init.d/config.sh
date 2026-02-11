@@ -479,7 +479,7 @@ if ! bashio::fs.file_exists "/config/settings.json"; then
         )
 
     bashio::var.json \
-        gateway "^${gateway}"
+        gateway "^${gateway}" \
         mqtt "^${mqtt}" \
         > /config/settings.json
 fi

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.30.0
+
+NOTE: It is strongly recommended to make a backup before updating to this version.
+
+This release includes [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) as an optional management UI to support advanced use-cases.
+
 ## 0.29.1
 
 ### Z-Wave JS 15.20.1
@@ -405,7 +411,6 @@
 - Update Inovelli VZW31-SN to FW 1.04
 - Add param 29 (load sense) to HomePro ZDP100
 - Add Yale YDM3109A Smart Lock
-
 
 ### Detailed changelogs
 

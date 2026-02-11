@@ -72,7 +72,14 @@ def serialize_otbr_settings(settings: list[tuple[OtbrSettingsKey, bytes]]) -> by
 
 def is_valid_otbr_settings_file(settings: list[tuple[OtbrSettingsKey, bytes]]) -> bool:
     """Check if parsed settings represent a valid OTBR settings file."""
-    return {OtbrSettingsKey.ACTIVE_DATASET} <= {key for key, _ in settings}
+    for key, value in settings:
+        if key == OtbrSettingsKey.ACTIVE_DATASET:
+            # A real Active Dataset contains Thread TLVs (Network Key, Channel,
+            # etc.) and is typically 80+ bytes. Reject tiny values which are
+            # likely key-ID collisions with the tmp_storage boot-time entry
+            # (time_t of 8 bytes on 64bit systems)
+            return len(value) > 8
+    return False
 
 
 async def get_adapter_hardware_addr(

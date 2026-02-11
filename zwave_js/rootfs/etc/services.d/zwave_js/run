@@ -36,7 +36,7 @@ bashio::log.info "Using ${CONNECTION_TYPE}: ${SERIAL_DEVICE}"
 # Where Z-Wave JS should extract the config files to
 export ZWAVEJS_EXTERNAL_CONFIG=/data/db
 
-# Externally configure Z-Wave JS UI, removing the fields from setttings
+# Externally configure Z-Wave JS UI, removing the fields from settings
 export ZWAVE_PORT=${SERIAL_DEVICE}
 export ZWAVE_EXTERNAL_SETTINGS=/etc/zwave_config.json
 

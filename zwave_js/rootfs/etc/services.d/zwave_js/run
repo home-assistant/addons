@@ -36,12 +36,13 @@ bashio::log.info "Using ${CONNECTION_TYPE}: ${SERIAL_DEVICE}"
 # Send out discovery information to Home Assistant
 ./discovery &
 
-# Set external config directory
+# Where Z-Wave JS should extract the config files to
 export ZWAVEJS_EXTERNAL_CONFIG=/data/db
+
+# Externally configure Z-Wave JS UI, removing the fields from setttings
+export ZWAVE_PORT=${SERIAL_DEVICE}
+export ZWAVE_EXTERNAL_SETTINGS=/etc/zwave_config.json
 
 # Run daemon, passing external config directory in as environment variable
 # shellcheck disable=SC2086
-export ZWAVE_PORT=${SERIAL_DEVICE}
-export ZWAVE_EXTERNAL_SETTINGS=/etc/zwave_config.json
 exec zwave-js-ui
-# exec zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json --disable-dns-sd

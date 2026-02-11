@@ -6,4 +6,4 @@ build_from:
   armv7: ghcr.io/home-assistant/armv7-base:3.21
   i386: ghcr.io/home-assistant/i386-base:3.21
 args:
-  ZWAVEJS_UI_VERSION: 11.10.0
+  ZWAVEJS_UI_VERSION: 11.11.0

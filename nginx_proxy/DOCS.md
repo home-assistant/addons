@@ -74,6 +74,8 @@ The filename of the NGINX configuration for the default server, found in the `/s
 
 The filename(s) of the NGINX configuration for the additional servers, found in the `/share` directory.
 
+Ports 8443, 8444, and 8445 are available for custom servers. Enable them in the add-on network configuration before use.
+
 ### Option `cloudflare` (optional)
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.

@@ -28,6 +28,9 @@ ports:
   443/tcp: 443
   443/udp: null
   80/tcp: null
+  8443/tcp: null
+  8444/tcp: null
+  8445/tcp: null
 schema:
   domain: str
   hsts: str

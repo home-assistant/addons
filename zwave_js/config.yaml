@@ -6,9 +6,6 @@ description: Control a Z-Wave network with Home Assistant Z-Wave JS
 url: https://github.com/home-assistant/addons/tree/master/zwave_js
 arch:
   - amd64
-  - i386
-  - armhf
-  - armv7
   - aarch64
 discovery:
   - zwave_js

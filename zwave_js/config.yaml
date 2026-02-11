@@ -63,7 +63,6 @@ schema:
   lr_s2_access_control_key: match(|[0-9a-fA-F]{32,32})?
   lr_s2_authenticated_key: match(|[0-9a-fA-F]{32,32})?
   network_key: match(|[0-9a-fA-F]{32,32})?
-  emulate_hardware: bool?
   disable_controller_recovery: bool?
   disable_watchdog: bool?
   safe_mode: bool?

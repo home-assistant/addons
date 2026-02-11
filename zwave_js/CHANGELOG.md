@@ -10,6 +10,7 @@ This release includes [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) as
 
 - Update base image to Alpine 3.23
 - Drop support for armhf, armv7 and i386 architectures
+- Remove `emulate_hardware` configuration option
 
 ## 0.29.1
 

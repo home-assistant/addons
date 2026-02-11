@@ -24,9 +24,6 @@ if bashio::var.has_value "${DEVICE}"; then
 elif bashio::var.has_value "${SOCKET}"; then
     CONNECTION_TYPE="socket"
     SERIAL_DEVICE="${SOCKET}"
-# elif bashio::config.true 'emulate_hardware'; then
-#     CONNECTION_TYPE="mock"
-#     SERIAL_DEVICE="--mock-driver"
 else
     bashio::exit.nok "Either 'device' or 'socket' must be configured"
 fi

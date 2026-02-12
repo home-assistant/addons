@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.16.3
+- Ignore ephemeral temporary settings files in migration
+
 ## 2.16.2
 - Fix TREL being disabled by default in beta mode
 

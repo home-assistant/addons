@@ -17,6 +17,7 @@ from universal_silabs_flasher.spinel import (
 CONNECT_TIMEOUT = 10
 AFTER_DISCONNECT_DELAY = 1
 SETTINGS_FILE_PATTERN = re.compile(r"^\d+_[0-9a-f]+\.data$")
+MIN_ACTIVE_DATASET_SIZE = 32
 
 
 class OtbrSettingsKey(Enum):
@@ -75,6 +76,50 @@ def serialize_otbr_settings(settings: list[tuple[OtbrSettingsKey, bytes]]) -> by
 def is_valid_otbr_settings_file(settings: list[tuple[OtbrSettingsKey, bytes]]) -> bool:
     """Check if parsed settings represent a valid OTBR settings file."""
     return {OtbrSettingsKey.ACTIVE_DATASET} <= {key for key, _ in settings}
+
+
+def get_active_dataset(
+    settings: list[tuple[OtbrSettingsKey, bytes]],
+) -> bytes | None:
+    """Get the active dataset value from parsed settings."""
+    for key, value in settings:
+        if key == OtbrSettingsKey.ACTIVE_DATASET:
+            return value
+    return None
+
+
+def recover_settings_from_backup(
+    settings_path: Path,
+) -> list[tuple[OtbrSettingsKey, bytes]] | None:
+    """Find the most recent valid backup with a proper active dataset."""
+    backups = []
+
+    for backup_path in settings_path.parent.glob(settings_path.name + ".backup-*"):
+        otbr_settings = parse_otbr_settings(backup_path.read_bytes())
+
+        active_dataset = get_active_dataset(otbr_settings)
+        if active_dataset is None or len(active_dataset) < MIN_ACTIVE_DATASET_SIZE:
+            continue
+
+        mod_time = backup_path.stat().st_mtime
+        backups.append((mod_time, backup_path, otbr_settings))
+
+    if not backups:
+        return None
+
+    _, backup_path, backup_settings = sorted(backups, reverse=True)[0]
+    print(f"Found valid backup: {backup_path}")
+
+    return [
+        (key, value)
+        for key, value in backup_settings
+        if key
+        in (
+            OtbrSettingsKey.ACTIVE_DATASET,
+            OtbrSettingsKey.PENDING_DATASET,
+            OtbrSettingsKey.CHILD_INFO,
+        )
+    ]
 
 
 async def get_adapter_hardware_addr(
@@ -192,9 +237,36 @@ async def main() -> None:
 
     if expected_settings_path.exists():
         if most_recent_settings_path == expected_settings_path:
+            active_dataset = get_active_dataset(most_recent_settings)
+
+            if (
+                active_dataset is not None
+                and len(active_dataset) >= MIN_ACTIVE_DATASET_SIZE
+            ):
+                print(
+                    f"Adapter settings file {expected_settings_path} is the most recently used, skipping"
+                )
+                return
+
+            # Active dataset is too small, likely corrupted by erroneous
+            # tmp file migration. Try to recover from a backup.
             print(
-                f"Adapter settings file {expected_settings_path} is the most recently used, skipping"
+                f"Active dataset in {expected_settings_path} is only"
+                f" {len(active_dataset) if active_dataset else 0} bytes,"
+                f" attempting recovery from backup"
             )
+
+            recovered = recover_settings_from_backup(expected_settings_path)
+
+            if recovered is None:
+                print("No valid backup found, cannot recover")
+                return
+
+            backup_file(expected_settings_path)
+            expected_settings_path.write_bytes(
+                serialize_otbr_settings(recovered)
+            )
+            print(f"Recovered settings written to {expected_settings_path}")
             return
 
         # If the settings file is old, we should "delete" it

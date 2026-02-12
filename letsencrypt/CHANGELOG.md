@@ -23,6 +23,9 @@ breaking changes below.
 
 ### Other changes
 
+- Add generic `dns-lego` provider for any lego-supported DNS provider
+  - Specify `lego_provider` (lego provider name) and `lego_env` (list of KEY=VALUE env vars)
+  - Supports 180+ DNS providers without needing to add new certbot plugins
 - Replace individual certbot DNS plugins with certbot-dns-multi (lego-based)
 - Migrate from Alpine to Debian base image (trixie-2025.12.2) for lego support
 - Deprecate dns-azure provider: uses legacy certbot-dns-azure plugin

@@ -42,6 +42,7 @@ There are two options to obtain certificates.
   <summary>Supported DNS providers</summary>
 
 ```txt
+dns-lego (generic, supports any lego DNS provider)
 dns-azure
 dns-cloudflare
 dns-cloudns
@@ -93,6 +94,8 @@ dns-websupport
 
 ```yaml
 propagation_seconds: 60
+lego_env: []
+lego_provider: ''
 aws_access_key_id: ''
 aws_secret_access_key: ''
 azure_config: ''
@@ -325,6 +328,54 @@ Do NOT include the `dns:` key itself when pasting into the UI field, as this wil
     cloudflare_email: your.email@example.com
     cloudflare_api_key: 31242lk3j4ljlfdwsjf0
   ```
+
+</details>
+
+<details>
+  <summary>DNS challenge using generic lego provider</summary>
+
+The `dns-lego` provider lets you use **any** DNS provider supported by the
+[lego ACME library](https://go-acme.github.io/lego/dns/) - even those not
+listed as named providers in this documentation. You specify the lego provider
+name and its required environment variables directly.
+
+To find the provider name and required environment variables for your DNS
+provider, visit the
+[lego DNS providers documentation](https://go-acme.github.io/lego/dns/).
+
+Example using [acme-dns](https://go-acme.github.io/lego/dns/acme-dns/):
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-lego
+    lego_provider: acme-dns
+    lego_env:
+      - "ACME_DNS_API_BASE=http://10.0.0.8:4443"
+      - "ACME_DNS_STORAGE_PATH=/share/acme-dns-accounts.json"
+    propagation_seconds: 120
+  ```
+
+Example using [Hetzner](https://go-acme.github.io/lego/dns/hetzner/) (equivalent to using `dns-hetzner`):
+
+  ```yaml
+  dns:
+    provider: dns-lego
+    lego_provider: hetzner
+    lego_env:
+      - "HETZNER_API_TOKEN=your-api-token"
+  ```
+
+**Notes:**
+
+- Each `lego_env` entry must be in `KEY=VALUE` format. Values containing `=` signs are supported (e.g., `KEY=val=ue`).
+- For providers that require credential files, place the file in the `/share/` folder and reference it as `/share/filename` in the environment variable.
+- The `propagation_seconds` setting generates a timeout variable based on the uppercased provider name (e.g., `HETZNER_PROPAGATION_TIMEOUT`). If your provider uses a different variable prefix, you can include the correct timeout variable directly in `lego_env` and omit `propagation_seconds`.
 
 </details>
 
@@ -1406,6 +1457,7 @@ You can in addition find the files via the **Samba** app within the "ssl" share.
 ## Supported DNS providers
 
 ```txt
+dns-lego (generic, supports any lego DNS provider)
 dns-azure
 dns-cloudflare
 dns-cloudns

@@ -150,8 +150,13 @@ if [ "${CHALLENGE}" == "dns" ]; then
         # All other providers use dns-multi
         LEGO_PROVIDER="${LEGO_PROVIDERS[$DNS_PROVIDER]}"
         if [ -z "${LEGO_PROVIDER}" ]; then
-            bashio::log.error "Unknown DNS provider: ${DNS_PROVIDER}"
-            exit 1
+            LEGO_PROVIDER="$(bashio::config 'dns.lego_provider')"
+            if [ -n "${LEGO_PROVIDER}" ]; then
+                bashio::log.info "Using custom lego provider from config: ${LEGO_PROVIDER}"
+            else
+              bashio::log.error "Unknown DNS provider: ${DNS_PROVIDER}"
+              exit 1
+            fi
         fi
 
         # Start building the dns-multi credentials file
@@ -159,6 +164,25 @@ if [ "${CHALLENGE}" == "dns" ]; then
 
         # Provider-specific credential mapping to lego environment variables
         case "${DNS_PROVIDER}" in
+        'dns-lego')
+            bashio::config.require 'dns.lego_provider'
+
+            # Add custom environment variables for lego provider
+            if bashio::config.has_value 'dns.lego_env'; then
+                LEGO_ENV_COUNT=$(bashio::config 'dns.lego_env | length')
+                for (( i=0; i < LEGO_ENV_COUNT; i++ )); do
+                    env_entry="$(bashio::config "dns.lego_env[${i}]")"
+                    if [[ "${env_entry}" != *"="* ]]; then
+                        bashio::log.error "Invalid lego_env entry (must be KEY=VALUE): ${env_entry}"
+                        exit 1
+                    fi
+                    echo "${env_entry}" >> "${DNS_MULTI_CREDS}"
+                done
+            else
+                bashio::log.error "dns.lego_env must be configured for dns-lego provider"
+                exit 1
+            fi
+            ;;
         # CloudFlare
         'dns-cloudflare')
             if bashio::config.exists 'dns.cloudflare_api_token'; then

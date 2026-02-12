@@ -87,6 +87,9 @@ schema:
     joker_domain: str?
     joker_password: str?
     joker_username: str?
+    lego_env:
+      - str
+    lego_provider: str?
     linode_key: str?
     # Invalid since v6.0.0, will be completely removed later
     linode_version: str?
@@ -138,6 +141,7 @@ schema:
         dns-inwx|\
         dns-ionos|\
         dns-joker|\
+        dns-lego|\
         dns-linode|\
         dns-loopia|\
         dns-luadns|\

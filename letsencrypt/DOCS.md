@@ -475,7 +475,7 @@ create a new HTTP API user from the `API & Resellers` page on top of your contro
     cloudns_auth_password: ******
   ```
 
-API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope, use `sub-auth-user` as follows:
+API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope, use `sub-auth-id` as follows:
 
   ```yaml
   email: your.email@example.com

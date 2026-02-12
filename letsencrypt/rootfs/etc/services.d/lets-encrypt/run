@@ -501,7 +501,10 @@ if [ "${CHALLENGE}" == "dns" ]; then
             TRANSIP_RSA_KEY=/data/transip-rsa.key
             touch "${TRANSIP_RSA_KEY}"
             chmod 0600 "${TRANSIP_RSA_KEY}"
-            bashio::config 'dns.transip_api_key' | openssl rsa -out "${TRANSIP_RSA_KEY}" 2>/dev/null
+            if ! bashio::config 'dns.transip_api_key' | openssl rsa -out "${TRANSIP_RSA_KEY}" 2>/dev/null; then
+                bashio::log.error "Failed to process TransIP API RSA key. Ensure 'dns.transip_api_key' contains a valid RSA private key."
+                exit 1
+            fi
             echo "TRANSIP_PRIVATE_KEY_PATH=${TRANSIP_RSA_KEY}" >> "${DNS_MULTI_CREDS}"
 
             if (( PROPAGATION_SECONDS < 240 )); then

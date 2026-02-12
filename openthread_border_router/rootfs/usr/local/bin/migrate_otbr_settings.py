@@ -5,6 +5,7 @@ import re
 import zigpy.serial
 from pathlib import Path
 from serialx import PinState
+import logging
 
 from enum import Enum
 from universal_silabs_flasher.spinel import (
@@ -13,6 +14,8 @@ from universal_silabs_flasher.spinel import (
     PropertyID,
     ResetReason,
 )
+
+_LOGGER = logging.getLogger(__name__)
 
 CONNECT_TIMEOUT = 10
 AFTER_DISCONNECT_DELAY = 1
@@ -47,6 +50,7 @@ MIGRATED_KEYS = frozenset(
 
 def parse_otbr_settings(data: bytes) -> list[tuple[OtbrSettingsKey, bytes]]:
     """Parses an OTBR binary settings file."""
+    orig_data = data
     settings = []
 
     while data:
@@ -54,18 +58,26 @@ def parse_otbr_settings(data: bytes) -> list[tuple[OtbrSettingsKey, bytes]]:
         if not key_bytes:
             break
 
-        assert len(key_bytes) == 2
+        if len(key_bytes) != 2:
+            raise ValueError("Key is not 2 bytes long")
         key = int.from_bytes(key_bytes, "little")
 
         length_bytes = data[2:4]
-        assert len(length_bytes) == 2
+        if len(length_bytes) != 2:
+            raise ValueError("Length is not 2 bytes long")
 
         length = int.from_bytes(length_bytes, "little")
         value = data[4 : 4 + length]
-        assert len(value) == length
+        if len(value) != length:
+            raise ValueError(
+                f"Value is truncated, expected {length} bytes, got {len(value)} bytes"
+            )
 
         settings.append((OtbrSettingsKey(key), value))
         data = data[4 + length :]
+
+    if serialize_otbr_settings(settings) != orig_data:
+        raise ValueError("Parsed settings do not match original data")
 
     return settings
 
@@ -114,15 +126,18 @@ def find_valid_settings_files(
             continue
 
         mod_time = settings_path.stat().st_mtime
-        otbr_settings = parse_otbr_settings(settings_path.read_bytes())
 
-        # Ensure our parsing is valid
-        assert serialize_otbr_settings(otbr_settings) == settings_path.read_bytes()
+        try:
+            otbr_settings = parse_otbr_settings(settings_path.read_bytes())
+        except ValueError:
+            _LOGGER.debug(
+                f"{settings_path} is not a valid TLV file, skipping", exc_info=True
+            )
+            continue
 
         if not is_valid_otbr_settings_file(otbr_settings):
-            print(
-                f"Settings file {settings_path} is not a valid OTBR settings file,"
-                f" skipping"
+            _LOGGER.info(
+                f"TLV file {settings_path} is not a valid OTBR settings file, skipping"
             )
             continue
 
@@ -139,7 +154,13 @@ def find_best_backup_settings(
     backups = []
 
     for backup_path in settings_path.parent.glob(settings_path.name + ".backup-*"):
-        otbr_settings = parse_otbr_settings(backup_path.read_bytes())
+        try:
+            otbr_settings = parse_otbr_settings(backup_path.read_bytes())
+        except ValueError:
+            _LOGGER.debug(
+                f"{backup_path} is not a valid TLV file, skipping", exc_info=True
+            )
+            continue
 
         active_dataset = get_active_dataset(otbr_settings)
         if active_dataset is None or len(active_dataset) < MIN_ACTIVE_DATASET_SIZE:
@@ -152,7 +173,7 @@ def find_best_backup_settings(
         return None
 
     _, backup_path, backup_settings = sorted(backups, reverse=True)[0]
-    print(f"Found valid backup: {backup_path}")
+    _LOGGER.info(f"Found valid backup: {backup_path}")
 
     return filter_settings_for_migration(backup_settings)
 
@@ -227,7 +248,7 @@ def try_recover_corrupted_settings(
     # Active dataset is missing or too small, likely corrupted by erroneous
     # tmp file migration. Try to recover from a backup.
     active_dataset = get_active_dataset(current_settings)
-    print(
+    _LOGGER.info(
         f"Active dataset in {expected_settings_path} is only"
         f" {len(active_dataset) if active_dataset else 0} bytes,"
         f" attempting recovery from backup"
@@ -236,7 +257,7 @@ def try_recover_corrupted_settings(
     recovered = find_best_backup_settings(expected_settings_path)
 
     if recovered is None:
-        print("No valid backup found, cannot recover")
+        _LOGGER.info("No valid backup found, cannot recover")
         return None
 
     backup_file(expected_settings_path)
@@ -255,7 +276,7 @@ def resolve_migration_settings(
     _, most_recent_path, _ = all_settings[0]
 
     if most_recent_path == expected_settings_path:
-        print(
+        _LOGGER.info(
             f"Adapter settings file {expected_settings_path} is the most"
             f" recently used, skipping"
         )
@@ -263,7 +284,7 @@ def resolve_migration_settings(
 
     # Adapter either has a stale settings file or no settings file at all.
     if expected_settings_path.exists():
-        print(
+        _LOGGER.info(
             f"Settings file for adapter already exists at"
             f" {expected_settings_path} but appears to be old, archiving"
         )
@@ -273,9 +294,7 @@ def resolve_migration_settings(
 
 
 async def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Migrate OTBR settings to new adapter"
-    )
+    parser = argparse.ArgumentParser(description="Migrate OTBR settings to new adapter")
     parser.add_argument(
         "--data-dir", type=Path, help="Path to OTBR data directory", required=True
     )
@@ -310,13 +329,13 @@ async def main() -> None:
 
     if recovered is not None:
         expected_settings_path.write_bytes(serialize_otbr_settings(recovered))
-        print(f"Recovered settings written to {expected_settings_path}")
+        _LOGGER.info(f"Recovered settings written to {expected_settings_path}")
         return
 
     all_settings = find_valid_settings_files(args.data_dir)
 
     if not all_settings:
-        print("No existing settings files found, skipping")
+        _LOGGER.info("No existing settings files found, skipping")
         return
 
     new_settings = resolve_migration_settings(expected_settings_path, all_settings)
@@ -325,7 +344,7 @@ async def main() -> None:
         return
 
     expected_settings_path.write_bytes(serialize_otbr_settings(new_settings))
-    print(f"Wrote new settings file to {expected_settings_path}")
+    _LOGGER.info(f"Wrote new settings file to {expected_settings_path}")
 
     await asyncio.sleep(AFTER_DISCONNECT_DELAY)
 

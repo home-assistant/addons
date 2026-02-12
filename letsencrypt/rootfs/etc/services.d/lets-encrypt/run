@@ -43,6 +43,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Use propagation seconds: ${PROPAGATION_SECONDS}"
 
     # Check if this is a legacy provider (not supported by dns-multi)
+    # shellcheck disable=SC2076
     if [[ " ${LEGACY_PROVIDERS} " =~ " ${DNS_PROVIDER} " ]]; then
         bashio::log.info "Using dedicated certbot plugin for ${DNS_PROVIDER}"
 

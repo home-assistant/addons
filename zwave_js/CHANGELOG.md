@@ -6,11 +6,15 @@
 
 This release includes [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) as an optional management UI to support advanced use-cases.
 
+### Breaking changes
+
+- Version 1.0.0 of the add-on requires version 2025.12.0 or higher of Home Assistant Core.
+- Drop support for armhf, armv7 and i386 architectures
+- Remove `emulate_hardware` configuration option
+
 ### Other changes
 
 - Update base image to Alpine 3.23
-- Drop support for armhf, armv7 and i386 architectures
-- Remove `emulate_hardware` configuration option
 
 ## 0.29.1
 

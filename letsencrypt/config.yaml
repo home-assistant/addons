@@ -38,6 +38,7 @@ schema:
     # Developer note: please add a new plugin alphabetically into all lists
     aws_access_key_id: str?
     aws_secret_access_key: str?
+    aws_profile: str?
     azure_config: str?
     cloudflare_api_key: str?
     cloudflare_api_token: str?

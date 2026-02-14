@@ -1,21 +1,23 @@
 ---
-version: 0.29.1
+version: 1.0.0
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
 url: https://github.com/home-assistant/addons/tree/master/zwave_js
 arch:
   - amd64
-  - i386
-  - armhf
-  - armv7
   - aarch64
 discovery:
   - zwave_js
 hassio_api: true
-homeassistant: 2025.5.0
+homeassistant: 2025.12.0
 image: homeassistant/{arch}-addon-zwave_js
 init: false
+ingress: true
+ingress_port: 8091
+ingress_stream: true
+panel_icon: mdi:z-wave
+panel_title: Z-Wave
 map:
   - addon_config:rw
 options:
@@ -32,6 +34,7 @@ options:
   lr_s2_authenticated_key: ""
 ports:
   3000/tcp: null
+  8091/tcp: null
 schema:
   device: device(subsystem=tty)?
   socket: str?
@@ -60,7 +63,6 @@ schema:
   lr_s2_access_control_key: match(|[0-9a-fA-F]{32,32})?
   lr_s2_authenticated_key: match(|[0-9a-fA-F]{32,32})?
   network_key: match(|[0-9a-fA-F]{32,32})?
-  emulate_hardware: bool?
   disable_controller_recovery: bool?
   disable_watchdog: bool?
   safe_mode: bool?

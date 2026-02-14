@@ -2,7 +2,7 @@
 
 ## 5.4.11
 
-- Update certbot-dns-hetzner to 3.0.0 to allow use of hetzner's new cloud API
+- Update certbot-dns-hetzner to 3.0.0 to allow use of Hetzner's new cloud API
 
 ## 5.4.10
 

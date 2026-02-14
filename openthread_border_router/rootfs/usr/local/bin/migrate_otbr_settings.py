@@ -1,6 +1,7 @@
 import asyncio
 import argparse
 import datetime
+import re
 import zigpy.serial
 from pathlib import Path
 from serialx import PinState
@@ -15,6 +16,7 @@ from universal_silabs_flasher.spinel import (
 
 CONNECT_TIMEOUT = 10
 AFTER_DISCONNECT_DELAY = 1
+SETTINGS_FILE_PATTERN = re.compile(r"^\d+_[0-9a-f]+\.data$")
 
 
 class OtbrSettingsKey(Enum):
@@ -161,6 +163,9 @@ async def main() -> None:
     all_settings = []
 
     for settings_path in args.data_dir.glob("*.data"):
+        if not SETTINGS_FILE_PATTERN.match(settings_path.name):
+            continue
+
         mod_time = settings_path.stat().st_mtime
         otbr_settings = parse_otbr_settings(settings_path.read_bytes())
 

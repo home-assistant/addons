@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.4
+
+- Fix race condition during startup if web frontend is enabled
+
 ## 2.16.3
 - Ignore ephemeral temporary settings files in migration
 

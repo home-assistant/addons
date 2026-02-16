@@ -524,7 +524,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
         esac
 
         if [ -n "${PROPAGATION_SECONDS}" ]; then
-            PROVIDER_UPPER=$(echo "${LEGO_PROVIDER}" | tr '[:lower:]' '[:upper:]')
+            PROVIDER_UPPER=$(echo "${LEGO_PROVIDER}" | tr '[:lower:]-' '[:upper:]_')
             echo "${PROVIDER_UPPER}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
         fi
 

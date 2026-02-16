@@ -2,7 +2,7 @@
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
-Home Assistant app (formerly known as add-on) that uses [openWakeWord](https://github.com/dscripka/openwakeword) for wake word detection.
+Home Assistant app (formerly known as add-on) that uses [pyopen-wakeword](https://github.com/rhasspy/pyopen-wakeword) for wake word detection.
 
 Part of the [Year of Voice](https://www.home-assistant.io/blog/2022/12/20/year-of-voice/).
 

@@ -53,8 +53,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
                 bashio::config.require 'dns.eurodns_applicationId'
                 bashio::config.require 'dns.eurodns_apiKey'
 
-                echo -e "dns_eurodns_apiKey = $(bashio::config 'dns.eurodns_apiKey')\n" \
-                      "dns_eurodns_applicationId = $(bashio::config 'dns.eurodns_applicationId')\n" > "${DNS_API_KEY}"
+                echo "dns_eurodns_apiKey = $(bashio::config 'dns.eurodns_apiKey')" > "${DNS_API_KEY}"
+                echo "dns_eurodns_applicationId = $(bashio::config 'dns.eurodns_applicationId')" >> "${DNS_API_KEY}"
 
                 ACME_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "${DNS_API_KEY}" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
                 ;;
@@ -64,8 +64,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
                 bashio::config.require 'dns.gehirn_api_token'
                 bashio::config.require 'dns.gehirn_api_secret'
 
-                echo -e "dns_gehirn_api_secret = $(bashio::config 'dns.gehirn_api_secret')\n" \
-                      "dns_gehirn_api_token = $(bashio::config 'dns.gehirn_api_token')" > "${DNS_API_KEY}"
+                echo "dns_gehirn_api_secret = $(bashio::config 'dns.gehirn_api_secret')" > "${DNS_API_KEY}"
+                echo "dns_gehirn_api_token = $(bashio::config 'dns.gehirn_api_token')" >> "${DNS_API_KEY}"
 
                 ACME_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "${DNS_API_KEY}")
                 ;;

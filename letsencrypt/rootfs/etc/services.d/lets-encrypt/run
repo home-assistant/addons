@@ -85,14 +85,14 @@ if [ "${CHALLENGE}" == "dns" ]; then
         case "${DNS_PROVIDER}" in
             # Azure
             'dns-azure')
-                bashio::log.warning "The dns-azure provider is deprecated, please migrate to certbot-dns-multi configuration"
+                bashio::log.warning "The dns-azure provider is deprecated, please migrate to generic lego configuration using dns-lego provider"
 
                 # File is copied during container init by file-structure.sh
                 ACME_ARGUMENTS+=("--authenticator" "dns-azure" "--dns-azure-config" "/data/azure_creds" "--dns-azure-propagation-seconds" "${PROPAGATION_SECONDS}")
                 ;;
             # Hurricane Electric DNS
             'dns-he')
-                bashio::log.warning "The dns-he provider is deprecated, please migrate to certbot-dns-multi configuration"
+                bashio::log.warning "The dns-he provider is deprecated, please migrate to generic lego configuration using dns-lego provider"
 
                 bashio::config.require 'dns.he_user'
                 bashio::config.require 'dns.he_pass'

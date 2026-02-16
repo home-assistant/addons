@@ -1,7 +1,7 @@
 ---
 # yamllint disable rule:line-length
 name: Bug Report Form
-description: Report an issue related to one of the official add-ons.
+description: Report an issue related to one of the official apps (formerly known as add-ons).
 body:
   - type: markdown
     attributes:
@@ -50,7 +50,7 @@ body:
     validations:
       required: true
     attributes:
-      label: Which add-on are you reporting an issue with?
+      label: Which app are you reporting an issue with?
       options:
         - CEC Scanner
         - File editor
@@ -79,8 +79,8 @@ body:
     validations:
       required: true
     attributes:
-      label: What is the version of the add-on?
-      description: Can be found in [Settings -> Add-ons](https://my.home-assistant.io/redirect/supervisor/) -> the add-on
+      label: What is the version of the app?
+      description: Can be found in [Settings > Apps](https://my.home-assistant.io/redirect/supervisor/) -> the app
 
   - type: markdown
     attributes:
@@ -124,10 +124,10 @@ body:
 
   - type: textarea
     attributes:
-      label: Anything in the add-on logs that might be useful for us?
+      label: Anything in the app logs that might be useful for us?
       description: >
-        Addon Logs can be found in [Settings -> System -> Logs](https://my.home-assistant.io/redirect/logs/)
-        then choose the add-on in the top right.
+        App Logs can be found in [Settings > System > Logs](https://my.home-assistant.io/redirect/logs/)
+        then choose the app in the top right.
 
         [![Open your Home Assistant instance and show your Home Assistant logs.](https://my.home-assistant.io/badges/logs.svg)](https://my.home-assistant.io/redirect/logs/)
       render: txt

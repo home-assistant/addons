@@ -1,8 +1,17 @@
 # Changelog
 
-## 3.15.0
+## 4.1.0
 
 - add use_ssl_backend option to support cases where the http section is using the ssl_certificate, ssl_key options
+
+## 4.0.0
+
+- Drop builds of unsupported architectures
+- Update base image to Alpine 3.23 (base image tag 3.23-2025.12.2)
+
+## 3.15.0
+
+- Support HTTP/3 (QUIC)
 
 ## 3.14.0
 

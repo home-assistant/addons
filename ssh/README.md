@@ -1,4 +1,4 @@
-# Home Assistant Add-on: SSH server
+# Home Assistant App: SSH server
 
 Allow logging in remotely to Home Assistant using SSH or just the web terminal with Ingress.
 

@@ -1,16 +1,13 @@
 ---
-version: 5.4.9
-breaking_versions: [5.3.0]
+version: 6.0.0
+breaking_versions: [5.3.0, 6.0.0]
 slug: letsencrypt
 name: Let's Encrypt
 description: Manage certificate from Let's Encrypt
 url: https://github.com/home-assistant/addons/tree/master/letsencrypt
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 boot: manual
 image: homeassistant/{arch}-addon-letsencrypt
 init: false
@@ -45,6 +42,7 @@ schema:
     cloudns_auth_id: int?
     cloudns_auth_password: str?
     cloudns_sub_auth_id: int?
+    # Invalid since v6.0.0, will be completely removed later
     cloudns_sub_auth_user: str?
     desec_token: str?
     digitalocean_token: str?
@@ -56,6 +54,7 @@ schema:
     dnsmadeeasy_secret_key: str?
     domainoffensive_token: str?
     dreamhost_api_key: str?
+    # Invalid since v6.0.0, will be completely removed later
     dreamhost_baseurl: str?
     duckdns_token: str?
     dynu_auth_token: str?
@@ -65,6 +64,7 @@ schema:
     eurodns_apiKey: str?
     eurodns_applicationId: str?
     gandi_api_key: str?
+    # Invalid since v6.0.0, will be completely removed later
     gandi_sharing_id: str?
     gandi_token: str?
     gehirn_api_secret: str?
@@ -79,13 +79,19 @@ schema:
     inwx_password: str?
     inwx_shared_secret: str?
     inwx_username: str?
+    # Invalid since v6.0.0, will be completely removed later
     ionos_endpoint: str?
     ionos_prefix: str?
     ionos_secret: str?
+    # Invalid since v6.0.0, will be completely removed later
     joker_domain: str?
     joker_password: str?
     joker_username: str?
+    lego_env:
+      - str?
+    lego_provider: str?
     linode_key: str?
+    # Invalid since v6.0.0, will be completely removed later
     linode_version: str?
     loopia_password: str?
     loopia_user: str?
@@ -135,6 +141,7 @@ schema:
         dns-inwx|\
         dns-ionos|\
         dns-joker|\
+        dns-lego|\
         dns-linode|\
         dns-loopia|\
         dns-luadns|\
@@ -158,12 +165,14 @@ schema:
     rfc2136_port: str?
     rfc2136_secret: str?
     rfc2136_server: str?
+    # Invalid since v6.0.0, will be completely removed later
     rfc2136_sign_query: bool?
     sakuracloud_api_secret: str?
     sakuracloud_api_token: str?
     simply_account_name: str?
     simply_api_key: str?
     transip_api_key: str?
+    # Invalid since v6.0.0, will be completely removed later
     transip_global_key: list(yes|no)?
     transip_username: str?
     websupport_identifier: str?

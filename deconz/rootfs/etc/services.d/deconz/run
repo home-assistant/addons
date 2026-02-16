@@ -96,5 +96,6 @@ exec deCONZ \
     --dbg-http="${DBG_HTTP}" \
     --upnp=0 \
     --http-port=40850 \
+    --https-port=0 \
     --ws-port=8081 \
     --dev="${DECONZ_DEVICE}"

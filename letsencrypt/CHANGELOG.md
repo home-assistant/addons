@@ -1,5 +1,36 @@
 # Changelog
 
+## 6.0.0
+
+This release migrates most DNS challenge providers from individual certbot
+plugins to [certbot-dns-multi](https://github.com/alexzorin/certbot-dns-multi),
+which uses the [lego ACME library](https://go-acme.github.io/lego/) under the
+hood. This significantly reduces maintenance burden and makes it easier to
+support new DNS providers in the future. Existing configurations will continue
+to work for most providers without changes. A few provider-specific options
+that have no lego equivalent have been removed or are now ignored - see the
+breaking changes below.
+
+### Breaking changes
+
+- Remove `cloudns_sub_auth_user` option (not supported by lego)
+- Remove `rfc2136_sign_query` option (not supported by lego)
+- Remove `transip_global_key` option (not supported by lego)
+- Remove `linode_version` option: only Linode API v4 is supported
+- Ignore `dreamhost_baseurl` option (not supported by lego, default URL is used)
+- Ignore `gandi_sharing_id`, `ionos_endpoint`, `joker_domain` options (not supported by lego)
+- Drop unsupported armhf, armv7, and i386 architectures
+
+### Other changes
+
+- Add generic `dns-lego` provider for any lego-supported DNS provider
+  - Specify `lego_provider` (lego provider name) and `lego_env` (list of KEY=VALUE env vars)
+  - Supports 180+ DNS providers without needing to add new certbot plugins
+- Replace individual certbot DNS plugins with certbot-dns-multi (lego-based)
+- Migrate from Alpine to Debian base image (trixie-2025.12.2) for lego support
+- Deprecate dns-azure provider: uses legacy certbot-dns-azure plugin
+- Deprecate dns-he provider: uses legacy certbot-dns-hurricane-electric plugin
+
 ## 5.4.10
 
 - Update certbot-dns-desec to 1.3.1

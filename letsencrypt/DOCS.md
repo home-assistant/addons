@@ -1,20 +1,20 @@
-# Home Assistant Add-on: Letsencrypt
+# Home Assistant App: Letsencrypt
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "letsencrypt" add-on and click it.
+1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
+2. Find the "letsencrypt" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The Letsencrypt add-on can be configured via the add-on interface.
+The Letsencrypt app can be configured via the app interface.
 The configuration via YAML is also possible, see the examples below.
 
-Navigate in your Home Assistant frontend to the add-ons overview page at
-**Settings** -> **Add-ons**, and pick the **Let's Encrypt** add-on. On the top,
+Navigate in your Home Assistant frontend to the apps overview page at
+**Settings** > **Apps**, and pick the **Let's Encrypt** app. On the top,
 pick the **Configuration** page.
 
 Provide the domain names to issue certificates for. Additionally, provide the
@@ -42,6 +42,7 @@ There are two options to obtain certificates.
   <summary>Supported DNS providers</summary>
 
 ```txt
+dns-lego (generic, supports any lego DNS provider)
 dns-azure
 dns-cloudflare
 dns-cloudns
@@ -93,6 +94,8 @@ dns-websupport
 
 ```yaml
 propagation_seconds: 60
+lego_env: []
+lego_provider: ''
 aws_access_key_id: ''
 aws_secret_access_key: ''
 azure_config: ''
@@ -102,7 +105,6 @@ cloudflare_email: ''
 cloudns_auth_id: ''
 cloudns_auth_password: ''
 cloudns_sub_auth_id: ''
-cloudns_sub_auth_user: ''
 desec_token: ''
 digitalocean_token: ''
 directadmin_password: ''
@@ -112,7 +114,6 @@ dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
 domainoffensive_token: ''
-dreamhost_api_baseurl: ''
 dreamhost_api_key: ''
 duckdns_token: ''
 dynu_auth_token: ''
@@ -122,7 +123,6 @@ easydns_token: ''
 eurodns_apiKey: ''
 eurodns_applicationId: ''
 gandi_api_key: ''
-gandi_sharing_id: ''
 gandi_token: ''
 gehirn_api_secret: ''
 gehirn_api_token: ''
@@ -136,10 +136,8 @@ infomaniak_api_token: ''
 inwx_password: ''
 inwx_shared_secret: ''
 inwx_username: ''
-ionos_endpoint: ''
 ionos_prefix: ''
 ionos_secret: ''
-joker_domain: ''
 joker_password: ''
 joker_username: ''
 linode_key: ''
@@ -177,7 +175,6 @@ sakuracloud_api_token: ''
 simply_account_name: ''
 simply_api_key: ''
 transip_api_key: ''
-transip_global_key: ''
 transip_username: ''
 websupport_identifier: ''
 websupport_secret_key: ''
@@ -190,15 +187,15 @@ websupport_secret_key: ''
 The certificate files will be available within the "ssl" share after successful
 request of the certificates.
 
-By default other addons are referring to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share.
+By default, other apps are referring to the correct path of the certificates.
+You can in addition find the files via the **Samba** app within the "ssl" share.
 
-For example, to use the certificates provided by this add-on to enable TLS on
+For example, to use the certificates provided by this app to enable TLS on
 Home Assistant in the default paths, add the following lines to Home
 Assistant's main configuration file, `configuration.yaml`:
 
 ```yaml
-# TLS with letsencrypt add-on
+# TLS with letsencrypt app
 http:
   server_port: 443
   ssl_certificate: /ssl/fullchain.pem
@@ -207,22 +204,22 @@ http:
 
 ### Create & renew certificates
 
-The letsencrypt add-on creates the certificates once it is started: navigate
-to **Settings** -> **Add-ons**, pick the **Let's Encrypt** add-on, click the
-**START** button on the bottom. The add-on stops once the certificates are
+The letsencrypt app creates the certificates once it is started: navigate
+to **Settings** > **Apps**, pick the **Let's Encrypt** app, click the
+**START** button on the bottom. The app stops once the certificates are
 created.
 
-Certificates are not renewed automatically by the plugin. The add-on has to be
-started again to renew certificates. If the add-on is started again, it checks
+Certificates are not renewed automatically by the plugin. The app has to be
+started again to renew certificates. If the app is started again, it checks
 if the certificates are due for renewal. This is usually the case 30 days
 before the certificates' due date. If the certificates are not due for renewal,
-the add-on terminates without changes. If the certificates are due for renewal,
+the app terminates without changes. If the certificates are due for renewal,
 new certificates will be created.
 
-There are multiple ways how the add-on can be started to check/renew the
+There are multiple ways how the app can be started to check/renew the
 certificates. One way to automate the certificate renewal it to configure a
 renewal via [Home Assistant automation][haauto], and then restarting this
-automation every night via the [Supervisor Addon restart action][supervisorrestart].
+automation every night via the [Supervisor app restart action][supervisorrestart].
 
 [haauto]: https://www.home-assistant.io/docs/automation/editor/
 [supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#action-hassioaddon_restart
@@ -235,7 +232,7 @@ if a renewal is due, and will request it if needed.
 <details>
   <summary>Changing the ACME Server</summary>
 
-By default, the addon uses [Let’s Encrypt’s default servers](https://letsencrypt.org/getting-started/). You can instruct the addon to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
+By default, the app uses [Let’s Encrypt’s default servers](https://letsencrypt.org/getting-started/). You can instruct the app to use a different ACME server by providing the field `acme_server` with the URL of the server’s ACME directory:
 
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
@@ -264,7 +261,7 @@ When you specify a custom ACME server, the *Dry Run* and *Issue test certificate
   key_type: 'rsa'
   ```
 
-  When the `key_type` parameter is not set, the add-on will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
+  When the `key_type` parameter is not set, the app will attempt to auto-detect an existing certificate's key type or use `ecdsa` by default.
 
 </details>
 
@@ -335,6 +332,54 @@ Do NOT include the `dns:` key itself when pasting into the UI field, as this wil
 </details>
 
 <details>
+  <summary>DNS challenge using generic lego provider</summary>
+
+The `dns-lego` provider lets you use **any** DNS provider supported by the
+[lego ACME library](https://go-acme.github.io/lego/dns/) - even those not
+listed as named providers in this documentation. You specify the lego provider
+name and its required environment variables directly.
+
+To find the provider name and required environment variables for your DNS
+provider, visit the
+[lego DNS providers documentation](https://go-acme.github.io/lego/dns/).
+
+Example using [acme-dns](https://go-acme.github.io/lego/dns/acme-dns/):
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-lego
+    lego_provider: acme-dns
+    lego_env:
+      - "ACME_DNS_API_BASE=http://10.0.0.8:4443"
+      - "ACME_DNS_STORAGE_PATH=/share/acme-dns-accounts.json"
+    propagation_seconds: 120
+  ```
+
+Example using [Hetzner](https://go-acme.github.io/lego/dns/hetzner/) (equivalent to using `dns-hetzner`):
+
+  ```yaml
+  dns:
+    provider: dns-lego
+    lego_provider: hetzner
+    lego_env:
+      - "HETZNER_API_TOKEN=your-api-token"
+  ```
+
+**Notes:**
+
+- Each `lego_env` entry must be in `KEY=VALUE` format. Values containing `=` signs are supported (e.g., `KEY=val=ue`).
+- For providers that require credential files, place the file in the `/share/` folder and reference it as `/share/filename` in the environment variable.
+- The `propagation_seconds` setting generates a timeout variable based on the uppercased provider name (e.g., `HETZNER_PROPAGATION_TIMEOUT`). If your provider uses a different variable prefix, you can include the correct timeout variable directly in `lego_env` and omit `propagation_seconds`.
+
+</details>
+
+<details>
   <summary>RSA key</summary>
 
   ```yaml
@@ -370,7 +415,7 @@ dns:
 
 Please copy your credentials file "azure.txt" into the "share" shared folder
 on the Home Assistant host before starting the service. One way is to use the
-"Samba" add on to make the folder available via network or SSH Add-on. You
+**Samba** app to make the folder available via network or SSH App. You
 can find information on the required file format in the [documentation][certbot-dns-azure-conf]
 for the Certbot Azure plugin.
 
@@ -400,7 +445,7 @@ Example credentials file using restricted API Token (recommended):
 
 Previously, Cloudflare’s “Global API Key” was used for authentication. However this key can access the entire Cloudflare API for all domains in your account, meaning it could cause a lot of damage if leaked.
 
-Example credentials file using Global API Key (NOT RECOMMENDED:
+Example credentials file using Global API Key (NOT RECOMMENDED):
 
   ```yaml
   dns:
@@ -430,7 +475,7 @@ create a new HTTP API user from the `API & Resellers` page on top of your contro
     cloudns_auth_password: ******
   ```
 
-API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope.  You can use either the `sub-auth-id` or the `sub-auth-user` as follows:
+API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope, use `sub-auth-id` as follows:
 
   ```yaml
   email: your.email@example.com
@@ -442,19 +487,6 @@ API Users have full account access.  It is recommended to create an API Sub-user
   dns:
     provider: dns-cloudns
     cloudns_sub_auth_id: 12345
-    cloudns_auth_password: ******
-  ```
-
-  ```yaml
-  email: your.email@example.com
-  domains:
-    - your.domain.tld
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  challenge: dns
-  dns:
-    provider: dns-cloudns
-    cloudns_sub_auth_user: alice
     cloudns_auth_password: ******
   ```
 
@@ -584,7 +616,7 @@ Use of this plugin requires a configuration file containing DNS Made Easy API cr
 <details>
   <summary>domainoffensive</summary>
 
-Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   `Domains` -> `Settings` -> *Let's Encrypt API token`.
+Use of this plugin requires an API token, obtained from domainoffensive account page in the menu under   **Domains** > **Settings** > **Let's Encrypt API token**.
 
   ```yaml
   email: your.email@example.com
@@ -616,9 +648,10 @@ Use of this plugin an API key from DreamHost with `dns-*` permissions. You can g
   challenge: dns
   dns:
     provider: dns-dreamhost
-    dreamhost_baseurl: https://api.dreamhost.com/
     dreamhost_api_key: dreamhost-api-key
   ```
+
+`dreamhost_baseurl` is no longer supported since v6.0.0 and defaults to `https://api.dreamhost.com/`
 
 </details>
 
@@ -720,7 +753,7 @@ Due to the wide scope of this `API key`, this is not the recommended setup.
   challenge: dns
   dns:
     provider: dns-gandi
-    gandi_token: gandi-personalaccesstoken 
+    gandi_token: gandi-personalaccesstoken
 ```
 
 [Full Documentation](https://github.com/obynio/certbot-plugin-gandi?tab=readme-ov-file)
@@ -789,7 +822,7 @@ To obtain the ACME DNS API Key and Secret, follow the instructions here:
 
 Please copy your credentials file "google.json" into the "share" shared folder on the Home Assistant host before starting the service.
 
-One way is to use the "Samba" add on to make the folder available via network or SSH Add-on.
+One way is to use the **Samba** app to make the folder available via network or SSH App.
 
 The credential file can be created and downloaded when creating the service user within the Google cloud.
 You can find additional information regarding the required permissions in the "credentials" section here:
@@ -906,7 +939,6 @@ Example configuration:
     provider: dns-ionos
     ionos_prefix: YOUR_IONOS_API_KEY_PREFIX
     ionos_secret: YOUR_IONOS_API_KEY_SECRET
-    ionos_endpoint: https://api.hosting.ionos.com
   ```
 
 To obtain the DNS API Key Information, follow the instructions here:
@@ -928,7 +960,6 @@ To obtain the DNS API Key Information, follow the instructions here:
     provider: dns-joker
     joker_username: username
     joker_password: password
-    joker_domain: example.com
   ```
 
 You can find further detailed information here:
@@ -941,7 +972,7 @@ You can find further detailed information here:
 <details>
   <summary>Linode</summary>
 
-To use this addon with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed. Newly keys will likely use API version '4'. **Important**: single quotes are required around the `linode_version` number; failure to do this will cause a type error (as the addon expects a string, not an integer).
+To use this app with Linode DNS, first [create a new API/access key](https://www.linode.com/docs/platform/api/getting-started-with-the-linode-api#get-an-access-token), with read/write permissions to DNS; no other permissions are needed.
 
   ```yaml
   email: you@mailprovider.com
@@ -953,7 +984,6 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
   dns:
     provider: dns-linode
     linode_key: 865c9f462c7d54abc1ad2dbf79c938bc5c55575fdaa097ead2178ee68365ab3e
-    linode_version: '4'
   ```
 
 </details>
@@ -961,7 +991,7 @@ To use this addon with Linode DNS, first [create a new API/access key](https://w
 <details>
   <summary>Loopia</summary>
 
-To use this addon with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
+To use this app with Loopia DNS, first [create a new API user](https://customerzone.loopia.com/api/), with the following minimum required permissions:
 
 - `addZoneRecord` - Required to create DNS records
 - `getZoneRecords` - Required to verify DNS records
@@ -1031,7 +1061,7 @@ The API key assigned to your mijn.host account can be found in your mijn.host Co
 <details>
   <summary>Namecheap</summary>
 
-To use this addon with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
+To use this app with Namecheap, you must first enable API access on your account. See "Enabling API Access" and "Whitelisting IP" [here](https://www.namecheap.com/support/api/intro/) for details and requirements.
 
 Example configuration:
 
@@ -1243,7 +1273,7 @@ You will need to set up a server with RFC2136 (Dynamic Update) support with a TK
 
 You don't need to publish this; just copy the key data into your named.conf file:
 
-  ```shell  
+  ```shell
   key "letsencrypt" {
     algorithm hmac-sha512;
     secret "xxxxxxxxxxxxxxxxxx==";
@@ -1251,14 +1281,14 @@ You don't need to publish this; just copy the key data into your named.conf file
   ```
 
 And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
-  
+
   ```shell
      update-policy {
         grant letsencrypt name _acme-challenge.your.domain.tld. txt;
      };
   ```
 
-For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the add-on) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
+For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the app) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
 
 An example configuration:
 
@@ -1276,8 +1306,6 @@ An example configuration:
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
-    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
-    rfc2136_sign_query: true
   ```
 
 </details>
@@ -1363,7 +1391,7 @@ dns:
   dns:
     provider: dns-simply
     simply_account_name: Sxxxxxx
-    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key. 
+    simply_api_key: YOUR_API_KEY # Replace 'YOUR_API_KEY' with your actual Simply.com API key.
   ```
 
 The `simply_account_name` refers to the Simply.com account number (Sxxxxxx), and the `simply_api_key` is the account's API key.
@@ -1375,8 +1403,6 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
   <summary>TransIP</summary>
 
 You will need to generate an API key from the TransIP Control Panel at <https://www.transip.nl/cp/account/api/>.
-
-If you can't use IP whitelisting, set the `transip_global_key` parameter to `'yes'`. See [Certbot TransIP DNS plugin documentation](https://github.com/hsmade/certbot-dns-transip/blob/master/USAGE.rst#ip-whitelistsing) for more details.
 
 The propagation limit will be automatically raised to 240 seconds.
 
@@ -1392,7 +1418,6 @@ Example configuration:
   dns:
     provider: dns-transip
     transip_username: transip-user
-    transip_global_key: 'no'
     transip_api_key: |
       -----BEGIN PRIVATE KEY-----
       MII..ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -1426,12 +1451,13 @@ An identifier and secret key have to be obtained to use this module (see <https:
 
 The certificate files will be available within the "ssl" share after successful request of the certificates.
 
-By default other addons are referring to the correct path of the certificates.
-You can in addition find the files via the "samba" addon within the "ssl" share.
+By default other apps are referring to the correct path of the certificates.
+You can in addition find the files via the **Samba** app within the "ssl" share.
 
 ## Supported DNS providers
 
 ```txt
+dns-lego (generic, supports any lego DNS provider)
 dns-azure
 dns-cloudflare
 dns-cloudns

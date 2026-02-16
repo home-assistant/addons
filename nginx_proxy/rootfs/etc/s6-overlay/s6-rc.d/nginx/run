@@ -7,10 +7,14 @@
 
 set -e
 
+QUIC_PORT="$(bashio::addon.port '443/udp')"
+if [[ -z "$QUIC_PORT" ]]; then
+  QUIC_PORT=null
+fi
+
 bashio::log.info "Merging options & variables for template"
-# shellcheck disable=SC2046
-JSON_CONF=$(jq --arg port $(bashio::core.port) \
-    '({options: .}) + ({variables: {port: $port}})' \
+JSON_CONF=$(jq --argjson port "$(bashio::core.port)" --argjson quic_port "$QUIC_PORT" \
+    '({options: .}) + ({variables: {port: $port, quic_port: $quic_port}})' \
     /data/options.json)
 bashio::log.info "Generating nginx.conf from template in /etc/nginx/nginx.conf.gtpl"
 # shellcheck disable=SC2086

@@ -149,7 +149,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
         )
 
         # All other providers use dns-multi
-        LEGO_PROVIDER="${LEGO_PROVIDERS[$DNS_PROVIDER]}"
+        LEGO_PROVIDER="${LEGO_PROVIDERS[$DNS_PROVIDER]-}"
         if [ -z "${LEGO_PROVIDER}" ]; then
             LEGO_PROVIDER="$(bashio::config 'dns.lego_provider')"
             if [ -n "${LEGO_PROVIDER}" ]; then

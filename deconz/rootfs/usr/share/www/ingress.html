@@ -8,24 +8,24 @@
     <style>
       :root {
         /* Home Assistant Light Theme */
-        --primary-color: #03a9f4;
+        --primary-color: #ffffff;
         --primary-text-color: rgba(0, 0, 0, 0.87);
         --secondary-text-color: rgba(0, 0, 0, 0.6);
         --disabled-text-color: rgba(0, 0, 0, 0.38);
 
         --background-color: #fafafa;
-        --card-background-color: #ffffff;
+        --card-background-color: var(--primary-color);
         --divider-color: rgba(0, 0, 0, 0.12);
 
-        --toolbar-background: #009AC7;
-        --toolbar-text-color: #fff;
+        --toolbar-background: var(--primary-color);
+        --toolbar-text-color: var(--primary-text-color);
 
-        --button-bg: #009AC7;
+        --button-bg: #009Ac7;
         --button-text-color: #fff;
         --button-hover-color: #006787;
 
-        --link-color: var(--primary-color);
-        --link-hover-color: #007aa3;
+        --link-color: #009Ac7;
+        --link-hover-color: #006787;
 
         --focus-color: #989898;
 
@@ -35,24 +35,24 @@
       @media (prefers-color-scheme: dark) {
         :root {
           /* Home Assistant Dark Theme */
-          --primary-color: #03a9f4;
+          --primary-color: #1c1c1c;
           --primary-text-color: #e1e1e1;
           --secondary-text-color: #9c9c9c;
           --disabled-text-color: rgba(255, 255, 255, 0.3);
 
           --background-color: #111111;
-          --card-background-color: #1C1C1C;
+          --card-background-color: var(--primary-color);
           --divider-color: rgba(255, 255, 255, 0.12);
 
-          --toolbar-background: #101E24;
+          --toolbar-background: var(--primary-color);
           --toolbar-text-color: var(--primary-text-color);
 
-          --button-bg: #009AC7;
+          --button-bg: #009Ac7;
           --button-text-color: #fff;
           --button-hover-color: #006787;
 
-          --link-color: var(--primary-color);
-          --link-hover-color: #007aa3;
+          --link-color: #009Ac7;
+          --link-hover-color: #006787;
 
           --focus-color: #989898;
 
@@ -79,6 +79,7 @@
         font-size: 20px;
         height: 55px;
         background-color: var(--toolbar-background);
+        border: 1px solid var(--divider-color);
         color: var(--toolbar-text-color);
         padding: 0 24px;
         font-weight: 400;

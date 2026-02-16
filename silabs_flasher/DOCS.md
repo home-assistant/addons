@@ -1,25 +1,25 @@
-# Home Assistant Add-on: Silicon Labs Flasher Add-on
+# Home Assistant App: Silicon Labs Flasher App
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons, Backup & Supervisor** -> **Add-on Store**.
-2. Find the "Silicon Labs Flasher" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **App Store**.
+2. Find the "Silicon Labs Flasher" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The add-on needs a Silicon Labs based wireless module accessible through a
+The app needs a Silicon Labs based wireless module accessible through a
 serial port (like the module on Home Assistant Yellow, Home Assistant
 SkyConnect/ZBT-1 or other USB based wireless adapters).
 
-1. Select the correct `device` in the add-on configuration tab and press `Save`.
-2. Start the add-on.
+1. Select the correct `device` in the app configuration tab and press `Save`.
+2. Start the app.
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 | Configuration       | Description                                            |
 |---------------------|--------------------------------------------------------|

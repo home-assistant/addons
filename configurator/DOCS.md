@@ -1,25 +1,25 @@
-# Home Assistant Add-on: File editor
+# Home Assistant App: File editor
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on store**.
-2. Find the "File editor" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** > **Apps** > **Install app**.
+2. Find the "File editor" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-In general, this add-on requires no configuration from your end.
+In general, this app requires no configuration from your end.
 
 1. Toggle the "Show in sidebar" option, which adds the File editor to the main menu.
-2. Start the add-on.
+2. Start the app.
 3. Refresh your browser, the "File editor" is now visible in the sidebar.
 4. Click on the "File editor" menu option and start configuring!
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 ```yaml
 dirsfirst: false
@@ -39,11 +39,11 @@ Set it to `true` to list directories first, `false` otherwise.
 ### Option: `enforce_basepath` (required)
 
 If set to `true`, access is limited to files within the `/homeassistant` directory
-(also known as the `/config` folder inside Home Assisant itself).
+(also known as the `/config` folder inside Home Assistant itself).
 
 ### Option: `git` (required)
 
-If set to `true`, add-on will initialize git for directories which support it.
+If set to `true`, the app will initialize git for directories that support it.
 
 ### Option: `ignore_pattern` (required)
 
@@ -56,7 +56,7 @@ A list of filenames containing SSH private keys. These can be used to allow for 
 
 ## Known issues and limitations
 
-- This add-on can only be used via Ingress and has no direct access.
+- This app can only be used via Ingress and has no direct access.
 
 ## Support
 

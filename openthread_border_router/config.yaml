@@ -1,5 +1,5 @@
 ---
-version: 2.15.3
+version: 2.16.3
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -31,6 +31,7 @@ options:
   otbr_log_level: notice
   firewall: true
   nat64: false
+  beta: false
 ports:
   8080/tcp: null
   8081/tcp: null
@@ -45,4 +46,5 @@ schema:
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
   nat64: bool
+  beta: bool?
 startup: services

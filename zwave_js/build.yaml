@@ -7,4 +7,4 @@ build_from:
   i386: ghcr.io/home-assistant/i386-base:3.21
 args:
   ZWAVEJS_SERVER_VERSION: 3.4.0
-  ZWAVEJS_VERSION: 15.15.0
+  ZWAVEJS_VERSION: 15.20.1

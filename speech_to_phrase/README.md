@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Speech to phrase
+# Home Assistant App: Speech to phrase
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 

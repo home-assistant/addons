@@ -1,5 +1,19 @@
 # Changelog
 
+## 10.0.1
+
+- Fix default shell
+
+## 10.0.0
+
+- Upgrade to Alpine 3.23
+- Upgrade Home Assistant CLI to 4.46.0
+- Use ttyd from Alpine package repository
+
+## 9.22.0
+
+- Upgrade Home Assistant CLI to 4.45.0
+
 ## 9.21.0
 
 - Remove support for armhf, armv7, and i386 architectures

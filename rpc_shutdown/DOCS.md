@@ -60,18 +60,18 @@ Show a custom message on the screen of the computer that will be shutdown.
 
 ## Home Assistant configuration
 
-Use the following inside Home Assistant service call to use it:
+Use the following inside Home Assistant action call to use it:
 
 ```yaml
-service: hassio.addon_stdin
+action: hassio.app_stdin
 data:
-  addon: core_rpc_shutdown
+  app: core_rpc_shutdown
   input: test-pc
 ```
 
 Each line explained:
 
-`service: hassio.app_stdin`: Use hassio.addon_stdin service to send data over STDIN to an app.
+`action: hassio.app_stdin`: Use hassio.app_stdin service to send data over STDIN to an app.
 `data.app: core_rpc_shutdown`: Tells the service to send the command to this app.
 `data.input: test-pc`: Alias name created for the computer in the app configuration, and shuts that one down.
 

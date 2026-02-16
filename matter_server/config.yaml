@@ -33,6 +33,7 @@ schema:
   log_level_sdk: list(automation|detail|progress|error|none)?
   beta: bool?
   enable_test_net_dcl: bool?
+  ble_proxy: bool?
   bluetooth_adapter_id: int?
   matter_server_args:
     - str?

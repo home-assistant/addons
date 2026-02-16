@@ -286,10 +286,10 @@ if [ "${CHALLENGE}" == "dns" ]; then
         # Gandi Live DNS (v5)
         'dns-gandi')
             if bashio::config.exists 'dns.gandi_token'; then
-                bashio::log.warning "Using Gandi personal access token (deprecated)"
+                bashio::log.info "Using Gandi personal access token"
                 echo "GANDIV5_PERSONAL_ACCESS_TOKEN=$(bashio::config 'dns.gandi_token')" >> "${DNS_MULTI_CREDS}"
             elif bashio::config.exists 'dns.gandi_api_key'; then
-                bashio::log.info "Using Gandi API key"
+                bashio::log.warning "Using Gandi API key (deprecated)"
                 echo "GANDIV5_API_KEY=$(bashio::config 'dns.gandi_api_key')" >> "${DNS_MULTI_CREDS}"
             fi
             ;;

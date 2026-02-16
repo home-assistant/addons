@@ -97,4 +97,5 @@ configuration:
       change this setting if you know what you are doing and/or you are asked
       to.
 network:
-  3000/tcp: Z-Wave JS communication
+  3000/tcp: Z-Wave JS WebSocket communication port
+  8091/tcp: Z-Wave JS UI web port

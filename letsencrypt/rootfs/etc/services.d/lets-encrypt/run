@@ -107,7 +107,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
         # Use certbot-dns-multi for all other providers
         bashio::log.info "Using certbot-dns-multi for ${DNS_PROVIDER}"
 
-        ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
+        # Some providers use a different env var prefix than the uppercased provider name
+        PROVIDER_ENV_PREFIX=""
 
         # Map config provider names to lego provider names
         declare -A LEGO_PROVIDERS=(
@@ -221,9 +222,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
         'dns-digitalocean')
             bashio::config.require 'dns.digitalocean_token'
             echo "DO_AUTH_TOKEN=$(bashio::config 'dns.digitalocean_token')" >> "${DNS_MULTI_CREDS}"
-            # Uppercased provider name differs from variable prefix, set propagation timeout here
-            echo "DO_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
-            PROPAGATION_SECONDS=""
+            # Uppercased provider name differs from variable prefix
+            PROVIDER_ENV_PREFIX="DO"
             ;;
 
         # DirectAdmin
@@ -309,9 +309,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
             bashio::config.require 'dns.google_creds'
             # File is copied during container init by file-structure.sh
             echo "GCE_SERVICE_ACCOUNT_FILE=/data/google.json" >> "${DNS_MULTI_CREDS}"
-            # Uppercased provider name differs from variable prefix, set propagation timeout here
-            echo "GCE_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
-            PROPAGATION_SECONDS=""
+            # Uppercased provider name differs from variable prefix
+            PROVIDER_ENV_PREFIX="GCE"
             ;;
 
         # Hetzner
@@ -480,9 +479,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
                 AWS_REGION="$(bashio::config 'dns.aws_region')"
             fi
             echo "AWS_REGION=${AWS_REGION}" >> "${DNS_MULTI_CREDS}"
-            # Uppercased provider name differs from variable prefix, set propagation timeout here
-            echo "AWS_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
-            PROPAGATION_SECONDS=""
+            # Uppercased provider name differs from variable prefix
+            PROVIDER_ENV_PREFIX="AWS"
             ;;
 
         # SakuraCloud
@@ -532,11 +530,13 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ;;
         esac
 
-        # Set generic propagation timeout if not set specifically above
-        if [ -n "${PROPAGATION_SECONDS}" ]; then
-            PROVIDER_UPPER=$(echo "${LEGO_PROVIDER}" | tr '[:lower:]-' '[:upper:]_')
-            echo "${PROVIDER_UPPER}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
+        # Set propagation timeout env var
+        if [ -z "${PROVIDER_ENV_PREFIX}" ]; then
+            PROVIDER_ENV_PREFIX=$(echo "${LEGO_PROVIDER}" | tr '[:lower:]-' '[:upper:]_')
         fi
+        echo "${PROVIDER_ENV_PREFIX}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
+
+        ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
     fi
 else
     bashio::log.info "Selected HTTP verification"

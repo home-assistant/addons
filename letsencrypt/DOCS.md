@@ -97,6 +97,7 @@ propagation_seconds: 60
 lego_env: []
 lego_provider: ''
 aws_access_key_id: ''
+aws_region: ''
 aws_secret_access_key: ''
 azure_config: ''
 cloudflare_api_key: ''
@@ -1325,6 +1326,8 @@ An example configuration:
     aws_access_key_id: 0123456789ABCDEF0123
     aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
   ```
+
+The configuration also takes `aws_region` which defaults to `us-east-1` (Route 53 is a global AWS service). Set it only if you need to use a different region endpoint.
 
 For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
 

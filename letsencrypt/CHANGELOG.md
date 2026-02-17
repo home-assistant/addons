@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.1
+
+- Fix Route 53 DNS provider failing with "Missing Region" error
+- Add optional `aws_region` configuration option (defaults to `us-east-1`)
+
 ## 6.0.0
 
 This release migrates most DNS challenge providers from individual certbot

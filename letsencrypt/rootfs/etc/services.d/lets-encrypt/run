@@ -547,7 +547,7 @@ if bashio::config.has_value 'acme_server'; then
           | sed 's/----- /-----\n/g' | sed 's/ -----/\n-----/g' \
           | openssl x509  > /usr/local/share/ca-certificates/acme_root_ca.crt \
           && update-ca-certificates --fresh \
-          && export REQUESTS_CA_BUNDLE=/etc/ssl/cert.pem
+          && export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
     fi
 else
     # Relevant only for default Let's Encrypt servers.

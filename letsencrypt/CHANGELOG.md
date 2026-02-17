@@ -24,6 +24,7 @@ breaking changes below.
 - Remove `linode_version` option: only Linode API v4 is supported
 - Ignore `dreamhost_baseurl` option (not supported by lego, default URL is used)
 - Ignore `gandi_sharing_id`, `ionos_endpoint`, `joker_domain` options (not supported by lego)
+- Hetzner option `hetzner_api_token` now requires Hetzner Cloud API token, old Hetzner DNS token is no longer supported
 - Drop unsupported armhf, armv7, and i386 architectures
 
 ### Other changes

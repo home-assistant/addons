@@ -859,7 +859,7 @@ You will need to create the dynamic TXT record from within the dns.he.net interf
 <details>
   <summary>Hetzner</summary>
 
-Use of this plugin requires a Hetzner DNS API personal access token. You can create one on the Hetzner [DNS website](https://dns.hetzner.com/settings/api-token).
+Use of this plugin requires a Hetzner Cloud API token. See the Hetzner Docs on [Generating an API token](https://docs.hetzner.com/cloud/api/getting-started/generating-api-token/).
 
   ```yaml
   email: your.email@example.com
@@ -870,7 +870,7 @@ Use of this plugin requires a Hetzner DNS API personal access token. You can cre
   challenge: dns
   dns:
     provider: dns-hetzner
-    hetzner_api_token: hetzner-personal-access-token
+    hetzner_api_token: hetzner-api-token
   ```
 
 [Full Documentation](https://github.com/ctrlaltcoop/certbot-dns-hetzner)

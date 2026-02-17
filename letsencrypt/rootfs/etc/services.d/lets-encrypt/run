@@ -530,12 +530,13 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ;;
         esac
 
+        # Set generic propagation timeout if not set specifically above
         if [ -n "${PROPAGATION_SECONDS}" ]; then
             PROVIDER_UPPER=$(echo "${LEGO_PROVIDER}" | tr '[:lower:]-' '[:upper:]_')
             echo "${PROVIDER_UPPER}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
         fi
 
-        ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}")
+        ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
     fi
 else
     bashio::log.info "Selected HTTP verification"

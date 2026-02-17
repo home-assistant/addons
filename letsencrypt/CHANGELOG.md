@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.2
+
+- Fix propagation seconds not being correctly applied to certbot-dns-multi providers
+
 ## 6.0.1
 
 - Fix Route 53 DNS provider failing with "Missing Region" error

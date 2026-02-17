@@ -107,6 +107,8 @@ if [ "${CHALLENGE}" == "dns" ]; then
         # Use certbot-dns-multi for all other providers
         bashio::log.info "Using certbot-dns-multi for ${DNS_PROVIDER}"
 
+        ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
+
         # Map config provider names to lego provider names
         declare -A LEGO_PROVIDERS=(
             ["dns-cloudflare"]="cloudflare"
@@ -535,8 +537,6 @@ if [ "${CHALLENGE}" == "dns" ]; then
             PROVIDER_UPPER=$(echo "${LEGO_PROVIDER}" | tr '[:lower:]-' '[:upper:]_')
             echo "${PROVIDER_UPPER}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
         fi
-
-        ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
     fi
 else
     bashio::log.info "Selected HTTP verification"

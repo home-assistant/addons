@@ -471,6 +471,13 @@ if [ "${CHALLENGE}" == "dns" ]; then
             bashio::config.require 'dns.aws_secret_access_key'
             echo "AWS_ACCESS_KEY_ID=$(bashio::config 'dns.aws_access_key_id')" >> "${DNS_MULTI_CREDS}"
             echo "AWS_SECRET_ACCESS_KEY=$(bashio::config 'dns.aws_secret_access_key')" >> "${DNS_MULTI_CREDS}"
+            # Lego's AWS SDK requires a region to resolve the Route53 service endpoint.
+            # Route53 is a global service, so us-east-1 is the standard default.
+            AWS_REGION="us-east-1"
+            if bashio::config.has_value 'dns.aws_region'; then
+                AWS_REGION="$(bashio::config 'dns.aws_region')"
+            fi
+            echo "AWS_REGION=${AWS_REGION}" >> "${DNS_MULTI_CREDS}"
             # Uppercased provider name differs from variable prefix, set propagation timeout here
             echo "AWS_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
             PROPAGATION_SECONDS=""

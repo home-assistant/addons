@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.3
+
+- Fix issuing certificates when `acme_root_ca_cert` is set
+
 ## 6.0.2
 
 - Fix propagation seconds not being correctly applied to certbot-dns-multi providers

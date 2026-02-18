@@ -1,5 +1,5 @@
 ---
-version: 6.0.2
+version: 6.0.3
 breaking_versions: [5.3.0, 6.0.0]
 slug: letsencrypt
 name: Let's Encrypt

@@ -54,7 +54,8 @@ RUN \
         python3-dev \
         python3-pip \
         rustc \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /root/.cache
 
 # Copy data
 COPY rootfs /

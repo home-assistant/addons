@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.0
+
+**NOTE: It is strongly recommended to make a backup before updating to this version.**
+
+This release includes [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) as an optional management UI to support advanced use-cases.
+
+### Breaking changes
+
+- Version 1.0.0 of the add-on requires version 2025.12.0 or higher of Home Assistant Core.
+- Drop support for armhf, armv7 and i386 architectures
+- Remove `emulate_hardware` configuration option
+
+### Other changes
+
+- Update base image to Alpine 3.23
+
 ## 0.29.1
 
 ### Z-Wave JS 15.20.1
@@ -405,7 +421,6 @@
 - Update Inovelli VZW31-SN to FW 1.04
 - Add param 29 (load sense) to HomePro ZDP100
 - Add Yale YDM3109A Smart Lock
-
 
 ### Detailed changelogs
 

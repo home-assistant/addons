@@ -8,11 +8,6 @@ configuration:
     description: >-
       Instead of using a physical device, you can connect to a Z-Wave adapter
       via a socket.
-  emulate_hardware:
-    name: Enable Emulated Hardware
-    description: >-
-      If you don't have a USB stick, you can use a fake stick for testing
-      purposes.
   log_level:
     name: Log Level
     description: This option sets the log level of Z-Wave JS.
@@ -102,4 +97,5 @@ configuration:
       change this setting if you know what you are doing and/or you are asked
       to.
 network:
-  3000/tcp: Z-Wave JS communication
+  3000/tcp: Z-Wave JS WebSocket communication port
+  8091/tcp: Z-Wave JS UI web port

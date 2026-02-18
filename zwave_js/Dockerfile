@@ -1,15 +1,15 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-ARG ZWAVEJS_SERVER_VERSION
-ARG ZWAVEJS_VERSION
+ARG ZWAVEJS_UI_VERSION
 
 # Environment configuration
 ENV \
     S6_KILL_GRACETIME=30000 \
-    S6_SERVICES_GRACETIME=30000
+    S6_SERVICES_GRACETIME=30000 \
+    STORE_DIR=/config
 
-# Install Z-Wave JS
+# Install Z-Wave JS UI
 WORKDIR /usr/src
 RUN \
     set -x \
@@ -22,15 +22,10 @@ RUN \
         linux-headers \
         python3 \
     \
-    && npm install --force \
-        "zwave-js@${ZWAVEJS_VERSION}" \
-        "@zwave-js/server@${ZWAVEJS_SERVER_VERSION}" \
+    && npm install -g "zwave-js-ui@${ZWAVEJS_UI_VERSION}" \
     \
-    && npm rebuild --build-from-source @serialport/bindings-cpp \
     && apk del --no-cache \
         .build-dependencies
 
 WORKDIR /
 COPY rootfs /
-
-ENV PATH=/usr/src/node_modules/.bin:$PATH

@@ -387,10 +387,10 @@ fi
 rf_region_integer=${rf_region_integer_map["${rf_region}"]}
 
 if [[ "${rf_region_integer}" -eq 255 ]]; then
-    rf_json=$(jq -n '{txPower: {powerlevel: "auto"}, maxLongRangePowerlevel: "auto"}')
+    rf_json=$(jq -n '{autoPowerlevels: true}')
     bashio::log.info "Using default RF region settings"
 else
-    rf_json=$(jq -n --argjson region "${rf_region_integer}" '{region: $region, txPower: {powerlevel: "auto"}, maxLongRangePowerlevel: "auto"}')
+    rf_json=$(jq -n --argjson region "${rf_region_integer}" '{region: $region, autoPowerlevels: true}')
     bashio::log.info "Setting RF region to (${rf_region})"
 fi
 
@@ -463,3 +463,23 @@ bashio::var.json \
     tempio \
         -template /usr/share/tempio/zwave_config.conf \
         -out /etc/zwave_config.json
+
+# Create default settings.json in addon config directory if it doesn't exist
+if ! bashio::fs.file_exists "/config/settings.json"; then
+    bashio::log.info "Creating default settings.json..."
+    # Disable MQTT by default
+    mqtt=$(bashio::var.json \
+        disabled "^true" \
+        )
+    # Disable Z-Wave JS UI logs by default
+    gateway=$(bashio::var.json \
+        logEnabled "^false" \
+        logLevel info \
+        logToFile "^false" \
+        )
+
+    bashio::var.json \
+        gateway "^${gateway}" \
+        mqtt "^${mqtt}" \
+        > /config/settings.json
+fi

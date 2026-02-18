@@ -24,9 +24,6 @@ if bashio::var.has_value "${DEVICE}"; then
 elif bashio::var.has_value "${SOCKET}"; then
     CONNECTION_TYPE="socket"
     SERIAL_DEVICE="${SOCKET}"
-elif bashio::config.true 'emulate_hardware'; then
-    CONNECTION_TYPE="mock"
-    SERIAL_DEVICE="--mock-driver"
 else
     bashio::exit.nok "Either 'device' or 'socket' must be configured"
 fi
@@ -36,9 +33,13 @@ bashio::log.info "Using ${CONNECTION_TYPE}: ${SERIAL_DEVICE}"
 # Send out discovery information to Home Assistant
 ./discovery &
 
-# Set external config directory
+# Where Z-Wave JS should extract the config files to
 export ZWAVEJS_EXTERNAL_CONFIG=/data/db
+
+# Externally configure Z-Wave JS UI, removing the fields from settings
+export ZWAVE_PORT=${SERIAL_DEVICE}
+export ZWAVE_EXTERNAL_SETTINGS=/etc/zwave_config.json
 
 # Run daemon, passing external config directory in as environment variable
 # shellcheck disable=SC2086
-exec zwave-server ${SERIAL_DEVICE} --config /etc/zwave_config.json --disable-dns-sd
+exec zwave-js-ui

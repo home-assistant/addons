@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.0.2
+
+- Fix propagation seconds not being correctly applied to certbot-dns-multi providers
+
+## 6.0.1
+
+- Fix Route 53 DNS provider failing with "Missing Region" error
+- Add optional `aws_region` configuration option (defaults to `us-east-1`)
+
 ## 6.0.0
 
 This release migrates most DNS challenge providers from individual certbot
@@ -19,6 +28,7 @@ breaking changes below.
 - Remove `linode_version` option: only Linode API v4 is supported
 - Ignore `dreamhost_baseurl` option (not supported by lego, default URL is used)
 - Ignore `gandi_sharing_id`, `ionos_endpoint`, `joker_domain` options (not supported by lego)
+- Hetzner option `hetzner_api_token` now requires Hetzner Cloud API token, old Hetzner DNS token is no longer supported
 - Drop unsupported armhf, armv7, and i386 architectures
 
 ### Other changes

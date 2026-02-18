@@ -97,6 +97,7 @@ propagation_seconds: 60
 lego_env: []
 lego_provider: ''
 aws_access_key_id: ''
+aws_region: ''
 aws_secret_access_key: ''
 azure_config: ''
 cloudflare_api_key: ''
@@ -858,7 +859,7 @@ You will need to create the dynamic TXT record from within the dns.he.net interf
 <details>
   <summary>Hetzner</summary>
 
-Use of this plugin requires a Hetzner DNS API personal access token. You can create one on the Hetzner [DNS website](https://dns.hetzner.com/settings/api-token).
+Use of this plugin requires a Hetzner Cloud API token. See the Hetzner Docs on [Generating an API token](https://docs.hetzner.com/cloud/api/getting-started/generating-api-token/).
 
   ```yaml
   email: your.email@example.com
@@ -869,7 +870,7 @@ Use of this plugin requires a Hetzner DNS API personal access token. You can cre
   challenge: dns
   dns:
     provider: dns-hetzner
-    hetzner_api_token: hetzner-personal-access-token
+    hetzner_api_token: hetzner-api-token
   ```
 
 [Full Documentation](https://github.com/ctrlaltcoop/certbot-dns-hetzner)
@@ -1325,6 +1326,8 @@ An example configuration:
     aws_access_key_id: 0123456789ABCDEF0123
     aws_secret_access_key: 0123456789abcdef0123456789/abcdef0123456
   ```
+
+The configuration also takes `aws_region` which defaults to `us-east-1` (Route 53 is a global AWS service). Set it only if you need to use a different region endpoint.
 
 For security reasons, don't use your main account's credentials. Instead, add a new [AWS user](https://console.aws.amazon.com/iam/home?#/users) with _Access Type: Programmatic access_ and use that user's access key. Assign a minimum [policy](https://console.aws.amazon.com/iam/home?#/policies$new?step=edit) like the following example. Make sure to replace the Resource ARN in the first statement to your domain's hosted zone ARN or use _*_ for all.
 

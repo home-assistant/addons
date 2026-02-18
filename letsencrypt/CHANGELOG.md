@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.4
+
+- Require `dns.provider` if DNS challenge is set
+- Clean up cache files from the build to reduce image size
+
 ## 6.0.3
 
 - Fix issuing certificates when `acme_root_ca_cert` is set

@@ -34,6 +34,7 @@ LEGACY_PROVIDERS="dns-eurodns dns-gehirn dns-noris"
 DEPRECATED_PROVIDERS="dns-azure dns-he"
 
 if [ "${CHALLENGE}" == "dns" ]; then
+    bashio::config.require 'dns.provider'
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
 
     PROPAGATION_SECONDS=60

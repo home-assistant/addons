@@ -185,6 +185,7 @@ schema:
   verbose: bool?
   dry_run: bool?
   test_cert: bool?
+  force_renew: bool?
   eab_kid: str?
   eab_hmac_key: str?
 startup: once

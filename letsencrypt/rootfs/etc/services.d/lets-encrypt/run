@@ -570,7 +570,7 @@ else
 fi
 
 if [ "${FORCE_RENEW}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--force-renew")
+    ADDITIONAL_ARGS+=("--force-renewal")
 fi
 
 if [ "${VERBOSE}" = "true" ]; then

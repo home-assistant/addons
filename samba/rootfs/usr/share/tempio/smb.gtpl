@@ -18,9 +18,19 @@
    interfaces = lo {{ .interfaces | join " " }}
    hosts allow = 127.0.0.1 {{ .allow_hosts | join " " }}
 
+   smb encrypt = {{ .encryption }}
+   {{ if eq .encryption "required" }}
+   client min protocol = SMB3
+   client max protocol = SMB3
+   server min protocol = SMB3
+   server max protocol = SMB3
+   server signing = mandatory
+   {{ else }}
+   server signing = {{ .server_signing }}
    {{ if .compatibility_mode }}
    client min protocol = NT1
    server min protocol = NT1
+   {{ end }}
    {{ end }}
 
    mangled names = no
@@ -30,8 +40,6 @@
    {{ if .apple_compatibility_mode }}
    vfs objects = catia fruit streams_xattr
    {{ end }}
-
-   server signing = {{ .server_signing }}
 
 {{ if (has "config" .enabled_shares) }}
 [config]

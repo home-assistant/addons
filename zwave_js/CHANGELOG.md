@@ -1,5 +1,40 @@
 # Changelog
 
+## 1.0.1
+
+- Migrate security keys from the OZW format to the Z-Wave JS format automatically
+- Configure Z-Wave JS's device config priority dir correctly
+
+### Z-Wave JS 15.21.0
+
+#### Bugfixes
+
+- Most changes to configuration files are now applied without needing to re-interview devices
+- Disconnected batteries no longer expose a battery level of 0% and instead show as unavailable
+- Hide unnecessary Basic CC and Multilevel Switch CC values on some devices
+- Fixed a rare communication issue that could cause unnecessary re-transmissions, mark devices as dead, or fail to send sleeping devices back to sleep
+
+#### Config file changes
+
+- Update Zooz ZSE42 config to firmware 2.30
+- Update Zooz ZEN32 config to the latest firmware
+- Add Zooz ZEN56, update ZEN32, 71, 72, 77
+- Complete device config for Contec/Da Vinci Touch Panel (FW 10.10)
+- Updated several config files to use value ranges with gaps and step sizes instead of mentioning the allowable range in the parameter description
+- Unified the definition of "Basic Set Value" parameters across device files
+
+### Z-Wave JS UI 11.12.0
+
+#### Bugfixes
+
+- Minor UI tweaks to dialogs
+- Prevent fetching Github releases when related features are disabled
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.21.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.21.0)
+- [Z-Wave JS UI 11.12.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.12.0)
+
 ## 1.0.0
 
 **NOTE: It is strongly recommended to make a backup before updating to this version.**

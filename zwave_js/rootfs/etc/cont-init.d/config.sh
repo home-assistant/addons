@@ -368,10 +368,10 @@ for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_un
     fi
 done
 
-# If flush_to_disk is set, it means we have generated new key(s) and they need to get
-# flushed to disk
+# If flush_to_disk is set, it means we have generated new key(s) or migrated old ones
+# and they need to get flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
-    bashio::log.info "Flushing config to disk due to creation of new key(s)..."
+    bashio::log.info "Flushing config to disk due to creation or migration of network key(s)..."
     bashio::addon.options >"/data/options.json"
 fi
 

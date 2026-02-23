@@ -307,6 +307,14 @@ for config_key in "network_key" "s0_legacy_key" "s2_access_control_key" "s2_auth
     fi
 done
 
+# Flush any migrated keys immediately so that bashio::config below reads the
+# migrated values rather than stale on-disk legacy values.
+if [[ ${flush_to_disk:+x} ]]; then
+    bashio::log.info "Flushing config to disk due to legacy key migration..."
+    bashio::addon.options >"/data/options.json"
+    flush_to_disk=
+fi
+
 if bashio::config.has_value 'network_key'; then
     # If both 'network_key' and 's0_legacy_key' are set and keys don't match,
     # we don't know which one to pick so we have to exit. If they are both set

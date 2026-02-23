@@ -294,6 +294,27 @@ declare -A rf_region_integer_map=(
     ["Default (EU)"]=255
 )
 
+# Migrate any keys in the legacy format (e.g. "0x00, 0x01, 0x02, ...") to the new format ("000102...")
+for config_key in "network_key" "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key" "lr_s2_access_control_key" "lr_s2_authenticated_key"; do
+    key=$(bashio::config "${config_key}")
+    if [[ "${key}" =~ ^0x[0-9A-Fa-f]{2}(,\ ?0x[0-9A-Fa-f]{2}){15}$ ]]; then
+        bashio::log.info "Migrating ${config_key} from legacy format to new format..."
+        key="${key//0x/}"
+        key="${key//[, ]/}"
+        key=$(bashio::string.upper "${key}")
+        bashio::addon.option "${config_key}" "${key}"
+        flush_to_disk=1
+    fi
+done
+
+# Flush any migrated keys immediately so that bashio::config below reads the
+# migrated values rather than stale on-disk legacy values.
+if [[ ${flush_to_disk:+x} ]]; then
+    bashio::log.info "Flushing config to disk due to legacy key migration..."
+    bashio::addon.options >"/data/options.json"
+    flush_to_disk=
+fi
+
 if bashio::config.has_value 'network_key'; then
     # If both 'network_key' and 's0_legacy_key' are set and keys don't match,
     # we don't know which one to pick so we have to exit. If they are both set
@@ -355,10 +376,10 @@ for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_un
     fi
 done
 
-# If flush_to_disk is set, it means we have generated new key(s) and they need to get
-# flushed to disk
+# If flush_to_disk is set, it means we have generated new key(s) or migrated old ones
+# and they need to get flushed to disk
 if [[ ${flush_to_disk:+x} ]]; then
-    bashio::log.info "Flushing config to disk due to creation of new key(s)..."
+    bashio::log.info "Flushing config to disk due to creation or migration of network key(s)..."
     bashio::addon.options >"/data/options.json"
 fi
 

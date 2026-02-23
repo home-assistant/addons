@@ -13,7 +13,7 @@ Follow these steps to get the app installed on your system:
 The NGINX Proxy app is commonly used in conjunction with the [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns) and/or the [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) app to set up secure remote access to your Home Assistant instance. The following instructions covers this scenario.
 
 1. The certificate to your registered domain should already be created via [Duck DNS](https://github.com/home-assistant/addons/tree/master/duckdns), [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) or another method. Make sure that the certificate files exist in the `/ssl` directory.
-2. You must add the following section to your [Home Assistant configuration.yaml](https://www.home-assistant.io/docs/configuration/). If the `http` section is using the `ssl_certificate`, `ssl_key` or `server_port` keys, make sure to remove them.
+2. You must add the following section to your [Home Assistant configuration.yaml](https://www.home-assistant.io/docs/configuration/). If the `http` section is using the `ssl_certificate` or `ssl_key` keys, enable the `use_ssl_backend` option.
 
    ```yaml
    http:
@@ -78,6 +78,10 @@ The filename(s) of the NGINX configuration for the additional servers, found in 
 
 If enabled, configure Nginx with a list of IP addresses directly from Cloudflare that will be used for `set_real_ip_from` directive Nginx config.
 This is so the `ip_ban_enabled` feature can be used and work correctly in /config/customize.yaml.
+
+### Option `use_ssl_backend` (optional)
+
+Enable this option to configure Nginx to connect with SSL to the backend when your `http` section uses the `ssl_certificate` or `ssl_key` options.
 
 ### Option `real_ip_from` (optional)
 

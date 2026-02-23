@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0
+
+- add use_ssl_backend option to support cases where the http section is using the ssl_certificate, ssl_key options
+
 ## 4.0.0
 
 - Drop builds of unsupported architectures

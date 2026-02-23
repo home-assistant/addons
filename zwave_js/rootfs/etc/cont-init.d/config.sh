@@ -319,6 +319,19 @@ if bashio::config.has_value 'network_key'; then
     fi
 fi
 
+# Migrate any keys in the legacy format (e.g. "0x00, 0x01, 0x02, ...") to the new format ("000102...")
+for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key" "lr_s2_access_control_key" "lr_s2_authenticated_key"; do
+    network_key=$(bashio::config "${key}")
+    if [[ "${network_key}" =~ ^0x[0-9A-Fa-f]{2}(,\ ?0x[0-9A-Fa-f]{2}){15}$ ]]; then
+        bashio::log.info "Migrating ${key} from legacy format to new format..."
+        network_key="${network_key//0x/}"
+        network_key="${network_key//[, ]/}"
+        network_key=$(bashio::string.upper "${network_key}")
+        bashio::addon.option "${key}" "${network_key}"
+        flush_to_disk=1
+    fi
+done
+
 # Validate that no keys are using the example from the docs and generate new random
 # keys for any missing keys.
 for key in "s0_legacy_key" "s2_access_control_key" "s2_authenticated_key" "s2_unauthenticated_key" "lr_s2_access_control_key" "lr_s2_authenticated_key"; do

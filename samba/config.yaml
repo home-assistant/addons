@@ -5,11 +5,8 @@ name: Samba share
 description: Expose Home Assistant folders with SMB/CIFS
 url: https://github.com/home-assistant/addons/tree/master/samba
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 hassio_api: true
 host_network: true
 image: homeassistant/{arch}-addon-samba

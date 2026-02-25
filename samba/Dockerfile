@@ -17,5 +17,5 @@ RUN \
 # Copy data
 COPY rootfs /
 
-HEALTHCHECK \
+HEALTHCHECK --start-period=3s \
     CMD smbclient -L '\\localhost' -U '%' -m SMB3

@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.0.0
+
+- Update base image to Alpine 3.23
+- Drop unsupported architectures
+- Remove advanced flag in the app config
+
 ## 8.0.1
 - Fix bashio warn(ing) logger usage breaking deployment keys
 

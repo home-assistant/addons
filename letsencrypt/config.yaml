@@ -1,5 +1,5 @@
 ---
-version: 6.0.4
+version: 6.1.0
 breaking_versions: [5.3.0, 6.0.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -185,6 +185,7 @@ schema:
   verbose: bool?
   dry_run: bool?
   test_cert: bool?
+  force_renew: bool?
   eab_kid: str?
   eab_hmac_key: str?
 startup: once

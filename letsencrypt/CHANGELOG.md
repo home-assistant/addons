@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.0
+
+- Add `force_renew` option to force certificate renewal regardless of expiry date
+
 ## 6.0.4
 
 - Require `dns.provider` if DNS challenge is set

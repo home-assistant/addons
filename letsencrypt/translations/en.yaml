@@ -55,5 +55,9 @@ configuration:
     name: Verbose Mode
     description: >-
       Run certbot in verbose mode.
+  force_renew:
+    name: Force Renew
+    description: >-
+      Force certificate renewal even if it is not close to expiry.
 network:
   80/tcp: Only needed for http challenge

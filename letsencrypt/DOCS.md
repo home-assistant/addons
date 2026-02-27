@@ -228,6 +228,14 @@ automation every night via the [Supervisor app restart action][supervisorrestart
 In this example, the automation will run every day at the chosen time, checking
 if a renewal is due, and will request it if needed.
 
+To force a certificate renewal regardless of the expiry date, set the `force_renew` option to `true`:
+
+```yaml
+force_renew: true
+```
+
+> **Note:** Remember to set `force_renew` back to `false` (or remove it) after the renewal, otherwise every run will force a new certificate to be issued.
+
 ## Advanced
 
 <details>

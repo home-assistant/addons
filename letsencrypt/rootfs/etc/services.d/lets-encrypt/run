@@ -26,6 +26,7 @@ EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 DRY_RUN=$(bashio::config 'dry_run')
 TEST_CERT=$(bashio::config 'test_cert')
 VERBOSE=$(bashio::config 'verbose')
+FORCE_RENEW=$(bashio::config 'force_renew')
 
 # Legacy providers not supported by lego/certbot-dns-multi
 LEGACY_PROVIDERS="dns-eurodns dns-gehirn dns-noris"
@@ -566,6 +567,10 @@ else
     if [ "${TEST_CERT}" = "true" ]; then
         ADDITIONAL_ARGS+=("--test-cert")
     fi
+fi
+
+if [ "${FORCE_RENEW}" = "true" ]; then
+    ADDITIONAL_ARGS+=("--force-renewal")
 fi
 
 if [ "${VERBOSE}" = "true" ]; then

@@ -2,7 +2,7 @@
 version: 2.16.5
 slug: openthread_border_router
 name: OpenThread Border Router
-description: OpenThread Border Router add-on
+description: OpenThread Border Router
 url: >-
   https://github.com/home-assistant/addons/tree/master/openthread_border_router
 arch:
@@ -23,6 +23,8 @@ privileged:
 devices:
   - /dev/net/tun
 image: homeassistant/{arch}-addon-otbr
+ingress: true
+ingress_port: 8080
 init: false
 options:
   device: null

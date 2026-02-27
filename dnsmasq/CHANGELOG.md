@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+
+- Update base image to Alpine 3.23 (with dnsmasq v2.91)
+- Drop unsupported architectures
+- Remove advanced flag in the app config
+
 ## 1.8.1
 
 - Fix config bug of cache_size option

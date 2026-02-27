@@ -1,10 +1,9 @@
 ---
-version: 10.0.1
+version: 10.0.2
 slug: ssh
 name: Terminal & SSH
 description: Allow logging in remotely to Home Assistant using SSH
 url: https://github.com/home-assistant/addons/tree/master/ssh
-advanced: true
 arch:
   - aarch64
   - amd64

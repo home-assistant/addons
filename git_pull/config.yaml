@@ -1,16 +1,12 @@
 ---
-version: 8.0.1
+version: 9.0.0
 slug: git_pull
 name: Git pull
 description: Simple git pull to update the local configuration
 url: https://github.com/home-assistant/addons/tree/master/git_pull
-advanced: true
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 boot: manual
 hassio_api: true
 hassio_role: homeassistant

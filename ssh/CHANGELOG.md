@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.2
+
+- Remove advanced flag in the app config
+
 ## 10.0.1
 
 - Fix default shell

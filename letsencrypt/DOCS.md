@@ -435,7 +435,7 @@ on the DNS zone to be used for authentication.
 <details>
   <summary>Bunny</summary>
 
-Use of this plugin requires an API token, obtained from the Bunny dashboard [here](https://dash.bunny.net/account/api-key)
+Use of this plugin requires an API token, obtained from the [Bunny dashboard](https://dash.bunny.net/account/api-key)
 
   ```yaml
   email: your.email@example.com
@@ -446,7 +446,7 @@ Use of this plugin requires an API token, obtained from the Bunny dashboard [her
   challenge: dns
   dns:
     provider: dns-bunny
-    bunny_api_key: 0123-4567-89ab-cdef0123456789abcdef-01234-5678-9abc-def012345789
+    bunny_api_key: your-bunny-api-key
   ```
 
 </details>
@@ -1484,6 +1484,7 @@ You can in addition find the files via the **Samba** app within the "ssl" share.
 ```txt
 dns-lego (generic, supports any lego DNS provider)
 dns-azure
+dns-bunny
 dns-cloudflare
 dns-cloudns
 dns-desec

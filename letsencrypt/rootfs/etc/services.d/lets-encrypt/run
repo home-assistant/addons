@@ -113,6 +113,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
 
         # Map config provider names to lego provider names
         declare -A LEGO_PROVIDERS=(
+            ["dns-bunny"]="bunny"
             ["dns-cloudflare"]="cloudflare"
             ["dns-cloudns"]="cloudns"
             ["dns-desec"]="desec"
@@ -189,6 +190,13 @@ if [ "${CHALLENGE}" == "dns" ]; then
                 exit 1
             fi
             ;;
+
+        # Bunny
+        'dns-bunny')
+            bashio::config.require 'dns.bunny_api_key'
+            echo "BUNNY_API_KEY=$(bashio::config 'dns.bunny_api_key')" >> "${DNS_MULTI_CREDS}"
+            ;;
+
         # CloudFlare
         'dns-cloudflare')
             if bashio::config.exists 'dns.cloudflare_api_token'; then

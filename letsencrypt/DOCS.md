@@ -44,6 +44,7 @@ There are two options to obtain certificates.
 ```txt
 dns-lego (generic, supports any lego DNS provider)
 dns-azure
+dns-bunny
 dns-cloudflare
 dns-cloudns
 dns-desec
@@ -100,6 +101,7 @@ aws_access_key_id: ''
 aws_region: ''
 aws_secret_access_key: ''
 azure_config: ''
+bunny_api_key: ''
 cloudflare_api_key: ''
 cloudflare_api_token: ''
 cloudflare_email: ''
@@ -429,6 +431,26 @@ on the DNS zone to be used for authentication.
 [certbot-dns-azure-conf]: https://certbot-dns-azure.readthedocs.io/en/latest/#configuration
 
 </details>
+
+<details>
+  <summary>Bunny</summary>
+
+Use of this plugin requires an API token, obtained from the [Bunny dashboard](https://dash.bunny.net/account/api-key)
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-bunny
+    bunny_api_key: your-bunny-api-key
+  ```
+
+</details>
+
 
 <details>
   <summary>Cloudflare</summary>
@@ -1462,6 +1484,7 @@ You can in addition find the files via the **Samba** app within the "ssl" share.
 ```txt
 dns-lego (generic, supports any lego DNS provider)
 dns-azure
+dns-bunny
 dns-cloudflare
 dns-cloudns
 dns-desec

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.5
+
+- Add support for provider Bunny
+
 ## 6.0.4
 
 - Require `dns.provider` if DNS challenge is set

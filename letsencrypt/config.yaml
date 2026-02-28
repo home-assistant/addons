@@ -1,5 +1,5 @@
 ---
-version: 6.0.4
+version: 6.0.5
 breaking_versions: [5.3.0, 6.0.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -37,6 +37,7 @@ schema:
     aws_region: str?
     aws_secret_access_key: str?
     azure_config: str?
+    bunny_api_key: str?
     cloudflare_api_key: str?
     cloudflare_api_token: str?
     cloudflare_email: email?
@@ -119,6 +120,7 @@ schema:
     propagation_seconds: int(60,3600)?
     provider: "list(\
         dns-azure|\
+        dns-bunny|\
         dns-cloudflare|\
         dns-cloudns|\
         dns-desec|\

@@ -2,7 +2,7 @@
 
 ## 6.1.1
 
-- Add Buddy DNS provider support
+- Add Bunny DNS provider support
 
 ## 6.1.0
 

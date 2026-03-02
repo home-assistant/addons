@@ -1,0 +1,5 @@
+{
+  "type": "openWakeWord",
+  "wake_word": "Okay Nabu",
+  "model": "ok_nabu_v0.1.tflite"
+}

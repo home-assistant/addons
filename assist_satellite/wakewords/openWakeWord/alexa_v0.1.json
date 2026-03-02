@@ -1,0 +1,5 @@
+{
+  "type": "openWakeWord",
+  "wake_word": "Alexa",
+  "model": "alexa_v0.1.tflite"
+}

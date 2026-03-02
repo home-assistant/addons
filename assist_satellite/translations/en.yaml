@@ -1,0 +1,42 @@
+---
+configuration:
+  name:
+    name: Name
+    description: >-
+      Friendly name for this satellite shown in Home Assistant. Leave empty to
+      auto-generate a name based on the device MAC address.
+  port:
+    name: Port
+    description: >-
+      TCP port the ESPHome satellite server listens on (default: 6053).
+  audio_input_device:
+    name: Audio input device
+    description: >-
+      Soundcard name or index for the microphone input. Leave empty to use the
+      system default microphone. Run with debug logging to list available
+      devices.
+  audio_output_device:
+    name: Audio output device
+    description: >-
+      mpv audio device name for sound output. Leave empty to use the system
+      default output. Run with debug logging to list available devices.
+  wake_word:
+    name: Wake word
+    description: >-
+      ID of the wake word model to activate the assistant (default:
+      okay_nabu). The available wake words are determined by the models
+      bundled with the image or downloaded from Home Assistant.
+  refractory_seconds:
+    name: Refractory period
+    description: >-
+      Minimum seconds between wake word activations to prevent accidental
+      double-triggers (default: 2.0).
+  thinking_sound:
+    name: Thinking sound
+    description: >-
+      Play a short processing sound while the assistant is thinking. Can also
+      be toggled at runtime from the Home Assistant device page.
+  debug_logging:
+    name: Debug logging
+    description: >-
+      Enable verbose debug logging.

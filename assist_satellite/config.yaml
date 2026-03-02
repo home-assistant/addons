@@ -1,0 +1,36 @@
+---
+version: 2.0.0
+slug: assist_satellite
+name: Assist Satellite
+description: Turn HA host into a voice assistant with a connected microphone and speaker 
+url: https://github.com/home-assistant/addons/blob/master/assist_satellite
+hassio_api: false
+arch:
+  - amd64
+  - aarch64
+init: false
+discovery:
+  - esphome
+map:
+  - share:rw
+options:
+  name: ""
+  port: 6053
+  audio_input_device: ""
+  audio_output_device: ""
+  wake_word: "okay_nabu"
+  refractory_seconds: 2.0
+  thinking_sound: false
+  debug_logging: false
+schema:
+  name: str
+  port: int
+  audio_input_device: str
+  audio_output_device: str
+  wake_word: str
+  refractory_seconds: float
+  thinking_sound: bool
+  debug_logging: bool
+audio: true
+homeassistant: 2026.3.0
+image: homeassistant/{arch}-addon-assist_satellite

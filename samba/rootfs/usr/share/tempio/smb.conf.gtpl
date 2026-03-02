@@ -1,125 +1,56 @@
 [global]
    netbios name = {{ env "HOSTNAME" }}
+   dns hostname = {{ env "HOSTNAME" }}.local
+   additional dns hostnames = {{ env "HOSTNAME" }}._smb._tcp.local
    workgroup = {{ .workgroup }}
    server string = Samba Home Assistant
    local master = {{ .local_master | ternary "yes" "no" }}
+   preferred master = {{ .local_master | ternary "yes" "auto" }}
+   server role = standalone
+   {{ $smb_port := default 445 (index .ports "445/tcp") -}}
+   {{ $nbt_port := default 139 (index .ports "139/tcp") -}}
+   smb ports = {{ cat $smb_port (ternary $nbt_port nil .netbios) }}
 
    security = user
-   ntlm auth = yes
    idmap config * : backend = tdb
    idmap config * : range = 1000000-2000000
 
    load printers = no
    disable spoolss = yes
-
+   {{ if .netbios -}}
+   server services = smb nbt
+   {{ else -}}
+   disable netbios = yes
+   server services = smb
+   {{ end -}}
+   dns proxy = no
+   
    log level = 1
 
    bind interfaces only = yes
    interfaces = lo {{ .interfaces | join " " }}
    hosts allow = 127.0.0.1 {{ .allow_hosts | join " " }}
 
-   {{ if .compatibility_mode }}
+   {{ if .compatibility_mode -}}
    client min protocol = NT1
    server min protocol = NT1
-   {{ end }}
+   lanman auth = yes
+   ntlm auth = yes
+   {{ end -}}
 
    mangled names = no
    dos charset = CP850
    unix charset = UTF-8
    
-   {{ if .apple_compatibility_mode }}
+   {{ if .apple_compatibility_mode -}}
    vfs objects = catia fruit streams_xattr
-   {{ end }}
+   {{ end -}}
 
    server signing = {{ .server_signing }}
+   allow dns updates = disabled
 
-{{ if (has "config" .enabled_shares) }}
-[config]
-   browseable = yes
-   writeable = yes
-   path = /homeassistant
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
-
-{{ if (has "addons" .enabled_shares) }}
-[addons]
-   browseable = yes
-   writeable = yes
-   path = /addons
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
-
-{{ if (has "addon_configs" .enabled_shares) }}
-[addon_configs]
-   browseable = yes
-   writeable = yes
-   path = /addon_configs
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
-
-{{ if (has "ssl" .enabled_shares) }}
-[ssl]
-   browseable = yes
-   writeable = yes
-   path = /ssl
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
-
-{{ if (has "share" .enabled_shares) }}
-[share]
-   browseable = yes
-   writeable = yes
-   path = /share
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
-
-{{ if (has "backup" .enabled_shares) }}
-[backup]
-   browseable = yes
-   writeable = yes
-   path = /backup
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
-
-{{ if (has "media" .enabled_shares) }}
-[media]
-   browseable = yes
-   writeable = yes
-   path = /media
-
-   valid users = {{ .username }}
-   force user = root
-   force group = root
-   veto files = /{{ .veto_files | join "/" }}/
-   delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
-{{ end }}
+{{ range $i, $share := .enabled_shares -}}
+[{{ $share }}]
+   path = /smbshare/{{ ternary "homeassistant" $share ( eq $share "config" ) }}
+   include = /etc/samba/smb.conf.inc
+{{ end -}}

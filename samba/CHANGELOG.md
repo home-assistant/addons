@@ -1,5 +1,15 @@
 # Changelog
 
+## 12.6.1
+
+- Add `mdnsd` for macOS discoverability
+- Rename `smb.conf` Go template for disambiguation with new templates
+- Add config option, and `nmbd` startup logic, to disable NetBIOS
+- Add config options, and startup logic, to override default ports (445/139)
+- Colocate mapped mounts to a `/smbshare` prefix to avoid potential confusion
+- Update `config.yaml` `map:` to new object syntax
+- Refactor `smb.conf` to use Go template iterators
+
 ## 12.6.0
 
 - Do initial healthcheck after 3s to speedup startup

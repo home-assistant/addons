@@ -16,6 +16,8 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
+COPY 0003-ha-web-ui-customizations.patch /usr/src/
+COPY 0004-socket-reuseport.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -37,6 +39,8 @@ WORKDIR /usr/src/ot-br-posix
 RUN \
     set -x \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
+    && patch -p1 < /usr/src/0003-ha-web-ui-customizations.patch \
+    && patch -p1 < /usr/src/0004-socket-reuseport.patch \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-beta \
@@ -85,6 +89,7 @@ ENV DOCKER=1
 COPY openthread-core-ha-config-posix.h /usr/src/
 COPY 0001-channel-monitor-disable-by-default.patch /usr/src/
 COPY 0002-spinel-Clear-source-match-tables-before-restoring.patch /usr/src/
+COPY 0003-ha-web-ui-customizations.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -111,6 +116,7 @@ RUN \
         && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \
         && patch -p1 < /usr/src/0002-spinel-Clear-source-match-tables-before-restoring.patch \
     ) \
+    && patch -p1 < /usr/src/0003-ha-web-ui-customizations.patch \
     && ./script/cmake-build \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-stable \
@@ -167,6 +173,7 @@ RUN \
        libncurses6 \
        libprotobuf-lite32 \
        libjsoncpp26 \
+       nginx \
     && pip install --break-system-packages --no-cache-dir \
        universal-silabs-flasher==${UNIVERSAL_SILABS_FLASHER_VERSION} \
        serialx==${SERIALX_VERSION} \
@@ -183,6 +190,7 @@ COPY --from=otbr-stable-builder /opt/otbr-stable /opt/otbr-stable
 COPY --from=otbr-stable-builder /usr/sbin/mdnsd /opt/otbr-stable/sbin/mdnsd
 COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so /usr/lib/libdns_sd.so
 COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so.1 /usr/lib/libdns_sd.so.1
+
 COPY rootfs /
 
 ENV \

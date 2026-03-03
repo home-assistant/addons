@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.1
+
+- Add Bunny DNS provider support
+
 ## 6.1.0
 
 - Add `force_renew` option to force certificate renewal regardless of expiry date

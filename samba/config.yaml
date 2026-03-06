@@ -1,5 +1,5 @@
 ---
-version: 12.6.0
+version: 12.6.1
 slug: samba
 name: Samba share
 description: Expose Home Assistant folders with SMB/CIFS
@@ -12,18 +12,31 @@ host_network: true
 image: homeassistant/{arch}-addon-samba
 init: false
 map:
-  - addons:rw
-  - all_addon_configs:rw
-  - backup:rw
-  - homeassistant_config:rw
-  - media:rw
-  - share:rw
-  - ssl:rw
+  - type: addons
+    read_only: false
+    path: "/smbshare/addons"
+  - type: all_addon_configs
+    read_only: false
+    path: "/smbshare/addon_configs"
+  - type: backup
+    read_only: false
+    path: "/smbshare/backup"
+  - type: homeassistant_config
+    read_only: false
+    path: "/smbshare/homeassistant"
+  - type: media
+    read_only: false
+    path: "/smbshare/media"
+  - type: share
+    read_only: false
+    path: "/smbshare/share"
+  - type: ssl
+    read_only: false
+    path: "/smbshare/ssl"
 options:
   username: homeassistant
   password: null
   workgroup: WORKGROUP
-  local_master: true
   enabled_shares:
     - addons
     - addon_configs
@@ -32,9 +45,11 @@ options:
     - media
     - share
     - ssl
+  local_master: true
   compatibility_mode: false
   apple_compatibility_mode: true
   server_signing: "default"
+  netbios: true
   veto_files:
     - ._*
     - .DS_Store
@@ -52,14 +67,21 @@ schema:
   username: str
   password: password
   workgroup: str
-  local_master: bool
   enabled_shares:
     - "match(^(?i:(addons|addon_configs|backup|config|media|share|ssl))$)"
+  local_master: bool
   compatibility_mode: bool
   apple_compatibility_mode: bool
   server_signing: list(default|auto|mandatory|disabled)
+  netbios: bool
   veto_files:
     - str
   allow_hosts:
     - str
 startup: services
+ports:
+  445/tcp: null
+  139/tcp: null
+ports_description:
+  445/tcp: SMB over IP
+  139/tcp: SMB over NetBIOS

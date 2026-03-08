@@ -11,8 +11,13 @@ declare log_level
 declare log_level_sdk
 declare primary_interface
 declare matter_server_version
+declare npm_package
 declare chip_version
 declare use_js_server
+declare env_entry
+declare env_name
+declare env_value
+declare env_vars_count
 matter_server_args=()
 extra_args=()
 
@@ -30,11 +35,23 @@ use_js_server=$(bashio::config "beta")
 if [[ "${use_js_server}" == "true" ]]; then
   # Beta mode: Use JavaScript Matter Server
   bashio::log.info "Using JavaScript Matter Server (beta mode)"
-  bashio::log.info "Installing latest matter-server from npm..."
+  npm_package="matter-server@latest"
+  if bashio::config.has_value "matter_server_version"; then
+    matter_server_version=$(bashio::config 'matter_server_version')
+    if [[ "${matter_server_version}" =~ ^(0|1)\.[0-9]+\.[0-9]+$ ]]; then
+      npm_package="matter-server@${matter_server_version}"
+      bashio::log.info "Installing JavaScript Matter Server ${matter_server_version} from npm..."
+    else
+      bashio::log.warning "Ignoring matter_server_version '${matter_server_version}' for JavaScript Matter Server. Only 0.x.y or 1.x.y are supported; installing latest."
+      bashio::log.info "Installing latest matter-server from npm..."
+    fi
+  else
+    bashio::log.info "Installing latest matter-server from npm..."
+  fi
   mkdir -p /opt/matterjs
   # shellcheck disable=SC2164
   cd /opt/matterjs
-  if ! npm install --foreground-scripts matter-server@latest; then
+  if ! npm install --foreground-scripts "${npm_package}"; then
     bashio::log.error "Failed to install Matter Server from npm. Aborting startup."
     exit 1
   fi
@@ -43,6 +60,27 @@ if [[ "${use_js_server}" == "true" ]]; then
   find ./node_modules -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true
   find ./node_modules -type d -name "cjs" -path "*/@project-chip/*" -exec rm -rf {} + 2>/dev/null || true
   rm -rf /tmp/* /var/tmp/* /root/.npm /root/.cache 2>/dev/null || true
+
+  if bashio::config.has_value "matter_server_env_vars"; then
+    env_vars_count=$(bashio::config 'matter_server_env_vars | length')
+    for (( i=0; i < env_vars_count; i++ )); do
+      env_entry="$(bashio::config "matter_server_env_vars[${i}]")"
+
+      if [[ "${env_entry}" != *"="* ]]; then
+        bashio::exit.nok "Invalid matter_server_env_vars entry: ${env_entry} (expected KEY=VALUE)"
+      fi
+
+      env_name="${env_entry%%=*}"
+      env_value="${env_entry#*=}"
+
+      if ! [[ "${env_name}" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+        bashio::exit.nok "Invalid environment variable name in matter_server_env_vars: ${env_name}"
+      fi
+
+      export "${env_name}=${env_value}"
+      bashio::log.info "Exported Matter Server environment variable: ${env_name}"
+    done
+  fi
 else
   # Non-beta mode: Use Python Matter Server
   bashio::log.info "Using Python Matter Server"

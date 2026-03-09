@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.7.0
+
+- Drop unsupported architectures
+
 ## 8.6.1
 
 - Align ingress colors with Home Assistant (toolbar color)

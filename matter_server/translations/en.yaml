@@ -26,6 +26,12 @@ configuration:
       Home Assistant Companion app commissioning method is recommended as it is
       better tested and allows to commission directly in proximity of the
       device itself.
+  matter_server_env_vars:
+    name: Matter Server environment variables
+    description: >-
+      Additional environment variables to export before starting Matter Server
+      (only relevant when using the JavaScript server in Beta mode). Provide
+      one entry per list item in `KEY=VALUE` format.
   matter_server_args:
     name: Extra Matter Server arguments
     description: >-
@@ -36,8 +42,10 @@ configuration:
   matter_server_version:
     name: Matter Server version
     description: >-
-      Install custom Python Matter Server version (not applicable when using
-      Beta flag). WARNING: An older version might have an incompatible storage
+      Install a custom Matter Server version. In Python mode, this value is
+      used for python-matter-server. In JavaScript/Beta mode, only versions in
+      `0.x.y` or `1.x.y` format are used; other values are ignored and latest
+      is installed. WARNING: An older version might have an incompatible storage
       format! Use this feature with caution! Make sure you have a recent backup
       of the app!
   matter_sdk_wheels_version:

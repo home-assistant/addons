@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.6.1
+
+- Always create the Samba username map, using an empty file unless the configured username contains spaces
+
 ## 12.6.0
 
 - Do initial healthcheck after 3s to speedup startup

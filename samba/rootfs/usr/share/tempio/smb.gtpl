@@ -8,6 +8,9 @@
    ntlm auth = yes
    idmap config * : backend = tdb
    idmap config * : range = 1000000-2000000
+   {{ if .username_has_space }}
+   username map = /etc/samba/smbusers
+   {{ end }}
 
    load printers = no
    disable spoolss = yes

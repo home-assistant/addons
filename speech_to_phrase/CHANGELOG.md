@@ -2,7 +2,7 @@
 
 ## 1.4.2
 
-- Add more Spanish sentences (credit: naevtamarkus) by @synesthesiam
+- Add more Spanish sentences
 - Allow plural usage when asking about cover and lock states
 - Fix formatting in Docker run command example
 - Enhance german speech recognition phrases

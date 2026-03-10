@@ -2,10 +2,10 @@
 
 ## 1.4.2
 
-- Add more Spanish sentences
+- Enhance Spanish speech recognition phrases
 - Allow plural usage when asking about cover and lock states
 - Fix formatting in Docker run command example
-- Enhance german speech recognition phrases
+- Enhance German speech recognition phrases
 
 ## 1.4.1
 

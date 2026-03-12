@@ -3,6 +3,12 @@
 Use [Assist](https://www.home-assistant.io/voice_control/) voice assistant with
 a local USB microphone for STT commands and a speaker for audio playback. This app uses the [ESPHome](https://esphome.io/) satellite protocol based on [Linux Voice Assistant](https://github.com/OHF-Voice/linux-voice-assistant) and is automatically discovered by Home Assistant via the ESPHome integration.
 
+> [!NOTE]
+> **Running Home Assistant OS in a virtual machine?**
+> The microphone and speaker must be passed through from the host to the VM
+> before this app can use them. How to do this depends on your hypervisor —
+> consult its documentation for USB or audio device passthrough.
+
 ## How to use
 
 After this app is installed and running it will be automatically discovered by

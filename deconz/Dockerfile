@@ -41,10 +41,7 @@ RUN \
 ARG DECONZ_VERSION
 RUN \
     set -x \
-    && if [ "${BUILD_ARCH}" = "armhf" ]; \
-        then \
-            curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/raspbian/stable/deconz-${DECONZ_VERSION}-qt5.deb; \
-        elif [ "${BUILD_ARCH}" = "aarch64" ]; \
+    && if [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
             curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/debian/stable/deconz_${DECONZ_VERSION}-debian-buster-stable_arm64.deb; \
         else \

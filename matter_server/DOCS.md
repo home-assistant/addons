@@ -43,6 +43,26 @@ App configuration:
 | beta                 | Whether to install the latest beta version on startup (runs matter.js-based Matter Server starting with 8.2.0) |
 | enable_test_net_dcl  | Enable test-net DCL for PAA root certificates, OTA updates and other device information.                |
 | bluetooth_adapter_id | Set BlueZ Bluetooth Controller ID (for local commissioning)                                             |
+| matter_server_env_vars | Extra environment variables exported before start (only relevant for the JavaScript Matter Server / Beta mode). Use `KEY=VALUE` entries. |
+| matter_server_version | Custom Matter Server version. In JavaScript/Beta mode, only `0.x.y` or `1.x.y` values are used; other values are ignored and latest is installed. |
+
+### `matter_server_env_vars` (JavaScript server only)
+
+This option is only relevant when the **Beta** flag is enabled (JavaScript
+Matter Server).
+
+```yaml
+matter_server_env_vars:
+  - NODE_OPTIONS=--max-old-space-size=512
+  - MY_FLAG=true
+```
+
+### `matter_server_version`
+
+- Python mode: installs the configured `python-matter-server` version.
+- JavaScript/Beta mode: uses the configured version only if it matches
+  `0.x.y` or `1.x.y` (for example `1.2.3`); all other values are ignored and
+  `latest` is installed.
 
 ## Support
 

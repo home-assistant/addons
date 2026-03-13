@@ -8,6 +8,7 @@
    ntlm auth = yes
    idmap config * : backend = tdb
    idmap config * : range = 1000000-2000000
+   username map = /etc/samba/smbusers
 
    load printers = no
    disable spoolss = yes

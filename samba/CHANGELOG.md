@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.6.1
+
+- Support spaces in configurable username
+
 ## 12.6.0
 
 - Do initial healthcheck after 3s to speedup startup

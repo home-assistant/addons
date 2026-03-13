@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.3.0
+
+- Add `matter_server_env_vars` option to export custom environment variables before starting Matter Server
+- Respect `matter_server_version` in JavaScript/Beta mode (but only for `0.x.y` and `1.x.y` values; ignore all other values and install latest)
+
 ## 8.2.2
 
 - Install make and gcc as well

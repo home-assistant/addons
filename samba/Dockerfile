@@ -6,8 +6,11 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN \
-    apk add --no-cache samba \
-    && mkdir -p /var/lib/samba \
+    echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> \
+        /etc/apk/repositories && \
+    apk add --no-cache samba mdnsd@testing=0.12-r1 \
+    && rm -f /etc/mdns.d/* \
+    && mkdir -p /var/lib/samba /smbshare \
     && touch \
         /etc/samba/lmhosts \
         /var/lib/samba/account_policy.tdb \

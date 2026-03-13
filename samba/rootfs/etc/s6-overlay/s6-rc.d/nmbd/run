@@ -4,7 +4,12 @@
 # ==============================================================================
 # Start nmbd service
 # ==============================================================================
-exec nmbd \
+
+if ! bashio::config.true 'netbios'; then
+    builtin exec sleep infinity
+fi
+
+builtin exec nmbd \
   --foreground \
   --debug-stdout \
   --no-process-group

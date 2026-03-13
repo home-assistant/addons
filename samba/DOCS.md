@@ -8,6 +8,8 @@ Follow these steps to get the app (formerly known as add-on) installed on your s
 2. Find the "Samba share" app and click it.
 3. Click on the "INSTALL" button.
 
+[![Open your Home Assistant instance and show the dashboard of an app.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_samba)
+
 ## How to use
 
 1. In the configuration section, set a username and password.
@@ -35,39 +37,39 @@ Directory | Description
 App configuration:
 
 ```yaml
-workgroup: WORKGROUP
-local_master: true
-username: homeassistant
-password: YOUR_PASSWORD
-enabled_shares:
-  - addons
-  - addon_configs
-  - backup
-  - config
-  - media
-  - share
-  - ssl
-allow_hosts:
-  - 10.0.0.0/8
-  - 172.16.0.0/12
-  - 192.168.0.0/16
-  - 169.254.0.0/16
-  - fe80::/10
-  - fc00::/7
-veto_files:
-  - "._*"
-  - ".DS_Store"
-  - Thumbs.db
-compatibility_mode: false
+  username: homeassistant
+  password: null
+  workgroup: WORKGROUP
+  enabled_shares:
+    - addons
+    - addon_configs
+    - backup
+    - config
+    - media
+    - share
+    - ssl
+  local_master: true
+  compatibility_mode: false
+  apple_compatibility_mode: true
+  server_signing: "default"
+  netbios: true
+  veto_files:
+    - ._*
+    - .DS_Store
+    - Thumbs.db
+    - icon?
+    - .Trashes
+  allow_hosts:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 169.254.0.0/16
+    - fe80::/10
+    - fc00::/7
 ```
 
-### Option: `workgroup` (required)
 
-Change WORKGROUP to reflect your network needs.
 
-### Option: `local_master` (required)
-
-Enable to try and become a local master browser on a subnet.
 
 ### Option: `username` (required)
 
@@ -77,19 +79,17 @@ The username you would like to use to authenticate with the Samba server.
 
 The password that goes with the username configured for authentication.
 
+### Option: `workgroup` (required)
+
+Change WORKGROUP to reflect your network needs.
+
 ### Option: `enabled_shares` (required)
 
 List of Samba shares that will be accessible. Any shares removed or commented out of the list will not be accessible.
 
-### Option: `allow_hosts` (required)
+### Option: `local_master` (required)
 
-List of hosts/networks allowed to access the shared folders.
-
-### Option: `veto_files` (optional)
-
-List of files that are neither visible nor accessible. Useful to stop clients
-from littering the share with temporary hidden files
-(e.g., macOS `.DS_Store` or Windows `Thumbs.db` files)
+Enable to try and become a local master browser on a subnet.
 
 ### Option: `compatibility_mode`
 
@@ -113,6 +113,31 @@ Configure the SMB server signing requirement. This option can improve security b
 Refer to the man page for smb.conf for detailed information about the values: **default**, **auto**, **mandatory**, and **disabled**.
 
 Defaults to `default`.
+
+### Option: `netbios`
+
+NetBIOS is a legacy network protocol for accessing SMB/CIFS shares.
+Enable for legacy clients older than Windows Vista (Windows 95/98/ME, Windows NT, Windows 2000, Windows XP and LanManager), or OS X 10.9 (Mavericks). This setting is enabled by default for compatibility; disable it on modern installations.
+
+Defaults to `true`.
+
+### Option: `veto_files` (optional)
+
+List of files that are neither visible nor accessible. Useful to stop clients
+from littering the share with temporary hidden files
+(e.g., macOS `.DS_Store` or Windows `Thumbs.db` files)
+
+### Option: `allow_hosts` (required)
+
+List of hosts/networks allowed to access the shared folders.
+
+## Network ports
+
+From version 12.6.1 of this app, it is possible to override the default ports in the app configuration.  Only very specific use cases should do this.
+If ports have been changed, due to known constraints with macOS Finder, it is **not** possible to access the share from Finder's Network location browser.  You _can_ access the share by opening the **Connect to server...** dialog (⌘ + K).
+```URL
+smb://<hostname>:<port>/<sharename>
+```
 
 ## Support
 

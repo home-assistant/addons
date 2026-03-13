@@ -39,6 +39,12 @@ configuration:
       Configure SMB server message signing requirements.
       Refer to the smb.conf man page for more information.
       Only change this if you know your SMB clients can support it.
+  netbios:
+    name: Enable NetBIOS over IP
+    description: >-
+      Enable NetBIOS over IP for legacy SMB clients
+      (Windows 95/98/ME, Windows NT, Windows 2000, Windows XP and LanManager clients).
+      Disable to improve security and performance if you do not have legacy SMB clients.
   veto_files:
     name: Veto Files
     description: List of files that are neither visible nor accessible.

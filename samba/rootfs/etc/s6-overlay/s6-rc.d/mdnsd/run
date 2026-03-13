@@ -1,0 +1,40 @@
+#!/command/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+
+
+if bashio::var.true "$(bashio::addon.host_network)"; then
+    bashio::log.info "Host network detected. Configuring mDNS"
+    
+    # Read hostname from API or setting default "hassio"
+    HOSTNAME=$(bashio::info.hostname)
+    if bashio::var.is_empty "${HOSTNAME}"; then
+        bashio::log.warning "Can't read hostname, using default."
+        HOSTNAME="hassio"
+    fi
+
+    declare -r smbfile="/etc/mdns.d/smb.service"
+    declare -r adiskfile="/etc/mdns.d/adisk.service"
+    declare -r _TMP="$(mktemp -d -t mdnsd.XXXXXX)"
+    rm -f -v "${smbfile}" "${adiskfile}"
+
+    # Generate JSON configuration for tempio
+    jq -c "
+        .ports = $(bashio::addon.network) 
+        | .sambaversion = \"$(smbstatus --version | cut -d '[ \t]+' -F 2)\"
+        " /data/options.json > "${_TMP}/options.json"
+
+    # Generate _smb._tcp service advertisement
+    tempio \
+    -conf "${_TMP}/options.json" \
+    -template /usr/share/tempio/smb.service.gtpl \
+    -out ${smbfile}
+
+    # Generate _adisk._tcp service advertisement
+    tempio \
+    -conf "${_TMP}/options.json" \
+    -template /usr/share/tempio/adisk.service.gtpl \
+    -out ${adiskfile}
+
+    builtin exec $(which mdnsd) -n -i $(bashio::network.name)
+fi

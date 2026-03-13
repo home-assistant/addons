@@ -1,0 +1,11 @@
+# macOS
+._*
+.DS_Store
+.AppleDouble
+
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+.AppleDB
+.AppleDesktop

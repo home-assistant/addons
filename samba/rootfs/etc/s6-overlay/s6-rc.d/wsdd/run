@@ -1,0 +1,36 @@
+#!/command/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+# ==============================================================================
+# Start wsdd service
+# ==============================================================================
+declare hostname
+declare workgroup
+declare interface_enabled
+declare -a interfaces=()
+
+# Match Samba's advertised server name.
+hostname=$(bashio::info.hostname)
+if bashio::var.is_empty "${hostname}"; then
+    bashio::log.warning "Can't read hostname, using default."
+    hostname="hassio"
+fi
+workgroup=$(bashio::config 'workgroup')
+
+for interface in $(bashio::network.interfaces); do
+    interface_enabled=$(bashio::network.enabled "${interface}")
+    if bashio::var.true "${interface_enabled}"; then
+        interfaces+=("-i" "${interface}")
+    fi
+done
+
+if [ ${#interfaces[@]} -eq 0 ]; then
+    bashio::log.warning 'WSDD disabled: no supported interfaces found to bind on.'
+    exec tail -f /dev/null
+fi
+
+bashio::log.info \
+    "Starting the WSDD daemon on interfaces: $(printf '%s ' "${interfaces[@]}")" \
+    "for ${workgroup}/${hostname}"
+
+exec wsdd "${interfaces[@]}" -n "${hostname}" -w "${workgroup}"

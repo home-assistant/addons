@@ -26,7 +26,7 @@ jobs:
 
       - name: Get changed files
         id: changed_files
-        uses: masesgroup/retrieve-changed-files@v3.0.0
+        uses: masesgroup/retrieve-changed-files@v4.0.0
 
       - name: Get apps
         id: addons

@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.2.0
+
+- Add ArtFiles DNS provider support
+- Update [lego ACME library](https://go-acme.github.io/lego/) to latest
+
 ## 6.1.1
 
 - Add Bunny DNS provider support

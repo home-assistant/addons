@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.0.1
+
+- Replace eval+extglob with find for restoring non-YAML files after clone
+
 ## 9.0.0
 
 - Update base image to Alpine 3.23

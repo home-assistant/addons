@@ -56,10 +56,8 @@ function git-clone {
     bashio::log.info "[Info] Start git clone"
     git clone "$REPOSITORY" /config || bashio::exit.nok "[Error] Git clone failed"
 
-    # try to copy non-yaml files back (use eval to avoid parse-time extglob error)
-    shopt -s extglob nullglob dotglob
-    eval 'cp -r "${BACKUP_LOCATION}"/!(*.yaml|*.yml) /config 2>/dev/null' || true
-    shopt -u extglob nullglob dotglob
+    # try to copy non-yaml files back
+    find "${BACKUP_LOCATION}" -maxdepth 1 -mindepth 1 ! -name "*.yaml" ! -name "*.yml" -exec cp -r {} /config/ \; 2>/dev/null || true
 
     # try to copy secrets file back
     cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null || true

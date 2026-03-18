@@ -2,6 +2,7 @@
 
 ## 2.16.6
 
+- Fix and improve NAT64 firewall rules
 - Enable recovery mechanism from "radio tx timeout" errors for beta
 
 ## 2.16.5

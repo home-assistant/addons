@@ -120,13 +120,20 @@ else
 fi
 
 if bashio::config.true 'nat64'; then
-    # shellcheck disable=SC2086
-    iptables -t mangle -A PREROUTING -i ${thread_if} -j MARK --set-mark 0x1001
-    iptables -t nat -A POSTROUTING -m mark --mark 0x1001 -j MASQUERADE
-    # shellcheck disable=SC2086
-    iptables -t filter -A FORWARD -o ${backbone_if} -j ACCEPT
-    # shellcheck disable=SC2086
-    iptables -t filter -A FORWARD -i ${backbone_if} -j ACCEPT
+    # Mark Thread traffic in mangle
+    iptables -t mangle -A PREROUTING -i "${thread_if}" -j MARK --set-mark "${otbr_fw_mark}"
+
+    # MASQUERADE marked traffic
+    iptables -t nat -A POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUERADE
+
+    # NAT64 forward chain — jump unconditionally, filter inside
+    iptables -N "${otbr_forward_nat64_chain}"
+    iptables -I FORWARD 1 -j "${otbr_forward_nat64_chain}"
+
+    # Forward marked traffic
+    iptables -A "${otbr_forward_nat64_chain}" -m mark --mark "${otbr_fw_mark}" -o "${backbone_if}" -j ACCEPT
+    # Use conntrack to identify return traffic
+    iptables -A "${otbr_forward_nat64_chain}" -m conntrack --ctstate ESTABLISHED,RELATED -i "${backbone_if}" -o "${thread_if}" -j ACCEPT
 fi
 
 otbr_rest_listen="::"

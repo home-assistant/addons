@@ -50,7 +50,27 @@ if ip6tables -L "${otbr_forward_egress_chain}" 2> /dev/null; then
     ip6tables -w -F "${otbr_forward_egress_chain}"
     ip6tables -w -X "${otbr_forward_egress_chain}"
 fi
-bashio::log.info "OTBR firewall teardown completed."
+
+# Remove FORWARD jump(s)
+while iptables -C FORWARD -j "${otbr_forward_nat64_chain}" 2>/dev/null; do
+    iptables -D FORWARD -j "${otbr_forward_nat64_chain}"
+done
+
+# Flush and delete chain
+if iptables -L "${otbr_forward_nat64_chain}" -n 2>/dev/null; then
+    iptables -w -F "${otbr_forward_nat64_chain}"
+    iptables -w -X "${otbr_forward_nat64_chain}"
+fi
+
+# Clean mangle and nat rules
+while iptables -t mangle -C PREROUTING -i "${thread_if}" -j MARK --set-mark "${otbr_fw_mark}" 2>/dev/null; do
+    iptables -t mangle -D PREROUTING -i "${thread_if}" -j MARK --set-mark "${otbr_fw_mark}"
+done
+
+while iptables -t nat -C POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUERADE 2>/dev/null; do
+    iptables -t nat -D POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUERADE
+done
+bashio::log.info "OTBR firewall/NAT64 rules teardown completed."
 
 if test "$e" -ne 0; then
     echo "$e" > /run/s6-linux-init-container-results/exitcode

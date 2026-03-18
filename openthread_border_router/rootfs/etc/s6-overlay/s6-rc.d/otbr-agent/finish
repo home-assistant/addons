@@ -16,7 +16,7 @@ else
     bashio::log.info "otbr-agent exited with code $e (by signal $2)."
 fi
 
-# shellcheck source=rootfs/etc/s6-overlay/scripts/otbr-agent-common
+# shellcheck source=./openthread_border_router/rootfs/etc/s6-overlay/scripts/otbr-agent-common
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 ipset_destroy_if_exist()

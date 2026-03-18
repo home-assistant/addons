@@ -2,8 +2,15 @@
 
 ## 6.2.0
 
-- Add ArtFiles DNS provider support
-- Update [lego ACME library](https://go-acme.github.io/lego/) to latest
+- Update certbot-dns-multi to 4.32.0 (see [lego's changelog](https://github.com/go-acme/lego/blob/v4.32.0/CHANGELOG.md) for details), most notably to add these DNS providers:
+  - alidns (line record option)
+  - ArtFiles
+  - Bluecat v2
+  - DDNSS
+  - DNSExit
+  - FusionLayer NameSurfer
+  - Leaseweb
+  - TodayNIC/时代互联
 
 ## 6.1.1
 

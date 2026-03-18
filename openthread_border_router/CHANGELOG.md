@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.6
+
+- Enable recovery mechanism from "radio tx timeout" errors for beta
+
 ## 2.16.5
 
 - Add `backbone_interface` option to override the network interface used for IPv6 routing.

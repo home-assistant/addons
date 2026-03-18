@@ -5,7 +5,7 @@
 # OpenThread BorderRouter start script
 # ==============================================================================
 
-# shellcheck disable=SC1091
+# shellcheck source=rootfs/etc/s6-overlay/scripts/otbr-agent-common
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 declare backbone_if
@@ -98,28 +98,20 @@ ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
 
 if bashio::config.true 'firewall'; then
     bashio::log.info "Setup OTBR firewall..."
-# shellcheck disable=SC2086,SC2154
-    ip6tables -N $otbr_forward_ingress_chain
-# shellcheck disable=SC2086,SC2154
-    ip6tables -I FORWARD 1 -o $thread_if -j $otbr_forward_ingress_chain
 
-    # shellcheck disable=SC2086
-    ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -i ${thread_if} -j DROP
-    # shellcheck disable=SC2086
-    ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-deny-src src -j DROP
-    # shellcheck disable=SC2086
-    ip6tables -A $otbr_forward_ingress_chain -m set --match-set otbr-ingress-allow-dst dst -j ACCEPT
-    # shellcheck disable=SC2086
-    ip6tables -A $otbr_forward_ingress_chain -m pkttype --pkt-type unicast -j DROP
-    # shellcheck disable=SC2086
-    ip6tables -A $otbr_forward_ingress_chain -j ACCEPT
+    ip6tables -N "${otbr_forward_ingress_chain}"
 
-    # shellcheck disable=SC2086,SC2154
-    ip6tables -N $otbr_forward_egress_chain
-    # shellcheck disable=SC2086
-    ip6tables -I FORWARD 2 -i $thread_if -j $otbr_forward_egress_chain
-    # shellcheck disable=SC2086
-    ip6tables -A $otbr_forward_egress_chain -j ACCEPT
+    ip6tables -I FORWARD 1 -o "${thread_if}" -j "${otbr_forward_ingress_chain}"
+
+    ip6tables -A "${otbr_forward_ingress_chain}" -m pkttype --pkt-type unicast -i "${thread_if}" -j DROP
+    ip6tables -A "${otbr_forward_ingress_chain}" -m set --match-set otbr-ingress-deny-src src -j DROP
+    ip6tables -A "${otbr_forward_ingress_chain}" -m set --match-set otbr-ingress-allow-dst dst -j ACCEPT
+    ip6tables -A "${otbr_forward_ingress_chain}" -m pkttype --pkt-type unicast -j DROP
+    ip6tables -A "${otbr_forward_ingress_chain}" -j ACCEPT
+
+    ip6tables -N "${otbr_forward_egress_chain}"
+    ip6tables -I FORWARD 2 -i "${thread_if}" -j "${otbr_forward_egress_chain}"
+    ip6tables -A "${otbr_forward_egress_chain}" -j ACCEPT
 else
     # Make sure ip6tables (as used by Docker) allow IP forwarding
     ip6tables -P FORWARD ACCEPT

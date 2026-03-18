@@ -4,7 +4,6 @@ name: Lint
 
 env:
   HADOLINT_VERSION: v1.17.2
-  SHELLCHECK_OPTS: -e SC1008 -s bash
 
 on:
   pull_request:
@@ -50,6 +49,8 @@ jobs:
 
       - name: Run linter
         uses: ludeeus/action-shellcheck@2.0.0
+        env:
+          SHELLCHECK_OPTS: -e SC1008 -s bash -x
         with:
           # Names of scripts with custom shebangs that the action would not
           # discover on its own:

@@ -51,15 +51,6 @@ if ip6tables -L "${otbr_forward_egress_chain}" 2> /dev/null; then
     ip6tables -w -X "${otbr_forward_egress_chain}"
 fi
 
-# Cleanup non-firewall rules
-while ip6tables -C FORWARD -i "${thread_if}" -o "${backbone_if}" -j ACCEPT 2>/dev/null; do
-    ip6tables -D FORWARD -i "${thread_if}" -o "${backbone_if}" -j ACCEPT
-done
-
-while ip6tables -C FORWARD -i "${backbone_if}" -o "${thread_if}" -j ACCEPT 2>/dev/null; do
-    ip6tables -D FORWARD -i "${backbone_if}" -o "${thread_if}" -j ACCEPT
-done
-
 # Remove FORWARD jump(s)
 while iptables -C FORWARD -j "${otbr_forward_nat64_chain}" 2>/dev/null; do
     iptables -D FORWARD -j "${otbr_forward_nat64_chain}"

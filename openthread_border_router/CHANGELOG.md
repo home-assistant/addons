@@ -4,7 +4,7 @@
 
 - Fix and improve NAT64 firewall rules
 - Enable recovery mechanism from "radio tx timeout" errors for beta
-- Narrow non-firewall forwarding rules to Thread and infrastructure interface
+- Narrow non-firewall forwarding rules to Thread interface
 
 ## 2.16.5
 

@@ -6,8 +6,10 @@
 # ==============================================================================
 declare hostname
 declare workgroup
-declare interface_enabled
+declare -a wsdd_interfaces=()
 declare -a interfaces=()
+
+source /etc/s6-overlay/s6-rc.d/init-smbd/network-interfaces.sh
 
 # Match Samba's advertised server name.
 hostname=$(bashio::info.hostname)
@@ -17,20 +19,20 @@ if bashio::var.is_empty "${hostname}"; then
 fi
 workgroup=$(bashio::config 'workgroup')
 
-for interface in $(bashio::network.interfaces); do
-    interface_enabled=$(bashio::network.enabled "${interface}")
-    if bashio::var.true "${interface_enabled}"; then
-        interfaces+=("-i" "${interface}")
-    fi
-done
+get_enabled_interfaces interfaces
 
 if [ ${#interfaces[@]} -eq 0 ]; then
     bashio::log.warning 'WSDD disabled: no supported interfaces found to bind on.'
     exec tail -f /dev/null
 fi
 
+# wsdd expects each interface to be preceded by "-i".
+for interface in "${interfaces[@]}"; do
+    wsdd_interfaces+=("-i" "${interface}")
+done
+
 bashio::log.info \
     "Starting the WSDD daemon on interfaces: $(printf '%s ' "${interfaces[@]}")" \
     "for ${workgroup}/${hostname}"
 
-exec wsdd "${interfaces[@]}" -n "${hostname}" -w "${workgroup}"
+exec wsdd "${wsdd_interfaces[@]}" -n "${hostname}" -w "${workgroup}"

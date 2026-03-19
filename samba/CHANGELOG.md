@@ -1,6 +1,6 @@
 # Changelog
 
-## 12.6.2
+## 12.7.0
 
 - Add Windows automatic discovery support with WSDD
 

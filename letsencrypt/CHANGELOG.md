@@ -2,15 +2,7 @@
 
 ## 6.2.0
 
-- Update certbot-dns-multi to 4.32.0 (see [lego's changelog](https://github.com/go-acme/lego/blob/v4.32.0/CHANGELOG.md) for details), most notably to add these DNS providers:
-  - alidns (line record option)
-  - ArtFiles
-  - Bluecat v2
-  - DDNSS
-  - DNSExit
-  - FusionLayer NameSurfer
-  - Leaseweb
-  - TodayNIC/时代互联
+- Update certbot-dns-multi to 4.32.0, adding several DNS providers (see [lego's changelog](https://github.com/go-acme/lego/blob/v4.32.0/CHANGELOG.md) for details).
 
 ## 6.1.1
 

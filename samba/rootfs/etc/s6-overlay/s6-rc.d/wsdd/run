@@ -19,6 +19,10 @@ if bashio::var.is_empty "${hostname}"; then
     hostname="hassio"
 fi
 workgroup=$(bashio::config 'workgroup')
+if bashio::var.is_empty "${workgroup}"; then
+    bashio::log.warning "Can't read workgroup, using default."
+    workgroup="WORKGROUP"
+fi
 
 get_enabled_interfaces interfaces
 
@@ -33,7 +37,6 @@ for interface in "${interfaces[@]}"; do
 done
 
 bashio::log.info \
-    "Starting the WSDD daemon on interfaces: $(printf '%s ' "${interfaces[@]}")" \
-    "for ${workgroup}/${hostname}"
+    "Starting the WSDD daemon on interfaces: ${interfaces[*]} for ${workgroup}/${hostname}"
 
 exec wsdd "${wsdd_interfaces[@]}" -n "${hostname}" -w "${workgroup}"

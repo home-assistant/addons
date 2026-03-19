@@ -9,6 +9,7 @@ declare workgroup
 declare -a wsdd_interfaces=()
 declare -a interfaces=()
 
+# shellcheck disable=SC1091  # Sourced from container filesystem path at runtime.
 source /etc/s6-overlay/s6-rc.d/init-smbd/network-interfaces.sh
 
 # Match Samba's advertised server name.

@@ -11,6 +11,7 @@ declare samba_username
 declare -a interfaces=()
 export HOSTNAME
 
+# shellcheck disable=SC1091  # Sourced from container filesystem path at runtime.
 source /etc/s6-overlay/s6-rc.d/init-smbd/network-interfaces.sh
 
 # Check Login data

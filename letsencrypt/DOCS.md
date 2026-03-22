@@ -1112,6 +1112,29 @@ Example configuration:
 </details>
 
 <details>
+  <summary>Netlify</summary>
+
+Use of this plugin requires a Netlify personal access token. See the [Netlify documentation](https://docs.netlify.com/accounts-and-billing/user-settings/#personal-access-tokens) for instructions on creating one.
+
+Example configuration:
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-netlify
+    netlify_token: YOUR_NETLIFY_PERSONAL_ACCESS_TOKEN
+  ```
+
+[Full Documentation](https://go-acme.github.io/lego/dns/netlify/)
+
+</details>
+
+<details>
   <summary>Netcup</summary>
 
 Both the API password and key can be obtained via the following page: <https://www.customercontrolpanel.de/daten_aendern.php?sprung=api>

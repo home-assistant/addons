@@ -140,6 +140,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ["dns-luadns"]="luadns"
             ["dns-mijn-host"]="mijnhost"
             ["dns-namecheap"]="namecheap"
+            ["dns-netlify"]="netlify"
             ["dns-netcup"]="netcup"
             ["dns-njalla"]="njalla"
             ["dns-nsone"]="ns1"
@@ -400,6 +401,12 @@ if [ "${CHALLENGE}" == "dns" ]; then
             bashio::config.require 'dns.namecheap_api_key'
             echo "NAMECHEAP_API_USER=$(bashio::config 'dns.namecheap_username')" >> "${DNS_MULTI_CREDS}"
             echo "NAMECHEAP_API_KEY=$(bashio::config 'dns.namecheap_api_key')" >> "${DNS_MULTI_CREDS}"
+            ;;
+
+        # Netlify
+        'dns-netlify')
+            bashio::config.require 'dns.netlify_token'
+            echo "NETLIFY_TOKEN=$(bashio::config 'dns.netlify_token')" >> "${DNS_MULTI_CREDS}"
             ;;
 
         # Netcup

@@ -73,6 +73,7 @@ dns-loopia
 dns-luadns
 dns-mijn-host
 dns-namecheap
+dns-netlify
 dns-netcup
 dns-njalla
 dns-noris
@@ -152,6 +153,7 @@ luadns_token: ''
 mijn_host_api_key: ''
 namecheap_api_key: ''
 namecheap_username: ''
+netlify_token: ''
 netcup_api_key: ''
 netcup_api_password: ''
 netcup_customer_id: ''
@@ -1544,6 +1546,7 @@ dns-loopia
 dns-luadns
 dns-mijn-host
 dns-namecheap
+dns-netlify
 dns-netcup
 dns-njalla
 dns-noris

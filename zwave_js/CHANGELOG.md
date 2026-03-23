@@ -2,10 +2,10 @@
 
 ## 1.1.0
 
-This release includes an improvement to how Window/Door sensors are represented. Previously exposed as several binary sensors, which did not all work for all devices, they are now exposed as a single "Opening state" sensor with three states: Closed/Open/Tilted. The Tilted state is only exposed after a device has reported this.
+This release includes an improvement to how Window/Door sensors are represented. Previously exposed as several binary sensors, which did not all work for all devices, they are now exposed as a single **Opening state** sensor with three states: Closed/Open/Tilted. The Tilted state is only exposed after a device has reported this.
 
 The old binary sensors are still supported, but will be hidden by default and removed in a future release.
-It is recommended to switch to the new "Opening state" sensor as soon as possible.
+Switch to the new **Opening state** sensor as soon as possible.
 
 Note that this feature will only come into effect in Home Assistant 2026.4.0.
 
@@ -19,11 +19,11 @@ Note that this feature will only come into effect in Home Assistant 2026.4.0.
 
 #### Features
 
-- Add a new synthetic "Opening state" variable with 3 states to represent door/window state: Closed/Open/Tilt
+- Add a new synthetic **Opening state** variable with 3 states to represent door/window state: Closed/Open/Tilt
 
 #### Bugfixes
 
-- Improve network congestion when automatically polling devices
+- Reduce network congestion when automatically polling devices
 - Fixed an issue where Alarm Sensor CC was not interviewed when Notification CC is supported in version 1
 - User Code CC values (user codes and statuses) are no longer updated optimistically
 - Reduced the memory footprint by 3-5 MB
@@ -46,12 +46,12 @@ Note that this feature will only come into effect in Home Assistant 2026.4.0.
 
 #### Bugfixes
 
-- Display 'unknown' for null/undefined values with units and fix battery level null display
+- Display **unknown** for null/undefined values with units and fix battery level null display
 - Warn when trying to create associations for LR nodes
 - Fix broken UI snackbar
 - Fix background RSSI chart showing blank on second open
 - Prevent logging to file when log is disabled
-- Display 'unknown' for CC values instead of 'null' when the value represents an unknown state
+- Display **unknown** for CC values instead of **null** when the value represents an unknown state
 - Prevent last seen time from being cut off in compact view
 
 ### Detailed changelogs

@@ -1,5 +1,68 @@
 # Changelog
 
+## 1.1.0
+
+This release includes an improvement to how Window/Door sensors are represented. Previously exposed as several binary sensors, which did not all work for all devices, they are now exposed as a single "Opening state" sensor with three states: Closed/Open/Tilted. The Tilted state is only exposed after a device has reported this.
+
+The old binary sensors are still supported, but will be hidden by default and removed in a future release.
+It is recommended to switch to the new "Opening state" sensor as soon as possible.
+
+Note that this feature will only come into effect in Home Assistant 2026.4.0.
+
+### Z-Wave JS 15.22.1
+
+#### Bugfixes
+
+- Fixes an issue where the moving state of certain covers could be stuck on "opening" or "closing"
+
+### Z-Wave JS 15.22.0
+
+#### Features
+
+- Add a new synthetic "Opening state" variable with 3 states to represent door/window state: Closed/Open/Tilt
+
+#### Bugfixes
+
+- Improve network congestion when automatically polling devices
+- Fixed an issue where Alarm Sensor CC was not interviewed when Notification CC is supported in version 1
+- User Code CC values (user codes and statuses) are no longer updated optimistically
+- Reduced the memory footprint by 3-5 MB
+
+#### Config file changes
+
+- Improved support for Hoppe eHandle window and handle states
+
+### Z-Wave JS UI 11.15.1
+
+#### Features
+
+- Simplified config parameter management for multiple similar devices using configuration templates
+- The debug capture wizard can now be used to diagnose startup issues
+- Optimized frontend API communication
+- Setting destructive configuration parameters now requires confirmation
+- Added a setting to show labels on all navigation tabs
+- The network graph is now always updated live, and no longer re-layouts everything on updates
+- Support value ranges with gaps in number inputs
+
+#### Bugfixes
+
+- Display 'unknown' for null/undefined values with units and fix battery level null display
+- Warn when trying to create associations for LR nodes
+- Fix broken UI snackbar
+- Fix background RSSI chart showing blank on second open
+- Prevent logging to file when log is disabled
+- Display 'unknown' for CC values instead of 'null' when the value represents an unknown state
+- Prevent last seen time from being cut off in compact view
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.22.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.22.1)
+- [Z-Wave JS 15.22.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.22.0)
+- [Z-Wave JS UI 11.15.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.15.1)
+- [Z-Wave JS UI 11.15.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.15.0)
+- [Z-Wave JS UI 11.14.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.14.0)
+- [Z-Wave JS UI 11.13.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.13.0)
+
 ## 1.0.1
 
 - Migrate security keys from the OZW format to the Z-Wave JS format automatically

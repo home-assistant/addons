@@ -28,7 +28,7 @@ get_enabled_interfaces interfaces
 
 if [ ${#interfaces[@]} -eq 0 ]; then
     bashio::log.warning 'WSDD disabled: no supported interfaces found to bind on.'
-    exec tail -f /dev/null
+    exit 1
 fi
 
 # wsdd expects each interface to be preceded by "-i".

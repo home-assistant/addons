@@ -23,7 +23,9 @@ if [[ "${exit_code_service}" -eq 256 && "${exit_code_signal}" -eq 15 ]]; then
 elif [[ "${exit_code_service}" -eq 256 ]]; then
   bashio::log.warning \
     "Optional service ${service} exited by signal ${exit_code_signal}; continuing without Windows discovery."
+  exit 125
 elif [[ "${exit_code_service}" -ne 0 ]]; then
   bashio::log.warning \
     "Optional service ${service} failed; continuing without Windows discovery."
+  exit 125
 fi

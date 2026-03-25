@@ -60,6 +60,7 @@ RUN \
         -DOT_CHANNEL_MONITOR=ON \
         -DOT_COAP=OFF \
         -DOT_COAPS=OFF \
+        -DOT_WAKEUP_COORDINATOR=ON \
         -DOT_THREAD_VERSION=1.4 \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
     && cd /usr/src/ot-br-posix/build/otbr \

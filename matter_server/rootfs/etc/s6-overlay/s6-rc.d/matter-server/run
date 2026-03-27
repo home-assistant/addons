@@ -85,6 +85,9 @@ else
   # Non-beta mode: Use Python Matter Server
   bashio::log.info "Using Python Matter Server"
 
+  # PAA root cert dir is only supported by the Python server
+  extra_args+=('--paa-root-cert-dir' "/data/credentials")
+
   if bashio::config.has_value "matter_server_version"; then
     matter_server_version=$(bashio::config 'matter_server_version')
     bashio::log.info "Installing Python Matter Server ${matter_server_version}"
@@ -151,7 +154,6 @@ matter_server_args+=(
   '--log-level' "${log_level}"
   '--log-level-sdk' "${log_level_sdk}"
   '--primary-interface' "${primary_interface}"
-  '--paa-root-cert-dir' "/data/credentials"
   '--ota-provider-dir' "/config/updates"
   '--fabricid' 2
   '--vendorid' 4939

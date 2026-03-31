@@ -78,7 +78,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_matter_server
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
 [reddit]: https://reddit.com/r/homeassistant
 [issue]: https://github.com/home-assistant/addons/issues

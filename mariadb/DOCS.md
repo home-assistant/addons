@@ -110,7 +110,7 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [grant]: https://mariadb.com/kb/en/grant/
 [migration-issues]: https://github.com/home-assistant/core/issues/125339
 [mariadb-ha-recorder]: https://www.home-assistant.io/integrations/recorder/
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [issue]: https://github.com/home-assistant/addons/issues

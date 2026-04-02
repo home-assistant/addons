@@ -113,6 +113,7 @@ digitalocean_token: ''
 directadmin_password: ''
 directadmin_url: ''
 directadmin_username: ''
+dns_multi_nameservers: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
@@ -184,6 +185,20 @@ websupport_secret_key: ''
 ```
 
 </details>
+
+### Split DNS and custom nameservers
+
+If cert renewal fails with an error like `failed to find zone <domain>: zone could not be found`,
+your local DNS may be returning a different SOA than what your DNS provider manages. This can happen
+in split DNS setups where a local DNS server handles a zone that is also hosted publicly, or where
+the local resolver returns a different SOA response than the public authoritative server.
+
+Set `dns_multi_nameservers` to a comma-separated list of public DNS servers to use for zone
+determination and CNAME resolution. Port is optional and defaults to 53.
+
+```yaml
+dns_multi_nameservers: '1.1.1.1,8.8.8.8'
+```
 
 ### Configure certificate files
 

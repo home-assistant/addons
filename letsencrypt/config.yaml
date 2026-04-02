@@ -1,5 +1,5 @@
 ---
-version: 6.2.0
+version: 6.3.0
 breaking_versions: [5.3.0, 6.0.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -51,6 +51,7 @@ schema:
     directadmin_password: str?
     directadmin_url: str?
     directadmin_username: str?
+    dns_multi_nameservers: str?
     dnsimple_token: str?
     dnsmadeeasy_api_key: str?
     dnsmadeeasy_secret_key: str?

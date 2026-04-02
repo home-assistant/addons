@@ -44,6 +44,11 @@ if [ "${CHALLENGE}" == "dns" ]; then
     fi
     bashio::log.info "Use propagation seconds: ${PROPAGATION_SECONDS}"
 
+    DNS_MULTI_NAMESERVERS=""
+    if bashio::config.exists 'dns.dns_multi_nameservers'; then
+        DNS_MULTI_NAMESERVERS="$(bashio::config 'dns.dns_multi_nameservers')"
+    fi
+
     # Check if this is a legacy provider (not supported by dns-multi)
     # shellcheck disable=SC2076
     if [[ " ${LEGACY_PROVIDERS} " =~ " ${DNS_PROVIDER} " ]]; then
@@ -547,6 +552,9 @@ if [ "${CHALLENGE}" == "dns" ]; then
         echo "${PROVIDER_ENV_PREFIX}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
 
         ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
+        if [ -n "${DNS_MULTI_NAMESERVERS}" ]; then
+            ACME_ARGUMENTS+=("--dns-multi-nameservers" "${DNS_MULTI_NAMESERVERS}")
+        fi
     fi
 else
     bashio::log.info "Selected HTTP verification"

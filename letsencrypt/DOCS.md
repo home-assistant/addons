@@ -189,7 +189,7 @@ websupport_secret_key: ''
 ### Split DNS and custom nameservers
 
 If cert renewal fails with an error like `failed to find zone <domain>: zone could not be found`,
-your local DNS may be returning a different SOA than what your DNS provider manages. This can happen
+your local DNS is returning a different SOA than your DNS provider manages. This occurs
 in split DNS setups where a local DNS server handles a zone that is also hosted publicly, or where
 the local resolver returns a different SOA response than the public authoritative server.
 

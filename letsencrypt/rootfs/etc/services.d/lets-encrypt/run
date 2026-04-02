@@ -45,7 +45,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Use propagation seconds: ${PROPAGATION_SECONDS}"
 
     DNS_MULTI_NAMESERVERS=""
-    if bashio::config.exists 'dns.dns_multi_nameservers'; then
+    if bashio::config.has_value 'dns.dns_multi_nameservers'; then
         DNS_MULTI_NAMESERVERS="$(bashio::config 'dns.dns_multi_nameservers')"
     fi
 

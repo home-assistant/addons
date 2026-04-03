@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3
+
+- Fix for empty names in HA 2026.4
+
 ## 1.4.2
 
 - Enhance Spanish speech recognition phrases

@@ -547,6 +547,9 @@ if [ "${CHALLENGE}" == "dns" ]; then
         echo "${PROVIDER_ENV_PREFIX}_PROPAGATION_TIMEOUT=${PROPAGATION_SECONDS}" >> "${DNS_MULTI_CREDS}"
 
         ACME_ARGUMENTS+=("--authenticator" "dns-multi" "--dns-multi-credentials" "${DNS_MULTI_CREDS}" "--dns-multi-propagation-seconds" "${PROPAGATION_SECONDS}")
+        if bashio::config.has_value 'dns.dns_multi_nameservers'; then
+            ACME_ARGUMENTS+=("--dns-multi-nameservers" "$(bashio::config 'dns.dns_multi_nameservers')")
+        fi
     fi
 else
     bashio::log.info "Selected HTTP verification"

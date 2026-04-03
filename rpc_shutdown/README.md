@@ -13,4 +13,4 @@ Allows you to shut down Windows Computers with a service call from Home Assistan
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat

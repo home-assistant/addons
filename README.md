@@ -88,7 +88,7 @@ repository can be a great source of inspiration. For more information
 about developing an app, please see our
 [documentation for developers][dev-docs].
 
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-no-red.svg
 [issue]: https://github.com/home-assistant/addons/issues

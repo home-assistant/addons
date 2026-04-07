@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.1.0
+
+- Update Home Assistant CLI to 5.0.0
+- Update base image to 3.23-2026.03.1
+
 ## 10.0.2
 
 - Remove advanced flag in the app config

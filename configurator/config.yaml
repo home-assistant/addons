@@ -5,11 +5,8 @@ name: File editor
 description: Simple browser-based file editor for Home Assistant
 url: https://github.com/home-assistant/addons/tree/master/configurator
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 homeassistant: 0.91.1
 homeassistant_api: true
 image: homeassistant/{arch}-addon-configurator

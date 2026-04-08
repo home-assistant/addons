@@ -1,11 +1,10 @@
 # Changelog
 
-## 0.6.0
+## 6.0.0
 
-- Add dark/light mode (Issue #199) @mallewski
-- Add several triggers and conditions @danielperna84
-- Use Python syntax highlighting for .jinja-files (Issue #249) @danielperna84
-- Allow for parens in entity friendly names (Issue #237) @maweki
+- Update hass-configurator to 0.6.0 (see [changelog](https://github.com/danielperna84/hass-configurator/releases/tag/0.6.0) for details)
+- Update base image to Alpine 3.23
+- Drop unsupported architectures
 
 ## 5.8.0
 

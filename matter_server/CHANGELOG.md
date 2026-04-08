@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.4.0
+
+- Skip `--log-level-sdk` for JavaScript Matter Server (beta mode); it is now only passed to the Python server
+- Skip `--paa-root-cert-dir` for JavaScript Matter Server (beta mode); it is now only passed to the Python server
+- Conditionally pass `--ota-provider-dir` for JavaScript Matter Server (beta mode) only when `enable_test_net_dcl` is also enabled; the Python server continues to receive it unconditionally
+
 ## 8.3.0
 
 - Add `matter_server_env_vars` option to export custom environment variables before starting Matter Server

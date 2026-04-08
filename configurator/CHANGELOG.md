@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- Add dark/light mode (Issue #199) @mallewski
+- Add several triggers and conditions @danielperna84
+- Use Python syntax highlighting for .jinja-files (Issue #249) @danielperna84
+- Allow for parens in entity friendly names (Issue #237) @maweki
+
 ## 5.8.0
 
 - Update base image to Alpine 3.19

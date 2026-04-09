@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.0
+
+- Update hass-configurator to 0.6.0 (see [changelog](https://github.com/danielperna84/hass-configurator/releases/tag/0.6.0) for details)
+- Update base image to Alpine 3.23
+- Drop unsupported architectures
+
 ## 5.8.0
 
 - Update base image to Alpine 3.19

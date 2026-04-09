@@ -3,4 +3,4 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
 args:
-  SPEECH_TO_PHRASE_VERSION: 1.4.2
+  SPEECH_TO_PHRASE_VERSION: 1.4.3

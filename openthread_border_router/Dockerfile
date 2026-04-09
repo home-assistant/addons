@@ -63,6 +63,7 @@ RUN \
         -DOT_WAKEUP_COORDINATOR=ON \
         -DOT_THREAD_VERSION=1.4 \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
+        -DOT_RCP_RESTORATION_MAX_COUNT=2 \
     && cd /usr/src/ot-br-posix/build/otbr \
     && ninja install
 

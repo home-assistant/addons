@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0
+
+- Remove unsupported architectures (armhf, armv7, i386)
+- Update to Alpine 3.23
+- Update libCEC to 7.1.1
+
 ## 3.0
 
 - Using the Upstream Linux support only

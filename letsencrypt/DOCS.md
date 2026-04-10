@@ -64,6 +64,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-httpreq
 dns-infomaniak
 dns-inwx
 dns-ionos
@@ -136,6 +137,9 @@ google_creds: ''
 he_pass: ''
 he_user: ''
 hetzner_api_token: ''
+httpreq_endpoint: ''
+httpreq_password: ''
+httpreq_username: ''
 infomaniak_api_token: ''
 inwx_password: ''
 inwx_shared_secret: ''
@@ -923,6 +927,30 @@ Use of this plugin requires a Hetzner Cloud API token. See the Hetzner Docs on [
 </details>
 
 <details>
+  <summary>HTTP request</summary>
+
+The `dns-httpreq` provider uses lego's [HTTP request provider](https://go-acme.github.io/lego/dns/httpreq/).
+Your HTTP service must accept `POST` requests on `/present` and `/cleanup`.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-httpreq
+    httpreq_endpoint: http://my.server.com:9090
+    httpreq_username: your-username
+    httpreq_password: your-password
+  ```
+
+The `httpreq_username` and `httpreq_password` values are optional, but they must either both be set or both be omitted.
+
+</details>
+
+<details>
   <summary>Infomaniak</summary>
 
   ```yaml
@@ -1527,6 +1555,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-httpreq
 dns-infomaniak
 dns-inwx
 dns-ionos

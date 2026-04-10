@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0
+
+- Remove unsupported architectures (armhf, armv7, i386)
+- Update to Alpine 3.23 (updates samba to 4.22.8)
+
 ## 2.5
 
 - Update to Alpine 3.19

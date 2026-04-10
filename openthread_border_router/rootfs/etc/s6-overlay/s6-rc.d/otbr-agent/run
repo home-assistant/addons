@@ -37,6 +37,11 @@ else
     fi
 fi
 
+# Check if IPv6 forwarding is enabled
+if [ "$(cat /proc/sys/net/ipv6/conf/all/forwarding)" != "1" ]; then
+    bashio::log.warning "IPv6 routing/forwarding is not enabled! Make sure the Home Assistant host has IPv6 forwarding enabled."
+fi
+
 device=$(bashio::config 'device')
 
 if bashio::config.has_value 'network_device'; then

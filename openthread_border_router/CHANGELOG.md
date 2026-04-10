@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.7
+
+- Print a warning if IPv6 routing is not enabled
+
 ## 2.16.6
 
 - Fix and improve NAT64 firewall rules

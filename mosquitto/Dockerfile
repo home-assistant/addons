@@ -19,6 +19,7 @@ RUN apt-get update \
         libc-ares-dev \
         libcjson1 \
         libcjson-dev \
+        libsqlite3-dev \
         xsltproc \
         docbook-xsl \
         golang-go \
@@ -64,6 +65,7 @@ RUN apt-get update \
         libssl-dev \
         libc-ares-dev \
         libcjson-dev \
+        libsqlite3-dev \
         xsltproc \
         docbook-xsl \
         golang-go \

@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.7.0
+
+- Add Windows automatic discovery support with WSDD
+
 ## 12.6.1
 
 - Support spaces in configurable username

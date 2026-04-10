@@ -1,5 +1,5 @@
 ---
-version: 6.3.0
+version: 6.3.1
 breaking_versions: [5.3.0, 6.0.0]
 slug: letsencrypt
 name: Let's Encrypt
@@ -78,6 +78,9 @@ schema:
     he_pass: str?
     he_user: str?
     hetzner_api_token: str?
+    httpreq_endpoint: url?
+    httpreq_password: str?
+    httpreq_username: str?
     infomaniak_api_token: str?
     inwx_password: str?
     inwx_shared_secret: str?
@@ -141,6 +144,7 @@ schema:
         dns-google|\
         dns-he|\
         dns-hetzner|\
+        dns-httpreq|\
         dns-infomaniak|\
         dns-inwx|\
         dns-ionos|\

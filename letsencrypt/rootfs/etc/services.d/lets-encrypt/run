@@ -131,6 +131,7 @@ if [ "${CHALLENGE}" == "dns" ]; then
             ["dns-godaddy"]="godaddy"
             ["dns-google"]="gcloud"
             ["dns-hetzner"]="hetzner"
+            ["dns-httpreq"]="httpreq"
             ["dns-infomaniak"]="infomaniak"
             ["dns-inwx"]="inwx"
             ["dns-ionos"]="ionos"
@@ -327,6 +328,18 @@ if [ "${CHALLENGE}" == "dns" ]; then
         'dns-hetzner')
             bashio::config.require 'dns.hetzner_api_token'
             echo "HETZNER_API_TOKEN=$(bashio::config 'dns.hetzner_api_token')" >> "${DNS_MULTI_CREDS}"
+            ;;
+
+        # HTTP request
+        'dns-httpreq')
+            bashio::config.require 'dns.httpreq_endpoint'
+            echo "HTTPREQ_ENDPOINT=$(bashio::config 'dns.httpreq_endpoint')" >> "${DNS_MULTI_CREDS}"
+            if bashio::config.exists 'dns.httpreq_username' || bashio::config.exists 'dns.httpreq_password'; then
+                bashio::config.require 'dns.httpreq_username'
+                bashio::config.require 'dns.httpreq_password'
+                echo "HTTPREQ_USERNAME=$(bashio::config 'dns.httpreq_username')" >> "${DNS_MULTI_CREDS}"
+                echo "HTTPREQ_PASSWORD=$(bashio::config 'dns.httpreq_password')" >> "${DNS_MULTI_CREDS}"
+            fi
             ;;
 
         # Infomaniak

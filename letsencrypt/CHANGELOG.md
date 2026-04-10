@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.3.1
+
+- Add HTTP request DNS provider support
+
 ## 6.3.0
 
 - Update certbot-dns-multi to 4.33.0, adding several DNS providers (see [lego's changelog](https://github.com/go-acme/lego/blob/v4.33.0/CHANGELOG.md) for details).

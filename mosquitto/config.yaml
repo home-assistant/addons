@@ -5,11 +5,8 @@ name: Mosquitto broker
 description: An Open Source MQTT broker
 url: https://github.com/home-assistant/addons/tree/master/mosquitto
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 auth_api: true
 discovery:
   - mqtt

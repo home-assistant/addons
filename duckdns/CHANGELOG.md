@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+
+- Remove unsupported architectures (armhf, armv7, i386)
+- Update to Alpine 3.23
+
 ## 1.26.0
 
 - Updated dehydrated fork with support for single-txt domains

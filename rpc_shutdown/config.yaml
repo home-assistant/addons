@@ -5,11 +5,8 @@ name: RPC Shutdown
 description: Shutdown Windows machines remotely
 url: https://github.com/home-assistant/addons/tree/master/rpc_shutdown
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 host_network: true
 image: homeassistant/{arch}-addon-rpc_shutdown
 options:

@@ -43,6 +43,10 @@ RUN apt-get update \
        https://github.com/eclipse/mosquitto \
     \
     && cd mosquitto \
+    # Disable editline used by mosquitto_ctrl
+    && sed -i 's/^WITH_EDITLINE=yes/#WITH_EDITLINE=yes/' config.mk \
+    # Disable REST API
+    && sed -i 's/^WITH_HTTP_API=yes/#WITH_HTTP_API=yes/' config.mk \
     && make WITH_WEBSOCKETS=yes WITH_SRV=yes \
     && make install \
     && cd .. \

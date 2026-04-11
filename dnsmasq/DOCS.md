@@ -119,6 +119,31 @@ The name to resolve.
 
 The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
 
+### Option: `txts` (optional)
+
+This option allows you to provide txt records.
+
+#### Option: `txts.name`
+
+The name to resolve.
+
+#### Option: `txts.value`
+
+The resulting txt string.
+
+### Option: `ptrs` (optional)
+
+This option allows you to provide ptr records.
+
+#### Option: `ptrs.ip`
+
+The ip to resolve as reverse-mapping domain name (IP 1.2.3.4 → 4.3.2.1.in-addr.arpa).
+
+#### Option: `ptrs.name`
+
+The resulting name.
+
+
 ### Option: `log_queries` (required) 
 
 Log all DNS requests. Defaults to `false`.

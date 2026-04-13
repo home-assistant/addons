@@ -6,7 +6,6 @@ description: Zigbee and OpenThread multiprotocol add-on
 url: >
   https://github.com/home-assistant/addons/tree/master/silabs-multiprotocol
 arch:
-  - armv7
   - aarch64
   - amd64
 homeassistant: 2024.1.0

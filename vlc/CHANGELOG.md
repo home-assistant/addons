@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0
+
+- Remove unsupported architectures (armv7, i386)
+- Update to Alpine 3.23
+
 ## 0.3.1
 
 - Restart VLC on Audio plug-in restart

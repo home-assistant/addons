@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.0.0
+
+- Remove unsupported architectures (armhf, armv7, i386)
+- Update base image to Debian 13 (trixie)
+- Update mosquitto to 2.1.2, see [Mosquitto changelog](https://mosquitto.org/ChangeLog.txt) for the list of changes
+- Update libwebsockets to 4.5.8
+- Update mosquitto-go-auth to 3.0.0
+- Fix Home Assistant mqtt service (de)registration in init scripts
+
 ## 6.5.2
 
 - Update mosquitto to version 2.0.22

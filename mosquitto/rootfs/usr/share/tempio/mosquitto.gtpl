@@ -1,4 +1,3 @@
-protocol mqtt
 user root
 log_dest stdout
 {{ if .debug }}

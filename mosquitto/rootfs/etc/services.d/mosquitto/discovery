@@ -10,6 +10,17 @@ declare config
 declare discovery_password
 declare service_password
 
+function execute_without_error_messages() {
+    local current_log_level="${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}]}"
+    bashio::log.level fatal
+    local exit_code=0
+    # shellcheck disable=SC2068
+    $@ || exit_code=$?
+    # shellcheck disable=SC2086
+    bashio::log.level ${current_log_level}
+    return ${exit_code}
+}
+
 # Wait for mosquitto to start before continuing
 bashio::net.wait_for 1883
 
@@ -43,6 +54,9 @@ config=$(bashio::var.json \
     username "addons" \
     password "${service_password}" \
 )
+
+# Remove any stale MQTT service registration left behind by a previous run.
+execute_without_error_messages bashio::services.delete "mqtt" || true
 
 # Send service info
 if bashio::services.publish "mqtt" "${config}" > /dev/null 2>&1; then

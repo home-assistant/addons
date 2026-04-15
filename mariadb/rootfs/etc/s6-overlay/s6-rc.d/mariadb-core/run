@@ -16,7 +16,7 @@ fi
 mkdir -p /run/mysqld
 
 if [ -z "${extra_args+x}" ] || [ ${#extra_args[@]} -eq 0 ]; then
-  exec mysqld --datadir="${MARIADB_DATA}" --user=root < /dev/null
+  exec mariadbd --datadir="${MARIADB_DATA}" --user=root < /dev/null
 else
-  exec mysqld --datadir="${MARIADB_DATA}" --user=root "${extra_args[@]}" < /dev/null
+  exec mariadbd --datadir="${MARIADB_DATA}" --user=root "${extra_args[@]}" < /dev/null
 fi

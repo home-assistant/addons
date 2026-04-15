@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.0
+
+**Note:** This update upgrades MariaDB from 10.11 to 11.4. The database
+migration will be performed automatically on the first startup after the
+app is updated. Make a backup of the MariaDB app before installing this
+update.
+
+- Remove unsupported architectures (armhf, armv7, i386)
+- Update to Alpine 3.23 (updates MariaDB 10.11.6 to 11.4.9)
+
 ## 2.7.2
 
 - Add option to configure MariaDB server parameters (see also [home-assistant/addons#3754](https://github.com/home-assistant/addons/issues/3754))

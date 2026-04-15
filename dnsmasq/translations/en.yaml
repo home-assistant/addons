@@ -19,11 +19,11 @@ configuration:
     name: Cnames
     description: Provide cname records for DNSMasq to resolve.
   txts:
-    name: TXT-records
+    name: TXT records
     description: Provide txt records for DNSMasq to resolve.
   ptrs:
-    name: PTR-records
-    description: For IP 1.2.3.4, specify 4.3.2.1.in-addr.arpa.
+    name: PTR records
+    description: Reversed IP address with ".in-addr.arpa" suffix (IP 1.2.3.4 → 4.3.2.1.in-addr.arpa)
   log_queries:
     name: Log Queries
     description: Log all DNS requests.

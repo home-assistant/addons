@@ -137,7 +137,7 @@ This option allows you to provide ptr records.
 
 #### Option: `ptrs.ip`
 
-The ip to resolve as reverse-mapping domain name (IP 1.2.3.4 → 4.3.2.1.in-addr.arpa).
+The IP address to resolve as reverse-mapping domain name. Use reversed IP address with ".in-addr.arpa" added, for example for IP address "1.2.3.4" use "4.3.2.1.in-addr.arpa".
 
 #### Option: `ptrs.name`
 

@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.2.0
+
+This release corrects the Z-Wave logfile path to be consistent with the defaults used by Z-Wave JS UI.
+
+### Z-Wave JS 15.23.0
+
+#### Bugfixes
+
+- Fixed an issue where Z-Wave.me UZB controllers could hang during NVM backup
+
+#### Config file changes
+
+- Add configuration for Inovelli VZW30-SN
+- Improve configuration files for Inovelli VZW30-SN, VZW31-SN, and VZW32-SN
+- Standardize **Control Associated Device** triggers across 7x series Zooz switches
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.23.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.0)
+
 ## 1.1.0
 
 This release includes an improvement to how Window/Door sensors are represented. Previously exposed as several binary sensors, which did not all work for all devices, they are now exposed as a single **Opening state** sensor with three states: Closed/Open/Tilted. The Tilted state is only exposed after a device has reported this.

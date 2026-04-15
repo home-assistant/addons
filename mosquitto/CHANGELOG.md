@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.1
+
+- Fix regression where clients with `/` in their client id (e.g. `govee2mqtt`) were rejected with "ACL denying access to client with dangerous client id" after the mosquitto 2.1 upgrade ([#4564](https://github.com/home-assistant/addons/issues/4564))
+
 ## 7.0.0
 
 - Remove unsupported architectures (armhf, armv7, i386)

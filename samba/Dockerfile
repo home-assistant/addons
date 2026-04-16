@@ -6,7 +6,7 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN \
-    apk add --no-cache samba \
+    apk add --no-cache samba wsdd \
     && mkdir -p /var/lib/samba \
     && touch \
         /etc/samba/lmhosts \

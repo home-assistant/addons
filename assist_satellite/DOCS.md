@@ -52,7 +52,7 @@ Enable `debug_logging` to list available devices in the log.
 ID of the wake word model (default: `okay_nabu`). Can also be changed at
 runtime from Home Assistant voice assistant settings.
 
-### Option `stop_word`
+### Option: `stop_word`
 
 ID of the stop word model (default: `stop`).
 
@@ -61,7 +61,7 @@ ID of the stop word model (default: `stop`).
 Minimum seconds between wake word activations to prevent double-triggers
 (default: `2.0`).
 
-### Option `wakeup_sound`
+### Option: `wakeup_sound`
 
 Sound file played when wake word is detected (default: `sounds/wake_word_triggered.flac`).
 
@@ -70,11 +70,11 @@ Sound file played when wake word is detected (default: `sounds/wake_word_trigger
 Play a short sound while the assistant processes a request (default: `false`).
 Can be toggled at runtime from the Home Assistant device page.
 
-### Option `processing_sound`
+### Option: `processing_sound`
 
 Sound played while assistant is processing (default: `sounds/processing.wav`).
 
-### Option `timer_sound`
+### Option: `timer_sound`
 
 Sound file played when timer finishes (default: `sounds/timer_finished.flac`).
 
@@ -82,11 +82,11 @@ Sound file played when timer finishes (default: `sounds/timer_finished.flac`).
 
 Seconds after which the timer stops ringing (default: `900` which is 15 minutes).
 
-### Option `mic_volume`
+### Option: `mic_volume`
 
 Control microphone volume by fixed value (default: `1.0` which is the maximum)
 
-### Option `mic_noise_suppression`
+### Option: `mic_noise_suppression`
 
 Microphone noise suppression level (0 is disabled, 4 is max). Disabled by default.
 

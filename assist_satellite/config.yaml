@@ -19,8 +19,16 @@ options:
   audio_input_device: ""
   audio_output_device: ""
   wake_word: "okay_nabu"
+  stop_word: "stop"
   refractory_seconds: 2.0
-  thinking_sound: false
+  enable_thinking_sound: false
+  wakeup_sound: "sounds/wake_word_triggered.flac"
+  processing_sound: "sounds/processing.wav"
+  timer_sound: "sounds/timer_finished.flac"
+  timer_max_ring_seconds: 900.0
+  mic_volume: 1.0
+  mic_noise_suppression: 0
+  mic_auto_gain: 0
   debug_logging: false
 schema:
   name: str
@@ -28,8 +36,16 @@ schema:
   audio_input_device: str
   audio_output_device: str
   wake_word: str
+  stop_word: str
   refractory_seconds: float
-  thinking_sound: bool
+  enable_thinking_sound: bool
+  wakeup_sound: str
+  processing_sound: str
+  timer_sound: str
+  timer_max_ring_seconds: float
+  mic_volume: float
+  mic_noise_suppression: float
+  mic_auto_gain: float
   debug_logging: bool
 audio: true
 homeassistant: 2026.3.0

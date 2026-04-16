@@ -23,7 +23,9 @@ configuration:
     description: Provide txt records for DNSMasq to resolve.
   ptrs:
     name: PTR records
-    description: Reversed IP address with ".in-addr.arpa" suffix (IP 1.2.3.4 → 4.3.2.1.in-addr.arpa)
+    description: >-
+      Reversed IP address with ".in-addr.arpa" suffix 
+      (IP 1.2.3.4 → 4.3.2.1.in-addr.arpa)
   log_queries:
     name: Log Queries
     description: Log all DNS requests.

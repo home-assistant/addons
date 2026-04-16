@@ -9,11 +9,15 @@
   (linux-voice-assistant)
 - Home Assistant now discovers the satellite via the ESPHome integration
   using built-in mDNS/zeroconf — no separate discovery step required
-- Wake word detection now runs locally on-device using micro-wake-word and
+- Wake word detection now runs locally on-device using microWakeWord and
   openWakeWord models
+- Added dual assistants with each wake word.
 - Added support for selecting wake word model, audio devices, refractory
   period, and thinking sound via add-on configuration
+- Added support for start/continue conversation.
 - Added stop word for annoucements and timers
+- Timer now stops automatically when the determined time (default: 15 mins) passes
+  without manually stopping, instead of using the old number of repeats.
 - Preferences (active wake word, volume) are persisted across restarts in
   `/share/assist_satellite/preferences.json`
 - Custom wake word models downloaded from Home Assistant are stored in

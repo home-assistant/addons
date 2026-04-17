@@ -35,13 +35,6 @@ if noise_suppression; then
     extra_args+=('--mic-noise-suppression',"${noise_suppression}")
 fi
 
-declare aec_enabled=$(bashio::config 'aec_enabled')
-if [[ "${aec_enabled}" == "true" ]]; then
-    pw-cli load-module libpipewire-module-echo-cancel \
-        'aec.method=webrtc source.props={ node.name=aec_mic }' || bashio::log.error "Failed to load AEC"
-    extra_args+=("--audio-input-device" "aec_mic")
-fi
-
 exec python3 -m linux_voice_assistant \
     --port "$(bashio::config 'port')" \
     --wake-model "$(bashio::config 'wake_word')" \

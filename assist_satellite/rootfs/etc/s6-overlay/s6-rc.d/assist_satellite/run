@@ -24,17 +24,15 @@ if [[ -n "${name}" ]]; then
 fi
 
 declare auto_gain_control
-auto_gain_control = "$(bashio::config 'mic_auto_gain')"
-if auto_gain_control; then
-    extra_args+=('--mic-auto-gain',"${auto_gain_control}")
+auto_gain_control ="$(bashio::config 'mic_auto_gain')"
+if [[ -n "${auto_gain_control}" ]]; then
+    extra_args+=('--mic-auto-gain' "${auto_gain_control}")
 fi
-
 declare noise_suppression
-noise_suppression = "$(bashio::config 'mic_noise_suppression')"
-if noise_suppression; then
-    extra_args+=('--mic-noise-suppression',"${noise_suppression}")
+noise_suppression ="$(bashio::config 'mic_noise_suppression')"
+if [[ -n "${noise_suppression}" ]]; then
+    extra_args+=('--mic-noise-suppression' "${noise_suppression}")
 fi
-
 exec python3 -m linux_voice_assistant \
     --port "$(bashio::config 'port')" \
     --wake-model "$(bashio::config 'wake_word')" \

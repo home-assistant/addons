@@ -1,11 +1,10 @@
-ARG BUILD_FROM
-FROM ${BUILD_FROM}
+FROM ghcr.io/home-assistant/base-debian:bookworm
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /usr/src
-ARG LINUX_VOICE_ASSISTANT_VERSION
+ARG LINUX_VOICE_ASSISTANT_VERSION=1.1.9
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 # Install system dependencies

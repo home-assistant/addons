@@ -23,18 +23,23 @@ if [[ -n "${name}" ]]; then
     extra_args+=('--name' "${name}")
 fi
 
-# Optional audio input device
-declare audio_input_device
-audio_input_device="$(bashio::config 'audio_input_device')"
-if [[ -n "${audio_input_device}" ]]; then
-    extra_args+=('--audio-input-device' "${audio_input_device}")
+declare auto_gain_control
+auto_gain_control = "$(bashio::config 'mic_auto_gain')"
+if auto_gain_control; then
+    extra_args+=('--mic-auto-gain',"${auto_gain_control}")
 fi
 
-# Optional audio output device
-declare audio_output_device
-audio_output_device="$(bashio::config 'audio_output_device')"
-if [[ -n "${audio_output_device}" ]]; then
-    extra_args+=('--audio-output-device' "${audio_output_device}")
+declare noise_suppression
+noise_suppression = "$(bashio::config 'mic_noise_suppression')"
+if noise_suppression; then
+    extra_args+=('--mic-noise-suppression',"${noise_suppression}")
+fi
+
+declare aec_enabled=$(bashio::config 'aec_enabled')
+if [[ "${aec_enabled}" == "true" ]]; then
+    pw-cli load-module libpipewire-module-echo-cancel \
+        'aec.method=webrtc source.props={ node.name=aec_mic }' || bashio::log.error "Failed to load AEC"
+    extra_args+=("--audio-input-device" "aec_mic")
 fi
 
 exec python3 -m linux_voice_assistant \

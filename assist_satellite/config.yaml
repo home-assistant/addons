@@ -16,8 +16,6 @@ map:
 options:
   name: ""
   port: 6053
-  audio_input_device: ""
-  audio_output_device: ""
   wake_word: "okay_nabu"
   stop_word: "stop"
   refractory_seconds: 2.0
@@ -30,11 +28,10 @@ options:
   mic_noise_suppression: 0
   mic_auto_gain: 0
   debug_logging: false
+  aec_enabled: false
 schema:
-  name: str
+  name: str?
   port: int
-  audio_input_device: str
-  audio_output_device: str
   wake_word: str
   stop_word: str
   refractory_seconds: float
@@ -44,9 +41,11 @@ schema:
   timer_sound: str
   timer_max_ring_seconds: float
   mic_volume: float
-  mic_noise_suppression: float
-  mic_auto_gain: float
+  mic_noise_suppression: "int(0,4)"
+  mic_auto_gain: "int(0,31)"
+  aec_enabled: bool
   debug_logging: bool
 audio: true
+host_network: true
 homeassistant: 2026.3.0
-image: homeassistant/{arch}-addon-assist_satellite
+image: homeassistant/addon-assist_satellite

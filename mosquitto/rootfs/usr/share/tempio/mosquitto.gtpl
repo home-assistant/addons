@@ -1,4 +1,7 @@
 user root
+{{ if .customize }}
+include_dir /share/{{ .customize_folder }}
+{{ else }}
 log_dest stdout
 {{ if .debug }}
 log_type all
@@ -7,6 +10,7 @@ log_type error
 log_type warning
 log_type notice
 log_type information
+{{ end }}
 {{ end }}
 log_timestamp_format %Y-%m-%d %H:%M:%S
 persistence true
@@ -43,10 +47,6 @@ auth_opt_http_port 80
 auth_opt_http_getuser_uri /authentication
 auth_opt_http_superuser_uri /superuser
 auth_opt_http_aclcheck_uri /acl
-
-{{ if .customize }}
-include_dir /share/{{ .customize_folder }}
-{{ end }}
 
 listener 1883
 protocol mqtt

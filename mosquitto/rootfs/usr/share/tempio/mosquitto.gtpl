@@ -44,10 +44,6 @@ auth_opt_http_getuser_uri /authentication
 auth_opt_http_superuser_uri /superuser
 auth_opt_http_aclcheck_uri /acl
 
-{{ if .customize }}
-include_dir /share/{{ .customize_folder }}
-{{ end }}
-
 listener 1883
 protocol mqtt
 
@@ -79,4 +75,9 @@ certfile {{ .certfile }}
 keyfile {{ .keyfile }}
 require_certificate {{ .require_certificate }}
 
+{{ end }}
+
+# Custom configuration - loaded last so user settings take precedence
+{{ if .customize }}
+include_dir /share/{{ .customize_folder }}
 {{ end }}

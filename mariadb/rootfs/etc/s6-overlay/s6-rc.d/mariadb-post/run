@@ -5,17 +5,6 @@
 # Post-start initialization of MariaDB service
 # ==============================================================================
 
-function execute_without_error_messages() {
-    local current_log_level="${__BASHIO_LOG_LEVELS[${__BASHIO_LOG_LEVEL}]}"
-    bashio::log.level fatal
-    local exit_code=0
-    # shellcheck disable=SC2068
-    $@ || exit_code=$?
-    # shellcheck disable=SC2086
-    bashio::log.level ${current_log_level}
-    return ${exit_code}
-}
-
 # Wait until DB is running
 while ! mariadb -e "" 2> /dev/null; do
     sleep 1
@@ -23,7 +12,8 @@ done
 bashio::log.info "MariaDB started"
 
 # Delete service information, just in case the previous instance somehow did not cleanup
-execute_without_error_messages bashio::services.delete "mysql" || true
+# Note: you can't redirect LOG_FD without eval
+eval "bashio::services.delete mysql &> /dev/null ${LOG_FD}> /dev/null" || true
 
 bashio::log.info "Check data integrity and fix corruptions"
 mariadb-check --no-defaults --databases mysql --fix-db-names --fix-table-names || true

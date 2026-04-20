@@ -1,15 +1,13 @@
 ---
-version: 2.7.2
+version: 3.0.0
+breaking_versions: [3.0.0]
 slug: mariadb
 name: MariaDB
 description: A SQL database server
 url: https://github.com/home-assistant/addons/tree/master/mariadb
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 backup_post: unlock-tables-for-backup
 backup_pre: lock-tables-for-backup
 image: homeassistant/{arch}-addon-mariadb

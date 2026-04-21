@@ -12,6 +12,7 @@ declare autoflash_firmware
 declare device
 declare bootloader_baudrate
 declare firmware
+declare firmware_url
 declare verbose
 declare usb_device_path
 declare usb_manufacturer
@@ -43,7 +44,9 @@ function is_home_assistant_yellow {
     # Check the known paths for Home Assistant Yellow
     local paths=(
         "/sys/devices/platform/soc/fe201800.serial/tty/ttyAMA1"
+        "/sys/devices/platform/soc/fe201800.serial/fe201800.serial:0/fe201800.serial:0.0/tty/ttyAMA1"
         "/sys/devices/platform/axi/1000120000.pcie/1f0003c000.serial/tty/ttyAMA1"
+        "/sys/devices/platform/axi/1000120000.pcie/1f0003c000.serial/1f0003c000.serial:0/1f0003c000.serial:0.0/tty/ttyAMA1"
     )
     for path in "${paths[@]}"; do
         if [ -d "${path}" ]; then
@@ -64,7 +67,9 @@ else
 fi
 
 if bashio::config.has_value 'firmware_url'; then
-    curl --silent -L -o "/root/firmware.gbl" "$(bashio::config 'firmware_url')"
+    firmware_url="$(bashio::config 'firmware_url')"
+    bashio::log.info "Downloading firmware from ${firmware_url}"
+    curl --silent -L -o "/root/firmware.gbl" "${firmware_url}"
     if [ ! -f "/root/firmware.gbl" ]; then
         bashio::log.warning "Downloading firmware failed"
         exit 0
@@ -124,3 +129,4 @@ universal-silabs-flasher \
     "${ezsp_baudrate_arg[@]}" \
     ${gpio_reset_flag} \
     flash --force --firmware "/root/${firmware}"
+bashio::log.info "Flashing completed successfully"

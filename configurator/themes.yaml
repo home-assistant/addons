@@ -1,0 +1,28 @@
+groot_font_theme:
+  # Algemene tekstgrootte
+  primary-font-size: 20px
+  paper-font-body1_-_font-size: 20px
+  paper-font-body2_-_font-size: 20px
+  paper-font-subhead_-_font-size: 22px
+  paper-font-headline_-_font-size: 26px
+
+  # Card-mod koppeling
+  card-mod-theme: groot_font_theme
+
+  # Extra CSS voor kaarten
+  card-mod-root: |
+    * {
+      font-size: 20px !important;
+    }
+
+  card-mod-card: |
+    .card-header {
+      font-size: 26px !important;
+      font-weight: 500;
+    }
+    #states > * {
+      font-size: 20px !important;
+    }
+    ha-icon {
+      --mdc-icon-size: 32px;
+    }

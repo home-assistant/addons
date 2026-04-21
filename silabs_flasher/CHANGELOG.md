@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0
+
+- Detect Home Assistant Yellow correctly on latest HAOS versions
+- Add additional log messages for download and flashing
+- Update universal-silabs-flasher to 0.0.37
+- Upgrade to Alpine 3.23
+- Remove unsupported architectures (armhf, armv7, i386)
+
 ## 0.4.0
 
 - Upgrade to Alpine 3.22

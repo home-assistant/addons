@@ -72,7 +72,7 @@ for right in $(bashio::config "rights|keys"); do
     DATABASE=$(bashio::config "rights[${right}].database")
 
     if bashio::config.exists "rights[${right}].privileges"; then
-        PRIVILEGES=$(bashio::config "rights[${right}].privileges")
+        PRIVILEGES=$(bashio::config "rights[${right}].privileges | (if type == \"array\" then join(\", \") else . end)")
         bashio::log.info "Granting ${PRIVILEGES} to ${USERNAME} on ${DATABASE}"
         mariadb -e "REVOKE ALL PRIVILEGES ON ${DATABASE}.* FROM '${USERNAME}'@'%';" || true
         mariadb -e "GRANT ${PRIVILEGES} ON ${DATABASE}.* TO '${USERNAME}'@'%';" || true

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Fix GRANT statement generation for multiple `privileges`
+
 ## 3.0.0
 
 **Note:** This update upgrades MariaDB from 10.11 to 11.4. The database

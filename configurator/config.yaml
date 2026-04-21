@@ -38,3 +38,5 @@ schema:
     - str
   ssh_keys:
     - str
+frontend:
+  themes: !include themes.yaml

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.3.2
+
+- No longer override lego's DNS propagation timeout with `propagation_seconds`. Allows lego configuration and defaults.
+
 ## 6.3.1
 
 - Add HTTP request DNS provider support

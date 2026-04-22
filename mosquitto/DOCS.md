@@ -74,7 +74,7 @@ logins:
 
 A list of Mosquitto logging destinations.
 
-Allowed values: `none`, `stdout`, `stderr`, `syslog`, `topic`
+Allowed values: `none`, `stdout`, `stderr`, `topic`
 
 If left empty, the default is `stdout`.
 

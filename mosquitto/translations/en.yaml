@@ -12,14 +12,13 @@ configuration:
     name: Log Destinations
     description: >-
       Optional list of Mosquitto log destinations. Allowed values are `none`,
-      `stdout`, `stderr`, `syslog`, and `topic`. If empty, defaults to
-      `stdout`.
+      `stdout`, `stderr` and `topic`. If empty, defaults to `stdout`.
   log_type:
     name: Log Types
     description: >-
       Optional list of Mosquitto log types. If empty, defaults to `error`,
       `warning`, `notice`, and `information`. Ignored and defaults to `all`
-      when Debug is enabled).
+      when Debug is enabled.
   require_certificate:
     name: Require Client Certificate
     description: >-

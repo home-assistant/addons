@@ -1,5 +1,5 @@
 ---
-version: 7.0.1
+version: 7.1.0
 slug: mosquitto
 name: Mosquitto broker
 description: An Open Source MQTT broker
@@ -16,6 +16,8 @@ map:
   - share
 options:
   logins: []
+  log_dest: []
+  log_type: []
   require_certificate: false
   certfile: fullchain.pem
   keyfile: privkey.pem
@@ -32,6 +34,10 @@ schema:
     - username: str
       password: password
       password_pre_hashed: "bool?"
+  log_dest:
+    - list(none|stdout|stderr|topic)?
+  log_type:
+    - list(none|debug|error|warning|notice|information|subscribe|unsubscribe|websockets|all)?
   require_certificate: bool
   certfile: str
   cafile: str?

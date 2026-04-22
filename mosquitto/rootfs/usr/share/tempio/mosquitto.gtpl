@@ -1,7 +1,16 @@
 user root
+{{ if .log_dest }}
+# custom log_dest
+{{ range .log_dest }}log_dest {{ . }}
+{{ end }}
+{{ else }}
 log_dest stdout
+{{ end }}
 {{ if .debug }}
 log_type all
+{{ else if .log_type }}
+{{ range .log_type }}log_type {{ . }}
+{{ end }}
 {{ else }}
 log_type error
 log_type warning

@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.0
+
+- Add `log_dest` and `log_type` configuration options
+
 ## 7.0.1
 
 - Fix regression where clients with `/` in their client id (e.g. `govee2mqtt`) were rejected with "ACL denying access to client with dangerous client id" after the mosquitto 2.1 upgrade ([#4564](https://github.com/home-assistant/addons/issues/4564))

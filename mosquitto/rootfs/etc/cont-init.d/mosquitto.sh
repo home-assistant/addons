@@ -10,6 +10,8 @@ declare cafile
 declare certfile
 declare discovery_password
 declare keyfile
+declare log_dest
+declare log_type
 declare password
 declare service_password
 declare ssl
@@ -76,6 +78,11 @@ else
   ssl="false"
 fi
 
+# Get log options as raw JSON types for tempio
+options=$(bashio::addon.config)
+log_dest=$(jq -c ".log_dest" <<<"$options")
+log_type=$(jq -c ".log_type" <<<"$options")
+
 # Generate mosquitto configuration.
 bashio::var.json \
   cafile "${cafile}" \
@@ -83,6 +90,8 @@ bashio::var.json \
   customize "^$(bashio::config 'customize.active')" \
   customize_folder "$(bashio::config 'customize.folder')" \
   keyfile "${keyfile}" \
+  log_dest "^${log_dest}" \
+  log_type "^${log_type}" \
   require_certificate "^$(bashio::config 'require_certificate')" \
   ssl "^${ssl}" \
   debug "^$(bashio::config 'debug')" \

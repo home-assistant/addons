@@ -8,9 +8,15 @@
 
 - Added a new API to manage credentials across a range of legacy and modern devices
 
+#### Bugfixes
+
+- Fixed an issue where connection to encrypted ESPHome Z-Wave proxies would fail when unrelated commands were received during the handshake
+- Interviewed Notification CC capabilities are no longer overwritten when applying alarm mappings from compat flags
+
 #### Config file changes
 
 - Update parameters for Zooz ZSE44 firmware 2.40
+- Add Philio PAC03 Mitsubishi IT adapter
 
 ### Z-Wave JS Server 3.8.0
 
@@ -32,6 +38,7 @@
 - [Z-Wave JS UI 11.16.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.16.1)
 - [Z-Wave JS 15.23.5](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.5)
 - [Z-Wave JS 15.23.4](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.4)
+- [Z-Wave JS 15.23.3](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.3)
 - [Z-Wave JS 15.23.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.2)
 - [Z-Wave JS Server 3.7.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.7.0)
 - [Z-Wave JS Server 3.8.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.8.0)

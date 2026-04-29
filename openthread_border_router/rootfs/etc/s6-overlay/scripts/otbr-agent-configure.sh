@@ -13,7 +13,7 @@ if bashio::config.true 'nat64'; then
 fi
 
 if bashio::config.true 'beta'; then
-    mdns_localhostname="$(hostname)-br"
+    mdns_localhostname="$(hostname)-otbr"
     bashio::log.info "Setting OpenThread mDNS local hostname to ${mdns_localhostname}."
     ot-ctl mdns localhostname "${mdns_localhostname}"
     ot-ctl mdns enable

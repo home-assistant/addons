@@ -73,4 +73,14 @@
  */
 #define OPENTHREAD_CONFIG_BORDER_AGENT_MESHCOP_SERVICE_BASE_NAME "Home Assistant OpenThread Border Router "
 
+/**
+ * @def OPENTHREAD_CONFIG_MULTICAST_DNS_AUTO_ENABLE_ON_INFRA_IF
+ *
+ * Define to 1 for mDNS module to be automatically enabled/disabled on the same infra-if used for border routing
+ * based on infra-if state.
+ *
+ * Set to 0 so the app can customize the mDNS hostname before starting in our startup script.
+ */
+#define OPENTHREAD_CONFIG_MULTICAST_DNS_AUTO_ENABLE_ON_INFRA_IF 0
+
 #endif /* OPENTHREAD_CORE_HA_CONFIG_POSIX_H_ */

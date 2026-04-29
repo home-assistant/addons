@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.8
+
+- Use regular hostname with "-br" suffix in beta mode to make OTBR recognizable
+
 ## 2.16.7
 
 - Print a warning if IPv6 routing is not enabled

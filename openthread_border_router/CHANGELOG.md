@@ -2,7 +2,7 @@
 
 ## 2.16.8
 
-- Use regular hostname with "-br" suffix in beta mode to make OTBR recognizable
+- Use regular hostname with "-otbr" suffix in beta mode to make OTBR recognizable
 
 ## 2.16.7
 

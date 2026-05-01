@@ -23,8 +23,16 @@ Once connected, the satellite exposes the following controls on its Home
 Assistant device page:
 
 - **Media Player** — volume control and media playback
+- **Dual Assistant Pipeline** — Use two assistants simultanously with different wake words, languages and settings (e.g. one uses cloud and one runs loaclly)
 - **Mute switch** — disable/enable wake word detection at runtime
 - **Thinking Sound switch** — toggle the processing sound that plays while the assistant thinks
+- **Wake Word** — select the wake word model to use per assistant
+- **Microphone volume** — control the microphone volume by fixed value
+- **Mic Noise Suppression** — control the level of noise suppression applied to the microphone input
+- **Mic Auto Gain** — control the level of automatic gain applied to the microphone input
+- **Wake Word Sensitivity** — set the sensitivity of each assistant's wake word detection to reduce false positives or missed detections (lower cuttoff means more sensitive, higher means less sensitive)
+- **Stop Word Sensitivity** — set the sensitivity of the stop word detection to reduce false positives or missed detections (lower cuttoff means more sensitive, higher means less sensitive)
+
 
 ## Configuration
 

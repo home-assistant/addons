@@ -4,7 +4,7 @@ FROM ghcr.io/home-assistant/base-debian:bookworm
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /usr/src
-ARG LINUX_VOICE_ASSISTANT_VERSION=1.1.9
+ARG LINUX_VOICE_ASSISTANT_VERSION=1.1.10
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 # Install system dependencies
@@ -19,8 +19,8 @@ ENV PIP_BREAK_SYSTEM_PACKAGES=1
 # - ca-certificates:    For encrypted connections to Home Assistant
 # - procps:             For pgrep in healthcheck
 RUN \
-    apt-get update \
-    && apt-get install -y --no-install-recommends \
+    apt-get update && \
+        apt-get install --yes --no-install-recommends \
         python3 \
         python3-pip \
         avahi-utils \
@@ -33,6 +33,8 @@ RUN \
         libmpv-dev \
         libasound2-plugins \
         ca-certificates \
+        iproute2 \
+        vim \        
         procps \
     \
     && pip3 install --no-cache-dir -U \

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.16.7
+
+- Print a warning if IPv6 routing is not enabled
+
+## 2.16.6
+
+- Fix and improve NAT64 firewall rules
+- Enable recovery mechanism from "radio tx timeout" errors for beta
+- Narrow non-firewall forwarding rules to Thread interface
+
 ## 2.16.5
 
 - Add `backbone_interface` option to override the network interface used for IPv6 routing.

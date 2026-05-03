@@ -1,5 +1,5 @@
 ---
-version: 2.0.0
+version: 2.1.0
 slug: dnsmasq
 name: Dnsmasq
 description: A simple DNS server
@@ -17,6 +17,8 @@ options:
   hosts: []
   services: []
   cnames: []
+  txts: []
+  ptrs: []
   log_queries: false
   cache_size: 150
 ports:
@@ -40,6 +42,12 @@ schema:
   cnames:
     - name: str
       target: str
+  txts:
+    - name: str
+      value: str
+  ptrs:
+    - ip: str
+      name: str
   log_queries: bool
   cache_size: int
 startup: system

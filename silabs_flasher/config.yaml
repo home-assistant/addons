@@ -1,5 +1,5 @@
 ---
-version: 0.4.0
+version: 0.5.0
 slug: silabs_flasher
 name: Silicon Labs Flasher
 description: Silicon Labs firmware flasher add-on
@@ -8,9 +8,6 @@ url: >
 arch:
   - aarch64
   - amd64
-  - armhf
-  - armv7
-  - i386
 gpio: true
 hassio_api: true
 image: homeassistant/{arch}-addon-silabs-flasher

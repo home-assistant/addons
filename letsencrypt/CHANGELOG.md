@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.3.2
+
+- No longer override lego's DNS propagation timeout with `propagation_seconds`. Allows lego configuration and defaults.
+
+## 6.3.1
+
+- Add HTTP request DNS provider support
+
+## 6.3.0
+
+- Update certbot-dns-multi to 4.33.0, adding several DNS providers (see [lego's changelog](https://github.com/go-acme/lego/blob/v4.33.0/CHANGELOG.md) for details).
+- Add `dns_multi_nameservers` option for split DNS setups where local DNS causes zone lookup failures.
+
 ## 6.2.0
 
 - Update certbot-dns-multi to 4.32.0, adding several DNS providers (see [lego's changelog](https://github.com/go-acme/lego/blob/v4.32.0/CHANGELOG.md) for details).

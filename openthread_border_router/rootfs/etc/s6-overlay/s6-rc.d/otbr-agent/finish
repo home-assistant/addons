@@ -16,7 +16,7 @@ else
     bashio::log.info "otbr-agent exited with code $e (by signal $2)."
 fi
 
-# shellcheck disable=SC1091
+# shellcheck source=./openthread_border_router/rootfs/etc/s6-overlay/scripts/otbr-agent-common
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 ipset_destroy_if_exist()
@@ -28,16 +28,13 @@ ipset_destroy_if_exist()
     done
 }
 
-# shellcheck disable=SC2154,SC2086
-while ip6tables -C FORWARD -o $thread_if -j $otbr_forward_ingress_chain 2> /dev/null; do
-    # shellcheck disable=SC2086
-    ip6tables -D FORWARD -o $thread_if -j $otbr_forward_ingress_chain
+while ip6tables -C FORWARD -o "${thread_if}" -j "${otbr_forward_ingress_chain}" 2> /dev/null; do
+    ip6tables -D FORWARD -o "${thread_if}" -j "${otbr_forward_ingress_chain}"
 done
 
-# shellcheck disable=SC2086
-if ip6tables -L $otbr_forward_ingress_chain 2> /dev/null; then
-    ip6tables -w -F $otbr_forward_ingress_chain
-    ip6tables -w -X $otbr_forward_ingress_chain
+if ip6tables -L "${otbr_forward_ingress_chain}" 2> /dev/null; then
+    ip6tables -w -F "${otbr_forward_ingress_chain}"
+    ip6tables -w -X "${otbr_forward_ingress_chain}"
 fi
 
 ipset_destroy_if_exist otbr-ingress-deny-src
@@ -45,17 +42,35 @@ ipset_destroy_if_exist otbr-ingress-deny-src-swap
 ipset_destroy_if_exist otbr-ingress-allow-dst
 ipset_destroy_if_exist otbr-ingress-allow-dst-swap
 
-# shellcheck disable=SC2154,SC2086
-while ip6tables -C FORWARD -i $thread_if -j $otbr_forward_egress_chain 2> /dev/null; do
-    ip6tables -D FORWARD -i $thread_if -j $otbr_forward_egress_chain
+while ip6tables -C FORWARD -i "${thread_if}" -j "${otbr_forward_egress_chain}" 2> /dev/null; do
+    ip6tables -D FORWARD -i "${thread_if}" -j "${otbr_forward_egress_chain}"
 done
 
-# shellcheck disable=SC2086
-if ip6tables -L $otbr_forward_egress_chain 2> /dev/null; then
-    ip6tables -w -F $otbr_forward_egress_chain
-    ip6tables -w -X $otbr_forward_egress_chain
+if ip6tables -L "${otbr_forward_egress_chain}" 2> /dev/null; then
+    ip6tables -w -F "${otbr_forward_egress_chain}"
+    ip6tables -w -X "${otbr_forward_egress_chain}"
 fi
-bashio::log.info "OTBR firewall teardown completed."
+
+# Remove FORWARD jump(s)
+while iptables -C FORWARD -j "${otbr_forward_nat64_chain}" 2>/dev/null; do
+    iptables -D FORWARD -j "${otbr_forward_nat64_chain}"
+done
+
+# Flush and delete chain
+if iptables -L "${otbr_forward_nat64_chain}" -n 2>/dev/null; then
+    iptables -w -F "${otbr_forward_nat64_chain}"
+    iptables -w -X "${otbr_forward_nat64_chain}"
+fi
+
+# Clean mangle and nat rules
+while iptables -t mangle -C PREROUTING -i "${thread_if}" -j MARK --set-mark "${otbr_fw_mark}" 2>/dev/null; do
+    iptables -t mangle -D PREROUTING -i "${thread_if}" -j MARK --set-mark "${otbr_fw_mark}"
+done
+
+while iptables -t nat -C POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUERADE 2>/dev/null; do
+    iptables -t nat -D POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUERADE
+done
+bashio::log.info "OTBR firewall/NAT64 rules teardown completed."
 
 if test "$e" -ne 0; then
     echo "$e" > /run/s6-linux-init-container-results/exitcode

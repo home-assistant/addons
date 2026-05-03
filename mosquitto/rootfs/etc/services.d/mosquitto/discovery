@@ -44,6 +44,10 @@ config=$(bashio::var.json \
     password "${service_password}" \
 )
 
+# Remove any stale MQTT service registration left behind by a previous run.
+# Note: you can't redirect LOG_FD without eval
+eval "bashio::services.delete mqtt &> /dev/null ${LOG_FD}> /dev/null" || true
+
 # Send service info
 if bashio::services.publish "mqtt" "${config}" > /dev/null 2>&1; then
     bashio::log.info "Successfully send service information to the Supervisor."

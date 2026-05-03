@@ -64,6 +64,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-httpreq
 dns-infomaniak
 dns-inwx
 dns-ionos
@@ -113,6 +114,7 @@ digitalocean_token: ''
 directadmin_password: ''
 directadmin_url: ''
 directadmin_username: ''
+dns_multi_nameservers: ''
 dnsimple_token: ''
 dnsmadeeasy_api_key: ''
 dnsmadeeasy_secret_key: ''
@@ -135,6 +137,9 @@ google_creds: ''
 he_pass: ''
 he_user: ''
 hetzner_api_token: ''
+httpreq_endpoint: ''
+httpreq_password: ''
+httpreq_username: ''
 infomaniak_api_token: ''
 inwx_password: ''
 inwx_shared_secret: ''
@@ -184,6 +189,20 @@ websupport_secret_key: ''
 ```
 
 </details>
+
+### Split DNS and custom nameservers
+
+If cert renewal fails with an error like `failed to find zone <domain>: zone could not be found`,
+your local DNS is returning a different SOA than your DNS provider manages. This occurs
+in split DNS setups where a local DNS server handles a zone that is also hosted publicly, or where
+the local resolver returns a different SOA response than the public authoritative server.
+
+Set `dns_multi_nameservers` to a comma-separated list of public DNS servers to use for zone
+determination and CNAME resolution. Port is optional and defaults to 53.
+
+```yaml
+dns_multi_nameservers: '1.1.1.1,8.8.8.8'
+```
 
 ### Configure certificate files
 
@@ -908,6 +927,30 @@ Use of this plugin requires a Hetzner Cloud API token. See the Hetzner Docs on [
 </details>
 
 <details>
+  <summary>HTTP request</summary>
+
+The `dns-httpreq` provider uses lego's [HTTP request provider](https://go-acme.github.io/lego/dns/httpreq/).
+Your HTTP service must accept `POST` requests on `/present` and `/cleanup`.
+
+  ```yaml
+  email: your.email@example.com
+  domains:
+    - your.domain.tld
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  challenge: dns
+  dns:
+    provider: dns-httpreq
+    httpreq_endpoint: http://my.server.com:9090
+    httpreq_username: your-username
+    httpreq_password: your-password
+  ```
+
+The `httpreq_username` and `httpreq_password` values are optional, but they must either both be set or both be omitted.
+
+</details>
+
+<details>
   <summary>Infomaniak</summary>
 
   ```yaml
@@ -1512,6 +1555,7 @@ dns-godaddy
 dns-google
 dns-he
 dns-hetzner
+dns-httpreq
 dns-infomaniak
 dns-inwx
 dns-ionos
@@ -1549,7 +1593,7 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/addons/issues
 [certbot]: https://certbot.eff.org

@@ -8,7 +8,7 @@
 bashio::log.info "Start MariaDB client (to lock tables for backups)"
 
 # File descriptor &4 is used as stdin for mysql, because &0 is closed after the mariadb-lock-core service is started
-exec 4> >(mysql)
+exec 4> >(mariadb)
 
 # We need to delay the starting of the dependent services until mysql is started
 echo "" >&3

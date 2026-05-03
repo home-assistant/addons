@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- Added option for configuring TXT and PTR records
+
 ## 2.0.0
 
 - Update base image to Alpine 3.23 (with dnsmasq v2.91)

@@ -36,6 +36,8 @@ App configuration:
 
 ```yaml
 logins: []
+log_dest: []
+log_type: []
 customize:
   active: false
   folder: mosquitto
@@ -67,6 +69,26 @@ logins:
     password: "PBKDF2$sha512$100000$qsU7xQ8YCV/9nRuBBJVTxA==$jqw94Ej3aEr97UofY6rClmVCRkTdDiubQW0A6ZYmUI+pZjW9Hax+2w2FeYB3y5ut1SliB7+HAwIl2iONLKkohw=="
     password_pre_hashed: true
 ```
+
+### Option: `log_dest` (optional)
+
+A list of Mosquitto logging destinations.
+
+Allowed values: `none`, `stdout`, `stderr`, `topic`
+
+If left empty, the default is `stdout`.
+
+**Note:** `file` is not available via this option - if needed, use `none` combined with `customize` options.
+
+### Option: `log_type` (optional)
+
+A list of Mosquitto logging types.
+
+Allowed values: `none`, `debug`, `error`, `warning`, `notice`, `information`, `subscribe`, `unsubscribe`, `websockets`, `all`
+
+If left empty, defaults to `error`, `warning`, `notice`, and `information`.
+
+If `debug` is enabled, the option is ignored and `log_type all` is used.
 
 **Note:** This app does not support anonymous logins; all connections must use a username/password to connect. `allow_anonymous true` nor any anonymous ACLs will not work with this app.
 
@@ -185,7 +207,7 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant

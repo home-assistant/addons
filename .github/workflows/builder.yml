@@ -42,6 +42,8 @@ jobs:
         run: |
           declare -a changed_addons
           for addon in ${{ steps.addons.outputs.addons }}; do
+            # Skip deprecated add-ons that should no longer be built
+            [[ "$addon" == "silabs-multiprotocol" ]] && continue
             if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon ]]; then
               for file in ${{ env.MONITORED_FILES }}; do
                   if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon/$file ]]; then
@@ -104,7 +106,7 @@ jobs:
 
       - name: Login to DockerHub
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v4.0.0
+        uses: docker/login-action@v4.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}

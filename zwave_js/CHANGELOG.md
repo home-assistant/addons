@@ -1,5 +1,68 @@
 # Changelog
 
+## 1.3.0
+
+### Z-Wave JS 15.23.2...15.23.5
+
+#### Features
+
+- Added a new API to manage credentials across a range of legacy and modern devices
+
+#### Bugfixes
+
+- Fixed an issue where connection to encrypted ESPHome Z-Wave proxies would fail when unrelated commands were received during the handshake
+- Interviewed Notification CC capabilities are no longer overwritten when applying alarm mappings from compat flags
+
+#### Config file changes
+
+- Update parameters for Zooz ZSE44 firmware 2.40
+- Add Philio PAC03 Mitsubishi IT adapter
+
+### Z-Wave JS Server 3.8.0
+
+#### Features
+
+- Support the new credential API in Z-Wave JS
+- Bump schema to 48
+
+### Z-Wave JS Server 3.7.0
+
+#### Features
+
+- Bump schema to 47
+- Add several low-level commands
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.16.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.16.2)
+- [Z-Wave JS UI 11.16.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.16.1)
+- [Z-Wave JS 15.23.5](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.5)
+- [Z-Wave JS 15.23.4](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.4)
+- [Z-Wave JS 15.23.3](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.3)
+- [Z-Wave JS 15.23.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.2)
+- [Z-Wave JS Server 3.7.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.7.0)
+- [Z-Wave JS Server 3.8.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.8.0)
+
+## 1.2.0
+
+This release corrects the Z-Wave logfile path to be consistent with the defaults used by Z-Wave JS UI.
+
+### Z-Wave JS 15.23.0
+
+#### Bugfixes
+
+- Fixed an issue where Z-Wave.me UZB controllers could hang during NVM backup
+
+#### Config file changes
+
+- Add configuration for Inovelli VZW30-SN
+- Improve configuration files for Inovelli VZW30-SN, VZW31-SN, and VZW32-SN
+- Standardize **Control Associated Device** triggers across 7x series Zooz switches
+
+### Detailed changelogs
+
+- [Z-Wave JS 15.23.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.0)
+
 ## 1.1.0
 
 This release includes an improvement to how Window/Door sensors are represented. Previously exposed as several binary sensors, which did not all work for all devices, they are now exposed as a single **Opening state** sensor with three states: Closed/Open/Tilted. The Tilted state is only exposed after a device has reported this.

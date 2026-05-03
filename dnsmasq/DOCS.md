@@ -119,6 +119,31 @@ The name to resolve.
 
 The target name. Note that this only works for targets which are names from DHCP or /etc/hosts. Give host "bert" another name, bertrand cname=bertand,bert
 
+### Option: `txts` (optional)
+
+This option allows you to provide txt records.
+
+#### Option: `txts.name`
+
+The name to resolve.
+
+#### Option: `txts.value`
+
+The resulting txt string.
+
+### Option: `ptrs` (optional)
+
+This option allows you to provide ptr records.
+
+#### Option: `ptrs.ip`
+
+The IP address to resolve as reverse-mapping domain name. Use reversed IP address with ".in-addr.arpa" added, for example for IP address "1.2.3.4" use "4.3.2.1.in-addr.arpa".
+
+#### Option: `ptrs.name`
+
+The resulting name.
+
+
 ### Option: `log_queries` (required) 
 
 Log all DNS requests. Defaults to `false`.
@@ -139,7 +164,7 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[discord]: https://discord.gg/c5DvZ4e
+[discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant

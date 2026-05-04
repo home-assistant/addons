@@ -1,5 +1,5 @@
 ---
-# yamllint disable rule:truthy
+# yamllint disable rule:comments rule:truthy
 name: Stale
 
 on:

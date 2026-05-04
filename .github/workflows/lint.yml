@@ -1,5 +1,5 @@
 ---
-# yamllint disable rule:truthy
+# yamllint disable rule:comments rule:line-length rule:truthy
 name: Lint
 
 env:

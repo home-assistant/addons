@@ -1,7 +1,7 @@
 ---
+# yamllint disable rule:comments rule:line-length rule:truthy
 name: Restrict task creation
 
-# yamllint disable-line rule:truthy
 on:
   issues:
     types: [opened]

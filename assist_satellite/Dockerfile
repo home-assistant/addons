@@ -34,7 +34,7 @@ RUN \
         libasound2-plugins \
         ca-certificates \
         iproute2 \
-        vim \    
+        vim \
         procps \
     \
     && pip3 install --no-cache-dir -U \

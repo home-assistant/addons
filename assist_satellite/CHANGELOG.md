@@ -15,7 +15,7 @@
 - Added support for selecting wake word model, audio devices, refractory
   period, and thinking sound via add-on configuration
 - Added support for start/continue conversation.
-- Added stop word for annoucements and timers
+- Added stop word for announcements and timers
 - Timer now stops automatically when the determined time (default: 15 mins) passes
   without manually stopping, instead of using the old number of repeats.
 - Preferences (active wake word, volume) are persisted across restarts in

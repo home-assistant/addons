@@ -1,8 +1,8 @@
-# Home Assistant App: Assist Satellite
+# Home Assistant app: Assist Satellite
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 
-Home Assistant app (formerly known as add-on) that turns the machine running home assistant into a [voice satellite](https://www.home-assistant.io/voice_control/) with [media player](https://www.home-assistant.io/integrations/media_player/) using a connected microphone and speaker.
+Home Assistant app (formerly known as add-on) that turns the host machine into a [voice satellite](https://www.home-assistant.io/voice_control/) with [media player](https://www.home-assistant.io/integrations/media_player/) using a connected microphone and speaker.
 
 Depends on [Linux Voice Assistant](https://github.com/OHF-Voice/linux-voice-assistant) runtime via [ESPHome](https://esphome.io/) protocol.
 

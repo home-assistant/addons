@@ -43,4 +43,8 @@ exec python3 -m linux_voice_assistant \
     --wakeup-sound "$(bashio::config 'wakeup_sound')" \
     --timer-finished-sound "$(bashio::config 'timer_sound')" \
     --processing-sound "$(bashio::config 'processing_sound')" \
+    --mute-sound /usr/src/sounds/mute_switch_on.flac \
+    --unmute-sound /usr/src/sounds/mute_switch_off.flac \
+    --preferences-file /share/assist_satellite/preferences.json \
+    --download-dir /share/assist_satellite/local \
     "${extra_args[@]}"

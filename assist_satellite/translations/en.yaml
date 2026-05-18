@@ -31,7 +31,7 @@ configuration:
     description: >-
       Minimum seconds between wake word activations to prevent accidental
       double-triggers (default: 2.0).
-  thinking_sound:
+  enable_thinking_sound:
     name: Thinking sound
     description: >-
       Play a short processing sound while the assistant is thinking. Can also

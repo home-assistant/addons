@@ -36,13 +36,11 @@ fi
 exec python3 -m linux_voice_assistant \
     --port "$(bashio::config 'port')" \
     --wake-model "$(bashio::config 'wake_word')" \
+    --stop-model "$(bashio::config 'stop_word')" \
     --refractory-seconds "$(bashio::config 'refractory_seconds')" \
+    --mic-volume "$(bashio::config 'mic_volume')" \
     --wake-word-dir /usr/src/wakewords \
-    --wakeup-sound /usr/src/sounds/wake_word_triggered.flac \
-    --timer-finished-sound /usr/src/sounds/timer_finished.flac \
-    --processing-sound /usr/src/sounds/processing.wav \
-    --mute-sound /usr/src/sounds/mute_switch_on.flac \
-    --unmute-sound /usr/src/sounds/mute_switch_off.flac \
-    --preferences-file /share/assist_satellite/preferences.json \
-    --download-dir /share/assist_satellite/local \
+    --wakeup-sound "$(bashio::config 'wakeup_sound')" \
+    --timer-finished-sound "$(bashio::config 'timer_sound')" \
+    --processing-sound "$(bashio::config 'processing_sound')" \
     "${extra_args[@]}"

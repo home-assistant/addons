@@ -23,7 +23,7 @@ http {
     server_names_hash_bucket_size 128;
 
     # intermediate configuration
-    # https://ssl-config.mozilla.org/#server=nginx&version=1.28.0&config=intermediate&openssl=3.5.0
+    # https://ssl-config.mozilla.org/#server=nginx&version=1.28.3&config=intermediate&openssl=3.5.6
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ecdh_curve X25519MLKEM768:X25519:prime256v1:secp384r1;
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;

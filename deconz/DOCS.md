@@ -180,7 +180,7 @@ Over time, a number of API keys may accumulate that you might wish to remove man
 - **apikey2**: `API Key to remove`
 
 ```yaml
-curl --request DELETE "http://<IP>/<(API) Port>/api/<apikey>/config/whitelist/<apikey2>"
+curl --request DELETE "http://<IP>:<(API) Port>/api/<apikey>/config/whitelist/<apikey2>"
 ```
 
 ### My gateway shows up in Home Assistant with ID 0000000000000000

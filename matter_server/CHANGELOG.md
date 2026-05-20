@@ -2,7 +2,7 @@
 
 ## 8.5.0
 
-- Add `ble_proxy` option to expose the Matter Server's BLE proxy endpoint, so the Home Assistant Matter integration can drive BLE commissioning through Home Assistant's bluetooth stack (including ESPHome BLE proxies). Only available with the Beta Matter Server (>= 0.7.1, JavaScript-based) and mutually exclusive with `bluetooth_adapter_id`.
+- Add `ble_proxy` option to expose the Matter Server's BLE proxy endpoint, so the Home Assistant Matter integration can drive BLE commissioning through Home Assistant's bluetooth stack (including ESPHome BLE proxies). Requires Home Assistant 2026.06 or later and the Beta Matter Server (>= 0.7.1, JavaScript-based); mutually exclusive with `bluetooth_adapter_id` (the local adapter is ignored with a warning when `ble_proxy` is enabled).
 
 ## 8.4.0
 

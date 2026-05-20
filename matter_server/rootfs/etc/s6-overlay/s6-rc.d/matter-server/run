@@ -138,9 +138,10 @@ fi
 
 if bashio::config.true "ble_proxy"; then
     extra_args+=('--ble-proxy')
-fi
-
-if bashio::config.has_value "bluetooth_adapter_id"; then
+    if bashio::config.has_value "bluetooth_adapter_id"; then
+        bashio::log.warning "Ignoring 'bluetooth_adapter_id' option: 'ble_proxy' is enabled (mutually exclusive)."
+    fi
+elif bashio::config.has_value "bluetooth_adapter_id"; then
   # shellcheck disable=SC2207
   extra_args+=('--bluetooth-adapter' $(bashio::config 'bluetooth_adapter_id'))
 fi

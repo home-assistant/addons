@@ -170,6 +170,19 @@ In most cases this looks like one of the following:
 
 ## Troubleshooting
 
+### Many API keys in Phoscon App
+
+Over time, a number of API keys may accumulate that you might wish to remove manually. You can find the information required to do this under **Help** -> **API** -> **Information** -> **Configuration**. For Home Assistant, only a single API key named `Home Assistant` (or `pydeconz` if you are running deCONZ outside of Home Assistant) is required. To accomplish this, for example, install the `Advanced SSH & Web Terminal` app in Home Assistant and send the following command to the API to remove the key.
+
+- **IP**: `Phoscon IP`
+- **(API) Port**: `40850`
+- **apikey**: `Phoscon API key`
+- **apikey2**: `API Key to remove`
+
+```yaml
+curl --request DELETE "http://<IP>/<(API) Port>/api/<apikey>/config/whitelist/<apikey2>"
+```
+
 ### My gateway shows up in Home Assistant with ID 0000000000000000
 
 This is an older bug that has been solved in the app. The app

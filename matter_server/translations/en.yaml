@@ -26,6 +26,14 @@ configuration:
       Home Assistant Companion app commissioning method is recommended as it is
       better tested and allows to commission directly in proximity of the
       device itself.
+  ble_proxy:
+    name: Enable BLE proxy
+    description: >-
+      Expose the Matter Server's BLE proxy endpoint so the Home Assistant
+      Matter integration can drive BLE commissioning through Home Assistant's
+      own bluetooth stack (including ESPHome BLE proxies). Only available with
+      the Beta Matter Server (>= 0.7.1, JavaScript-based). Mutually exclusive
+      with the local `Bluetooth Adapter ID` option.
   matter_server_env_vars:
     name: Matter Server environment variables
     description: >-

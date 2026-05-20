@@ -4,7 +4,31 @@
 # Select OTBR version and enable mDNSResponder for stable mode
 # ==============================================================================
 
+# Auto disable beta when we promote beta -> stable
+declare beta_auto_disable_version
+declare marker
+declare marker_version
+declare beta_active
+
+beta_auto_disable_version=1
+marker=/data/beta_auto_disabled
+marker_version=0
+if [[ -f ${marker} ]]; then
+    marker_version=$(< "${marker}")
+fi
+
+beta_active=false
 if bashio::config.true 'beta'; then
+    if (( marker_version < beta_auto_disable_version )); then
+        bashio::log.warning "Disabling beta mode automatically; the previous beta is now stable."
+        bashio::addon.option 'beta' '^false'
+    else
+        beta_active=true
+    fi
+fi
+echo "${beta_auto_disable_version}" > "${marker}"
+
+if [[ ${beta_active} == true ]]; then
     bashio::log.info "Beta mode enabled."
 
     ln -sf "/opt/otbr-beta/sbin/otbr-agent" /usr/sbin/otbr-agent

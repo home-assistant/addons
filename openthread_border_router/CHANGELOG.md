@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0
+
+- Thread 1.4 is now stable and OpenThread's built-in mDNS are now the default
+- The beta toggle has been changed back to stable. If you want to run beta again, please turn it back on.
+- Bump beta to OTBR POSIX version 0b14f77a (2026-05-15 06:53:31 -0700)
+- Bump serialx to 1.8.0
+
 ## 2.16.8
 
 - Use regular hostname with "-otbr" suffix in beta mode to make OTBR recognizable

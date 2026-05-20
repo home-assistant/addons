@@ -105,23 +105,40 @@ WORKDIR /usr/src
 RUN \
     set -x \
     && apt-get update \
-    # The OTBR build script tries to run `sudo`
-    && apt-get install -y --no-install-recommends sudo git \
+    && apt-get install -y --no-install-recommends \
+        git \
+        wget \
+        iproute2 \
+        iputils-ping \
+        libreadline-dev \
+        libncurses-dev \
+        build-essential \
+        ninja-build \
+        cmake \
+        iptables \
+        libjsoncpp-dev \
+        libnetfilter-queue-dev \
+        nodejs \
+        npm \
+        libprotobuf-dev \
+        protobuf-compiler \
     && git clone --depth 1 -b main https://github.com/openthread/ot-br-posix.git /usr/src/ot-br-posix \
     && cd /usr/src/ot-br-posix \
     && git fetch origin ${OTBR_VERSION} \
     && git checkout ${OTBR_VERSION} \
-    && git submodule update --init \
-    # Bootstrap downloads a few more repos
-    && ./script/bootstrap \
-    # Remove libsystemd-dev to avoid unnecessary linkage
-    && apt-get purge -y libsystemd-dev
+    && git submodule update --init --recursive --depth 1
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
     set -x \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
-    && ./script/cmake-build \
+    && mkdir build \
+    && cd build \
+    && cmake \
+        -GNinja \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+        .. \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-stable \
         -DOTBR_FEATURE_FLAGS=ON \
@@ -147,7 +164,7 @@ RUN \
         -DOT_THREAD_VERSION=1.4 \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
         -DOT_RCP_RESTORATION_MAX_COUNT=2 \
-    && cd /usr/src/ot-br-posix/build/otbr \
+    && ninja \
     && ninja install
 
 # Runtime image

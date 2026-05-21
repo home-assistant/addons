@@ -42,10 +42,14 @@ if [ "$(cat /proc/sys/net/ipv6/conf/all/forwarding)" != "1" ]; then
     bashio::log.warning "IPv6 routing/forwarding is not enabled! Make sure the Home Assistant host has IPv6 forwarding enabled."
 fi
 
-device=$(bashio::config 'device')
+if ! bashio::config.has_value 'device' && ! bashio::config.has_value 'network_device'; then
+    bashio::exit.nok "No device configured. Set either 'device' (serial port) or 'network_device' (TCP host:port)."
+fi
 
 if bashio::config.has_value 'network_device'; then
     device="/tmp/ttyOTBR"
+else
+    device="$(bashio::config 'device')"
 fi
 
 baudrate=$(bashio::config 'baudrate')

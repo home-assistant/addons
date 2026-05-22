@@ -16,6 +16,7 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
+COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -42,7 +43,8 @@ RUN \
     && cd /usr/src/ot-br-posix \
     && git fetch origin ${OTBR_BETA_VERSION} \
     && git checkout ${OTBR_BETA_VERSION} \
-    && git submodule update --init --recursive --depth 1
+    && git submodule update --init --recursive --depth 1 \
+    && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
@@ -100,6 +102,7 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
+COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -126,7 +129,8 @@ RUN \
     && cd /usr/src/ot-br-posix \
     && git fetch origin ${OTBR_VERSION} \
     && git checkout ${OTBR_VERSION} \
-    && git submodule update --init --recursive --depth 1
+    && git submodule update --init --recursive --depth 1 \
+    && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \

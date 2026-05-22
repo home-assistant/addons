@@ -31,7 +31,7 @@ configuration:
     description: >-
       Minimum seconds between wake word activations to prevent accidental
       double-triggers (default: 2.0).
-  thinking_sound:
+  enable_thinking_sound:
     name: Thinking sound
     description: >-
       Play a short processing sound while the assistant is thinking. Can also
@@ -40,3 +40,32 @@ configuration:
     name: Debug logging
     description: >-
       Enable verbose debug logging.
+  processing_sound:
+    name: Processing sound
+    description: >-
+      Path to a custom sound file to play while the assistant is processing a
+      command. The default sound is a short chime included with linux voice assistant.
+  stop_word:
+    name: Stop word
+    description: >-
+      Wake word to stop the assistant from listening or speaking (default: stop).
+  timer_sound:
+    name: Timer sound
+    description: >-
+      Path to a custom sound file to play when a timer finishes. The default is included with linux voice assistant.
+  timer_max_ring_seconds:
+    name: Timer max ring seconds
+    description: >-
+      Maximum seconds to ring the timer sound when a timer finishes.
+  mic_volume:
+    name: Microphone volume
+    description: >-
+      Microphone input volume.
+  mic_noise_suppression:
+    name: Microphone noise suppression
+    description: >-
+      Level of noise suppression to apply to the microphone input (0-4, default: 0).
+  mic_auto_gain:
+    name: Microphone auto gain
+    description: >-
+      Level of automatic gain control to apply to the microphone input (0-31, default: 0).

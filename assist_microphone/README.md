@@ -1,7 +1,7 @@
 # Deprecation Notice
 
-> **[!CAUTION]**
-> **This app has been deprecated and replaced with [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite).**
+> [!CAUTION]
+> This app has been deprecated and replaced with [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite).
 
 ---
 

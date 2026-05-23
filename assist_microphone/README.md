@@ -1,9 +1,9 @@
 > [!CAUTION]
-> **[Wyoming Satellite](https://github.com/rhasspy/wyoming-satellite) and therefore the Assist Microphone app have been deprecated, please migrate to the [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite) app for a newer alternative and more features.**
+> [Wyoming Satellite](https://github.com/rhasspy/wyoming-satellite) and therefore the Assist Microphone app have been deprecated, please migrate to the [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite) app for a newer alternative and more features.
 
 ---
 
-# Home Assistant App: Assist Microphone
+# [DEPRECATED] Home Assistant App: Assist Microphone
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]
 

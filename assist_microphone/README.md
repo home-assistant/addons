@@ -1,3 +1,9 @@
+# Deprecation Notice
+
+**This app has been deprecated and replaced with [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite).**
+
+---
+
 # Home Assistant App: Assist Microphone
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield]

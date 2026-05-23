@@ -1,5 +1,5 @@
 > [!CAUTION]
-> [Wyoming Satellite](https://github.com/rhasspy/wyoming-satellite) and therefore the Assist Microphone app have been deprecated, please migrate to the [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite) app for a newer alternative and more features.
+> [Wyoming Satellite](https://github.com/rhasspy/wyoming-satellite) project and therefore the Assist Microphone app have been deprecated, please migrate to the [Assist Satellite](https://github.com/OHF-Voice/apps/tree/main/assist_satellite) app for a newer alternative and more features.
 
 ---
 

@@ -1,0 +1,5 @@
+build_from:
+  amd64: docker.stirlingpdf.com/stirlingtools/stirling-pdf:2.7.3
+  aarch64: docker.stirlingpdf.com/stirlingtools/stirling-pdf:2.7.3
+labels:
+  io.hass.type: addon

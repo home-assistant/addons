@@ -1,0 +1,33 @@
+name: Stirling-PDF
+version: "2.7.3" # track the upstream release tag
+slug: stirling_pdf
+description: Locally hosted, privacy-first PDF toolbox (merge, split, OCR, convert, sign, redact)
+url: https://github.com/Stirling-Tools/Stirling-PDF
+arch:
+  - amd64
+  - aarch64
+init: false # we provide our own entrypoint; base is not an s6 HA image
+host_network: false
+ports:
+  8080/tcp: 8080 # change host port if 8080 is busy on your HA host
+ports_description:
+  8080/tcp: Web UI
+webui: "http://[HOST]:[PORT:8080]"
+map:
+  - share:rw # optional: use /share as a drop/pipeline folder
+options:
+  enable_login: false
+  app_name: "HIVEBIT PDF"
+  default_locale: "en_GB"
+  languages: "en_GB"
+  file_upload_limit: ""
+  initial_username: ""
+  initial_password: ""
+schema:
+  enable_login: bool
+  app_name: str?
+  default_locale: str?
+  languages: str?
+  file_upload_limit: str?
+  initial_username: str?
+  initial_password: password?

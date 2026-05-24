@@ -122,18 +122,35 @@ if bashio::config.true "enable_test_net_dcl"; then
     extra_args+=('--enable-test-net-dcl')
 fi
 
-primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
-
-# Try fallback method (e.g. in case NetworkManager is not available)
-# shellcheck disable=SC2086
-if [ -z ${primary_interface} ]; then
-  bashio::log.warning 'Trying fallback method to determine primary interface'
-  primary_interface="$(ip --json route show default | jq --raw-output '.[0].dev')"
+# Check if the user configured a custom primary interface
+if bashio::config.has_value 'matter_server_primary_interface'; then
+    custom_interface=$(bashio::config 'matter_server_primary_interface')
+    
+    # Check if the configured interface actually exists in the system
+    if ip link show "$custom_interface" > /dev/null 2>&1; then
+        bashio::log.info "Using manually configured network interface: ${custom_interface}"
+        primary_interface="$custom_interface"
+    else
+        bashio::log.error "The configured network interface '${custom_interface}' was not found on the host!"
+        bashio::log.warning "Falling back to automatic interface detection."
+    fi
 fi
 
-# shellcheck disable=SC2086
-if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
-    bashio::exit.nok "No primary network interface found!"
+# Run automatic detection if no custom interface was set or if the custom one failed
+if [ -z "${primary_interface}" ]; then
+    primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
+
+    # Try fallback method (e.g. in case NetworkManager is not available)
+    # shellcheck disable=SC2086
+    if [ -z ${primary_interface} ]; then
+      bashio::log.warning 'Trying fallback method to determine primary interface'
+      primary_interface="$(ip --json route show default | jq --raw-output '.[0].dev')"
+    fi
+
+    # shellcheck disable=SC2086
+    if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
+        bashio::exit.nok "No primary network interface found!"
+    fi
 fi
 
 if bashio::config.true "ble_proxy"; then

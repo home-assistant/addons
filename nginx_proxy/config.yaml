@@ -41,5 +41,6 @@ schema:
     active: bool
     default: str
     servers: str
+    root_conf: str
   real_ip_from:
     - str

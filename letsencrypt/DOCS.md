@@ -239,7 +239,7 @@ the app terminates without changes. If the certificates are due for renewal,
 new certificates will be created.
 
 There are multiple ways how the app can be started to check/renew the
-certificates. One way to automate the certificate renewal it to configure a
+certificates. One way to automate the certificate renewal is to configure a
 [Home Assistant automation][haauto] to restart this app every night via the [Supervisor app restart action][supervisorrestart].
 
 [haauto]: https://www.home-assistant.io/docs/automation/editor/

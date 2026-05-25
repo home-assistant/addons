@@ -240,7 +240,7 @@ new certificates will be created.
 
 There are multiple ways how the app can be started to check/renew the
 certificates. One way to automate the certificate renewal it to configure a
-a [Home Assistant automation][haauto] to restart this app every night via the [Supervisor app restart action][supervisorrestart].
+[Home Assistant automation][haauto] to restart this app every night via the [Supervisor app restart action][supervisorrestart].
 
 [haauto]: https://www.home-assistant.io/docs/automation/editor/
 [supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#action-hassioaddon_restart

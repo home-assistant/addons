@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Backport fix for [CVE-2026-8369](https://github.com/advisories/GHSA-f6vh-g7gh-wh6h) to stable. This only affects users who have enabled NAT64 and use an untrusted network.
+
 ## 3.0.0
 
 - Thread 1.4 is now stable and OpenThread's built-in mDNS is now the default

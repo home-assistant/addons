@@ -1358,7 +1358,7 @@ And ensure you have an update policy in place in the zone that uses this key to 
      };
   ```
 
-For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the app) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
+For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the app) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.
 
 An example configuration:
 
@@ -1375,7 +1375,7 @@ An example configuration:
     rfc2136_port: '53'
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
-    rfc2136_algorithm: HMAC-SHA512
+    rfc2136_algorithm: hmac-sha512
   ```
 
 </details>

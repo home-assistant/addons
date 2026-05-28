@@ -12,12 +12,10 @@ if bashio::config.true 'nat64'; then
     ot-ctl dns server upstream enable
 fi
 
-if bashio::config.true 'beta'; then
-    mdns_localhostname="$(hostname)-otbr"
-    bashio::log.info "Setting OpenThread mDNS local hostname to ${mdns_localhostname}."
-    ot-ctl mdns localhostname "${mdns_localhostname}"
-    ot-ctl mdns enable
-fi
+mdns_localhostname="$(hostname)-otbr"
+bashio::log.info "Setting OpenThread mDNS local hostname to ${mdns_localhostname}."
+ot-ctl mdns localhostname "${mdns_localhostname}"
+ot-ctl mdns enable
 
 # To avoid asymmetric link quality the TX power from the controller should not
 # exceed that of what other Thread routers devices typically use.

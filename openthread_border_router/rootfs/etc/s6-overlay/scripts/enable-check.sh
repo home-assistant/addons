@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Select OTBR version and enable mDNSResponder for stable mode
+# Select OTBR version and handle automatic beta disable/promotion
 # ==============================================================================
 
 # Auto disable beta when we promote beta -> stable

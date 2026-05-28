@@ -2,7 +2,7 @@
 
 ## 3.0.0
 
-- Thread 1.4 is now stable and OpenThread's built-in mDNS are now the default
+- Thread 1.4 is now stable and OpenThread's built-in mDNS is now the default
 - The beta toggle has been changed back to stable. If you want to run beta again, please turn it back on.
 - Bump beta to OTBR POSIX version 78d9c289 (2026-05-19 23:38:25 -0700)
 - Bump serialx to 1.8.0

@@ -67,32 +67,35 @@ if ! bashio::var.has_value "${api_key}"; then
     bashio::log.warning "No API key found – trying to create a new one..."
     for i in $(seq 1 60); do
 
-        result="$(curl --silent --show-error \
+        if result="$(curl --silent --show-error \
             --request POST \
             -H "Content-Type: application/json" \
             -d '{"devicetype":"Home Assistant"}' \
-            "http://127.0.0.1:40850/api")"
+            "http://127.0.0.1:40850/api")"; then
 
-        # Check if valid JSON was returned
-        if echo "${result}" | jq empty >/dev/null 2>&1; then
+            # Check if valid JSON was returned
+            if echo "${result}" | jq empty >/dev/null 2>&1; then
 
-            api_key="$(bashio::jq "${result}" '.[0].success.username // empty')"
+                api_key="$(bashio::jq "${result}" '.[0].success.username // empty')"
 
-            # Successful
-            if bashio::var.has_value "${api_key}"; then
-                bashio::log.info "API key successfully created after ${i} seconds."
-                break
+                # Successful
+                if bashio::var.has_value "${api_key}"; then
+                    bashio::log.info "API key successfully created after ${i} seconds."
+                    break
+                fi
+
+                # Output API errors
+                error_desc="$(bashio::jq "${result}" '.[0].error.description // empty')"
+
+                if bashio::var.has_value "${error_desc}"; then
+                    bashio::log.warning "deCONZ API error: ${error_desc}"
+                fi
+  
+            else
+                bashio::log.warning "deCONZ returned invalid JSON, retrying..."
             fi
-
-            # Output API errors
-            error_desc="$(bashio::jq "${result}" '.[0].error.description // empty')"
-
-            if bashio::var.has_value "${error_desc}"; then
-                bashio::log.warning "deCONZ API error: ${error_desc}"
-            fi
-
         else
-            bashio::log.warning "deCONZ returned invalid JSON, retrying..."
+            bashio::log.warning "Failed to reach deCONZ API, retrying..."
         fi
         sleep 1
     done

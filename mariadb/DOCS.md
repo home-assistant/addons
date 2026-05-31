@@ -112,7 +112,6 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [mariadb-ha-recorder]: https://www.home-assistant.io/integrations/recorder/
 [discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository

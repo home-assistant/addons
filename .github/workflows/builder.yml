@@ -1,5 +1,5 @@
 ---
-# yamllint disable rule:line-length rule:truthy
+# yamllint disable rule:comments rule:line-length rule:truthy
 name: Build app
 
 env:
@@ -12,6 +12,9 @@ on:
   push:
     branches: ["master"]
 
+permissions:
+  contents: read
+
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -22,11 +25,13 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Get changed files
         id: changed_files
-        uses: masesgroup/retrieve-changed-files@v4.0.0
+        uses: masesgroup/retrieve-changed-files@45a8b3b496d2d6037cbd553e8a3450989b9384a2 # v4.0.0
 
       - name: Get apps
         id: addons
@@ -39,14 +44,17 @@ jobs:
 
       - name: Get changed apps
         id: changed_addons
+        env:
+          ADDONS: ${{ steps.addons.outputs.addons }}
+          CHANGED_FILES: ${{ steps.changed_files.outputs.all }}
         run: |
           declare -a changed_addons
-          for addon in ${{ steps.addons.outputs.addons }}; do
+          for addon in ${ADDONS}; do
             # Skip deprecated add-ons that should no longer be built
             [[ "$addon" == "silabs-multiprotocol" ]] && continue
-            if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon ]]; then
+            if [[ "${CHANGED_FILES}" =~ $addon ]]; then
               for file in ${{ env.MONITORED_FILES }}; do
-                  if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon/$file ]]; then
+                  if [[ "${CHANGED_FILES}" =~ $addon/$file ]]; then
                     if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
                       changed_addons+=("\"${addon}\",");
                     fi
@@ -80,40 +88,43 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Get information
         id: info
-        uses: home-assistant/actions/helpers/info@master
+        uses: home-assistant/actions/helpers/info@master # zizmor: ignore[unpinned-uses]
         with:
           path: "./${{ matrix.addon }}"
 
       - name: Check app
         id: check
+        env:
+          ADDON: ${{ matrix.addon }}
+          ARCH: ${{ matrix.arch }}
+          ARCHITECTURES: ${{ steps.info.outputs.architectures }}
         run: |
-          if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-             echo "build_arch=true" >> "$GITHUB_OUTPUT";
-           else
-             echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
+          if [[ "${ARCHITECTURES}" =~ ${ARCH} ]]; then
+            echo "build_arch=true" >> "$GITHUB_OUTPUT";
+          else
+            echo "${ARCH} is not a valid arch for ${ADDON}, skipping build";
           fi
 
       - name: Set build arguments
-        if: steps.check.outputs.build_arch == 'true'
-        run: |
-          if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
-              echo "BUILD_ARGS=--docker-hub-check" >> $GITHUB_ENV;
-          fi
+        if: steps.check.outputs.build_arch == 'true' && github.head_ref == '' && github.event_name == 'push'
+        run: echo "BUILD_ARGS=--docker-hub-check" >> "$GITHUB_ENV"
 
       - name: Login to DockerHub
         if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@v4.1.0
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build ${{ matrix.addon }} app
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2026.02.1
+        uses: home-assistant/builder@6cb4fd3d1338b6e22d0958a4bcb53e0965ea63b4 # 2026.02.1
         with:
           image: ${{ matrix.arch }}
           args: |

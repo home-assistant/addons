@@ -1,6 +1,6 @@
 ---
 build_from:
-  aarch64: ghcr.io/home-assistant/aarch64-base:3.23-2026.03.1
-  amd64: ghcr.io/home-assistant/amd64-base:3.23-2026.03.1
+  aarch64: ghcr.io/home-assistant/aarch64-base:3.23-2026.04.0
+  amd64: ghcr.io/home-assistant/amd64-base:3.23-2026.04.0
 args:
-  CLI_VERSION: 5.0.0
+  CLI_VERSION: 5.1.0

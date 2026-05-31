@@ -1,0 +1,30 @@
+diff --git a/src/rest/rest_web_server.cpp b/src/rest/rest_web_server.cpp
+index 29ee6b506be..8715e724820 100644
+--- a/src/rest/rest_web_server.cpp
++++ b/src/rest/rest_web_server.cpp
+@@ -34,8 +34,10 @@
+ #include <chrono>
+ 
+ #include <arpa/inet.h>
++#include <errno.h>
+ #include <fcntl.h>
+ #include <httplib.h>
++#include <string.h>
+ 
+ #include <openthread/commissioner.h>
+ 
+@@ -1839,6 +1841,14 @@ void RestWebServer::Init(const std::string &aRestListenAddress, int aRestListenP
+         {
+             otbrLogInfo("RestWebServer listening on %s:%u", aRestListenAddress.c_str(), aRestListenPort);
+             self->mServer.set_ipv6_v6only(false);
++            self->mServer.set_socket_options([](socket_t aSock) {
++                int opt = 1;
++                // cpp-httplib defaults to SO_REUSEPORT instead of SO_REUSEADDR
++                if (setsockopt(aSock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) != 0)
++                {
++                    otbrLogWarning("Failed to set SO_REUSEADDR: %s", strerror(errno));
++                }
++            });
+             const httplib::Headers defaultHeaders = {
+                 {"Access-Control-Allow-Origin", OTBR_REST_ACCESS_CONTROL_ALLOW_ORIGIN},
+                 {"Access-Control-Allow-Methods", OTBR_REST_ACCESS_CONTROL_ALLOW_METHODS},

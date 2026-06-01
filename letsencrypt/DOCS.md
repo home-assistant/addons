@@ -239,15 +239,11 @@ the app terminates without changes. If the certificates are due for renewal,
 new certificates will be created.
 
 There are multiple ways how the app can be started to check/renew the
-certificates. One way to automate the certificate renewal it to configure a
-renewal via [Home Assistant automation][haauto], and then restarting this
-automation every night via the [Supervisor app restart action][supervisorrestart].
+certificates. One way to automate the certificate renewal is to configure a
+[Home Assistant automation][haauto] to restart this app every night via the [Supervisor app restart action][supervisorrestart].
 
 [haauto]: https://www.home-assistant.io/docs/automation/editor/
 [supervisorrestart]: https://www.home-assistant.io/integrations/hassio/#action-hassioaddon_restart
-
-In this example, the automation will run every day at the chosen time, checking
-if a renewal is due, and will request it if needed.
 
 To force a certificate renewal regardless of the expiry date, set the `force_renew` option to `true`:
 
@@ -1362,7 +1358,7 @@ And ensure you have an update policy in place in the zone that uses this key to 
      };
   ```
 
-For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the app) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.  Finally, the algorithm should be in all caps.
+For this provider, you will need to supply all the `rfc2136_*` options. Note that the `rfc2136_port` item is required (there is no default port in the app) and, most importantly, the port number must be quoted.  Also, be sure to copy in the key so certbot can authenticate to the DNS server.
 
 An example configuration:
 
@@ -1379,7 +1375,7 @@ An example configuration:
     rfc2136_port: '53'
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
-    rfc2136_algorithm: HMAC-SHA512
+    rfc2136_algorithm: hmac-sha512
   ```
 
 </details>

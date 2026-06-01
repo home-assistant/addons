@@ -48,7 +48,7 @@ the deCONZ GUI via VNC, or select **Phoscon** to configure the settings in the P
 By default, Home Assistant has the `discovery` integration enabled, which
 automatically discovers this app.
 
-Navigate to **Settings** -> **Devices & Services** -> **Add integration** page after starting this
+Navigate to **Settings** -> **Devices & Services** -> **Integrations** page after starting this
 app to configure the deCONZ integration.
 
 In case you don't have `discovery` enabled on your Home Assistant instance,

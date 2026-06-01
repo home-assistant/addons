@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+Avoids a validation error in the Z-Wave JS UI logs complaining about incorrect proxy configuration.
+
 ## 1.3.0
 
 ### Z-Wave JS 15.23.2...15.23.5

@@ -40,6 +40,9 @@ export ZWAVEJS_EXTERNAL_CONFIG=/data/db
 export ZWAVE_PORT=${SERIAL_DEVICE}
 export ZWAVE_EXTERNAL_SETTINGS=/etc/zwave_config.json
 
+# Trust the ingress proxy
+export TRUST_PROXY=1
+
 # Run daemon, passing external config directory in as environment variable
 # shellcheck disable=SC2086
 exec zwave-js-ui

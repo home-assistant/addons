@@ -2,6 +2,7 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 # The matter.js base image runs as an unprivileged user; s6-overlay needs root.
+# hadolint ignore=DL3002
 USER root
 
 # Default ENV

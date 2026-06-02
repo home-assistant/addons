@@ -1,0 +1,167 @@
+diff --git a/src/core/net/ip4_types.cpp b/src/core/net/ip4_types.cpp
+index 6d45b5529cb..6b4d51fe5cc 100644
+--- a/src/core/net/ip4_types.cpp
++++ b/src/core/net/ip4_types.cpp
+@@ -34,6 +34,7 @@
+ #include "ip4_types.hpp"
+ 
+ #include "common/numeric_limits.hpp"
++#include "common/offset_range.hpp"
+ #include "net/ip6_address.hpp"
+ 
+ namespace ot {
+@@ -208,33 +209,84 @@ Error Header::ParseFrom(const Message &aMessage)
+     VerifyOrExit(IsValid());
+     VerifyOrExit(GetTotalLength() == aMessage.GetLength());
+ 
++    if (GetIhl() > kMinIhl)
++    {
++        VerifyOrExit(!HasSourceRouteOption(aMessage));
++    }
++
+     error = kErrorNone;
+ 
+ exit:
+     return error;
+ }
+ 
++bool Header::HasSourceRouteOption(const Message &aMessage) const
++{
++    bool        hasSourceRoute = false;
++    uint16_t    headerLen      = GetHeaderLength();
++    OffsetRange range;
++
++    VerifyOrExit(headerLen <= aMessage.GetLength());
++    range.InitFromRange(sizeof(Header), headerLen);
++
++    while (!range.IsEmpty())
++    {
++        uint8_t optionType;
++        uint8_t optionLen;
++
++        SuccessOrExit(aMessage.Read(range, optionType));
++        range.AdvanceOffset(sizeof(uint8_t));
++
++        if (optionType == kOptionEnd)
++        {
++            break;
++        }
++
++        if (optionType == kOptionNop)
++        {
++            continue;
++        }
++
++        SuccessOrExit(aMessage.Read(range, optionLen));
++        VerifyOrExit(optionLen >= 2 && range.Contains(optionLen - 1));
++
++        if (optionType == kOptionLsrr || optionType == kOptionSsrr)
++        {
++            hasSourceRoute = true;
++            ExitNow();
++        }
++
++        range.AdvanceOffset(optionLen - 1);
++    }
++
++exit:
++    return hasSourceRoute;
++}
++
+ //---------------------------------------------------------------------------------------------------------------------
+ // Headers
+ 
+ Error Headers::ParseFrom(const Message &aMessage)
+ {
+-    Error error = kErrorParse;
++    Error    error = kErrorParse;
++    uint16_t headerLen;
+ 
+     Clear();
+ 
+     SuccessOrExit(mIp4Header.ParseFrom(aMessage));
+ 
++    headerLen = mIp4Header.GetHeaderLength();
++
+     switch (mIp4Header.GetProtocol())
+     {
+     case kProtoUdp:
+-        SuccessOrExit(aMessage.Read(sizeof(Header), mHeader.mUdp));
++        SuccessOrExit(aMessage.Read(headerLen, mHeader.mUdp));
+         break;
+     case kProtoTcp:
+-        SuccessOrExit(aMessage.Read(sizeof(Header), mHeader.mTcp));
++        SuccessOrExit(aMessage.Read(headerLen, mHeader.mTcp));
+         break;
+     case kProtoIcmp:
+-        SuccessOrExit(aMessage.Read(sizeof(Header), mHeader.mIcmp));
++        SuccessOrExit(aMessage.Read(headerLen, mHeader.mIcmp));
+         break;
+     default:
+         break;
+diff --git a/src/core/net/ip4_types.hpp b/src/core/net/ip4_types.hpp
+index 6ee9a557b29..374eb5ba962 100644
+--- a/src/core/net/ip4_types.hpp
++++ b/src/core/net/ip4_types.hpp
+@@ -296,7 +296,24 @@ class Header : public Clearable<Header>
+      * @retval TRUE    If the header appears to be well-formed.
+      * @retval FALSE   If the header does not appear to be well-formed.
+      */
+-    bool IsValid(void) const { return IsVersion4(); }
++    bool IsValid(void) const
++    {
++        return IsVersion4() && (GetIhl() >= kMinIhl) && (GetHeaderLength() <= GetTotalLength());
++    }
++
++    /**
++     * Returns the IPv4 Internet Header Length (IHL) value.
++     *
++     * @returns The IPv4 IHL value.
++     */
++    uint8_t GetIhl(void) const { return mVersIhl & kIhlMask; }
++
++    /**
++     * Returns the IPv4 Header Length value.
++     *
++     * @returns The IPv4 Header Length value.
++     */
++    uint16_t GetHeaderLength(void) const { return static_cast<uint16_t>(GetIhl()) * 4; }
+ 
+     /**
+      * Initializes the Version to 4 and sets Traffic Class and Flow fields to zero.
+@@ -516,6 +533,7 @@ class Header : public Clearable<Header>
+     static constexpr uint8_t  kVersion4           = 0x40;   // Use with `mVersIhl`
+     static constexpr uint8_t  kVersionMask        = 0xf0;   // Use with `mVersIhl`
+     static constexpr uint8_t  kIhlMask            = 0x0f;   // Use with `mVersIhl`
++    static constexpr uint8_t  kMinIhl             = 5;      ///< Minimum IPv4 Internet Header Length (in 32-bit words).
+     static constexpr uint8_t  kDscpOffset         = 2;      // Use with `mDscpEcn`
+     static constexpr uint16_t kDscpMask           = 0xfc;   // Use with `mDscpEcn`
+     static constexpr uint8_t  kEcnOffset          = 0;      // Use with `mDscpEcn`
+@@ -524,7 +542,13 @@ class Header : public Clearable<Header>
+     static constexpr uint16_t kFlagsDf            = 0x4000; // Use with `mFlagsFragmentOffset`
+     static constexpr uint16_t kFlagsMf            = 0x2000; // Use with `mFlagsFragmentOffset`
+     static constexpr uint16_t kFragmentOffsetMask = 0x1fff; // Use with `mFlagsFragmentOffset`
+-    static constexpr uint32_t kVersIhlInit        = 0x45;   // Version 4, Header length = 5x8 bytes.
++    static constexpr uint32_t kVersIhlInit        = 0x45;   // Version 4, Header length = 5x4 bytes.
++    static constexpr uint8_t  kOptionEnd          = 0;      ///< End of Options List
++    static constexpr uint8_t  kOptionNop          = 1;      ///< No Operation
++    static constexpr uint8_t  kOptionLsrr         = 131;    ///< Loose Source and Record Route
++    static constexpr uint8_t  kOptionSsrr         = 137;    ///< Strict Source and Record Route
++
++    bool HasSourceRouteOption(const Message &aMessage) const;
+ 
+     uint8_t  mVersIhl;
+     uint8_t  mDscpEcn;
+diff --git a/src/core/net/nat64_translator.cpp b/src/core/net/nat64_translator.cpp
+index fe0f985c187..c5fe4d8e3e6 100644
+--- a/src/core/net/nat64_translator.cpp
++++ b/src/core/net/nat64_translator.cpp
+@@ -249,7 +249,7 @@ Error Translator::TranslateIp4ToIp6(Message &aMessage)
+     dstPortOrId = GetDestinationPortOrIcmp4Id(ip4Headers);
+ #endif
+ 
+-    aMessage.RemoveHeader(sizeof(Ip4::Header));
++    aMessage.RemoveHeader(ip4Headers.GetIp4Header().GetHeaderLength());
+ 
+     ip6Header.Clear();
+     ip6Header.InitVersionTrafficClassFlow();

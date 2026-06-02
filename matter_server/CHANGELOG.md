@@ -13,7 +13,7 @@
   - Coming from Beta server < 0.7: the first start runs the storage data migration and the second start removes the migration fallback data. Both can take a while — be patient on both starts.
 - New Matter Server features:
   - The Web UI dashboard adds Thread and Wi-Fi network visualizations, plus many other improvements
-  - BLE proxy support is enabled automatically when no local Bluetooth adapter ID is configured
+  - BLE proxy support is available via the `ble_proxy` option, letting Home Assistant drive BLE commissioning through its own bluetooth stack
   - Otherwise, it offers the same functionality as the Python server, and behavior within Home Assistant should be unchanged
   - For more details on the differences, see [our Migration FAQ](https://github.com/home-assistant/addons/blob/master/matter_server/MIGRATION_FAQ.md)
 - The **Beta** option now installs the latest `matter-server` from npm on top of the bundled version

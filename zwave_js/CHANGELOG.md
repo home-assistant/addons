@@ -1,5 +1,47 @@
 # Changelog
 
+## 1.4.0
+
+### Z-Wave JS 15.24.0...15.24.2
+
+#### Features
+
+- Added bulk-delete APIs for credentials
+
+#### Bugfixes
+
+- Fixed an issue where local/remote protection state would not update in the UI after changing it
+- Fix: adding users was not possible on locks using User Code CC
+- Added a workaround for an issue with some controllers that could not enter inclusion mode because the SUC was missing from the network
+
+#### Config file changes
+
+- Map Basic Set to Binary Sensor for Fibaro FGMS001
+- Add lifeline association and remove Binary Switch CC for iBlinds v2
+- Add new fingerprint for Honeywell TH6320ZW2007
+
+### Z-Wave JS UI 11.17.0...11.19.1
+
+#### Features
+
+- Added a **Last Awake** column for battery-powered nodes, shown as a localized date and time
+
+#### Bugfixes
+
+- Fixed a socket reconnection loop and a trust proxy validation error
+- Restore the debug log level on driver restart during a capture session
+- Fixed performance issues and glitches in the nodes table
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.19.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.19.1)
+- [Z-Wave JS UI 11.19.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.19.0)
+- [Z-Wave JS UI 11.18.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.18.0)
+- [Z-Wave JS UI 11.17.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.17.0)
+- [Z-Wave JS 15.24.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.24.2)
+- [Z-Wave JS 15.24.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.24.0)
+- [Z-Wave JS Server 3.9.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.9.0)
+
 ## 1.3.0
 
 ### Z-Wave JS 15.23.2...15.23.5

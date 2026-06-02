@@ -6,10 +6,10 @@ The new Matter Server is a complete rewrite of the Python-based Matter Server. I
 Version 9.0 is the first release of the new Matter Server.
 
 ## Should I do a backup before installing the new version?
-Yes. We always recommend making a backup before installing a new version of the server. The new version migrates your current data automatically, but it is always better to be safe than sorry. Just tick the "Create backup" checkbox when you update the server.
+Yes. Make a backup before installing the new version. The new version migrates your current data automatically, but a backup lets you roll back if anything goes wrong. Tick the "Create backup" checkbox when you update the server.
 
 ## What happens on the first start of the new version?
-The first start of the new version **automatically migrates your current data**. This requires no manual intervention but needs some time to complete. **Please be patient.** The log shows the progress of the migration.
+The first start of the new version **automatically migrates your current data**. This requires no manual intervention but needs some time to complete. **Wait for the migration to finish** — the log shows its progress.
 
 After the migration completes, the server discovers all your devices and performs a full interview to fetch the current data.
 All later starts automatically try to connect to the devices on their last known addresses and perform only a partial interview to update changed data. This significantly speeds up every subsequent start.
@@ -34,4 +34,4 @@ For Thread networks we also try to discover the border routers and show informat
 Note: you might also see "Unknown devices" or "External routers" in the network visualizations. This can mean different things depending on the network topology. They could be other Thread devices that do not belong to the Matter Server's fabric, or they could be stale data from the devices (for example, many sleepy battery devices do not update their network information regularly).
 
 ## Can I switch back to the old Matter Server?
-No. The new Matter Server was tested as a "Beta" with the community for the last four months, and we did our best to make sure it works as expected. If you run into any issues, please report them to us in this GitHub repository and we will try to fix them as soon as possible.
+No. The new Matter Server was tested as a "Beta" with the community for the last four months, and we did our best to make sure it works as expected. If you run into any issues, report them in this GitHub repository and we will try to fix them as soon as possible.

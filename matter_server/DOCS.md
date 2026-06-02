@@ -51,7 +51,7 @@ App configuration:
 | bluetooth_adapter_id | Set BlueZ Bluetooth Controller ID (for local commissioning).                                            |
 | matter_server_args   | Extra command-line arguments passed to the Matter Server at startup (advanced).                         |
 | matter_server_env_vars | Extra environment variables exported before the server starts. Use `KEY=VALUE` entries. |
-| matter_server_version | Install this specific `matter-server` version from npm (advanced; takes precedence over **Beta**). Values with a major version >= 3 are ignored (these are Python Matter Server versions) and the bundled version is used. |
+| matter_server_version | Install this specific `matter-server` version from npm (advanced; takes precedence over **Beta**). Values with a major version >= 3 are ignored (these are Python Matter Server versions); unless **Beta** is set, the bundled version is used. |
 
 ### `matter_server_env_vars`
 

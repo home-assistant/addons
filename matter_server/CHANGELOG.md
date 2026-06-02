@@ -2,15 +2,15 @@
 
 ## 9.0.0
 
-- **The Matter Server now runs on matter.js by default. Your first start will take noticeably longer while your data migrates automatically. This is normal: please be patient and let it finish.** Details below.
+- **The Matter Server now runs on matter.js by default. Expect the first start to take noticeably longer while your data migrates automatically — this is normal. Let the migration finish before using Matter.** Details below.
   - **⚠️ Consider a full backup before updating.**
   - The add-on now builds on the official `matterjs-server` Docker image
   - The Python Matter Server has been removed
   - Your existing data migrates automatically; no action is required
   - The first start re-discovers and fully interviews every node. Later starts are much faster because each node's last-known IP is reused and usually only a partial interview is needed.
 - **For former Beta testers:**
-  - Coming from Beta server 0.7.x/0.8.x: the first start removes the migration fallback data, which can take a while. Be patient.
-  - Coming from Beta server < 0.7: the first start runs the storage data migration and the second start removes the migration fallback data. Both can take a while — be patient on both starts.
+  - Coming from Beta server 0.7.x/0.8.x: the first start removes the migration fallback data. Expect it to take a while.
+  - Coming from Beta server < 0.7: the first start runs the storage data migration, and the second start removes the migration fallback data. Expect both starts to take a while.
 - New Matter Server features:
   - The Web UI dashboard adds Thread and Wi-Fi network visualizations, plus many other improvements
   - BLE proxy support is available via the `ble_proxy` option, letting Home Assistant drive BLE commissioning through its own bluetooth stack

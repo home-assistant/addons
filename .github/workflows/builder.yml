@@ -51,7 +51,7 @@ jobs:
           declare -a changed_addons
           for addon in ${ADDONS}; do
             # Skip deprecated add-ons that should no longer be built
-            [[ "$addon" == "silabs-multiprotocol" ]] && continue
+            [[ "$addon" == "silabs-multiprotocol" || "$addon" == "assist_microphone" ]] && continue
             if [[ "${CHANGED_FILES}" =~ $addon ]]; then
               for file in ${{ env.MONITORED_FILES }}; do
                   if [[ "${CHANGED_FILES}" =~ $addon/$file ]]; then

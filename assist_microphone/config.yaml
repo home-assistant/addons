@@ -1,5 +1,6 @@
 ---
 version: 1.3.0
+stage: deprecated
 slug: assist_microphone
 name: Assist Microphone
 description: Use Assist with local microphone

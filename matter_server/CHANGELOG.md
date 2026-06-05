@@ -18,6 +18,8 @@
   - For more details on the differences, see [our Migration FAQ](https://github.com/home-assistant/addons/blob/master/matter_server/MIGRATION_FAQ.md)
 - The **Beta** option now installs the latest `matter-server` from npm on top of the bundled version
   - npm install failures are logged as a warning and the bundled version is started instead
+  - The **Beta** flag keeps its previous value across this update. If you enabled it for the earlier matter.js beta, it stays on. matter.js is now the default, so you can turn it off — but more betas will follow, so keep it on if you want to keep testing pre-releases.
+- The `bluetooth_adapter_id` option is now deprecated in favor of `ble_proxy`, which lets Home Assistant drive BLE commissioning through its own bluetooth stack. `bluetooth_adapter_id` still works for now.
 - `matter_server_version` now installs that specific `matter-server` version from npm (takes precedence over **Beta**); values with a major version >= 3 are ignored as leftover Python Matter Server versions, and the bundled version is used instead
 - Removed the `log_level_sdk` and `matter_sdk_wheels_version` options (Python Matter Server only)
 - Updated the `log_level` options to the matter.js levels (`debug`, `info`, `notice`, `warn`, `error`, `fatal`); the legacy `verbose`/`warning`/`critical` values are still accepted and mapped automatically

@@ -38,6 +38,12 @@ The server version bundled in the app image is used by default. The **Beta**
 flag installs the latest `matter-server` from npm on top of it, and
 `matter_server_version` installs a specific version (see below).
 
+> [!NOTE]
+> The **Beta** flag keeps its previous value across this update. If you enabled
+> it for the earlier matter.js beta, it stays on after updating to 9.0.0.
+> matter.js is now the default, so you can turn it off — but more betas will
+> follow, so keep it on if you want to keep testing pre-releases.
+
 ## Configuration
 
 App configuration:
@@ -48,7 +54,7 @@ App configuration:
 | beta                 | Install the latest `matter-server` from npm on startup instead of the bundled version. On failure a warning is logged and the bundled version is started. |
 | enable_test_net_dcl  | Enable test-net DCL for PAA root certificates, OTA updates and other device information.                |
 | ble_proxy            | Expose the BLE proxy endpoint so the Home Assistant Matter integration can drive BLE commissioning through Home Assistant's bluetooth stack. Mutually exclusive with `bluetooth_adapter_id`. |
-| bluetooth_adapter_id | Set BlueZ Bluetooth Controller ID (for local commissioning).                                            |
+| bluetooth_adapter_id | **Deprecated** — use `ble_proxy` instead. Set BlueZ Bluetooth Controller ID (for local commissioning). Still works for now. |
 | matter_server_args   | Extra command-line arguments passed to the Matter Server at startup (advanced).                         |
 | matter_server_env_vars | Extra environment variables exported before the server starts. Use `KEY=VALUE` entries. |
 | matter_server_version | Install this specific `matter-server` version from npm (advanced; takes precedence over **Beta**). Values with a major version >= 3 are ignored (these are Python Matter Server versions); unless **Beta** is set, the bundled version is used. |

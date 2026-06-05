@@ -9,6 +9,7 @@ USER root
 
 # Default ENV
 ENV \
+    LOG_LEVEL="" \
     LANG="C.UTF-8" \
     DEBIAN_FRONTEND="noninteractive" \
     CURL_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt" \

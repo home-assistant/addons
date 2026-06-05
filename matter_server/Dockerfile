@@ -3,6 +3,8 @@ FROM ${BUILD_FROM}
 
 # The matter.js base image runs as an unprivileged user; s6-overlay needs root.
 # hadolint ignore=DL3002
+# The matter.js base image runs as an unprivileged user; the app requires root for Bluetooth via Noble raw hci access
+# hadolint ignore=DL3002
 USER root
 
 # Default ENV

@@ -19,7 +19,7 @@ configuration:
     name: Bluetooth Adapter ID (deprecated)
     description: >-
       DEPRECATED: Use the `Enable BLE proxy` option instead, which lets Home
-      Assistant drive BLE commissioning through its own bluetooth stack
+      Assistant drive BLE commissioning through its own Bluetooth stack
       (including ESPHome BLE proxies). This option still works for now.
       BlueZ Bluetooth Adapter Controller ID used by the Matter Server. This is
       required if local commissioning via Bluetooth is used. Note: Using the

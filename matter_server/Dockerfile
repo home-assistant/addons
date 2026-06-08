@@ -1,9 +1,8 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-# The matter.js base image runs as an unprivileged user; s6-overlay needs root.
-# hadolint ignore=DL3002
-# The matter.js base image runs as an unprivileged user; the app requires root for Bluetooth via Noble raw hci access
+# The matter.js base image runs as an unprivileged user; the app requires root
+# for s6-overlay and for Bluetooth via Noble raw HCI access.
 # hadolint ignore=DL3002
 USER root
 

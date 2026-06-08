@@ -14,6 +14,12 @@ The first start of the new version **automatically migrates your current data**.
 After the migration completes, the server discovers all your devices and performs a full interview to fetch the current data.
 All later starts automatically try to connect to the devices on their last known addresses and perform only a partial interview to update changed data. This significantly speeds up every subsequent start.
 
+## I already tested the matter.js Beta — what happens for me?
+Your start may run a one-time cleanup, which can take a while:
+
+- Coming from Beta server 0.7.x or 0.8.x: the first start removes the leftover migration fallback data.
+- Coming from a Beta server older than 0.7: the first start runs the storage data migration, and the second start removes the migration fallback data — so expect both starts to take a while.
+
 ## What is the difference between the old Matter Server and the new one?
 The main goal of this first new version is to be a complete drop-in replacement for the old Matter Server. The Home Assistant integration works with the new Matter Server without any changes.
 

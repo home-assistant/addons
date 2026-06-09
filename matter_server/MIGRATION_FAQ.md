@@ -31,7 +31,7 @@ In the details, there are some differences between the old and the new version:
 * The allowed certificates are usually downloaded when the server starts and are stored in the server's data directory. The new server already includes an initial set of certificates from the time of its release, so you can start it without an internet connection and still commission devices whose certificates were available at release time. The server updates the certificates in the background whenever it has an internet connection.
 * The new server also checks for revoked certificates during commissioning and treats them as invalid.
 * For OTA software updates, the old server started special temporary nodes in the Matter network, which often caused issues. In the new server the OTA update logic is fully integrated into the controller, which makes the process much more reliable.
-* The new server needs a bit more RAM than the old one, so make sure your Home Assistant host has enough free memory to run all services smoothly.
+* The new server needs roughly twice the RAM than the old one and also a bit more CPU, so make sure your Home Assistant host has enough free memory to run all services smoothly.
 
 We also used the time to improve the Web UI/dashboard of the Matter Server.
 Besides general consistency and usability improvements, we added network visualizations for your Thread and Wi-Fi networks. These use the connection details the devices report to visualize the network topology and give you insights into the quality of the connections. This is especially helpful for Thread networks, where the devices themselves decide which other device they use as a parent, and where you often have multiple hops between a device and the border router.

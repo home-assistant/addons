@@ -3,7 +3,7 @@
 ## Why is there a new Matter Server?
 The new Matter Server is a complete rewrite of the Python-based Matter Server. It is now built on the matter.js library, a JavaScript implementation of the Matter standard. The new Matter Server is more performant, more stable, and more feature-complete than the old one.
 
-Version 9.0 is the first release of the new Matter Server.
+Version 9.0 of the Matter App is the first release for all Home Assistant users which uses the new Matter Server.
 
 ## Should I do a backup before installing the new version?
 Yes. Make a backup before installing the new version. The new version migrates your current data automatically, but a backup lets you roll back if anything goes wrong. Tick the "Create backup" checkbox when you update the server.

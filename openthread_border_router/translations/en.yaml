@@ -37,7 +37,8 @@ configuration:
   beta:
     name: Beta
     description: >-
-      Enable beta mode with Thread 1.4 and native OpenThread mDNS.
+      Enable beta mode to run a newer, experimental version of OpenThread
+      Border Router.
 network:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

@@ -34,6 +34,8 @@
 
    server signing = {{ .server_signing }}
 
+   kernel oplocks = yes
+
 {{ if (has "config" .enabled_shares) }}
 [config]
    browseable = yes

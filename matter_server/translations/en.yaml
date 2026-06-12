@@ -65,5 +65,8 @@ configuration:
       Install custom Python Matter SDK wheels version (not applicable when
       using Beta flag). NOTE: The API might not be compatible with the Python
       Matter server.
+  matter_server_primary_interface:
+    name: "Primary Network Interface"
+    description: "Manually specify the primary network interface for the Matter Server (e.g., enp0s19). Leave empty to use the system default."
 network:
   5580/tcp: Matter Server WebSocket server port.

@@ -121,6 +121,52 @@ This overrides the default English model (parakeet) with a faster but less accur
 Whisper model files can be large, so they are automatically excluded from backups and re-downloaded on restore for remote models.
 After restoring a backup with a local custom Whisper model, manually copy your model directory again.
 
+## Recommendations
+
+A few starting points by language and priority. With `stt_library` = "auto" the
+add-on selects a backend/model based on your `language` and hardware; for English
+this is the parakeet sherpa model, and `sherpa_streaming` swaps it for a faster
+streaming variant.
+
+Two tips for non-English use:
+
+- Set `language` to your explicit language code. Leaving it as "auto" works but is
+  **much** slower, since the model has to detect the language on every request.
+- To get English text out of non-English speech, set `whisper_task` = "translate".
+  This applies to the Whisper backends (not parakeet/sherpa).
+
+- English
+    - Balanced
+        - `language` = "en"
+        - `model` = "auto"
+        - `stt_library` = "auto"
+        - `sherpa_streaming` = false
+    - Fast
+        - `language` = "en"
+        - `model` = "auto"
+        - `stt_library` = "auto"
+        - `sherpa_streaming` = true
+    - Accurate
+        - `language` = "en"
+        - `model` = "custom"
+        - `stt_library` = "onnx-asr"
+        - `custom_model` = "istupakov/canary-1b-v2-onnx"
+- Non-English
+    - Balanced
+        - `language` = your language code (e.g. "de", "fr")
+        - `model` = "auto"
+        - `stt_library` = "auto"
+    - Fast
+        - `language` = your language code
+        - `model` = "base-int8" (or "small-int8" if your CPU allows)
+        - `stt_library` = "faster-whisper"
+    - Accurate
+        - `language` = your language code
+        - `model` = "custom"
+        - `stt_library` = "onnx-asr"
+        - `custom_model` = "istupakov/canary-1b-v2-onnx"
+          (~25 European languages; needs a capable CPU, not a Raspberry Pi)
+
 ## Support
 
 Got questions?

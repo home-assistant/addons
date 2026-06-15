@@ -13,12 +13,11 @@ configuration:
   model:
     name: Model
     description: |
-      Whisper model that will be used for transcription (faster-whisper only).
+      Whisper model that will be used for transcription.
 
-      The default model is `tiny-int8`, a compressed version of the smallest
-      Whisper model which is able to run on a Raspberry Pi 4. Compressed models
-      (`int8`) are slightly less accurate than their counterparts, but smaller
-      and faster.
+      The default `auto` selects `tiny-int8` for ARM devices like the Raspberry
+      Pi 4 and `base-int8` otherwise. Compressed models (`int8`) are slightly
+      less accurate than their counterparts, but smaller and faster.
   custom_model:
     name: Custom model
     description: |
@@ -32,13 +31,8 @@ configuration:
   custom_model_type:
     name: Custom model type
     description: |
-      Type of Whisper model expected from custom model.
-
-      The default is 'faster-whisper' which requires a CTranslate2-converted
-      Whisper model. If set to 'transformers', a HuggingFace transformers-based
-      Whisper model may be used.
-
-      Overrides `stt_library` when `custom_model` is set.
+      Speech-to-text backend to use for `custom_model` if `stt_library` is set
+      to auto.
   initial_prompt:
     name: Initial prompt
     description: >-
@@ -53,6 +47,20 @@ configuration:
       language/hardware.
 
       Overridden by `custom_model_type` when `custom_model` is set.
+  whisper_task:
+    name: Whisper task
+    description: >-
+      Task to perform with the model.
+
+      The default `transcribe` transcribes audio in the spoken language, while
+      `translate` translates the spoken audio into English.
+  sherpa_streaming:
+    name: Sherpa streaming
+    description: >-
+      Use streaming model with sherpa backend.
+
+      This overrides the default English model with a faster but less accurate
+      streaming model.
   debug_logging:
     name: Debug logging
     description: >-

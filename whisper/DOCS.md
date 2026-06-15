@@ -36,7 +36,7 @@ If you select "auto", the model will run **much** slower but will auto-detect th
 
 Whisper model that will be used for transcription. Choose `custom` to use the model name in `custom_model`, which may be a HuggingFace model ID like "Systran/faster-distil-whisper-small.en".
 
-The default model is `auto`, which selects `tiny-int8` for ARM devices like the Raspberry Pi 4 and `base-int8` otherwise.
+The default model is "auto", which selects `tiny-int8` for ARM devices like the Raspberry Pi 4 and `base-int8` otherwise.
 Compressed models (`int8`) are slightly less accurate than their counterparts, but smaller and faster. [Distilled](https://github.com/huggingface/distil-whisper) models are not compressed, but are faster and smaller than their non-distilled counterparts.
 
 Available models:
@@ -77,12 +77,7 @@ Then, set the `custom_model` path to:
 
 ### Option: `custom_model_type`
 
-Either `faster-whisper` (the default) or `transformers`.
-
-When set to `transformers`, the `custom_model` option must be a HuggingFace transformers-based Whisper model like "openai/whisper-tiny.en".
-
-**Note:** Initial prompt is currently not supported for transformers-based models.
-
+Determines which speech-to-text backend to use for `custom_model` if `stt_library` is set to "auto".
 
 ### Option: `beam_size`
 
@@ -101,11 +96,25 @@ See [this discussion](https://github.com/openai/whisper/discussions/963) for an 
 Speech-to-text backend library to use:
 
 - `auto` - select the best backend based on language/hardware
-- `faster-whisper` - force faster whisper backend
-- `sherpa` - force sherpa onnx backend (parakeet model only)
-- `transformers` - force HuggingFace transformers backend
+- `faster-whisper` - force [faster whisper][faster-whisper] backend
+- `sherpa` - force [sherpa onnx][sherpa-onnx] backend (parakeet model only)
+- `transformers` - force [HuggingFace transformers][transformers] backend
+- `onnx-asr` - force [onnx asr][onnx-asr] backend
 
-**Note**: When `custom_model` is set, then `custom_model_type` will override `stt_library`.
+**Note**: When `custom_model` is set, then `custom_model_type` will override `stt_library` when set to "auto".
+
+### Option: `whisper_task`
+
+Task to perform with the model:
+
+- `transcribe` - transcribe audio in the spoken language (default)
+- `translate` - translate the spoken audio into English
+
+### Option: `sherpa_streaming`
+
+Use streaming model with `sherpa` backend.
+
+This overrides the default English model (parakeet) with a faster but less accurate streaming model (sherpa-onnx-streaming-zipformer-en-2023-06-26).
 
 ## Backups
 
@@ -129,3 +138,7 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository
+[transformers]: https://huggingface.co/docs/transformers
+[faster-whisper]: https://github.com/SYSTRAN/faster-whisper
+[sherpa-onnx]: https://github.com/k2-fsa/sherpa-onnx
+[onnx-asr]: https://github.com/istupakov/onnx-asr

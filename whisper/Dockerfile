@@ -19,10 +19,10 @@ RUN \
         setuptools \
         wheel \
     && pip3 install --no-cache-dir \
-        "wyoming[zeroconf]==1.8.0" \
+        "wyoming[zeroconf]==1.9.0" \
         "wyoming-faster-whisper[sherpa] @ https://github.com/rhasspy/wyoming-faster-whisper/archive/refs/tags/v${WYOMING_WHISPER_VERSION}.tar.gz" \
         'transformers==4.52.4' \
-        'onnx-asr[cpu,hub]==0.7.0' \
+        'onnx-asr[cpu,hub]==0.11.0' \
     \
     && pip3 install --no-cache-dir \
         --index-url 'https://download.pytorch.org/whl/cpu' \

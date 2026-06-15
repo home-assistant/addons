@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.2.0
+
+- Fix transformers language
+- Add initial prompt to transformers
+- Add `--whisper-task` which can be set to "translate" instead of "transcribe" (`@M4TH1EU`)
+- Add `--sherpa-streaming` to prefer streaming models (`@pkrahmer`)
+- Bump `onnx-asr` to 0.11.0 (supports `istupakov/canary-1b-v2-onnx`)
+
 ## 3.1.0
 
 - Fix model selection for language

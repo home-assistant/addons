@@ -35,6 +35,7 @@ schema:
   enable_test_net_dcl: bool?
   ble_proxy: bool?
   bluetooth_adapter_id: int?
+  matter_server_primary_interface: str?
   matter_server_args:
     - str?
   matter_server_env_vars:

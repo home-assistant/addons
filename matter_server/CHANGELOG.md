@@ -5,8 +5,8 @@
 - **The Matter Server now runs on matter.js. Expect the first start to take noticeably longer while your data migrates automatically — this is normal.**
   - **⚠️ It is recommended to take a backup before updating.**
   - The new matter server needs roughly twice the RAM of the old one, so please check free resources before updating.
-  - The Python Matter Server has been replaced with a matter.js-based implementation; your data migrates automatically with no action required
-  - Later starts are much faster thanks to matter.js optimizations
+  - The Python Matter Server has been replaced with a matter.js-based implementation (v1.1.0); your data migrates automatically with no action required
+  - Later starts are much faster
 - New Matter Server features:
   - The web UI dashboard adds Thread and Wi-Fi network visualizations, plus many other improvements
   - Experimental BLE proxy support via the `ble_proxy` option, for commissioning via BLE proxies from the Matter Server dashboard

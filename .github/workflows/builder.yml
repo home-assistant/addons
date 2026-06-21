@@ -124,7 +124,7 @@ jobs:
 
       - name: Build ${{ matrix.addon }} app
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@6cb4fd3d1338b6e22d0958a4bcb53e0965ea63b4 # 2026.02.1
+        uses: home-assistant/builder@4de35182ce1e329181bffcbcc84d33db5e2c7e10 # 2026.06.0
         with:
           image: ${{ matrix.arch }}
           args: |

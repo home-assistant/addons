@@ -10,7 +10,7 @@ RUN \
         nginx \
         pwgen \
         vlc \
-    && sed -i 's/geteuid/getppid/' /usr/bin/vlc \
+    && addgroup -S vlc && adduser -D -D -G vlc vlc # create vlc user to run vlc without patching vlc to run as root \
     && sed -i '197s#.*#    dir = dir == undefined ? "file:///media" : dir;#' /usr/share/vlc/lua/http/js/controllers.js
         
 WORKDIR /

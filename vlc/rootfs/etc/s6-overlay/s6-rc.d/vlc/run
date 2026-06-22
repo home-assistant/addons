@@ -19,5 +19,5 @@ bashio::log.info "PulseAudio socket available, starting VLC"
 # Send out discovery information to Home Assistant
 /etc/s6-overlay/scripts/vlc-discovery &
 
-# Run daemon
-exec cvlc -I http --no-dbus --extraintf telnet --http-host 127.0.0.1 --http-password "INGRESS" --telnet-password "${PASSWORD}" --aout=pulse
+# Run daemon as vlc user
+su -c "exec cvlc -I http --no-dbus --extraintf telnet --http-host 127.0.0.1 --http-password \"INGRESS\" --telnet-password \"${PASSWORD}\" --aout=pulse" vlc

@@ -20,4 +20,4 @@ bashio::log.info "PulseAudio socket available, starting VLC"
 /etc/s6-overlay/scripts/vlc-discovery &
 
 # Run daemon as vlc user
-su -c "exec cvlc -I http --no-dbus --extraintf telnet --http-host 127.0.0.1 --http-password \"INGRESS\" --telnet-password \"${PASSWORD}\" --aout=pulse" vlc
+exec su -c "cvlc -I http --no-dbus --extraintf telnet --http-host 127.0.0.1 --http-password \"INGRESS\" --telnet-password \"${PASSWORD}\" --aout=pulse" vlc

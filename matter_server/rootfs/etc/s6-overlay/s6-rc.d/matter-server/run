@@ -110,6 +110,7 @@ server_port="$(bashio::addon.port 5580)"
 if ! bashio::var.has_value "${server_port}"; then
     server_port=5580
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
+    extra_args+=('--listen-address' '127.0.0.1')  # so the base-image healthcheck (localhost) reaches us
 fi
 
 if bashio::config.true "enable_test_net_dcl"; then

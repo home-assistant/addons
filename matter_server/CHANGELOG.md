@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.0.1
+
+- Fixes Heath check with default port settings
+
 ## 9.0.0
 
 - **The Matter Server now runs on matter.js. Expect the first start to take noticeably longer while your data migrates automatically — this is normal.**

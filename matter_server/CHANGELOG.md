@@ -2,12 +2,12 @@
 
 ## 9.0.2
 
-- **⚠️ Please also consider the release notes for 9.0.0 wne upgrading from 8.x.**
+- **⚠️ Please also consider the release notes for 9.0.0 when upgrading from 8.x.**
 - Update Matter Server to 1.1.1 with increased Health check timings
 
 ## 9.0.1
 
-- **⚠️ Please also consider the release notes for 9.0.0 wne upgrading from 8.x.**
+- **⚠️ Please also consider the release notes for 9.0.0 when upgrading from 8.x.**
 - Fixes Heath check with default port settings
 
 ## 9.0.0

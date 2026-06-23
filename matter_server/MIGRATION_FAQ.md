@@ -8,6 +8,8 @@ Version 9.0 of the Matter App is the first release for all Home Assistant users 
 ## Should I do a backup before installing the new version?
 Yes. Make a backup before installing the new version. The new version migrates your current data automatically, but a backup lets you roll back if anything goes wrong. Tick the "Create backup" checkbox when you update the server.
 
+Additionally, if you have enabled the watchdog feature in Home Assistant and have a higher number of Matter nodes, please disable the watchdog for the initial migration to prevent issues or mid-migration restarts.
+
 ## What happens on the first start of the new version?
 The first start of the new version **automatically migrates your current data**. This requires no manual intervention but needs some time to complete. **Wait for the migration to finish** — the log shows its progress.
 

@@ -4,6 +4,7 @@
 
 - **The Matter Server now runs on matter.js. Expect the first start to take noticeably longer while your data migrates automatically — this is normal.**
   - **⚠️ It is recommended to take a backup before updating.**
+  - **⚠️ If you have enabled the watchdog in HA, please disable for the initial migration to prevent restarts.**
   - The new matter server needs roughly twice the RAM of the old one, so please check free resources before updating.
   - The Python Matter Server has been replaced with a matter.js-based implementation (v1.1.0); your data migrates automatically with no action required
   - Later starts are much faster

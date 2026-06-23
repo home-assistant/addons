@@ -15,8 +15,19 @@ declare env_entry
 declare env_name
 declare env_value
 declare env_vars_count
+declare options
 matter_server_args=()
 extra_args=()
+
+# Delete options removed in 9.0.0 so the Supervisor does not warn that they are
+# no longer in the schema.
+options=$(bashio::addon.options)
+for old_key in log_level_sdk matter_sdk_wheels_version; do
+  if bashio::jq.exists "${options}" ".${old_key}"; then
+    bashio::log.info "Removing obsolete '${old_key}' option"
+    bashio::addon.option "${old_key}"
+  fi
+done
 
 if ! bashio::config.exists log_level; then
   bashio::log.magenta 'No log_level set in config, fallback to info'

@@ -1,5 +1,18 @@
 # Changelog
 
+## 9.0.0
+
+- **The Matter Server now runs on matter.js. Expect the first start to take noticeably longer while your data migrates automatically — this is normal.**
+  - **⚠️ It is recommended to take a backup before updating.**
+  - The new matter server needs roughly twice the RAM of the old one, so please check free resources before updating.
+  - The Python Matter Server has been replaced with a matter.js-based implementation (v1.1.0); your data migrates automatically with no action required
+  - Later starts are much faster
+- New Matter Server features:
+  - The web UI dashboard adds Thread and Wi-Fi network visualizations, plus many other improvements
+  - Experimental BLE proxy support via the `ble_proxy` option, for commissioning via BLE proxies from the Matter Server dashboard
+- If you enabled the **Beta** flag for the earlier matter.js beta, it stays on; matter.js is now the default, so you can turn it off — keep it on to keep testing pre-releases
+- For more details, see the [Migration FAQ](https://github.com/home-assistant/addons/blob/master/matter_server/MIGRATION_FAQ.md)
+
 ## 8.5.0
 
 - Add `ble_proxy` option to expose the Matter Server's BLE proxy endpoint, so the Home Assistant Matter integration can drive BLE commissioning through Home Assistant's bluetooth stack (including ESPHome BLE proxies). To actually use this BLE proxy you need Home Assistant 2026.06 or later (the Matter integration support landed there) and the Beta Matter Server (>= 0.7.1, JavaScript-based); mutually exclusive with `bluetooth_adapter_id` (the local adapter is ignored with a warning when `ble_proxy` is enabled).

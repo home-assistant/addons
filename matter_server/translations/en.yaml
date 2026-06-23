@@ -52,9 +52,9 @@ configuration:
     name: Matter Server version
     description: >-
       Install a specific "matter-server" version from npm (takes precedence over
-      the Beta flag). Only "0.x.y" or "1.x.y" values are used; values with a
-      major version >= 3 are ignored as leftover Python Matter Server versions;
-      unless the Beta flag is set, the bundled version is used instead. WARNING:
+      the Beta flag). Values with a major version >= 3 are ignored as leftover
+      Python Matter Server versions; unless the Beta flag is set, the bundled
+      version is used instead. WARNING:
       An older version might have an incompatible storage format! Use this
       feature with caution! Make sure you have a recent backup of the app!
 network:

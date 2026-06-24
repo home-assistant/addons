@@ -1,5 +1,52 @@
 # Changelog
 
+## 1.5.0
+
+### Z-Wave JS 15.24.2...15.25.0
+
+#### Features
+
+- Support reporting a node's interview progress as a percentage (0–100%)
+
+#### Bugfixes
+
+- Fixed an issue where Z-Wave JS could silently get stuck with a closed/failed serial port
+- Fixed an issue where Scene Activation CC could be missing for some devices
+- Improved handling of reports that are split across multiple frames, sometimes causing weird configuration parameter descriptions
+- Fixed a driver crash that could occur when receiving certain malformed Notification Reports
+- Improved compatibility with locks that support both User Code CC and User Credential CC
+- Fixed an issue where setting PIN codes on older door locks could fail with a non-descriptive error message
+
+#### Config file changes
+
+- Add fingerprints to Kwikset HC620
+- Correct label of "Twist Assist" parameter on Danalock V3-BTZE, limit to firmware < 0.22
+- Add AUS/NZ fingerprint to Aeotec Water Sensor 7 Pro
+- Update Zooz ZEN35 for firmware 1.40 and correct some labels
+- Add Jasco 76592 (ZWN4016) In-Wall Smart Switch
+
+### Z-Wave JS UI 11.19.1...11.21.0
+
+#### Features
+
+- Added support for multicast/broadcast groups
+- Show a node's interview progress as a percentage
+
+#### Bugfixes
+
+- Apply imported node metadata correctly across both wrapped and legacy `nodes.json` formats
+- Add the LZW45 to the Inovelli RGBW Home Assistant discovery template
+- Keep the node index map consistent after a node is removed
+- Several security improvements
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.21.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.21.0)
+- [Z-Wave JS UI 11.20.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.20.0)
+- [Z-Wave JS 15.25.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.25.0)
+- [Z-Wave JS 15.24.3](https://github.com/zwave-js/zwave-js/releases/tag/v15.24.3)
+- [Z-Wave JS Server 3.10.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.0)
+
 ## 1.4.0
 
 ### Z-Wave JS 15.24.0...15.24.2

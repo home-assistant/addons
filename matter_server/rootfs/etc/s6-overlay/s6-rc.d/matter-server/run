@@ -67,6 +67,7 @@ if bashio::var.has_value "${install_target}"; then
       && apt-get install -y --no-install-recommends \
         python3 make gcc g++ libbluetooth-dev libudev-dev \
       && cd /app \
+      && { bashio::log.info "Fetching ${install_target} from npmjs.org (this can take a while)..."; true; } \
       && npm install --omit=dev --foreground-scripts "${install_target}"; }; then
     bashio::log.warning \
       "Failed to install ${install_target} from npm. Starting the bundled Matter Server instead."

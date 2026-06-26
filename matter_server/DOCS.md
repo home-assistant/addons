@@ -26,11 +26,23 @@ Matter Server WebSocket server port field.
 
 ## Server variants
 
-This app runs the Python Matter Server implementation from the
-[home-assistant-libs/python-matter-server][matter_server_repo] repository by default.
+> **⚠️ Make a full backup before updating to 9.0.0.** This is a major migration
+> to a new server. Keep the Supervisor's "Create backup" option enabled when you
+> update, so you can roll back if needed.
 
-Starting with version 8.2.0 and choosing the "Beta" flag (see below) the new OHF
-Matter(.js) Server is executed instead of the Python Matter Server.
+Starting with version 9.0.0 this app runs the [matter.js Matter
+Server][matter_server_repo] exclusively. The Python Matter Server has been
+removed; existing data is migrated automatically with no user action required.
+
+The server version bundled in the app image is used by default. The **Beta**
+flag installs the latest `matter-server` from npm on top of it, and
+`matter_server_version` installs a specific version (see below).
+
+> [!NOTE]
+> The **Beta** flag keeps its previous value across this update. If you enabled
+> it for the earlier matter.js beta, it stays on after updating to 9.0.0.
+> matter.js is now the default, so you can turn it off — but more betas will
+> follow, so keep it on if you want to keep testing pre-releases.
 
 ## Configuration
 
@@ -39,30 +51,21 @@ App configuration:
 | Configuration        | Description                                                                                             |
 |----------------------|---------------------------------------------------------------------------------------------------------|
 | log_level            | Logging level of the Matter Server component.                                                           |
-| log_level_sdk        | Logging level for Matter SDK logs (Python only).                                                        |
-| beta                 | Whether to install the latest beta version on startup (runs matter.js-based Matter Server starting with 8.2.0) |
+| beta                 | Install the latest `matter-server` from npm on startup instead of the bundled version. On failure a warning is logged and the bundled version is started. |
 | enable_test_net_dcl  | Enable test-net DCL for PAA root certificates, OTA updates and other device information.                |
-| bluetooth_adapter_id | Set BlueZ Bluetooth Controller ID (for local commissioning)                                             |
-| matter_server_env_vars | Extra environment variables exported before start (only relevant for the JavaScript Matter Server / Beta mode). Use `KEY=VALUE` entries. |
-| matter_server_version | Custom Matter Server version. In JavaScript/Beta mode, only `0.x.y` or `1.x.y` values are used; other values are ignored and latest is installed. |
+| ble_proxy            | Expose the BLE proxy endpoint so the Home Assistant Matter integration can drive BLE commissioning through Home Assistant's bluetooth stack. Mutually exclusive with `bluetooth_adapter_id`. |
+| bluetooth_adapter_id | **Deprecated** — use `ble_proxy` instead. Set BlueZ Bluetooth Controller ID (for local commissioning). Still works for now. |
+| matter_server_args   | Extra command-line arguments passed to the Matter Server at startup (advanced).                         |
+| matter_server_env_vars | Extra environment variables exported before the server starts. Use `KEY=VALUE` entries. |
+| matter_server_version | Install this specific `matter-server` version from npm (advanced; takes precedence over **Beta**). Values with a major version >= 3 are ignored (these are Python Matter Server versions); unless **Beta** is set, the bundled version is used. |
 
-### `matter_server_env_vars` (JavaScript server only)
-
-This option is only relevant when the **Beta** flag is enabled (JavaScript
-Matter Server).
+### `matter_server_env_vars`
 
 ```yaml
 matter_server_env_vars:
   - NODE_OPTIONS=--max-old-space-size=512
   - MY_FLAG=true
 ```
-
-### `matter_server_version`
-
-- Python mode: installs the configured `python-matter-server` version.
-- JavaScript/Beta mode: uses the configured version only if it matches
-  `0.x.y` or `1.x.y` (for example `1.2.3`); all other values are ignored and
-  `latest` is installed.
 
 ## Support
 
@@ -82,5 +85,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [forum]: https://community.home-assistant.io
 [reddit]: https://reddit.com/r/homeassistant
 [issue]: https://github.com/home-assistant/addons/issues
-[matter_server_repo]: https://github.com/home-assistant-libs/python-matter-server
+[matter_server_repo]: https://github.com/matter-js/matterjs-server
 [matter_integration]: https://www.home-assistant.io/integrations/matter/

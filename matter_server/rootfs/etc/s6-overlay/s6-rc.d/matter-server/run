@@ -9,106 +9,101 @@ bashio::log.info "Starting Matter Server..."
 declare server_port
 declare log_level
 declare primary_interface
+declare install_target
 declare matter_server_version
-declare npm_package
-declare chip_version
-declare use_js_server
 declare env_entry
 declare env_name
 declare env_value
 declare env_vars_count
+declare options
 matter_server_args=()
 extra_args=()
+
+# Delete options removed in 9.0.0 so the Supervisor does not warn that they are
+# no longer in the schema.
+options=$(bashio::addon.options)
+for old_key in log_level_sdk matter_sdk_wheels_version; do
+  if bashio::jq.exists "${options}" ".${old_key}"; then
+    bashio::log.info "Removing obsolete '${old_key}' option"
+    bashio::addon.option "${old_key}"
+  fi
+done
 
 if ! bashio::config.exists log_level; then
   bashio::log.magenta 'No log_level set in config, fallback to info'
 fi
 log_level=$(bashio::string.lower "$(bashio::config log_level info)")
 
-# Determine server type based on beta flag
-use_js_server=$(bashio::config "beta")
+# Map legacy Python Matter Server log levels to their matter.js equivalents.
+case "${log_level}" in
+  verbose) log_level="debug" ;;
+  warning) log_level="warn" ;;
+  critical) log_level="fatal" ;;
+esac
 
-if [[ "${use_js_server}" == "true" ]]; then
-  # Beta mode: Use JavaScript Matter Server
-  bashio::log.info "Using JavaScript Matter Server (beta mode)"
-  npm_package="matter-server@latest"
-  if bashio::config.has_value "matter_server_version"; then
-    matter_server_version=$(bashio::config 'matter_server_version')
-    if [[ "${matter_server_version}" =~ ^(0|1)\.[0-9]+\.[0-9]+$ ]]; then
-      npm_package="matter-server@${matter_server_version}"
-      bashio::log.info "Installing JavaScript Matter Server ${matter_server_version} from npm..."
-    else
-      bashio::log.warning "Ignoring matter_server_version '${matter_server_version}' for JavaScript Matter Server. Only 0.x.y or 1.x.y are supported; installing latest."
-      bashio::log.info "Installing latest matter-server from npm..."
-    fi
+# Resolve which matter-server build to run. The base image ships a bundled
+# matter-server under /app. A pinned version wins over the "latest" beta switch.
+# matter.js uses 0.x-2.x versions; a major >= 3 is almost certainly a leftover
+# Python Matter Server version, so it is ignored to avoid installing the wrong package.
+install_target=""
+if bashio::config.has_value "matter_server_version"; then
+  matter_server_version=$(bashio::config 'matter_server_version')
+  if [[ "${matter_server_version}" =~ ^[^0-9]*([0-9]+) ]] && (( BASH_REMATCH[1] >= 3 )); then
+    bashio::log.warning \
+      "Ignoring matter_server_version '${matter_server_version}': a major version >= 3 looks like a Python Matter Server version. The matter.js Matter Server uses 0.x-2.x versions; please update or clear this option."
   else
-    bashio::log.info "Installing latest matter-server from npm..."
+    install_target="matter-server@${matter_server_version}"
   fi
-  mkdir -p /opt/matterjs
-  # shellcheck disable=SC2164
-  cd /opt/matterjs
-  if ! npm install --foreground-scripts "${npm_package}"; then
-    bashio::log.error "Failed to install Matter Server from npm. Aborting startup."
-    exit 1
+fi
+if ! bashio::var.has_value "${install_target}" && bashio::config.true "beta"; then
+  install_target="matter-server@latest"
+fi
+
+if bashio::var.has_value "${install_target}"; then
+  bashio::log.info "Installing ${install_target} from npm over the bundled server..."
+  # matter.js native modules may need compiling; the base image purges the
+  # toolchain, so add it back here. A failure here must not abort startup.
+  if ! { apt-get update \
+      && apt-get install -y --no-install-recommends \
+        python3 make gcc g++ libbluetooth-dev libudev-dev \
+      && cd /app \
+      && { bashio::log.info "Fetching ${install_target} from npmjs.org (this can take a while)..."; true; } \
+      && npm install --omit=dev --foreground-scripts "${install_target}"; }; then
+    bashio::log.warning \
+      "Failed to install ${install_target} from npm. Starting the bundled Matter Server instead."
+  else
+    npm cache clean --force || true
+    find /app/node_modules -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true
+    find /app/node_modules -type d -name "cjs" -path "*/@project-chip/*" -exec rm -rf {} + 2>/dev/null || true
   fi
-  # Clean up to save disk space
-  npm cache clean --force
-  find ./node_modules -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true
-  find ./node_modules -type d -name "cjs" -path "*/@project-chip/*" -exec rm -rf {} + 2>/dev/null || true
-  rm -rf /tmp/* /var/tmp/* /root/.npm /root/.cache 2>/dev/null || true
+fi
 
-  # JS server only uses --ota-provider-dir when --enable-test-net-dcl is also set
-  if bashio::config.true "enable_test_net_dcl"; then
-    extra_args+=('--ota-provider-dir' "/config/updates")
-  fi
+# Export custom environment variables before starting the server
+if bashio::config.has_value "matter_server_env_vars"; then
+  env_vars_count=$(bashio::config 'matter_server_env_vars | length')
+  for (( i=0; i < env_vars_count; i++ )); do
+    env_entry="$(bashio::config "matter_server_env_vars[${i}]")"
 
-  if bashio::config.has_value "matter_server_env_vars"; then
-    env_vars_count=$(bashio::config 'matter_server_env_vars | length')
-    for (( i=0; i < env_vars_count; i++ )); do
-      env_entry="$(bashio::config "matter_server_env_vars[${i}]")"
+    if [[ "${env_entry}" != *"="* ]]; then
+      bashio::exit.nok "Invalid matter_server_env_vars entry: ${env_entry} (expected KEY=VALUE)"
+    fi
 
-      if [[ "${env_entry}" != *"="* ]]; then
-        bashio::exit.nok "Invalid matter_server_env_vars entry: ${env_entry} (expected KEY=VALUE)"
-      fi
+    env_name="${env_entry%%=*}"
+    env_value="${env_entry#*=}"
 
-      env_name="${env_entry%%=*}"
-      env_value="${env_entry#*=}"
+    if ! [[ "${env_name}" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+      bashio::exit.nok "Invalid environment variable name in matter_server_env_vars: ${env_name}"
+    fi
 
-      if ! [[ "${env_name}" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
-        bashio::exit.nok "Invalid environment variable name in matter_server_env_vars: ${env_name}"
-      fi
+    export "${env_name}=${env_value}"
+    bashio::log.info "Exported Matter Server environment variable: ${env_name}"
+  done
+fi
 
-      export "${env_name}=${env_value}"
-      bashio::log.info "Exported Matter Server environment variable: ${env_name}"
-    done
-  fi
-else
-  # Non-beta mode: Use Python Matter Server
-  bashio::log.info "Using Python Matter Server"
-
-  # SDK log level is only supported by the Python server
-  extra_args+=('--log-level-sdk' "$(bashio::string.lower "$(bashio::config log_level_sdk error)")")
-
-  # PAA root cert dir is only supported by the Python server
-  extra_args+=('--paa-root-cert-dir' "/data/credentials")
-
-  # Python server uses --ota-provider-dir independently of --enable-test-net-dcl
-  extra_args+=('--ota-provider-dir' "/config/updates")
-
-  if bashio::config.has_value "matter_server_version"; then
-    matter_server_version=$(bashio::config 'matter_server_version')
-    bashio::log.info "Installing Python Matter Server ${matter_server_version}"
-    # shellcheck disable=SC2102
-    pip3 install --pre python-matter-server[server]=="${matter_server_version}"
-  fi
-
-  if bashio::config.has_value "matter_sdk_wheels_version"; then
-    chip_version=$(bashio::config 'matter_sdk_wheels_version')
-    bashio::log.info "Installing Matter SDK ${chip_version}"
-    pip3 install --pre --no-dependencies \
-      home-assistant-chip-clusters=="${chip_version}" \
-      home-assistant-chip-core=="${chip_version}"
-  fi
+# Remove leftover migration backup data from a former beta Matter Server.
+if [ -d /data/.migrations ]; then
+  bashio::log.info "Deleting former migration backup data ... this can take some time ... be patient"
+  rm -rf /data/.migrations
 fi
 
 # Bind to internal hassio network only unless user requests to expose
@@ -116,10 +111,12 @@ server_port="$(bashio::addon.port 5580)"
 if ! bashio::var.has_value "${server_port}"; then
     server_port=5580
     extra_args+=('--listen-address' "$(bashio::addon.ip_address)")
+    extra_args+=('--listen-address' '127.0.0.1')  # so the base-image healthcheck (localhost) reaches us
 fi
 
 if bashio::config.true "enable_test_net_dcl"; then
     extra_args+=('--enable-test-net-dcl')
+    extra_args+=('--ota-provider-dir' "/config/updates")
 fi
 
 primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
@@ -136,7 +133,12 @@ if [ -z ${primary_interface} ] || [ ${primary_interface} == "null" ]; then
     bashio::exit.nok "No primary network interface found!"
 fi
 
-if bashio::config.has_value "bluetooth_adapter_id"; then
+if bashio::config.true "ble_proxy"; then
+    extra_args+=('--ble-proxy')
+    if bashio::config.has_value "bluetooth_adapter_id"; then
+        bashio::log.warning "Ignoring 'bluetooth_adapter_id' option: 'ble_proxy' is enabled (mutually exclusive)."
+    fi
+elif bashio::config.has_value "bluetooth_adapter_id"; then
   # shellcheck disable=SC2207
   extra_args+=('--bluetooth-adapter' $(bashio::config 'bluetooth_adapter_id'))
 fi
@@ -165,10 +167,4 @@ matter_server_args+=(
   ${extra_args[@]}
 )
 
-if [[ "${use_js_server}" == "true" ]]; then
-    # Start JavaScript Matter Server
-    exec node --enable-source-maps /opt/matterjs/node_modules/matter-server/dist/esm/MatterServer.js "${matter_server_args[@]}"
-else
-    # Start Python Matter Server
-    exec /usr/local/bin/matter-server "${matter_server_args[@]}"
-fi
+exec node --enable-source-maps /app/node_modules/matter-server/dist/esm/MatterServer.js "${matter_server_args[@]}"

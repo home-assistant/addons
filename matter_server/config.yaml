@@ -1,5 +1,6 @@
 ---
-version: 8.4.0
+version: 9.0.3
+breaking_versions: [9.0.0]
 slug: matter_server
 name: Matter Server
 description: Matter WebSocket Server for Home Assistant Matter support.
@@ -25,21 +26,19 @@ map:
     read_only: false
 options:
   log_level: info
-  log_level_sdk: error
   beta: false
   enable_test_net_dcl: false
 schema:
-  log_level: list(verbose|debug|info|warning|error|critical)
-  log_level_sdk: list(automation|detail|progress|error|none)?
+  log_level: list(debug|info|notice|warn|error|fatal|verbose|warning|critical)
   beta: bool?
   enable_test_net_dcl: bool?
+  ble_proxy: bool?
   bluetooth_adapter_id: int?
   matter_server_args:
     - str?
   matter_server_env_vars:
     - match(^[A-Za-z_][A-Za-z0-9_]*=.*$)?
   matter_server_version: str?
-  matter_sdk_wheels_version: str?
 ports:
   5580/tcp: null
 stage: stable

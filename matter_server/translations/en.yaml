@@ -3,15 +3,12 @@ configuration:
   log_level:
     name: Matter Server Log Level
     description: Logging level of the Matter Server component.
-  log_level_sdk:
-    name: Matter SDK Log Level
-    description: Logging level of the Matter SDK (Python only).
   beta:
     name: Use the latest beta version
     description: >-
-      Installs the latest beta of the Matter Server (matter.js based). It is
-      highly recommended to create a backup before starting the app with
-      this flag enabled!
+      Installs the latest beta of the Matter Server (matter.js based) from npm
+      on top of the bundled version. It is highly recommended to create a backup
+      before starting the app with this flag enabled!
   enable_test_net_dcl:
     name: Enable test-net DCL usage.
     description: >-
@@ -19,40 +16,46 @@ configuration:
       information from test-net DCL. This is meant for development and testing
       purposes.
   bluetooth_adapter_id:
-    name: Bluetooth Adapter ID
+    name: Bluetooth Adapter ID (deprecated)
     description: >-
+      DEPRECATED: Use the "Enable BLE proxy" option instead, which lets Home
+      Assistant drive BLE commissioning through its own Bluetooth stack
+      (including ESPHome BLE proxies). This option still works for now.
       BlueZ Bluetooth Adapter Controller ID used by the Matter Server. This is
       required if local commissioning via Bluetooth is used. Note: Using the
       Home Assistant Companion app commissioning method is recommended as it is
       better tested and allows to commission directly in proximity of the
       device itself.
+  ble_proxy:
+    name: Enable BLE proxy
+    description: >-
+      Expose the Matter Server's BLE proxy endpoint so the Home Assistant
+      Matter integration can drive BLE commissioning through Home Assistant's
+      own bluetooth stack (including ESPHome BLE proxies). To actually use
+      the BLE proxy you need Home Assistant 2026.06 or later (where the
+      Matter integration's proxy support landed). Mutually exclusive with
+      "Bluetooth Adapter ID" — the local adapter option is ignored with a
+      warning when this is on.
   matter_server_env_vars:
     name: Matter Server environment variables
     description: >-
-      Additional environment variables to export before starting Matter Server
-      (only relevant when using the JavaScript server in Beta mode). Provide
-      one entry per list item in `KEY=VALUE` format.
+      Additional environment variables to export before starting Matter Server.
+      Provide one entry per list item in "KEY=VALUE" format.
   matter_server_args:
     name: Extra Matter Server arguments
     description: >-
       This allows to pass additional command line arguments to the Matter
-      Server. Use `--help` to get a list of possible arguments. Note that
+      Server. Use "--help" to get a list of possible arguments. Note that
       arguments are also added by the startup script controlled by other
       app options.
   matter_server_version:
     name: Matter Server version
     description: >-
-      Install a custom Matter Server version. In Python mode, this value is
-      used for python-matter-server. In JavaScript/Beta mode, only versions in
-      `0.x.y` or `1.x.y` format are used; other values are ignored and latest
-      is installed. WARNING: An older version might have an incompatible storage
-      format! Use this feature with caution! Make sure you have a recent backup
-      of the app!
-  matter_sdk_wheels_version:
-    name: Matter SDK wheels version
-    description: >-
-      Install custom Python Matter SDK wheels version (not applicable when
-      using Beta flag). NOTE: The API might not be compatible with the Python
-      Matter server.
+      Install a specific "matter-server" version from npm (takes precedence over
+      the Beta flag). Values with a major version >= 3 are ignored as leftover
+      Python Matter Server versions; unless the Beta flag is set, the bundled
+      version is used instead. WARNING:
+      An older version might have an incompatible storage format! Use this
+      feature with caution! Make sure you have a recent backup of the app!
 network:
   5580/tcp: Matter Server WebSocket server port.

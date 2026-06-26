@@ -16,28 +16,48 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
+COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
     set -x \
     && apt-get update \
-    # The OTBR build script tries to run `sudo`
-    && apt-get install -y --no-install-recommends sudo git \
+    && apt-get install -y --no-install-recommends \
+        git \
+        wget \
+        iproute2 \
+        iputils-ping \
+        libreadline-dev \
+        libncurses-dev \
+        build-essential \
+        ninja-build \
+        cmake \
+        iptables \
+        libjsoncpp-dev \
+        libnetfilter-queue-dev \
+        nodejs \
+        npm \
+        libprotobuf-dev \
+        protobuf-compiler \
+    && rm -rf /var/lib/apt/lists/* \
     && git clone --depth 1 -b main https://github.com/openthread/ot-br-posix.git /usr/src/ot-br-posix \
     && cd /usr/src/ot-br-posix \
     && git fetch origin ${OTBR_BETA_VERSION} \
     && git checkout ${OTBR_BETA_VERSION} \
-    && git submodule update --init \
-    # Bootstrap downloads a few more repos
-    && ./script/bootstrap \
-    # Remove libsystemd-dev to avoid unnecessary linkage
-    && apt-get purge -y libsystemd-dev
+    && git submodule update --init --recursive --depth 1 \
+    && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
     set -x \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
-    && ./script/cmake-build \
+    && mkdir build \
+    && cd build \
+    && cmake \
+        -GNinja \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+        .. \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-beta \
         -DOTBR_FEATURE_FLAGS=ON \
@@ -63,7 +83,7 @@ RUN \
         -DOT_THREAD_VERSION=1.4 \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
         -DOT_RCP_RESTORATION_MAX_COUNT=2 \
-    && cd /usr/src/ot-br-posix/build/otbr \
+    && ninja \
     && ninja install
 
 
@@ -79,53 +99,64 @@ ENV PLATFORM=debian
 ENV RELEASE=1
 ENV WEB_GUI=1
 ENV REST_API=1
-ENV DHCPV6_PD_REF=0
 ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
-COPY 0001-channel-monitor-disable-by-default.patch /usr/src/
-COPY 0002-spinel-Clear-source-match-tables-before-restoring.patch /usr/src/
+COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
+COPY 0002-nat64-handle-ipv4-options.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
     set -x \
     && apt-get update \
-    # The OTBR build script tries to run `sudo`
-    && apt-get install -y --no-install-recommends sudo git \
+    && apt-get install -y --no-install-recommends \
+        git \
+        wget \
+        iproute2 \
+        iputils-ping \
+        libreadline-dev \
+        libncurses-dev \
+        build-essential \
+        ninja-build \
+        cmake \
+        iptables \
+        libjsoncpp-dev \
+        libnetfilter-queue-dev \
+        nodejs \
+        npm \
+        libprotobuf-dev \
+        protobuf-compiler \
     && git clone --depth 1 -b main https://github.com/openthread/ot-br-posix.git /usr/src/ot-br-posix \
     && cd /usr/src/ot-br-posix \
     && git fetch origin ${OTBR_VERSION} \
     && git checkout ${OTBR_VERSION} \
-    && git submodule update --init \
-    # Bootstrap downloads a few more repos
-    && ./script/bootstrap \
-    # Remove libsystemd-dev to avoid unnecessary linkage
-    && apt-get purge -y libsystemd-dev
+    && git submodule update --init --recursive --depth 1 \
+    && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0002-nat64-handle-ipv4-options.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
     set -x \
     && mv /usr/src/openthread-core-ha-config-posix.h /usr/src/ot-br-posix/third_party/openthread/repo/ \
-    && ( \
-        cd third_party/openthread/repo \
-        && patch -p1 < /usr/src/0001-channel-monitor-disable-by-default.patch \
-        && patch -p1 < /usr/src/0002-spinel-Clear-source-match-tables-before-restoring.patch \
-    ) \
-    && ./script/cmake-build \
+    && mkdir build \
+    && cd build \
+    && cmake \
+        -GNinja \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+        .. \
         -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/otbr-stable \
         -DOTBR_FEATURE_FLAGS=ON \
-        -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
-        -DOTBR_SRP_ADVERTISING_PROXY=ON \
-        -DOTBR_MDNS=mDNSResponder \
+        -DOTBR_MDNS=openthread \
         -DOTBR_VERSION= \
         -DOT_PACKAGE_VERSION= \
         -DOTBR_DBUS=OFF \
-        -DOT_POSIX_RCP_BUS_UART=ON \
-        -DOT_LINK_RAW=1 \
+        -DOT_POSIX_RCP_HDLC_BUS=ON \
         -DOTBR_VENDOR_NAME="Home Assistant" \
         -DOTBR_PRODUCT_NAME="OpenThread Border Router" \
+        # The Meshcop service name is specified in `openthread-core-ha-config-posix.h`
         -DOTBR_WEB=ON \
         -DOTBR_BORDER_ROUTING=ON \
         -DOTBR_REST=ON \
@@ -137,11 +168,10 @@ RUN \
         -DOT_CHANNEL_MONITOR=ON \
         -DOT_COAP=OFF \
         -DOT_COAPS=OFF \
-        -DOT_DNS_CLIENT_OVER_TCP=OFF \
-        -DOT_THREAD_VERSION=1.3 \
+        -DOT_THREAD_VERSION=1.4 \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
         -DOT_RCP_RESTORATION_MAX_COUNT=2 \
-    && cd /usr/src/ot-br-posix/build/otbr \
+    && ninja \
     && ninja install
 
 # Runtime image
@@ -181,9 +211,6 @@ RUN \
 
 COPY --from=otbr-beta-builder /opt/otbr-beta /opt/otbr-beta
 COPY --from=otbr-stable-builder /opt/otbr-stable /opt/otbr-stable
-COPY --from=otbr-stable-builder /usr/sbin/mdnsd /opt/otbr-stable/sbin/mdnsd
-COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so /usr/lib/libdns_sd.so
-COPY --from=otbr-stable-builder /usr/lib/libdns_sd.so.1 /usr/lib/libdns_sd.so.1
 COPY rootfs /
 
 ENV \

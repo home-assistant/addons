@@ -1,5 +1,137 @@
 # Changelog
 
+## 1.5.0
+
+### Z-Wave JS 15.24.2...15.25.0
+
+#### Features
+
+- Support reporting a node's interview progress as a percentage (0–100%)
+
+#### Bugfixes
+
+- Fixed an issue where Z-Wave JS could silently get stuck with a closed/failed serial port
+- Fixed an issue where Scene Activation CC could be missing for some devices
+- Improved handling of reports that are split across multiple frames, sometimes causing weird configuration parameter descriptions
+- Fixed a driver crash that could occur when receiving certain malformed Notification Reports
+- Improved compatibility with locks that support both User Code CC and User Credential CC
+- Fixed an issue where setting PIN codes on older door locks could fail with a non-descriptive error message
+
+#### Config file changes
+
+- Add fingerprints to Kwikset HC620
+- Correct label of "Twist Assist" parameter on Danalock V3-BTZE, limit to firmware < 0.22
+- Add AUS/NZ fingerprint to Aeotec Water Sensor 7 Pro
+- Update Zooz ZEN35 for firmware 1.40 and correct some labels
+- Add Jasco 76592 (ZWN4016) In-Wall Smart Switch
+
+### Z-Wave JS UI 11.19.1...11.21.0
+
+#### Features
+
+- Added support for multicast/broadcast groups
+- Show a node's interview progress as a percentage
+
+#### Bugfixes
+
+- Apply imported node metadata correctly across both wrapped and legacy `nodes.json` formats
+- Add the LZW45 to the Inovelli RGBW Home Assistant discovery template
+- Keep the node index map consistent after a node is removed
+- Several security improvements
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.21.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.21.0)
+- [Z-Wave JS UI 11.20.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.20.0)
+- [Z-Wave JS 15.25.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.25.0)
+- [Z-Wave JS 15.24.3](https://github.com/zwave-js/zwave-js/releases/tag/v15.24.3)
+- [Z-Wave JS Server 3.10.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.0)
+
+## 1.4.0
+
+### Z-Wave JS 15.24.0...15.24.2
+
+#### Features
+
+- Added bulk-delete APIs for credentials
+
+#### Bugfixes
+
+- Fixed an issue where local/remote protection state would not update in the UI after changing it
+- Fix: adding users was not possible on locks using User Code CC
+- Added a workaround for an issue with some controllers that could not enter inclusion mode because the SUC was missing from the network
+
+#### Config file changes
+
+- Map Basic Set to Binary Sensor for Fibaro FGMS001
+- Add lifeline association and remove Binary Switch CC for iBlinds v2
+- Add new fingerprint for Honeywell TH6320ZW2007
+
+### Z-Wave JS UI 11.17.0...11.19.1
+
+#### Features
+
+- Added a **Last Awake** column for battery-powered nodes, shown as a localized date and time
+
+#### Bugfixes
+
+- Fixed a socket reconnection loop and a trust proxy validation error
+- Restore the debug log level on driver restart during a capture session
+- Fixed performance issues and glitches in the nodes table
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.19.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.19.1)
+- [Z-Wave JS UI 11.19.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.19.0)
+- [Z-Wave JS UI 11.18.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.18.0)
+- [Z-Wave JS UI 11.17.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.17.0)
+- [Z-Wave JS 15.24.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.24.2)
+- [Z-Wave JS 15.24.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.24.0)
+- [Z-Wave JS Server 3.9.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.9.0)
+
+## 1.3.0
+
+### Z-Wave JS 15.23.2...15.23.5
+
+#### Features
+
+- Added a new API to manage credentials across a range of legacy and modern devices
+
+#### Bugfixes
+
+- Fixed an issue where connection to encrypted ESPHome Z-Wave proxies would fail when unrelated commands were received during the handshake
+- Interviewed Notification CC capabilities are no longer overwritten when applying alarm mappings from compat flags
+
+#### Config file changes
+
+- Update parameters for Zooz ZSE44 firmware 2.40
+- Add Philio PAC03 Mitsubishi IT adapter
+
+### Z-Wave JS Server 3.8.0
+
+#### Features
+
+- Support the new credential API in Z-Wave JS
+- Bump schema to 48
+
+### Z-Wave JS Server 3.7.0
+
+#### Features
+
+- Bump schema to 47
+- Add several low-level commands
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.16.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.16.2)
+- [Z-Wave JS UI 11.16.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.16.1)
+- [Z-Wave JS 15.23.5](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.5)
+- [Z-Wave JS 15.23.4](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.4)
+- [Z-Wave JS 15.23.3](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.3)
+- [Z-Wave JS 15.23.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.23.2)
+- [Z-Wave JS Server 3.7.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.7.0)
+- [Z-Wave JS Server 3.8.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.8.0)
+
 ## 1.2.0
 
 This release corrects the Z-Wave logfile path to be consistent with the defaults used by Z-Wave JS UI.

@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.0.1
+
+- Backport fix for [CVE-2026-8369](https://github.com/advisories/GHSA-f6vh-g7gh-wh6h) to stable. This only affects users who have enabled NAT64 and use an untrusted network.
+
+## 3.0.0
+
+- Thread 1.4 is now stable and OpenThread's built-in mDNS is now the default
+- The beta toggle has been changed back to stable. If you want to run beta again, please turn it back on.
+- Bump beta to OTBR POSIX version 78d9c289 (2026-05-19 23:38:25 -0700)
+- Bump serialx to 1.8.0
+
+## 2.16.8
+
+- Use regular hostname with "-otbr" suffix in beta mode to make OTBR recognizable
+
 ## 2.16.7
 
 - Print a warning if IPv6 routing is not enabled

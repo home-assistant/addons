@@ -1,25 +1,45 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Select OTBR version and enable mDNSResponder for stable mode
+# Select OTBR version and handle automatic beta disable/promotion
 # ==============================================================================
 
+# Auto disable beta when we promote beta -> stable
+declare beta_auto_disable_version
+declare marker
+declare marker_version
+declare beta_active
+
+beta_auto_disable_version=1
+marker=/data/beta_auto_disabled
+marker_version=0
+if [[ -f ${marker} ]]; then
+    marker_version=$(< "${marker}")
+fi
+
+beta_active=false
 if bashio::config.true 'beta'; then
-    bashio::log.info "Beta mode enabled, using OpenThread built-in mDNS."
+    if (( marker_version < beta_auto_disable_version )); then
+        bashio::log.warning "Disabling beta mode automatically; the previous beta is now stable."
+        bashio::addon.option 'beta' '^false'
+    else
+        beta_active=true
+    fi
+fi
+echo "${beta_auto_disable_version}" > "${marker}"
+
+if [[ ${beta_active} == true ]]; then
+    bashio::log.info "Beta mode enabled."
 
     ln -sf "/opt/otbr-beta/sbin/otbr-agent" /usr/sbin/otbr-agent
     ln -sf "/opt/otbr-beta/sbin/otbr-web" /usr/sbin/otbr-web
     ln -sf "/opt/otbr-beta/sbin/ot-ctl" /usr/sbin/ot-ctl
 else
-    bashio::log.info "Stable mode, enabling mDNSResponder."
-
-    touch /etc/s6-overlay/s6-rc.d/user/contents.d/mdns
-    touch /etc/s6-overlay/s6-rc.d/otbr-agent/dependencies.d/mdns
+    bashio::log.info "Stable mode enabled."
 
     ln -sf "/opt/otbr-stable/sbin/otbr-agent" /usr/sbin/otbr-agent
     ln -sf "/opt/otbr-stable/sbin/otbr-web" /usr/sbin/otbr-web
     ln -sf "/opt/otbr-stable/sbin/ot-ctl" /usr/sbin/ot-ctl
-    ln -sf "/opt/otbr-stable/sbin/mdnsd" /usr/sbin/mdnsd
 fi
 
 # ==============================================================================

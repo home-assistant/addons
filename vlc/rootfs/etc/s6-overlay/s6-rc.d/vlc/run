@@ -19,5 +19,8 @@ bashio::log.info "PulseAudio socket available, starting VLC"
 # Send out discovery information to Home Assistant
 /etc/s6-overlay/scripts/vlc-discovery &
 
+# set the home directory environment variable, if not set, s6-setuidgid will try to use the root home
+export HOME=/home/vlc
+
 # Run daemon as vlc user
-exec su -c "cvlc -I http --no-dbus --extraintf telnet --http-host 127.0.0.1 --http-password \"INGRESS\" --telnet-password \"${PASSWORD}\" --aout=pulse" vlc
+exec s6-setuidgid vlc cvlc -I http --no-dbus --extraintf telnet --http-host 127.0.0.1 --http-password "INGRESS" --telnet-password "${PASSWORD}" --aout=pulse

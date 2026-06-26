@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.7.1
+
+- Avoid generating additional API keys upon HTTP/JSON errors
+- Update DOCS.md with an explanation for manual API key removal
+
 ## 8.7.0
 
 - Drop unsupported architectures

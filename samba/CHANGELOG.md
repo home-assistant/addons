@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.7.1
+
+- Enabled kernel oplocks in smb.conf to ensure changes made to files on disk are available immediately via SMBD. This covers all shares except backup, and media as the contents shouldn't be changed by the server once they're written in those shares.
+
 ## 12.7.0
 
 - Add Windows automatic discovery support with WSDD

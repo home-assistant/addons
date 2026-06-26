@@ -110,6 +110,7 @@
    valid users = {{ .username }}
    force user = root
    force group = root
+   kernel oplocks = no
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}
@@ -123,6 +124,7 @@
    valid users = {{ .username }}
    force user = root
    force group = root
+   kernel oplocks = no
    veto files = /{{ .veto_files | join "/" }}/
    delete veto files = {{ eq (len .veto_files) 0 | ternary "no" "yes" }}
 {{ end }}

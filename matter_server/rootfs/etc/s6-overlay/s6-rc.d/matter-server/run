@@ -119,6 +119,57 @@ if bashio::config.true "enable_test_net_dcl"; then
     extra_args+=('--ota-provider-dir' "/config/updates")
 fi
 
+# Resolve whether to enable time sync for nodes with the TimeSynchronization
+# cluster. The 'time_sync' option has three modes:
+#   - on:   always enable (warn if the host clock is not NTP synchronised)
+#   - off:  always leave disabled
+#   - auto: enable only when the host clock is NTP synchronised (default)
+time_sync_mode="$(bashio::string.lower "$(bashio::config 'time_sync' 'auto')")"
+ntp_synchronized="$(bashio::api.supervisor 'GET' '/supervisor/info' '' '.ntp_synchronized')"
+time_sync_enabled=false
+
+case "${time_sync_mode}" in
+  on)
+    time_sync_enabled=true
+    if [ "${ntp_synchronized}" != "true" ]; then
+        bashio::log.warning \
+          "Time sync is enabled but host NTP is not synchronised — time pushed to Matter devices may be inaccurate"
+    fi
+    ;;
+  off)
+    bashio::log.info "Time sync is disabled ('time_sync' set to off)."
+    ;;
+  *)
+    if [ "${ntp_synchronized}" = "true" ]; then
+        time_sync_enabled=true
+        bashio::log.info "Time sync 'auto': host NTP is synchronised, enabling time sync."
+    else
+        bashio::log.info "Time sync 'auto': host NTP is not synchronised, leaving time sync disabled."
+    fi
+    ;;
+esac
+
+if [ "${time_sync_enabled}" = "true" ]; then
+    # The --enable-time-sync flag was added to the Matter Server in 1.2.0 (see
+    # matter-js/matterjs-server#440). The server uses commander, which exits on
+    # unknown options, so only pass the flag when the running server is new
+    # enough; otherwise the option would break startup. A pre-release such as
+    # 1.2.0-alpha is treated as 1.2.0 by comparing the MAJOR.MINOR.PATCH core.
+    time_sync_min="1.2.0"
+    running_version=""
+    if [ -f /app/node_modules/matter-server/package.json ]; then
+        running_version="$(jq --raw-output '.version // empty' /app/node_modules/matter-server/package.json)"
+    fi
+    running_core="${running_version%%-*}"
+    if bashio::var.has_value "${running_core}" \
+        && [ "$(printf '%s\n%s\n' "${time_sync_min}" "${running_core}" | sort -V | head -n1)" = "${time_sync_min}" ]; then
+        extra_args+=('--enable-time-sync')
+    else
+        bashio::log.warning \
+          "Matter Server ${running_version:-(unknown)} does not support time sync (requires >= ${time_sync_min}); '--enable-time-sync' not passed. Update the Matter Server to enable this feature."
+    fi
+fi
+
 primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 
 # Try fallback method (e.g. in case NetworkManager is not available)

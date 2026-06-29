@@ -100,6 +100,7 @@ Speech-to-text backend library to use:
 - `sherpa` - force [sherpa onnx][sherpa-onnx] backend (parakeet model only)
 - `transformers` - force [HuggingFace transformers][transformers] backend
 - `onnx-asr` - force [onnx asr][onnx-asr] backend
+- `funasr` - force [funasr][] backend
 
 **Note**: When `custom_model` is set, then `custom_model_type` will override `stt_library` when set to "auto".
 
@@ -124,16 +125,23 @@ After restoring a backup with a local custom Whisper model, manually copy your m
 ## Recommendations
 
 A few starting points by language and priority. With `stt_library` = "auto" the
-add-on selects a backend/model based on your `language` and hardware; for English
-this is the parakeet sherpa model, and `sherpa_streaming` swaps it for a faster
-streaming variant.
+add-on selects a backend/model based on your `language` and hardware:
+
+- **English** (`en`) → the parakeet model via the sherpa backend.
+  `sherpa_streaming` swaps it for a faster streaming variant.
+- **Chinese, Cantonese, Japanese, Korean** (`zh`, `yue`, `ja`, `ko`) → the
+  SenseVoice model via the funasr backend. It is non-autoregressive and notably
+  faster than Whisper while handling these languages well (locale codes like
+  `zh-CN`/`zh-TW`/`zh-HK` are mapped automatically).
+- **Russian** (`ru`) → the GigaAM model via the onnx-asr backend.
+- **Everything else** → faster-whisper.
 
 Two tips for non-English use:
 
 - Set `language` to your explicit language code. Leaving it as "auto" works but is
   **much** slower, since the model has to detect the language on every request.
 - To get English text out of non-English speech, set `whisper_task` = "translate".
-  This applies to the Whisper backends (not parakeet/sherpa).
+  This applies to the Whisper backends (not parakeet/sherpa, SenseVoice, or GigaAM).
 
 - English
     - Balanced
@@ -151,7 +159,14 @@ Two tips for non-English use:
         - `model` = "custom"
         - `stt_library` = "onnx-asr"
         - `custom_model` = "istupakov/canary-1b-v2-onnx"
-- Non-English
+- Chinese / Cantonese / Japanese / Korean
+    - Balanced (recommended)
+        - `language` = "zh", "yue", "ja", or "ko"
+        - `model` = "auto"
+        - `stt_library` = "auto"
+          (selects the SenseVoice model via funasr — fast and accurate for
+          these languages)
+- Non-English (other languages)
     - Balanced
         - `language` = your language code (e.g. "de", "fr")
         - `model` = "auto"
@@ -188,3 +203,4 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [faster-whisper]: https://github.com/SYSTRAN/faster-whisper
 [sherpa-onnx]: https://github.com/k2-fsa/sherpa-onnx
 [onnx-asr]: https://github.com/istupakov/onnx-asr
+[funasr]: https://github.com/modelscope/FunASR

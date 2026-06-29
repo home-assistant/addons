@@ -61,6 +61,14 @@ configuration:
 
       This overrides the default English model with a faster but less accurate
       streaming model.
+  local_files_only:
+    name: Local files only
+    description: >-
+      Only use models that have already been downloaded, and never check online
+      for updates.
+
+      Leave this off until your models have downloaded, then turn it on to keep
+      the add-on offline and skip the update check on every request.
   debug_logging:
     name: Debug logging
     description: >-

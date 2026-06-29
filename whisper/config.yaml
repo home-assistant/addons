@@ -22,6 +22,7 @@ options:
   stt_library: "auto"
   whisper_task: "transcribe"
   sherpa_streaming: false
+  local_files_only: false
   debug_logging: false
 schema:
   model: |
@@ -38,6 +39,7 @@ schema:
   whisper_task: |
     list(transcribe|translate)
   sherpa_streaming: bool
+  local_files_only: bool
   debug_logging: bool
 ports:
   "10300/tcp": null

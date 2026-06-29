@@ -3,6 +3,7 @@
 ## 3.3.1
 
 - Ensure zh/yue/ja/ko default to FunASR
+- Add `local_files_only` option to stay offline once models are downloaded
 - Add FunASR speech-to-text backend defaulting to `FunAudioLLM/SenseVoiceSmall` (`@LauraGPT`)
   - Non-autoregressive and notably faster than Whisper; supports English, Chinese, Cantonese, Japanese, and Korean well
 - Fix streaming sherpa cutting off the end of utterances (add tail padding before flushing)

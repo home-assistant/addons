@@ -117,6 +117,18 @@ Use streaming model with `sherpa` backend.
 
 This overrides the default English model (parakeet) with a faster but less accurate streaming model (sherpa-onnx-streaming-zipformer-en-2023-06-26).
 
+### Option: `local_files_only`
+
+Only use models that have already been downloaded, and never check online for
+updates.
+
+Leave this off the first time you use a model so it can download. Once your
+models are downloaded, turn it on to keep the add-on fully offline — it will skip
+the online update check on every request, which also speeds up startup.
+
+If you turn this on before a model has been downloaded, transcription will fail
+until you disable it again (or switch to a model you already have).
+
 ## Backups
 
 Whisper model files can be large, so they are automatically excluded from backups and re-downloaded on restore for remote models.

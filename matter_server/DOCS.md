@@ -53,6 +53,7 @@ App configuration:
 | log_level            | Logging level of the Matter Server component.                                                           |
 | beta                 | Install the latest `matter-server` from npm on startup instead of the bundled version. On failure a warning is logged and the bundled version is started. |
 | enable_test_net_dcl  | Enable test-net DCL for PAA root certificates, OTA updates and other device information.                |
+| time_sync            | Whether the Matter Server pushes the current time to Matter devices: `auto` (default; on only when the host clock is NTP synchronised), `on` (always; warns if NTP is not synchronised), or `off`. Requires Matter Server >= 1.2.0; on older servers a warning is logged and the option is skipped. |
 | ble_proxy            | Expose the BLE proxy endpoint so the Home Assistant Matter integration can drive BLE commissioning through Home Assistant's bluetooth stack. Mutually exclusive with `bluetooth_adapter_id`. |
 | bluetooth_adapter_id | **Deprecated** — use `ble_proxy` instead. Set BlueZ Bluetooth Controller ID (for local commissioning). Still works for now. |
 | matter_server_args   | Extra command-line arguments passed to the Matter Server at startup (advanced).                         |

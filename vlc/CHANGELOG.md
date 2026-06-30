@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+- Run VLC with user privileges
+- Fix default media directory
+- Update to Alpine 3.24
+
 ## 1.0.0
 
 - Remove unsupported architectures (armv7, i386)

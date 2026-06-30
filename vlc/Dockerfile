@@ -12,7 +12,9 @@ RUN \
         pwgen \
         vlc \
     && addgroup vlc && adduser -D -G vlc vlc \
-    && sed -i '197s#.*#    dir = dir == undefined ? "file:///media" : dir;#' /usr/share/vlc/lua/http/js/controllers.js
+    && grep -q "dir == undefined ? 'file://~'" /usr/share/vlc/lua/http/js/controllers.js \
+    && sed -i "s#dir == undefined ? 'file://~'#dir == undefined ? 'file:///media'#" \
+           /usr/share/vlc/lua/http/js/controllers.js
         
 WORKDIR /
 COPY rootfs /

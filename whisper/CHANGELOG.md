@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.2
+
+- Add `libgomp1` so `torch`/`torchaudio` can load again, fixing the startup crash loop introduced in 3.3.1
+
 ## 3.3.1
 
 - Ensure zh/yue/ja/ko default to FunASR

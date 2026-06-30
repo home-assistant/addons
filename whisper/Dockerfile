@@ -10,6 +10,7 @@ RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
+        libgomp1 \
         netcat-traditional \
         python3 \
         python3-dev \

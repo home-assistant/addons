@@ -11,7 +11,7 @@ RUN \
         nginx \
         pwgen \
         vlc \
-    && addgroup vlc && adduser -D -D -G vlc vlc \
+    && addgroup vlc && adduser -D -G vlc vlc \
     && sed -i '197s#.*#    dir = dir == undefined ? "file:///media" : dir;#' /usr/share/vlc/lua/http/js/controllers.js
         
 WORKDIR /

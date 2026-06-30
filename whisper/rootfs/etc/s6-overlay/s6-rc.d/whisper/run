@@ -34,6 +34,10 @@ if bashio::config.true 'sherpa_streaming'; then
     flags+=('--sherpa-streaming')
 fi
 
+if bashio::config.true 'local_files_only'; then
+    flags+=('--local-files-only')
+fi
+
 if bashio::config.true 'debug_logging'; then
     flags+=('--debug')
 fi

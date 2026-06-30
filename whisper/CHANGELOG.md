@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.3.1
+
+- Ensure zh/yue/ja/ko default to FunASR
+- Add `local_files_only` option to stay offline once models are downloaded
+- Add FunASR speech-to-text backend defaulting to `FunAudioLLM/SenseVoiceSmall` (`@LauraGPT`)
+  - Non-autoregressive and notably faster than Whisper; supports English, Chinese, Cantonese, Japanese, and Korean well
+- Fix streaming sherpa cutting off the end of utterances (add tail padding before flushing)
+- Default streaming sherpa to the Kroko 2025 zipformer models (mixed-case, punctuated, much better accuracy than the old LibriSpeech model); adds `de`/`es`/`fr` defaults
+- Use `--beam-size` for streaming sherpa decoding (beam search when > 1, greedy otherwise)
+
 ## 3.2.0
 
 - Fix transformers language

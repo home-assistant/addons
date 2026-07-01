@@ -14,6 +14,7 @@
 
 - **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
 - Update Matter Server to 1.1.1 with increased Health check timings
+- Speed up Beta version installation
 
 ## 9.0.1
 

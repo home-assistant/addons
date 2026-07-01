@@ -1,13 +1,18 @@
 # Changelog
 
+## 9.0.4
+
+- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
+- Update [Matter Server from 1.1.2 to to 1.1.7](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#117-2026-07-01) to address reported issues and optimize RAM and CPU usage (a lot)
+
 ## 9.0.3
 
-- **⚠️ Please also consider the release notes for 9.0.0 when upgrading from 8.x.**
-- Update [Matter Server to 1.1.2](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#112-2026-06-25) to address reported issues
+- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
+- Update [Matter Server from 1.1.1 to 1.1.2](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#112-2026-06-25) to address reported issues
 
 ## 9.0.2
 
-- **⚠️ Please also consider the release notes for 9.0.0 when upgrading from 8.x.**
+- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
 - Update Matter Server to 1.1.1 with increased Health check timings
 
 ## 9.0.1

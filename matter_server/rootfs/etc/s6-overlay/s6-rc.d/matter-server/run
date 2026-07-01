@@ -11,6 +11,8 @@ declare log_level
 declare primary_interface
 declare install_target
 declare matter_server_version
+declare server_entry
+declare install_dir
 declare env_entry
 declare env_name
 declare env_value
@@ -46,6 +48,8 @@ esac
 # matter.js uses 0.x-2.x versions; a major >= 3 is almost certainly a leftover
 # Python Matter Server version, so it is ignored to avoid installing the wrong package.
 install_target=""
+server_entry="/app/node_modules/matter-server/dist/esm/MatterServer.js"
+install_dir="/opt/matter-server"
 if bashio::config.has_value "matter_server_version"; then
   matter_server_version=$(bashio::config 'matter_server_version')
   if [[ "${matter_server_version}" =~ ^[^0-9]*([0-9]+) ]] && (( BASH_REMATCH[1] >= 3 )); then
@@ -60,21 +64,29 @@ if ! bashio::var.has_value "${install_target}" && bashio::config.true "beta"; th
 fi
 
 if bashio::var.has_value "${install_target}"; then
-  bashio::log.info "Installing ${install_target} from npm over the bundled server..."
+  bashio::log.info "Installing ${install_target} from npm into ${install_dir}..."
   # matter.js native modules may need compiling; the base image purges the
-  # toolchain, so add it back here. A failure here must not abort startup.
+  # toolchain, so add it back here. The version is installed into a separate
+  # directory, leaving the bundled /app server intact as a fallback; a failure
+  # here must not abort startup. The directory is kept between restarts so that
+  # reinstalling an unchanged version is a fast npm no-op.
   if ! { apt-get update \
       && apt-get install -y --no-install-recommends \
         python3 make gcc g++ libbluetooth-dev libudev-dev \
-      && cd /app \
+      && mkdir -p "${install_dir}" \
+      && cd "${install_dir}" \
       && { bashio::log.info "Fetching ${install_target} from npmjs.org (this can take a while)..."; true; } \
       && npm install --omit=dev --foreground-scripts "${install_target}"; }; then
     bashio::log.warning \
       "Failed to install ${install_target} from npm. Starting the bundled Matter Server instead."
+  elif [ ! -f "${install_dir}/node_modules/matter-server/dist/esm/MatterServer.js" ]; then
+    bashio::log.warning \
+      "Installed ${install_target} is missing the expected server entrypoint. Starting the bundled Matter Server instead."
   else
+    server_entry="${install_dir}/node_modules/matter-server/dist/esm/MatterServer.js"
     npm cache clean --force || true
-    find /app/node_modules -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true
-    find /app/node_modules -type d -name "cjs" -path "*/@project-chip/*" -exec rm -rf {} + 2>/dev/null || true
+    find "${install_dir}/node_modules" -type d -name "cjs" -path "*/@matter/*" -exec rm -rf {} + 2>/dev/null || true
+    find "${install_dir}/node_modules" -type d -name "cjs" -path "*/@project-chip/*" -exec rm -rf {} + 2>/dev/null || true
   fi
 fi
 
@@ -167,4 +179,4 @@ matter_server_args+=(
   ${extra_args[@]}
 )
 
-exec node --enable-source-maps /app/node_modules/matter-server/dist/esm/MatterServer.js "${matter_server_args[@]}"
+exec node --enable-source-maps "${server_entry}" "${matter_server_args[@]}"

@@ -43,3 +43,25 @@ Note: you might also see "Unknown devices" or "External routers" in the network 
 
 ## Can I switch back to the old Matter Server?
 No. The new Matter Server was tested as a "Beta" with the community for the last four months, and we did our best to make sure it works as expected. If you run into any issues, report them in this GitHub repository and we will try to fix them as soon as possible.
+
+## Troubleshooting
+
+### When I try to start the server I get the error "Fabric with index X is already present but not under the control of the Fabric Authority"
+In this case it seems that there was some former migration try which somehow broke the storage. Please delete the server directory of your data directory.
+
+Using the Advanced SSH Add-on/App with "Protection mode" disabled: ssh into Home Assistant, then
+
+```bash
+docker exec -it addon_core_matter_server bash
+cd /data
+ls -la
+rm -rf server-2-134b
+^D
+^D
+```
+
+... under the assumption that the "ls -la" is showing a "server-2-134b" folder ... if the name is different just use that what's there but "server-*"
+
+### After the start all/some of my devices are/stay offline
+
+When devices are reported as offline after the initial start, this usually means that the devices are not announced via MDNS. This can happen in some cases and is usually solved with a restart (power-off/on) of the device. After we got the IP of the device at least once the new server will also try these IPs automatically. 

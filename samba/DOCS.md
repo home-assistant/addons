@@ -65,10 +65,6 @@ compatibility_mode: false
 
 Change WORKGROUP to reflect your network needs.
 
-### Option: `local_master` (required)
-
-Enable to try and become a local master browser on a subnet.
-
 ### Option: `username` (required)
 
 The username you would like to use to authenticate with the Samba server.
@@ -104,6 +100,19 @@ Defaults to `false`.
 
 Enable Samba configurations to improve interoperability with Apple devices.
 This can cause issues with file systems that do not support xattr such as exFAT.
+
+Defaults to `true`.
+
+### Option: `netbios`
+
+NetBIOS is a legacy network protocol for accessing SMB/CIFS shares. Enable for legacy clients older than Windows Vista (Windows 95/98/ME, Windows NT,
+Windows 2000, Windows XP and LanManager), or OS X 10.9 (Mavericks). This setting is enabled by default for compatibility; disable it on modern installations.
+
+Defaults to `true`.
+
+### Option: `local_master`
+
+When NetBIOS is enabled, try and become a local master browser on a subnet.
 
 Defaults to `true`.
 

@@ -2,23 +2,19 @@
 
 ## 9.0.4
 
-- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
 - Update [Matter Server from 1.1.2 to 1.1.7](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#117-2026-07-01) to address reported issues and optimize RAM and CPU usage (a lot)
 
 ## 9.0.3
 
-- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
 - Update [Matter Server from 1.1.1 to 1.1.2](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#112-2026-06-25) to address reported issues
 
 ## 9.0.2
 
-- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
 - Update Matter Server to 1.1.1 with increased Health check timings
 - Speed up Beta version installation
 
 ## 9.0.1
 
-- **⚠️ Please also consider the release notes for 9.0.0 when upgrading from 8.x.**
 - Fixes Heath check with default port settings
 
 ## 9.0.0

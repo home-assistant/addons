@@ -3,7 +3,7 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:trixie
   amd64: ghcr.io/home-assistant/amd64-base-debian:trixie
 args:
-  OTBR_BETA_VERSION: 78d9c289473602d3faab535c4e7fbd12ca8d32f5
+  OTBR_BETA_VERSION: ec16e396382b4559e70a2c6fdeecb7d596a5e915
   OTBR_VERSION: 624a7d98e0dac5984c2982068f71fc81d2dbceb5
   UNIVERSAL_SILABS_FLASHER_VERSION: 0.1.2
   SERIALX_VERSION: 1.8.0

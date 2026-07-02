@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2
+
+- Honor the configured `otbr_log_level` for the OTBR web interface (previously always logged at info level)
+- Bump beta to OTBR POSIX version ec16e396 (tag v2026.07.0)
+
 ## 3.0.1
 
 - Backport fix for [CVE-2026-8369](https://github.com/advisories/GHSA-f6vh-g7gh-wh6h) to stable. This only affects users who have enabled NAT64 and use an untrusted network.

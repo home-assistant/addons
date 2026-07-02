@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.1
+
+- fix "Missing 'Host' header in request" for requests without a `Host` header (HTTP/3, HTTP/1.0) by proxying `$host` instead of `$http_host`
+
 ## 4.2.0
 
 - update SSL/TLS configuration and add PQC key exchange following Mozilla guidelines

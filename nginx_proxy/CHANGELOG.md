@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.0
+
+- Change startup to `services` phase to start nginx before Home Assistant Core
+
 ## 4.2.0
 
 - update SSL/TLS configuration and add PQC key exchange following Mozilla guidelines

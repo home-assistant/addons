@@ -20,6 +20,7 @@ host_dbus: true
 image: homeassistant/{arch}-addon-matter-server
 ingress: true
 ingress_port: 5580
+panel_icon: mdi:matter
 init: false
 map:
   - type: addon_config

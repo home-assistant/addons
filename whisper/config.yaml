@@ -1,5 +1,5 @@
 ---
-version: 3.3.2
+version: 3.4.0
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper
@@ -22,6 +22,7 @@ options:
   stt_library: "auto"
   whisper_task: "transcribe"
   sherpa_streaming: false
+  vad_clip: false
   local_files_only: false
   debug_logging: false
 schema:
@@ -39,6 +40,7 @@ schema:
   whisper_task: |
     list(transcribe|translate)
   sherpa_streaming: bool
+  vad_clip: bool
   local_files_only: bool
   debug_logging: bool
 ports:

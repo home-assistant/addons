@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.4.0
+
+- Add `vad_clip` option to enable VAD clipping of audio before processing (faster processing for many backends, may not work on Pi 4)
+- Bump `pysilero-vad` to use GGML version
+
 ## 3.3.2
 
 - Add `libgomp1` so `torch`/`torchaudio` can load again, fixing the startup crash loop introduced in 3.3.1

@@ -117,6 +117,12 @@ Use streaming model with `sherpa` backend.
 
 This overrides the default English model (parakeet) with a faster but less accurate streaming model (sherpa-onnx-streaming-zipformer-en-2023-06-26).
 
+### Option: `vad_clip`
+
+Use voice activity detection (VAD) to clip silence from audio before transcription. This is disabled by default.
+
+This is mainly a latency win for silence-heavy audio with length-proportional batch backends like `sherpa` and `funasr`; streaming backends are unaffected.
+
 ### Option: `local_files_only`
 
 Only use models that have already been downloaded, and never check online for

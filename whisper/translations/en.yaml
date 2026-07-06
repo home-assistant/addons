@@ -61,6 +61,14 @@ configuration:
 
       This overrides the default English model with a faster but less accurate
       streaming model.
+  vad_clip:
+    name: VAD clip
+    description: >-
+      Use voice activity detection (VAD) to clip silence from audio before
+      transcription.
+
+      This is a latency win for silence-heavy audio, especially with batch
+      backends like sherpa and funasr. Streaming backends are unaffected.
   local_files_only:
     name: Local files only
     description: >-

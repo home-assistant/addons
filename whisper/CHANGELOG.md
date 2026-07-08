@@ -1,9 +1,9 @@
 # Changelog
 
-## 3.4.0
+## 3.4.1
 
 - Add `vad_clip` option to enable VAD clipping of audio before processing (faster processing for many backends, may not work on Pi 4)
-- Bump `pysilero-vad` to use GGML version
+- Bump `pysilero-vad` to use GGML version (with `GGML_NATIVE=OFF`)
 
 ## 3.3.2
 

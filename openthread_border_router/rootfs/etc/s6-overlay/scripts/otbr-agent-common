@@ -13,9 +13,9 @@ otbr_forward_nat64_chain="OTBR_FORWARD_NAT64"
 otbr_fw_mark="0x1001"
 
 # Map the configured otbr_log_level to the numeric level expected by the
-# otbr-agent/otbr-web -d flag. Echoes the numeric level on success, exits
-# non-zero on an unknown level.
-otbr_log_level_int() {
+# otbr-agent/otbr-web -d flag. Echoes the numeric level on success, returns
+# non-zero on an unknown level (callers own the user-facing error message).
+otbr_log_level_to_int() {
     local level
     level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
     case "${level}" in
@@ -27,10 +27,7 @@ otbr_log_level_int() {
         critical)  echo "2" ;;
         alert)     echo "1" ;;
         emergency) echo "0" ;;
-        *)
-            bashio::log.error "Unknown otbr_log_level: ${level}"
-            return 1
-            ;;
+        *)         return 1 ;;
     esac
 }
 

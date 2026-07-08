@@ -58,7 +58,7 @@ else
     migrate_flow_control="none"
 fi
 
-otbr_log_level_int="$(otbr_log_level_int)" \
+otbr_log_level_int="$(otbr_log_level_to_int)" \
     || bashio::exit.nok "Unknown otbr_log_level: $(bashio::config otbr_log_level)"
 
 # shellcheck disable=SC2015

@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.0
+
+- use `$host` instead of `$http_host` for `Host` and `X-Forwarded-Host` headers
+
 ## 4.2.0
 
 - update SSL/TLS configuration and add PQC key exchange following Mozilla guidelines

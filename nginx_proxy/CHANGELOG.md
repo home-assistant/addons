@@ -2,7 +2,7 @@
 
 ## 4.3.0
 
-- Use `$host` instead of `$http_host` for Host and X-Forwarded-Host headers
+- use `$host` instead of `$http_host` for `Host` and `X-Forwarded-Host` headers
 
 ## 4.2.0
 

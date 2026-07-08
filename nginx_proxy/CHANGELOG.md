@@ -2,7 +2,7 @@
 
 ## 4.3.0
 
-- Update base image to Alpine 3.24 (base image tag 3.24-2026.06.1)
+- Update base image to Alpine 3.24 (base image tag 3.24-2026.06.1) with nginx 1.30.x
 
 ## 4.2.0
 

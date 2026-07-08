@@ -1,8 +1,12 @@
 # Changelog
 
-## 4.3.0
+## 4.4.0
 
 - use `$host` instead of `$http_host` for `Host` and `X-Forwarded-Host` headers
+
+## 4.3.0
+
+- Update base image to Alpine 3.24 (base image tag 3.24-2026.06.1) with nginx 1.30.x
 
 ## 4.2.0
 

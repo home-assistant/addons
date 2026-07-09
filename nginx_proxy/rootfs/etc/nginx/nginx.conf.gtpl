@@ -18,6 +18,16 @@ http {
         ''      close;
     }
 
+    # Prefer the verbatim Host header (preserves port), but fall back to
+    # $host when it is empty. HTTP/3 clients send an :authority pseudo-header
+    # instead of a Host header, leaving $http_host empty; nginx then omits the
+    # header entirely and aiohttp (HA 2026.7.0+) rejects the request with a
+    # 400 "Missing 'Host' header". $host falls back to :authority/server_name.
+    map $http_host $forward_host {
+        default $http_host;
+        ''      $host;
+    }
+
     server_tokens off;
 
     server_names_hash_bucket_size 128;
@@ -116,12 +126,12 @@ http {
             {{- end }}
             proxy_set_header Origin $http_origin;
             proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header Host $http_host;
+            proxy_set_header Host $forward_host;
             proxy_redirect http:// https://;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
-            proxy_set_header X-Forwarded-Host $http_host;
+            proxy_set_header X-Forwarded-Host $forward_host;
             {{- if not .options.real_ip_from }}
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             {{- else }}

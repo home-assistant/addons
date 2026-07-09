@@ -28,8 +28,8 @@ RUN \
     \
     && pip3 install --no-cache-dir \
         --index-url 'https://download.pytorch.org/whl/cpu' \
-        'torch==2.6.0' \
-        'torchaudio==2.6.0' \
+        'torch==2.7.1' \
+        'torchaudio==2.7.1' \
     \
     && apt-get purge -y --auto-remove \
         build-essential \

@@ -8,6 +8,8 @@ declare password
 declare username
 declare config_username
 declare samba_username
+declare stored_options
+declare migration_payload
 declare -a interfaces=()
 export HOSTNAME
 
@@ -20,6 +22,19 @@ if ! bashio::config.has_value 'username' || ! bashio::config.has_value 'password
 fi
 
 bashio::config.require "enabled_shares" "Samba is a tool for sharing folders. Starting it without sharing any folders defeats the purpose."
+
+# Migrate stored enabled_shares values to lower case. Values have always
+# been treated case-insensitively at runtime; persisting them lower case
+# prepares for a future release that restricts the schema to the exact
+# share names.
+stored_options=$(bashio::api.supervisor GET /addons/self/info false | jq '.options')
+if jq -e '(.enabled_shares // []) | any(. != ascii_downcase)' <<< "${stored_options}" > /dev/null; then
+    bashio::log.info "Migrating enabled_shares configuration values to lower case"
+    migration_payload=$(jq -c '{options: (.enabled_shares |= map(ascii_downcase))}' <<< "${stored_options}")
+    if ! bashio::api.supervisor POST /addons/self/options "${migration_payload}"; then
+        bashio::log.warning "Could not migrate enabled_shares values; will retry on next start"
+    fi
+fi
 
 # Read hostname from API or setting default "hassio"
 HOSTNAME=$(bashio::info.hostname)

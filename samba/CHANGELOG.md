@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.7.2
+
+- Normalize stored `enabled_shares` values to lower case at startup. Values
+  were already handled case-insensitively at runtime; this persists the
+  canonical form in preparation for a stricter schema in a future release.
+
 ## 12.7.1
 
 - Enabled kernel oplocks in smb.conf to ensure changes made to files on disk are available immediately via SMBD. This covers all shares except backup, and media as the contents shouldn't be changed by the server once they're written in those shares.

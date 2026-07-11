@@ -33,12 +33,14 @@ configuration:
   netbios:
     name: Enable NetBIOS over IP
     description: >-
-      Enable NetBIOS over IP for legacy SMB clients (Windows 95/98/ME, Windows NT,
-      Windows 2000, Windows XP and LanManager clients). Disable to improve security
-      and performance if you do not have legacy SMB clients.
+      Enable NetBIOS over IP for legacy SMB clients (Windows 95/98/ME, Windows
+      NT, Windows 2000, Windows XP and LanManager clients). Disable to improve
+      security and performance if you do not have legacy SMB clients.
   local_master:
     name: Local master
-    description: When NetBIOS is enabled, try and become a local master browser on a subnet.
+    description: >-
+      When NetBIOS is enabled, try and become a local master browser on a
+      subnet.
   server_signing:
     name: Server signing
     description: >-

@@ -32,6 +32,10 @@
    vfs objects = catia fruit streams_xattr
    {{ end }}
 
+   {{ if not .netbios }}
+   smb ports = 445
+   {{ end }}
+
    server signing = {{ .server_signing }}
 
    kernel oplocks = yes

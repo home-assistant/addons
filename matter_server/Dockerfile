@@ -1,8 +1,14 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
+# The matter.js base image runs as an unprivileged user; the app requires root
+# for s6-overlay and for Bluetooth via Noble raw HCI access.
+# hadolint ignore=DL3002
+USER root
+
 # Default ENV
 ENV \
+    LOG_LEVEL="" \
     LANG="C.UTF-8" \
     DEBIAN_FRONTEND="noninteractive" \
     CURL_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt" \
@@ -33,12 +39,7 @@ RUN \
         curl \
         ca-certificates \
         xz-utils \
-        bluez \
-        libbluetooth-dev \
-        libudev-dev \
-        make \
-        gcc \
-        g++ \
+        iproute2 \
     && mkdir -p /usr/share/man/man1 \
     \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then \
@@ -74,23 +75,6 @@ RUN \
     \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
-
-# Install Node.js 22.x for JavaScript Matter Server (beta mode)
-# We download from nodejs.org instead of using OS packages to ensure
-# we have up-to-date Node.js versions with latest features and fixes
-ARG NODE_VERSION
-RUN \
-    set -x \
-    && DPKG_ARCH=$(dpkg --print-architecture) \
-    && case "${DPKG_ARCH}" in \
-         amd64) NODE_ARCH="x64" ;; \
-         *) NODE_ARCH="${DPKG_ARCH}" ;; \
-       esac \
-    && curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \
-    && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 --no-same-owner \
-    && rm -f /tmp/node.tar.xz \
-    && node --version \
-    && npm --version
 
 # S6-Overlay
 WORKDIR /root

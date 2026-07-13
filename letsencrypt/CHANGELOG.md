@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.4.0
+
+- Update certbot-dns-multi to 5.2.2, adding several DNS providers (see [lego's changelog](https://github.com/go-acme/lego/blob/v5.2.2/CHANGELOG.md) for details). The following deprecated DNS providers have been removed: `googledomains`, `azure` (replaced by `azuredns`), `cloudxns`, `dnspod`, `brandit`, `iwantmyname`, `iij` (replaced by `iijdpf`).
+
 ## 6.3.2
 
 - No longer override lego's DNS propagation timeout with `propagation_seconds`. Allows lego configuration and defaults.

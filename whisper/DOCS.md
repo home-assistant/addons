@@ -36,7 +36,7 @@ If you select "auto", the model will run **much** slower but will auto-detect th
 
 Whisper model that will be used for transcription. Choose `custom` to use the model name in `custom_model`, which may be a HuggingFace model ID like "Systran/faster-distil-whisper-small.en".
 
-The default model is `auto`, which selects `tiny-int8` for ARM devices like the Raspberry Pi 4 and `base-int8` otherwise.
+The default model is "auto", which selects `tiny-int8` for ARM devices like the Raspberry Pi 4 and `base-int8` otherwise.
 Compressed models (`int8`) are slightly less accurate than their counterparts, but smaller and faster. [Distilled](https://github.com/huggingface/distil-whisper) models are not compressed, but are faster and smaller than their non-distilled counterparts.
 
 Available models:
@@ -77,12 +77,7 @@ Then, set the `custom_model` path to:
 
 ### Option: `custom_model_type`
 
-Either `faster-whisper` (the default) or `transformers`.
-
-When set to `transformers`, the `custom_model` option must be a HuggingFace transformers-based Whisper model like "openai/whisper-tiny.en".
-
-**Note:** Initial prompt is currently not supported for transformers-based models.
-
+Determines which speech-to-text backend to use for `custom_model` if `stt_library` is set to "auto".
 
 ### Option: `beam_size`
 
@@ -101,16 +96,109 @@ See [this discussion](https://github.com/openai/whisper/discussions/963) for an 
 Speech-to-text backend library to use:
 
 - `auto` - select the best backend based on language/hardware
-- `faster-whisper` - force faster whisper backend
-- `sherpa` - force sherpa onnx backend (parakeet model only)
-- `transformers` - force HuggingFace transformers backend
+- `faster-whisper` - force [faster whisper][faster-whisper] backend
+- `sherpa` - force [sherpa onnx][sherpa-onnx] backend (parakeet model only)
+- `transformers` - force [HuggingFace transformers][transformers] backend
+- `onnx-asr` - force [onnx asr][onnx-asr] backend
+- `funasr` - force [funasr][] backend
 
-**Note**: When `custom_model` is set, then `custom_model_type` will override `stt_library`.
+**Note**: When `custom_model` is set, then `custom_model_type` will override `stt_library` when set to "auto".
+
+### Option: `whisper_task`
+
+Task to perform with the model:
+
+- `transcribe` - transcribe audio in the spoken language (default)
+- `translate` - translate the spoken audio into English
+
+### Option: `sherpa_streaming`
+
+Use streaming model with `sherpa` backend.
+
+This overrides the default English model (parakeet) with a faster but less accurate streaming model (sherpa-onnx-streaming-zipformer-en-2023-06-26).
+
+### Option: `vad_clip`
+
+Use voice activity detection (VAD) to clip silence from audio before transcription. This is disabled by default.
+
+This is mainly a latency win for silence-heavy audio with length-proportional batch backends like `sherpa` and `funasr`; streaming backends are unaffected.
+
+### Option: `local_files_only`
+
+Only use models that have already been downloaded, and never check online for
+updates.
+
+Leave this off the first time you use a model so it can download. Once your
+models are downloaded, turn it on to keep the add-on fully offline — it will skip
+the online update check on every request, which also speeds up startup.
+
+If you turn this on before a model has been downloaded, transcription will fail
+until you disable it again (or switch to a model you already have).
 
 ## Backups
 
 Whisper model files can be large, so they are automatically excluded from backups and re-downloaded on restore for remote models.
 After restoring a backup with a local custom Whisper model, manually copy your model directory again.
+
+## Recommendations
+
+A few starting points by language and priority. With `stt_library` = "auto" the
+add-on selects a backend/model based on your `language` and hardware:
+
+- **English** (`en`) → the parakeet model via the sherpa backend.
+  `sherpa_streaming` swaps it for a faster streaming variant.
+- **Chinese, Cantonese, Japanese, Korean** (`zh`, `yue`, `ja`, `ko`) → the
+  SenseVoice model via the funasr backend. It is non-autoregressive and notably
+  faster than Whisper while handling these languages well (locale codes like
+  `zh-CN`/`zh-TW`/`zh-HK` are mapped automatically).
+- **Russian** (`ru`) → the GigaAM model via the onnx-asr backend.
+- **Everything else** → faster-whisper.
+
+Two tips for non-English use:
+
+- Set `language` to your explicit language code. Leaving it as "auto" works but is
+  **much** slower, since the model has to detect the language on every request.
+- To get English text out of non-English speech, set `whisper_task` = "translate".
+  This applies to the Whisper backends (not parakeet/sherpa, SenseVoice, or GigaAM).
+
+- English
+    - Balanced
+        - `language` = "en"
+        - `model` = "auto"
+        - `stt_library` = "auto"
+        - `sherpa_streaming` = false
+    - Fast
+        - `language` = "en"
+        - `model` = "auto"
+        - `stt_library` = "auto"
+        - `sherpa_streaming` = true
+    - Accurate
+        - `language` = "en"
+        - `model` = "custom"
+        - `stt_library` = "onnx-asr"
+        - `custom_model` = "istupakov/canary-1b-v2-onnx"
+- Chinese / Cantonese / Japanese / Korean
+    - Balanced (recommended)
+        - `language` = "zh", "yue", "ja", or "ko"
+        - `model` = "auto"
+        - `stt_library` = "auto"
+          (selects the SenseVoice model via funasr — fast and accurate for
+          these languages)
+- Non-English (other languages)
+    - Balanced
+        - `language` = your language code (e.g. "de", "fr")
+        - `model` = "auto"
+        - `stt_library` = "auto"
+    - Fast
+        - `language` = your language code
+        - `model` = "base-int8" (or "small-int8" if your CPU allows)
+        - `stt_library` = "faster-whisper"
+    - Accurate
+        - `language` = your language code
+        - `model` = "custom"
+        - `stt_library` = "onnx-asr"
+        - `custom_model` = "istupakov/canary-1b-v2-onnx"
+          (~25 European languages; needs a capable CPU, not a Raspberry Pi)
 
 ## Support
 
@@ -129,3 +217,8 @@ In case you've found an bug, please [open an issue on our GitHub][issue].
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/hassio-addons/repository
+[transformers]: https://huggingface.co/docs/transformers
+[faster-whisper]: https://github.com/SYSTRAN/faster-whisper
+[sherpa-onnx]: https://github.com/k2-fsa/sherpa-onnx
+[onnx-asr]: https://github.com/istupakov/onnx-asr
+[funasr]: https://github.com/modelscope/FunASR

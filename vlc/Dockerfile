@@ -3,6 +3,7 @@ FROM ${BUILD_FROM}
 
 # Install VLC
 WORKDIR /usr/src
+
 RUN \
     set -x \
     && apk add --no-cache \
@@ -10,8 +11,10 @@ RUN \
         nginx \
         pwgen \
         vlc \
-    && sed -i 's/geteuid/getppid/' /usr/bin/vlc \
-    && sed -i '197s#.*#    dir = dir == undefined ? "file:///media" : dir;#' /usr/share/vlc/lua/http/js/controllers.js
+    && addgroup vlc && adduser -D -G vlc vlc \
+    && grep -q "dir == undefined ? 'file://~'" /usr/share/vlc/lua/http/js/controllers.js \
+    && sed -i "s#dir == undefined ? 'file://~'#dir == undefined ? 'file:///media'#" \
+           /usr/share/vlc/lua/http/js/controllers.js
         
 WORKDIR /
 COPY rootfs /

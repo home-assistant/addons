@@ -1,5 +1,37 @@
 # Changelog
 
+## 3.5.0
+
+- Bump torch to avoid regression: https://github.com/pytorch/pytorch/issues/146792
+- Use `find_spec` to avoid importing modules for backend check
+
+## 3.4.1
+
+- Add `vad_clip` option to enable VAD clipping of audio before processing (faster processing for many backends, may not work on Pi 4)
+- Bump `pysilero-vad` to use GGML version (with `GGML_NATIVE=OFF`)
+
+## 3.3.2
+
+- Add `libgomp1` so `torch`/`torchaudio` can load again, fixing the startup crash loop introduced in 3.3.1
+
+## 3.3.1
+
+- Ensure zh/yue/ja/ko default to FunASR
+- Add `local_files_only` option to stay offline once models are downloaded
+- Add FunASR speech-to-text backend defaulting to `FunAudioLLM/SenseVoiceSmall` (`@LauraGPT`)
+  - Non-autoregressive and notably faster than Whisper; supports English, Chinese, Cantonese, Japanese, and Korean well
+- Fix streaming sherpa cutting off the end of utterances (add tail padding before flushing)
+- Default streaming sherpa to the Kroko 2025 zipformer models (mixed-case, punctuated, much better accuracy than the old LibriSpeech model); adds `de`/`es`/`fr` defaults
+- Use `--beam-size` for streaming sherpa decoding (beam search when > 1, greedy otherwise)
+
+## 3.2.0
+
+- Fix transformers language
+- Add initial prompt to transformers
+- Add `--whisper-task` which can be set to "translate" instead of "transcribe" (`@M4TH1EU`)
+- Add `--sherpa-streaming` to prefer streaming models (`@pkrahmer`)
+- Bump `onnx-asr` to 0.11.0 (supports `istupakov/canary-1b-v2-onnx`)
+
 ## 3.1.0
 
 - Fix model selection for language

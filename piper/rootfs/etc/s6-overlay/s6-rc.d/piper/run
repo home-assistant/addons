@@ -29,6 +29,7 @@ exec python3 -m wyoming_piper \
     --length-scale "$(bashio::config 'length_scale')" \
     --noise-scale "$(bashio::config 'noise_scale')" \
     --noise-w "$(bashio::config 'noise_w')" \
+    --sentence-silence "$(bashio::config 'sentence_silence')" \
     --speaker "$(bashio::config 'speaker')" \
     --voice "$(bashio::config 'voice')" \
     --data-dir /data \

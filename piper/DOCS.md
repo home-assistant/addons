@@ -59,6 +59,10 @@ Controls the variability of audio by adding noise during audio generation. The e
 
 Controls the variability of speaking cadence (phoneme widths). The effect highly depends on the voice itself, but in general a value of 0 removes variability and values above 1 produce extreme stutters and pauses.
 
+### Option: `sentence_silence`
+
+Adds the given number of seconds of silence after every sentence.
+
 ### Option: `update_voices`
 
 Download the list of new voices automatically every time the app starts. You must also reload the Wyoming integration for Piper in Home Assistant to see new voices.

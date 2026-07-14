@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.1
+
+- Upgrade to `wyoming-piper` 2.3.1
+- Add `sentence_silence` option to add silence after every sentence
+
 ## 2.2.2
 
 - Upgrade to `wyoming-piper` 2.2.2 (wheel fix)

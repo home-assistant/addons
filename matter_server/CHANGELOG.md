@@ -3,7 +3,8 @@
 ## 9.1.0
 
 - **⚠️ Please also consider the release notes for 9.0.0 when upgrading from 8.x.**
-- Add `time_sync` option (`auto`/`on`/`off`, default `auto`) to push the current time to Matter devices via the Matter Server's `--enable-time-sync` flag. `auto` enables time sync only when the host clock is NTP synchronised; `on` always enables it (with a warning if NTP is not synchronised); `off` disables it. The flag is only passed when the running Matter Server is new enough to support it (>= 1.2.0); on older servers a warning is logged and the flag is skipped so startup is not affected.
+- Update [Matter Server to 1.2.5](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md), which adds the `--enable-time-sync` flag used by the new `time_sync` option below.
+- Add `time_sync` option (`auto`/`on`/`off`, default `auto`) to push the current time to Matter devices via the Matter Server's `--enable-time-sync` flag. `auto` enables time sync only when the host clock is NTP synchronised; `on` always enables it (with a warning if NTP is not synchronised); `off` disables it.
 
 ## 9.0.3
 

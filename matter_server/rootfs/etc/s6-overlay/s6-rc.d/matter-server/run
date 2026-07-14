@@ -150,24 +150,7 @@ case "${time_sync_mode}" in
 esac
 
 if [ "${time_sync_enabled}" = "true" ]; then
-    # The --enable-time-sync flag was added to the Matter Server in 1.2.0 (see
-    # matter-js/matterjs-server#440). The server uses commander, which exits on
-    # unknown options, so only pass the flag when the running server is new
-    # enough; otherwise the option would break startup. A pre-release such as
-    # 1.2.0-alpha is treated as 1.2.0 by comparing the MAJOR.MINOR.PATCH core.
-    time_sync_min="1.2.0"
-    running_version=""
-    if [ -f /app/node_modules/matter-server/package.json ]; then
-        running_version="$(jq --raw-output '.version // empty' /app/node_modules/matter-server/package.json)"
-    fi
-    running_core="${running_version%%-*}"
-    if bashio::var.has_value "${running_core}" \
-        && [ "$(printf '%s\n%s\n' "${time_sync_min}" "${running_core}" | sort -V | head -n1)" = "${time_sync_min}" ]; then
-        extra_args+=('--enable-time-sync')
-    else
-        bashio::log.warning \
-          "Matter Server ${running_version:-(unknown)} does not support time sync (requires >= ${time_sync_min}); '--enable-time-sync' not passed. Update the Matter Server to enable this feature."
-    fi
+    extra_args+=('--enable-time-sync')
 fi
 
 primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"

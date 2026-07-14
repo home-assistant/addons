@@ -133,11 +133,11 @@ fi
 
 # Resolve whether to enable time sync for nodes with the TimeSynchronization
 # cluster. The 'time_sync' option has three modes:
-#   - on:   always enable (warn if the host clock is not NTP synchronised)
+#   - on:   always enable (warn if the host clock is not NTP synchronized)
 #   - off:  always leave disabled
-#   - auto: enable only when the host clock is NTP synchronised (default)
+#   - auto: enable only when the host clock is NTP synchronized (default)
 time_sync_mode="$(bashio::string.lower "$(bashio::config 'time_sync' 'auto')")"
-ntp_synchronized="$(bashio::api.supervisor 'GET' '/supervisor/info' '' '.ntp_synchronized')"
+ntp_synchronized="$(bashio::api.supervisor 'GET' '/host/info' '' '.dt_synchronized')"
 time_sync_enabled=false
 
 case "${time_sync_mode}" in
@@ -145,7 +145,7 @@ case "${time_sync_mode}" in
     time_sync_enabled=true
     if [ "${ntp_synchronized}" != "true" ]; then
         bashio::log.warning \
-          "Time sync is enabled but host NTP is not synchronised — time pushed to Matter devices may be inaccurate"
+          "Time sync is enabled but host NTP is not synchronized — time pushed to Matter devices may be inaccurate"
     fi
     ;;
   off)
@@ -154,9 +154,9 @@ case "${time_sync_mode}" in
   *)
     if [ "${ntp_synchronized}" = "true" ]; then
         time_sync_enabled=true
-        bashio::log.info "Time sync 'auto': host NTP is synchronised, enabling time sync."
+        bashio::log.info "Time sync 'auto': host NTP is synchronized, enabling time sync."
     else
-        bashio::log.info "Time sync 'auto': host NTP is not synchronised, leaving time sync disabled."
+        bashio::log.info "Time sync 'auto': host NTP is not synchronized, leaving time sync disabled."
     fi
     ;;
 esac

@@ -13,7 +13,6 @@ declare device
 declare baudrate
 declare flow_control
 declare migrate_flow_control
-declare otbr_log_level
 declare otbr_log_level_int
 declare otbr_rest_listen
 declare otbr_rest_listen_port
@@ -59,36 +58,8 @@ else
     migrate_flow_control="none"
 fi
 
-otbr_log_level=$(bashio::string.lower "$(bashio::config otbr_log_level)")
-case "${otbr_log_level}" in
-    debug)
-        otbr_log_level_int="7"
-        ;;
-    info)
-        otbr_log_level_int="6"
-        ;;
-    notice)
-        otbr_log_level_int="5"
-        ;;
-    warning)
-        otbr_log_level_int="4"
-        ;;
-    error)
-        otbr_log_level_int="3"
-        ;;
-    critical)
-        otbr_log_level_int="2"
-        ;;
-    alert)
-        otbr_log_level_int="1"
-        ;;
-    emergency)
-        otbr_log_level_int="0"
-        ;;
-    *)
-        bashio::exit.nok "Unknown otbr_log_level: ${otbr_log_level}"
-        ;;
-esac
+otbr_log_level_int="$(otbr_log_level_to_int)" \
+    || bashio::exit.nok "Unknown otbr_log_level: $(bashio::config otbr_log_level)"
 
 # shellcheck disable=SC2015
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."

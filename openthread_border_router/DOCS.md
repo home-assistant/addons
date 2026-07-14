@@ -2,7 +2,7 @@
 
 ## Installation
 
-Follow these steps to get the app (formerly knowon as add-on) installed on your system:
+Follow these steps to get the app (formerly known as add-on) installed on your system:
 
 1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
 2. Select the top right menu and **Repository**.

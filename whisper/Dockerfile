@@ -10,6 +10,7 @@ RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
+        libgomp1 \
         netcat-traditional \
         python3 \
         python3-dev \
@@ -23,10 +24,12 @@ RUN \
         "wyoming-faster-whisper[sherpa] @ https://github.com/rhasspy/wyoming-faster-whisper/archive/refs/tags/v${WYOMING_WHISPER_VERSION}.tar.gz" \
         'transformers==4.52.4' \
         'onnx-asr[cpu,hub]==0.11.0' \
+        'funasr>=1.1.0,<2' \
     \
     && pip3 install --no-cache-dir \
         --index-url 'https://download.pytorch.org/whl/cpu' \
-        'torch==2.6.0' \
+        'torch==2.7.1' \
+        'torchaudio==2.7.1' \
     \
     && apt-get purge -y --auto-remove \
         build-essential \

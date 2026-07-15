@@ -27,10 +27,11 @@ configuration:
     name: Default Fabric Label
     description: >-
       Pin the fabric label (shown on Matter devices for this controller, max
-      32 characters) to this value. Use this if you use the Matter Server from
-      multiple Home Assistant instances, which otherwise each keep pushing
-      their own instance name as the label. When set, changing the label via
-      the WebSocket API is blocked.
+      32 characters) to this value. By default the Home Assistant home name is
+      used. This is useful if the Matter Server is used from multiple Home
+      Assistant instances, which otherwise each keep pushing their own home
+      name as the label. When set, changing the label via the WebSocket API is
+      blocked.
   bluetooth_adapter_id:
     name: Bluetooth Adapter ID (deprecated)
     description: >-

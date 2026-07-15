@@ -34,7 +34,7 @@ schema:
   beta: bool?
   enable_test_net_dcl: bool?
   time_sync: list(auto|on|off)
-  default_fabric_label: str(0,32)?
+  default_fabric_label: match(^.{1,32}$)?
   ble_proxy: bool?
   bluetooth_adapter_id: int?
   matter_server_args:

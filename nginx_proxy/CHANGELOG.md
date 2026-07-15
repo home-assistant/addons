@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.0
+
+- Fix HTTP/3 requests with Home Assistant 2026.7.0 and newer
+
 ## 4.3.0
 
 - Update base image to Alpine 3.24 (base image tag 3.24-2026.06.1) with nginx 1.30.x

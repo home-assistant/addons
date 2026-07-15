@@ -94,6 +94,7 @@ If specified, configures Nginx to use HTTP/3 with QUIC/UDP on this UDP port in a
 ## Known issues and limitations
 
 - By default, port 80 is disabled in the app configuration in case the port is needed for other components or apps like `emulated_hue`.
+- With HTTP/3 (QUIC), Nginx cannot forward the port of the address used by the client to Home Assistant (the `Host` and `X-Forwarded-Host` headers contain the hostname without port). If Home Assistant is reachable on a non-default port (anything other than 443), this breaks features which validate the request host and port against the configured external URL, such as the OAuth2 discovery endpoints used by MCP clients. Regular browser and app logins are not affected. To avoid this, use the default port 443 or disable HTTP/3.
 
 ## Troubleshooting
 

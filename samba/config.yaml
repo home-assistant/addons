@@ -23,7 +23,6 @@ options:
   username: homeassistant
   password: null
   workgroup: WORKGROUP
-  local_master: true
   enabled_shares:
     - addons
     - addon_configs
@@ -34,6 +33,8 @@ options:
     - ssl
   compatibility_mode: false
   apple_compatibility_mode: true
+  netbios: true
+  local_master: true
   server_signing: "default"
   veto_files:
     - ._*
@@ -52,11 +53,12 @@ schema:
   username: str
   password: password
   workgroup: str
-  local_master: bool
   enabled_shares:
     - "list(addons|addon_configs|backup|config|media|share|ssl)"
   compatibility_mode: bool
   apple_compatibility_mode: bool
+  netbios: bool
+  local_master: bool
   server_signing: list(default|auto|mandatory|disabled)
   veto_files:
     - str

@@ -11,9 +11,6 @@ configuration:
   workgroup:
     name: Workgroup
     description: Change WORKGROUP to reflect your network needs.
-  local_master:
-    name: Local master
-    description: Enable to try and become a local master browser on a subnet.
   enabled_shares:
     name: >-
       Enabled Shares - allowed values are:
@@ -33,6 +30,17 @@ configuration:
       Enable Samba configurations to improve interoperability with Apple
       devices. May cause issues with file systems that do not support xattr
       such as exFAT.
+  netbios:
+    name: Enable NetBIOS over IP
+    description: >-
+      Enable NetBIOS over IP for legacy SMB clients (Windows 95/98/ME, Windows
+      NT, Windows 2000, Windows XP and LanManager clients). Disable to improve
+      security and performance if you do not have legacy SMB clients.
+  local_master:
+    name: Local master
+    description: >-
+      When NetBIOS is enabled, try and become a local master browser on a
+      subnet.
   server_signing:
     name: Server signing
     description: >-

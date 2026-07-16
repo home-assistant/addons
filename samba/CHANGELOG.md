@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.9.0
+
+- Rename the `addons` and `addon_configs` shares to `local_apps` and `app_configs` to match Home Assistant's app terminology. Existing `enabled_shares` configurations are migrated automatically on start (extending the lower-case normalization added in 12.8.1).
+- Both the new (`local_apps`/`app_configs`) and legacy (`addons`/`addon_configs`) share names stay exposed, so existing SMB connections keep working while you move to the new names.
+- Migrate to the new `local_apps` and `all_app_configs` folder mappings introduced in Home Assistant Supervisor.
+- Update base image to 3.24-2026.06.1
+
 ## 12.8.1
 
 - Normalize stored `enabled_shares` values to lower case at startup. Values

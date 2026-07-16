@@ -22,13 +22,19 @@ This app exposes the following directories over smb (samba):
 
 Directory | Description
 -- | --
-`addons` | This is for your local apps.
-`addon_configs` | This is for the configuration files of your apps.
+`local_apps` | This is for your local apps.
+`app_configs` | This is for the configuration files of your apps.
 `backup` | This is for your backups.
 `config` | This is for your Home Assistant configuration.
 `media` | This is for local media files.
 `share` | This is for your data that is shared between apps and Home Assistant.
 `ssl` | This is for your SSL certificates.
+
+The `local_apps` and `app_configs` shares were previously named `addons` and
+`addon_configs`. Existing configurations are migrated to the new names
+automatically. Both the new and legacy share names stay exposed and point to
+the same directories, so existing connections keep working while you move to
+the new names.
 
 ## Configuration
 
@@ -39,8 +45,8 @@ username: homeassistant
 password: YOUR_PASSWORD
 workgroup: WORKGROUP
 enabled_shares:
-  - addons
-  - addon_configs
+  - local_apps
+  - app_configs
   - backup
   - config
   - media

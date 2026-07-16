@@ -27,6 +27,10 @@ configuration:
       Controls the variability of speaking cadence (phoneme widths). The effect
       highly depends on the voice itself, but in general a value of 0 removes
       variability and values above 1 produce extreme stutters and pauses.
+  sentence_silence:
+    name: Sentence silence
+    description: >-
+      Adds the given number of seconds of silence after every sentence.
   update_voices:
     name: Update voices
     description: >-

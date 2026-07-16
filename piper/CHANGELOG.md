@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.3.1
+
+- Upgrade to `wyoming-piper` 2.3.1
+- Add `sentence_silence` option to add silence after every sentence
+- Add 3 new Ukrainian voices (`uk_UA-mykyta-high`, `uk_UA-oleksa-high`, `uk_UA-tetiana-high`)
+- Add 3 new Telugu voices (`te_IN-maya-medium`, `te_IN-padmavathi-medium`, `te_IN-venkatesh-medium`)
+- Add 2 new Greek voices (`el_GR-joy-medium`, `el_GR-rapunzelina-medium`)
+- Add 2 new Basque voices (`eu_ES-antton-medium`, `eu_ES-maider-medium`)
+- Add 1 new Bulgarian voice (`bg_BG-dimitar-medium`)
+- Add 1 new English (US) voice (`en_US-mike-medium`)
+- Add 1 new Spanish (Mexico) voice (`es_MX-ald-x_low`)
+- Add 1 new Hindi voice (`hi_IN-rohan-medium`)
+- Add 1 new Indonesian voice (`id_ID-news_tts-medium`)
+- Add 1 new Kurdish voice (`ku_TR-berfin_renas-medium`)
+- Add 1 new Dutch voice (`nl_NL-alex-medium`)
+- Add 1 new Norwegian voice (`no_NO-nvcc-medium`)
+- Add 1 new Polish voice (`pl_PL-bass-high`)
+- Add 1 new Albanian voice (`sq_AL-edon-medium`)
+- Add 1 new Swedish voice (`sv_SE-alma-medium`)
+- Add 1 new Urdu voice (`ur_PK-fasih-medium`)
+
 ## 2.2.2
 
 - Upgrade to `wyoming-piper` 2.2.2 (wheel fix)

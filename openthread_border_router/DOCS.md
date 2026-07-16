@@ -5,10 +5,8 @@
 Follow these steps to get the app (formerly known as add-on) installed on your system:
 
 1. In Home Assistant, go to **Settings** > **Apps** > **Install app**.
-2. Select the top right menu and **Repository**.
-3. Add "https://github.com/home-assistant/addons" to add the **Home Assistant App Repository for Development** repository.
-4. Find the **OpenThread Border Router** app and select it.
-5. Select the **Install** button.
+2. Find the **OpenThread Border Router** app and select it.
+3. Select the **Install** button.
 
 ## How to use
 

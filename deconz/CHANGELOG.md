@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.7.2
+
+- Bump deCONZ to 2.33.2 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.33.2)]
+
 ## 8.7.1
 
 - Avoid generating additional API keys upon HTTP/JSON errors

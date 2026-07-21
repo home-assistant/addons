@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.0
+
+- Allow setting the client max request body size from the UI (to be able to upload large files, such as a KNX project file through the proxy)
+
 ## 4.4.0
 
 - Fix HTTP/3 requests with Home Assistant 2026.7.0 and newer

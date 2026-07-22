@@ -4,6 +4,8 @@
 # ==============================================================================
 # Start Whisper service
 # ==============================================================================
+cd /usr/src || exit 1
+
 flags=()
 
 if [ "$(uname -m)" == "x86_64" ] && ! grep -qw 'avx' /proc/cpuinfo; then
@@ -47,7 +49,7 @@ if bashio::config.true 'debug_logging'; then
 fi
 
 # shellcheck disable=SC2068
-exec python3 -m wyoming_faster_whisper \
+exec .venv/bin/python3 -m wyoming_faster_whisper \
     --uri 'tcp://0.0.0.0:10300' \
     --zeroconf \
     --model "${model}" \

@@ -8,18 +8,19 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /usr/src
 ARG BUILD_ARCH
 ARG WYOMING_PIPER_VERSION
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         netcat-traditional \
         python3 \
         python3-pip \
+        python3-venv \
     \
-    && pip3 install --no-cache-dir -U \
+    && python3 -m venv .venv \
+    && .venv/bin/pip3 install --no-cache-dir -U \
         setuptools \
         wheel \
-    && pip3 install --no-cache-dir \
+    && .venv/bin/pip3 install --no-cache-dir \
         --extra-index-url https://www.piwheels.org/simple \
         --extra-index-url https://download.pytorch.org/whl/cpu \
         "wyoming-piper[zeroconf,zh] @ https://github.com/rhasspy/wyoming-piper/archive/refs/tags/v${WYOMING_PIPER_VERSION}.tar.gz" \

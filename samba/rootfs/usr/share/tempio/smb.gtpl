@@ -71,6 +71,7 @@
    browseable = yes
    writeable = yes
    path = /local_apps
+   preexec = /usr/bin/logger -s -t smbd -p local0.warning "%u connected to deprecated share %S from %m (%I), please switch to the local_apps share"
 
    valid users = {{ .username }}
    force user = root
@@ -97,6 +98,7 @@
    browseable = yes
    writeable = yes
    path = /app_configs
+   preexec = /usr/bin/logger -s -t smbd -p local0.warning "%u connected to deprecated share %S from %m (%I), please switch to the app_configs share"
 
    valid users = {{ .username }}
    force user = root

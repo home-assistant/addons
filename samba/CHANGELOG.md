@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.9.0
+
+- Add configuration option to disable WSDD. When disabled, the wsdd service is
+  not started and the host is no longer advertised for automatic discovery.
+  Shares remain reachable by hostname or IP address.
+
 ## 12.8.1
 
 - Normalize stored `enabled_shares` values to lower case at startup. Values

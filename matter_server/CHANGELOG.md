@@ -6,6 +6,7 @@
 - Update [Matter Server from 1.2.6 to 1.3.3](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Optimizations in the Dashboard for Camera, Time-Synchronization, ICD devices and Thread visualization
   - Optimization and fixes for commissioning and operation of the Matter devices
+- Change Matter server panel icon
 
 ## 9.1.0
 

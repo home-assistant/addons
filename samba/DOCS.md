@@ -50,7 +50,7 @@ compatibility_mode: false
 apple_compatibility_mode: true
 netbios: true
 local_master: true
-wsdd: true
+network_discovery: true
 server_signing: "default"
 veto_files:
   - ._*
@@ -122,7 +122,7 @@ When NetBIOS is enabled, try and become a local master browser on a subnet.
 
 Defaults to `true`.
 
-### Option: `wsdd`
+### Option: `network_discovery`
 
 Advertise the host on the network using Web Services Dynamic Discovery, so it
 appears automatically under Network in Windows File Explorer. Disable this if

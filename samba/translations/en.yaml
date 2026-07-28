@@ -41,6 +41,13 @@ configuration:
     description: >-
       When NetBIOS is enabled, try and become a local master browser on a
       subnet.
+  network_discovery:
+    name: Enable network discovery
+    description: >-
+      Advertise the host with Web Services Dynamic Discovery so it appears
+      automatically under Network in Windows File Explorer. Disable if you
+      connect by hostname or IP address and do not want the host to announce
+      itself on the network. Shares stay reachable either way.
   server_signing:
     name: Server signing
     description: >-

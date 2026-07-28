@@ -1,5 +1,13 @@
 # Changelog
 
+## 13.0.0
+
+- BREAKING: `enabled_shares` values must now be lower case. The schema
+  restricts values to the exact share names and the configuration UI offers
+  them as a multi-select. Configs saved on 12.8.1 or later were migrated
+  automatically; older configs with non-lower-case values fail validation
+  with a clear error and must be re-selected.
+
 ## 12.8.1
 
 - Normalize stored `enabled_shares` values to lower case at startup. Values

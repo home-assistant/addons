@@ -23,14 +23,31 @@ fi
 
 bashio::config.require "enabled_shares" "Samba is a tool for sharing folders. Starting it without sharing any folders defeats the purpose."
 
-# Migrate stored enabled_shares values to lower case. Values have always
-# been treated case-insensitively at runtime; persisting them lower case
-# prepares for a future release that restricts the schema to the exact
-# share names.
+# Migrate stored enabled_shares values: normalize to lower case and rename the
+# legacy `addons`/`addon_configs` share names to `local_apps`/`app_configs` to
+# match Home Assistant's app terminology. Values have always been treated
+# case-insensitively at runtime; persisting the canonical, renamed form keeps
+# the stored configuration current and prepares for a future release that can
+# drop the legacy names from the schema. The `addons` and `addon_configs`
+# shares stay exposed for backward compatibility (see smb.gtpl).
 stored_options=$(bashio::api.supervisor GET /addons/self/info false | jq '.options')
-if jq -e '(.enabled_shares // []) | any(. != ascii_downcase)' <<< "${stored_options}" > /dev/null; then
-    bashio::log.info "Migrating enabled_shares configuration values to lower case"
-    migration_payload=$(jq -c '{options: (.enabled_shares |= map(ascii_downcase))}' <<< "${stored_options}")
+if jq -e '(.enabled_shares // []) | any(
+        ascii_downcase as $s
+        | (. != $s) or ($s == "addons") or ($s == "addon_configs")
+    )' <<< "${stored_options}" > /dev/null; then
+    bashio::log.info "Migrating enabled_shares configuration values"
+    migration_payload=$(jq -c '
+        def migrate:
+            (. // [])
+            | map(ascii_downcase)
+            | map(
+                if . == "addons" then "local_apps"
+                elif . == "addon_configs" then "app_configs"
+                else . end
+              )
+            | reduce .[] as $s ([]; if index($s) then . else . + [$s] end);
+        {options: (.enabled_shares |= migrate)}
+    ' <<< "${stored_options}")
     if ! bashio::api.supervisor POST /addons/self/options "${migration_payload}"; then
         bashio::log.warning "Could not migrate enabled_shares values; will retry on next start"
     fi

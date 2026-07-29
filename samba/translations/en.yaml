@@ -30,9 +30,6 @@ configuration:
       Enable Samba configurations to improve interoperability with Apple
       devices. May cause issues with file systems that do not support xattr
       such as exFAT.
-  mdns:
-    name: Enable DNS-SD/mDNS
-    description: Enable service discovery over mDNS.
   netbios:
     name: Enable NetBIOS over IP
     description: >-
@@ -44,6 +41,13 @@ configuration:
     description: >-
       When NetBIOS is enabled, try and become a local master browser on a
       subnet.
+  network_discovery:
+    name: Enable network discovery
+    description: >-
+      Advertise the host with Web Services Dynamic Discovery so it appears
+      automatically under Network in Windows File Explorer. Disable if you
+      connect by hostname or IP address and do not want the host to announce
+      itself on the network. Shares stay reachable either way.
   server_signing:
     name: Server signing
     description: >-

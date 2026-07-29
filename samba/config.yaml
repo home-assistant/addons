@@ -34,9 +34,9 @@ options:
     - ssl
   compatibility_mode: false
   apple_compatibility_mode: true
-  mdns: true
   netbios: true
   local_master: true
+  network_discovery: true
   server_signing: "default"
   veto_files:
     - ._*
@@ -59,9 +59,9 @@ schema:
     - "match(^(?i:(addons|addon_configs|backup|config|media|share|ssl))$)"
   compatibility_mode: bool
   apple_compatibility_mode: bool
-  mdns: bool
   netbios: bool
   local_master: bool
+  network_discovery: bool
   server_signing: list(default|auto|mandatory|disabled)
   veto_files:
     - str

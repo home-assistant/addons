@@ -48,9 +48,9 @@ enabled_shares:
   - ssl
 compatibility_mode: false
 apple_compatibility_mode: true
-mdns: true
 netbios: true
 local_master: true
+network_discovery: true
 server_signing: "default"
 veto_files:
   - ._*
@@ -109,12 +109,6 @@ This can cause issues with file systems that do not support xattr such as exFAT.
 
 Defaults to `true`.
 
-### Option: `mdns`
-
-Enable service discovery over mDNS.
-
-Defaults to `true`.
-
 ### Option: `netbios`
 
 NetBIOS is a legacy network protocol for accessing SMB/CIFS shares. Enable for legacy clients older than Windows Vista (Windows 95/98/ME, Windows NT,
@@ -125,6 +119,17 @@ Defaults to `true`.
 ### Option: `local_master`
 
 When NetBIOS is enabled, try and become a local master browser on a subnet.
+
+Defaults to `true`.
+
+### Option: `network_discovery`
+
+Advertise the host on the network using Web Services Dynamic Discovery, so it
+appears automatically under Network in Windows File Explorer. Disable this if
+you connect to the shares by hostname or IP address and do not want the host
+to announce itself on the network.
+
+Disabling this has no effect on share availability; only on discovery.
 
 Defaults to `true`.
 

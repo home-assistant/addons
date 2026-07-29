@@ -2,7 +2,9 @@
 
 ## 12.9.0
 
-- Add service discovery over mDNS with a configuration option to disable.
+- Add configuration option to disable WSDD. When disabled, the wsdd service is
+  not started and the host is no longer advertised for automatic discovery.
+  Shares remain reachable by hostname or IP address.
 
 ## 12.8.1
 

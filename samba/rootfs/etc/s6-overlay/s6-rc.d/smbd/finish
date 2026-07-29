@@ -14,7 +14,7 @@ bashio::log.info \
   "Service ${service} exited with code ${exit_code_service}" \
   "(by signal ${exit_code_signal})"
 
-if bashio::config.true 'mdns'; then
+if bashio::config.true 'network_discovery'; then
 bashio::log.info "Unregistering smb service in mDNS"
 app_hostname=$(hostname)
 gdbus call --system \

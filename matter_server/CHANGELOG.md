@@ -1,8 +1,15 @@
 # Changelog
 
-## 9.1.0
+## 9.1.1
 
 - **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
+- Update [Matter Server from 1.2.6 to 1.3.3](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
+  - Optimizations in the Dashboard for Camera, Time-Synchronization, ICD devices and Thread visualization
+  - Optimization and fixes for commissioning and operation of the Matter devices
+- Change Matter server panel icon
+
+## 9.1.0
+
 - Update [Matter Server from 1.1.7 to 1.2.6](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Supports Matter 1.6.0
   - Synchronize Time to devices that support this

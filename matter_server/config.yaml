@@ -1,5 +1,5 @@
 ---
-version: 9.1.0
+version: 9.1.1
 breaking_versions: [9.0.0]
 slug: matter_server
 name: Matter Server
@@ -20,9 +20,10 @@ host_dbus: true
 image: homeassistant/{arch}-addon-matter-server
 ingress: true
 ingress_port: 5580
+panel_icon: mdi:matter
 init: false
 map:
-  - type: addon_config
+  - type: app_config
     read_only: false
 options:
   log_level: info

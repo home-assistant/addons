@@ -19,7 +19,7 @@ ingress_stream: true
 panel_icon: mdi:z-wave
 panel_title: Z-Wave
 map:
-  - addon_config:rw
+  - app_config:rw
 options:
   log_level: info
   log_to_file: false

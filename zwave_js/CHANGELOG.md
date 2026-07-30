@@ -1,5 +1,49 @@
 # Changelog
 
+## 1.6.0
+
+This release extends the credential management functionality with a dedicated UI with support for more credential types, credential learning, and admin code support.
+
+### Z-Wave JS 15.25.0...15.26.0
+
+#### Features
+
+- Ongoing interviews are now paused during inclusion, security bootstrapping, and exclusion, greatly improving reliability when adding multiple devices at once
+
+#### Bugfixes
+
+- Added a workaround for some locks that send an incorrect report immediately after starting credential learning
+- Increased timeouts for bulk-deleting users and credentials
+- Fixed several issues that could lead to stale credentials being cached
+
+#### Config file changes
+
+- Add UltraPro 800 Series On/Off Switch
+- Add UltraPro 800 Series dimmer
+- Add GR-105N device configuration
+- Add Nexa ZPR-111 parameters
+- Corrected and cleaned up all Fibaro device files
+- Fix broken link to Honeywell T6 Pro manual
+
+### Z-Wave JS UI 11.21.0...11.22.0
+
+#### Features
+
+- The statistics opt-in popup is no longer shown - this setting is fully managed in Home Assistant now
+
+#### Bugfixes
+
+- Improved security of the API
+- Refresh broadcast virtual nodes after node removal to avoid querying removed nodes
+- Separated virtual and physical devices in the nodes table
+- Show group ID instead of the redundant endpoint in the association group dropdown
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.0)
+- [Z-Wave JS UI 11.21.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.21.1)
+- [Z-Wave JS 15.26.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.26.0)
+
 ## 1.5.0
 
 ### Z-Wave JS 15.24.2...15.25.0

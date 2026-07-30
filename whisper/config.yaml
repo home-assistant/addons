@@ -13,7 +13,7 @@ discovery:
 backup_exclude:
   - "models*"
 map:
-  - addon_config:rw
+  - app_config:rw
 options:
   model: auto
   language: en

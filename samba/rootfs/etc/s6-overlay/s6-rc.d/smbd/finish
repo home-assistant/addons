@@ -25,7 +25,10 @@ gdbus call --system \
 fi
 
 if [[ "${exit_code_service}" -eq 256 ]]; then
-  if [[ "${exit_code_container}" -eq 0 ]]; then
+  # SIGTERM (15) is how s6-overlay brings the service down during a normal
+  # container shutdown; halt the supervision tree but keep the container exit
+  # code at 0. Record any other (unexpected) signal as the failure code.
+  if [[ "${exit_code_signal}" -ne 15 && "${exit_code_container}" -eq 0 ]]; then
     echo $((128 + exit_code_signal)) > /run/s6-linux-init-container-results/exitcode
   fi
   [[ "${exit_code_signal}" -eq 15 ]] && exec /run/s6/basedir/bin/halt

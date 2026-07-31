@@ -27,6 +27,7 @@ RUN \
     \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PATH="/usr/src/.venv/bin:$PATH"
 WORKDIR /
 COPY rootfs /
 

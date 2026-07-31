@@ -25,7 +25,7 @@ for old_key in 'max_piper_procs' 'streaming'; do
 done
 
 # shellcheck disable=SC2068
-exec .venv/bin/python3 -m wyoming_piper \
+exec python3 -m wyoming_piper \
     --uri 'tcp://0.0.0.0:10200' \
     --zeroconf \
     --length-scale "$(bashio::config 'length_scale')" \

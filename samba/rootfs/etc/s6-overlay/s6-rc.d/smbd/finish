@@ -17,6 +17,7 @@ bashio::log.info \
 if bashio::config.true 'network_discovery'; then
 bashio::log.info "Unregistering smb service in mDNS"
 app_hostname=$(hostname)
+# Fix object path encoding by replacing "-" with "_2d"
 gdbus call --system \
   --dest=org.freedesktop.resolve1 \
   --object-path=/org/freedesktop/resolve1 \

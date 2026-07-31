@@ -7,7 +7,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Install openWakeWord
 WORKDIR /usr/src
 ARG WYOMING_OPENWAKEWORD_VERSION
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 RUN \
     apt-get update \
@@ -28,6 +27,7 @@ RUN \
     \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PATH="/usr/src/.venv/bin:$PATH"
 WORKDIR /
 COPY rootfs /
 

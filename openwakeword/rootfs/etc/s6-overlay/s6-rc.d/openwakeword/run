@@ -13,7 +13,7 @@ if bashio::config.true 'debug_logging'; then
 fi
 
 # shellcheck disable=SC2068
-exec .venv/bin/python3 -m wyoming_openwakeword \
+exec python3 -m wyoming_openwakeword \
     --uri 'tcp://0.0.0.0:10400' \
     --zeroconf \
     --custom-model-dir /share/openwakeword \

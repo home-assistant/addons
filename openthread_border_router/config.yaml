@@ -1,6 +1,6 @@
 ---
-version: 3.0.2
-breaking_versions: [3.0.0]
+version: 4.0.0
+breaking_versions: [4.0.0]
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router app
@@ -33,6 +33,8 @@ options:
   firewall: true
   nat64: false
   beta: false
+  omr_prefix: null
+  leader_weight: null
 ports:
   8080/tcp: null
   8081/tcp: null
@@ -49,4 +51,6 @@ schema:
   firewall: bool
   nat64: bool
   beta: bool?
+  omr_prefix: str?
+  leader_weight: int?
 startup: services

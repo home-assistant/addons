@@ -31,7 +31,7 @@ RUN \
         build-essential \
         ninja-build \
         cmake \
-        iptables \
+        nftables \
         libjsoncpp-dev \
         libnetfilter-queue-dev \
         nodejs \
@@ -118,7 +118,7 @@ RUN \
         build-essential \
         ninja-build \
         cmake \
-        iptables \
+        nftables \
         libjsoncpp-dev \
         libnetfilter-queue-dev \
         nodejs \
@@ -191,7 +191,7 @@ RUN \
        iproute2 \
        iputils-ping \
        ipset \
-       iptables \
+       nftables \
        libreadline8 \
        libncurses6 \
        libprotobuf-lite32 \

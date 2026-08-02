@@ -64,9 +64,6 @@ otbr_log_level_int="$(otbr_log_level_to_int)" \
 # shellcheck disable=SC2015
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
 
-# We compile the OTBR with firewall support, so otbr-agent tries to update the
-# ipsets. Therefor, create ipsets always to avoid errors from otbr-agent. Just
-# the ipsets  won't have an effect in practice when the firewall is disabled.
 ipset create -exist otbr-ingress-deny-src hash:net family inet6
 ipset create -exist otbr-ingress-deny-src-swap hash:net family inet6
 ipset create -exist otbr-ingress-allow-dst hash:net family inet6
@@ -94,22 +91,6 @@ else
     ip6tables -A "${otbr_forward_egress_chain}" -j ACCEPT
 fi
 
-if bashio::config.true 'nat64'; then
-    # Mark Thread traffic in mangle
-    iptables -t mangle -A PREROUTING -i "${thread_if}" -j MARK --set-mark "${otbr_fw_mark}"
-
-    # MASQUERADE marked traffic
-    iptables -t nat -A POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUERADE
-
-    # NAT64 forward chain — jump unconditionally, filter inside
-    iptables -N "${otbr_forward_nat64_chain}"
-    iptables -I FORWARD 1 -j "${otbr_forward_nat64_chain}"
-
-    # Forward marked traffic
-    iptables -A "${otbr_forward_nat64_chain}" -m mark --mark "${otbr_fw_mark}" -o "${backbone_if}" -j ACCEPT
-    # Use conntrack to identify return traffic
-    iptables -A "${otbr_forward_nat64_chain}" -m conntrack --ctstate ESTABLISHED,RELATED -i "${backbone_if}" -o "${thread_if}" -j ACCEPT
-fi
 
 otbr_rest_listen="::"
 otbr_rest_listen_port="$(bashio::addon.port 8081)"

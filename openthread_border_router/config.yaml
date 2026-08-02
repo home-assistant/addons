@@ -31,7 +31,6 @@ options:
   flow_control: true
   otbr_log_level: notice
   firewall: true
-  nat64: false
   beta: false
   omr_prefix: null
   leader_weight: null
@@ -49,7 +48,6 @@ schema:
   network_device: str?
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
-  nat64: bool
   beta: bool?
   omr_prefix: str?
   leader_weight: int?

@@ -35,6 +35,9 @@ timestamped() {
     "$@" 2>&1 | while IFS= read -r line; do
         printf '[%s] %s\n' "$(date +"${LOG_TIMESTAMP:-%Y-%m-%d %H:%M:%S}")" "${line}"
     done
+    # The while loop always succeeds, so report the wrapped command's status instead.
+    local status="${PIPESTATUS[0]}"
+    return "${status}"
 }
 
 # Legacy providers not supported by lego/certbot-dns-multi

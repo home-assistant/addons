@@ -7,7 +7,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Install openWakeWord
 WORKDIR /usr/src
 ARG WYOMING_OPENWAKEWORD_VERSION
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 RUN \
     apt-get update \
@@ -15,17 +14,20 @@ RUN \
         netcat-traditional \
         python3 \
         python3-pip \
+        python3-venv \
     \
-    && pip3 install --no-cache-dir -U \
+    && python3 -m venv .venv \
+    && .venv/bin/pip3 install --no-cache-dir -U \
         setuptools \
         wheel \
-    && pip3 install --no-cache-dir \
+    && .venv/bin/pip3 install --no-cache-dir \
         --extra-index-url https://www.piwheels.org/simple \
         "wyoming[zeroconf]>=1.8,<2" \
         "wyoming-openwakeword @ https://github.com/rhasspy/wyoming-openwakeword/archive/refs/tags/v${WYOMING_OPENWAKEWORD_VERSION}.tar.gz" \
     \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PATH="/usr/src/.venv/bin:$PATH"
 WORKDIR /
 COPY rootfs /
 

@@ -4,8 +4,6 @@
 # ==============================================================================
 # Start Piper service
 # ==============================================================================
-cd /usr/src || exit 1
-
 flags=()
 if bashio::config.true 'update_voices'; then
     flags+=('--update-voices')

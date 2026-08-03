@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2
+
+- Migrate base image from bookworm to trixie
+
 ## 2.3.1
 
 - Upgrade to `wyoming-piper` 2.3.1

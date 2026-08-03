@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.1
+
+- Fix nginx failing to start when the client max body size option is set (`incompatible types for comparison` in the config template)
+
 ## 4.5.0
 
 - Allow setting the client max request body size from the UI (to be able to upload large files, such as a KNX project file through the proxy)

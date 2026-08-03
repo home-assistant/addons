@@ -2,7 +2,7 @@
 
 ## 4.5.1
 
-- Fix nginx failing to start when the client max body size option is set (`incompatible types for comparison` in the config template)
+- Fix nginx failing to start when the client max body size option is present (`incompatible types for comparison` in the config template)
 
 ## 4.5.0
 

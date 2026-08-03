@@ -83,4 +83,20 @@
  */
 #define OPENTHREAD_CONFIG_MULTICAST_DNS_AUTO_ENABLE_ON_INFRA_IF 0
 
+/**
+ * @def OPENTHREAD_POSIX_CONFIG_DISABLE_BROAD_ULA_ROUTE
+ *
+ * Define as 1 to prevent the POSIX netif layer from ever installing the
+ * broad Unique Local catch-all route fc00::/7 into the Linux kernel.
+ *
+ * This route is extremely damaging on multi-VLAN / multi-BR networks because
+ * it steals the entire ULA space toward the Thread interface.
+ *
+ * Specific OMR prefixes, mesh-local, and any other external routes continue
+ * to be installed normally.
+ *
+ * Default: 1 (disabled) for this fork.
+ */
+#define OPENTHREAD_POSIX_CONFIG_DISABLE_BROAD_ULA_ROUTE 1
+
 #endif /* OPENTHREAD_CORE_HA_CONFIG_POSIX_H_ */

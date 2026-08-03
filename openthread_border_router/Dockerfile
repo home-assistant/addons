@@ -100,7 +100,6 @@ ENV WEB_GUI=1
 ENV REST_API=1
 ENV DOCKER=1
 
-
 COPY openthread-core-ha-config-posix.h /usr/src/
 COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
 COPY 0002-nat64-handle-ipv4-options.patch /usr/src/
@@ -132,7 +131,9 @@ RUN \
     && git checkout ${OTBR_VERSION} \
     && git submodule update --init --recursive --depth 1 \
     && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0002-nat64-handle-ipv4-options.patch
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0002-nat64-handle-ipv4-options.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0003-disable-fc00-route.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0004-routing-manager-corrections.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \

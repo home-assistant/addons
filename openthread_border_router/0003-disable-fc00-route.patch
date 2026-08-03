@@ -1,0 +1,42 @@
+diff --git a/src/posix/platform/netif.cpp b/src/posix/platform/netif.cpp
+index 8ac42caee..ed5262c6a 100644
+--- a/src/posix/platform/netif.cpp
++++ b/src/posix/platform/netif.cpp
+@@ -222,6 +222,17 @@ static uint8_t            sAddedExternalRoutesNum = 0;
+ static otIp6Prefix        sAddedExternalRoutes[kMaxExternalRoutesNum];
+ #endif
+ 
++static bool IsBroadUlaPrefix(const otIp6Prefix &aPrefix)
++{
++    // Exact match for RoutingManager::RoutePublisher::kUlaPrefix
++    static const otIp6Prefix kBroadUla = {
++        {{{0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++           0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}}},
++        7,
++    };
++    return otIp6ArePrefixesEqual(&aPrefix, &kBroadUla);
++}
++
+ #if defined(RTM_NEWMADDR) || defined(__NetBSD__)
+ // on some BSDs (mac OS, FreeBSD), we get RTM_NEWMADDR/RTM_DELMADDR messages, so we don't need to monitor using MLD
+ // on NetBSD, MLD monitoring simply doesn't work
+@@ -937,10 +948,15 @@ static void UpdateExternalRoutes(otInstance *aInstance)
+ 
+     while (otNetDataGetNextRoute(aInstance, &iterator, &config) == OT_ERROR_NONE)
+     {
+-        if (config.mRloc16 == otThreadGetRloc16(aInstance) || HasAddedExternalRoute(config.mPrefix))
+-        {
+-            continue;
+-        }
++		if (config.mRloc16 == otThreadGetRloc16(aInstance) ||
++			HasAddedExternalRoute(config.mPrefix)
++		#if OPENTHREAD_POSIX_CONFIG_DISABLE_BROAD_ULA_ROUTE
++			|| IsBroadUlaPrefix(config.mPrefix)
++		#endif
++		   )
++		{
++			continue;
++		}
+         VerifyOrExit(sAddedExternalRoutesNum < kMaxExternalRoutesNum,
+                      LogWarn("No buffer to add more external routes in kernel"));
+ 

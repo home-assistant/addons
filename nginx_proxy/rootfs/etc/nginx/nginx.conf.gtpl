@@ -114,6 +114,14 @@ http {
 
         proxy_buffering off;
 
+        {{- if ne .options.client_max_body_size_megabytes nil }}
+        {{- if eq .options.client_max_body_size_megabytes 0 }}
+        client_max_body_size 0;
+        {{- else }}
+        client_max_body_size {{ .options.client_max_body_size_megabytes }}m;
+        {{- end }}
+        {{- end }}
+
         {{- if .options.customize.active }}
         include /share/{{ .options.customize.default }};
         {{- end }}

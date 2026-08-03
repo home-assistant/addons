@@ -1,5 +1,5 @@
 ---
-version: 1.5.0
+version: 1.6.0
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
@@ -19,7 +19,7 @@ ingress_stream: true
 panel_icon: mdi:z-wave
 panel_title: Z-Wave
 map:
-  - addon_config:rw
+  - app_config:rw
 options:
   log_level: info
   log_to_file: false

@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0
+
+- Bump to OTBR POSIX version ec16e396 (tag v2026.07.0)
+- Bump beta to OTBR POSIX version 337711e7 (tag v2026.08.0)
+
 ## 3.0.2
 
 - Honor the configured `otbr_log_level` for the OTBR web interface (previously always logged at info level)

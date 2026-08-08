@@ -103,6 +103,8 @@ ENV DOCKER=1
 COPY openthread-core-ha-config-posix.h /usr/src/
 COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
 COPY 0002-nat64-handle-ipv4-options.patch /usr/src/
+COPY 0003-disable-fc00-route.patch /usr/src/
+COPY 0004-routing-manager-corrections.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \

@@ -1,0 +1,132 @@
+#!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
+
+set +e
+
+# -----------------------------------------------------------------
+# Configuration
+# -----------------------------------------------------------------
+
+# Enable / disable
+if bashio::config.has_value 'route_guard'; then
+    route_guard_enable="$(bashio::config 'route_guard')"
+else
+    route_guard_enable="true"          # default: enabled
+fi
+
+# Interval
+if bashio::config.has_value 'route_guard_interval'; then
+    route_guard_interval="$(bashio::config 'route_guard_interval')"
+else
+    route_guard_interval="5"
+fi
+
+# Backbone interface
+if bashio::config.has_value 'backbone_interface'; then
+    backbone_if="$(bashio::config 'backbone_interface')"
+else
+    backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' \
+        'first(.interfaces[] | select(.primary == true)) .interface // empty')"
+    if [[ -z "${backbone_if}" ]]; then
+        bashio::exit.nok "No primary network interface found. Please configure a backbone network interface in the add-on configuration."
+    fi
+fi
+
+# -----------------------------------------------------------------
+# Early exit if disabled
+# -----------------------------------------------------------------
+if [[ "${route_guard_enable}" != "true" && \
+      "${route_guard_enable}" != "True" && \
+      "${route_guard_enable}" != "1" ]]; then
+    bashio::log.info "Route guard disabled – idling"
+    exec sleep infinity
+fi
+
+bashio::log.info "Route guard configuration:"
+bashio::log.info "  enabled   = ${route_guard_enable}"
+bashio::log.info "  interval  = ${route_guard_interval}s"
+bashio::log.info "  backbone  = ${backbone_if}"
+
+# -----------------------------------------------------------------
+# Helpers
+# -----------------------------------------------------------------
+get_omr_prefix() {
+    ot-ctl br omrprefix 2>/dev/null | awk '/Local:/ {print $2; exit}' || true
+}
+
+get_omr_48() {
+    local omr
+    omr=$(get_omr_prefix)
+    if [[ -n "${omr}" ]]; then
+        echo "${omr}" | awk -F: '{printf "%s:%s:%s::/48\n", $1, $2, $3}'
+    fi
+}
+
+remove_bad_routes() {
+    local omr omr48
+    omr=$(get_omr_prefix)
+    omr48=$(get_omr_48)
+
+    [[ -z "${omr}" ]] && {
+        bashio::log.debug "No OMR prefix available yet"
+        return
+    }
+
+    # 1. RA-learned OMR /64
+    if ip -6 route show "${omr}" 2>/dev/null | grep -q "proto ra"; then
+        bashio::log.info "Removing RA route for ${omr}"
+        ip -6 route del "${omr}" proto ra 2>/dev/null || true
+    fi
+
+    # 2. OMR /64 bound to backbone
+    if ip -6 route show "${omr}" 2>/dev/null | grep -q "dev ${backbone_if}"; then
+        bashio::log.info "Removing backbone route for ${omr}"
+        ip -6 route del "${omr}" dev "${backbone_if}" 2>/dev/null || true
+    fi
+
+    # 3. Covering /48
+    if [[ -n "${omr48}" ]]; then
+        if ip -6 route show "${omr48}" 2>/dev/null | grep -q "dev ${backbone_if}"; then
+            bashio::log.info "Removing backbone route for ${omr48}"
+            ip -6 route del "${omr48}" dev "${backbone_if}" 2>/dev/null || true
+        fi
+        if ip -6 route show "${omr48}" 2>/dev/null | grep -q "proto ra"; then
+            bashio::log.info "Removing RA route for ${omr48}"
+            ip -6 route del "${omr48}" proto ra 2>/dev/null || true
+        fi
+    fi
+}
+
+# -----------------------------------------------------------------
+# Wait for otbr-agent
+# -----------------------------------------------------------------
+bashio::log.info "Route guard: waiting for otbr-agent..."
+sleep 8
+
+MAX_WAIT=90
+count=0
+while true; do
+    if ot-ctl state &>/dev/null; then
+        bashio::log.info "otbr-agent is ready"
+        break
+    fi
+    count=$((count + 1))
+    if [[ $count -ge $MAX_WAIT ]]; then
+        bashio::log.error "Timed out waiting for otbr-agent"
+        exec sleep infinity
+    fi
+    sleep 2
+done
+
+# -----------------------------------------------------------------
+# Main loop
+# -----------------------------------------------------------------
+bashio::log.info "Route guard started (interval ${route_guard_interval}s, backbone=${backbone_if})"
+
+while true; do
+    {
+        remove_bad_routes
+    } || bashio::log.warning "Route guard iteration failed – will retry"
+
+    sleep "${route_guard_interval}"
+done

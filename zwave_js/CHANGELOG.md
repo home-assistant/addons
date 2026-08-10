@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.1
+
+Fixes the add-on taking 30 seconds to stop and exiting with code 137
+
 ## 1.6.0
 
 This release extends the credential management functionality with a dedicated UI with support for more credential types, credential learning, and admin code support.

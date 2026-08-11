@@ -1,5 +1,7 @@
 # Changelog
 
+## 9.2.0
+
 - Update [Matter Server from 1.3.3 to 1.4.0](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Expose Network visualization data to enable external visualization of the networks
   - Multiple Optimizations and Enhancements in the Server Dashboard

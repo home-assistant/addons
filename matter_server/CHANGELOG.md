@@ -1,21 +1,21 @@
 # Changelog
 
-- Updates [Matter Server from 1.3.3 to 1.4.0](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
+- Update [Matter Server from 1.3.3 to 1.4.0](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Expose Network visualization data to enable external visualization of the networks
   - Multiple Optimizations and Enhancements in the Server Dashboard
-  - Adding support for custom cluster data from WAGO devices
+  - Add support for custom cluster data from WAGO devices
   - Multiple Optimizations and Fixes in the Matter protocol stack
 
 ## 9.1.1
 
-- Updates [Matter Server from 1.2.6 to 1.3.3](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
+- Update [Matter Server from 1.2.6 to 1.3.3](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Optimizations in the Dashboard for Camera, Time-Synchronization, ICD devices and Thread visualization
   - Optimizations and fixes for commissioning and operation of the Matter devices
 - Change Matter server panel icon
 
 ## 9.1.0
 
-- Updates [Matter Server from 1.1.7 to 1.2.6](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
+- Update [Matter Server from 1.1.7 to 1.2.6](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Supports Matter 1.6.0
   - Synchronize Time to devices that support this
   - Experimental Support for Battery Saving mode of ICD devices
@@ -25,15 +25,15 @@
 
 ## 9.0.4
 
-- Updates [Matter Server from 1.1.2 to 1.1.7](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#117-2026-07-01) to address reported issues and optimize RAM and CPU usage (a lot)
+- Update [Matter Server from 1.1.2 to 1.1.7](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#117-2026-07-01) to address reported issues and optimize RAM and CPU usage (a lot)
 
 ## 9.0.3
 
-- Updates [Matter Server from 1.1.1 to 1.1.2](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#112-2026-06-25) to address reported issues
+- Update [Matter Server from 1.1.1 to 1.1.2](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md#112-2026-06-25) to address reported issues
 
 ## 9.0.2
 
-- Updates Matter Server to 1.1.1 with increased Health check timings
+- Update Matter Server to 1.1.1 with increased Health check timings
 - Speed up Beta version installation
 
 ## 9.0.1

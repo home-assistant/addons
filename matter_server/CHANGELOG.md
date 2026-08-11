@@ -1,11 +1,18 @@
 # Changelog
 
+## 9.2.0
+
+- Update [Matter Server from 1.3.3 to 1.4.0](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
+  - Expose Network visualization data to enable external visualization of the networks
+  - Multiple Optimizations and Enhancements in the Server Dashboard
+  - Add support for custom cluster data from WAGO devices
+  - Multiple Optimizations and Fixes in the Matter protocol stack
+
 ## 9.1.1
 
-- **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**
 - Update [Matter Server from 1.2.6 to 1.3.3](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
   - Optimizations in the Dashboard for Camera, Time-Synchronization, ICD devices and Thread visualization
-  - Optimization and fixes for commissioning and operation of the Matter devices
+  - Optimizations and fixes for commissioning and operation of the Matter devices
 - Change Matter server panel icon
 
 ## 9.1.0

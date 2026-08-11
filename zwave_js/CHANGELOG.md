@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.7.0
+
+This release includes performance improvements for the startup phase of large networks
+
+### Z-Wave JS 15.26.0...15.27.0
+
+#### Features
+
+- Added support for opening PTI Zniffer trace captures
+
+#### Bugfixes
+
+- Fixed an issue where zero-valued enums could be restored incorrectly from the network cache
+- Continue the User Code CC interview when User Credential CC capabilities are unknown
+
+#### Config file changes
+
+- Add Heatit Z-TRM7 and standardize Heatit config parameters across devices
+- Add product ID `0x5600` for YRM276 with the ZW3 module (700 series)
+- Remove Multi Channel CC support for the Vero Duco CO2 sensor
+- Update the manual URL for Lamp-ZW2
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.2)
+- [Z-Wave JS UI 11.22.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.1)
+- [Z-Wave JS 15.27.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.0)
+- [Z-Wave JS Server 3.10.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.1)
+
 ## 1.6.1
 
 Fixes the add-on taking 30 seconds to stop and exiting with code 137

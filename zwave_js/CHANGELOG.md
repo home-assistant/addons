@@ -46,6 +46,10 @@ This release includes performance improvements for the startup phase of large ne
 - [Z-Wave JS 15.27.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.0)
 - [Z-Wave JS Server 3.10.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.1)
 
+## 1.6.1
+
+Fixes the add-on taking 30 seconds to stop and exiting with code 137
+
 ## 1.6.0
 
 This release extends the credential management functionality with a dedicated UI with support for more credential types, credential learning, and admin code support.

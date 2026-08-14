@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.7.1
+
+### Z-Wave JS 15.27.0...15.27.1
+
+#### Bugfixes
+
+- Fixes an issue with older Z-Wave.me controllers becoming unresponsive during startup
+
+#### Config file changes
+
+- Add a fingerprint for the Climax SDCO smoke and carbon monoxide detector
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.3](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.3)
+- [Z-Wave JS 15.27.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.1)
+
 ## 1.7.0
 
 This release includes performance improvements for the startup phase of large networks

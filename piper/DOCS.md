@@ -27,7 +27,8 @@ for more information.
 [Listen to voice samples](https://rhasspy.github.io/piper-samples/)
 
 Name of the Piper voice to use, such as `en_US-lessac-medium` (the default).
-Voice models are automatically downloaded from https://huggingface.co/rhasspy/piper-voices/tree/v1.0.0
+Voice models are automatically downloaded from <https://huggingface.co/rhasspy/piper-voices/tree/main>.
+To use the latest voices, you may need to use the `update_voices` option.
 
 Voices are named according to the following scheme: `<language>_<REGION>-<name>-<quality>`
 The `<name>` portion comes from the dataset used to train the voice or the speaker's name if it was provided.

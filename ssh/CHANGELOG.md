@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.4.0
+
+- Update to Alpine 3.24
+- Update Home Assistant CLI to 5.3.1
+
 ## 10.3.0
 
 - Update Home Assistant CLI to 5.2.0

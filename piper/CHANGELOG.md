@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.3.3
+
+- Add 2 new Italian voices (`it_IT-serena-high`, `it_IT-serena-medium`)
+- Add 1 new Bengali voice (`bn_BD-google-medium`)
+- Add 1 new Czech voice (`cs_CZ-kasandra-medium`)
+- Add 1 new Hebrew voice (`he_IL-saspeech-medium`)
+- Add 1 new Armenian voice (`hy_AM-gor-medium`)
+- Add 1 new Japanese voice (`ja_JA-hi_fi_captain-medium`)
+- Add 1 new Korean voice (`ko_KR-kss-medium`)
+- Add 1 new Marathi voice (`mr_IN-google-medium`)
+- Add 1 new Urdu voice (`ur_PK-aegis_female-medium`)
+
 ## 2.3.2
 
 - Migrate base image from bookworm to trixie

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1
+
+- Bump beta to OTBR POSIX version d83ddc62 to test ePSKc / Thread 1.4 Credentials Sharing support ahead of the upstream `release-v2026.09.0` tag
+
 ## 3.1.0
 
 - Bump to OTBR POSIX version ec16e396 (tag v2026.07.0)

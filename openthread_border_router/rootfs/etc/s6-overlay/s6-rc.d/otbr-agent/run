@@ -69,6 +69,14 @@ ipset create -exist otbr-ingress-deny-src-swap  hash:net family inet6
 ipset create -exist otbr-ingress-allow-dst      hash:net family inet6
 ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
 
+# Pre-populate TREL port before firewall creation to avoid a race where TREL
+# traffic is silently dropped between firewall load and the configure script
+# populating the trel_ports set via sync_trel_port_to_firewall().
+initial_trel_port=""
+if command -v ot-ctl &>/dev/null; then
+    initial_trel_port=$(ot-ctl trel port 2>/dev/null | head -n1 | tr -d '[:space:]' || true)
+fi
+
 nft delete table ip6 otbr 2>/dev/null || true
 
 if ! nft -f - <<EOF
@@ -96,6 +104,7 @@ table ip6 otbr {
     set trel_ports {
         type inet_service
         comment "TREL UDP ports"
+        $(if [ -n "$initial_trel_port" ]; then echo "elements = { $initial_trel_port }"; fi)
     }
 
     set mcast-fwd-scope {
@@ -217,7 +226,11 @@ table ip6 otbr {
         ct state established,related counter accept
         icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } ip6 daddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
         icmpv6 type { echo-request, echo-reply } ip6 daddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
-        ip6 daddr @otbr-ingress-allow-dst meta l4proto { tcp, udp } ct state new counter accept
+        # TCP MSS clamping: Thread MTU is 1280 bytes; clamp MSS to 1220
+        # (1280 - 60 for IPv6+TCP headers) to prevent fragmentation when
+        # backbone hosts with larger MTU initiate TCP to Thread devices.
+        tcp flags syn tcp option maxseg size set 1220
+        ip6 daddr @otbr-ingress-allow-dst meta l4proto { tcp, udp } ct state new limit rate 1000/second burst 200 packets counter accept
         counter log prefix "OTBR_BB2THR_DROP " level warn drop comment "default deny backbone to Thread"
     }
 
@@ -251,7 +264,11 @@ table ip6 otbr {
         icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } ip6 saddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
         icmpv6 type { echo-request, echo-reply } ip6 saddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
         icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert } ip6 hoplimit 255 ip6 saddr @otbr-ingress-allow-dst limit rate 20/second burst 10 packets counter accept
-        ip6 saddr @otbr-ingress-allow-dst counter accept
+        # Rate-limited accept for OMR traffic from Thread to backbone.
+        # The Thread radio mesh (~250 kbps) is the natural bottleneck in this
+        # direction, but rate limiting prevents a flood of locally-generated
+        # traffic (e.g., from a compromised device) from saturating the backbone.
+        ip6 saddr @otbr-ingress-allow-dst limit rate 2000/second burst 400 packets counter accept
         counter log prefix "OTBR_THR2BB_DROP " level warn drop comment "default deny Thread to backbone"
     }
 }
@@ -355,6 +372,49 @@ else
     nft flush chain ip6 otbr from_backbone_to_thread
     nft add rule ip6 otbr from_backbone_to_thread accept
     bashio::log.info "OTBR firewall disabled — from-backbone-to-Thread set to ACCEPT"
+fi
+
+# ------------------------------------------------------------------
+# NAT64 support: nftables NAT44 masquerade for Thread-originated IPv4
+# traffic (after OTBR's IPv6→IPv4 translation). The mark ${otbr_fw_mark}
+# is set on all packets entering from the Thread interface so that
+# postrouting masquerade can identify which traffic to NAT.
+# ------------------------------------------------------------------
+if bashio::config.true 'nat64'; then
+    bashio::log.info "Enabling NAT64 nftables rules..."
+
+    # Clean up any previous instance (idempotent restart)
+    nft delete table ip otbr_nat64 2>/dev/null || true
+
+    if ! nft -f - <<EOF
+table ip otbr_nat64 {
+    chain mark {
+        type filter hook prerouting priority -150; policy accept;
+        iifname "${thread_if}" meta mark set ${otbr_fw_mark}
+    }
+
+    chain masquerade {
+        type nat hook postrouting priority srcnat; policy accept;
+        meta mark ${otbr_fw_mark} masquerade
+    }
+
+    chain forward {
+        type filter hook forward priority filter; policy accept;
+        # Thread-originated IPv4 to backbone (after NAT64 translation)
+        iifname "${thread_if}" oifname "${backbone_if}" meta mark ${otbr_fw_mark} accept
+        # Return traffic: backbone to Thread
+        iifname "${backbone_if}" oifname "${thread_if}" ct state established,related accept
+    }
+}
+EOF
+    then
+        bashio::log.error "Failed to apply NAT64 nftables rules"
+    else
+        bashio::log.info "NAT64 nftables rules applied successfully"
+    fi
+else
+    # Clean up NAT64 rules when disabled (ensures no stale rules on toggle)
+    nft delete table ip otbr_nat64 2>/dev/null || true
 fi
 
 # REST listen logic (unchanged)

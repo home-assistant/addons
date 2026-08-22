@@ -16,6 +16,10 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
+COPY 0003-suggested-ula-prefix-agent-beta.patch /usr/src/
+COPY 0004-suggested-ula-prefix-core-beta.patch /usr/src/
+COPY 0005-disable-fc00-route.patch /usr/src/
+COPY 0006-routing-manager-corrections.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -43,7 +47,13 @@ RUN \
     && cd /usr/src/ot-br-posix \
     && git fetch origin ${OTBR_BETA_VERSION} \
     && git checkout ${OTBR_BETA_VERSION} \
-    && git submodule update --init --recursive --depth 1
+    && git submodule update --init --recursive --depth 1 \
+    && echo "--- Applying patches to beta build ---" \
+    && echo "0001 and 0002 are already upstream in this beta commit -- skipping" \
+    && patch -p1 < /usr/src/0003-suggested-ula-prefix-agent-beta.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0004-suggested-ula-prefix-core-beta.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0005-disable-fc00-route.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0006-routing-manager-corrections.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
@@ -103,8 +113,10 @@ ENV DOCKER=1
 COPY openthread-core-ha-config-posix.h /usr/src/
 COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
 COPY 0002-nat64-handle-ipv4-options.patch /usr/src/
-COPY 0003-disable-fc00-route.patch /usr/src/
-COPY 0004-routing-manager-corrections.patch /usr/src/
+COPY 0003-suggested-ula-prefix-agent-stable.patch /usr/src/
+COPY 0004-suggested-ula-prefix-core-stable.patch /usr/src/
+COPY 0005-disable-fc00-route.patch /usr/src/
+COPY 0006-routing-manager-corrections.patch /usr/src/
 
 WORKDIR /usr/src
 RUN \
@@ -134,8 +146,10 @@ RUN \
     && git submodule update --init --recursive --depth 1 \
     && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch \
     && patch -p1 -d third_party/openthread/repo < /usr/src/0002-nat64-handle-ipv4-options.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0003-disable-fc00-route.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0004-routing-manager-corrections.patch
+    && patch -p1 < /usr/src/0003-suggested-ula-prefix-agent-stable.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0004-suggested-ula-prefix-core-stable.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0005-disable-fc00-route.patch \
+    && patch -p1 -d third_party/openthread/repo < /usr/src/0006-routing-manager-corrections.patch
 
 WORKDIR /usr/src/ot-br-posix
 RUN \
@@ -170,8 +184,10 @@ RUN \
         -DOT_CHANNEL_MONITOR=ON \
         -DOT_COAP=OFF \
         -DOT_COAPS=OFF \
-		-DOTBR_NO_AUTO_ATTACH=0 \
+        -DOTBR_NO_AUTO_ATTACH=0 \
         -DOT_THREAD_VERSION=1.4 \
+        -DOTBR_DHCP6_PD=ON \
+        -DOTBR_DHCP6_PD_CLIENT=openthread \
         -DOT_PROJECT_CONFIG="/usr/src/ot-br-posix/third_party/openthread/repo/openthread-core-ha-config-posix.h" \
         -DOT_RCP_RESTORATION_MAX_COUNT=2 \
     && ninja \

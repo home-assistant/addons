@@ -1,5 +1,39 @@
 # Changelog
 
+## 4.0.0
+
+### Major: fix multi-border-router routing loop (critical)
+
+This version fixes a critical routing loop affecting any deployment with more than one
+OpenThread Border Router on the same L2 segment. OTBR's RoutePublisher advertised the broad
+`fc00::/7` catch-all prefix as an external route `/7` covers the entire ULA space, so ULA
+traffic destined for other VLANs was misrouted into the Thread mesh, circulating between BRs
+instead of egressing the physical uplink. Recovery from the resulting state is time-consuming
+and operationally damaging across both large and small sites, which is why this is shipped as
+a major version.
+
+**The fix has two complementary layers:**
+1. **Stable OMR prefix** (`custom_omr_prefix`, `--ula-prefix`) - the BR prefix is now
+   deterministic across restarts, eliminating the orphaned-partition trigger for the
+   catch-all route.
+2. **Routing manager corrections** - `kUlaPrefix` tightened `/7` -> `/64`,
+   `NetworkDataContainsUlaRoute()` now requires a stable `/64`, and `kPublishUla` publishes
+   the real OMR prefix. This is the protocol-layer fix: without it, patched BRs still honor
+   `/7` advertised by unpatched peers.
+
+### Also in 4.0.0
+
+- NAT64: re-implement proper nftables-based NAT44 masquerade (mark + postrouting + forward rules) to replace the removed iptables rules. NAT64 now works without iptables in the runtime image.
+- Build: apply all patches to the beta builder stage so both stable and beta builds carry the same fixes. Verified each patch against its target commit:
+  - Patches 0001 (SO_REUSEADDR) and 0002 (NAT64 IPv4 options) were already upstream in the beta commit -- skipped.
+  - Patches 0003 (ULA prefix agent) and 0004 (ULA prefix core) required beta-specific versions due to `OTBR_OPT_DATA_PATH` addition and `.Set()`→`.InitFrom()` API change in the beta's OpenThread submodule.
+  - Patches 0005 (fc00::/7 disable) and 0006 (routing manager corrections) apply cleanly to both stable and beta.
+- Firewall hardening (production readiness):
+  - **Rate limiting**: OMR accept rules in both forward directions now rate-limited (1000/sec backbone→Thread, 2000/sec Thread→backbone) to prevent DoS of the Thread mesh.
+  - **TCP MSS clamping**: Backbone→Thread TCP SYNs have MSS clamped to 1220 bytes to prevent fragmentation across the 1280-byte Thread MTU boundary.
+  - **TREL port race fix**: The TREL UDP port is now queried before firewall creation and pre-populated into the `trel_ports` nftables set, eliminating the 1-30 second window where TREL was silently dropped after restart.
+- Docs: document `backbone_interface`, `custom_omr_priority`, `leader_weight`, `upgrade_threshold`, and `downgrade_threshold` configuration options.
+
 ## 3.0.2
 
 - Honor the configured `otbr_log_level` for the OTBR web interface (previously always logged at info level)

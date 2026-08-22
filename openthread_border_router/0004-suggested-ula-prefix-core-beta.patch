@@ -1,0 +1,80 @@
+diff --git a/src/core/border_router/routing_manager.cpp b/src/core/border_router/routing_manager.cpp
+--- a/src/core/border_router/routing_manager.cpp	2026-08-12 15:16:24
++++ b/src/core/border_router/routing_manager.cpp	2026-08-12 15:23:03
+@@ -36,7 +36,7 @@
+ #if OPENTHREAD_CONFIG_BORDER_ROUTING_ENABLE
+ 
+ #include <string.h>
+-
++#include <arpa/inet.h>
+ #include <openthread/border_router.h>
+ #include <openthread/platform/border_routing.h>
+ #include <openthread/platform/infra_if.h>
+@@ -215,26 +215,56 @@
+ void RoutingManager::LoadOrGenerateRandomBrUlaPrefix(void)
+ {
+     bool generated = false;
++    bool suggested = false;
+ 
+     if (Get<Settings>().Read<Settings::BrUlaPrefix>(mBrUlaPrefix) != kErrorNone || !IsValidBrUlaPrefix(mBrUlaPrefix))
+     {
+-        Ip6::NetworkPrefix randomUlaPrefix;
++        const char *envSuggested = getenv("OTBR_SUGGESTED_BR_ULA_PREFIX");
++        if (envSuggested != nullptr)
++        {
++            char addrPart[64];
++            int  prefixLen = 0;
+ 
+-        LogNote("No valid /48 BR ULA prefix found in settings, generating new one");
++            if (sscanf(envSuggested, "%47[^/]/%d", addrPart, &prefixLen) == 2 &&
++                prefixLen == kBrUlaPrefixLength)
++            {
++                struct in6_addr addr6;
++                if (inet_pton(AF_INET6, addrPart, &addr6) == 1)
++                {
++                    mBrUlaPrefix.Clear();
++                    mBrUlaPrefix.mLength = kBrUlaPrefixLength;
++                    memcpy(mBrUlaPrefix.mPrefix.mFields.m8, addr6.s6_addr, 6);
+ 
+-        SuccessOrAssert(randomUlaPrefix.GenerateRandomUla());
+-
+-        mBrUlaPrefix.InitFrom(randomUlaPrefix);
+-        mBrUlaPrefix.SetSubnetId(0);
+-        mBrUlaPrefix.SetLength(kBrUlaPrefixLength);
++                    if (IsValidBrUlaPrefix(mBrUlaPrefix))
++                    {
++                        Get<Settings>().Save<Settings::BrUlaPrefix>(mBrUlaPrefix);
++                        suggested = true;
++                        LogNote("No valid /48 BR ULA prefix found in settings, using suggested one from command line");
++                    }
++                }
++            }
++        }
+ 
+-        Get<Settings>().Save<Settings::BrUlaPrefix>(mBrUlaPrefix);
+-        generated = true;
++        if (!suggested)
++        {
++            Ip6::NetworkPrefix randomUlaPrefix;
++
++            LogNote("No valid /48 BR ULA prefix found in settings, generating new one");
++
++            SuccessOrAssert(randomUlaPrefix.GenerateRandomUla());
++
++            mBrUlaPrefix.InitFrom(randomUlaPrefix);
++            mBrUlaPrefix.SetSubnetId(0);
++            mBrUlaPrefix.SetLength(kBrUlaPrefixLength);
++
++            Get<Settings>().Save<Settings::BrUlaPrefix>(mBrUlaPrefix);
++            generated = true;
++        }
+     }
+ 
+     OT_UNUSED_VARIABLE(generated);
+-
+-    LogNote("BR ULA prefix: %s (%s)", mBrUlaPrefix.ToString().AsCString(), generated ? "generated" : "loaded");
++    const char *status = suggested ? "suggested" : (generated ? "generated" : "loaded");
++    LogNote("BR ULA prefix: %s (%s)", mBrUlaPrefix.ToString().AsCString(), status);
+ }
+ 
+ void RoutingManager::EvaluateState(void)

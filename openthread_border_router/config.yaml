@@ -31,9 +31,13 @@ options:
   flow_control: true
   otbr_log_level: notice
   firewall: true
+  nat64: false
   beta: false
-  omr_prefix: null
-  leader_weight: null
+  custom_omr_prefix: ""
+  custom_omr_priority: "med"
+  leader_weight: 72
+  upgrade_threshold: 8
+  downgrade_threshold: 24
 ports:
   8080/tcp: null
   8081/tcp: null
@@ -48,7 +52,11 @@ schema:
   network_device: str?
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
+  nat64: bool
   beta: bool?
-  omr_prefix: str?
-  leader_weight: int?
+  custom_omr_prefix: str?
+  custom_omr_priority: list(high|med|low)?
+  leader_weight: int
+  upgrade_threshold: int?
+  downgrade_threshold: int?
 startup: services

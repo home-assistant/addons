@@ -12,4 +12,5 @@ exec 4> >(mariadb)
 
 # We need to delay the starting of the dependent services until mysql is started
 echo "" >&3
+exec 3>&-
 wait

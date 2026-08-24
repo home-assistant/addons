@@ -8,6 +8,7 @@ args:
   # Must match the exact pins of wyoming-faster-whisper
   TRANSFORMERS_VERSION: 4.52.4
   ONNX_ASR_VERSION: 0.11.0
+  FUNASR_VERSION: 1.4.3
   ONNXRUNTIME_VERSION: 1.29.0
   FASTER_WHISPER_VERSION: 1.2.1
   CTRANSLATE2_VERSION: 4.8.1

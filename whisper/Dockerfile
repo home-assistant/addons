@@ -8,6 +8,7 @@ ARG \
     WYOMING_VERSION \
     TRANSFORMERS_VERSION \
     ONNX_ASR_VERSION \
+    FUNASR_VERSION \
     ONNXRUNTIME_VERSION \
     FASTER_WHISPER_VERSION \
     CTRANSLATE2_VERSION \
@@ -34,7 +35,7 @@ RUN \
         "wyoming-faster-whisper[sherpa] @ https://github.com/rhasspy/wyoming-faster-whisper/archive/refs/tags/v${WYOMING_WHISPER_VERSION}.tar.gz" \
         "transformers==${TRANSFORMERS_VERSION}" \
         "onnx-asr[cpu,hub]==${ONNX_ASR_VERSION}" \
-        'funasr>=1.1.0,<2' \
+        "funasr==${FUNASR_VERSION}" \
         "onnxruntime==${ONNXRUNTIME_VERSION}" \
         "faster-whisper==${FASTER_WHISPER_VERSION}" \
         "ctranslate2==${CTRANSLATE2_VERSION}" \

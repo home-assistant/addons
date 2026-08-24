@@ -131,6 +131,44 @@ if bashio::config.true "enable_test_net_dcl"; then
     extra_args+=('--ota-provider-dir' "/config/updates")
 fi
 
+# Resolve whether to enable time sync for nodes with the TimeSynchronization
+# cluster. The 'time_sync' option has three modes:
+#   - on:   always enable (warn if the host clock is not NTP synchronized)
+#   - off:  always leave disabled
+#   - auto: enable only when the host clock is NTP synchronized (default)
+time_sync_mode="$(bashio::string.lower "$(bashio::config 'time_sync' 'auto')")"
+ntp_synchronized="$(bashio::api.supervisor 'GET' '/host/info' '' '.dt_synchronized')"
+time_sync_enabled=false
+
+case "${time_sync_mode}" in
+  on)
+    time_sync_enabled=true
+    if [ "${ntp_synchronized}" != "true" ]; then
+        bashio::log.warning \
+          "Time sync is enabled but host NTP is not synchronized — time pushed to Matter devices may be inaccurate"
+    fi
+    ;;
+  off)
+    bashio::log.info "Time sync is disabled ('time_sync' set to off)."
+    ;;
+  *)
+    if [ "${ntp_synchronized}" = "true" ]; then
+        time_sync_enabled=true
+        bashio::log.info "Time sync 'auto': host NTP is synchronized, enabling time sync."
+    else
+        bashio::log.info "Time sync 'auto': host NTP is not synchronized, leaving time sync disabled."
+    fi
+    ;;
+esac
+
+if [ "${time_sync_enabled}" = "true" ]; then
+    extra_args+=('--enable-time-sync')
+fi
+
+if bashio::config.has_value "default_fabric_label"; then
+    extra_args+=('--default-fabric-label' "$(bashio::config 'default_fabric_label')")
+fi
+
 primary_interface="$(bashio::api.supervisor 'GET' '/network/info' '' 'first(.interfaces[] | select (.primary == true)) .interface')"
 
 # Try fallback method (e.g. in case NetworkManager is not available)
@@ -168,7 +206,6 @@ bashio::log.info "Using '${primary_interface}' as primary network interface."
 # shellcheck disable=SC2164
 cd /root
 
-# shellcheck disable=SC2206
 matter_server_args+=(
   '--storage-path' "/data"
   '--port' "${server_port}"
@@ -176,7 +213,7 @@ matter_server_args+=(
   '--primary-interface' "${primary_interface}"
   '--fabricid' 2
   '--vendorid' 4939
-  ${extra_args[@]}
+  "${extra_args[@]}"
 )
 
 exec node --enable-source-maps "${server_entry}" "${matter_server_args[@]}"

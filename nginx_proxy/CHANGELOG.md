@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.5.1
+
+- Fix nginx failing to start when the client max body size option is present (`incompatible types for comparison` in the config template)
+
+## 4.5.0
+
+- Allow setting the client max request body size from the UI (to be able to upload large files, such as a KNX project file through the proxy)
+
+## 4.4.0
+
+- Fix HTTP/3 requests with Home Assistant 2026.7.0 and newer
+
 ## 4.3.0
 
 - Update base image to Alpine 3.24 (base image tag 3.24-2026.06.1) with nginx 1.30.x

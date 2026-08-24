@@ -1,5 +1,48 @@
 # Changelog
 
+## 2.3.4
+
+- Disable ONNX Runtime telemetry: onnxruntime 1.29.0 (pulled in by the 2.3.3
+  rebuild) introduced telemetry on Linux which uploads usage events and a
+  persistent device identifier to a Microsoft endpoint by default
+
+## 2.3.3
+
+- Add 2 new Italian voices (`it_IT-serena-high`, `it_IT-serena-medium`)
+- Add 1 new Bengali voice (`bn_BD-google-medium`)
+- Add 1 new Czech voice (`cs_CZ-kasandra-medium`)
+- Add 1 new Hebrew voice (`he_IL-saspeech-medium`)
+- Add 1 new Armenian voice (`hy_AM-gor-medium`)
+- Add 1 new Japanese voice (`ja_JA-hi_fi_captain-medium`)
+- Add 1 new Korean voice (`ko_KR-kss-medium`)
+- Add 1 new Marathi voice (`mr_IN-google-medium`)
+- Add 1 new Urdu voice (`ur_PK-aegis_female-medium`)
+
+## 2.3.2
+
+- Migrate base image from bookworm to trixie
+
+## 2.3.1
+
+- Upgrade to `wyoming-piper` 2.3.1
+- Add `sentence_silence` option to add silence after every sentence
+- Add 3 new Ukrainian voices (`uk_UA-mykyta-high`, `uk_UA-oleksa-high`, `uk_UA-tetiana-high`)
+- Add 3 new Telugu voices (`te_IN-maya-medium`, `te_IN-padmavathi-medium`, `te_IN-venkatesh-medium`)
+- Add 2 new Greek voices (`el_GR-joy-medium`, `el_GR-rapunzelina-medium`)
+- Add 2 new Basque voices (`eu_ES-antton-medium`, `eu_ES-maider-medium`)
+- Add 1 new Bulgarian voice (`bg_BG-dimitar-medium`)
+- Add 1 new English (US) voice (`en_US-mike-medium`)
+- Add 1 new Spanish (Mexico) voice (`es_MX-ald-x_low`)
+- Add 1 new Hindi voice (`hi_IN-rohan-medium`)
+- Add 1 new Indonesian voice (`id_ID-news_tts-medium`)
+- Add 1 new Kurdish voice (`ku_TR-berfin_renas-medium`)
+- Add 1 new Dutch voice (`nl_NL-alex-medium`)
+- Add 1 new Norwegian voice (`no_NO-nvcc-medium`)
+- Add 1 new Polish voice (`pl_PL-bass-high`)
+- Add 1 new Albanian voice (`sq_AL-edon-medium`)
+- Add 1 new Swedish voice (`sv_SE-alma-medium`)
+- Add 1 new Urdu voice (`ur_PK-fasih-medium`)
+
 ## 2.2.2
 
 - Upgrade to `wyoming-piper` 2.2.2 (wheel fix)

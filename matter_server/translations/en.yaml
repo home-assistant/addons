@@ -15,6 +15,23 @@ configuration:
       Enable PAA root certificates, software updates and other device
       information from test-net DCL. This is meant for development and testing
       purposes.
+  time_sync:
+    name: Time synchronization
+    description: >-
+      Control whether the Matter Server pushes the current time to Matter
+      devices. "auto" (default) enables it only when the host clock is NTP
+      synchronized; "on" always enables it (a warning is logged if the host
+      clock is not NTP synchronized, since the time sent to devices is only as
+      accurate as the host clock); "off" disables it.
+  default_fabric_label:
+    name: Default Fabric Label
+    description: >-
+      Pin the fabric label (shown on Matter devices for this controller, max
+      32 characters) to this value. By default the Home Assistant home name is
+      used. This is useful if the Matter Server is used from multiple Home
+      Assistant instances, which otherwise each keep pushing their own home
+      name as the label. When set, changing the label via the WebSocket API is
+      blocked.
   bluetooth_adapter_id:
     name: Bluetooth Adapter ID (deprecated)
     description: >-

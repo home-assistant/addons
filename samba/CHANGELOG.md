@@ -1,5 +1,29 @@
 # Changelog
 
+## 12.10.0
+
+- Rename the `addons` and `addon_configs` shares to `local_apps` and `app_configs` to match Home Assistant's app terminology. Existing `enabled_shares` configurations are migrated automatically on start (extending the lower-case normalization added in 12.8.1).
+- Both the new (`local_apps`/`app_configs`) and legacy (`addons`/`addon_configs`) share names stay exposed, so existing SMB connections keep working while you move to the new names.
+- Log a warning when a client connects to a deprecated `addons`/`addon_configs` share, indicating which new share to switch to.
+- Exit cleanly with code 0 on shutdown instead of 143, so the Supervisor no longer warns about the add-on not handling `SIGTERM`.
+- Migrate to the new `local_apps` and `all_app_configs` folder mappings introduced in Home Assistant Supervisor.
+- Update base image to 3.24-2026.06.1
+
+## 12.9.0
+
+- Add configuration option to disable WSDD. When disabled, the wsdd service is
+  not started and the host is no longer advertised for automatic discovery.
+  Shares remain reachable by hostname or IP address.
+
+## 12.8.1
+
+- Normalize stored `enabled_shares` values to lower case at startup. Values
+  were already handled case-insensitively at runtime; this persists the
+  canonical form in preparation for a stricter schema in a future release.
+
+## 12.8.0
+- Add configuration option to disable NetBIOS. When disabled, the nmbd service is not started and only port 445 is allowed (port 139 is blocked.)
+
 ## 12.7.1
 
 - Enabled kernel oplocks in smb.conf to ensure changes made to files on disk are available immediately via SMBD. This covers all shares except backup, and media as the contents shouldn't be changed by the server once they're written in those shares.

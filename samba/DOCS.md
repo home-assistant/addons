@@ -22,31 +22,48 @@ This app exposes the following directories over smb (samba):
 
 Directory | Description
 -- | --
-`addons` | This is for your local apps.
-`addon_configs` | This is for the configuration files of your apps.
+`local_apps` | This is for your local apps.
+`app_configs` | This is for the configuration files of your apps.
 `backup` | This is for your backups.
 `config` | This is for your Home Assistant configuration.
 `media` | This is for local media files.
 `share` | This is for your data that is shared between apps and Home Assistant.
 `ssl` | This is for your SSL certificates.
 
+The `local_apps` and `app_configs` shares were previously named `addons` and
+`addon_configs`. Existing configurations are migrated to the new names
+automatically. Both the new and legacy share names stay exposed and point to
+the same directories, so existing connections keep working while you move to
+the new names.
+
 ## Configuration
 
 App configuration:
 
 ```yaml
-workgroup: WORKGROUP
-local_master: true
 username: homeassistant
 password: YOUR_PASSWORD
+workgroup: WORKGROUP
 enabled_shares:
-  - addons
-  - addon_configs
+  - local_apps
+  - app_configs
   - backup
   - config
   - media
   - share
   - ssl
+compatibility_mode: false
+apple_compatibility_mode: true
+netbios: true
+local_master: true
+network_discovery: true
+server_signing: "default"
+veto_files:
+  - ._*
+  - .DS_Store
+  - Thumbs.db
+  - icon?
+  - .Trashes
 allow_hosts:
   - 10.0.0.0/8
   - 172.16.0.0/12
@@ -54,20 +71,7 @@ allow_hosts:
   - 169.254.0.0/16
   - fe80::/10
   - fc00::/7
-veto_files:
-  - "._*"
-  - ".DS_Store"
-  - Thumbs.db
-compatibility_mode: false
 ```
-
-### Option: `workgroup` (required)
-
-Change WORKGROUP to reflect your network needs.
-
-### Option: `local_master` (required)
-
-Enable to try and become a local master browser on a subnet.
 
 ### Option: `username` (required)
 
@@ -76,6 +80,10 @@ The username you would like to use to authenticate with the Samba server.
 ### Option: `password` (required)
 
 The password that goes with the username configured for authentication.
+
+### Option: `workgroup` (required)
+
+Change WORKGROUP to reflect your network needs.
 
 ### Option: `enabled_shares` (required)
 
@@ -104,6 +112,30 @@ Defaults to `false`.
 
 Enable Samba configurations to improve interoperability with Apple devices.
 This can cause issues with file systems that do not support xattr such as exFAT.
+
+Defaults to `true`.
+
+### Option: `netbios`
+
+NetBIOS is a legacy network protocol for accessing SMB/CIFS shares. Enable for legacy clients older than Windows Vista (Windows 95/98/ME, Windows NT,
+Windows 2000, Windows XP and LanManager), or OS X 10.9 (Mavericks). This setting is enabled by default for compatibility; disable it on modern installations.
+
+Defaults to `true`.
+
+### Option: `local_master`
+
+When NetBIOS is enabled, try and become a local master browser on a subnet.
+
+Defaults to `true`.
+
+### Option: `network_discovery`
+
+Advertise the host on the network using Web Services Dynamic Discovery, so it
+appears automatically under Network in Windows File Explorer. Disable this if
+you connect to the shares by hostname or IP address and do not want the host
+to announce itself on the network.
+
+Disabling this has no effect on share availability; only on discovery.
 
 Defaults to `true`.
 

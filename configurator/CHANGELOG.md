@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.0
+
+- Migrate to the new `all_app_configs` folder mapping name introduced in Home Assistant Supervisor
+- Update base image to 3.24-2026.06.1
+
 ## 6.0.0
 
 - Update hass-configurator to 0.6.0 (see [changelog](https://github.com/danielperna84/hass-configurator/releases/tag/0.6.0) for details)

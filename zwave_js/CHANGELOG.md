@@ -1,5 +1,99 @@
 # Changelog
 
+## 1.7.1
+
+### Z-Wave JS 15.27.0...15.27.1
+
+#### Bugfixes
+
+- Fixes an issue with older Z-Wave.me controllers becoming unresponsive during startup
+
+#### Config file changes
+
+- Add a fingerprint for the Climax SDCO smoke and carbon monoxide detector
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.3](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.3)
+- [Z-Wave JS 15.27.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.1)
+
+## 1.7.0
+
+This release includes performance improvements for the startup phase of large networks
+
+### Z-Wave JS 15.26.0...15.27.0
+
+#### Features
+
+- Added support for opening PTI Zniffer trace captures
+
+#### Bugfixes
+
+- Fixed an issue where zero-valued enums could be restored incorrectly from the network cache
+- Continue the User Code CC interview when User Credential CC capabilities are unknown
+
+#### Config file changes
+
+- Add Heatit Z-TRM7 and standardize Heatit config parameters across devices
+- Add product ID `0x5600` for YRM276 with the ZW3 module (700 series)
+- Remove Multi Channel CC support for the Vero Duco CO2 sensor
+- Update the manual URL for Lamp-ZW2
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.2)
+- [Z-Wave JS UI 11.22.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.1)
+- [Z-Wave JS 15.27.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.0)
+- [Z-Wave JS Server 3.10.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.1)
+
+## 1.6.1
+
+Fixes the add-on taking 30 seconds to stop and exiting with code 137
+
+## 1.6.0
+
+This release extends the credential management functionality with a dedicated UI with support for more credential types, credential learning, and admin code support.
+
+### Z-Wave JS 15.25.0...15.26.0
+
+#### Features
+
+- Ongoing interviews are now paused during inclusion, security bootstrapping, and exclusion, greatly improving reliability when adding multiple devices at once
+
+#### Bugfixes
+
+- Added a workaround for some locks that send an incorrect report immediately after starting credential learning
+- Increased timeouts for bulk-deleting users and credentials
+- Fixed several issues that could lead to stale credentials being cached
+
+#### Config file changes
+
+- Add UltraPro 800 Series On/Off Switch
+- Add UltraPro 800 Series dimmer
+- Add GR-105N device configuration
+- Add Nexa ZPR-111 parameters
+- Corrected and cleaned up all Fibaro device files
+- Fix broken link to Honeywell T6 Pro manual
+
+### Z-Wave JS UI 11.21.0...11.22.0
+
+#### Features
+
+- The statistics opt-in popup is no longer shown - this setting is fully managed in Home Assistant now
+
+#### Bugfixes
+
+- Improved security of the API
+- Refresh broadcast virtual nodes after node removal to avoid querying removed nodes
+- Separated virtual and physical devices in the nodes table
+- Show group ID instead of the redundant endpoint in the association group dropdown
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.0)
+- [Z-Wave JS UI 11.21.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.21.1)
+- [Z-Wave JS 15.26.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.26.0)
+
 ## 1.5.0
 
 ### Z-Wave JS 15.24.2...15.25.0

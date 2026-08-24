@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+- Upgrade to Debian trixie
+
 ## 2.1.0
 
 - Upgrade to wyoming-openwakeword 2.1.0

@@ -24,6 +24,11 @@ configuration:
     name: Use SSL Backend
     description: >-
       If enabled, configure Nginx to use SSL to connect to backend.
+  client_max_body_size_megabytes:
+    name: Max body size (in MB)
+    description: >-
+      Configures Nginx to limit the maximum allowed size of the client request
+      body, specified in megabytes. Set to 0 to allow requests of any size.
   customize:
     name: Customize
     description: >-

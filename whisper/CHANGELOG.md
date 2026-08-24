@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.1.
+
+- Upgrade base image to trixie
+
 ## 3.5.0
 
 - Bump torch to avoid regression: https://github.com/pytorch/pytorch/issues/146792

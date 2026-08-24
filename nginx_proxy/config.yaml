@@ -1,5 +1,5 @@
 ---
-version: 4.3.0
+version: 4.5.1
 hassio_api: true
 slug: nginx_proxy
 name: NGINX Home Assistant SSL proxy
@@ -20,6 +20,7 @@ options:
   keyfile: privkey.pem
   cloudflare: false
   use_ssl_backend: false
+  client_max_body_size_megabytes: 1
   customize:
     active: false
     default: nginx_proxy_default*.conf
@@ -36,6 +37,7 @@ schema:
   keyfile: str
   cloudflare: bool
   use_ssl_backend: bool
+  client_max_body_size_megabytes: int(0,)
   customize:
     active: bool
     default: str

@@ -27,7 +27,7 @@ for more information.
 [Listen to voice samples](https://rhasspy.github.io/piper-samples/)
 
 Name of the Piper voice to use, such as `en_US-lessac-medium` (the default).
-Voice models are automatically downloaded from https://huggingface.co/rhasspy/piper-voices/tree/v1.0.0
+Voice models are automatically downloaded from https://huggingface.co/rhasspy/piper-voices/tree/main
 
 Voices are named according to the following scheme: `<language>_<REGION>-<name>-<quality>`
 The `<name>` portion comes from the dataset used to train the voice or the speaker's name if it was provided.
@@ -58,6 +58,10 @@ Controls the variability of audio by adding noise during audio generation. The e
 ### Option: `noise_w`
 
 Controls the variability of speaking cadence (phoneme widths). The effect highly depends on the voice itself, but in general a value of 0 removes variability and values above 1 produce extreme stutters and pauses.
+
+### Option: `sentence_silence`
+
+Adds the given number of seconds of silence after every sentence.
 
 ### Option: `update_voices`
 

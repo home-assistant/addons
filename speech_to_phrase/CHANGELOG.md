@@ -2,11 +2,9 @@
 
 ## 1.4.4
 
-- Update and pin `onnxruntime` to 1.29.0 (from 1.24.4) and `pysilero-vad` to
-  2.1.1, so rebuilds no longer silently change runtime behavior
-- Set `ORT_DISABLE_TELEMETRY=1`: onnxruntime 1.29.0 introduced telemetry on
-  Linux which uploads usage events and a persistent device identifier to a
-  Microsoft endpoint by default; it is disabled in this add-on
+- Update speech recognition components to their latest versions
+- Disable ONNX Runtime telemetry: newer versions send usage data to a
+  Microsoft server by default, this app keeps it turned off
 
 ## 1.4.3
 

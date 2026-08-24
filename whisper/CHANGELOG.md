@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.5.2
+
+- Pin the inference stack (`onnxruntime`, `faster-whisper`, `ctranslate2`,
+  `sherpa-onnx`) to the versions shipped in 3.5.1, so rebuilds no longer
+  silently change runtime behavior
+- Set `ORT_DISABLE_TELEMETRY=1` preventively: onnxruntime 1.29.0 introduced
+  telemetry on Linux which uploads usage events and a persistent device
+  identifier to a Microsoft endpoint by default (this add-on ships 1.28.0,
+  which is not affected)
+
 ## 3.5.1.
 
 - Upgrade base image to trixie

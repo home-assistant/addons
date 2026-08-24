@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.4
+
+- Pin `onnxruntime` and `pysilero-vad` to the versions shipped in 1.4.3, so
+  rebuilds no longer silently change runtime behavior
+- Set `ORT_DISABLE_TELEMETRY=1` preventively: onnxruntime 1.29.0 introduced
+  telemetry on Linux which uploads usage events and a persistent device
+  identifier to a Microsoft endpoint by default (this add-on ships 1.24.4,
+  which is not affected)
+
 ## 1.4.3
 
 - Fix for empty names in HA 2026.4

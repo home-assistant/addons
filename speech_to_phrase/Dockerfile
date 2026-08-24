@@ -31,10 +31,17 @@ RUN \
     && python3 -m venv .venv \
     && .venv/bin/pip3 install --no-cache-dir \
         "speech-to-phrase @ https://github.com/OHF-Voice/speech-to-phrase/archive/refs/tags/v${SPEECH_TO_PHRASE_VERSION}.tar.gz" \
+        'onnxruntime==1.24.4' \
+        'pysilero-vad==2.1.1' \
     && apt-get remove --yes build-essential \
     && apt-get autoclean \
     && apt-get purge \
     && rm -rf /var/lib/apt/lists/*
+
+# ONNX Runtime 1.29.0 introduced telemetry on Linux, uploading usage events and
+# a persistent device identifier to a Microsoft endpoint by default. The pinned
+# 1.24.4 does not have it; keep the opt-out in place for future upgrades.
+ENV ORT_DISABLE_TELEMETRY=1
 
 WORKDIR /
 COPY rootfs /

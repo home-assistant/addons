@@ -28,6 +28,8 @@ RUN \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/usr/src/.venv/bin:$PATH"
+
+ENV ORT_DISABLE_TELEMETRY=1
 WORKDIR /
 COPY rootfs /
 

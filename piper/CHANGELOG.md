@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.4
+
+- Disable ONNX Runtime telemetry: onnxruntime 1.29.0 (pulled in by the 2.3.3
+  rebuild) introduced telemetry on Linux which uploads usage events and a
+  persistent device identifier to a Microsoft endpoint by default
+
 ## 2.3.3
 
 - Add 2 new Italian voices (`it_IT-serena-high`, `it_IT-serena-medium`)

@@ -28,6 +28,10 @@ RUN \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/usr/src/.venv/bin:$PATH"
+
+# ONNX Runtime 1.29.0 introduced telemetry on Linux, uploading usage events and
+# a persistent device identifier to a Microsoft endpoint by default. Opt out.
+ENV ORT_DISABLE_TELEMETRY=1
 WORKDIR /
 COPY rootfs /
 

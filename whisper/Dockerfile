@@ -3,7 +3,16 @@ FROM ${BUILD_FROM}
 
 # Install Whisper
 WORKDIR /usr/src
-ARG WYOMING_WHISPER_VERSION
+ARG \
+    WYOMING_WHISPER_VERSION \
+    WYOMING_VERSION \
+    TRANSFORMERS_VERSION \
+    ONNX_ASR_VERSION \
+    ONNXRUNTIME_VERSION \
+    FASTER_WHISPER_VERSION \
+    CTRANSLATE2_VERSION \
+    SHERPA_ONNX_VERSION \
+    TORCH_VERSION
 
 RUN \
     apt-get update \
@@ -21,20 +30,20 @@ RUN \
         setuptools \
         wheel \
     && .venv/bin/pip3 install --no-cache-dir \
-        "wyoming[zeroconf]==1.9.0" \
+        "wyoming[zeroconf]==${WYOMING_VERSION}" \
         "wyoming-faster-whisper[sherpa] @ https://github.com/rhasspy/wyoming-faster-whisper/archive/refs/tags/v${WYOMING_WHISPER_VERSION}.tar.gz" \
-        'transformers==4.52.4' \
-        'onnx-asr[cpu,hub]==0.11.0' \
+        "transformers==${TRANSFORMERS_VERSION}" \
+        "onnx-asr[cpu,hub]==${ONNX_ASR_VERSION}" \
         'funasr>=1.1.0,<2' \
-        'onnxruntime==1.29.0' \
-        'faster-whisper==1.2.1' \
-        'ctranslate2==4.8.1' \
-        'sherpa-onnx==1.13.6' \
+        "onnxruntime==${ONNXRUNTIME_VERSION}" \
+        "faster-whisper==${FASTER_WHISPER_VERSION}" \
+        "ctranslate2==${CTRANSLATE2_VERSION}" \
+        "sherpa-onnx==${SHERPA_ONNX_VERSION}" \
     \
     && .venv/bin/pip3 install --no-cache-dir \
         --index-url 'https://download.pytorch.org/whl/cpu' \
-        'torch==2.7.1' \
-        'torchaudio==2.7.1' \
+        "torch==${TORCH_VERSION}" \
+        "torchaudio==${TORCH_VERSION}" \
     \
     && apt-get purge -y --auto-remove \
         build-essential \

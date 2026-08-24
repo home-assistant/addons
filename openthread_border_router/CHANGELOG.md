@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.2
+
+- Fix upstream DNS resolution (and thus DNS64 name resolution) for Thread
+  devices: no longer bind the upstream DNS resolver socket to the infra
+  interface, so queries can reach the Supervisor DNS again (fixes #3947,
+  regression introduced in 2.12.0)
+
 ## 3.1.1
 
 - Bump beta to OTBR POSIX version d83ddc62 to test ePSKc / Thread 1.4 Credentials Sharing support ahead of the upstream `release-v2026.09.0` tag

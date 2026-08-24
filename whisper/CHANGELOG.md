@@ -2,13 +2,12 @@
 
 ## 3.5.2
 
-- Pin the inference stack (`onnxruntime`, `faster-whisper`, `ctranslate2`,
-  `sherpa-onnx`) to the versions shipped in 3.5.1, so rebuilds no longer
+- Update and pin the inference stack: `onnxruntime` 1.29.0, `sherpa-onnx`
+  1.13.6, `faster-whisper` 1.2.1, `ctranslate2` 4.8.1 — rebuilds no longer
   silently change runtime behavior
-- Set `ORT_DISABLE_TELEMETRY=1` preventively: onnxruntime 1.29.0 introduced
-  telemetry on Linux which uploads usage events and a persistent device
-  identifier to a Microsoft endpoint by default (this add-on ships 1.28.0,
-  which is not affected)
+- Set `ORT_DISABLE_TELEMETRY=1`: onnxruntime 1.29.0 introduced telemetry on
+  Linux which uploads usage events and a persistent device identifier to a
+  Microsoft endpoint by default; it is disabled in this add-on
 
 ## 3.5.1.
 

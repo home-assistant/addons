@@ -58,18 +58,6 @@ configuration:
       Thread leader weight (0-255, default 72). Influences which border
       router is elected as Thread partition leader. Set higher on the primary
       router and lower on backups for stable leader election.
-  upgrade_threshold:
-    name: Router upgrade threshold
-    description: >-
-      Number of router-capable end devices that must be present before one
-      attempts to upgrade to a Thread router. Lower values increase mesh
-      density sooner.
-  downgrade_threshold:
-    name: Router downgrade threshold
-    description: >-
-      Number of Thread routers that must be present before a router attempts
-      to downgrade to an end device. Higher values keep more routers for
-      redundancy at higher radio overhead.
 network:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

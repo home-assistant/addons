@@ -36,8 +36,6 @@ options:
   custom_omr_prefix: ""
   custom_omr_priority: "med"
   leader_weight: 72
-  upgrade_threshold: 8
-  downgrade_threshold: 24
 ports:
   8080/tcp: null
   8081/tcp: null
@@ -57,6 +55,4 @@ schema:
   custom_omr_prefix: str?
   custom_omr_priority: list(high|med|low)?
   leader_weight: int
-  upgrade_threshold: int?
-  downgrade_threshold: int?
 startup: services

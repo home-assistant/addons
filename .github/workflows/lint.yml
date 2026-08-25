@@ -3,7 +3,7 @@
 name: Lint
 
 env:
-  HADOLINT_VERSION: v1.17.2
+  HADOLINT_VERSION: v2.15.1
 
 on:
   pull_request:

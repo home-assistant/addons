@@ -1,5 +1,12 @@
 # Changelog
 
+## 9.0.3
+
+- Fix `git-clone`'s restore-after-clone step copying a stale/corrupt `.git`
+  directory from the pre-clone backup into the freshly cloned repository,
+  which could corrupt the new clone's git metadata. `.git` is now excluded
+  from that restore step, same as `*.yaml`/`*.yml`.
+
 ## 9.0.2
 
 - Fix `.storage/` and other hidden files/directories being silently dropped from

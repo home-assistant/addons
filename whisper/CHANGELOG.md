@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.3
+
+- Shut down cleanly when the app is stopped
+
 ## 3.5.2
 
 - Update speech recognition components to their latest versions

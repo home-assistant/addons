@@ -1,5 +1,13 @@
 # Changelog
 
+## 9.0.2
+
+- Fix `.storage/` and other hidden files/directories being silently dropped from
+  the pre-clone backup (they were never restored after the initial clone into
+  an existing `/config`, because `cp -rf /config/*` does **not** match dotfiles).
+  Use `cp -rf /config/.` instead, which copies directory contents including
+  hidden entries.
+
 ## 9.0.1
 
 - Replace eval+extglob with find for restoring non-YAML files after clone

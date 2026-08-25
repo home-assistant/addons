@@ -3,6 +3,8 @@
 ## 1.4.5
 
 - Shut down cleanly when the app is stopped
+- Leave the "Starting" state faster by checking readiness every 5 seconds
+  during startup
 
 ## 1.4.4
 

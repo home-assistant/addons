@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.5
+
+- Shut down cleanly when the app is stopped
+
 ## 1.4.4
 
 - Upgrade base image to trixie

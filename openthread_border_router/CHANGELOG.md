@@ -32,7 +32,7 @@ a major version.
   - **Rate limiting**: OMR accept rules in both forward directions now rate-limited (1000/sec backbone→Thread, 2000/sec Thread→backbone) to prevent DoS of the Thread mesh.
   - **TCP MSS clamping**: Backbone→Thread TCP SYNs have MSS clamped to 1220 bytes to prevent fragmentation across the 1280-byte Thread MTU boundary.
   - **TREL port race fix**: The TREL UDP port is now queried before firewall creation and pre-populated into the `trel_ports` nftables set, eliminating the 1-30 second window where TREL was silently dropped after restart.
-- Docs: document `backbone_interface`, `custom_omr_priority`, `leader_weight`, `upgrade_threshold`, and `downgrade_threshold` configuration options.
+- Docs: document `backbone_interface`, `custom_omr_priority`, and `leader_weight` configuration options.
 
 ## 3.0.2
 

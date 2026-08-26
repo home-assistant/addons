@@ -120,26 +120,6 @@ if bashio::config.has_value 'leader_weight'; then
     fi
 fi
 
-if bashio::config.has_value 'upgrade_threshold'; then
-	UPGRADE_THRESHOLD=$(bashio::config 'upgrade_threshold')
-	if ot-ctl routerupgradethreshold $UPGRADE_THRESHOLD; then
-		bashio::log.info "✅ Successfully applied upgrade threshold: ${UPGRADE_THRESHOLD}"
-	else
-		bashio::log.error "❌ Failed to apply upgrade threshold"
-		return 13
-	fi
-fi
-
-if bashio::config.has_value 'downgrade_threshold'; then
-	DOWNGRADE_THRESHOLD=$(bashio::config 'downgrade_threshold')
-	if ot-ctl routerdowngradethreshold $DOWNGRADE_THRESHOLD; then
-		bashio::log.info "✅ Successfully applied downgrade threshold: ${DOWNGRADE_THRESHOLD}"
-	else
-		bashio::log.error "❌ Failed to apply downgrade threshold"
-		return 14
-	fi
-fi
-
 # To avoid asymmetric link quality the TX power from the controller should not
 # exceed that of what other Thread routers devices typically use.
 ot-ctl txpower 6

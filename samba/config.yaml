@@ -21,7 +21,7 @@ map:
   - ssl:rw
 options:
   username: homeassistant
-  password: null
+  password: "89fa58fcda"
   workgroup: WORKGROUP
   enabled_shares:
     - local_apps

@@ -2,10 +2,7 @@
 
 ## 3.1.2
 
-- Fix upstream DNS resolution (and thus DNS64 name resolution) for Thread
-  devices: no longer bind the upstream DNS resolver socket to the infra
-  interface, so queries can reach the Supervisor DNS again (fixes #3947,
-  regression introduced in 2.12.0)
+- Fix upstream DNS/DNS64 resolution for Thread devices by not binding the upstream DNS resolver socket to the infra interface (fixes #3947, regression since 2.12.0)
 
 ## 3.1.1
 

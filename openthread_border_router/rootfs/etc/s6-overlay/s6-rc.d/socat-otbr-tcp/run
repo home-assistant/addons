@@ -14,5 +14,6 @@ bashio::log.info "Starting socat TCP client for OTBR daemon..."
 # network RCP is reachable. Keep both connection attempts and readiness checks
 # running during an outage.
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
-    "/usr/bin/socat" -d "tcp:${network_device},forever,interval=10" \
+    "/usr/bin/socat" -d \
+    "tcp:${network_device},connect-timeout=10,forever,interval=10" \
     pty,raw,echo=0,link=/tmp/ttyOTBR,ignoreeof

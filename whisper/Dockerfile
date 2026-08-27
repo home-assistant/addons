@@ -57,7 +57,7 @@ ENV ORT_DISABLE_TELEMETRY=1
 WORKDIR /
 COPY rootfs /
 
-HEALTHCHECK --start-period=10m \
+HEALTHCHECK --start-period=10m --start-interval=5s --interval=30s \
     CMD echo '{ "type": "describe" }' \
         | nc -w 1 localhost 10300 \
         | grep -q "faster-whisper" \

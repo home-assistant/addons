@@ -1,5 +1,5 @@
 ---
-version: 3.5.1
+version: 3.5.3
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper

@@ -6,7 +6,10 @@ ARG BUILD_ARCH
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install speech-to-phrase
-ARG SPEECH_TO_PHRASE_VERSION
+ARG \
+    SPEECH_TO_PHRASE_VERSION \
+    ONNXRUNTIME_VERSION \
+    PYSILERO_VAD_VERSION
 WORKDIR /usr/src
 
 RUN mkdir -p ./tools
@@ -31,15 +34,19 @@ RUN \
     && python3 -m venv .venv \
     && .venv/bin/pip3 install --no-cache-dir \
         "speech-to-phrase @ https://github.com/OHF-Voice/speech-to-phrase/archive/refs/tags/v${SPEECH_TO_PHRASE_VERSION}.tar.gz" \
+        "onnxruntime==${ONNXRUNTIME_VERSION}" \
+        "pysilero-vad==${PYSILERO_VAD_VERSION}" \
     && apt-get remove --yes build-essential \
     && apt-get autoclean \
     && apt-get purge \
     && rm -rf /var/lib/apt/lists/*
 
+ENV ORT_DISABLE_TELEMETRY=1
+
 WORKDIR /
 COPY rootfs /
 
-HEALTHCHECK --start-period=10m \
+HEALTHCHECK --start-period=10m --start-interval=5s --interval=30s \
     CMD echo '{ "type": "describe" }' \
         | nc -w 1 localhost 10300 \
         | grep -iq "speech-to-phrase" \

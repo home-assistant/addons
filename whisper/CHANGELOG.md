@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.5.3
+
+- Shut down cleanly when the app is stopped
+- Leave the "Starting" state faster by checking readiness every 5 seconds
+  during startup
+
+## 3.5.2
+
+- Update speech recognition components to their latest versions
+- Disable ONNX Runtime telemetry: newer versions send usage data to a
+  Microsoft server by default, this app keeps it turned off
+
 ## 3.5.1.
 
 - Upgrade base image to trixie

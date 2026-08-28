@@ -47,7 +47,7 @@ function git-clone {
     bashio::log.info "[Info] Backup configuration to $BACKUP_LOCATION"
 
     mkdir "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Creation of backup directory failed"
-    cp -rf /config/* "${BACKUP_LOCATION}" || bashio::exit.nok "[Error] Copy files to backup directory failed"
+    cp -rf /config/. "${BACKUP_LOCATION}/" || bashio::exit.nok "[Error] Copy files to backup directory failed"
 
     # remove config folder content
     rm -rf /config/{,.[!.],..?}* || bashio::exit.nok "[Error] Clearing /config failed"
@@ -56,8 +56,8 @@ function git-clone {
     bashio::log.info "[Info] Start git clone"
     git clone "$REPOSITORY" /config || bashio::exit.nok "[Error] Git clone failed"
 
-    # try to copy non-yaml files back
-    find "${BACKUP_LOCATION}" -maxdepth 1 -mindepth 1 ! -name "*.yaml" ! -name "*.yml" -exec cp -r {} /config/ \; 2>/dev/null || true
+    # try to copy non-yaml files back (also excluding '.git' as it can corrupt the new repository)
+    find "${BACKUP_LOCATION}" -maxdepth 1 -mindepth 1 ! -name "*.yaml" ! -name "*.yml" ! -name ".git" -exec cp -r {} /config/ \; 2>/dev/null || true
 
     # try to copy secrets file back
     cp "${BACKUP_LOCATION}/secrets.yaml" /config 2>/dev/null || true

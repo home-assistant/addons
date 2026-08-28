@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.5
+
+- Shut down cleanly when the app is stopped
+- Leave the "Starting" state faster by checking readiness every 5 seconds
+  during startup
+
+## 1.4.4
+
+- Upgrade base image to trixie
+- Update speech recognition components to their latest versions
+- Disable ONNX Runtime telemetry: newer versions send usage data to a
+  Microsoft server by default, this app keeps it turned off
+
 ## 1.4.3
 
 - Fix for empty names in HA 2026.4

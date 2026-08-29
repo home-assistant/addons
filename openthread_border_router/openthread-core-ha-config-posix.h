@@ -85,21 +85,21 @@
 #define OPENTHREAD_CONFIG_MULTICAST_DNS_AUTO_ENABLE_ON_INFRA_IF 0
 
 /**
- * @def OPENTHREAD_POSIX_CONFIG_DISABLE_BROAD_ULA_ROUTE
+ * @def OPENTHREAD_POSIX_CONFIG_INSTALL_EXTERNAL_ROUTES_ENABLE
  *
- * Define as 1 to prevent the POSIX netif layer from ever installing the
- * broad Unique Local catch-all route fc00::/7 into the Linux kernel.
+ * Define as 0 to stop the POSIX platform from installing external routes
+ * advertised in Thread Network Data (such as `fc00::/7` or `::/0` from peer
+ * Border Routers) into the host kernel routing table.
  *
- * This route is extremely damaging on multi-VLAN / multi-BR networks because
- * it steals the entire ULA space toward the Thread interface.
- *
- * Specific OMR prefixes, mesh-local, and any other external routes continue
- * to be installed normally.
- *
- * Default: 1 (disabled) for this fork.
+ * On Border Routers connected to an infrastructure link this prevents routing
+ * loops and hairpinning (traffic matching a host kernel route on `wpan0` is
+ * forwarded across the low-bandwidth mesh to a peer BR, which forwards it
+ * right back onto the same infra link). This matches upstream openthread#13562,
+ * which changed the same default from ON to OFF, and replaces the earlier
+ * fork-specific "disable broad ULA route" compile-out.
  */
-#ifndef OPENTHREAD_POSIX_CONFIG_DISABLE_BROAD_ULA_ROUTE
-#define OPENTHREAD_POSIX_CONFIG_DISABLE_BROAD_ULA_ROUTE 1
+#ifndef OPENTHREAD_POSIX_CONFIG_INSTALL_EXTERNAL_ROUTES_ENABLE
+#define OPENTHREAD_POSIX_CONFIG_INSTALL_EXTERNAL_ROUTES_ENABLE 0
 #endif
 
 #ifndef OPENTHREAD_CONFIG_BORDER_ROUTING_MULTI_AIL_DETECTION_ENABLE

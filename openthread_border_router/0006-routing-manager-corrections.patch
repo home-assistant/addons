@@ -2,15 +2,6 @@ diff --git a/src/core/border_router/routing_manager.cpp b/src/core/border_router
 index 6be8b9002..8dfeb1a25 100644
 --- a/src/core/border_router/routing_manager.cpp
 +++ b/src/core/border_router/routing_manager.cpp
-@@ -650,7 +650,7 @@ bool RoutingManager::NetworkDataContainsUlaRoute(void) const
- 
-     while (Get<NetworkData::Leader>().GetNext(iterator, routeConfig) == kErrorNone)
-     {
--        if (routeConfig.mStable && RoutePublisher::GetUlaPrefix().ContainsPrefix(routeConfig.GetPrefix()))
-+        if (routeConfig.mStable && routeConfig.GetPrefix().GetLength() == 64 && RoutePublisher::GetUlaPrefix().ContainsPrefix(routeConfig.GetPrefix()))
-         {
-             contains = true;
-             break;
 @@ -1943,7 +1943,7 @@ exit:
  
  const otIp6Prefix RoutingManager::RoutePublisher::kUlaPrefix = {

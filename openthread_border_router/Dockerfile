@@ -16,9 +16,6 @@ ENV DOCKER=1
 
 
 COPY openthread-core-ha-config-posix.h /usr/src/
-COPY 0003-suggested-ula-prefix-agent-beta.patch /usr/src/
-COPY 0004-suggested-ula-prefix-core-beta.patch /usr/src/
-COPY 0005-disable-fc00-route.patch /usr/src/
 COPY 0006-routing-manager-corrections.patch /usr/src/
 
 WORKDIR /usr/src
@@ -49,10 +46,6 @@ RUN \
     && git checkout ${OTBR_BETA_VERSION} \
     && git submodule update --init --recursive --depth 1 \
     && echo "--- Applying patches to beta build ---" \
-    && echo "0001 and 0002 are already upstream in this beta commit -- skipping" \
-    && patch -p1 < /usr/src/0003-suggested-ula-prefix-agent-beta.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0004-suggested-ula-prefix-core-beta.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0005-disable-fc00-route.patch \
     && patch -p1 -d third_party/openthread/repo < /usr/src/0006-routing-manager-corrections.patch
 
 WORKDIR /usr/src/ot-br-posix
@@ -111,11 +104,6 @@ ENV REST_API=1
 ENV DOCKER=1
 
 COPY openthread-core-ha-config-posix.h /usr/src/
-COPY 0001-rest-SO_REUSEADDR.patch /usr/src/
-COPY 0002-nat64-handle-ipv4-options.patch /usr/src/
-COPY 0003-suggested-ula-prefix-agent-stable.patch /usr/src/
-COPY 0004-suggested-ula-prefix-core-stable.patch /usr/src/
-COPY 0005-disable-fc00-route.patch /usr/src/
 COPY 0006-routing-manager-corrections.patch /usr/src/
 
 WORKDIR /usr/src
@@ -144,11 +132,6 @@ RUN \
     && git fetch origin ${OTBR_VERSION} \
     && git checkout ${OTBR_VERSION} \
     && git submodule update --init --recursive --depth 1 \
-    && patch -p1 < /usr/src/0001-rest-SO_REUSEADDR.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0002-nat64-handle-ipv4-options.patch \
-    && patch -p1 < /usr/src/0003-suggested-ula-prefix-agent-stable.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0004-suggested-ula-prefix-core-stable.patch \
-    && patch -p1 -d third_party/openthread/repo < /usr/src/0005-disable-fc00-route.patch \
     && patch -p1 -d third_party/openthread/repo < /usr/src/0006-routing-manager-corrections.patch
 
 WORKDIR /usr/src/ot-br-posix

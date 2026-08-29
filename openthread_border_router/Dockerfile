@@ -35,6 +35,8 @@ RUN \
         nftables \
         libjsoncpp-dev \
         libnetfilter-queue-dev \
+        libnftnl-dev \
+        libmnl-dev \
         nodejs \
         npm \
         libprotobuf-dev \
@@ -75,6 +77,7 @@ RUN \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
         -DOTBR_TREL=ON \
+        -DOTBR_NFTABLES=ON \
         -DOTBR_NAT64=ON \
         -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
         -DOTBR_DNS_UPSTREAM_QUERY=ON \
@@ -123,6 +126,8 @@ RUN \
         nftables \
         libjsoncpp-dev \
         libnetfilter-queue-dev \
+        libnftnl-dev \
+        libmnl-dev \
         nodejs \
         npm \
         libprotobuf-dev \
@@ -161,6 +166,7 @@ RUN \
         -DOTBR_REST=ON \
         -DOTBR_BACKBONE_ROUTER=ON \
         -DOTBR_TREL=ON \
+        -DOTBR_NFTABLES=ON \
         -DOTBR_NAT64=ON \
         -DOT_POSIX_NAT64_CIDR="192.168.255.0/24" \
         -DOTBR_DNS_UPSTREAM_QUERY=ON \

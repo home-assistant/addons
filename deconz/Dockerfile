@@ -16,14 +16,14 @@ RUN \
         iputils-ping \
         kmod \
         libcap2-bin \
-        libqt5core5a \
-        libqt5gui5 \
-        libqt5network5 \
-        libqt5serialport5 \
-        libqt5sql5 \
-        libqt5websockets5 \
-        libqt5widgets5 \
-        libqt5qml5 \
+        libqt6gui6 \
+        libqt6network6 \
+        libqt6serialport6 \
+        libqt6sql6 \
+        libqt6websockets6 \
+        libqt6widgets6 \
+        libqt6qml6 \
+        libqt6core5compat6 \
         lsof \
         netcat-traditional \
         nginx \
@@ -43,9 +43,11 @@ RUN \
     set -x \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; \
         then \
-            curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/debian/stable/deconz_${DECONZ_VERSION}-debian-buster-stable_arm64.deb; \
+            curl -q -L -o /deconz.deb \
+                "https://github.com/dresden-elektronik/deconz-rest-plugin/releases/download/v${DECONZ_VERSION}/deconz-qt6_${DECONZ_VERSION}_arm64.deb"; \
         else \
-            curl -q -L -o /deconz.deb http://deconz.dresden-elektronik.de/ubuntu/stable/deconz-${DECONZ_VERSION}-qt5.deb; \
+            curl -q -L -o /deconz.deb \
+                "https://github.com/dresden-elektronik/deconz-rest-plugin/releases/download/v${DECONZ_VERSION}/deconz-qt6_${DECONZ_VERSION}_amd64.deb"; \
         fi \
     && dpkg -i /deconz.deb \
     && rm -f /deconz.deb \

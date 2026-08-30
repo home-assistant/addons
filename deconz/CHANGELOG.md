@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.8.0
+
+- Migrate base image from bookworm to trixie (However, a reinstallation of the app is required)
+
 ## 8.7.2
 
 - Bump deCONZ to 2.33.2 [[CHANGELOG](https://github.com/dresden-elektronik/deconz-rest-plugin/releases/tag/v2.33.2)]

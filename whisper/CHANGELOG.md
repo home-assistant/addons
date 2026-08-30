@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.5.3
+
+- Shut down cleanly when the app is stopped
+- Leave the "Starting" state faster by checking readiness every 5 seconds
+  during startup
+
 ## 3.5.2
 
 - Update speech recognition components to their latest versions

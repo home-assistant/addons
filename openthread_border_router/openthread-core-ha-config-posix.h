@@ -83,4 +83,18 @@
  */
 #define OPENTHREAD_CONFIG_MULTICAST_DNS_AUTO_ENABLE_ON_INFRA_IF 0
 
+/**
+ * @def OPENTHREAD_POSIX_CONFIG_UPSTREAM_DNS_BIND_TO_INFRA_NETIF
+ *
+ * The app runs with host networking; the upstream DNS server from
+ * /etc/resolv.conf (Supervisor CoreDNS, 172.30.32.3) is only reachable
+ * through the hassio bridge, not through the infra interface. Binding the
+ * upstream DNS resolver socket to the infra interface (OpenThread default
+ * since commit d88b63d19, first shipped in app 2.12.0) misroutes those
+ * queries out the physical interface, breaking upstream DNS/DNS64 for
+ * Thread devices. Disable the bind so queries follow the host routing
+ * table (see home-assistant/addons#3947).
+ */
+#define OPENTHREAD_POSIX_CONFIG_UPSTREAM_DNS_BIND_TO_INFRA_NETIF 0
+
 #endif /* OPENTHREAD_CORE_HA_CONFIG_POSIX_H_ */

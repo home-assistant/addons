@@ -2,9 +2,6 @@
 # yamllint disable rule:comments rule:line-length rule:truthy
 name: Lint
 
-env:
-  HADOLINT_VERSION: v1.17.2
-
 on:
   pull_request:
     branches: ["master"]
@@ -25,15 +22,10 @@ jobs:
           persist-credentials: false
 
       - name: Run linter
-        id: changed_files
-        run: |
-          shopt -s globstar
-          for dockerfile in **/Dockerfile; do
-            echo "Linting: $dockerfile"
-            docker run --rm -i \
-              -v $(pwd)/.hadolint.yaml:/.hadolint.yaml:ro \
-              hadolint/hadolint:${{ env.HADOLINT_VERSION }} < "$dockerfile"
-          done
+        uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387 # v3.5.0
+        with:
+          recursive: true
+          config: .hadolint.yaml
 
   yamllint:
     runs-on: ubuntu-latest

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.2
+
+- Fix upstream DNS/DNS64 resolution for Thread devices by not binding the upstream DNS resolver socket to the infra interface (fixes #3947, regression since 2.12.0)
+
 ## 3.1.1
 
 - Bump beta to OTBR POSIX version d83ddc62 to test ePSKc / Thread 1.4 Credentials Sharing support ahead of the upstream `release-v2026.09.0` tag

@@ -2,7 +2,8 @@
 
 ## 8.8.0
 
-- Migrate base image from bookworm to trixie (However, a reinstallation of the app is required)
+- Upgrade base image from bookworm to trixie
+- Fix timestamps in log messages during shutdown
 
 ## 8.7.2
 

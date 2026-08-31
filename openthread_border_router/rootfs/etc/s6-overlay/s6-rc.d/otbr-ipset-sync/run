@@ -5,6 +5,16 @@
 # Continuous ipset → nftables set synchronizer for OTBR firewall
 # ==============================================================================
 
+# With the in-process nftables backend (ot-br-posix#3325) the classic ipsets
+# are never populated (OT_FIREWALL is compiled out); otbr-agent produces its
+# ingress sets in-process from Thread Network Data. Nothing to sync here.
+for _otbr_marker in /opt/otbr-stable/share/otbr/nftables-backend /opt/otbr-beta/share/otbr/nftables-backend; do
+    if [ -r "$_otbr_marker" ] && grep -qx '1' "$_otbr_marker"; then
+        bashio::log.info "otbr-ipset-sync: in-process nftables backend active — nothing to sync, exiting"
+        exit 0
+    fi
+done
+
 # Improved atomic sync (same function as above – keep it here or move to a shared script)
 sync_ipset() {
     local ipset_name="$1"

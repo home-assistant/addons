@@ -64,10 +64,48 @@ otbr_log_level_int="$(otbr_log_level_to_int)" \
 # shellcheck disable=SC2015
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
 
-ipset create -exist otbr-ingress-deny-src       hash:net family inet6
-ipset create -exist otbr-ingress-deny-src-swap  hash:net family inet6
-ipset create -exist otbr-ingress-allow-dst      hash:net family inet6
-ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
+# ------------------------------------------------------------------------------
+# In-process nftables firewall backend (openthread/ot-br-posix#3325).
+#
+# An image built with -DOTBR_NFTABLES=ON has otbr-agent own the unicast ingress
+# filter for ${thread_if} and the NAT44 masquerade in-process, in a single
+# `inet otbr` table whose ingress sets are produced from Thread Network Data.
+# For such builds the legacy ipset producer is compiled out (OT_FIREWALL=off),
+# so the classic ipsets below are never filled and the agent's in-process chain
+# must be the unicast ingress authority.
+#
+# The build records the choice in a marker file (value 1). An explicit
+# OTBR_NFTABLES environment value overrides it; anything unrecognised means the
+# legacy path, matching the upstream pattern.
+# ------------------------------------------------------------------------------
+# The build installs the marker under the OTBR install prefix
+# (CMAKE_INSTALL_PREFIX=/opt/otbr-{stable,beta} -> share/otbr), which differs
+# from upstream's /usr image layout. Either copy implies the in-process backend.
+# An explicit OTBR_NFTABLES environment value overrides the marker.
+if [ -z "${OTBR_NFTABLES:-}" ]; then
+    OTBR_NFTABLES=0
+    for _otbr_marker in /opt/otbr-stable/share/otbr/nftables-backend /opt/otbr-beta/share/otbr/nftables-backend; do
+        if [ -r "$_otbr_marker" ] && grep -qx '1' "$_otbr_marker"; then
+            OTBR_NFTABLES=1
+            break
+        fi
+    done
+fi
+readonly OTBR_NFTABLES
+
+if [ "${OTBR_NFTABLES}" = "1" ]; then
+    bashio::log.info "In-process nftables firewall backend detected (unicast ingress + NAT44 owned by otbr-agent)"
+else
+    bashio::log.warning "In-process nftables backend NOT detected (legacy ipset/ip6tables firewall path)"
+fi
+
+# Legacy ipset producer is compiled out for nftables builds; skip ipsets.
+if [ "${OTBR_NFTABLES}" != "1" ]; then
+    ipset create -exist otbr-ingress-deny-src       hash:net family inet6
+    ipset create -exist otbr-ingress-deny-src-swap  hash:net family inet6
+    ipset create -exist otbr-ingress-allow-dst      hash:net family inet6
+    ipset create -exist otbr-ingress-allow-dst-swap hash:net family inet6
+fi
 
 # Pre-populate TREL port before firewall creation to avoid a race where TREL
 # traffic is silently dropped between firewall load and the configure script
@@ -81,26 +119,6 @@ nft delete table ip6 otbr 2>/dev/null || true
 
 if ! nft -f - <<EOF
 table ip6 otbr {
-    set otbr-ingress-deny-src {
-        type ipv6_addr
-        flags interval
-        auto-merge
-    }
-    set otbr-ingress-deny-src-swap {
-        type ipv6_addr
-        flags interval
-        auto-merge
-    }
-    set otbr-ingress-allow-dst {
-        type ipv6_addr
-        flags interval
-        auto-merge
-    }
-    set otbr-ingress-allow-dst-swap {
-        type ipv6_addr
-        flags interval
-        auto-merge
-    }
     set trel_ports {
         type inet_service
         comment "TREL UDP ports"
@@ -132,6 +150,12 @@ table ip6 otbr {
         type filter hook forward priority filter; policy accept;
         counter oifname "${thread_if}" jump otbr_to_thread
         counter iifname "${thread_if}" jump otbr_from_thread
+        # Never end this chain in accept/drop for unicast: unicast ingress into
+        # ${thread_if} must fall through to otbr-agent's in-process
+        # forward_ingress chain (inet otbr), which is registered after this
+        # table and therefore evaluates after it. `return` continues hook
+        # evaluation instead of terminating it.
+        counter return
     }
 
     chain input {
@@ -160,9 +184,12 @@ table ip6 otbr {
 
         iifname "${thread_if}" icmpv6 type { mld-listener-query, mld-listener-report, mld2-listener-report } counter drop comment "no MLD from Thread"
         iifname "${thread_if}" meta pkttype { multicast, broadcast } counter drop comment "no multicast to host from Thread (except control above)"
-        iifname "${thread_if}" icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } ip6 saddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept comment "ICMP errors from Thread OMR"
-        iifname "${thread_if}" icmpv6 type { echo-request, echo-reply } ip6 saddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept comment "echo from Thread OMR"
-        iifname "${thread_if}" ip6 saddr @otbr-ingress-allow-dst meta l4proto { tcp, udp } ct state new counter accept comment "OMR unicast to host"
+        # OMR-equivalent unicast to the host. The on-mesh prefix set is owned
+        # in-process by otbr-agent (inet otbr); without a local mirror, allow
+        # new unicast connections from Thread rate-limited instead.
+        iifname "${thread_if}" icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } limit rate 10/second burst 5 packets counter accept comment "ICMP errors from Thread"
+        iifname "${thread_if}" icmpv6 type { echo-request, echo-reply } limit rate 10/second burst 5 packets counter accept comment "echo from Thread"
+        iifname "${thread_if}" meta pkttype unicast ct state new limit rate 100/second burst 50 packets counter accept comment "new unicast from Thread to host (rate-limited)"
         iifname "${thread_if}" counter log prefix "OTBR_INPUT_THR_DROP " level warn drop comment "default deny input from Thread"
     }
 
@@ -200,7 +227,8 @@ table ip6 otbr {
     chain otbr_to_thread {
         iifname "${backbone_if}" jump from_backbone_to_thread
         iifname "${thread_if}" jump from_thread_to_thread
-        counter drop
+        # Unicast ingress is owned by the in-process backend: fall through.
+        counter return
     }
 
     chain from_backbone_to_thread {
@@ -220,18 +248,15 @@ table ip6 otbr {
         ip6 daddr ff00::/8 meta pkttype { broadcast } counter drop comment "no broadcast"
         ip6 daddr @mcast-fwd-scope counter accept comment "forward admin/global-scope multicast (Matter groups ff35, etc.)"
         ip6 daddr ff00::/8 counter drop comment "drop mesh-local multicast (link/realm-scope) at BR boundary"
-        ip6 saddr @otbr-ingress-deny-src counter drop comment "drop Thread-sourced packets from Ethernet"
         ip6 daddr fe80::/10 counter drop comment "drop link-local unicast destination from backbone"
         ip6 saddr fe80::/10 counter drop comment "drop link-local unicast sources from backbone"
-        ct state established,related counter accept
-        icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } ip6 daddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
-        icmpv6 type { echo-request, echo-reply } ip6 daddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
         # TCP MSS clamping: Thread MTU is 1280 bytes; clamp MSS to 1220
         # (1280 - 60 for IPv6+TCP headers) to prevent fragmentation when
         # backbone hosts with larger MTU initiate TCP to Thread devices.
         tcp flags syn tcp option maxseg size set 1220
-        ip6 daddr @otbr-ingress-allow-dst meta l4proto { tcp, udp } ct state new limit rate 1000/second burst 200 packets counter accept
-        counter log prefix "OTBR_BB2THR_DROP " level warn drop comment "default deny backbone to Thread"
+        # Unicast ingress into the mesh is decided by otbr-agent's in-process
+        # forward_ingress chain (inet otbr). `return` lets it filter.
+        counter return
     }
 
     chain from_thread_to_thread {
@@ -241,7 +266,7 @@ table ip6 otbr {
     chain otbr_from_thread {
         oifname "${backbone_if}" jump from_thread_to_backbone
         oifname "${thread_if}" jump from_thread_to_thread
-        counter drop
+        counter return
     }
 
     chain from_thread_to_backbone {
@@ -261,15 +286,16 @@ table ip6 otbr {
         ip6 daddr ff00::/8 counter drop comment "drop mesh-local multicast (link/realm-scope) at BR boundary"
         ip6 saddr fe80::/10 counter drop comment "no link-local from Thread to backbone"
         ct state established,related accept
-        icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } ip6 saddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
-        icmpv6 type { echo-request, echo-reply } ip6 saddr @otbr-ingress-allow-dst limit rate 10/second burst 5 packets counter accept
-        icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert } ip6 hoplimit 255 ip6 saddr @otbr-ingress-allow-dst limit rate 20/second burst 10 packets counter accept
-        # Rate-limited accept for OMR traffic from Thread to backbone.
-        # The Thread radio mesh (~250 kbps) is the natural bottleneck in this
-        # direction, but rate limiting prevents a flood of locally-generated
-        # traffic (e.g., from a compromised device) from saturating the backbone.
-        ip6 saddr @otbr-ingress-allow-dst limit rate 2000/second burst 400 packets counter accept
-        counter log prefix "OTBR_THR2BB_DROP " level warn drop comment "default deny Thread to backbone"
+        icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem } counter accept
+        icmpv6 type { echo-request, echo-reply } counter accept
+        icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert } ip6 hoplimit 255 limit rate 20/second burst 10 packets counter accept
+        # Thread -> backbone is permissive but rate-limited: the mesh (~250 kbps)
+        # is the bottleneck, and a generic accept keeps OMR and on-mesh unicast
+        # flowing without the on-mesh prefix set (owned in-process by the agent
+        # in backend mode). A rate limit prevents a flood (e.g. from a
+        # compromised device) from saturating the backbone.
+        counter limit rate 2000/second burst 400 packets accept
+        counter log prefix "OTBR_THR2BB_DROP " level warn drop comment "overflow: too much Thread to backbone"
     }
 }
 EOF
@@ -336,57 +362,75 @@ setup_docker_user_forward() {
 
 setup_docker_user_forward "${backbone_if}" "${thread_if}"
 
-# Sync current ipset contents into the nft sets so that any prefixes
-# already present (or later updated by otbr-agent via the classic ipset
-# interface) become visible to the nftables rules.
-sync_ipset() {
-    local ipset_name="$1"
-    local nft_set="$2"
-    local elements=()
-    local line entry
+# In backend mode the classic ipsets are never populated (OT_FIREWALL is off),
+# so there is nothing to sync into the nftables sets.
+if [ "${OTBR_NFTABLES}" != "1" ]; then
+    # Sync current ipset contents into the nft sets so that any prefixes
+    # already present (or later updated by otbr-agent via the classic ipset
+    # interface) become visible to the nftables rules.
+    sync_ipset() {
+        local ipset_name="$1"
+        local nft_set="$2"
+        local elements=()
+        local line entry
 
-    while IFS= read -r line; do
-        if [[ $line =~ ^add[[:space:]]+[^[:space:]]+[[:space:]]+([^[:space:]]+) ]]; then
-            entry="${BASH_REMATCH[1]}"
-            elements+=("$entry")
-        fi
-    done < <(ipset list "$ipset_name" -o save 2>/dev/null || true)
+        while IFS= read -r line; do
+            if [[ $line =~ ^add[[:space:]]+[^[:space:]]+[[:space:]]+([^[:space:]]+) ]]; then
+                entry="${BASH_REMATCH[1]}"
+                elements+=("$entry")
+            fi
+        done < <(ipset list "$ipset_name" -o save 2>/dev/null || true)
 
-    if (( ${#elements[@]} > 0 )); then
-        nft -f - <<EOF 2>/dev/null || true
+        if (( ${#elements[@]} > 0 )); then
+            nft -f - <<EOF 2>/dev/null || true
 flush set ip6 otbr ${nft_set}
 add element ip6 otbr ${nft_set} { $(IFS=,; echo "${elements[*]}") }
 EOF
-    else
-        nft flush set ip6 otbr "$nft_set" 2>/dev/null || true
-    fi
-}
+        else
+            nft flush set ip6 otbr "$nft_set" 2>/dev/null || true
+        fi
+    }
 
-sync_ipset otbr-ingress-deny-src  otbr-ingress-deny-src
-sync_ipset otbr-ingress-allow-dst otbr-ingress-allow-dst
+    sync_ipset otbr-ingress-deny-src  otbr-ingress-deny-src
+    sync_ipset otbr-ingress-allow-dst otbr-ingress-allow-dst
+fi
 
 if bashio::config.true 'firewall'; then
-    bashio::log.info "OTBR hardened nftables firewall ACTIVE (strict backbone→Thread, permissive Thread→backbone, host control-plane blocked on radio)"
+    bashio::log.info "OTBR hardened nftables firewall ACTIVE (scope-gated multicast, host control-plane blocked on radio; unicast ingress owned by otbr-agent in-process backend)"
 else
-    # Disable path: open the critical ingress chain so behaviour matches stock OTBR
+    # Disable path: open the add-on chains so behaviour matches stock OTBR.
+    # (With the in-process backend this bypasses the agent's ingress filter
+    # too, so the firewall is effectively off.)
     nft flush chain ip6 otbr from_backbone_to_thread
     nft add rule ip6 otbr from_backbone_to_thread accept
-    bashio::log.info "OTBR firewall disabled — from-backbone-to-Thread set to ACCEPT"
+    nft flush chain ip6 otbr from_thread_to_backbone
+    nft add rule ip6 otbr from_thread_to_backbone accept
+    nft flush chain ip6 otbr input
+    nft add rule ip6 otbr input accept
+    nft flush chain ip6 otbr output
+    nft add rule ip6 otbr output accept
+    bashio::log.info "OTBR firewall disabled — add-on chains set to ACCEPT"
 fi
 
 # ------------------------------------------------------------------
-# NAT64 support: nftables NAT44 masquerade for Thread-originated IPv4
-# traffic (after OTBR's IPv6→IPv4 translation). The mark ${otbr_fw_mark}
-# is set on all packets entering from the Thread interface so that
-# postrouting masquerade can identify which traffic to NAT.
+# NAT64 / NAT44.
+# In backend mode the in-process backend owns the NAT44 masquerade (its
+# nat_prerouting/postrouting/forward chains, mark 0x1001), so the add-on's
+# own nat64 table would double-masquerade and is skipped. In legacy mode the
+# add-on installs its nftables NAT44 table.
 # ------------------------------------------------------------------
-if bashio::config.true 'nat64'; then
-    bashio::log.info "Enabling NAT64 nftables rules..."
+if [ "${OTBR_NFTABLES}" = "1" ]; then
+    if bashio::config.true 'nat64'; then
+        bashio::log.info "NAT64 enabled: NAT44 masquerade handled in-process by otbr-agent"
+    fi
+else
+    if bashio::config.true 'nat64'; then
+        bashio::log.info "Enabling NAT64 nftables rules..."
 
-    # Clean up any previous instance (idempotent restart)
-    nft delete table ip otbr_nat64 2>/dev/null || true
+        # Clean up any previous instance (idempotent restart)
+        nft delete table ip otbr_nat64 2>/dev/null || true
 
-    if ! nft -f - <<EOF
+        if ! nft -f - <<EOF
 table ip otbr_nat64 {
     chain mark {
         type filter hook prerouting priority -150; policy accept;
@@ -407,14 +451,15 @@ table ip otbr_nat64 {
     }
 }
 EOF
-    then
-        bashio::log.error "Failed to apply NAT64 nftables rules"
+        then
+            bashio::log.error "Failed to apply NAT64 nftables rules"
+        else
+            bashio::log.info "NAT64 nftables rules applied successfully"
+        fi
     else
-        bashio::log.info "NAT64 nftables rules applied successfully"
+        # Clean up NAT64 rules when disabled (ensures no stale rules on toggle)
+        nft delete table ip otbr_nat64 2>/dev/null || true
     fi
-else
-    # Clean up NAT64 rules when disabled (ensures no stale rules on toggle)
-    nft delete table ip otbr_nat64 2>/dev/null || true
 fi
 
 # REST listen logic (unchanged)

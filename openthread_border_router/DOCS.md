@@ -70,7 +70,7 @@ App configuration:
 | network_device     | IP address and port to connect to a network-based RCP (see below) |
 | beta               | Enable beta mode to run a newer, experimental version of OpenThread Border Router |
 | backbone_interface | Override the auto-detected primary network interface used for IPv6 routing |
-| custom_omr_prefix  | Force a specific Off-Mesh Routable (OMR) prefix (e.g. `fd42:0001::/64`). Leave empty for automatic behavior. **This is the primary fix for multi-BR loop prevention** -- a stable OMR prefix across restarts eliminates the orphaned-partition trigger that causes OTBR to install the `fc00::/7` catch-all route. |
+| custom_omr_prefix  | Force a specific Off-Mesh Routable (OMR) prefix (e.g. `fd42:0001::/64`), or leave empty to derive a deterministic `/64` from the Thread network name. With derivation, every border router on a mesh converges on the same prefix automatically (Apple border routers behave the same way). A stable OMR prefix across restarts prevents the multi-BR loop (`fc00::/7` catch-all). |
 | custom_omr_priority | Set the Route Information Option (RIO) preference for the OMR prefix. One of `high`, `med` (default), or `low`. In multi-BR deployments, the BR with the highest-priority OMR prefix is preferred by LAN hosts. Set this lower on backup BRs so primary BR routes are preferred. |
 | leader_weight      | Thread Leader weight (0--255, default: 72). Influences which BR is elected as the Thread partition Leader. Higher values make this BR more likely to become Leader. In multi-BR deployments, set a higher weight on the primary BR and lower on backups to ensure stable Leader election. |
 

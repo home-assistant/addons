@@ -43,9 +43,10 @@ configuration:
     name: Custom OMR prefix
     description: >-
       Force a specific Off-Mesh Routable (OMR) prefix, e.g. fd42:0001::/64.
-      Leave empty for automatic behavior. A stable prefix across restarts
-      prevents the multi-border-router routing loop (fc00::/7 catch-all
-      route). All border routers on a shared mesh must use the same prefix.
+      Leave empty to derive a deterministic prefix from the Thread network
+      name, so every border router on the mesh converges on the same OMR
+      prefix automatically. A stable prefix across restarts prevents the
+      multi-border-router routing loop (fc00::/7 catch-all route).
   custom_omr_priority:
     name: OMR prefix preference
     description: >-

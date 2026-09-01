@@ -13,7 +13,7 @@ and operationally damaging across both large and small sites, which is why this 
 a major version.
 
 **The fix has two complementary layers:**
-1. **Stable OMR prefix** (`custom_omr_prefix`, `--ula-prefix`) - the BR prefix is now
+1. **Stable OMR prefix** (`custom_omr_prefix`, or a deterministic hash of the Thread network name) - the BR prefix is now
    deterministic across restarts, eliminating the orphaned-partition trigger for the
    catch-all route.
 2. **Routing manager corrections** - `kUlaPrefix` tightened `/7` -> `/64`,
@@ -32,6 +32,8 @@ a major version.
   - **Rate limiting**: OMR accept rules in both forward directions now rate-limited (1000/sec backbone→Thread, 2000/sec Thread→backbone) to prevent DoS of the Thread mesh.
   - **TCP MSS clamping**: Backbone→Thread TCP SYNs have MSS clamped to 1220 bytes to prevent fragmentation across the 1280-byte Thread MTU boundary.
   - **TREL port race fix**: The TREL UDP port is now queried before firewall creation and pre-populated into the `trel_ports` nftables set, eliminating the 1-30 second window where TREL was silently dropped after restart.
+- OMR prefix default: when `custom_omr_prefix` is empty, a deterministic ULA `/64` is derived by hashing the Thread network name, so every border router on a mesh converges on the same prefix automatically (Apple border routers behave the same way) without setting it per-BR.
+- Rebase: build from the ot-br-posix main tip (includes #3325, the opt-in in-process nftables firewall backend) and trim the patch set to a single routing-manager patch (`0001`/`0002` are now upstream, the speculative ULA-prefix patches were removed, and external-route installation is disabled via the config header instead of a broad-ULA-route patch).
 - Docs: document `backbone_interface`, `custom_omr_priority`, and `leader_weight` configuration options.
 
 ## 3.0.2

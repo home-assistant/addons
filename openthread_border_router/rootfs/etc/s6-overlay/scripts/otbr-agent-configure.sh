@@ -62,37 +62,73 @@ ot-ctl mdns enable
 ot-ctl br enable
 
 # ==============================================================================
-# Custom OMR Prefix + Preference
+# OMR Prefix (custom override, or deterministic hash of the Thread network
+# name) + Preference
 # ==============================================================================
 OMR_PREF=$(bashio::config 'custom_omr_priority')
+
+# Deterministic default OMR prefix: hash the Thread network name into a ULA
+# /64 (fd00::/8). Every border router on the same mesh sees the same network
+# name and therefore derives the same OMR prefix, so multi-BR networks converge
+# on a single stable prefix without manual coordination (Apple border routers
+# behave the same way). A user-provided custom_omr_prefix always wins.
+derive_omr_prefix() {
+    local name h gid subn
+    for _i in {1..40}; do
+        name="$(ot-ctl networkname 2>/dev/null | tr -d '\r\n')"
+        [ -n "$name" ] && break
+        sleep 1
+    done
+    [ -n "$name" ] || return 1
+    h="$(printf '%s' "$name" | sha256sum | cut -d' ' -f1)"
+    gid="${h:0:10}"     # 40-bit global ID
+    subn="${h:12:16}"   # 16-bit subnet ID
+    printf 'fd%s:%s:%s:%s::/64' "${gid:0:2}" "${gid:2:6}" "${gid:6:10}" "${subn:0:4}"
+}
+
+DESIRED_PREFIX=""
 if bashio::config.has_value 'custom_omr_prefix'; then
-    DESIRED_PREFIX=$(bashio::config 'custom_omr_prefix')
+    DESIRED_PREFIX="$(bashio::config 'custom_omr_prefix')"
+fi
 
-    if [[ -n "$DESIRED_PREFIX" ]]; then
-        bashio::log.info "Custom OMR prefix requested: ${DESIRED_PREFIX}"
+if [[ -z "$DESIRED_PREFIX" ]]; then
+    bashio::log.info "No custom OMR prefix set; deriving a deterministic OMR prefix from the Thread network name"
+    if DESIRED_PREFIX="$(derive_omr_prefix)"; then
+        bashio::log.info "Derived OMR prefix: ${DESIRED_PREFIX}"
+    else
+        bashio::log.warning "Could not read the Thread network name; leaving OMR automatic for this boot"
+        DESIRED_PREFIX=""
+    fi
+else
+    bashio::log.info "Custom OMR prefix requested: ${DESIRED_PREFIX}"
+fi
 
-        # Wait until ot-ctl is ready
-        for i in {1..40}; do
-            if ot-ctl state >/dev/null 2>&1; then
-                break
-            fi
-            sleep 1
-        done
+if [[ -n "$DESIRED_PREFIX" ]]; then
+    # Wait until ot-ctl is ready
+    for i in {1..40}; do
+        if ot-ctl state >/dev/null 2>&1; then
+            break
+        fi
+        sleep 1
+    done
 
-        # Check if already set correctly
-        CURRENT=$(ot-ctl br omrprefix local 2>/dev/null | awk '{print $2}' || true)
+    # Check if already set correctly
+    CURRENT=$(ot-ctl br omrprefix local 2>/dev/null | awk '{print $2}' || true)
 
-        if [[ "$CURRENT" == "$DESIRED_PREFIX" ]]; then
+    if [[ "$CURRENT" == "$DESIRED_PREFIX" ]]; then
+        if bashio::config.has_value 'custom_omr_prefix'; then
             bashio::log.info "✅ Custom OMR prefix already set to ${DESIRED_PREFIX}"
         else
-            bashio::log.info "Applying custom OMR prefix: ${DESIRED_PREFIX}"
+            bashio::log.info "✅ Derived OMR prefix already set to ${DESIRED_PREFIX}"
+        fi
+    else
+        bashio::log.info "Applying OMR prefix: ${DESIRED_PREFIX}"
 
-            if ot-ctl br omrconfig custom "${DESIRED_PREFIX}" "${OMR_PREF}"; then
-                bashio::log.info "✅ Successfully applied custom OMR prefix: ${DESIRED_PREFIX} (priority ${OMR_PREF})"
-            else
-                bashio::log.error "❌ Failed to apply custom OMR prefix"
-                return 11
-            fi
+        if ot-ctl br omrconfig custom "${DESIRED_PREFIX}" "${OMR_PREF}"; then
+            bashio::log.info "✅ Successfully applied OMR prefix: ${DESIRED_PREFIX} (priority ${OMR_PREF})"
+        else
+            bashio::log.error "❌ Failed to apply OMR prefix"
+            return 11
         fi
     fi
 fi

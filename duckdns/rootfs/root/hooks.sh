@@ -5,6 +5,7 @@ set -e
 CONFIG_PATH=/data/options.json
 
 SYS_TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
+SYS_TOKEN="${SYS_TOKEN//[[:space:]]/}"
 SYS_CERTFILE=$(jq --raw-output '.lets_encrypt.certfile' $CONFIG_PATH)
 SYS_KEYFILE=$(jq --raw-output '.lets_encrypt.keyfile' $CONFIG_PATH)
 

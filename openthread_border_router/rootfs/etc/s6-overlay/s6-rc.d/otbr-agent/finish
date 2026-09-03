@@ -13,6 +13,8 @@ fi
 if test "$e" -ne 0; then
     bashio::log.warning "otbr-agent exited with code $e (by signal $2)."
 else
+    # A clean exit also happens on platform reset (e.g. reset/factoryreset),
+    # in which case s6 restarts the service.
     bashio::log.info "otbr-agent exited with code $e (by signal $2)."
 fi
 

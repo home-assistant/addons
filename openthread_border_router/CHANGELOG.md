@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.2.0
+
+- Bump to OTBR POSIX version 337711e7 (tag v2026.08.0)
+  - Improved startup robustness: multicast router setup is retried on transient errors
+  - Various fixes and stability improvements in OpenThread
+- Bump beta to OTBR POSIX version fd872ab9 (tag v2026.09.0)
+  - Thread 1.4 Credentials Sharing (ePSKc): share Thread network credentials with other devices directly from the Web UI
+  - Web UI: QR codes are now generated locally instead of using a remote service
+  - Upstream DNS resolution for Thread devices is now fixed in OpenThread itself (the workaround from 3.1.2 remains in place for stable)
+  - Various fixes and stability improvements in OpenThread and OTBR
+  - On OpenThread reset (e.g. when forming or joining a network through the OpenThread Web UI), the app runtime configuration (TREL, NAT64, mDNS, TX power) is now re-applied cleanly on every start
+
 ## 3.1.2
 
 - Fix upstream DNS/DNS64 resolution for Thread devices by not binding the upstream DNS resolver socket to the infra interface (fixes #3947, regression since 2.12.0)

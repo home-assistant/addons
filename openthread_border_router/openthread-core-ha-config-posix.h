@@ -94,6 +94,12 @@
  * queries out the physical interface, breaking upstream DNS/DNS64 for
  * Thread devices. Disable the bind so queries follow the host routing
  * table (see home-assistant/addons#3947).
+ *
+ * OpenThread 82eb4863a (openthread/openthread#13545, included in OTBR
+ * v2026.09.0 and later) fixes this upstream: resolv.conf nameservers are no
+ * longer bound to the infra interface, and this option only governs
+ * RDNSS-discovered servers. Keep the define until the stable build has
+ * picked up that fix, then drop it.
  */
 #define OPENTHREAD_POSIX_CONFIG_UPSTREAM_DNS_BIND_TO_INFRA_NETIF 0
 

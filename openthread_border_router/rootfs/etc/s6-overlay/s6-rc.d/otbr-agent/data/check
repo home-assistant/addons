@@ -7,3 +7,9 @@ test -S /run/openthread-wpan0.sock
 # Check REST API port is open
 mapfile -t < /tmp/otbr-agent-rest-api
 nc -z "${MAPFILE[@]}"
+
+# Apply runtime configuration (TREL, NAT64, mDNS, TX power) before reporting
+# the service as ready. Running this here (rather than as a oneshot) ensures the
+# configuration is re-applied whenever s6 restarts otbr-agent, e.g. after a
+# platform reset.
+/etc/s6-overlay/scripts/otbr-agent-configure.sh

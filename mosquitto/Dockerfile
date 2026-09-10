@@ -57,6 +57,8 @@ RUN apt-get update \
     && cd mosquitto-go-auth \
     && sed -i 's/-I\/usr\/local\/include/-I\/usr\/include/' Makefile \
     && sed -i 's/LDFLAGS := .*$/& -Wl,-unresolved-symbols=ignore-all/' Makefile \
+    # Fix nil pointer dereference panic in ttlcache
+    && sed -i 's/return present, item.Value()/if item == nil { return false, false }\n\treturn true, item.Value()/' cache/cache.go \
     && make \
     && mkdir -p /usr/share/mosquitto \
     && cp -f go-auth.so /usr/share/mosquitto \

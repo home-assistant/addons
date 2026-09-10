@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.1
+
+- Fix nil pointer dereference panic in go-auth ttlcache ACL check ([#4606](https://github.com/home-assistant/addons/issues/4606), [#4655](https://github.com/home-assistant/addons/issues/4655))
+
 ## 7.1.0
 
 - Add `log_dest` and `log_type` configuration options

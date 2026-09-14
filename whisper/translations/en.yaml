@@ -95,7 +95,7 @@ configuration:
       Access token for Hugging Face, used when downloading models.
 
       Only needed for a model that is gated or private, such as one you have
-      accepted a licence for. Leave it empty otherwise: the models this app
+      accepted a license for. Leave it empty otherwise: the models this app
       selects on its own are all public.
   local_files_only:
     name: Local files only

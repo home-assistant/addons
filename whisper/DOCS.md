@@ -176,7 +176,7 @@ A [Hugging Face access token][hf-token], used when downloading models. This is
 unset by default.
 
 You only need this for a model that is gated or private — one whose Hugging Face
-page asks you to accept a licence or request access before the files can be
+page asks you to accept a license or request access before the files can be
 downloaded. Everything the app selects on its own is public, so leave this empty
 unless you have pointed `custom_model` at a repository that needs it.
 
@@ -233,8 +233,11 @@ needs the first time it starts and keeps it in a cache on `/data`, so later
 restarts take nothing from the network.
 
 You do not turn this on: the app works out which backend your settings select
-and installs for that one. Nothing is downloaded for the default configuration,
-or for any language that uses faster-whisper, sherpa, onnx-asr or qwen3-asr.
+and installs for that one. No backend package is downloaded for the default
+configuration, or for any language that uses faster-whisper, sherpa, onnx-asr or
+qwen3-asr — those are already part of the app. Model files are separate: every
+backend downloads its model the first time it is used, which is what
+`local_files_only` controls.
 
 What this means in practice:
 

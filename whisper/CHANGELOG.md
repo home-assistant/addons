@@ -60,6 +60,12 @@
   of every utterance went undecoded
   - The startup warm-up was a no-op for the same reason, so the first
     transcription after a restart also paid for it
+- Fix `initial_prompt` being sent as the literal word "null" when it is not
+  set, which is the default. Every transcription was biased toward that word,
+  it sat in front of the names `bias_names` adds, and it triggered the new
+  warning about prompts with a Distil-Whisper model
+- Fix selecting `model` = "custom" without a `custom_model` starting the app
+  with a model named "null" instead of reporting that the model is not set
 - Upgrade to wyoming-faster-whisper 3.8.1
 
 ## 3.5.3

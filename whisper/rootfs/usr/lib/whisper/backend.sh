@@ -39,8 +39,15 @@ whisper::resolve_options() {
     whisper_stt_library="$(bashio::config 'stt_library')"
 
     if [ "${whisper_model}" = 'custom' ]; then
-        # Override with custom model
-        whisper_model="$(bashio::config 'custom_model')"
+        # Override with custom model. bashio::config echoes the string "null"
+        # for an option that is not set at all, so ask has_value rather than
+        # testing what it returns -- otherwise an unset custom_model reaches
+        # the server as the literal model name "null".
+        if bashio::config.has_value 'custom_model'; then
+            whisper_model="$(bashio::config 'custom_model')"
+        else
+            whisper_model=''
+        fi
         if [ "${whisper_stt_library}" = 'auto' ]; then
             # Need to know what kind of custom model
             whisper_stt_library="$(bashio::config 'custom_model_type')"

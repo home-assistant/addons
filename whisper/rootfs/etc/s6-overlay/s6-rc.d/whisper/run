@@ -60,6 +60,15 @@ if bashio::config.has_value 'vad_endpointing'; then
     fi
 fi
 
+# Only pass a prompt that was actually set. bashio::config echoes the string
+# "null" for an unset option, and the server would take that as a real prompt:
+# biasing every transcription toward the word "null", sitting in front of the
+# names bias_names adds, and tripping the warning about prompts on a
+# Distil-Whisper model.
+if bashio::config.has_value 'initial_prompt'; then
+    flags+=('--initial-prompt' "$(bashio::config 'initial_prompt')")
+fi
+
 if bashio::config.true 'vad_clip'; then
     flags+=('--vad-clip')
 fi
@@ -87,7 +96,6 @@ exec python3 -m wyoming_faster_whisper \
     --stt-library "${stt_library}" \
     --beam-size "$(bashio::config 'beam_size')" \
     --language "$(bashio::config 'language')" \
-    --initial-prompt "$(bashio::config 'initial_prompt')" \
     --whisper-task "$(bashio::config 'whisper_task')" \
     --data-dir /data \
     --download-dir /data "${flags[@]}"

@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.8.0
+## 3.8.1
 
 - Add `bias_names` option to bias transcription toward the names in your Home
   Assistant: the names and aliases of your exposed entities, plus your area and
@@ -54,7 +54,13 @@
   Distil-Whisper model. These models were distilled without previous-text
   conditioning, so a prompt never helps them, and `distil-small.en` is actively
   damaged by a long one — correct output comes back truncated or looping
-- Upgrade to wyoming-faster-whisper 3.8.0
+- Fix `sherpa_streaming` cutting off the last word or two of an utterance. The
+  trailing silence fed to the model was fixed at 0.66 seconds, which is less
+  than one 1.41-second chunk of the Kroko zipformers it defaults to, so the end
+  of every utterance went undecoded
+  - The startup warm-up was a no-op for the same reason, so the first
+    transcription after a restart also paid for it
+- Upgrade to wyoming-faster-whisper 3.8.1
 
 ## 3.5.3
 

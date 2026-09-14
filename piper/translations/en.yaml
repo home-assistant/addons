@@ -1,10 +1,19 @@
 ---
 configuration:
+  backend:
+    name: Backend
+    description: >-
+      The text-to-speech engine to use. `piper` is fast and runs on any
+      hardware. `omnivoice` is experimental: much higher quality, supports
+      voice cloning, but it is much slower and really wants a desktop or
+      server CPU. It will run on other hardware, but expect it to be too slow
+      to be useful there.
   voice:
     name: Voice
     description: >-
       The Piper voice to use. Voices are named according to the following
-      scheme: `<language>-<name>-<quality>`.
+      scheme: `<language>-<name>-<quality>`. Ignored when the backend is
+      `omnivoice`, which picks its voice per request.
   speaker:
     name: Speaker
     description: >-
@@ -31,6 +40,22 @@ configuration:
     name: Sentence silence
     description: >-
       Adds the given number of seconds of silence after every sentence.
+  omnivoice_steps:
+    name: OmniVoice steps
+    description: >-
+      Number of decode steps for the `omnivoice` backend. Fewer steps are
+      faster, more steps sound better. Only used when the backend is
+      `omnivoice`.
+  enable_japanese:
+    name: Japanese support
+    description: >-
+      Download the Japanese phonemizer, needed for Japanese voices. Around
+      350 MB is downloaded the first time this is turned on.
+  enable_thai:
+    name: Thai support
+    description: >-
+      Download the Thai phonemizer, needed for Thai voices. Around 390 MB is
+      downloaded the first time this is turned on.
   update_voices:
     name: Update voices
     description: >-

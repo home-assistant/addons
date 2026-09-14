@@ -22,6 +22,46 @@ for more information.
 
 ## Configuration
 
+### Option: `backend`
+
+The text-to-speech engine to use.
+
+- `piper` (the default) is fast, runs well on a Raspberry Pi, and uses the
+  voices listed under the `voice` option below.
+- `omnivoice` is **experimental**. It is considerably higher quality, supports
+  many more languages, and can clone a voice from a short recording, but it is
+  much slower and really needs a desktop or server CPU. It will run on
+  `aarch64`, with a warning, but expect it to be impractically slow there.
+
+OmniVoice is not part of the app image. Selecting it downloads it, along with a
+model of several GB, the first time the app starts, so it can take a long time
+before the app becomes available in Home Assistant. Later starts reuse the
+download.
+
+The two backends have separate voices. Switching backends changes the list of
+voices the app advertises, so reload the Wyoming integration for Piper
+afterwards.
+
+### Option: `enable_japanese` / `enable_thai`
+
+Japanese and Thai voices need an extra phonemizer that is not part of the app
+image, because it is large and most installs do not need it. Turning the option
+on downloads it the first time the app starts (around 350 MB for Japanese,
+390 MB for Thai), so that start takes noticeably longer than usual. Later starts
+reuse the download.
+
+While an option is off, its voices are not offered to Home Assistant at all, so
+they will not appear in the Wyoming integration's voice list. Reload that
+integration after turning one on. If the app's own `voice` option is set to a
+Japanese or Thai voice without its option turned on, the app stops at startup
+and says which one to enable.
+
+### Option: `omnivoice_steps`
+
+Number of decode steps used by the `omnivoice` backend. Fewer steps are faster,
+more steps sound better; the default of 32 is a safe choice, and values as low
+as 10 still sound clean. Ignored by the `piper` backend.
+
 ### Option: `voice`
 
 [Listen to voice samples](https://rhasspy.github.io/piper-samples/)
@@ -71,10 +111,54 @@ Download the list of new voices automatically every time the app starts. You mus
 
 Print DEBUG level messages to the app's log.
 
+## Web Interface
+
+The app has a small web interface for managing voices, reachable with the "Open
+Web UI" button on the app page. It is served through Home Assistant ingress, so
+using it means going through Home Assistant and being an administrator. Its port
+is not published, and it only answers Home Assistant's ingress proxy — other
+apps on the same machine are refused.
+
+It has two sections:
+
+- **Piper** — upload and delete custom Piper voices (a `<voice>.onnx` model plus
+  its `<voice>.onnx.json` config).
+- **OmniVoice** — upload a reference recording (a WAV file) and its transcript
+  to create a cloning voice.
+
+The app picks up added and removed voices on its own, but Home Assistant caches
+the voice list, so **reload the Wyoming integration for Piper** for a new voice
+to show up there.
+
+Voices in `/share/piper` are listed but cannot be deleted from the web
+interface, because that directory is mounted read-only. Delete those files
+directly instead.
+
+Because voices can be added and removed here, the set you end up with is your
+own and is included in the app's backups — including uploads, which exist
+nowhere else. Only the large re-downloadable caches are left out: the OmniVoice
+model weights and the downloads for the Japanese and Thai options.
+
 ## Custom Voices
 
-Add custom voice files to the `/share/piper` directory. Each custom voice must include a model file (`<voice>.onnx`) and config file (`<voice>.onnx.json`).
+Add custom voice files to the `/share/piper` directory, or upload them through
+the web interface. Each custom voice must include a model file (`<voice>.onnx`)
+and config file (`<voice>.onnx.json`).
 See the [training guide](https://github.com/rhasspy/piper/blob/master/TRAINING.md) for details on how to train and export a custom voice.
+
+## Custom OmniVoice Voices
+
+The `omnivoice` backend uses its own voices, which are not Piper voice models.
+They live in `/data/omnivoice_voices` inside the app, organized as
+`<language>/<voice_name>/`, and are managed through the **OmniVoice** section of
+the web interface. Each voice is a reference recording (`ref.wav`) plus its
+transcript (`ref.txt`), which OmniVoice clones.
+
+A `default` voice is always available for every supported language and uses
+OmniVoice's built-in speaker, so cloning voices are optional.
+
+These voices are included in app backups. The downloaded OmniVoice model is not,
+since it is several GB and is re-downloaded when needed.
 
 ## Support
 

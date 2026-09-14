@@ -1,0 +1,143 @@
+#!/command/with-contenv bashio
+# vim: ft=bash
+# shellcheck shell=bash
+# ==============================================================================
+# Install the optional speech-to-text backend the configuration selects.
+#
+# transformers and FunASR are not part of the image: both need PyTorch, and
+# together they are ~1.5 GB of a ~2 GB install, for backends that most
+# configurations never select. They are installed here instead, into the
+# container's own site-packages -- which is thrown away with the container --
+# from a uv cache kept in /data.
+#
+# uv symlinks the files out of that cache rather than copying them, so the
+# installed tree is a few MB of links and only the cache takes real space. And
+# because the tree is rebuilt on every start against the interpreter that is
+# actually running, there is nothing to keep in sync: a base image with a new
+# Python simply misses in the cache and downloads again.
+#
+# A pack that fails to install is not fatal. The server falls back to
+# faster-whisper whenever a backend is missing, so the Whisper service warns
+# about it and still serves, rather than the app refusing to start.
+# ==============================================================================
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source=../../../../usr/lib/whisper/backend.sh
+source /usr/lib/whisper/backend.sh
+
+export UV_CACHE_DIR='/data/uv-cache'
+
+# Set in the image too, but the install below is wrong rather than merely
+# broken without it: uv would build a virtual environment instead of adding to
+# the interpreter the server runs on.
+export UV_SYSTEM_PYTHON=true
+
+# /data and the container filesystem are different mounts, so uv's default
+# hardlink mode silently degrades to full copies and every pack would cost its
+# size twice -- once in the cache, once installed. Symlinks span mounts.
+export UV_LINK_MODE=symlink
+
+# Discard the cache when either the interpreter or wyoming-faster-whisper moves
+# to a new series, so it cannot grow without bound across app updates. A new
+# Python minor changes the ABI tag and strands every cached wheel; a new
+# wyoming-faster-whisper minor can move dependency floors far enough that the
+# cached resolution is dead weight. Patch releases change neither, so
+# 3.8.0 -> 3.8.1 keeps the cache and 3.8.x -> 3.9.x does not.
+readonly cache_series_file="${UV_CACHE_DIR}/.series"
+# Defaulted because bashio runs with "set -o nounset": the version comes from
+# the image environment and is always set in practice, but an unset one must
+# not abort the service before a single pack is installed.
+whisper_version="${WYOMING_WHISPER_VERSION:-}"
+cache_series="python=$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')"
+cache_series+=" wyoming-faster-whisper=${whisper_version%.*}"
+
+if [[ -f "${cache_series_file}" ]] \
+    && [[ "$(< "${cache_series_file}")" != "${cache_series}" ]]; then
+    bashio::log.info \
+        "Discarding pack cache: $(< "${cache_series_file}") -> ${cache_series}"
+    rm -rf "${UV_CACHE_DIR}"
+fi
+
+mkdir -p "${UV_CACHE_DIR}"
+printf '%s\n' "${cache_series}" > "${cache_series_file}"
+
+# Try the cache before the network, so a restart costs no index round trip and
+# an installation without internet access still comes back up. Falls back to a
+# normal online install whenever anything is missing from the cache.
+install_pack() {
+    local name="${1}"
+    shift
+
+    if uv pip install --quiet --offline "$@" > /dev/null 2>&1; then
+        bashio::log.info "${name}: restored from cache"
+        return 0
+    fi
+
+    bashio::log.info "${name}: downloading, this can take several minutes..."
+    if uv pip install --quiet "$@"; then
+        bashio::log.info "${name}: installed"
+        return 0
+    fi
+
+    bashio::log.warning "${name}: install failed"
+    return 1
+}
+
+# PyTorch has to come from the CPU index: PyPI's default wheels carry ~2.7 GB of
+# CUDA libraries that are never loaded here. Both backends need it, so it is
+# installed first and on its own -- whichever backend follows then resolves
+# against the CPU build already present instead of pulling the CUDA one.
+install_torch() {
+    install_pack 'PyTorch (CPU)' \
+        --index-url 'https://download.pytorch.org/whl/cpu' \
+        "torch==${TORCH_VERSION}" "$@"
+}
+
+# transformers is pinned in the FunASR step as well as its own. FunASR requires
+# it without an upper bound, and an unpinned resolution would pull a version
+# whose tokenizers floor is above the one in the image, quietly upgrading a
+# package faster-whisper is already using.
+install_funasr() {
+    install_torch "torchaudio==${TORCH_VERSION}" || return 1
+    install_pack 'FunASR' \
+        "funasr==${FUNASR_VERSION}" "transformers==${TRANSFORMERS_VERSION}"
+}
+
+install_transformers() {
+    install_torch || return 1
+    install_pack 'HuggingFace transformers' \
+        "transformers==${TRANSFORMERS_VERSION}"
+}
+
+whisper::resolve_options
+
+# "|| backend=" because bashio runs with "set -o errexit": a configuration the
+# server itself would reject must not abort this service, since the Whisper
+# service is what reports such an error usefully.
+backend="$(whisper::resolve_backend)" || backend=''
+pack_module="$(whisper::pack_module "${backend}")"
+
+if [[ -z "${pack_module}" ]]; then
+    # faster-whisper, sherpa, onnx-asr and qwen3-asr are all in the image.
+    exit 0
+fi
+
+# "|| true" for the same reason: a failed download leaves the server to fall
+# back to faster-whisper, which is better than not starting at all.
+case "${backend}" in
+    funasr) install_funasr || true ;;
+    transformers) install_transformers || true ;;
+esac
+
+# Report what /data holds. On Home Assistant OS it cannot be browsed without a
+# host shell, so the log is the only place this is visible.
+bashio::log.info "Pack cache: $(du -sh "${UV_CACHE_DIR}" | cut -f1) in ${UV_CACHE_DIR}"
+
+if bashio::config.true 'debug_logging'; then
+    while read -r entry; do
+        bashio::log.info "/data: ${entry}"
+    done < <(du -sh /data/* 2>/dev/null)
+fi
+
+# Never block Whisper from starting: the service checks for what it actually
+# needs and reports it itself.
+exit 0

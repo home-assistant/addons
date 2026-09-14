@@ -3,8 +3,9 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:trixie
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:trixie
 args:
-  WYOMING_WHISPER_VERSION: 3.7.0
+  WYOMING_WHISPER_VERSION: 3.8.0
   WYOMING_VERSION: 1.10.2
+  UV_VERSION: 0.12.12
   # Must match the exact pins of wyoming-faster-whisper
   TRANSFORMERS_VERSION: 4.52.4
   ONNX_ASR_VERSION: 0.11.0

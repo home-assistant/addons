@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.7.0
+## 3.8.0
 
 - Add `bias_names` option to bias transcription toward the names in your Home
   Assistant: the names and aliases of your exposed entities, plus your area and
@@ -19,7 +19,42 @@
     1.6 GB of RAM, and it is slower than the per-language defaults
   - It takes `initial_prompt` and `bias_names` as a context prompt rather than a
     Whisper-style prefix, which biases entity names considerably harder
-- Upgrade to wyoming-faster-whisper 3.7.0
+- The `transformers` and `funasr` backends are no longer part of the app. Both
+  need PyTorch, which together with their dependencies is ~1.5 GB of a ~2 GB
+  install, for backends most configurations never select — the app is about 75%
+  smaller without them
+  - They are installed on startup instead, when your settings select one, and
+    cached on `/data` so later restarts need no network. Nothing is downloaded
+    for the default configuration
+  - Nothing to turn on: the app asks the server which backend your `model`,
+    `stt_library` and `language` resolve to, and installs for that one
+  - A failed download is not fatal. Transcription falls back to faster-whisper
+    and the log names the backend that could not be installed
+  - Only the configured `language` is accounted for. A second Assist pipeline in
+    a language whose backend was never installed falls back to faster-whisper;
+    set `stt_library` explicitly to force one for every language
+- Add `vad_endpointing` option: a number of seconds of silence after which the
+  app ends the voice command and sends the transcript itself, instead of waiting
+  for the client to say the command is over
+  - Unset by default. While it is set, the app tells Home Assistant it does not
+    require external voice activity detection, so endpointing is left to it
+  - Independent of `vad_clip`, which trims silence before transcription
+- Add `hf_token` option, set as `HF_TOKEN` for the app, so a gated or private
+  model on Hugging Face can be downloaded
+- Models that are already downloaded now load without contacting Hugging Face,
+  so an app with no route to the internet starts instead of boot-looping
+- Every cache now lives on `/data` instead of the container's filesystem, where
+  it was thrown away on every app update. The Xet chunk cache used during
+  Hugging Face downloads is the big one and can run to several GB; FunASR was
+  also putting its ~900 MB of models outside `/data` entirely
+  - These caches are excluded from backups, since all of it re-downloads
+- The health check now requires a Describe/Info round trip rather than grepping
+  a raw socket, so a wedged event loop is reported instead of staying green
+- Warn at startup when `initial_prompt` or `bias_names` is used with a
+  Distil-Whisper model. These models were distilled without previous-text
+  conditioning, so a prompt never helps them, and `distil-small.en` is actively
+  damaged by a long one — correct output comes back truncated or looping
+- Upgrade to wyoming-faster-whisper 3.8.0
 
 ## 3.5.3
 

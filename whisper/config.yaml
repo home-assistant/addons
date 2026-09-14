@@ -1,5 +1,5 @@
 ---
-version: 3.7.0
+version: 3.8.0
 slug: whisper
 name: Whisper
 description: Speech-to-text with Whisper
@@ -12,6 +12,14 @@ discovery:
   - wyoming
 backup_exclude:
   - "models*"
+  # Caches that now live on /data (HF_HOME, MODELSCOPE_CACHE, XDG_CACHE_HOME).
+  # All of it is re-downloadable, and the Xet chunk cache alone can run to
+  # several GB.
+  - "*/hub"
+  - "*/xet"
+  - "*/modelscope"
+  # Wheel cache for the optional backends, rebuilt on demand.
+  - "*/uv-cache"
 map:
   - app_config:rw
 homeassistant_api: true
@@ -43,7 +51,9 @@ schema:
   whisper_task: |
     list(transcribe|translate)
   sherpa_streaming: bool
+  vad_endpointing: float(0,)?
   vad_clip: bool
+  hf_token: password?
   local_files_only: bool
   debug_logging: bool
 ports:

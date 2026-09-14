@@ -1,5 +1,57 @@
 # Changelog
 
+## 1.8.0
+
+### Z-Wave JS 15.27.1...15.29.0
+
+#### Features
+
+- Queued commands that are redundant are now deduplicated automatically
+
+#### Bugfixes
+
+- Fixed an issue preventing controller firmware updates from starting properly
+- Work around an issue where some controllers on Z-Wave SDK 8.0.0 that had migrated from an old 500 series controller would behave like sleeping nodes
+- Prevent SONOFF controllers from entering the bootloader during startup on Windows
+- Correct signal-to-noise margin units from dBm to dB
+- Fixed how some commands were handled internally to improve spec compliance
+- Fields in incoming commands that are unexpected for the version supported by the end device are now ignored
+- Fixed an issue where spurious "unknown" notification sensor entities could be created
+- Fixed an issue where the regular background RSSI measurements could prevent refreshing the status of some legacy devices in some scenarios
+
+#### Config file changes
+
+- Fix malformed notifications from HomeSeer FS100 devices
+- Add labels to several devices' endpoints
+- Correct external sensor resistance options for Heatit Z-TRM7
+- Add fingerprint `0x0c02:0x3002` to Fibargroup FGSD-002
+- Update Zooz ZEN32 for firmware 3.30
+- Add Aeotec ZWA056 Water Sensor 8
+- Add Aeotec ZWA065 Siren 8
+- Add Aeotec ZWA057 aërQ Temperature and Humidity Sensor 8
+- Add Aeotec ZWA055 Door / Window Sensor 8
+- Update Inovelli VZW32-SN P50 and P107 for firmware 2.4
+- Add Zooz ZEN12 800LR Motion Dimmer
+- Add Zooz ZEN37 parameter 10 for firmware 2.40
+- Add an Off option for Heatit Z-TRM7 standby display brightness
+- Update Zooz configurations for new firmware parameters
+- Add Simon 100 Battery Master Roller Blind
+- Update Inovelli VZW32-SN P111 to match the public documentation
+
+### Z-Wave JS UI 11.22.3...11.24.0
+
+#### Features
+
+- Add a speed column to the control panel
+- Add environment metadata to debug capture sessions
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.0)
+- [Z-Wave JS UI 11.23.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.23.0)
+- [Z-Wave JS 15.29.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.29.0)
+- [Z-Wave JS 15.28.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.28.0)
+
 ## 1.7.1
 
 ### Z-Wave JS 15.27.0...15.27.1

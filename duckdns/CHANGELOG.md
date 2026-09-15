@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- Strip whitespace from DuckDNS API token (avoids KO from copy-paste spaces)
+
 ## 2.0.0
 
 - Remove unsupported architectures (armhf, armv7, i386)

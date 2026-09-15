@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.8.1
+
+### Z-Wave JS Server 3.10.2
+
+#### Bugfixes
+
+- Fixes an issue that could prevent clients from receiving "node removed" events
+- Refuse new client connections while the driver is temporarily not ready
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.1)
+- [Z-Wave JS Server 3.10.2](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.2)
+
 ## 1.8.0
 
 ### Z-Wave JS 15.27.1...15.29.0

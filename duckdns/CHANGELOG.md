@@ -2,7 +2,7 @@
 
 ## 2.0.1
 
-- Strip whitespace from DuckDNS API token (avoids KO from copy-paste spaces)
+- Strip whitespace from DuckDNS API token (avoids fatal errors from copy-paste spaces)
 
 ## 2.0.0
 

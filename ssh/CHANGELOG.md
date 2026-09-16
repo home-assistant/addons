@@ -3,7 +3,7 @@
 ## 10.5.0
 
 - Update Home Assistant CLI to 5.5.0
-- Rename the `addons` and `addon_configs` shares to `local_apps` and `app_configs` to match Home Assistant's app terminology.
+- Rename the `/addons` and `/addon_configs` bind mounts to `/local_apps` and `/app_configs` to match Home Assistant's app terminology.
 
 ## 10.4.0
 

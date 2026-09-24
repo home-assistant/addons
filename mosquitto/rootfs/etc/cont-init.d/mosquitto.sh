@@ -6,6 +6,7 @@
 readonly ACL="/etc/mosquitto/acl"
 readonly PW="/etc/mosquitto/pw"
 readonly SYSTEM_USER="/data/system_user.json"
+declare acl_file
 declare cafile
 declare certfile
 declare discovery_password
@@ -61,6 +62,28 @@ for login in $(bashio::config 'logins|keys'); do
   echo "${username}:${password}" >> "${PW}"
   echo "user ${username}" >> "${ACL}"
 done
+
+# Enforce a user-provided ACL file. go-auth answers every ACL check and the
+# first answer wins, so the builtin `acl_file` directive is never consulted
+# with mosquitto 2.1 (#4571). When `acl_file` is set, go-auth reads the rules
+# from it and the internal HTTP endpoints stop granting everything; the
+# internal users keep unrestricted access, as Home Assistant requires.
+if bashio::config.has_value 'acl_file'; then
+  acl_file="/share/$(bashio::config 'acl_file')"
+  if ! bashio::fs.file_exists "${acl_file}"; then
+    bashio::exit.nok "ACL file ${acl_file} not found"
+  fi
+  bashio::log.info "Enforcing ACL file ${acl_file}"
+  {
+    cat "${acl_file}"
+    echo ""
+    echo "user homeassistant"
+    echo "topic readwrite #"
+    echo ""
+    echo "user addons"
+    echo "topic readwrite #"
+  } > "${ACL}"
+fi
 
 keyfile="/ssl/$(bashio::config 'keyfile')"
 certfile="/ssl/$(bashio::config 'certfile')"

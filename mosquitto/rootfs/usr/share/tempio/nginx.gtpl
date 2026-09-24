@@ -38,12 +38,15 @@ http {
       proxy_pass              http://supervisor/auth;
     }
 
+    # With an enforced ACL file nobody is a superuser and the file-based
+    # backend alone decides; otherwise every authenticated user may use
+    # every topic.
     location = /superuser {
-      return 200;
+      return {{ if .acl_enforced }}403{{ else }}200{{ end }};
     }
 
     location = /acl {
-      return 200;
+      return {{ if .acl_enforced }}403{{ else }}200{{ end }};
     }
   }
 }

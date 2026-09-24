@@ -182,7 +182,12 @@ See the following links for more information:
 
 3. Restart the app. The log shows `Enforcing ACL file /share/mosquitto/accesscontrollist`.
 
-The users `homeassistant` and `addons` are always given unrestricted readwrite access to all topics, as Home Assistant and other apps expect. Every other user, including Home Assistant users that log in to the broker, can only use the topics the file grants them. A client that subscribes to a filter wider than its grant (for example `#`) receives nothing, and a publish outside its grant is silently dropped.
+The users `homeassistant` and `addons` are always given unrestricted readwrite access to all topics, as Home Assistant and other apps expect. Every other user can only use the topics the file grants them. A client that subscribes to a filter wider than its grant (for example `#`) receives nothing, and a publish outside its grant is silently dropped.
+
+Limitations of the file-based ACL check (the app logs a warning when the file hits either):
+
+- `user` blocks only apply to users defined in the `logins` option. Home Assistant users that log in to the broker only get the rules outside any `user` block and `pattern` rules, e.g. `pattern readwrite %u/#`.
+- Deny rules are evaluated before any grant. A deny rule outside a `user` block, or any `pattern ... deny` rule, also applies to the `homeassistant` and `addons` users.
 
 **Note:** Do not use an `acl_file` directive in the customize folder for this. Since version 7.0.0 of this app, such a directive is loaded but not enforced; use the `acl_file` option instead.
 

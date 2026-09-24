@@ -7,6 +7,7 @@ readonly ACL="/etc/mosquitto/acl"
 readonly PW="/etc/mosquitto/pw"
 readonly SYSTEM_USER="/data/system_user.json"
 declare acl_file
+declare acl_user
 declare cafile
 declare certfile
 declare discovery_password
@@ -74,6 +75,16 @@ if bashio::config.has_value 'acl_file'; then
     bashio::exit.nok "ACL file ${acl_file} not found"
   fi
   bashio::log.info "Enforcing ACL file ${acl_file}"
+  # go-auth only applies `user` blocks to users in its password file, and
+  # evaluates every deny rule before any grant. Warn about both limits.
+  while read -r acl_user; do
+    if ! grep -q "^${acl_user}:" "${PW}"; then
+      bashio::log.warning "ACL rules for '${acl_user}' are ignored: only users from the logins option can have per-user rules, use a 'pattern' rule with %u instead"
+    fi
+  done < <(awk '$1 == "user" {print $2}' "${acl_file}" | sort -u)
+  if awk '$1 == "user" {in_user = 1} !in_user && ($1 == "topic" || $1 == "pattern") && $2 == "deny" {found = 1} $1 == "pattern" && $2 == "deny" {found = 1} END {exit !found}' "${acl_file}"; then
+    bashio::log.warning "Deny rules outside a 'user' block also apply to the internal homeassistant and addons users"
+  fi
   {
     cat "${acl_file}"
     echo ""

@@ -67,33 +67,22 @@ done
 # Enforce a user-provided ACL file. go-auth answers every ACL check and the
 # first answer wins, so the builtin `acl_file` directive is never consulted
 # with mosquitto 2.1 (#4571). When `acl_file` is set, go-auth reads the rules
-# from it and the internal HTTP endpoints stop granting everything; the
-# internal users keep unrestricted access, as Home Assistant requires.
+# from it, and the internal HTTP endpoints (see nginx.gtpl) make only the
+# internal homeassistant and addons users superusers, so the file cannot
+# restrict them.
 if bashio::config.has_value 'acl_file'; then
   acl_file="/share/$(bashio::config 'acl_file')"
   if ! bashio::fs.file_exists "${acl_file}"; then
     bashio::exit.nok "ACL file ${acl_file} not found"
   fi
   bashio::log.info "Enforcing ACL file ${acl_file}"
-  # go-auth only applies `user` blocks to users in its password file, and
-  # evaluates every deny rule before any grant. Warn about both limits.
+  # go-auth only applies `user` blocks to users in its password file.
   while read -r acl_user; do
     if ! grep -q "^${acl_user}:" "${PW}"; then
       bashio::log.warning "ACL rules for '${acl_user}' are ignored: only users from the logins option can have per-user rules, use a 'pattern' rule with %u instead"
     fi
   done < <(awk '$1 == "user" {print $2}' "${acl_file}" | sort -u)
-  if awk '$1 == "user" {in_user = 1} !in_user && ($1 == "topic" || $1 == "pattern") && $2 == "deny" {found = 1} $1 == "pattern" && $2 == "deny" {found = 1} END {exit !found}' "${acl_file}"; then
-    bashio::log.warning "Deny rules outside a 'user' block also apply to the internal homeassistant and addons users"
-  fi
-  {
-    cat "${acl_file}"
-    echo ""
-    echo "user homeassistant"
-    echo "topic readwrite #"
-    echo ""
-    echo "user addons"
-    echo "topic readwrite #"
-  } > "${ACL}"
+  cp "${acl_file}" "${ACL}"
 fi
 
 keyfile="/ssl/$(bashio::config 'keyfile')"

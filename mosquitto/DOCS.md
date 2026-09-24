@@ -186,6 +186,8 @@ The internal users `homeassistant` and `addons` are superusers: no rule in the f
 
 `user` blocks only apply to users defined in the `logins` option; the app logs a warning for any other `user` block. Home Assistant users that log in to the broker only get the rules outside any `user` block and `pattern` rules, e.g. `pattern readwrite %u/#`.
 
+If the file uses `%u` or `%c` in a `pattern` rule, the app also enables Mosquitto's `auth_plugin_deny_special_chars` check: a username or client ID containing `+` or `#` would otherwise widen the pattern to other clients' topics (CVE-2017-7650). With that check on, clients whose username or client ID contains `+`, `#` or `/` get no topic access, so give such clients a different client ID or use plain `topic` rules for them.
+
 **Note:** Do not use an `acl_file` directive in the customize folder for this. Since version 7.0.0 of this app, such a directive is loaded but not enforced; use the `acl_file` option instead.
 
 The `/share` folder can be accessed via SMB, or on the host filesystem under `/usr/share/hassio/share`.

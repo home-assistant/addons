@@ -9,6 +9,7 @@ readonly SYSTEM_USER="/data/system_user.json"
 declare acl_file
 declare acl_user
 declare cafile
+declare deny_special_chars="false"
 declare certfile
 declare discovery_password
 declare keyfile
@@ -83,6 +84,12 @@ if bashio::config.has_value 'acl_file'; then
     fi
   done < <(awk '$1 == "user" {print $2}' "${acl_file}" | sort -u)
   cp "${acl_file}" "${ACL}"
+  # go-auth substitutes %u/%c into pattern rules verbatim, so a username or
+  # client id containing + or # would widen the pattern (CVE-2017-7650).
+  if grep -q -E '^[[:space:]]*pattern[[:space:]].*%[uc]' "${acl_file}"; then
+    bashio::log.info "ACL file uses %u/%c patterns: denying ACL access to usernames and client ids containing +, # or /"
+    deny_special_chars="true"
+  fi
 fi
 
 keyfile="/ssl/$(bashio::config 'keyfile')"
@@ -118,6 +125,7 @@ bashio::var.json \
   require_certificate "^$(bashio::config 'require_certificate')" \
   ssl "^${ssl}" \
   debug "^$(bashio::config 'debug')" \
+  deny_special_chars "^${deny_special_chars}" \
   | tempio \
     -template /usr/share/tempio/mosquitto.gtpl \
     -out /etc/mosquitto/mosquitto.conf

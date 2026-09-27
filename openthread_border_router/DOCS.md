@@ -69,6 +69,7 @@ App configuration:
 | nat64              | Enable NAT64 to allow Thread devices accessing IPv4 addresses |
 | network_device     | IP address and port to connect to a network-based RCP (see below) |
 | beta               | Enable beta mode to run a newer, experimental version of OpenThread Border Router |
+| tx_power           | Thread radio transmit power in dBm (default 6, see below) |
 
 > [!WARNING]
 > The OTBR expects the RCP connected radio to be on a reliable link such as
@@ -86,6 +87,15 @@ App configuration:
 
 > [!NOTE]
 > When using a network device, you still need to set a dummy serial port device, e.g. `/dev/ttyS3`.
+
+> [!NOTE]
+> The `tx_power` option defaults to 6 dBm, similar to what typical Thread
+> routers use. Raising it can help when the border router is far from other
+> Thread devices, but only improves the direction from the border router to the
+> devices: their replies are sent at their own power. A large imbalance can
+> lead to asymmetric links, so increase it in small steps and prefer improving
+> radio placement (e.g. a USB extension cable) first. The radio firmware clamps
+> the value to what the hardware supports.
 
 ## Support
 

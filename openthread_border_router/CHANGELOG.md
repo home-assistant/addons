@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.1
+
+- Add optional `tx_power` option to configure the Thread radio transmit power (defaults to 6 dBm as before)
+
 ## 3.2.0
 
 - Bump to OTBR POSIX version 337711e7 (tag v2026.08.0)

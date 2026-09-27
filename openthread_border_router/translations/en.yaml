@@ -39,6 +39,13 @@ configuration:
     description: >-
       Enable beta mode to run a newer, experimental version of OpenThread
       Border Router.
+  tx_power:
+    name: TX power
+    description: >-
+      Transmit power of the Thread radio in dBm. Defaults to 6 dBm, which
+      matches typical Thread routers. Higher values can improve reach to
+      distant devices but may cause asymmetric links. The radio firmware
+      limits the value to what the hardware supports.
 network:
   8080/tcp: OpenThread Web port
   8081/tcp: OpenThread REST API port

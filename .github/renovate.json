@@ -152,7 +152,8 @@
       "managerFilePatterns": ["/^matter_server/build\\.yaml$/"],
       "matchStrings": ["TEMPIO_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
       "depNameTemplate": "home-assistant/tempio",
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "loose"
     },
     {
       "customType": "regex",

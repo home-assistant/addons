@@ -3,8 +3,8 @@
 # ==============================================================================
 # Configures NGINX
 # ==============================================================================
-# This template only uses environment vars, no input
-echo "{}" \
+bashio::var.json \
+  acl_enforced "^$(bashio::config.has_value 'acl_file' && echo true || echo false)" \
   | tempio \
     -template /usr/share/tempio/nginx.gtpl \
     -out /etc/nginx/nginx.conf

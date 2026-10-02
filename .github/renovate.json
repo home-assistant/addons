@@ -1,0 +1,337 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "enabledManagers": ["custom.regex", "github-actions"],
+  "semanticCommits": "disabled",
+  "labels": ["dependencies"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Base images of the apps, in build.yaml",
+      "managerFilePatterns": ["/^[^/]+/build\\.yaml$/"],
+      "matchStrings": [
+        "(?:aarch64|amd64): [\"']?(?<depName>[^:\\s\"']+):(?<currentValue>[^\\s\"']+)"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "rhasspy/wyoming-satellite in the assist_microphone app",
+      "managerFilePatterns": ["/^assist_microphone/build\\.yaml$/"],
+      "matchStrings": [
+        "WYOMING_SATELLITE_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "rhasspy/wyoming-satellite",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Pulse-Eight/libcec in the cec_scan app",
+      "managerFilePatterns": ["/^cec_scan/build\\.yaml$/"],
+      "matchStrings": ["LIBCEC_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "Pulse-Eight/libcec",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^libcec-(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "hass-configurator in the configurator app",
+      "managerFilePatterns": ["/^configurator/build\\.yaml$/"],
+      "matchStrings": [
+        "CONFIGURATOR_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "hass-configurator",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "dresden-elektronik/deconz-rest-plugin in the deconz app",
+      "managerFilePatterns": ["/^deconz/build\\.yaml$/"],
+      "matchStrings": ["DECONZ_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "dresden-elektronik/deconz-rest-plugin",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Xebozone/dehydrated in the duckdns app",
+      "managerFilePatterns": ["/^duckdns/build\\.yaml$/"],
+      "matchStrings": ["DEHYDRATED_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "Xebozone/dehydrated",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "description": "acme in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": ["ACME_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "acme",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "certbot in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": ["CERTBOT_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "certbot",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "certbot-dns-azure in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": [
+        "CERTBOT_DNS_AZURE_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "certbot-dns-azure",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "certbot-dns-eurodns in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": [
+        "CERTBOT_DNS_EURODNS_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "certbot-dns-eurodns",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "certbot-dns-hurricane-electric in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": [
+        "CERTBOT_DNS_HURRICANE_ELECTRIC_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "certbot-dns-hurricane-electric",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "certbot-dns-multi in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": [
+        "CERTBOT_DNS_MULTI_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "certbot-dns-multi",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "certbot-dns-norisnetwork in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": [
+        "CERTBOT_DNS_NORISNETWORK_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "certbot-dns-norisnetwork",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "cryptography in the letsencrypt app",
+      "managerFilePatterns": ["/^letsencrypt/build\\.yaml$/"],
+      "matchStrings": [
+        "CRYPTOGRAPHY_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "cryptography",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "hassio-addons/bashio in the matter_server app",
+      "managerFilePatterns": ["/^matter_server/build\\.yaml$/"],
+      "matchStrings": ["BASHIO_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "hassio-addons/bashio",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "home-assistant/tempio in the matter_server app",
+      "managerFilePatterns": ["/^matter_server/build\\.yaml$/"],
+      "matchStrings": ["TEMPIO_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "home-assistant/tempio",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "loose"
+    },
+    {
+      "customType": "regex",
+      "description": "just-containers/s6-overlay in the matter_server app",
+      "managerFilePatterns": ["/^matter_server/build\\.yaml$/"],
+      "matchStrings": ["S6_OVERLAY_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "just-containers/s6-overlay",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "loose",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "warmcat/libwebsockets in the mosquitto app",
+      "managerFilePatterns": ["/^mosquitto/build\\.yaml$/"],
+      "matchStrings": [
+        "LIBWEBSOCKET_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "warmcat/libwebsockets",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "eclipse/mosquitto in the mosquitto app",
+      "managerFilePatterns": ["/^mosquitto/build\\.yaml$/"],
+      "matchStrings": ["MOSQUITTO_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "eclipse/mosquitto",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "iegomez/mosquitto-go-auth in the mosquitto app",
+      "managerFilePatterns": ["/^mosquitto/build\\.yaml$/"],
+      "matchStrings": [
+        "MOSQUITTO_AUTH_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "iegomez/mosquitto-go-auth",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "description": "universal-silabs-flasher in the openthread_border_router app",
+      "managerFilePatterns": ["/^openthread_border_router/build\\.yaml$/"],
+      "matchStrings": [
+        "UNIVERSAL_SILABS_FLASHER_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "universal-silabs-flasher",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "serialx in the openthread_border_router app",
+      "managerFilePatterns": ["/^openthread_border_router/build\\.yaml$/"],
+      "matchStrings": ["SERIALX_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "serialx",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "rhasspy/wyoming-openwakeword in the openwakeword app",
+      "managerFilePatterns": ["/^openwakeword/build\\.yaml$/"],
+      "matchStrings": [
+        "WYOMING_OPENWAKEWORD_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "rhasspy/wyoming-openwakeword",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "rhasspy/wyoming-piper in the piper app",
+      "managerFilePatterns": ["/^piper/build\\.yaml$/"],
+      "matchStrings": [
+        "WYOMING_PIPER_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "rhasspy/wyoming-piper",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "uv in the piper app",
+      "managerFilePatterns": ["/^piper/build\\.yaml$/"],
+      "matchStrings": ["UV_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "uv",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "universal-silabs-flasher in the silabs_flasher app",
+      "managerFilePatterns": ["/^silabs_flasher/build\\.yaml$/"],
+      "matchStrings": [
+        "UNIVERSAL_SILABS_FLASHER: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "universal-silabs-flasher",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "OHF-Voice/speech-to-phrase in the speech_to_phrase app",
+      "managerFilePatterns": ["/^speech_to_phrase/build\\.yaml$/"],
+      "matchStrings": [
+        "SPEECH_TO_PHRASE_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "OHF-Voice/speech-to-phrase",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "home-assistant/cli in the ssh app",
+      "managerFilePatterns": ["/^ssh/build\\.yaml$/"],
+      "matchStrings": ["CLI_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "home-assistant/cli",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "customType": "regex",
+      "description": "wyoming-faster-whisper in the whisper app. The rest of the inference stack must match its exact pins, so it's left to the maintainers.",
+      "managerFilePatterns": ["/^whisper/build\\.yaml$/"],
+      "matchStrings": [
+        "WYOMING_WHISPER_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "depNameTemplate": "rhasspy/wyoming-faster-whisper",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "zwave-js-ui in the zwave_js app",
+      "managerFilePatterns": ["/^zwave_js/build\\.yaml$/"],
+      "matchStrings": ["ZWAVEJS_UI_VERSION: [\"']?(?<currentValue>[^\"'\\s]+)"],
+      "depNameTemplate": "zwave-js-ui",
+      "datasourceTemplate": "npm"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "GitHub Actions: weekly with a 7 day cooldown, like Dependabot did",
+      "matchManagers": ["github-actions"],
+      "addLabels": ["github_actions"],
+      "schedule": ["before 8am on monday"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Leave runner labels and action version inputs alone, Dependabot never updated those",
+      "matchManagers": ["github-actions"],
+      "matchDepTypes": ["github-runner", "uses-with"],
+      "enabled": false
+    },
+    {
+      "description": "Our own actions that follow a branch (like home-assistant/actions@master) float on purpose. Pinning them would open a digest PR in every repository for each change to them. Our own actions on a version tag are pinned like any other.",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["home-assistant/**"],
+      "matchCurrentValue": "/^(dev|main|master)$/",
+      "pinDigests": false
+    },
+    {
+      "description": "One PR per app with all its updates, as each one needs a version bump and changelog entry anyway",
+      "matchManagers": ["custom.regex"],
+      "groupName": "{{parentDir}}",
+      "groupSlug": "app-{{parentDir}}",
+      "commitMessagePrefix": "{{parentDir}}:",
+      "addLabels": ["app: {{parentDir}}"],
+      "prBodyNotes": [
+        "Before merging, bump `version` in `{{parentDir}}/config.yaml` and add a matching entry to `{{parentDir}}/CHANGELOG.md`."
+      ]
+    },
+    {
+      "description": "Home Assistant base images with a date tag (like 3.24-2026.08.0) move within their Alpine or Debian line. Floating tags like 3.23 or trixie are left alone. A new year in the date isn't a major change, so these stay in the regular PR of the app.",
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": [
+        "/^ghcr\\.io\\/home-assistant\\/[^/]+-base(-debian|-python)?$/"
+      ],
+      "versioning": "regex:^(?<compatibility>.+)-(?<major>\\d{4})\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+      "separateMajorMinor": false
+    }
+  ]
+}

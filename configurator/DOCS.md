@@ -27,6 +27,7 @@ enforce_basepath: false
 git: true
 ignore_pattern:
   - __pycache__
+log_level: info
 ssh_keys: []
 ```
 
@@ -49,6 +50,13 @@ If set to `true`, the app will initialize git for directories that support it.
 
 This option allows you to hide files and folders from the file browser tree.
 By default, it hides the `__pycache__` folders.
+
+### Option: `log_level` (optional)
+
+Controls how much the file editor logs: `debug`, `info`, `warning`, `error` or
+`critical`. The default is `info`, which logs every web request, including the
+Docker health check that runs every 30 seconds. Set it to `warning` to log only
+problems.
 
 ### Option: `ssh_keys` (required)
 

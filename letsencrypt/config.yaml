@@ -121,8 +121,8 @@ schema:
     plesk_username: str?
     porkbun_key: str?
     porkbun_secret: str?
-    dnsservices_username: str?
     dnsservices_password: str?
+    dnsservices_username: str?
     propagation_seconds: int(60,3600)?
     provider: "list(\
         dns-azure|\

@@ -30,6 +30,11 @@ configuration files) will be automatically checked for syntax errors while editi
 - Editor settings are saved in your browser.
 - And much more…
 
+## Startup checks
+
+Five-second startup healthchecks require Docker Engine 25.0 or later.
+Earlier versions retain the normal 30-second interval during startup.
+
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/configurator/images/screenshot.png

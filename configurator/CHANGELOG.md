@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.1
+
+- Check readiness every 5 seconds during startup on Docker Engine 25.0 or later
+
 ## 6.2.0
 
 - Add a `log_level` option; set it to `warning` to stop logging every web request, including the Docker health check

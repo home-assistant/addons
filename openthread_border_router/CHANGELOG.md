@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.3.0
+
+- Bump to OTBR POSIX version cb4bdae2 (tag v2026.10.0)
+  - [build] enable OT_POSIX_INSTALL_EXTERNAL_ROUTES for reference devices
+  - [mdns] fix the mDNSResponder build on Apple platforms
+  - [firewall] improvements: opt-in pf backend for macOS, drop nat_forward, reinstall on deletion
+  - [rest] register the pending dataset via MGMT_PENDING_SET
+  - Various fixes and stability improvements
+
 ## 3.2.1
 
 - Keep retrying unavailable network RCPs without crashing the app

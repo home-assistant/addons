@@ -1,5 +1,5 @@
 ---
-version: 3.2.1
+version: 3.3.0
 breaking_versions: [3.0.0]
 slug: openthread_border_router
 name: OpenThread Border Router
@@ -21,6 +21,7 @@ host_uts: true
 privileged:
   - IPC_LOCK
   - NET_ADMIN
+  - NET_RAW
 devices:
   - /dev/net/tun
 image: homeassistant/{arch}-addon-otbr

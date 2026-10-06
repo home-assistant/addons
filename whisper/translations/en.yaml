@@ -38,6 +38,14 @@ configuration:
     description: >-
       Description of audio that can help Whisper transcribe unusual words
       better.
+  bias_names:
+    name: Bias toward Home Assistant names
+    description: >-
+      Bias transcription toward the names in your Home Assistant.
+
+      The names of your exposed entities, their aliases, and your areas and
+      floors are added to the initial prompt, so a command that says one of
+      them is more likely to come back spelled the way you named it.
   stt_library:
     name: Speech-to-text library
     description: >-
@@ -59,8 +67,20 @@ configuration:
     description: >-
       Use streaming model with sherpa backend.
 
-      This overrides the default English model with a faster but less accurate
-      streaming model.
+      This overrides the default parakeet model with a streaming Kroko
+      zipformer, which returns results with lower latency. Defaults exist for
+      English, German, Spanish and French; any other language falls back to
+      the English model.
+  vad_endpointing:
+    name: VAD endpointing
+    description: >-
+      Seconds of silence that end a voice command.
+
+      Leave this empty to wait for the client to say the command is over, which
+      is what Home Assistant normally does. Set it to a number of seconds, such
+      as 0.7, and the app decides for itself when you have stopped speaking and
+      sends the transcript right away. Home Assistant is told to leave
+      endpointing to the app while this is set.
   vad_clip:
     name: VAD clip
     description: >-
@@ -69,6 +89,14 @@ configuration:
 
       This is a latency win for silence-heavy audio, especially with batch
       backends like sherpa and funasr. Streaming backends are unaffected.
+  hf_token:
+    name: Hugging Face token
+    description: >-
+      Access token for Hugging Face, used when downloading models.
+
+      Only needed for a model that is gated or private, such as one you have
+      accepted a license for. Leave it empty otherwise: the models this app
+      selects on its own are all public.
   local_files_only:
     name: Local files only
     description: >-

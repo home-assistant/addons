@@ -1,5 +1,73 @@
 # Changelog
 
+## 3.8.1
+
+- Add `bias_names` option to bias transcription toward the names in your Home
+  Assistant: the names and aliases of your exposed entities, plus your area and
+  floor names, are added to the initial prompt, so "What's the temperature of
+  the incubi?" comes back as "What's the temperature of the Ecobee?"
+  - Off by default. Names are read over the Home Assistant API through the
+    Supervisor proxy, and refreshed in the background while you are still
+    speaking, so it costs no latency
+  - Only the prompt-capable backends (`faster-whisper`, `transformers`,
+    `qwen3-asr`) use the names; `sherpa`, `onnx-asr` and `funasr` ignore the
+    prompt
+- Add [Qwen3-ASR](https://huggingface.co/Qwen/Qwen3-ASR-0.6B) as an
+  `stt_library`/`custom_model_type` choice, defaulting to
+  `rhasspy/qwen3-asr-0.6b-onnx-int4-merged`
+  - Opt-in only: `auto` never selects it. The model is 785 MB and needs around
+    1.6 GB of RAM, and it is slower than the per-language defaults
+  - It takes `initial_prompt` and `bias_names` as a context prompt rather than a
+    Whisper-style prefix, which biases entity names considerably harder
+- The `transformers` and `funasr` backends are no longer part of the app. Both
+  need PyTorch, which together with their dependencies is ~1.5 GB of a ~2 GB
+  install, for backends most configurations never select — the app is about 75%
+  smaller without them
+  - They are installed on startup instead, when your settings select one, and
+    cached on `/data` so later restarts need no network. Nothing is downloaded
+    for the default configuration
+  - Nothing to turn on: the app asks the server which backend your `model`,
+    `stt_library` and `language` resolve to, and installs for that one
+  - A failed download is not fatal. Transcription falls back to faster-whisper
+    and the log names the backend that could not be installed
+  - Only the configured `language` is accounted for. A second Assist pipeline in
+    a language whose backend was never installed falls back to faster-whisper;
+    set `stt_library` explicitly to force one for every language
+- Add `vad_endpointing` option: a number of seconds of silence after which the
+  app ends the voice command and sends the transcript itself, instead of waiting
+  for the client to say the command is over
+  - Unset by default. While it is set, the app tells Home Assistant it does not
+    require external voice activity detection, so endpointing is left to it
+  - Independent of `vad_clip`, which trims silence before transcription
+- Add `hf_token` option, set as `HF_TOKEN` for the app, so a gated or private
+  model on Hugging Face can be downloaded
+- Models that are already downloaded now load without contacting Hugging Face,
+  so an app with no route to the internet starts instead of boot-looping
+- Every cache now lives on `/data` instead of the container's filesystem, where
+  it was thrown away on every app update. The Xet chunk cache used during
+  Hugging Face downloads is the big one and can run to several GB; FunASR was
+  also putting its ~900 MB of models outside `/data` entirely
+  - These caches are excluded from backups, since all of it re-downloads
+- The health check now requires a Describe/Info round trip rather than grepping
+  a raw socket, so a wedged event loop is reported instead of staying green
+- Warn at startup when `initial_prompt` or `bias_names` is used with a
+  Distil-Whisper model. These models were distilled without previous-text
+  conditioning, so a prompt never helps them, and `distil-small.en` is actively
+  damaged by a long one — correct output comes back truncated or looping
+- Fix `sherpa_streaming` cutting off the last word or two of an utterance. The
+  trailing silence fed to the model was fixed at 0.66 seconds, which is less
+  than one 1.41-second chunk of the Kroko zipformers it defaults to, so the end
+  of every utterance went undecoded
+  - The startup warm-up was a no-op for the same reason, so the first
+    transcription after a restart also paid for it
+- Fix `initial_prompt` being sent as the literal word "null" when it is not
+  set, which is the default. Every transcription was biased toward that word,
+  it sat in front of the names `bias_names` adds, and it triggered the new
+  warning about prompts with a Distil-Whisper model
+- Fix selecting `model` = "custom" without a `custom_model` starting the app
+  with a model named "null" instead of reporting that the model is not set
+- Upgrade to wyoming-faster-whisper 3.8.1
+
 ## 3.5.3
 
 - Shut down cleanly when the app is stopped

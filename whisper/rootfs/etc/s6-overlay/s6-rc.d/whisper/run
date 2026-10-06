@@ -4,34 +4,69 @@
 # ==============================================================================
 # Start Whisper service
 # ==============================================================================
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source=../../../../usr/lib/whisper/backend.sh
+source /usr/lib/whisper/backend.sh
+
 flags=()
 
 if [ "$(uname -m)" == "x86_64" ] && ! grep -qw 'avx' /proc/cpuinfo; then
     bashio::log.warning "Your CPU does not support Advanced Vector Extensions (AVX). Whisper will run slower than normal."
 fi
 
-model="$(bashio::config 'model')"
-stt_library="$(bashio::config 'stt_library')"
+whisper::resolve_options
+model="${whisper_model}"
+stt_library="${whisper_stt_library}"
 
-if [ "${model}" = 'custom' ]; then
-    # Override with custom model
-    model="$(bashio::config 'custom_model')"
-    if [ -z "${model}" ]; then
-        bashio::exit.nok "Custom model is not set"
-    fi
-    if [ "${stt_library}" = 'auto' ]; then
-        # Need to know what kind of custom model
-        stt_library="$(bashio::config 'custom_model_type')"
-    fi
-elif [ "${model}" != 'auto' ]; then
-    if [ "${stt_library}" = 'auto' ]; then
-        # Default to faster whisper if model is selected
-        stt_library='faster-whisper'
-    fi
+if [ "$(bashio::config 'model')" = 'custom' ] && [ -z "${model}" ]; then
+    bashio::exit.nok "Custom model is not set"
+fi
+
+# The transformers and FunASR backends are installed at startup by the "packs"
+# service, which can fail on a slow or offline network. The server falls back to
+# faster-whisper when a backend is missing, so say so here: otherwise the only
+# symptom is transcription quietly using a different backend than the one that
+# was asked for.
+backend="$(whisper::resolve_backend)" || backend=''
+pack_module="$(whisper::pack_module "${backend}")"
+if [ -n "${pack_module}" ] && ! whisper::have_module "${pack_module}"; then
+    bashio::log.warning \
+        "The '${backend}' backend is not installed, so faster-whisper will be" \
+        "used instead. Check the log above for a failed download."
+fi
+
+if bashio::config.true 'bias_names'; then
+    # Bias transcription toward the names of exposed entities, areas and floors
+    # by reading them from Home Assistant through the Supervisor proxy.
+    flags+=('--hass-api' 'http://supervisor/core/api')
+    flags+=('--hass-token' "${SUPERVISOR_TOKEN}")
 fi
 
 if bashio::config.true 'sherpa_streaming'; then
     flags+=('--sherpa-streaming')
+fi
+
+if bashio::config.has_value 'vad_endpointing'; then
+    vad_endpointing="$(bashio::config 'vad_endpointing')"
+    # The server takes a strictly positive number of seconds and refuses to
+    # start on anything else. Treat an out-of-range value as "off" with a
+    # warning rather than letting it stop the app from starting at all.
+    if python3 -c 'import sys; sys.exit(0 if float(sys.argv[1]) > 0 else 1)' \
+        "${vad_endpointing}" 2> /dev/null; then
+        flags+=('--vad-endpointing' "${vad_endpointing}")
+    else
+        bashio::log.warning \
+            "Ignoring vad_endpointing '${vad_endpointing}': it must be greater than zero."
+    fi
+fi
+
+# Only pass a prompt that was actually set. bashio::config echoes the string
+# "null" for an unset option, and the server would take that as a real prompt:
+# biasing every transcription toward the word "null", sitting in front of the
+# names bias_names adds, and tripping the warning about prompts on a
+# Distil-Whisper model.
+if bashio::config.has_value 'initial_prompt'; then
+    flags+=('--initial-prompt' "$(bashio::config 'initial_prompt')")
 fi
 
 if bashio::config.true 'vad_clip'; then
@@ -46,7 +81,14 @@ if bashio::config.true 'debug_logging'; then
     flags+=('--debug')
 fi
 
-# shellcheck disable=SC2068
+# Authenticate to Hugging Face, for models that are gated or private. Exported
+# rather than passed as an argument: this is where the libraries look for it,
+# and it keeps the token off the process's command line.
+if bashio::config.has_value 'hf_token'; then
+    HF_TOKEN="$(bashio::config 'hf_token')"
+    export HF_TOKEN
+fi
+
 exec python3 -m wyoming_faster_whisper \
     --uri 'tcp://0.0.0.0:10300' \
     --zeroconf \
@@ -54,7 +96,6 @@ exec python3 -m wyoming_faster_whisper \
     --stt-library "${stt_library}" \
     --beam-size "$(bashio::config 'beam_size')" \
     --language "$(bashio::config 'language')" \
-    --initial-prompt "$(bashio::config 'initial_prompt')" \
     --whisper-task "$(bashio::config 'whisper_task')" \
     --data-dir /data \
-    --download-dir /data ${flags[@]}
+    --download-dir /data "${flags[@]}"

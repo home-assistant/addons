@@ -1,5 +1,5 @@
 ---
-version: 10.4.0
+version: 10.5.0
 slug: ssh
 name: Terminal & SSH
 description: Allow logging in remotely to Home Assistant using SSH
@@ -15,8 +15,8 @@ image: homeassistant/{arch}-addon-ssh
 ingress: true
 init: false
 map:
-  - addons:rw
-  - all_addon_configs:rw
+  - local_apps:rw
+  - all_app_configs:rw
   - backup:rw
   - homeassistant_config:rw
   - media:rw

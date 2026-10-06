@@ -3,7 +3,7 @@
 # ==============================================================================
 # Setup persistent user settings
 # ==============================================================================
-readonly DIRECTORIES=(addon_configs addons backup homeassistant media share ssl)
+readonly DIRECTORIES=(app_configs local_apps backup homeassistant media share ssl)
 
 # Persist shell history by redirecting .bash_history to /data
 if ! bashio::fs.file_exists /data/.bash_history; then

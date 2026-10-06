@@ -1,5 +1,42 @@
 # Changelog
 
+## 2.5.2
+
+- Upgrade to `wyoming-piper` 2.5.2
+- Add Japanese (OpenJTalk) and Thai (TLTK) support behind the new
+  `enable_japanese` and `enable_thai` options, and the Thai voice they enable
+  (`th_TH-tsync2-medium`)
+- Japanese and Thai voices are hidden from Home Assistant until their option is
+  turned on. They used to be offered and then produce silence
+- A voice that fails to synthesize now reports why instead of returning empty
+  audio
+- An interrupted voice download is retried on the next start instead of leaving
+  a truncated file that stayed broken until it was deleted by hand
+- Voice models are included in backups again. They were skipped because they
+  were only re-downloadable copies, but voices can now be uploaded and deleted
+  from the web interface, so which ones are installed is your choice and an
+  uploaded voice exists nowhere else. Large re-downloadable caches are still
+  skipped
+- Add 1 new Estonian voice (`et_EE-news-medium`)
+- Japanese, Thai and OmniVoice are downloaded when their option is turned on
+  rather than shipped in the app image, which keeps the image at roughly its
+  previous size instead of growing to ~2 GB. The download is cached in `/data`
+  and reused on later starts
+- Add a voice management web interface, available through the app's "Open Web
+  UI" button (ingress). Upload and delete custom Piper voices, and upload
+  OmniVoice cloning voices, without needing file access to `/share`. Only Home
+  Assistant's ingress proxy is allowed to reach it
+- Add a `backend` option to switch between `piper` (default) and the
+  experimental `omnivoice` backend. OmniVoice is higher quality and supports
+  voice cloning, but is much slower and really wants a desktop or server CPU;
+  it runs elsewhere with a warning, but expect it to be too slow to be useful
+- Add an `omnivoice_steps` option to trade OmniVoice quality for speed
+- Custom OmniVoice voices are stored in `/data/omnivoice_voices`, kept separate
+  from the Piper voice models
+- Replace the health check with a Wyoming Describe/Info round trip, which also
+  works with the `omnivoice` backend
+- Exclude the OmniVoice model and the HuggingFace cache from backups
+
 ## 2.3.4
 
 - Disable ONNX Runtime telemetry: onnxruntime 1.29.0 (pulled in by the 2.3.3

@@ -6,6 +6,9 @@
 # ==============================================================================
 TMP_FOLDER=$(mktemp -d)
 
+# tigervnc >= 1.13 migrates ~/.vnc to ~/.config/tigervnc, which needs ~/.config to exist
+mkdir -p /data/.config
+
 # Lookup udev link
 DECONZ_DEVICE=$(bashio::config 'device')
 
@@ -38,8 +41,7 @@ tigervncserver \
     -localhost ${LOCAL_ONLY} \
     -SecurityTypes None \
     --I-KNOW-THIS-IS-INSECURE \
-    "${DISPLAY}" \
-    &> /dev/null
+    "${DISPLAY}"
 
 # Wait for VNC server to start before continuing
 bashio::log.info "deCONZ waiting for VNC to start"

@@ -665,7 +665,7 @@ Use of this plugin requires a configuration file containing DNS Made Easy API cr
 <details>
   <summary>dnsmadeeasy</summary>
 
-Use of this plugin requires a configuration file containing DNS Made Easy API credentials, obtained from your DNS Made Easy [account page](https://cp.dnsmadeeasy.com/account/info).
+Use of this plugin requires a configuration file containing DNS.Services credentials, obtained from your DNS.services [account page](https://dns.services/clientarea/domains/).
 
 ```yaml
   email: your.email@example.com

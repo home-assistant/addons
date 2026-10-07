@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Check if CPC daemon socket exists
-test -S /dev/shm/cpcd/cpcd_0/ctrl.cpcd.sock
-exit

@@ -69,7 +69,6 @@ body:
         - RPC Shutdown
         - Samba share
         - Silicon Labs Flasher
-        - Silicon Labs Multiprotocol
         - Terminal & SSH
         - VLC
         - Whisper

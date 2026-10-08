@@ -6,11 +6,15 @@ declare otbr_forward_ingress_chain
 declare otbr_forward_egress_chain
 declare otbr_forward_nat64_chain
 declare otbr_fw_mark
+declare otbr_recovery_count_file
+declare otbr_started_file
 thread_if="wpan0"
 otbr_forward_ingress_chain="OTBR_FORWARD_INGRESS"
 otbr_forward_egress_chain="OTBR_FORWARD_EGRESS"
 otbr_forward_nat64_chain="OTBR_FORWARD_NAT64"
 otbr_fw_mark="0x1001"
+otbr_recovery_count_file="/run/otbr-agent-recovery-count"
+otbr_started_file="/run/otbr-agent-started"
 
 # Map the configured otbr_log_level to the numeric level expected by the
 # otbr-agent/otbr-web -d flag. Echoes the numeric level on success, returns

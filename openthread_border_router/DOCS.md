@@ -87,6 +87,22 @@ App configuration:
 > [!NOTE]
 > When using a network device, you still need to set a dummy serial port device, e.g. `/dev/ttyS3`.
 
+## Radio disconnects and recovery
+
+After an unexpected agent exit, the app attempts to restart the agent up to
+three times, with a 10-second delay before each attempt. If the configured
+serial device is missing, each attempt waits up to 30 seconds for it to return.
+The app reapplies its runtime settings before reporting the agent ready and
+keeps the saved Thread network settings. The retry budget resets after five
+minutes of configured operation. If recovery fails repeatedly, the app stops
+and reports the failure so the Supervisor watchdog can handle it if enabled.
+
+An `RCP device disconnected (EOF)` message means that the serial connection
+closed. Recovery can handle a temporary disconnect, but does not resolve its
+underlying cause. Check the radio firmware's required baud rate and flow control
+settings, and the host's USB or virtual machine passthrough logs around the time
+of the disconnect.
+
 ## Support
 
 Got questions?

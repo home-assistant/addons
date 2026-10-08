@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.1
+
+- Attempt recovery after unexpected OTBR agent exits before stopping the app
+- Reapply runtime settings when the OTBR agent restarts
+
 ## 3.3.0
 
 - Bump to OTBR POSIX version fd872ab9 (tag v2026.09.0)

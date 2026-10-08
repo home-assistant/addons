@@ -84,6 +84,9 @@ if test "$e" -ne 0; then
     if [[ -f "${otbr_recovery_count_file}" ]]; then
         recovery_count=$(< "${otbr_recovery_count_file}")
     fi
+    # Only single-digit counts from this bounded retry loop are valid.
+    # Reject malformed state before Bash interprets it as arithmetic.
+    [[ "${recovery_count}" =~ ^[0-3]$ ]] || recovery_count=0
 
     # Reset the budget only after five minutes of configured operation, so
     # repeated startup failures cannot create an unlimited restart loop.

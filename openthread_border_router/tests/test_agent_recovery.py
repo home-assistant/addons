@@ -251,6 +251,20 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         self.assertEqual(Path("/run/otbr-agent-recovery-count").read_text().strip(), "1")
         self.assertFalse((self.state / "halted").exists())
 
+    def test_invalid_recovery_count_is_reset(self):
+        """Malformed retry state must not abort finish or bypass recovery."""
+        self.start()
+        self.ready()
+        invalid_values = ("", "not-a-number", "08", "999999999999999999999", "1+")
+        for instance, value in enumerate(invalid_values, start=2):
+            with self.subTest(value=value):
+                Path("/run/otbr-agent-recovery-count").write_text(value)
+                self.crash()
+                self.wait_for(lambda: (self.state / "starts").read_text() == str(instance))
+                self.ready()
+                self.assertEqual(Path("/run/otbr-agent-recovery-count").read_text().strip(), "1")
+                self.assertFalse((self.state / "halted").exists())
+
     def test_intentional_forced_stop_does_not_recover(self):
         (self.state / "ignore-term").touch()
         self.start()

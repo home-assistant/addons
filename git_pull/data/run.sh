@@ -108,7 +108,6 @@ username=${DEPLOYMENT_USER}
 password=${DEPLOYMENT_PASSWORD}
 "
 
-    # Use git commands to write the credentials to ~/.git-credentials
     bashio::log.info "[Info] Saving git credentials to /tmp/git-credentials"
     git credential approve <<< "$cred_data"
 fi

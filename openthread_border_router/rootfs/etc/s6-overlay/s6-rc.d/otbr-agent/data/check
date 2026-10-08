@@ -12,7 +12,3 @@ nc -z "${MAPFILE[@]}"
 # s6-rc oneshots do not run again when s6-supervise restarts a process.
 # Configure every new agent before notifying dependent services of readiness.
 /etc/s6-overlay/scripts/otbr-agent-configure.sh
-
-# shellcheck source=./openthread_border_router/rootfs/etc/s6-overlay/scripts/otbr-agent-common
-. /etc/s6-overlay/scripts/otbr-agent-common
-date +%s > "${otbr_started_file}"

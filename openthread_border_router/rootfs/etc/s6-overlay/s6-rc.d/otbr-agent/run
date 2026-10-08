@@ -16,11 +16,9 @@ declare migrate_flow_control
 declare otbr_log_level_int
 declare otbr_rest_listen
 declare otbr_rest_listen_port
-declare device_wait
 
 # A retry delay belongs in run: s6 limits the time allowed for finish.
-rm -f "${otbr_started_file}"
-if [[ -f "${otbr_recovery_count_file}" ]]; then
+if [[ -f "${otbr_restart_file}" ]]; then
     sleep 10
 fi
 
@@ -54,20 +52,14 @@ if bashio::config.has_value 'network_device'; then
     device="/tmp/ttyOTBR"
 fi
 
-# Allow a disconnected serial radio to reappear before probing it. Keep the
-# wait bounded so an unavailable radio eventually reaches the failure limit.
-if [[ -f "${otbr_recovery_count_file}" ]]; then
-    device_wait=0
+# Keep the app running while its radio is disconnected. Do not probe or launch
+# the agent until the configured serial device (or socat PTY) is available.
+if [[ ! -c "${device}" ]]; then
+    bashio::log.warning "Waiting for RCP serial device ${device} to return..."
     while [[ ! -c "${device}" ]]; do
-        if (( device_wait >= 30 )); then
-            bashio::exit.nok "RCP serial device ${device} is still unavailable after 30 seconds."
-        fi
-        if (( device_wait == 0 )); then
-            bashio::log.warning "Waiting for RCP serial device ${device} to return..."
-        fi
         sleep 1
-        device_wait=$((device_wait + 1))
     done
+    bashio::log.info "RCP serial device ${device} is available again."
 fi
 
 baudrate=$(bashio::config 'baudrate')

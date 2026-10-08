@@ -89,13 +89,22 @@ App configuration:
 
 ## Radio disconnects and recovery
 
-After an unexpected agent exit, the app attempts to restart the agent up to
-three times, with a 10-second delay before each attempt. If the configured
-serial device is missing, each attempt waits up to 30 seconds for it to return.
+After an unexpected agent exit, the app keeps running and restarts the agent
+after a 10-second delay. If the configured serial device is missing, it waits
+for that device to return without a timeout or retry limit. The app also waits
+if the device disappears before the agent's first launch inside the container.
 The app reapplies its runtime settings before reporting the agent ready and
-keeps the saved Thread network settings. The retry budget resets after five
-minutes of configured operation. If recovery fails repeatedly, the app stops
-and reports the failure so the Supervisor watchdog can handle it if enabled.
+keeps the saved Thread network settings. Stopping the app cancels recovery.
+
+Thread connectivity and the agent's REST API are unavailable while the radio
+is disconnected, even though the app container remains running. If the device
+is present but startup keeps failing, the app retries every 10 seconds and
+logs the errors. Check the configuration and firmware rather than treating
+the container's running state as proof of working Thread connectivity.
+
+Home Assistant Supervisor still validates the configured device before
+starting a stopped app. This recovery applies inside a running container;
+it does not bypass Supervisor's device validation.
 
 An `RCP device disconnected (EOF)` message means that the serial connection
 closed. Recovery can handle a temporary disconnect, but does not resolve its

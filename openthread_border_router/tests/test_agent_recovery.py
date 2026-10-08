@@ -23,7 +23,10 @@ ROOTFS = Path(__file__).resolve().parents[1] / "rootfs"
 BASHIO = r'''#!/bin/bash
 set -eEuo pipefail
 bashio::config.exists() { return 1; }
-bashio::config.has_value() { [[ "$1" == backbone_interface ]]; }
+bashio::config.has_value() {
+    [[ "$1" == backbone_interface ]] ||
+        { [[ "$1" == network_device ]] && [[ -f /tmp/otbr-test-state/network-device ]]; }
+}
 bashio::config.true() { [[ "$1" == firewall || "$1" == nat64 ]]; }
 bashio::config() {
     case "$1" in
@@ -43,8 +46,9 @@ bashio::log.warning() { echo "WARNING: $*"; }
 bashio::log.error() { echo "ERROR: $*"; }
 bashio::exit.nok() { echo "ERROR: $*"; exit 1; }
 # Keep the production delay in the first integration test. Other cases use a
-# shorter delay so exhaustion and unavailable-device tests complete quickly.
+# shorter delay so repeated failures and long device waits complete quickly.
 sleep() {
+    echo "$1" >> /tmp/otbr-test-state/sleeps
     if [[ -f /tmp/otbr-test-fast ]]; then
         /bin/sleep 0.02
     else
@@ -80,6 +84,9 @@ while True:
     if (root / "crash").exists():
         (root / "crash").unlink()
         sys.exit(1)
+    if (root / "clean-exit").exists():
+        (root / "clean-exit").unlink()
+        sys.exit(0)
     time.sleep(0.02)
 '''
 
@@ -92,8 +99,11 @@ def write_executable(path, content):
 
 
 class AgentRecoveryTests(unittest.TestCase):
+    """Verify waiting, recovery, readiness, and stop behavior with real s6."""
+
     @classmethod
     def setUpClass(cls):
+        """Overlay production scripts and isolate radio/network side effects."""
         if not Path("/.dockerenv").exists():
             raise RuntimeError("Run these tests only in the disposable Docker image.")
         # Overlay the app scripts onto the stock image, including removal of the
@@ -114,7 +124,13 @@ class AgentRecoveryTests(unittest.TestCase):
         Path("/run/s6/container_environment").mkdir(parents=True, exist_ok=True)
         Path("/usr/lib/bashio/bashio").write_text(BASHIO)
         write_executable("/usr/sbin/otbr-agent", RADIO)
-        Path("/usr/local/bin/migrate_otbr_settings.py").write_text("# No migration in the fake radio fixture.\n")
+        Path("/usr/local/bin/migrate_otbr_settings.py").write_text('''from pathlib import Path
+import sys
+root = Path("/tmp/otbr-test-state")
+with (root / "probes").open("a") as probes:
+    probes.write("probe\\n")
+sys.exit(1 if (root / "fail-probe").exists() else 0)
+''')
         for name in ("iptables", "ip6tables"):
             write_executable(f"/usr/local/bin/{name}", '''#!/bin/bash
 printf '%s %s\n' "$0" "$*" >> /tmp/otbr-test-state/network-commands
@@ -130,6 +146,7 @@ exit 0
         write_executable("/usr/local/bin/nc", "#!/bin/bash\nexit 0\n")
         write_executable("/usr/local/bin/ot-ctl", '''#!/bin/bash
 printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-state/configured
+[[ ! -f /tmp/otbr-test-state/fail-configure ]]
 ''')
         Path("/run/s6-linux-init-container-results").mkdir(exist_ok=True)
         write_executable("/run/s6/basedir/bin/halt", "#!/bin/bash\ntouch /tmp/otbr-test-state/halted\n")
@@ -137,11 +154,13 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         Path("/data/thread/test.data").write_bytes(b"saved thread dataset fixture")
 
     def setUp(self):
+        """Create a fresh supervised service and a serial-device fixture."""
         self.state = Path("/tmp/otbr-test-state")
         shutil.rmtree(self.state, ignore_errors=True)
         self.state.mkdir()
-        for name in ("/run/otbr-agent-recovery-count", "/run/otbr-agent-started",
+        for name in ("/run/otbr-agent-restarting", "/run/otbr-agent-recovery-count", "/run/otbr-agent-started",
                      "/run/openthread-wpan0.sock", "/tmp/otbr-test-radio",
+                     "/tmp/ttyOTBR",
                      "/run/s6-linux-init-container-results/exitcode"):
             Path(name).unlink(missing_ok=True)
         Path("/tmp/otbr-test-radio").symlink_to("/dev/null")
@@ -156,9 +175,11 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         self.supervisor = None
 
     def start(self):
+        """Launch real s6 supervision without launching container init."""
         self.supervisor = subprocess.Popen(["s6-supervise", str(self.service)], stdout=self.log, stderr=self.log)
 
     def wait_for(self, predicate, timeout=8):
+        """Wait for observable behavior, including service logs on failure."""
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:
             if predicate():
@@ -167,16 +188,20 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         self.fail("Timed out:\n" + (self.state / "log").read_text())
 
     def status(self, field):
+        """Read one field from the real supervisor's service status."""
         result = subprocess.run(["s6-svstat", "-o", field, str(self.service)], capture_output=True, text=True)
         return result.stdout.strip()
 
     def ready(self):
+        """Wait for readiness after runtime configuration completes."""
         self.wait_for(lambda: self.status("ready") == "true")
 
     def crash(self):
+        """Make the radio fixture exit as it would on a serial EOF."""
         (self.state / "crash").touch()
 
     def tearDown(self):
+        """Stop only the service tree created by this test."""
         if self.supervisor:
             subprocess.run(["s6-svc", "-dx", str(self.service)], check=False)
             try:
@@ -188,6 +213,7 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         self.temp.cleanup()
 
     def test_disconnect_reconnect_reconfigures_before_ready(self):
+        """Use the real retry delay and reconfigure the recovered agent."""
         Path("/tmp/otbr-test-fast").unlink()
         checksum = hashlib.sha256(Path("/data/thread/test.data").read_bytes()).digest()
         self.start()
@@ -210,62 +236,107 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         self.assertFalse((self.state / "halted").exists())
         self.assertEqual(checksum, hashlib.sha256(Path("/data/thread/test.data").read_bytes()).digest())
 
-    def test_startup_failure_exhausts_budget(self):
+    def test_startup_failure_keeps_retrying_and_recovers(self):
+        """Repeated launch failures must not halt the container."""
         (self.state / "fail-start").touch()
         self.start()
-        self.wait_for(lambda: (self.state / "halted").exists())
-        self.assertEqual((self.state / "starts").read_text(), "4")
-        self.assertEqual(self.status("wantedup"), "false")
-        self.assertEqual(Path("/run/s6-linux-init-container-results/exitcode").read_text().strip(), "1")
+        self.wait_for(lambda: (self.state / "starts").exists()
+                      and int((self.state / "starts").read_text() or "0") >= 6)
+        self.assertEqual(self.status("wantedup"), "true")
+        self.assertEqual(self.status("ready"), "false")
+        self.assertFalse((self.state / "halted").exists())
         self.assertFalse((self.state / "configured").exists())
+        (self.state / "fail-start").unlink()
+        self.ready()
+        self.assertFalse(Path("/run/s6-linux-init-container-results/exitcode").exists())
 
-    def test_missing_device_exhausts_budget(self):
+    def wait_for_long_device_wait(self):
+        """Exercise more wait polls than all three previous 30-second attempts."""
+        self.wait_for(lambda: (self.state / "sleeps").exists()
+                      and (self.state / "sleeps").read_text().splitlines().count("1") >= 120)
+
+    def test_missing_device_waits_without_repeated_probes(self):
+        """A prolonged absence must wait without relaunching or probing."""
         self.start()
         self.ready()
         Path("/tmp/otbr-test-radio").unlink()
         self.crash()
-        self.wait_for(lambda: (self.state / "halted").exists())
+        self.wait_for_long_device_wait()
         self.assertEqual((self.state / "starts").read_text(), "1")
-        self.assertIn("unavailable after 30 seconds", (self.state / "log").read_text())
+        self.assertEqual((self.state / "probes").read_text().splitlines(), ["probe"])
+        self.assertEqual((self.state / "log").read_text().count("Waiting for RCP serial"), 1)
+        self.assertEqual(self.status("ready"), "false")
+        self.assertFalse((self.state / "halted").exists())
+        Path("/tmp/otbr-test-radio").symlink_to("/dev/null")
+        self.wait_for(lambda: (self.state / "starts").read_text() == "2")
+        self.ready()
 
-    def test_repeated_short_runs_do_not_reset_budget(self):
+    def test_missing_device_before_first_launch_waits(self):
+        """Wait if a device disappears after Supervisor admits the container."""
+        Path("/tmp/otbr-test-radio").unlink()
         self.start()
-        for instance in range(1, 5):
+        self.wait_for_long_device_wait()
+        self.assertFalse((self.state / "starts").exists())
+        self.assertFalse((self.state / "probes").exists())
+        self.assertEqual(self.status("ready"), "false")
+        self.assertFalse((self.state / "halted").exists())
+        Path("/tmp/otbr-test-radio").symlink_to("/dev/null")
+        self.ready()
+
+    def test_network_device_waits_for_socat_pty(self):
+        """Network mode must wait on its PTY rather than the dummy device."""
+        (self.state / "network-device").touch()
+        self.start()
+        self.wait_for(lambda: "Waiting for RCP serial device /tmp/ttyOTBR" in (self.state / "log").read_text())
+        self.assertFalse((self.state / "probes").exists())
+        Path("/tmp/ttyOTBR").symlink_to("/dev/null")
+        self.ready()
+
+    def test_repeated_short_runs_keep_recovering(self):
+        """More than three successive runtime failures must still recover."""
+        self.start()
+        for instance in range(1, 8):
             self.wait_for(lambda: (self.state / "starts").exists()
                           and (self.state / "starts").read_text() == str(instance))
             self.ready()
             self.crash()
-            if instance < 4:
-                self.wait_for(lambda: (self.state / "starts").read_text() == str(instance + 1))
-        self.wait_for(lambda: (self.state / "halted").exists())
-        self.assertEqual((self.state / "starts").read_text(), "4")
-
-    def test_stable_operation_resets_budget(self):
-        self.start()
+            self.wait_for(lambda: (self.state / "starts").read_text() == str(instance + 1))
         self.ready()
-        Path("/run/otbr-agent-recovery-count").write_text("3\n")
-        Path("/run/otbr-agent-started").write_text(f"{int(time.time()) - 301}\n")
-        self.crash()
-        self.wait_for(lambda: (self.state / "starts").read_text() == "2")
-        self.ready()
-        self.assertEqual(Path("/run/otbr-agent-recovery-count").read_text().strip(), "1")
+        self.assertEqual((self.state / "starts").read_text(), "8")
         self.assertFalse((self.state / "halted").exists())
 
-    def test_invalid_recovery_count_is_reset(self):
-        """Malformed retry state must not abort finish or bypass recovery."""
+    def test_unexpected_clean_exit_is_delayed_and_recovered(self):
+        """An unrequested clean exit also needs a paced restart."""
         self.start()
         self.ready()
-        invalid_values = ("", "not-a-number", "08", "999999999999999999999", "1+")
-        for instance, value in enumerate(invalid_values, start=2):
-            with self.subTest(value=value):
-                Path("/run/otbr-agent-recovery-count").write_text(value)
-                self.crash()
-                self.wait_for(lambda: (self.state / "starts").read_text() == str(instance))
-                self.ready()
-                self.assertEqual(Path("/run/otbr-agent-recovery-count").read_text().strip(), "1")
-                self.assertFalse((self.state / "halted").exists())
+        (self.state / "clean-exit").touch()
+        self.wait_for(lambda: (self.state / "starts").read_text() == "2")
+        self.ready()
+        self.assertIn("10", (self.state / "sleeps").read_text().splitlines())
+        self.assertFalse((self.state / "halted").exists())
+
+    def test_probe_failure_recovers(self):
+        """A device can disappear between the presence check and the probe."""
+        (self.state / "fail-probe").touch()
+        self.start()
+        self.wait_for(lambda: (self.state / "probes").exists()
+                      and len((self.state / "probes").read_text().splitlines()) >= 5)
+        self.assertFalse((self.state / "starts").exists())
+        self.assertFalse((self.state / "halted").exists())
+        (self.state / "fail-probe").unlink()
+        self.ready()
+
+    def test_configuration_failure_does_not_report_ready(self):
+        """The recovered process must apply settings before readiness."""
+        (self.state / "fail-configure").touch()
+        self.start()
+        self.wait_for(lambda: (self.state / "configured").exists())
+        self.assertEqual(self.status("ready"), "false")
+        (self.state / "fail-configure").unlink()
+        self.ready()
 
     def test_intentional_forced_stop_does_not_recover(self):
+        """A forced kill after an explicit stop must not schedule recovery."""
         (self.state / "ignore-term").touch()
         self.start()
         self.ready()
@@ -274,12 +345,27 @@ printf '%s:%s\n' "$(cat /tmp/otbr-test-state/starts)" "$*" >> /tmp/otbr-test-sta
         subprocess.run(["s6-svc", "-k", str(self.service)], check=True)
         self.wait_for(lambda: self.status("up") == "false")
         self.wait_for(lambda: "teardown completed" in (self.state / "log").read_text())
-        self.wait_for(lambda: not Path("/run/otbr-agent-started").exists())
+        self.wait_for(lambda: not Path("/run/otbr-agent-restarting").exists())
         self.assertFalse((self.state / "halted").exists())
-        self.assertFalse(Path("/run/otbr-agent-recovery-count").exists())
+        self.assertFalse(Path("/run/otbr-agent-restarting").exists())
+        self.assertEqual((self.state / "starts").read_text(), "1")
+
+    def test_stop_while_waiting_for_device(self):
+        """Explicit stop must cancel a long serial-device wait promptly."""
+        self.start()
+        self.ready()
+        Path("/tmp/otbr-test-radio").unlink()
+        self.crash()
+        self.wait_for(lambda: "Waiting for RCP serial" in (self.state / "log").read_text())
+        subprocess.run(["s6-svc", "-d", str(self.service)], check=True)
+        self.wait_for(lambda: self.status("up") == "false")
+        self.wait_for(lambda: not Path("/run/otbr-agent-restarting").exists())
+        self.assertEqual(self.status("wantedup"), "false")
+        self.assertFalse((self.state / "halted").exists())
         self.assertEqual((self.state / "starts").read_text(), "1")
 
     def test_service_dependencies_compile(self):
+        """The production service dependency graph must still compile."""
         output = self.service / "compiled"
         subprocess.run(["s6-rc-compile", str(output), "/etc/s6-overlay/s6-rc.d",
                         "/package/admin/s6-overlay/etc/s6-rc/sources"], check=True)

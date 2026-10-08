@@ -2,7 +2,8 @@
 
 ## 3.3.1
 
-- Attempt recovery after unexpected OTBR agent exits before stopping the app
+- Keep the app running and wait for the radio to return after a disconnect
+- Retry unexpected OTBR agent exits without a retry limit, with a 10-second delay
 - Reapply runtime settings when the OTBR agent restarts
 
 ## 3.3.0

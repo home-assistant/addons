@@ -72,44 +72,15 @@ while iptables -t nat -C POSTROUTING -m mark --mark "${otbr_fw_mark}" -j MASQUER
 done
 bashio::log.info "OTBR firewall/NAT64 rules teardown completed."
 
-if test "$e" -ne 0; then
-    # An intentional stop (including SIGKILL after a stop timeout) must not
-    # restart the app or be counted as a radio failure.
-    if [[ "$(s6-svstat -o wantedup .)" == "false" ]]; then
-        rm -f "${otbr_recovery_count_file}" "${otbr_started_file}"
-        exit 0
-    fi
-
-    recovery_count=0
-    if [[ -f "${otbr_recovery_count_file}" ]]; then
-        recovery_count=$(< "${otbr_recovery_count_file}")
-    fi
-    # Only single-digit counts from this bounded retry loop are valid.
-    # Reject malformed state before Bash interprets it as arithmetic.
-    [[ "${recovery_count}" =~ ^[0-3]$ ]] || recovery_count=0
-
-    # Reset the budget only after five minutes of configured operation, so
-    # repeated startup failures cannot create an unlimited restart loop.
-    if [[ -f "${otbr_started_file}" ]]; then
-        started=$(< "${otbr_started_file}")
-        if (( $(date +%s) - started >= 300 )); then
-            recovery_count=0
-        fi
-    fi
-    rm -f "${otbr_started_file}"
-
-    if (( recovery_count < 3 )); then
-        recovery_count=$((recovery_count + 1))
-        echo "${recovery_count}" > "${otbr_recovery_count_file}"
-        bashio::log.warning "Attempting otbr-agent recovery ${recovery_count}/3 in 10 seconds."
-        exit 0
-    fi
-
-    bashio::log.error "otbr-agent recovery failed after 3 attempts. Check the RCP connection and firmware settings."
-    echo "$e" > /run/s6-linux-init-container-results/exitcode
-    /run/s6/basedir/bin/halt
-    # Stop restarting after the recovery budget is exhausted.
-    exit 125
+# An intentional stop (including SIGKILL after a stop timeout) must not request
+# recovery. This also applies when stopping the serial-device wait in run.
+if [[ "$(s6-svstat -o wantedup .)" == "false" ]]; then
+    rm -f "${otbr_restart_file}"
+    exit 0
 fi
 
-rm -f "${otbr_recovery_count_file}" "${otbr_started_file}"
+# s6-supervise restarts the agent without taking the app down. Delay retries
+# in run, and wait there indefinitely if the serial device has disappeared.
+# Repeated failures remain visible in the logs, but never exhaust a budget.
+touch "${otbr_restart_file}"
+bashio::log.warning "Restarting otbr-agent in 10 seconds; waiting for the RCP serial device if unavailable."

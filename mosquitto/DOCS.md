@@ -102,6 +102,10 @@ Default value: `false`
 
 The folder to read the additional configuration files (`*.conf`) from.
 
+### Option: `acl_file` (optional)
+
+Path, relative to the `share` folder, of a Mosquitto ACL file to enforce, e.g. `mosquitto/accesscontrollist`. See [Access Control Lists (ACLs)](#access-control-lists-acls).
+
 ### Option: `cafile` (optional)
 
 A file containing a root certificate. Place this file in the Home Assistant `ssl` folder.
@@ -162,36 +166,29 @@ See the following links for more information:
 - [Mosquitto topic restrictions](http://www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/)
 - [Mosquitto.conf man page](https://mosquitto.org/man/mosquitto-conf-5.html)
 
-Add the following configuration to enable **unrestricted** access to all topics for `[YOUR_MQTT_USER]`.
+1. Create an ACL file in the `share` folder, for example `/share/mosquitto/accesscontrollist`:
 
-**Note:** Home Assistant expects the users `homeassistant` and `addons` to have unrestricted readwrite access to all topics. If you choose to enable ACLs, you should grant this access to these users as demonstrated below. Otherwise you will run into issues.
+    ```text
+    user [YOUR_MQTT_USER]
+    topic readwrite [YOUR_MQTT_USER]/#
+    topic read homeassistant/status
+    ```
 
-1. Enable the customize flag
+2. Point the `acl_file` option at it, relative to the `share` folder:
 
     ```yaml
-      customize:
-        active: true
-        folder: mosquitto
+    acl_file: mosquitto/accesscontrollist
     ```
 
-2. Create `/share/mosquitto/acl.conf` with the contents:
+3. Restart the app. The log shows `Enforcing ACL file /share/mosquitto/accesscontrollist`.
 
-    ```text
-    acl_file /share/mosquitto/accesscontrollist
-    ```
+The internal users `homeassistant` and `addons` are superusers: no rule in the file applies to them, so Home Assistant and other apps keep unrestricted access. They can only log in with their own internal credentials, not through a Home Assistant account. Every other user can only use the topics the file grants them. A client that subscribes to a filter wider than its grant (for example `#`) receives nothing, and a publish outside its grant is silently dropped.
 
-3. Create `/share/mosquitto/accesscontrollist` with the contents:
+`user` blocks only apply to users defined in the `logins` option; the app logs a warning for any other `user` block. Home Assistant users that log in to the broker only get the rules outside any `user` block and `pattern` rules, e.g. `pattern readwrite %u/#`.
 
-    ```text
-    user addons
-    topic readwrite #
+If the file uses `%u` or `%c` in a `pattern` rule, the app also enables Mosquitto's `auth_plugin_deny_special_chars` check: a username or client ID containing `+` or `#` would otherwise widen the pattern to other clients' topics (CVE-2017-7650). With that check on, clients whose username or client ID contains `+`, `#` or `/` get no topic access, so give such clients a different client ID or use plain `topic` rules for them.
 
-    user homeassistant
-    topic readwrite #
-
-    user [YOUR_MQTT_USER]
-    topic readwrite #
-    ```
+**Note:** Do not use an `acl_file` directive in the customize folder for this. Since version 7.0.0 of this app, such a directive is loaded but not enforced; use the `acl_file` option instead.
 
 The `/share` folder can be accessed via SMB, or on the host filesystem under `/usr/share/hassio/share`.
 

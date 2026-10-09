@@ -32,7 +32,7 @@ auth_plugin /usr/share/mosquitto/go-auth.so
 # Restore pre-7.0 behaviour: allow '/' in client ids and usernames.
 # The addon's ACL file does not use pattern substitution (%c/%u), so
 # mosquitto 2.1's broker-side rejection of +, #, / is not needed here.
-auth_plugin_deny_special_chars false
+auth_plugin_deny_special_chars {{ if .deny_special_chars }}true{{ else }}false{{ end }}
 auth_opt_backends files,http
 auth_opt_hasher pbkdf2
 auth_opt_cache true

@@ -44,6 +44,11 @@ configuration:
     name: Customize
     description: >-
       See the Documentation tab for more information about these options.
+  acl_file:
+    name: ACL File
+    description: >-
+      Optional path, relative to the `share` folder, of a Mosquitto ACL file
+      to enforce. See the Documentation tab for details.
   debug:
     name: Debug
     description: >-

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.6
+- Declare the `NET_RAW` capability, which the app needs but did not request.
+- Declare the `/dev/net/tun` device used by OpenThread Border Router.
+- The app image is unchanged from 2.4.5.
+
 ## 2.4.5
 - Support Home Assistant Connect ZBT-1.
 

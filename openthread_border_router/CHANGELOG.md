@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.1
+
+- Keep the app running and wait for the radio to return after a disconnect
+- Retry unexpected OTBR agent exits without a retry limit, with a 10-second delay
+- Reapply runtime settings when the OTBR agent restarts
+
 ## 3.3.0
 
 - Bump to OTBR POSIX version fd872ab9 (tag v2026.09.0)

@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.9.1
+
+### Z-Wave JS 15.31.0...15.31.1
+
+#### Bugfixes
+
+- Resolved an issue preventing `restoreNVM()` and 500-series OTW updates from aborting during soft reset
+- Retry the original command after a delay when nodes respond with "Application Busy" instead of the expected response
+- Fixed an issue where `maxDataRate` could become `-Infinity` for ready nodes without a known data rate
+- Prevent multiple network-wide route rebuilds from running simultaneously
+
+#### Config file changes
+
+- Name and group the endpoints of the Aeotec HEM 8
+- Add a manual value refresh delay for Leviton VRI06
+- Add manual refresh delays for Leviton VRMX1 and VRS15
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.3](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.3)
+- [Z-Wave JS 15.31.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.1)
+
 ## 1.9.0
 
 ### Z-Wave JS 15.29.0...15.31.0

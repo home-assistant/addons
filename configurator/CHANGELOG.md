@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.1
+
+- Shut down cleanly when the app is stopped
+
 ## 6.2.0
 
 - Add a `log_level` option; set it to `warning` to stop logging every web request, including the Docker health check

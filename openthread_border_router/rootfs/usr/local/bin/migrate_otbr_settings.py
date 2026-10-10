@@ -152,14 +152,10 @@ async def main() -> None:
     if flow_control == "none":
         flow_control = None
 
-    # First, read the hardware address of the new adapter
-    hwaddr = await get_adapter_hardware_addr(
-        port=args.adapter,
-        baudrate=args.baudrate,
-        flow_control=flow_control,
-    )
-
-    # Then, look at existing settings
+    # First, look at existing settings before touching the adapter.
+    # If there is nothing to migrate, skip the adapter connection entirely.
+    # This avoids a TimeoutError / AssertionError on dongles that reset their
+    # USB connection in response to a Spinel RESET (issue #4475).
     all_settings = []
 
     for settings_path in args.data_dir.glob("*.data"):
@@ -183,6 +179,13 @@ async def main() -> None:
     if not all_settings:
         print("No existing settings files found, skipping")
         return
+
+    # Only connect to the adapter if there are settings files that need migrating
+    hwaddr = await get_adapter_hardware_addr(
+        port=args.adapter,
+        baudrate=args.baudrate,
+        flow_control=flow_control,
+    )
 
     most_recent_settings_info = sorted(all_settings, reverse=True)[0]
     most_recent_settings_path = most_recent_settings_info[1]

@@ -1,0 +1,13 @@
+---
+configuration:
+  databases:
+    name: מסדי נתונים
+    description: שמות מסדי הנתונים.
+  logins:
+    name: התחברות
+    description: סעיף זה מגדיר משתמשים ב-MariaDB.
+  rights:
+    name: הרשאות
+    description: סעיף זה מעניק הרשאות למשתמשים ב-MariaDB.
+network:
+  3306/tcp: פורט הגישה למנוע של מסד הנתונים.

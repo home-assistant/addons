@@ -103,7 +103,7 @@ The CA certificate file in the `/ssl` directory used to verify client certificat
 
 ### Option `mtls_real_ip_header` (optional)
 
-The request header that carries the real client IP on the mTLS port, for example `CF-Connecting-IP` for Cloudflare. It is trusted only on the mTLS port, where every client has a verified certificate, and is sent to Home Assistant as `X-Forwarded-For`, so `ip_ban_enabled` and the login attempt notifications show the real address. If not set, the mTLS port forwards `X-Forwarded-For` like the main port. Only set it when `mtls_client_ca` issues certificates to your proxy alone (such as the Cloudflare origin-pull CA or your own private CA), never a public CA bundle: anyone holding a certificate from that CA could otherwise set the header and pose as any client address.
+The request header that carries the real client IP on the mTLS port, for example `CF-Connecting-IP` for Cloudflare. It is trusted only on the mTLS port, where every client has a verified certificate, and is sent to Home Assistant as `X-Forwarded-For`, so `ip_ban_enabled` and the login attempt notifications show the real address. If not set, the mTLS port forwards `X-Forwarded-For` like the main port. Only set it when `mtls_client_ca` issues certificates to your proxy alone (such as the CA of your Cloudflare per-zone or per-hostname origin-pull certificate, or your own private CA), never the shared Cloudflare origin-pull CA or a public CA bundle: anyone holding a certificate from that CA could otherwise set the header and pose as any client address.
 
 Example for Cloudflare Authenticated Origin Pulls, with the router forwarding WAN port 443 to this port:
 

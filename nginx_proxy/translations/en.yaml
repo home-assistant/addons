@@ -50,7 +50,7 @@ configuration:
       Request header carrying the real client IP on the client certificate
       (mTLS) port, for example `CF-Connecting-IP`. Only trusted on that port,
       and only safe when the client CA issues certificates to your proxy
-      alone (never a public CA bundle).
+      alone (never the shared Cloudflare origin-pull CA or a public CA bundle).
 network:
   443/tcp: HTTPS (SSL) Port
   443/udp: HTTP/3 (QUIC) Port, set to same as HTTPS (SSL) port to enable HTTP/3

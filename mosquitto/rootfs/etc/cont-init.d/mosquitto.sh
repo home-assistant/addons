@@ -6,7 +6,10 @@
 readonly ACL="/etc/mosquitto/acl"
 readonly PW="/etc/mosquitto/pw"
 readonly SYSTEM_USER="/data/system_user.json"
+declare acl_file
+declare acl_user
 declare cafile
+declare deny_special_chars="false"
 declare certfile
 declare discovery_password
 declare keyfile
@@ -62,6 +65,33 @@ for login in $(bashio::config 'logins|keys'); do
   echo "user ${username}" >> "${ACL}"
 done
 
+# Enforce a user-provided ACL file. go-auth answers every ACL check and the
+# first answer wins, so the builtin `acl_file` directive is never consulted
+# with mosquitto 2.1 (#4571). When `acl_file` is set, go-auth reads the rules
+# from it, and the internal HTTP endpoints (see nginx.gtpl) make only the
+# internal homeassistant and addons users superusers, so the file cannot
+# restrict them.
+if bashio::config.has_value 'acl_file'; then
+  acl_file="/share/$(bashio::config 'acl_file')"
+  if ! bashio::fs.file_exists "${acl_file}"; then
+    bashio::exit.nok "ACL file ${acl_file} not found"
+  fi
+  bashio::log.info "Enforcing ACL file ${acl_file}"
+  # go-auth only applies `user` blocks to users in its password file.
+  while read -r acl_user; do
+    if ! grep -q "^${acl_user}:" "${PW}"; then
+      bashio::log.warning "ACL rules for '${acl_user}' are ignored: only users from the logins option can have per-user rules, use a 'pattern' rule with %u instead"
+    fi
+  done < <(awk '$1 == "user" {print $2}' "${acl_file}" | sort -u)
+  cp "${acl_file}" "${ACL}"
+  # go-auth substitutes %u/%c into pattern rules verbatim, so a username or
+  # client id containing + or # would widen the pattern (CVE-2017-7650).
+  if grep -q -E '^[[:space:]]*pattern[[:space:]].*%[uc]' "${acl_file}"; then
+    bashio::log.info "ACL file uses %u/%c patterns: denying ACL access to usernames and client ids containing +, # or /"
+    deny_special_chars="true"
+  fi
+fi
+
 keyfile="/ssl/$(bashio::config 'keyfile')"
 certfile="/ssl/$(bashio::config 'certfile')"
 cafile="/ssl/$(bashio::config 'cafile')"
@@ -95,6 +125,7 @@ bashio::var.json \
   require_certificate "^$(bashio::config 'require_certificate')" \
   ssl "^${ssl}" \
   debug "^$(bashio::config 'debug')" \
+  deny_special_chars "^${deny_special_chars}" \
   | tempio \
     -template /usr/share/tempio/mosquitto.gtpl \
     -out /etc/mosquitto/mosquitto.conf

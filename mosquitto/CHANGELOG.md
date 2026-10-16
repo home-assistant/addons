@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.2.0
+
+- Add `acl_file` option to enforce a topic ACL again. Since 7.0.0 an `acl_file` directive placed in the customize folder was loaded but ignored, so every authenticated user could read and write every topic ([#4571](https://github.com/home-assistant/addons/issues/4571))
+
 ## 7.1.1
 
 - Fix nil pointer dereference panic in go-auth ttlcache ACL check ([#4606](https://github.com/home-assistant/addons/issues/4606), [#4655](https://github.com/home-assistant/addons/issues/4655))

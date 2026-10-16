@@ -92,4 +92,4 @@ about developing an app, please see our
 [forum]: https://community.home-assistant.io
 [issue]: https://github.com/home-assistant/addons/issues
 [reddit]: https://reddit.com/r/homeassistant
-[dev-docs]: https://developers.home-assistant.io/docs/add-ons/
+[dev-docs]: https://contributors.home-assistant.io/apps/

@@ -36,6 +36,8 @@ To copy text from the Web UI:
 To paste text into the Web UI:
 1. Press SHIFT + INSERT.
 
+The web terminal has screen reader support turned on. Screen readers read the text you type and new output as it appears. The visible rows of the terminal are also available as a list that you can read line by line with your screen reader's reading cursor. When a command prints a lot of output, the terminal stops reading it out after about 20 lines; use the reading cursor to read the rest.
+
 ### SSH Server Connection
 
 Remote SSH access from the network is disabled by default (See Network below).  To connect using an SSH client, such as PuTTY or Linux terminal, you need to supply additional configuration for this app. To enable SSH connectivity, you need to:

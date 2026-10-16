@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.6.0
+
+- Enable the terminal's screen reader mode in the web terminal, so that screen readers can read the terminal output and the text you type.
+
 ## 10.5.0
 
 - Update Home Assistant CLI to 5.5.0

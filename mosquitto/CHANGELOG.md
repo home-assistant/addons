@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.2
+
+- Fix handling of WebSocket data frames with an empty payload in the built-in WebSocket listener ([eclipse-mosquitto/mosquitto#3704](https://github.com/eclipse-mosquitto/mosquitto/issues/3704))
+
 ## 7.1.1
 
 - Fix nil pointer dereference panic in go-auth ttlcache ACL check ([#4606](https://github.com/home-assistant/addons/issues/4606), [#4655](https://github.com/home-assistant/addons/issues/4655))

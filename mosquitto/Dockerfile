@@ -6,6 +6,7 @@ WORKDIR /usr/src
 ARG LIBWEBSOCKET_VERSION
 ARG MOSQUITTO_VERSION
 ARG MOSQUITTO_AUTH_VERSION
+COPY patches/0001-Fix-builtin-websockets-dropping-the-session-on-an-empty-data-frame.patch /usr/src
 RUN apt-get update \
     && apt-get install -qy --no-install-recommends \
         nginx \
@@ -14,6 +15,7 @@ RUN apt-get update \
         cmake \
         git \
         openssl \
+        patch \
         libssl-dev \
         libc-ares2 \
         libc-ares-dev \
@@ -43,6 +45,7 @@ RUN apt-get update \
        https://github.com/eclipse/mosquitto \
     \
     && cd mosquitto \
+    && patch -p1 < /usr/src/0001-Fix-builtin-websockets-dropping-the-session-on-an-empty-data-frame.patch \
     # Disable editline used by mosquitto_ctrl
     && sed -i 's/^WITH_EDITLINE=yes/#WITH_EDITLINE=yes/' config.mk \
     # Disable REST API
@@ -67,6 +70,7 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove \
         build-essential \
         git \
+        patch \
         cmake \
         libssl-dev \
         libc-ares-dev \
@@ -84,6 +88,7 @@ RUN apt-get update \
         /usr/src/libwebsockets \
         /usr/src/mosquitto \
         /usr/src/mosquitto-go-auth \
+        /usr/src/*.patch \
         /var/lib/nginx/html \
         /var/www \
         /var/lib/apt/lists/* \

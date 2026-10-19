@@ -31,7 +31,7 @@ RUN apt-get update \
     # DLWS_WITHOUT_TESTAPPS is just a workaround, see
     # https://github.com/warmcat/libwebsockets/issues/2790 for more
     && git clone --depth 1 -b "v${LIBWEBSOCKET_VERSION}" \
-       https://libwebsockets.org/repo/libwebsockets \
+       https://github.com/warmcat/libwebsockets \
     \
     && cd libwebsockets \
     && mkdir build \

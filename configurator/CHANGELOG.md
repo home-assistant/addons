@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.0
+
+- Update hass-configurator to 0.7.0 (see [changelog](https://github.com/danielperna84/hass-configurator/releases/tag/0.7.0) for details)
+- The configurator now handles `SIGTERM` for a clean and quick shutdown
+
 ## 6.2.0
 
 - Add a `log_level` option; set it to `warning` to stop logging every web request, including the Docker health check

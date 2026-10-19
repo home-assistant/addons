@@ -37,7 +37,7 @@ jobs:
         id: addons
         run: |
           declare -a addons
-          for addon in $(find ./ -name config.yaml | cut -d "/" -f2 | sort -u); do
+          for addon in $(find . -mindepth 2 -maxdepth 2 -name Dockerfile | cut -d "/" -f2 | sort -u); do
             addons+=("$addon");
           done
           echo "addons=${addons[@]}" >> "$GITHUB_OUTPUT"

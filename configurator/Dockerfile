@@ -24,5 +24,5 @@ RUN \
 COPY rootfs /
 
 # Health check
-HEALTHCHECK --start-period=30s --start-interval=5s \
+HEALTHCHECK --start-period=30s --start-interval=5s --interval=30s \
     CMD curl --fail http://127.0.0.1:8099 || exit 1

@@ -10,6 +10,10 @@ declare network_device
 network_device=$(bashio::config 'network_device')
 
 bashio::log.info "Starting socat TCP client for OTBR daemon..."
-exec s6-notifyoncheck -d -s 300 -w 300 \
-    "/usr/bin/socat" -d pty,raw,echo=0,link=/tmp/ttyOTBR,ignoreeof \
-    "tcp:${network_device}"
+# Connect before creating the PTY so readiness is only reported when the
+# network RCP is reachable. Keep both connection attempts and readiness checks
+# running during an outage.
+exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
+    "/usr/bin/socat" -d \
+    "tcp:${network_device},connect-timeout=10,forever,interval=10" \
+    pty,raw,echo=0,link=/tmp/ttyOTBR,ignoreeof

@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.0
+
+- Add a `log_level` option; set it to `warning` to stop logging every web request, including the Docker health check
+
 ## 6.1.0
 
 - Migrate to the new `all_app_configs` folder mapping name introduced in Home Assistant Supervisor

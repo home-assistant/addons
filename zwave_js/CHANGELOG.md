@@ -1,5 +1,56 @@
 # Changelog
 
+## 1.9.1
+
+### Z-Wave JS 15.31.0...15.31.1
+
+#### Bugfixes
+
+- Resolved an issue preventing `restoreNVM()` and 500-series OTW updates from aborting during soft reset
+- Retry the original command after a delay when nodes respond with "Application Busy" instead of the expected response
+- Fixed an issue where `maxDataRate` could become `-Infinity` for ready nodes without a known data rate
+- Prevent multiple network-wide route rebuilds from running simultaneously
+
+#### Config file changes
+
+- Name and group the endpoints of the Aeotec HEM 8
+- Add a manual value refresh delay for Leviton VRI06
+- Add manual refresh delays for Leviton VRMX1 and VRS15
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.3](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.3)
+- [Z-Wave JS 15.31.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.1)
+
+## 1.9.0
+
+### Z-Wave JS 15.29.0...15.31.0
+
+#### Features
+
+- Add support for grouping endpoints
+
+#### Config file changes
+
+- Add a manual refresh delay for Leviton DZ6HD
+- Correct Shelly Wave Shutter moving time units
+- Update the Aeotec ZWA056 Water Sensor 8 configuration
+- Correct the acceleration sensor unit factor for Aeotec ZWA055 Door / Window Sensor 8
+- Add Aeotec ZWA066 MultiSensor 8
+- Add Shenzhen Neo NAS-WS02Z Water Sensor
+- Add Nice FGD-223 Double Dimmer-Control
+- Fix several Qubino ZMNHTD parameter errors
+- Correct the value size of Qubino ZMNHTD parameter 40
+- Map root reports to endpoint 1 on Remotec ZXT-800 and add a fingerprint
+- Fix configuration conditions with invalid firmware version formatting that never matched
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.2)
+- [Z-Wave JS 15.31.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.0)
+- [Z-Wave JS 15.30.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.30.0)
+- [Z-Wave JS Server 3.11.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.11.0)
+
 ## 1.8.1
 
 ### Z-Wave JS Server 3.10.2

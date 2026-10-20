@@ -20,6 +20,12 @@ configuration:
     description: >-
       This option allows you to hide files and folders from the file browser
       tree.
+  log_level:
+    name: Log Level
+    description: >-
+      Controls how much the file editor logs. At `info`, every web request is
+      logged, including the Docker health check every 30 seconds; `warning`
+      logs only problems.
   ssh_keys:
     name: SSH Keys
     description: >-

@@ -2,7 +2,7 @@
 
 ## 6.2.1
 
-- Check readiness every 5 seconds during startup on Docker Engine 25.0 or later
+- Leave starting state faster
 
 ## 6.2.0
 

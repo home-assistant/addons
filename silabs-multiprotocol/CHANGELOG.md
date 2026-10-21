@@ -1,6 +1,18 @@
 # Changelog
 
 ## 2.4.6
+
+> [!CAUTION]
+> This app is deprecated and will be removed in the future. This is a last
+> compatibility update to avoid the app breaking with newer Supervisor
+> releases; it receives no further updates. If the app is not in use
+> (e.g. it is not running), uninstall it. Otherwise, please migrate away from
+> multiprotocol: Update to Home Assistant Core 2026.6.0 or newer, which offers
+> a repair to migrate your Home Assistant Yellow or Connect ZBT-1 / SkyConnect
+> back to Zigbee firmware. Alternatively, follow the procedure to
+> [disable multiprotocol](https://connectzbt1.home-assistant.io/procedures/disable-multiprotocol/)
+> manually.
+
 - Declare the `NET_RAW` capability, which the app needs but did not request.
 - Declare the `/dev/net/tun` device used by OpenThread Border Router.
 - The app image is unchanged from 2.4.5.

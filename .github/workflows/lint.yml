@@ -57,7 +57,6 @@ jobs:
           # discover on its own:
           additional_files: >-
             check_certificate_renewal
-            cpcd-config-up
             discovery
             finish
             lock-tables-for-backup

@@ -1,5 +1,5 @@
 ---
-version: 2.4.5
+version: 2.4.6
 slug: silabs_multiprotocol
 name: "Silicon Labs Multiprotocol [deprecated]"
 description: Zigbee and OpenThread multiprotocol add-on
@@ -11,6 +11,8 @@ arch:
 homeassistant: 2024.1.0
 gpio: true
 hassio_api: true
+devices:
+  - /dev/net/tun
 discovery:
   - otbr
 # IPC is only used within the Add-on
@@ -20,6 +22,7 @@ host_uts: true
 privileged:
   - IPC_LOCK
   - NET_ADMIN
+  - NET_RAW
 image: homeassistant/{arch}-addon-silabs-multiprotocol
 init: false
 options:

@@ -3,8 +3,8 @@
 ## 9.3.0
 
 - Update [Matter Server from 1.4.0 to 1.5.0](https://github.com/matter-js/matterjs-server/blob/main/CHANGELOG.md)
-  - Add a camera API for WebRTC stream management (Websocket Schema version 14, backward compatible)
-  - Add CLI flags for custom PAA certificates, device attestation revocation sets, DCL offline mode and custom cluster poll interval
+  - Supports Matter 1.6.1 with many optimizations and fixes to the Matter stack
+  - Add a convenient camera API for WebRTC stream management
   - Many new Dashboard cluster command panels and endpoint label/semantic tag display
   - Multiple Optimizations and Fixes in WebRTC/camera handling and node availability reporting
 

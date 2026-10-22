@@ -5,9 +5,22 @@ configuration:
     description: >-
       A list of local users that will be created with username and password.
       You don't need to do this because you can use Home Assistant users too,
-      without any configuration. You can also specify
-      `password_pre_hashed: true` to utilize a pre-hashed password from the
-      output of the `pw` command (which is present inside the container).
+      without any configuration.
+    fields:
+      username:
+        name: Username
+        description: >-
+          The username of the local user.
+      password:
+        name: Password
+        description: >-
+          The password of the local user, either in plain text or pre-hashed.
+      password_pre_hashed:
+        name: Password Pre-Hashed
+        description: >-
+          If enabled, the password is treated as a pre-hashed password from
+          the output of the `pw` command (which is present inside the
+          container).
   log_dest:
     name: Log Destinations
     description: >-

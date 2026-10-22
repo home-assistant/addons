@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.3
+
+- Add descriptions for the fields of the `logins` option
+
 ## 7.1.2
 
 - Fix handling of WebSocket data frames with an empty payload in the built-in WebSocket listener ([eclipse-mosquitto/mosquitto#3704](https://github.com/eclipse-mosquitto/mosquitto/issues/3704))

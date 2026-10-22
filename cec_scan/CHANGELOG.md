@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.0
+
+- Update the base image to latest patch release.
+- Publish app to GHCR.
+
 ## 4.0
 
 - Remove unsupported architectures (armhf, armv7, i386)

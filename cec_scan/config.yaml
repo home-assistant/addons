@@ -1,16 +1,13 @@
----
-version: "4.0"
+version: 4.1.0
 slug: cec_scan
 name: CEC Scanner
-url: https://github.com/home-assistant/addons/tree/master/cec_scan
+url: https://github.com/home-assistant/app-cec-scan
 arch:
-  - aarch64
-  - amd64
+- aarch64
+- amd64
 boot: manual
 description: Scan for HDMI CEC devices
-image: homeassistant/{arch}-addon-cec_scan
-options: {}
-schema: {}
+image: ghcr.io/home-assistant/app-cec-scan
 startup: once
 video: true
 init: false

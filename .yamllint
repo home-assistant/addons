@@ -4,3 +4,4 @@ extends: default
 # Repository updater writes these files with its own formatting
 ignore: |
   /cec_scan/config.yaml
+  /configurator/config.yaml

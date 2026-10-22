@@ -6,3 +6,7 @@ apps:
     repository: home-assistant/app-cec-scan
     target: cec_scan
     image: ghcr.io/home-assistant/app-cec-scan
+  configurator:
+    repository: home-assistant/app-configurator
+    target: configurator
+    image: ghcr.io/home-assistant/app-configurator

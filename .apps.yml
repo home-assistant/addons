@@ -10,3 +10,7 @@ apps:
     repository: home-assistant/app-configurator
     target: configurator
     image: ghcr.io/home-assistant/app-configurator
+  ssh:
+    repository: home-assistant/app-ssh
+    target: ssh
+    image: ghcr.io/home-assistant/app-ssh

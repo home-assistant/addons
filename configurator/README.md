@@ -32,4 +32,4 @@ configuration files) will be automatically checked for syntax errors while editi
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[screenshot]: https://github.com/home-assistant/hassio-addons/raw/master/configurator/images/screenshot.png
+[screenshot]: https://github.com/home-assistant/app-configurator/raw/main/images/screenshot.png

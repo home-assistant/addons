@@ -1,33 +1,32 @@
----
-version: 6.2.0
+version: 6.3.0
 slug: configurator
 name: File editor
 description: Simple browser-based file editor for Home Assistant
-url: https://github.com/home-assistant/addons/tree/master/configurator
+url: https://github.com/home-assistant/app-configurator
 arch:
-  - aarch64
-  - amd64
+- aarch64
+- amd64
 homeassistant: 0.91.1
 homeassistant_api: true
-image: homeassistant/{arch}-addon-configurator
+image: ghcr.io/home-assistant/app-configurator
 ingress: true
 init: false
 map:
-  - all_app_configs:rw
-  - backup:rw
-  - homeassistant_config:rw
-  - media:rw
-  - share:rw
-  - ssl:rw
+- all_app_configs:rw
+- backup:rw
+- homeassistant_config:rw
+- media:rw
+- share:rw
+- ssl:rw
 options:
   dirsfirst: false
   enforce_basepath: true
   git: true
   ignore_pattern:
-    - __pycache__
-    - .cloud
-    - .storage
-    - deps
+  - __pycache__
+  - .cloud
+  - .storage
+  - deps
   log_level: info
   ssh_keys: []
 panel_icon: mdi:wrench
@@ -36,7 +35,7 @@ schema:
   enforce_basepath: bool
   git: bool
   ignore_pattern:
-    - str
+  - str
   log_level: list(debug|info|warning|error|critical)?
   ssh_keys:
-    - str
+  - str

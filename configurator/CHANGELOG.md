@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.3.0
+
+- Use a 5s startup healthcheck interval
+- Update hass-configurator to v0.7.0
+- Update the base image to latest patch release
+- Publish app to GHCR
+
 ## 6.2.0
 
 - Add a `log_level` option; set it to `warning` to stop logging every web request, including the Docker health check

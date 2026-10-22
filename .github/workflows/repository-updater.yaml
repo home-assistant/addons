@@ -1,0 +1,16 @@
+---
+# yamllint disable rule:comments rule:line-length rule:truthy
+name: Repository updater
+
+on:
+  repository_dispatch:
+    types: ["update"]
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    uses: home-assistant/workflows/.github/workflows/repository-updater.yaml@92e9026c1e243a255d150a449a769c9fa1ebda18 # v0.1.0
+    secrets:
+      UPDATER_TOKEN: ${{ secrets.UPDATER_TOKEN }}

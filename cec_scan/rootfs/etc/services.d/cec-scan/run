@@ -1,9 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# vim: ft=bash
-# shellcheck shell=bash
-# ==============================================================================
-# Start CEC scan service
-# ==============================================================================
-
-bashio::log.info "Starting CEC client scan..."
-echo scan | cec-client -s -d 1

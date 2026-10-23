@@ -14,6 +14,10 @@ apps:
     repository: home-assistant/app-ssh
     target: ssh
     image: ghcr.io/home-assistant/app-ssh
+  matter_server:
+    repository: home-assistant/app-matter-server
+    target: matter_server
+    image: ghcr.io/home-assistant/app-matter-server
   zwave_js:
     repository: home-assistant/app-zwave-js
     target: zwave_js

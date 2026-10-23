@@ -1,5 +1,54 @@
 # Changelog
 
+## 1.10.0
+
+### Z-Wave JS 15.31.1...15.31.2
+
+#### Bugfixes
+
+- Reject invalid statuses in Powerlevel Test Node Reports
+- Set the device class to Static Controller when migrating controllers to the 700 or 800 series
+
+#### Config file changes
+
+- Group whole-device control aggregates on Zipato/Philio PAN04
+- Group whole-device control aggregates on Vemmio DS100
+- Group whole-device totals on Zipato/Philio PAB01 energy meters
+- Group whole-device totals on Qubino 3-Phase Smart Meter (ZMNHXD)
+- Group all endpoints on Aeotec Indoor Siren 6 (ZW164)
+- Group variable-speed pump endpoints for Intermatic PE653
+- Group shutter endpoints for Shelly Wave Shutter (QNSH-001P10)
+- Group shutter endpoints for Qubino Flush Shutter DC (ZMNHCD)
+- Correct the Merten 506004 device configuration
+- Send Multilevel Switch v1 frames to the Springs RSZ1
+
+### Z-Wave JS UI 11.24.3...11.25.1
+
+#### Features
+
+- Add an option to enable Configuration CC entities by default
+- Limit column filter choices to values in the filtered rows
+- Show minimum, maximum, and step values in value hints
+
+#### Bugfixes
+
+- Allow boolean actuators on broadcast and multicast nodes to be turned off
+- Correct Home Assistant discovery for kVAh and pulse count electric meters
+- Use the circuit 4 state topic for Intermatic PE653 circuit 4
+- Generate valid color temperature value templates for warm and cold white lights
+- Clear retained MQTT discovery and value topics with an empty payload
+- Explain that SmartStart names and locations are shared with integrations
+- Improve firmware warning grammar
+- Preserve network graph filters when clicking the background
+- Scroll navigation tabs when their labels do not fit
+- Wrap long option labels in value dropdowns
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.25.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.25.1)
+- [Z-Wave JS UI 11.25.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.25.0)
+- [Z-Wave JS 15.31.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.2)
+
 ## 1.9.1
 
 ### Z-Wave JS 15.31.0...15.31.1

@@ -1,5 +1,12 @@
 # Changelog
 
+## 9.0.5
+
+- Mark `deployment_key` as a `password` option. The private SSH key was a
+  plain string list, so the UI showed it in clear text and API consumers that
+  redact `format: password` fields returned it verbatim. Existing
+  configurations keep working: each line still validates as a string.
+
 ## 9.0.4
 
 - Fix HTTPS authentication with `deployment_user`/`deployment_password`

@@ -1,5 +1,5 @@
 ---
-version: 9.0.4
+version: 9.0.5
 slug: git_pull
 name: Git pull
 description: Simple git pull to update the local configuration
@@ -41,7 +41,7 @@ schema:
   git_command: list(pull|reset)
   git_prune: bool
   deployment_key:
-    - str
+    - password
   deployment_user: str
   deployment_password: password
   deployment_key_protocol: match(rsa|dsa|ecdsa|ed25519|rsa)

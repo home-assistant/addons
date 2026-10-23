@@ -6,3 +6,4 @@ ignore: |
   /cec_scan/config.yaml
   /configurator/config.yaml
   /ssh/config.yaml
+  /zwave_js/config.yaml

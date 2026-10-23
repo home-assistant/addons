@@ -14,3 +14,7 @@ apps:
     repository: home-assistant/app-ssh
     target: ssh
     image: ghcr.io/home-assistant/app-ssh
+  zwave_js:
+    repository: home-assistant/app-zwave-js
+    target: zwave_js
+    image: ghcr.io/home-assistant/app-zwave-js

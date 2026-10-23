@@ -1,0 +1,51 @@
+#!/usr/bin/with-contenv bashio
+# otbr-srp-policy — SRP server role policy.
+# The whole fabric's service registrations ride the SRP server, so its placement
+# must be deterministic. srp_server_mode:
+#   auto   (default) -> leave to Thread's own arbitration (current behavior)
+#   always          -> force SRP server ON on this BR
+#   off             -> force SRP server OFF on this BR
+#   leader          -> run SRP server ONLY while this BR is the BBR primary; the
+#                      loop re-checks every 30s, so the role fails over to the new
+#                      primary automatically on BBR handover.
+#
+# Use srp_server_mode: leader on every BR to pin the fabric's SRP server to the
+# BBR primary and avoid concentrating registrations on an arbitrary secondary.
+
+MODE=$(bashio::config 'srp_server_mode' 'auto')
+# bashio's schema-based resolution is unreliable for string-list options edited
+# in /data/options.json (observed: returns default while mdns_guard bools resolve
+# fine). Read the option directly from the options file as the authoritative source.
+if command -v jq >/dev/null 2>&1 && [ -r /data/options.json ]; then
+  MODE_FILE=$(jq -r '.srp_server_mode // "auto"' /data/options.json 2>/dev/null || echo auto)
+  case "$MODE_FILE" in
+    auto|always|off|leader) MODE="$MODE_FILE" ;;
+  esac
+fi
+
+if [ "$MODE" = "auto" ]; then
+  # Ensure Thread's automatic SRP-server arbitration remains on.
+  ot-ctl srp server auto >/dev/null 2>&1 || true
+fi
+
+bashio::log.info "otbr-srp-policy: mode=${MODE}"
+
+while true; do
+  case "$MODE" in
+    leader)
+      PRIMARY=$(ot-ctl bbr state 2>/dev/null | head -1 | tr -d '\r')
+      if [ "$PRIMARY" = "Primary" ]; then
+        ot-ctl srp server enable >/dev/null 2>&1 || true
+      else
+        ot-ctl srp server disable >/dev/null 2>&1 || true
+      fi
+      ;;
+    always)
+      ot-ctl srp server enable >/dev/null 2>&1 || true
+      ;;
+    off)
+      ot-ctl srp server disable >/dev/null 2>&1 || true
+      ;;
+  esac
+  sleep 30
+done

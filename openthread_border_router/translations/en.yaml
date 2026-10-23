@@ -34,6 +34,38 @@ configuration:
     description: >-
       Enable IPv6 to IPv4 network address translation. This allows Thread
       devices to communicate with devices on the Internet.
+  mdns_guard:
+    name: mDNS storm guard
+    description: >-
+      Rate-cap LAN-side multicast mDNS on the backbone interface with
+      nftables, so a multicast amplification storm cannot starve the host.
+      Unicast SRP/mDNS discovery and all Thread radio rules are untouched.
+  mdns_guard_extra:
+    name: mDNS storm guard - extra protocols
+    description: >-
+      Also rate-cap LLMNR (5355) and SSDP (1900) multicast in addition to
+      mDNS. Disable if a service on this box relies on high-rate LLMNR/SSDP
+      traffic.
+  srp_server_mode:
+    name: SRP server mode
+    description: >-
+      Placement policy for the fabric's SRP server: auto (Thread arbitrates,
+      default), leader (run only while this box is the BBR primary - set
+      leader on EVERY border router of a multi-BR mesh so service
+      registrations pin to one deterministic router and fail over
+      automatically), always, or off.
+  backbone_qos:
+    name: Backbone QoS (TREL DSCP marking)
+    description: >-
+      Mark Thread backbone (TREL) egress with a DSCP class so the switch can
+      keep the Thread control/data plane out of the best-effort queue when it
+      shares trunks with video. Marks only; no effect until the switch honors
+      the class.
+  backbone_qos_dscp:
+    name: Backbone QoS DSCP class
+    description: >-
+      DSCP class stamped on TREL egress (default cs5). Must match the class
+      the switch maps to the protected queue.
   beta:
     name: Beta
     description: >-

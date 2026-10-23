@@ -32,6 +32,11 @@ options:
   otbr_log_level: notice
   firewall: true
   nat64: false
+  mdns_guard: true
+  mdns_guard_extra: true
+  srp_server_mode: auto
+  backbone_qos: true
+  backbone_qos_dscp: "cs5"
   beta: false
   custom_omr_prefix: ""
   custom_omr_priority: "med"
@@ -51,6 +56,11 @@ schema:
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
   nat64: bool
+  mdns_guard: bool
+  mdns_guard_extra: bool
+  srp_server_mode: list(auto|always|off|leader)?
+  backbone_qos: bool
+  backbone_qos_dscp: list(be|cs1|cs2|cs3|cs4|cs5|cs6|cs7|af11|af12|af13|af21|af22|af23|af31|af32|af33|af41|af42|af43|ef)
   beta: bool?
   custom_omr_prefix: str?
   custom_omr_priority: list(high|med|low)?

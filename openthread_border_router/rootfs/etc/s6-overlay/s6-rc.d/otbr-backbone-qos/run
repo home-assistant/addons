@@ -1,0 +1,71 @@
+#!/usr/bin/with-contenv bashio
+# otbr-backbone-qos — stamp the Thread backbone (TREL) egress with a DSCP class.
+#
+# Why: on a shared AV fabric the Thread border-router backbone shares trunks and
+# queues with video (NVX). Unmarked, TREL rides best-effort (CoS 0) and is the
+# first thing starved when video load rises. Marking TREL lets the switch place
+# the Thread backbone in a protected queue (see DOCS.md "Backbone QoS" and the
+# matching switch-side classofservice mapping).
+#
+# This service MARKS packets only. It never drops, never shapes, and never
+# rate-limits — the mDNS/LLMNR/SSDP caps stay in otbr-mdns-guard. It is also
+# deliberately inert until the switch is told to honor the class
+# (`classofservice ip-dscp-mapping <dscp> <tc>` + `classofservice trust ip-dscp`),
+# so it is safe to deploy fleet-wide ahead of the switch change.
+#
+# Options:
+#   backbone_qos       (bool)  enable/disable TREL egress marking
+#   backbone_qos_dscp  (str)   DSCP class to stamp (default: cs5)
+
+if ! bashio::config.true 'backbone_qos'; then
+  nft delete table inet otbr_backbone_qos 2>/dev/null || true
+  bashio::log.info "otbr-backbone-qos: disabled"
+  exit 0
+fi
+
+ITF=$(bashio::config 'backbone_interface' '')
+if [ -z "$ITF" ] || [ "$ITF" = "null" ]; then
+  ITF=$(ip -o -4 route show to default 2>/dev/null | awk '{print $5; exit}')
+fi
+[ -n "$ITF" ] || ITF=end0
+
+DSCP=$(bashio::config 'backbone_qos_dscp' 'cs5')
+case "$DSCP" in
+  be|cs1|cs2|cs3|cs4|cs5|cs6|cs7|af11|af12|af13|af21|af22|af23|af31|af32|af33|af41|af42|af43|ef) ;;
+  *)
+    bashio::log.warning "otbr-backbone-qos: invalid dscp '${DSCP}', falling back to cs5"
+    DSCP=cs5
+    ;;
+esac
+
+bashio::log.info "otbr-backbone-qos: interface=${ITF} dscp=${DSCP}"
+
+# Re-installing is cheap and idempotent; we only do it when the TREL port changes
+# (or the table has gone missing), so the rule never churns on a healthy box.
+LAST_PORT=""
+while true; do
+  PORT=$(ot-ctl trel port 2>/dev/null | head -1 | tr -d '\r')
+  case "$PORT" in
+    ''|*[!0-9]*) PORT="" ;;
+  esac
+
+  if [ -n "$PORT" ] && { [ "$PORT" != "$LAST_PORT" ] || ! nft list table inet otbr_backbone_qos >/dev/null 2>&1; }; then
+    nft delete table inet otbr_backbone_qos 2>/dev/null || true
+    if nft -f - <<EOF
+table inet otbr_backbone_qos {
+  chain trel_mark {
+    type filter hook postrouting priority mangle; policy accept;
+    oifname "${ITF}" meta l4proto udp udp sport ${PORT} ip6 dscp set ${DSCP} counter
+  }
+}
+EOF
+    then
+      LAST_PORT="$PORT"
+      bashio::log.info "otbr-backbone-qos: marking TREL udp/${PORT} egress ${ITF} -> dscp ${DSCP}"
+    else
+      bashio::log.warning "otbr-backbone-qos: failed to install marking rule (trel port ${PORT})"
+    fi
+  fi
+
+  sleep 30
+done

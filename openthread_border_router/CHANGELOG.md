@@ -6,7 +6,7 @@
 
 This version fixes a critical routing loop affecting any deployment with more than one
 OpenThread Border Router on the same L2 segment. OTBR's RoutePublisher advertised the broad
-`fc00::/7` catch-all prefix as an external route `/7` covers the entire ULA space, so ULA
+`fc00::/7` catch-all prefix as an external route. Because `/7` covers the entire ULA space, ULA
 traffic destined for other VLANs was misrouted into the Thread mesh, circulating between BRs
 instead of egressing the physical uplink. Recovery from the resulting state is time-consuming
 and operationally damaging across both large and small sites, which is why this is shipped as
@@ -24,7 +24,7 @@ a major version.
 ### Also in 4.0.0
 
 - NAT64: the add-on's nftables NAT44 masquerade (mark + postrouting + forward) and the in-process backend's NAT44 (via the `#3325` backend when enabled) replace the removed iptables rules. NAT64 now works without iptables in the runtime image.
-- Build: the patch set is a single `0006` routing-manager-corrections patch applied to both build stages, rebased onto the ot-br-posix main tip:
+- Build: rebase onto the ot-br-posix main tip (includes #3325, the opt-in in-process nftables firewall backend) and trim the patch set to a single `0006` routing-manager-corrections patch applied to both build stages:
   - Patches 0001 (SO_REUSEADDR) and 0002 (NAT64 IPv4 options) proved to be already upstream on the rebased base and were dropped.
   - The speculative ULA-prefix patches (0003/0004) and the broad-ULA-route patch (0005) were removed; external-route installation is instead disabled with `OPENTHREAD_POSIX_CONFIG_INSTALL_EXTERNAL_ROUTES_ENABLE=0` in the project config header (the upstream openthread#13562 mechanism).
 - Firewall hardening (production readiness):
@@ -32,8 +32,11 @@ a major version.
   - **TCP MSS clamping**: Backbone→Thread TCP SYNs have MSS clamped to 1220 bytes to prevent fragmentation across the 1280-byte Thread MTU boundary.
   - **TREL port race fix**: The TREL UDP port is now queried before firewall creation and pre-populated into the `trel_ports` nftables set, eliminating the 1-30 second window where TREL was silently dropped after restart.
 - OMR prefix default: when `custom_omr_prefix` is empty, a deterministic ULA `/64` is derived by hashing the Thread network name, so every border router on a mesh converges on the same prefix automatically (Apple border routers behave the same way) without setting it per-BR.
-- Rebase: build from the ot-br-posix main tip (includes #3325, the opt-in in-process nftables firewall backend) and trim the patch set to a single routing-manager patch (`0001`/`0002` are now upstream, the speculative ULA-prefix patches were removed, and external-route installation is disabled via the config header instead of a broad-ULA-route patch).
-- Docs: document `backbone_interface`, `custom_omr_priority`, and `leader_weight` configuration options.
+- Production hardening services (each individually toggleable, off-the-shelf nftables, no new dependencies):
+  - **mDNS storm guard** (`mdns_guard`, default on): rate-caps LAN-side multicast mDNS - and optionally LLMNR/SSDP (`mdns_guard_extra`) - on the backbone interface, so a multicast amplification storm cannot starve the host. Unicast SRP/mDNS discovery and Thread radio rules are untouched. Rates are preset for high-density deployments; edit the guard script to change them.
+  - **SRP server placement** (`srp_server_mode`, default `auto`): pin the fabric's SRP server to the BBR primary (`leader` - re-checked every 30 s for automatic failover), force it on (`always`), or off (`off`), avoiding concentration of all service registrations on an arbitrary secondary in multi-BR meshes.
+  - **Backbone QoS** (`backbone_qos`, default on): marks Thread backbone (TREL) egress with a DSCP class (`backbone_qos_dscp`, default `cs5`) so switches can protect the Thread control plane from video-queue starvation. Marks only - it never drops or shapes, and is inert until the switch honors the class.
+- Docs: document `backbone_interface`, `custom_omr_priority`, `leader_weight`, and the production hardening options (`mdns_guard*`, `srp_server_mode`, `backbone_qos*`) configuration options.
 
 ## 3.0.2
 

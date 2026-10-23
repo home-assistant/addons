@@ -1,17 +1,16 @@
----
-version: 1.9.1
+version: 1.10.0
 slug: zwave_js
 name: Z-Wave JS
 description: Control a Z-Wave network with Home Assistant Z-Wave JS
-url: https://github.com/home-assistant/addons/tree/master/zwave_js
+url: https://github.com/home-assistant/app-zwave-js
 arch:
-  - amd64
-  - aarch64
+- amd64
+- aarch64
 discovery:
-  - zwave_js
+- zwave_js
 hassio_api: true
 homeassistant: 2025.12.0
-image: homeassistant/{arch}-addon-zwave_js
+image: ghcr.io/home-assistant/app-zwave-js
 init: false
 ingress: true
 ingress_port: 8091
@@ -19,19 +18,19 @@ ingress_stream: true
 panel_icon: mdi:z-wave
 panel_title: Z-Wave
 map:
-  - app_config:rw
+- app_config:rw
 options:
   log_level: info
   log_to_file: false
   log_max_files: 7
   rf_region: Automatic
   soft_reset: Automatic
-  s0_legacy_key: ""
-  s2_access_control_key: ""
-  s2_authenticated_key: ""
-  s2_unauthenticated_key: ""
-  lr_s2_access_control_key: ""
-  lr_s2_authenticated_key: ""
+  s0_legacy_key: ''
+  s2_access_control_key: ''
+  s2_authenticated_key: ''
+  s2_unauthenticated_key: ''
+  lr_s2_access_control_key: ''
+  lr_s2_authenticated_key: ''
 ports:
   3000/tcp: null
   8091/tcp: null
@@ -41,20 +40,8 @@ schema:
   log_level: list(silly|debug|verbose|http|info|warn|error)?
   log_to_file: bool?
   log_max_files: int(1,)?
-  rf_region: "list(\
-    Automatic|\
-    Australia/New Zealand|\
-    China|\
-    Europe|\
-    Europe (Long Range)|\
-    Hong Kong|\
-    India|\
-    Israel|\
-    Japan|\
-    Korea|\
-    Russia|\
-    USA|\
-    USA (Long Range))?"
+  rf_region: list(Automatic|Australia/New Zealand|China|Europe|Europe (Long Range)|Hong
+    Kong|India|Israel|Japan|Korea|Russia|USA|USA (Long Range))?
   soft_reset: list(Automatic|Enabled|Disabled)?
   s0_legacy_key: match(|[0-9a-fA-F]{32,32})?
   s2_access_control_key: match(|[0-9a-fA-F]{32,32})?
@@ -66,6 +53,5 @@ schema:
   disable_controller_recovery: bool?
   disable_watchdog: bool?
   safe_mode: bool?
-stage: stable
 startup: services
 timeout: 30

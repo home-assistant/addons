@@ -87,6 +87,31 @@ App configuration:
 > [!NOTE]
 > When using a network device, you still need to set a dummy serial port device, e.g. `/dev/ttyS3`.
 
+## Radio disconnects and recovery
+
+After an unexpected agent exit, the app keeps running and restarts the agent
+after a 10-second delay. If the configured serial device is missing, it waits
+for that device to return without a timeout or retry limit. The app also waits
+if the device disappears before the agent's first launch inside the container.
+The app reapplies its runtime settings before reporting the agent ready and
+keeps the saved Thread network settings. Stopping the app cancels recovery.
+
+Thread connectivity and the agent's REST API are unavailable while the radio
+is disconnected, even though the app container remains running. If the device
+is present but startup keeps failing, the app retries every 10 seconds and
+logs the errors. Check the configuration and firmware rather than treating
+the container's running state as proof of working Thread connectivity.
+
+Home Assistant Supervisor still validates the configured device before
+starting a stopped app. This recovery applies inside a running container;
+it does not bypass Supervisor's device validation.
+
+An `RCP device disconnected (EOF)` message means that the serial connection
+closed. Recovery can handle a temporary disconnect, but does not resolve its
+underlying cause. Check the radio firmware's required baud rate and flow control
+settings, and the host's USB or virtual machine passthrough logs around the time
+of the disconnect.
+
 ## Support
 
 Got questions?
